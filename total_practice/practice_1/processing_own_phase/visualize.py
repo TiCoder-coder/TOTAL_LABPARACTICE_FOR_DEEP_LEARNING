@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import matplotlib
-matplotlib.use("Agg")  # Non-interactive backend for script use
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
@@ -90,7 +90,7 @@ def plot_loss_curves(
     """Plot training and validation loss curves."""
     epochs = [h["epoch"] for h in history]
     train_loss = [h["train_loss"] for h in history]
-    val_loss = [h["val_loss"] for h in history]
+    val_loss = [h["validation_loss"] for h in history]
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(epochs, train_loss, label="Train Loss", marker="o")
     ax.plot(epochs, val_loss, label="Validation Loss", marker="s")
@@ -110,8 +110,8 @@ def plot_accuracy_curves(
 ) -> None:
     """Plot training and validation accuracy curves."""
     epochs = [h["epoch"] for h in history]
-    train_acc = [h["train_acc"] for h in history]
-    val_acc = [h["val_acc"] for h in history]
+    train_acc = [h["train_accuracy"] for h in history]
+    val_acc = [h["validation_accuracy"] for h in history]
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(epochs, train_acc, label="Train Acc", marker="o")
     ax.plot(epochs, val_acc, label="Validation Acc", marker="s")
@@ -131,8 +131,8 @@ def plot_experiment_comparison(
 ) -> None:
     """Plot a bar chart comparing best validation accuracy across experiments."""
     fig, ax = plt.subplots(figsize=(10, 5))
-    ids = [r["exp_id"] for r in results]
-    accs = [r["best_val_acc"] for r in results]
+    ids = [r["experiment_id"] for r in results]
+    accs = [r["best_validation_accuracy"] for r in results]
     bars = ax.bar(ids, accs, color="steelblue", edgecolor="black")
     for bar, acc in zip(bars, accs):
         ax.text(

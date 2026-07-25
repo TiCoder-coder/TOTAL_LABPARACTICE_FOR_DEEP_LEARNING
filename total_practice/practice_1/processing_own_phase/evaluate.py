@@ -1,73 +1,120 @@
-"""Evaluation utilities for FashionMNIST classification."""
+from typing import Dict
 
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
-from .model import FashionMLP
 
-
-def evaluate(
-    model: FashionMLP,
-    dataloader: DataLoader,
+def evaluate_loader(
+    model: nn.Module,
+    data_loader: DataLoader,
     criterion: nn.Module,
     device: torch.device,
-) -> dict:
-    """Run the model on a dataloader and compute loss/accuracy/predictions.
-
-    Returns:
-        dict with keys: loss, accuracy, predictions, labels, probabilities.
-    """
+) -> Dict[str, float]:
     model.eval()
-    total_loss = 0.0
+    loss_sum = 0.0
     correct = 0
-    total = 0
-    all_predictions = []
-    all_labels = []
-    all_probabilities = []
+    sample_count = 0
 
     with torch.inference_mode():
-        for images, labels in dataloader:
+        for images, labels in data_loader:
             images = images.to(device)
             labels = labels.to(device)
-
             logits = model(images)
             loss = criterion(logits, labels)
 
-            probabilities = F.softmax(logits, dim=1)
-            _, predicted = logits.max(1)
+            if not torch.isfinite(loss):
+                raise FloatingPointError(
+                    "Non-finite evaluation loss"
+                )
 
-            batch_size = images.size(0)
-            total_loss += loss.item() * batch_size
-            total += labels.size(0)
-            correct += predicted.eq(labels).sum().item()
+            batch_size = labels.size(0)
+            loss_sum += loss.item() * batch_size
+            correct += (
+                logits.argmax(dim=1)
+                .eq(labels)
+                .sum()
+                .item()
+            )
+            sample_count += batch_size
 
-            all_predictions.append(predicted.cpu().numpy())
-            all_labels.append(labels.cpu().numpy())
-            all_probabilities.append(probabilities.cpu().numpy())
-
-    predictions = np.concatenate(all_predictions)
-    labels = np.concatenate(all_labels)
-    probabilities = np.concatenate(all_probabilities)
+    if sample_count == 0:
+        raise ValueError("Evaluation loader is empty")
 
     return {
-        "loss": total_loss / max(total, 1),
-        "accuracy": correct / max(total, 1),
-        "predictions": predictions,
-        "labels": labels,
-        "probabilities": probabilities,
+        "loss": loss_sum / sample_count,
+        "accuracy": correct / sample_count,
+        "sample_count": sample_count,
     }
 
 
-def per_class_accuracy(predictions: np.ndarray, labels: np.ndarray, num_classes: int = 10) -> dict:
-    """Compute per-class accuracy."""
+def evaluate_classifier(
+    model: nn.Module,
+    data_loader: DataLoader,
+    criterion: nn.Module,
+    device: torch.device,
+) -> Dict:
+    model.eval()
+    loss_sum = 0.0
+    correct = 0
+    sample_count = 0
+    prediction_batches = []
+    target_batches = []
+    probability_batches = []
+
+    with torch.inference_mode():
+        for images, labels in data_loader:
+            images = images.to(device)
+            labels = labels.to(device)
+            logits = model(images)
+            loss = criterion(logits, labels)
+
+            if not torch.isfinite(loss):
+                raise FloatingPointError("Non-finite test loss")
+
+            predictions = logits.argmax(dim=1)
+            probabilities = torch.softmax(logits, dim=1)
+            batch_size = labels.size(0)
+            loss_sum += loss.item() * batch_size
+            correct += predictions.eq(labels).sum().item()
+            sample_count += batch_size
+            prediction_batches.append(predictions.cpu())
+            target_batches.append(labels.cpu())
+            probability_batches.append(probabilities.cpu())
+
+    if sample_count == 0:
+        raise ValueError("Test loader is empty")
+
+    return {
+        "loss": loss_sum / sample_count,
+        "accuracy": correct / sample_count,
+        "sample_count": sample_count,
+        "predictions": torch.cat(
+            prediction_batches
+        ).numpy(),
+        "targets": torch.cat(target_batches).numpy(),
+        "probabilities": torch.cat(
+            probability_batches
+        ).numpy(),
+    }
+
+
+def per_class_accuracy(
+    predictions: np.ndarray,
+    targets: np.ndarray,
+    num_classes: int = 10,
+) -> Dict[int, float]:
     accuracies = {}
-    for c in range(num_classes):
-        mask = labels == c
-        if mask.sum() == 0:
-            accuracies[c] = 0.0
-            continue
-        accuracies[c] = float((predictions[mask] == labels[mask]).mean())
+    for class_index in range(num_classes):
+        class_mask = targets == class_index
+        if class_mask.sum() == 0:
+            accuracies[class_index] = 0.0
+        else:
+            accuracies[class_index] = float(
+                (
+                    predictions[class_mask]
+                    == targets[class_mask]
+                ).mean()
+            )
     return accuracies

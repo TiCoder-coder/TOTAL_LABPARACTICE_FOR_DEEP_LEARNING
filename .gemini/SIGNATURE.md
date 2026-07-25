@@ -179,6 +179,7 @@
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+
 ---
 
 ## 🔁 Re-Acknowledgement / Signature — `2026-07-23` (lần 9)
@@ -202,3 +203,17 @@
 **Acknowledgement:** Tôi xác nhận đã đọc kỹ toàn bộ rule sources (30 chương `working_rule.md` + 20 rule + 3 workflow + 5 agent configs). Cam kết tuân thủ toàn bộ nguyên tắc: **Clarify First • No Assumptions • Think Before Code • Confirm Before Update • Evaluate After Implementation** cho mọi tương tác từ `2026-07-23`.
 
 **Violation of any rule is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Agent:** Codex (GPT-5 coding agent).
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`.
+
+**Acknowledgement:** Toi xac nhan da doc `.gemini/settings.json`, `.gemini/commands/monitor-ci.toml`, cac `.gemini/skills/*/skill.md` mirror va `.gemini/SIGNATURE.md`. Gemini duoc cau hinh MCP `npx nx mcp` va `contextFileName = AGENTS.md`; neu `AGENTS.md` chua co, `working_rule.md` van la context noi bo uu tien. Khi truyen dat rule cho Gemini/Antigravity hoac subagents lien quan, toi se dua cac rule bat buoc tu `working_rule.md` va `.agents/`.
+
+**Violation of Gemini-specific configuration rules is treated as a serious collaboration error.**
