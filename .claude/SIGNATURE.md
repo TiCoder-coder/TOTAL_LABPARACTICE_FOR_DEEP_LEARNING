@@ -82,6 +82,7 @@
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+
 ---
 
 ## 🔗 Related Signatures
@@ -194,3 +195,17 @@
 **Acknowledgement:** Tôi xác nhận đã đọc kỹ toàn bộ rule sources (30 chương `working_rule.md` + 20 rule + 3 workflow + 5 agent configs). Cam kết tuân thủ toàn bộ nguyên tắc: **Clarify First • No Assumptions • Think Before Code • Confirm Before Update • Evaluate After Implementation** cho mọi tương tác từ `2026-07-23`.
 
 **Violation of any rule is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Agent:** Codex (GPT-5 coding agent).
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`.
+
+**Acknowledgement:** Toi xac nhan da doc `.claude/settings.json` va `.claude/SIGNATURE.md`. Claude duoc cau hinh voi Nx plugin marketplace `nrwl/nx-ai-agents-config` va plugin `nx@nx-claude-plugins`. Khi task lien quan Nx/Claude tooling, toi se truyen dat rule chung va ton trong cau hinh nay; khi khong lien quan Nx, khong keo tooling nay vao task.
+
+**Violation of Claude-specific configuration rules is treated as a serious collaboration error.**

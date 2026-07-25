@@ -1,51 +1,37 @@
-"""Main entry point for FashionMNIST classification pipeline.
-
-This script orchestrates the full pipeline:
-    1. Setup environment and reproducibility
-    2. Load data and split train/val/test
-    3. Build model and run sanity checks
-    4. Train baseline and run controlled experiments
-    5. Evaluate best model on the test set (once)
-    6. Save/load model and verify
-    7. Generate visualizations and a summary report
-"""
-
 import json
-import os
 import time
 from pathlib import Path
 
-import numpy as np
-import pandas as pd
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader
-
-# Force matplotlib to use a writable cache directory
-os.environ.setdefault("MPLCONFIGDIR", str(Path(__file__).resolve().parent / "outputs" / ".mpl_cache"))
-os.environ.setdefault("XDG_CACHE_HOME", str(Path(__file__).resolve().parent / "outputs" / ".cache"))
-(Path(__file__).resolve().parent / "outputs" / ".mpl_cache").mkdir(parents=True, exist_ok=True)
-(Path(__file__).resolve().parent / "outputs" / ".cache").mkdir(parents=True, exist_ok=True)
+from torch.utils.data import Subset
 
 from .config import (
     CLASS_NAMES,
     CONFIG,
     EXPERIMENTS,
-    NUM_CLASSES,
+    MODEL_SAVE_PATH,
     OUTPUT_DIR,
+    RUNS_DIR,
 )
 from .data import (
     get_class_distribution,
-    load_datasets,
-    make_dataloaders,
-    sanity_check_sample,
-    split_train_val,
+    make_evaluation_loader,
+    make_train_loader,
+    prepare_datasets,
 )
-from .evaluate import evaluate, per_class_accuracy
-from .experiment import ExperimentRunner
-from .model import FashionMLP, build_model, sanity_check_model
-from .save_load import load_model_from_checkpoint, save_checkpoint, verify_loaded_model
-from .train import fit
+from .evaluate import (
+    evaluate_classifier,
+    per_class_accuracy,
+)
+from .experiment import run_experiments
+from .model import build_model, sanity_check_model
+from .save_load import (
+    load_model_from_checkpoint,
+    save_checkpoint,
+    verify_loaded_model,
+)
+from .train import train_final_model
 from .utils import (
     count_parameters,
     format_time,
@@ -64,177 +50,309 @@ from .visualize import (
 )
 
 
+def limit_dataset(dataset, sample_count: int):
+    return Subset(
+        dataset,
+        range(min(sample_count, len(dataset))),
+    )
+
+
 def run_full_pipeline(quick_test: bool = False):
-    """Run the full FashionMNIST training pipeline.
-
-    Args:
-        quick_test: if True, run only 2 epochs per experiment for fast verification.
-    """
-    pipeline_start = time.time()
-    print("\n" + "=" * 70)
-    print("FashionMNIST Classification Pipeline")
-    print("=" * 70)
-
-    # --- Phase 1: Setup ---
+    started_at = time.perf_counter()
     setup_reproducibility(CONFIG["seed"])
     device = get_device()
     print_environment_summary(device)
 
-    # --- Phase 2: Data loading ---
-    print("\n[Phase 2] Loading FashionMNIST dataset...")
-    train_dataset, test_dataset = load_datasets(data_dir=CONFIG["data_dir"])
-    train_subset, val_subset = split_train_val(
-        train_dataset, val_ratio=1.0 - CONFIG["train_split_ratio"], seed=CONFIG["seed"]
+    data = prepare_datasets(
+        validation_ratio=CONFIG["validation_ratio"],
+        seed=CONFIG["seed"],
+        download=True,
     )
-    train_loader, val_loader, test_loader = make_dataloaders(
-        train_subset, val_subset, test_dataset,
-        batch_size=CONFIG["batch_size"], num_workers=CONFIG["num_workers"],
-    )
-    print(f"  Train size: {len(train_subset)}")
-    print(f"  Val size:   {len(val_subset)}")
-    print(f"  Test size:  {len(test_dataset)}")
 
-    # Sanity check one sample
-    sample_img, sample_label = train_dataset[0]
-    sample_info = sanity_check_sample(sample_img, sample_label)
-    print(f"  Sample shape: {sample_info['shape']} dtype: {sample_info['dtype']} "
-          f"min: {sample_info['min']:.3f} max: {sample_info['max']:.3f} "
-          f"label: {CLASS_NAMES[sample_info['label']]}")
-
-    # EDA: data samples and class distribution
-    print("\n[EDA] Saving data samples and class distribution...")
-    sample_images, sample_labels = next(iter(train_loader))
-    plot_data_samples(sample_images[:20], sample_labels[:20].numpy())
-    distributions = {
-        "Train": get_class_distribution(train_subset),
-        "Val":   get_class_distribution(val_subset),
-        "Test":  get_class_distribution(test_dataset),
-    }
-    plot_class_distribution(distributions)
-
-    # --- Phase 3: Model sanity checks ---
-    print("\n[Phase 3] Building model and running sanity checks...")
-    model = build_model(CONFIG["hidden_dims"], CONFIG["dropout"])
-    print(f"  Architecture: {CONFIG['hidden_dims']} | Dropout: {CONFIG['dropout']}")
-    print(f"  Parameters: {count_parameters(model):,}")
-    check = sanity_check_model(model, device)
-    print(f"  Forward shape: {check['forward_shape']}")
-    print(f"  Loss is finite: {check['loss_is_finite']} (loss={check['loss_value']:.4f})")
-    print(f"  Gradients populated: {check['gradients_populated']}")
-    print(f"  Params changed after step: {check['params_changed']}")
-
-    # --- Phase 4 & 5: Baseline + experiments ---
-    print("\n[Phase 4-5] Running controlled experiments...")
-    runner = ExperimentRunner(device=device, output_dir=OUTPUT_DIR)
-    epochs_per_exp = 2 if quick_test else CONFIG["epochs"]
-    all_results = []
-    for exp_id, exp_cfg in EXPERIMENTS.items():
-        result = runner.run(
-            exp_id=exp_id,
-            description=exp_cfg["description"],
-            train_loader=train_loader,
-            val_loader=val_loader,
-            hidden_dims=exp_cfg["hidden_dims"],
-            dropout=exp_cfg["dropout"],
-            optimizer_name=exp_cfg["optimizer"],
-            learning_rate=exp_cfg["learning_rate"],
-            batch_size=exp_cfg["batch_size"],
-            epochs=epochs_per_exp,
+    assert len(data["train_subset"]) == 54_000
+    assert len(data["validation_subset"]) == 6_000
+    assert len(data["test_dataset"]) == 10_000
+    assert len(
+        set(data["train_indices"].tolist()).intersection(
+            data["validation_indices"].tolist()
         )
-        all_results.append(result)
-    runner.save_all()
+    ) == 0
 
-    # --- Phase 6: Select best experiment ---
-    print("\n[Phase 6] Selecting best experiment by validation accuracy...")
-    best_result = max(all_results, key=lambda r: r["best_val_acc"])
-    best_exp_id = best_result["exp_id"]
-    print(f"  Best experiment: {best_exp_id}")
-    print(f"  Best Val Accuracy: {best_result['best_val_acc']:.4f}")
-    print(f"  Best Epoch: {best_result['best_epoch']}")
-    print(f"  Description: {best_result['description']}")
+    train_subset = data["train_subset"]
+    augmented_train_subset = data[
+        "augmented_train_subset"
+    ]
+    validation_dataset = data["validation_subset"]
+    test_dataset = data["test_dataset"]
+    baseline_training_pool = data[
+        "baseline_training_pool"
+    ]
+    augmented_training_pool = data[
+        "augmented_training_pool"
+    ]
+    experiment_configs = [
+        dict(config)
+        for config in EXPERIMENTS
+    ]
 
-    # Reload best model from its checkpoint
-    best_ckpt_path = OUTPUT_DIR / f"{best_exp_id}.pt"
-    best_model = load_model_from_checkpoint(str(best_ckpt_path), device=device)
-    print(f"  Loaded best checkpoint: {best_ckpt_path}")
+    if quick_test:
+        train_subset = limit_dataset(train_subset, 1_024)
+        augmented_train_subset = limit_dataset(
+            augmented_train_subset,
+            1_024,
+        )
+        validation_dataset = limit_dataset(
+            validation_dataset,
+            512,
+        )
+        test_dataset = limit_dataset(test_dataset, 512)
+        baseline_training_pool = limit_dataset(
+            baseline_training_pool,
+            1_024,
+        )
+        augmented_training_pool = limit_dataset(
+            augmented_training_pool,
+            1_024,
+        )
+        for config in experiment_configs:
+            config["epochs"] = 1
 
-    # --- Phase 7: Final test (ONCE) ---
-    print("\n[Phase 7] Final evaluation on test set (ONCE)...")
-    criterion = nn.CrossEntropyLoss()
-    test_result = evaluate(best_model, test_loader, criterion, device)
-    print(f"  Test Loss:     {test_result['loss']:.4f}")
-    print(f"  Test Accuracy: {test_result['accuracy']:.4f}")
-    per_class = per_class_accuracy(test_result["predictions"], test_result["labels"])
-    for c, name in enumerate(CLASS_NAMES):
-        print(f"    {name:>14s}: {per_class[c]:.4f}")
+    sample_loader = make_train_loader(
+        train_subset,
+        batch_size=CONFIG["batch_size"],
+        seed=CONFIG["seed"],
+        num_workers=CONFIG["num_workers"],
+    )
+    validation_loader = make_evaluation_loader(
+        validation_dataset,
+        batch_size=CONFIG["batch_size"],
+        num_workers=CONFIG["num_workers"],
+    )
+    test_loader = make_evaluation_loader(
+        test_dataset,
+        batch_size=CONFIG["batch_size"],
+        num_workers=CONFIG["num_workers"],
+    )
 
-    # --- Phase 8: Save best model + verify loading ---
-    print("\n[Phase 8] Saving best model and verifying loading...")
+    sample_images, sample_labels = next(iter(sample_loader))
+    baseline_model = build_model(experiment_configs[0])
+    model_sanity = sanity_check_model(
+        baseline_model,
+        sample_images,
+        sample_labels,
+    )
+    assert count_parameters(baseline_model) == 101_770
+
+    experiment_results, selected_result, run_root = (
+        run_experiments(
+            experiment_configs,
+            train_subset,
+            augmented_train_subset,
+            validation_loader,
+            device,
+            RUNS_DIR,
+            OUTPUT_DIR,
+        )
+    )
+
+    final_config = dict(selected_result["config"])
+    final_config["experiment_id"] = (
+        f"{selected_result['experiment_id']}_final"
+    )
+    final_config["epochs"] = selected_result["best_epoch"]
+    final_training_dataset = (
+        augmented_training_pool
+        if final_config["use_augmentation"]
+        else baseline_training_pool
+    )
+    final_training_result = train_final_model(
+        final_config,
+        final_training_dataset,
+        device,
+        log_directory=(
+            run_root / final_config["experiment_id"]
+        ),
+    )
+    final_model = final_training_result["model"]
+
+    test_result = evaluate_classifier(
+        final_model,
+        test_loader,
+        nn.CrossEntropyLoss(),
+        device,
+    )
+    assert test_result["sample_count"] == len(test_dataset)
+
+    model_config = {
+        "hidden_dims": tuple(final_config["hidden_dims"]),
+        "dropout": final_config["dropout"],
+        "num_classes": final_config["num_classes"],
+        "input_dim": final_config["input_dim"],
+    }
+    metadata = {
+        "selected_experiment": (
+            selected_result["experiment_id"]
+        ),
+        "best_epoch": selected_result["best_epoch"],
+        "best_validation_accuracy": (
+            selected_result["best_validation_accuracy"]
+        ),
+        "best_validation_loss": (
+            selected_result["best_validation_loss"]
+        ),
+        "test_accuracy": test_result["accuracy"],
+        "test_loss": test_result["loss"],
+        "train_mean": data["mean"],
+        "train_std": data["std"],
+        "class_names": list(CLASS_NAMES),
+    }
     save_checkpoint(
-        best_model,
-        path=str(OUTPUT_DIR / "best_model.pth"),
-        config=CONFIG,
-        best_epoch=best_result["best_epoch"],
-        best_val_acc=best_result["best_val_acc"],
-        best_val_loss=best_result["best_val_loss"],
-        extra={"test_accuracy": test_result["accuracy"], "test_loss": test_result["loss"]},
+        final_model,
+        model_config,
+        final_config,
+        metadata,
+        str(MODEL_SAVE_PATH),
     )
-    print(f"  Saved: {OUTPUT_DIR / 'best_model.pth'}")
+    loaded_model = load_model_from_checkpoint(
+        str(MODEL_SAVE_PATH),
+        device,
+    )
+    verification_images, verification_labels = next(
+        iter(test_loader)
+    )
+    verification = verify_loaded_model(
+        final_model,
+        loaded_model,
+        verification_images.to(device),
+    )
+    assert verification["predictions_match"]
+    assert verification["logits_match"]
 
-    # Reload into a fresh model on the same device and check predictions match
-    fresh_model = load_model_from_checkpoint(str(OUTPUT_DIR / "best_model.pth"), device=device)
-    sample_for_verify, _ = next(iter(test_loader))
-    sample_for_verify = sample_for_verify.to(device)
-    verify = verify_loaded_model(best_model, fresh_model, sample_for_verify)
-    print(f"  Same predictions after reload: {verify['same_predictions']}")
-    print(f"  Max logit difference: {verify['max_logit_diff']:.2e}")
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    display_training_images = (
+        sample_images * data["std"] + data["mean"]
+    ).clamp(0.0, 1.0)
+    plot_data_samples(
+        display_training_images[:20],
+        sample_labels[:20].numpy(),
+    )
+    plot_class_distribution({
+        "Train": get_class_distribution(
+            data["train_subset"]
+        ),
+        "Validation": get_class_distribution(
+            data["validation_subset"]
+        ),
+        "Test": get_class_distribution(
+            data["test_dataset"]
+        ),
+    })
+    plot_loss_curves(selected_result["history"])
+    plot_accuracy_curves(selected_result["history"])
+    plot_experiment_comparison(experiment_results)
+    plot_confusion_matrix(
+        test_result["predictions"],
+        test_result["targets"],
+    )
 
-    # --- Visualizations ---
-    print("\n[Visualization] Generating plots...")
-    best_history = best_result["history"]
-    plot_loss_curves(best_history)
-    plot_accuracy_curves(best_history)
-    plot_experiment_comparison(all_results)
-    plot_confusion_matrix(test_result["predictions"], test_result["labels"])
-
-    # Sample predictions grid
-    test_iter = iter(test_loader)
-    grid_images, grid_labels = next(test_iter)
-    grid_images = grid_images.to(device)
+    verification_images_device = (
+        verification_images.to(device)
+    )
     with torch.inference_mode():
-        logits = best_model(grid_images)
-        probs = torch.softmax(logits, dim=1).cpu().numpy()
-        preds = probs.argmax(axis=1)
+        verification_logits = loaded_model(
+            verification_images_device
+        )
+        verification_probabilities = torch.softmax(
+            verification_logits,
+            dim=1,
+        ).cpu().numpy()
+        verification_predictions = (
+            verification_logits.argmax(dim=1).cpu().numpy()
+        )
+    display_test_images = (
+        verification_images * data["std"] + data["mean"]
+    ).clamp(0.0, 1.0)
     plot_predictions_grid(
-        grid_images.cpu(), preds, grid_labels.numpy(), probs,
+        display_test_images,
+        verification_predictions,
+        verification_labels.numpy(),
+        verification_probabilities,
     )
 
-    # --- Save summary report ---
+    experiment_summary = [
+        {
+            "experiment_id": result["experiment_id"],
+            "config": result["config"],
+            "best_epoch": result["best_epoch"],
+            "best_validation_accuracy": (
+                result["best_validation_accuracy"]
+            ),
+            "best_validation_loss": (
+                result["best_validation_loss"]
+            ),
+            "parameter_count": result["parameter_count"],
+            "total_seconds": result["total_seconds"],
+        }
+        for result in experiment_results
+    ]
+    per_class = per_class_accuracy(
+        test_result["predictions"],
+        test_result["targets"],
+    )
     summary = {
+        "quick_test": quick_test,
         "device": str(device),
-        "config": CONFIG,
-        "best_experiment": best_exp_id,
-        "best_val_acc": best_result["best_val_acc"],
-        "best_val_loss": best_result["best_val_loss"],
-        "best_epoch": best_result["best_epoch"],
+        "data": {
+            "train_samples": len(train_subset),
+            "validation_samples": len(
+                validation_dataset
+            ),
+            "test_samples": len(test_dataset),
+            "train_mean": data["mean"],
+            "train_std": data["std"],
+        },
+        "model_sanity": model_sanity,
+        "experiments": experiment_summary,
+        "selected_experiment": (
+            selected_result["experiment_id"]
+        ),
+        "final_config": final_config,
         "test_accuracy": test_result["accuracy"],
         "test_loss": test_result["loss"],
         "per_class_accuracy": per_class,
-        "verify": verify,
-        "total_pipeline_time": time.time() - pipeline_start,
+        "checkpoint_verification": verification,
+        "total_seconds": (
+            time.perf_counter() - started_at
+        ),
     }
-    summary_path = OUTPUT_DIR / "summary.json"
-    with open(summary_path, "w") as f:
-        json.dump(summary, f, indent=2, default=str)
-    print(f"  Summary saved: {summary_path}")
+    summary_path = OUTPUT_DIR / (
+        "summary_quick.json"
+        if quick_test
+        else "summary.json"
+    )
+    summary_path.write_text(
+        json.dumps(summary, indent=2, default=str),
+        encoding="utf-8",
+    )
 
-    total_time = time.time() - pipeline_start
-    print(f"\nPipeline completed in {format_time(total_time)}")
-    print(f"Final Test Accuracy: {test_result['accuracy']:.4f}")
+    print(
+        f"Selected experiment: "
+        f"{selected_result['experiment_id']}"
+    )
+    print(
+        f"Best validation accuracy: "
+        f"{selected_result['best_validation_accuracy']:.2%}"
+    )
+    print(f"Test accuracy: {test_result['accuracy']:.2%}")
+    print(
+        f"Total time: "
+        f"{format_time(summary['total_seconds'])}"
+    )
+    print(f"Summary: {summary_path}")
     return summary
 
 
 if __name__ == "__main__":
     import sys
-    quick = "--quick" in sys.argv
-    run_full_pipeline(quick_test=quick)
+
+    run_full_pipeline(quick_test="--quick" in sys.argv)

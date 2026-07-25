@@ -181,6 +181,7 @@
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+
 ---
 
 ## 🔗 Related Signatures
@@ -255,3 +256,17 @@
 **Acknowledgement:** Tôi xác nhận đã đọc kỹ lại toàn bộ 20 file rule trong `.agents/rules/`. Tất cả đều có `trigger: always_on`. Tôi tôn trọng tất cả signature lịch sử (Codex 2026-05-31, Multi-Agent 2026-06-06, Antigravity 2026-06-08, All-AI 2026-06-15, Main Agent Cursor 2026-06-18, 2026-06-20, 2026-06-25, 2026-06-28, 2026-07-18, 2026-07-20, 2026-07-21). Cam kết tuyệt đối tuân thủ toàn bộ 20 rule với trigger `always_on` cho mọi tương tác từ `2026-07-22`.
 
 **Violation of any rule is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Agent:** Codex (GPT-5 coding agent).
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`.
+
+**Acknowledgement:** Toi xac nhan da doc ky lai toan bo 20 file rule trong `.agents/rules/` (`1.md`, `3.md`, `4.md`, `5.md`, `6.md`, `7.md`, `8.md`, `9.md`, `10.md`, `11.md`, `12.md`, `13.md`, `14.md`, `15.md`, `16.md`, `17.md`, `18.md`, `19.md`, `20.md`). Tat ca deu co `trigger: always_on`; toi cam ket ap dung cho moi task va truyen dat lai cho bat ky subagent nao duoc su dung.
+
+**Violation of any always-on rule is treated as a serious collaboration error.**

@@ -78,6 +78,7 @@
 
 **Violation of any workflow step is treated as a serious collaboration error.**
 
+
 ---
 
 ## 🔁 Re-Acknowledgement / Signature — `2026-06-25`
@@ -197,5 +198,19 @@
 - **Không bao giờ touch stable code** ngoài scope (step 8).
 - **Luôn luôn final report** theo format step 10.
 - Tôn trọng tất cả signature lịch sử (Codex 2026-05-31, Multi-Agent 2026-06-06, Antigravity 2026-06-08, All-AI 2026-06-15, Main Agent Cursor 2026-06-18, 2026-06-20, 2026-06-25, 2026-06-28, 2026-07-18, 2026-07-20, 2026-07-21). Cam kết tuân thủ toàn bộ workflow cho mọi tương tác từ `2026-07-22`.
+
+**Violation of any workflow step is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Agent:** Codex (GPT-5 coding agent).
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`.
+
+**Acknowledgement:** Toi xac nhan da doc ky 3 workflow file trong `.agents/workflows/`: trigger cho task modify/analyze/debug/improve/document, 10-step workflow cho code/file task, va ML/AI workflow. Toi cam ket doc docs truoc, restate requirement, dung lai khi thieu context, lap technical plan, cho Human confirm truoc khi implement, chi sua trong approved scope, validate va final report sau khi lam.
 
 **Violation of any workflow step is treated as a serious collaboration error.**
