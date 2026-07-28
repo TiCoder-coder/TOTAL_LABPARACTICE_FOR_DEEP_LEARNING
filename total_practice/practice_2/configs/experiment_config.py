@@ -1,0 +1,56 @@
+"""Experiment configurations for transfer learning."""
+
+EXPERIMENTS = {
+    "E1_resnet18_head": {
+        "model_name": "resnet18",
+        "training_mode": "head_only",
+        "optimizer": "Adam",
+        "scheduler": "ReduceLROnPlateau",
+        "learning_rate": 0.001,
+        "batch_size": 64,
+        "epochs": 10,
+        "weight_decay": 1e-4,
+        "image_size": 224,
+        "seed": 42,
+        "description": "ResNet18 Transfer Learning: Freeze backbone, train only the classification head.",
+    },
+    "E2_resnet18_partial": {
+        "model_name": "resnet18",
+        "training_mode": "partial_finetune",
+        "optimizer": "Adam",
+        "scheduler": "ReduceLROnPlateau",
+        "learning_rate": 5e-4,
+        "batch_size": 64,
+        "epochs": 10,
+        "weight_decay": 1e-4,
+        "image_size": 224,
+        "seed": 42,
+        "description": "ResNet18 Partial Fine Tuning: Unfreeze last block and classifier.",
+    },
+    "E3_vgg16_head": {
+        "model_name": "vgg16",
+        "training_mode": "head_only",
+        "optimizer": "Adam",
+        "scheduler": "StepLR",
+        "learning_rate": 0.001,
+        "batch_size": 32, # Smaller batch size for VGG
+        "epochs": 5,
+        "weight_decay": 1e-4,
+        "image_size": 224,
+        "seed": 42,
+        "description": "VGG16 Transfer Learning.",
+    },
+    "E4_mobilenet_partial": {
+        "model_name": "mobilenet_v3_small",
+        "training_mode": "partial_finetune",
+        "optimizer": "AdamW",
+        "scheduler": "CosineAnnealingLR",
+        "learning_rate": 5e-4,
+        "batch_size": 64,
+        "epochs": 5,
+        "weight_decay": 1e-4,
+        "image_size": 224,
+        "seed": 42,
+        "description": "MobileNetV3 Small Partial Fine Tuning.",
+    }
+}

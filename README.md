@@ -60,7 +60,7 @@ The repository is continuously updated as new labs, exercises, experiments, and 
 </table>
 
 🗂️ Repository Structure
-
+```bash
 LAB-AND-PRACTICE-DEEP-LEARNING/
 │
 ├── LAB01/
@@ -83,6 +83,7 @@ LAB-AND-PRACTICE-DEEP-LEARNING/
 │
 ├── requirements.txt
 └── README.md
+```
 
 The folder structure may be expanded depending on the requirements of each laboratory exercise or practical project.
 

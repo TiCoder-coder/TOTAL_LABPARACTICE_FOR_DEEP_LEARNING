@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS
+.DS_Store
+__MACOSX
+
+# IDEs
+.vscode/
+.idea/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Data and Outputs
+data/
+outputs/
+runs/
+reports/
+checkpoints/
+logs/
+predictions/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Project-specific logs and caches
+.cache/
+.mpl_cache/
+*.pth
+*.pt
+
