@@ -9,10 +9,15 @@ import torch
 import torch.nn as nn
 
 # Force matplotlib to use a writable cache directory
-os.environ.setdefault("MPLCONFIGDIR", str(Path(__file__).resolve().parent / "outputs" / ".mpl_cache"))
-os.environ.setdefault("XDG_CACHE_HOME", str(Path(__file__).resolve().parent / "outputs" / ".cache"))
-(Path(__file__).resolve().parent / "outputs" / ".mpl_cache").mkdir(parents=True, exist_ok=True)
-(Path(__file__).resolve().parent / "outputs" / ".cache").mkdir(parents=True, exist_ok=True)
+if os.path.exists("/kaggle/working"):
+    _cache_root = Path("/kaggle/working/outputs")
+else:
+    _cache_root = Path(__file__).resolve().parent / "outputs"
+
+os.environ.setdefault("MPLCONFIGDIR", str(_cache_root / ".mpl_cache"))
+os.environ.setdefault("XDG_CACHE_HOME", str(_cache_root / ".cache"))
+(_cache_root / ".mpl_cache").mkdir(parents=True, exist_ok=True)
+(_cache_root / ".cache").mkdir(parents=True, exist_ok=True)
 
 from configs import (
     CLASS_NAMES,
