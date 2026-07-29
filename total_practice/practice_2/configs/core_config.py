@@ -2,12 +2,20 @@
 
 from pathlib import Path
 
+import os
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = PROJECT_ROOT / "data"
-OUTPUT_DIR = PROJECT_ROOT / "outputs"
-RUNS_DIR = PROJECT_ROOT / "runs"
-REPORTS_DIR = PROJECT_ROOT / "reports"
-CHECKPOINTS_DIR = PROJECT_ROOT / "checkpoints"
+
+if os.path.exists("/kaggle/working"):
+    OUTPUT_ROOT = Path("/kaggle/working")
+else:
+    OUTPUT_ROOT = PROJECT_ROOT
+
+DATA_DIR = OUTPUT_ROOT / "data"
+OUTPUT_DIR = OUTPUT_ROOT / "outputs"
+RUNS_DIR = OUTPUT_ROOT / "runs"
+REPORTS_DIR = OUTPUT_ROOT / "reports"
+CHECKPOINTS_DIR = OUTPUT_ROOT / "checkpoints"
 MODEL_SAVE_PATH = CHECKPOINTS_DIR / "best_model.pth"
 EXPERIMENT_RESULTS_CSV = OUTPUT_DIR / "experiment_results.csv"
 
