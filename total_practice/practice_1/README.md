@@ -164,6 +164,13 @@ practice_1/
     summary.json
     summary_quick.json
     notebook_verification.json
+    eda_class_distribution.png
+    pixel_intensity_distribution.png
+    image_brightness_contrast.png
+    per_class_intensity_boxplot.png
+    class_samples.png
+    class_mean_images.png
+    eda_outliers.png
     data_samples.png
     class_distribution.png
     loss_curve.png
@@ -186,7 +193,7 @@ practice_1/
 | Module | Trách nhiệm |
 |---|---|
 | `config.py` | Paths, class names, baseline config và experiment configs |
-| `data.py` | Loading, stratified split, normalization, transforms, datasets và DataLoaders |
+| `data.py` | Loading, chunked EDA analysis, duplicate audit, stratified split, normalization, transforms, datasets và DataLoaders |
 | `model.py` | Configurable MLP, model builder và fail-fast sanity check |
 | `train.py` | Optimizer factory, one-epoch training, experiment training và final training |
 | `experiment.py` | Chạy các controlled experiments, lưu checkpoint và chọn experiment |
@@ -203,7 +210,7 @@ practice_1/
 | Phase 1 | Problem contract trong notebook và README |
 | Phase 2 | `config.py`, `utils.py` |
 | Phase 3 | `data.load_raw_datasets()` |
-| Phase 4 | Notebook EDA và các hàm plotting trong `visualize.py` |
+| Phase 4 | `data.analyze_training_pool()` và các hàm EDA plotting trong `visualize.py` |
 | Phase 5 | `data.stratified_split_indices()`, `prepare_datasets()` và loader factories |
 | Phase 6 | `model.FashionMNISTModel`, `build_model()` và `sanity_check_model()` |
 | Phase 7 | `train.py` và `experiment.py` |
@@ -412,38 +419,42 @@ Official test set được load để chuẩn bị pipeline nhưng không đư�
 
 ### 8.1. Mục tiêu của EDA
 
-EDA kiểm tra các assumption trước khi xây model:
+EDA kiểm tra data contract và các assumption trước khi preprocessing hoặc xây model:
 
-- Dataset size có đúng không?
-- Tensor shape và dtype có đúng không?
-- Dữ liệu có phải grayscale không?
-- Class distribution có cân bằng không?
-- Pixel scale hiện tại là gì?
-- Có NaN hoặc extreme image bất thường không?
-- Image-label mapping có hợp lý khi quan sát trực tiếp không?
+- Raw image shape, dtype, range và label domain có đúng contract không?
+- Class distribution có cân bằng và có class nào bị thiếu không?
+- Pixel intensity phân bố như thế nào trên cả background và foreground?
+- Brightness và contrast thay đổi ra sao giữa từng ảnh và từng class?
+- Có non-finite value, all-black, all-white hoặc constant image không?
+- Có raw image trùng hoàn toàn hoặc duplicate mang conflicting label không?
+- Sample, class-average image và statistical extreme có phù hợp với label không?
 
-EDA chỉ chạy trên 60,000-image official training pool. Official test set không được dùng để đưa ra modeling decision.
+EDA chỉ đọc `train_dataset.data` và `train_dataset.targets` của 60,000-image official training pool. Official test images và labels không được đọc, trực quan hóa hoặc dùng để đưa ra modeling decision.
 
-### 8.2. Data overview
+`analyze_training_pool()` xử lý ảnh theo chunk mặc định 2,048 samples. Cách này tính exact histogram, sums và image-level statistics mà không tạo thêm một floating-point copy của toàn bộ 60,000 ảnh. Duplicate audit dùng raw image bytes nên không bị sai lệch bởi normalization.
 
-Kết quả quan sát:
+### 8.2. Raw data contract
+
+Kết quả kiểm tra trên current dataset copy:
 
 | Thuộc tính | Giá trị |
 |---|---|
-| Training images | 60,000 |
-| Test images | 10,000 |
+| EDA scope | Official training pool only |
+| Samples | 60,000 |
+| Raw shape | `[60000, 28, 28]` |
 | Resolution | `28 x 28` |
-| Aspect ratio | `1:1` |
 | Channels | `1` |
-| Color format | Grayscale |
-| Tensor shape | `[1, 28, 28]` |
-| Tensor dtype | `torch.float32` |
+| Raw dtype | `torch.uint8` |
+| Raw range | `[0, 255]` |
+| Label range | `[0, 9]` |
+| Number of classes | `10` |
+| Shape after `ToTensor()` | `[1, 28, 28]` |
 
-Kết quả này quyết định `input_dim = 28 * 28 = 784` cho MLP.
+Raw contract xác nhận mỗi model input có một channel và `28 * 28 = 784` features sau khi flatten. Assertions fail ngay nếu dataset size, dimensions, dtype, pixel range hoặc label domain lệch khỏi contract.
 
 ### 8.3. Class distribution
 
-Mỗi class có đúng 6,000 images trong official training pool:
+Class count được tính bằng `torch.bincount`; mỗi class có đúng 6,000 images, tương đương 10% official training pool:
 
 | Class | Count |
 |---|---:|
@@ -464,59 +475,96 @@ Dataset cân bằng nên:
 - Không cần class weighting trong baseline loss.
 - Stratified split có thể giữ chính xác cùng tỷ lệ ở mỗi class.
 
-### 8.4. Pixel statistics trong EDA
+`outputs/eda_class_distribution.png` dùng bar chart để count giữa các class có thể được so sánh trực tiếp.
 
-Trên toàn bộ official training pool sau `ToTensor()`:
+### 8.4. Pixel intensity distribution
 
-| Statistic | Giá trị xấp xỉ |
+Exact 256-bin histogram kiểm kê toàn bộ `60,000 x 28 x 28 = 47,040,000` raw pixels. Statistics được scale sang `[0, 1]` để cùng interpretation với output của `ToTensor()`:
+
+| Statistic | Giá trị |
 |---|---:|
-| Mean | `0.2860` |
-| Standard deviation | `0.3530` |
+| Pixel count | `47,040,000` |
+| Mean | `0.286041` |
+| Standard deviation | `0.353024` |
+| Median | `0.000000` |
+| 5th percentile | `0.000000` |
+| 95th percentile | `0.905882` |
+| Zero-valued fraction | `50.21%` |
+| Maximum-valued fraction | `0.81%` |
 
-Đây chỉ là descriptive EDA statistics. Hai giá trị này không được dùng trực tiếp để normalize model input. Phase 5 tính lại statistics từ 54,000 training subset để tránh validation leakage.
+`outputs/pixel_intensity_distribution.png` gồm một full-range histogram và một non-zero view. Full view làm rõ background spike tại zero; non-zero view giúp quan sát foreground clothing pixels mà không bị spike này che khuất.
 
-### 8.5. Data quality checks
+Các giá trị mean và standard deviation trên đây chỉ là descriptive EDA statistics. Phase 5 tính lại statistics từ 54,000 training subset; validation samples không tham gia fit normalization.
 
-Notebook scan toàn bộ official training pool và kiểm tra:
+### 8.5. Image-level brightness và contrast
 
-- Tensor có chứa NaN hay không.
-- Ảnh có toàn pixel bằng `0.0` hay không.
-- Ảnh có toàn pixel bằng `1.0` hay không.
+Với mỗi ảnh:
 
-Current run ghi nhận:
+- Brightness được định nghĩa là mean của 784 pixel đã scale.
+- Contrast được định nghĩa là population standard deviation của 784 pixel đã scale.
 
-```text
-Total training images: 60,000
-Detected suspicious/corrupted images: 0
-```
+Mean brightness của toàn pool là `0.286041`; mean image contrast là `0.320249`. Per-class summaries cho thấy footwear và upper-body garments không chiếm cùng intensity range. Ví dụ, Sandal có mean brightness `0.1367`, trong khi Coat có mean brightness `0.3853`.
 
-All-black hoặc all-white image được xem là suspicious observation để review, không phải định nghĩa tổng quát rằng mọi extreme image luôn bị corrupt.
+`outputs/image_brightness_contrast.png` biểu diễn overall distributions. `outputs/per_class_intensity_boxplot.png` dùng boxplot để so sánh spread, median và outlier giữa 10 classes.
 
-### 8.6. Visual sample inspection
+Sự khác nhau giữa class không dẫn đến class-specific normalization, vì true class không tồn tại tại inference time. Project dùng một bộ training-only global statistics nhất quán cho mọi input.
 
-Notebook tạo một DataLoader riêng với:
+### 8.6. Data quality và duplicate audit
 
-- Batch size `20`.
-- `shuffle=True`.
-- Generator dùng seed `42`.
+Quality audit kiểm tra:
 
-Sau đó hiển thị grid `4 x 5` gồm image và class name. Mục đích là kiểm tra:
+- Non-finite transformed values.
+- All-black, all-white và constant images.
+- Labels ngoài `[0, 9]` và missing classes.
+- Exact duplicates dựa trên raw bytes.
+- Duplicate groups có nhiều hơn một label.
 
-- Ảnh không bị xoay hoặc đảo chiều ngoài ý muốn.
-- Grayscale rendering hợp lý.
-- Label mapping đúng với nội dung ảnh.
-- Dataset đã load đúng trước khi chuyển sang normalization.
+Current dataset copy ghi nhận:
 
-### 8.7. Kết luận từ EDA
+| Check | Count |
+|---|---:|
+| Non-finite images | `0` |
+| All-black images | `0` |
+| All-white images | `0` |
+| Constant images | `0` |
+| Invalid labels | `0` |
+| Missing classes | `0` |
+| Exact duplicate groups | `0` |
+| Exact duplicate samples | `0` |
+| Conflicting-label duplicate groups | `0` |
+
+Audit chỉ report và assert các contract quan trọng; nó không tự động xóa dữ liệu. Một observation cực trị về brightness hoặc contrast chưa đủ để kết luận ảnh bị corrupt.
+
+### 8.7. Class samples và class-average images
+
+`outputs/class_samples.png` hiển thị hai samples cho mỗi class. Indices được chọn bằng local generator với seed `42`, nên kết quả reproducible và không thay đổi global RNG state dùng cho split hoặc training.
+
+Grid này kiểm tra orientation, grayscale rendering, label mapping và intra-class variation. Việc lấy đúng số sample theo từng class tránh trường hợp một random batch vô tình thiếu class.
+
+`outputs/class_mean_images.png` tính pixel-wise mean image cho từng class. Mean silhouettes làm rõ:
+
+- Separation tương đối rõ giữa footwear, bag và upper-body garments.
+- Visual overlap đáng kể giữa T-shirt/top, Pullover, Coat và Shirt.
+- Confusion giữa các upper-body classes là hypothesis hợp lý để kiểm tra ở Phase 8, không phải kết luận model trước khi evaluate.
+
+### 8.8. Statistical extremes
+
+`outputs/eda_outliers.png` hiển thị darkest, brightest, lowest-contrast và highest-contrast images theo deterministic ranking. Ảnh cực trị vẫn là garment hợp lệ trong current inspection nên được giữ nguyên.
+
+Mục đích của bước này là tạo review candidates có cơ sở định lượng. EDA không tự động gán “outlier” thành “corruption”, vì extreme-but-valid samples có thể đại diện cho variation thật mà model cần học.
+
+### 8.9. Kết luận từ EDA
 
 EDA cho phép chốt các quyết định:
 
 1. MLP input phải có 784 features.
 2. Output layer phải có 10 units.
 3. Accuracy phù hợp làm primary metric vì class balance hoàn toàn.
-4. Không cần xử lý missing value hoặc loại corrupted image.
-5. Normalization là phù hợp vì pixel có distribution ổn định nhưng không centered tại zero.
-6. Official training pool đủ lớn để dành 10% làm validation.
+4. Baseline không cần class weights.
+5. Không có bằng chứng để tự động loại image trong current dataset copy.
+6. Global normalization là phù hợp; statistics phải được fit lại trên training subset.
+7. Official training pool đủ lớn để dành 10% làm validation.
+8. Upper-body class overlap cần được kiểm tra bằng confusion matrix sau final evaluation.
 
 ## 9. Phase 5 - Data Preprocessing
 
@@ -1308,6 +1356,13 @@ Mỗi checkpoint chứa best validation state và experiment history của một
 
 | Artifact | Câu hỏi được trả lời |
 |---|---|
+| `eda_class_distribution.png` | Official training pool có cân bằng giữa 10 classes không? |
+| `pixel_intensity_distribution.png` | Background và foreground pixel intensities phân bố như thế nào? |
+| `image_brightness_contrast.png` | Brightness và contrast thay đổi ra sao giữa các ảnh? |
+| `per_class_intensity_boxplot.png` | Intensity characteristics khác nhau như thế nào giữa classes? |
+| `class_samples.png` | Mỗi class có sample và label mapping hợp lý không? |
+| `class_mean_images.png` | Silhouette trung bình và visual overlap giữa classes là gì? |
+| `eda_outliers.png` | Những ảnh cực trị theo brightness và contrast có hợp lệ không? |
 | `data_samples.png` | Input images và labels có hợp lý không? |
 | `class_distribution.png` | Train/validation/test có cân bằng không? |
 | `loss_curve.png` | Train và validation loss thay đổi thế nào? |
@@ -1587,7 +1642,7 @@ Mỗi lần chạy full pipeline sẽ evaluate test set lại. Trong học tập
 
 ### 19.6. EDA memory use
 
-Notebook stack 60,000 tensors để tính descriptive pixel statistics. FashionMNIST đủ nhỏ để làm như vậy, nhưng dataset lớn hơn nên dùng streaming statistics hoặc DataLoader-based aggregation.
+EDA không stack 60,000 floating-point tensors. `analyze_training_pool()` đọc raw `uint8` images theo chunk 2,048 samples để cập nhật exact histogram, sums, per-image statistics và class sums. Cách này phù hợp với FashionMNIST và giảm peak memory, nhưng duplicate audit vẫn giữ một hash map của raw image bytes. Với dataset lớn hơn, duplicate detection nên chuyển sang batched cryptographic hashes hoặc một external indexing workflow.
 
 ## 20. Hướng cải thiện hợp lệ trong tương lai
 

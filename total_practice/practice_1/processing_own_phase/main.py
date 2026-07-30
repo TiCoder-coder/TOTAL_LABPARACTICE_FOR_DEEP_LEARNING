@@ -41,11 +41,18 @@ from .utils import (
 )
 from .visualize import (
     plot_accuracy_curves,
+    plot_class_mean_images,
+    plot_class_samples,
     plot_class_distribution,
     plot_confusion_matrix,
     plot_data_samples,
+    plot_eda_class_distribution,
+    plot_eda_outliers,
     plot_experiment_comparison,
+    plot_image_brightness_contrast,
     plot_loss_curves,
+    plot_per_class_intensity_boxplots,
+    plot_pixel_intensity_distribution,
     plot_predictions_grid,
 )
 
@@ -229,6 +236,20 @@ def run_full_pipeline(quick_test: bool = False):
     assert verification["logits_match"]
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    plot_eda_class_distribution(data["eda"])
+    plot_pixel_intensity_distribution(data["eda"])
+    plot_image_brightness_contrast(data["eda"])
+    plot_per_class_intensity_boxplots(data["eda"])
+    plot_class_samples(
+        data["raw_image_data"],
+        data["eda"],
+    )
+    plot_class_mean_images(data["eda"])
+    plot_eda_outliers(
+        data["raw_image_data"],
+        data["targets"],
+        data["eda"],
+    )
     display_training_images = (
         sample_images * data["std"] + data["mean"]
     ).clamp(0.0, 1.0)
@@ -311,6 +332,7 @@ def run_full_pipeline(quick_test: bool = False):
             "train_mean": data["mean"],
             "train_std": data["std"],
         },
+        "eda": data["eda"]["report"],
         "model_sanity": model_sanity,
         "experiments": experiment_summary,
         "selected_experiment": (
