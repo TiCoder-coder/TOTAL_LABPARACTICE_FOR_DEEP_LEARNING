@@ -123,6 +123,7 @@ def run_full_pipeline(quick_test: bool = False):
             "exp_id": exp_id,
             "best_val_acc": summary_dict["metadata"]["accuracy"],
             "best_val_loss": summary_dict["metadata"]["loss"],
+            "checkpoint_path": summary_dict["metadata"]["checkpoint_path"],
             "history": summary_dict["history"],
             "metadata": summary_dict["metadata"]
         }
@@ -143,7 +144,10 @@ def run_full_pipeline(quick_test: bool = False):
         
     best_exp_id = best_result["exp_id"]
     logger.info(f"  Best experiment: {best_exp_id}")
-    logger.info(f"  Best Val Accuracy: {best_result['metadata']['accuracy']:.2f}%")
+    logger.info(
+        f"  Best Val Accuracy: "
+        f"{best_result['metadata']['accuracy'] * 100:.2f}%"
+    )
     logger.info(f"  Best F1 Score: {best_result['metadata']['f1_score']:.4f}")
     
     # --- Phase 10: Comparison Table ---
@@ -154,7 +158,7 @@ def run_full_pipeline(quick_test: bool = False):
         comparison_data.append({
             "Experiment ID": m["exp_id"],
             "Model Name": m["model_name"],
-            "Accuracy (%)": m["accuracy"],
+            "Accuracy (%)": m["accuracy"] * 100,
             "F1-Score": m["f1_score"],
             "Validation Loss": m["loss"],
             "Training Time (s)": m["training_time"],
@@ -169,15 +173,43 @@ def run_full_pipeline(quick_test: bool = False):
 
     logger.info("[Phase 7] Final evaluation on test set (ONCE)...")
     
-    # Rebuild the model for the best experiment
-    best_cfg = EXPERIMENTS[best_exp_id]
-    best_model = build_model(best_cfg["model_name"], training_mode=best_cfg["training_mode"])
-    best_model.to(device)
-    
-    # In a real pipeline, we'd load the checkpoint from `runs_dir / run_id / best.pt`
-    # Here we just evaluate whatever it is initialized with or skip loading if run_id isn't tracked here
-    _, _, test_loader = make_dataloaders(train_subset, val_subset, test_dataset, batch_size=128)
+    checkpoint_path = Path(best_result["checkpoint_path"])
+    if not checkpoint_path.is_file():
+        raise FileNotFoundError(
+            f"Best checkpoint does not exist: {checkpoint_path}"
+        )
+
+    best_model = load_model_from_checkpoint(
+        str(checkpoint_path),
+        device=device,
+    )
+
+    _, verification_loader, test_loader = make_dataloaders(
+        train_subset,
+        val_subset,
+        test_dataset,
+        batch_size=128,
+    )
     criterion = nn.CrossEntropyLoss()
+
+    verification_result = evaluate(
+        best_model,
+        verification_loader,
+        criterion,
+        device,
+    )
+    expected_val_accuracy = best_result["metadata"]["accuracy"]
+    if abs(verification_result["accuracy"] - expected_val_accuracy) > 1e-6:
+        raise RuntimeError(
+            "Reloaded checkpoint validation accuracy does not match the "
+            f"recorded result: expected={expected_val_accuracy:.6f}, "
+            f"actual={verification_result['accuracy']:.6f}"
+        )
+    logger.info(
+        "  Checkpoint verification passed: "
+        f"validation accuracy={verification_result['accuracy'] * 100:.2f}%"
+    )
+
     test_result = evaluate(best_model, test_loader, criterion, device)
     
     logger.info(f"  Test Loss:     {test_result['loss']:.4f}")
@@ -215,6 +247,8 @@ def run_full_pipeline(quick_test: bool = False):
         "config": CONFIG,
         "best_experiment": best_exp_id,
         "best_val_acc": best_result["metadata"]["accuracy"],
+        "best_checkpoint": str(checkpoint_path),
+        "verified_val_acc": verification_result["accuracy"],
         "test_accuracy": test_result["accuracy"],
         "macro_f1": metrics["macro_avg"]["f1-score"],
         "inference_fps": test_result["inference_fps"],

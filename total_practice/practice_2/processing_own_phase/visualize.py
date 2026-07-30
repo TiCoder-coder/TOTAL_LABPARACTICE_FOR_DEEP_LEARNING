@@ -126,6 +126,54 @@ def plot_class_examples(
     _save_or_show(fig, save_path, show)
 
 
+def plot_experiment_configuration(
+    experiments: Dict[str, Dict[str, Any]],
+    save_path: Optional[str] = str(REPORTS_DIR / "experiment_configuration.png"),
+    show: bool = False,
+) -> None:
+    """Visualize the numeric training configuration of each experiment."""
+    if not experiments:
+        logger.warning("No experiment configurations supplied.")
+        return
+
+    ids = list(experiments)
+    learning_rates = [experiments[exp_id]["learning_rate"] for exp_id in ids]
+    batch_sizes = [experiments[exp_id]["batch_size"] for exp_id in ids]
+    epochs = [experiments[exp_id]["epochs"] for exp_id in ids]
+    values_by_panel = (
+        (learning_rates, "Learning Rate", "Learning rate", True),
+        (batch_sizes, "Batch Size", "Images per batch", False),
+        (epochs, "Training Epochs", "Epochs", False),
+    )
+
+    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+    colors = sns.color_palette("colorblind", len(ids))
+    for ax, (values, title, ylabel, log_scale) in zip(axes, values_by_panel):
+        bars = ax.bar(ids, values, color=colors, edgecolor="black", linewidth=0.6)
+        ax.set_title(title)
+        ax.set_ylabel(ylabel)
+        ax.grid(axis="y", alpha=0.3)
+        ax.tick_params(axis="x", rotation=20)
+        if log_scale:
+            ax.set_yscale("log")
+        else:
+            ax.set_ylim(0, max(values) * 1.25)
+        for bar, value in zip(bars, values):
+            label = f"{value:.4f}" if log_scale else f"{value:g}"
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                bar.get_height(),
+                label,
+                ha="center",
+                va="bottom",
+                fontsize=9,
+            )
+
+    fig.suptitle("Experiment Configuration", fontsize=16, y=1.03)
+    fig.tight_layout()
+    _save_or_show(fig, save_path, show)
+
+
 def plot_training_curves(
     history: Dict[str, list],
     save_path: Optional[str] = str(REPORTS_DIR / "training_curves.png"),
@@ -257,51 +305,107 @@ def plot_experiment_comparison(
     save_path: Optional[str] = str(REPORTS_DIR / "experiment_comparison.png"),
     show: bool = False,
 ) -> None:
-    """Plot a bar chart comparing multiple metrics across experiments if available."""
-    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-    axes = axes.flatten()
-    
+    """Compare validation accuracy, macro F1, and training time."""
+    if not results:
+        logger.warning("No experiment results supplied for comparison.")
+        return
+
+    fig, axes = plt.subplots(1, 3, figsize=(16, 5))
     ids = [r.get("exp_id", f"Exp {i}") for i, r in enumerate(results)]
-    
+
     metrics_to_plot = [
-        ("best_val_acc", "Best Val Accuracy (%)", 0, 100.0),
-        ("f1_score", "Test F1-Score", 0, 1.0),
-        ("training_time", "Training Time (s)", None, None),
-        ("inference_time", "Inference Time (s)", None, None)
+        ("best_val_acc", "Best Validation Accuracy", "Accuracy (%)", True),
+        ("f1_score", "Validation Macro F1", "Macro F1 (%)", True),
+        ("training_time", "Training Time", "Seconds", False),
     ]
-    
-    for idx, (metric_key, title, y_min, y_max) in enumerate(metrics_to_plot):
+
+    for idx, (metric_key, title, ylabel, as_percentage) in enumerate(metrics_to_plot):
         ax = axes[idx]
-        
         vals = [r.get(metric_key, r.get("metadata", {}).get(metric_key, 0)) for r in results]
-        # In results dict from Phase 5, some might be nested in 'metadata'
-        if all(v == 0 for v in vals) and metric_key not in results[0].get("metadata", {}):
-            ax.set_title(f"{title} (Data Unavailable)")
-            ax.axis('off')
-            continue
-            
-        bars = ax.bar(ids, vals, color="steelblue", edgecolor="black")
+        if as_percentage:
+            vals = [v * 100 if 0 <= v <= 1 else v for v in vals]
+
+        bars = ax.bar(
+            ids,
+            vals,
+            color=sns.color_palette("colorblind", len(ids)),
+            edgecolor="black",
+            linewidth=0.6,
+        )
         for bar, val in zip(bars, vals):
-            if isinstance(val, float):
-                text = f"{val:.3f}"
-            else:
-                text = str(val)
+            text = f"{val:.2f}" if as_percentage else f"{val:.1f}"
             ax.text(
-                bar.get_x() + bar.get_width() / 2, bar.get_height(),
-                text, ha="center", va="bottom", fontsize=9,
+                bar.get_x() + bar.get_width() / 2,
+                bar.get_height(),
+                text,
+                ha="center",
+                va="bottom",
+                fontsize=9,
             )
-        if y_min is not None and y_max is not None:
-            # Check if it's accuracy in percentage
-            if metric_key == "best_val_acc" and any(v > 1.0 for v in vals):
-                ax.set_ylim(0, 105)
-            else:
-                ax.set_ylim(y_min, y_max)
-        ax.set_ylabel(title)
+        if as_percentage:
+            lower_bound = max(0, min(vals) - 10)
+            ax.set_ylim(lower_bound, min(100, max(vals) + 8))
+        else:
+            ax.set_ylim(0, max(vals) * 1.18 if max(vals) else 1)
+        ax.set_ylabel(ylabel)
         ax.set_title(title)
         ax.grid(True, axis="y", alpha=0.3)
-        ax.tick_params(axis='x', rotation=20)
-        
-    fig.suptitle("Experiment Comparison", fontsize=16)
+        ax.tick_params(axis="x", rotation=20)
+
+    fig.suptitle("Controlled Experiment Comparison", fontsize=16, y=1.03)
+    fig.tight_layout()
+    _save_or_show(fig, save_path, show)
+
+
+def plot_validation_test_comparison(
+    validation_accuracy: float,
+    test_accuracy: float,
+    validation_loss: float,
+    test_loss: float,
+    save_path: Optional[str] = str(REPORTS_DIR / "validation_test_comparison.png"),
+    show: bool = False,
+) -> None:
+    """Visualize the generalization gap for the selected checkpoint."""
+    accuracy_values = [
+        validation_accuracy * 100 if validation_accuracy <= 1 else validation_accuracy,
+        test_accuracy * 100 if test_accuracy <= 1 else test_accuracy,
+    ]
+    loss_values = [validation_loss, test_loss]
+    labels = ["Validation", "Test"]
+    colors = ["#4C78A8", "#F58518"]
+
+    fig, axes = plt.subplots(1, 2, figsize=(10, 4.5))
+    accuracy_bars = axes[0].bar(labels, accuracy_values, color=colors, edgecolor="black")
+    axes[0].set_title("Checkpoint Accuracy")
+    axes[0].set_ylabel("Accuracy (%)")
+    axes[0].set_ylim(max(0, min(accuracy_values) - 8), min(100, max(accuracy_values) + 6))
+    axes[0].grid(axis="y", alpha=0.3)
+
+    loss_bars = axes[1].bar(labels, loss_values, color=colors, edgecolor="black")
+    axes[1].set_title("Checkpoint Loss")
+    axes[1].set_ylabel("Cross-entropy loss")
+    axes[1].set_ylim(0, max(loss_values) * 1.25)
+    axes[1].grid(axis="y", alpha=0.3)
+
+    for bar, value in zip(accuracy_bars, accuracy_values):
+        axes[0].text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height(),
+            f"{value:.2f}%",
+            ha="center",
+            va="bottom",
+        )
+    for bar, value in zip(loss_bars, loss_values):
+        axes[1].text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height(),
+            f"{value:.4f}",
+            ha="center",
+            va="bottom",
+        )
+
+    gap = accuracy_values[0] - accuracy_values[1]
+    fig.suptitle(f"Validation–Test Generalization (accuracy gap: {gap:.2f} pp)", fontsize=14)
     fig.tight_layout()
     _save_or_show(fig, save_path, show)
 

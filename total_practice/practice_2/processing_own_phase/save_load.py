@@ -24,6 +24,11 @@ def save_checkpoint(
     checkpoint = {
         "model_state_dict": model.state_dict(),
         "model_name": model.model_name,
+        "training_mode": getattr(
+            model,
+            "training_mode",
+            (config or {}).get("training_mode", "head_only"),
+        ),
         "num_classes": NUM_CLASSES,
         "class_names": list(class_names),
     }
@@ -60,8 +65,11 @@ def load_model_from_checkpoint(
         model_name=checkpoint.get("model_name", checkpoint.get("config", {}).get("model_name", "resnet18")),
         num_classes=checkpoint.get("num_classes", NUM_CLASSES)
     )
-    # Ensure it's in full evaluation mode (no frozen layer issues during inference)
-    model.set_training_mode("full_finetune")
+    training_mode = checkpoint.get(
+        "training_mode",
+        checkpoint.get("config", {}).get("training_mode", "head_only"),
+    )
+    model.set_training_mode(training_mode)
     model.load_state_dict(checkpoint["model_state_dict"])
     if device is not None:
         model.to(device)
