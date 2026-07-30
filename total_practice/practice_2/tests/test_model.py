@@ -51,3 +51,4 @@ def test_freeze_modes():
     # Full finetune check
     model = build_model("resnet18", "full_finetune")
     assert all(p.requires_grad for p in model.network.parameters())
+    assert model.training_mode == "full_finetune"

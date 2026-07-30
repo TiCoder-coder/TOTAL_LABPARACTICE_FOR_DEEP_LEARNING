@@ -39,48 +39,72 @@ def get_transforms(image_size: int = CONFIG["image_size"]) -> Tuple[transforms.C
     return train_transform, test_transform
 
 
-def load_datasets(data_dir: str = str(DATA_DIR), val_ratio: float = CONFIG["train_split_ratio"], seed: int = CONFIG["seed"]):
+def load_datasets(
+    data_dir: str = str(DATA_DIR),
+    val_ratio: float = 1.0 - CONFIG["train_split_ratio"],
+    seed: int = CONFIG["seed"],
+):
     """Load CIFAR-10 and split into train, val, and test without data leakage.
 
-    Creates two separate instances of the training dataset to apply different
-    transforms (with and without augmentation) to the train and val splits.
+    Split indices are determined from an untransformed dataset before separate
+    train and validation dataset views are constructed. TorchVision transforms
+    remain lazy and are applied only when a sample is accessed.
 
     Returns:
         (train_subset, val_subset, test_dataset)
     """
-    train_tfm, test_tfm = get_transforms()
-    
-    # Create two dataset instances for the training data to prevent augmentation leakage
-    full_train_dataset_augmented = datasets.CIFAR10(
-        root=data_dir, train=True, download=True, transform=train_tfm
-    )
-    full_train_dataset_clean = datasets.CIFAR10(
-        root=data_dir, train=True, download=False, transform=test_tfm
+    if not 0.0 < val_ratio < 1.0:
+        raise ValueError("val_ratio must be between 0 and 1.")
+
+    # Load the official training pool without preprocessing. Its size and labels
+    # are the only information used to determine the split.
+    raw_train_dataset = datasets.CIFAR10(
+        root=data_dir,
+        train=True,
+        download=True,
+        transform=None,
     )
 
-    test_dataset = datasets.CIFAR10(
-        root=data_dir, train=False, download=True, transform=test_tfm
-    )
-
-    # Calculate split sizes
-    # Note: val_ratio is actually passed as 1.0 - train_split_ratio in main.py, so it's a proportion of val.
-    n_total = len(full_train_dataset_augmented)
-    n_val = int(n_total * val_ratio)
+    n_total = len(raw_train_dataset)
+    n_val = round(n_total * val_ratio)
     n_train = n_total - n_val
 
-    # Generate fixed random indices for splitting
+    # Determine reproducible, disjoint split indices before constructing any
+    # dataset view that has preprocessing attached.
     generator = torch.Generator().manual_seed(seed)
     indices = torch.randperm(n_total, generator=generator).tolist()
-    
     train_indices = indices[:n_train]
     val_indices = indices[n_train:]
-    
-    # Assert no overlap to prevent data leakage
-    assert len(set(train_indices).intersection(set(val_indices))) == 0, "Data Leakage: Train and Val sets overlap!"
 
-    # Create subsets pointing to the respective dataset instances
-    train_subset = Subset(full_train_dataset_augmented, train_indices)
-    val_subset = Subset(full_train_dataset_clean, val_indices)
+    if not set(train_indices).isdisjoint(val_indices):
+        raise RuntimeError("Data leakage: Train and Validation indices overlap.")
+
+    train_tfm, eval_tfm = get_transforms()
+
+    # Use separate dataset objects so the random train transform can never be
+    # shared with Validation. The official Test set uses the same deterministic
+    # transform as Validation.
+    train_dataset_view = datasets.CIFAR10(
+        root=data_dir,
+        train=True,
+        download=False,
+        transform=train_tfm,
+    )
+    val_dataset_view = datasets.CIFAR10(
+        root=data_dir,
+        train=True,
+        download=False,
+        transform=eval_tfm,
+    )
+    test_dataset = datasets.CIFAR10(
+        root=data_dir,
+        train=False,
+        download=True,
+        transform=eval_tfm,
+    )
+
+    train_subset = Subset(train_dataset_view, train_indices)
+    val_subset = Subset(val_dataset_view, val_indices)
 
     return train_subset, val_subset, test_dataset
 

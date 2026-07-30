@@ -1,38 +1,64 @@
 """Test data pipeline."""
 
 import pytest
-import torch
 from processing_own_phase.data import load_datasets, make_dataloaders, validate_dataset
 from configs import DATA_DIR, CONFIG
 
 
-def test_load_datasets_no_leakage():
-    """Test that train and val sets have different transforms and no index overlap."""
-    train_subset, val_subset, test_dataset = load_datasets(str(DATA_DIR), val_ratio=0.1)
-    
-    assert len(train_subset) + len(val_subset) == 50000
-    assert len(test_dataset) == 10000
-    
-    # Train subset uses augmented transform
-    train_tfm_str = str(train_subset.dataset.transform)
-    assert "RandomHorizontalFlip" in train_tfm_str
-    assert "RandomCrop" in train_tfm_str
-    assert "ColorJitter" in train_tfm_str
-    
-    # Val subset uses clean transform
-    val_tfm_str = str(val_subset.dataset.transform)
-    assert "RandomHorizontalFlip" not in val_tfm_str
-    assert "CenterCrop" in val_tfm_str
-    
-    # Check no data leakage
-    train_indices = set(train_subset.indices)
-    val_indices = set(val_subset.indices)
-    assert len(train_indices.intersection(val_indices)) == 0
+@pytest.fixture(scope="module")
+def dataset_splits():
+    """Load the deterministic default split once for the data tests."""
+    return load_datasets(str(DATA_DIR), seed=CONFIG["seed"])
 
 
-def test_make_dataloaders_settings():
+def test_expected_split_sizes(dataset_splits):
+    train_subset, val_subset, test_dataset = dataset_splits
+
+    assert len(train_subset) == 45_000
+    assert len(val_subset) == 5_000
+    assert len(test_dataset) == 10_000
+
+
+def test_train_validation_indices_are_disjoint(dataset_splits):
+    train_subset, val_subset, _ = dataset_splits
+
+    assert set(train_subset.indices).isdisjoint(val_subset.indices)
+
+
+def test_train_validation_use_separate_dataset_views(dataset_splits):
+    train_subset, val_subset, _ = dataset_splits
+
+    assert train_subset.dataset is not val_subset.dataset
+
+
+def test_train_transform_contains_random_augmentation(dataset_splits):
+    train_subset, _, _ = dataset_splits
+    train_transform = repr(train_subset.dataset.transform)
+
+    assert "RandomCrop" in train_transform
+    assert "RandomHorizontalFlip" in train_transform
+    assert "ColorJitter" in train_transform
+
+
+def test_validation_transform_has_no_random_augmentation(dataset_splits):
+    _, val_subset, _ = dataset_splits
+    val_transform = repr(val_subset.dataset.transform)
+
+    assert "CenterCrop" in val_transform
+    assert "RandomCrop" not in val_transform
+    assert "RandomHorizontalFlip" not in val_transform
+    assert "ColorJitter" not in val_transform
+
+
+def test_validation_and_test_transforms_match(dataset_splits):
+    _, val_subset, test_dataset = dataset_splits
+
+    assert repr(val_subset.dataset.transform) == repr(test_dataset.transform)
+
+
+def test_make_dataloaders_settings(dataset_splits):
     """Test that dataloaders respect the requested batch size and settings."""
-    train_subset, val_subset, test_dataset = load_datasets(str(DATA_DIR), val_ratio=0.1)
+    train_subset, val_subset, test_dataset = dataset_splits
     train_loader, val_loader, test_loader = make_dataloaders(
         train_subset, val_subset, test_dataset, batch_size=32, num_workers=0
     )
@@ -50,9 +76,9 @@ def test_make_dataloaders_settings():
     assert images.shape == (32, 3, CONFIG["image_size"], CONFIG["image_size"])
 
 
-def test_validate_dataset():
+def test_validate_dataset(dataset_splits):
     """Test the validation function."""
-    _, val_subset, _ = load_datasets(str(DATA_DIR), val_ratio=0.1)
+    _, val_subset, _ = dataset_splits
     # Should pass normally
     assert validate_dataset(val_subset, expected_classes=10) is True
     

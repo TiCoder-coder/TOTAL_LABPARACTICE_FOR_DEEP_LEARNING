@@ -5,13 +5,15 @@ import tempfile
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
+from unittest.mock import patch
 
 from processing_own_phase.train import (
     train_one_epoch, 
     evaluate, 
     CheckpointManager, 
     get_optimizer, 
-    get_scheduler
+    get_scheduler,
+    train_model,
 )
 
 
@@ -96,3 +98,51 @@ def test_get_optimizer_and_scheduler():
     
     sched_cosine = get_scheduler(opt_sgd, {"scheduler": "CosineAnnealingLR", "epochs": 20})
     assert isinstance(sched_cosine, torch.optim.lr_scheduler.CosineAnnealingLR)
+
+
+def test_train_model_records_multi_epoch_history_and_best_epoch(tmp_path):
+    model = nn.Linear(2, 2)
+    loader = DataLoader(
+        TensorDataset(torch.randn(4, 2), torch.tensor([0, 1, 0, 1])),
+        batch_size=2,
+    )
+    config = {
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "scheduler": "ReduceLROnPlateau",
+        "epochs": 3,
+        "early_stopping_patience": 3,
+        "best_model_metric": "val_acc",
+        "output_dir": str(tmp_path),
+        "model_name": "dummy",
+        "training_mode": "head_only",
+        "num_classes": 2,
+    }
+
+    with (
+        patch(
+            "processing_own_phase.train.train_one_epoch",
+            side_effect=[(0.9, 60.0), (0.7, 70.0), (0.5, 80.0)],
+        ),
+        patch(
+            "processing_own_phase.train.evaluate",
+            side_effect=[(0.8, 65.0), (0.6, 75.0), (0.65, 74.0)],
+        ),
+    ):
+        history = train_model(
+            model,
+            loader,
+            loader,
+            config,
+            torch.device("cpu"),
+        )
+
+    assert history["epoch"] == [1, 2, 3]
+    assert len(history["train_loss"]) == 3
+    assert len(history["train_acc"]) == 3
+    assert len(history["val_loss"]) == 3
+    assert len(history["val_acc"]) == 3
+    assert len(history["lr"]) == 3
+    assert len(history["epoch_time"]) == 3
+    assert history["best_epoch"] == 2
+    assert history["stopped_early"] is False
