@@ -108,6 +108,8 @@ class PretrainedClassifier(nn.Module):
         else:
             raise ValueError(f"Unknown training mode: {mode}")
 
+        self.training_mode = mode
+
     def _unfreeze_classifier(self):
         """Helper to unfreeze just the final classification layer."""
         if self.model_name == "resnet18":

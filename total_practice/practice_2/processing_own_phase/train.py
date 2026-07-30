@@ -77,16 +77,27 @@ class CheckpointManager:
         epoch: int, 
         best_metric: float, 
         config: Dict[str, Any],
+        val_loss: Optional[float] = None,
+        val_acc: Optional[float] = None,
         is_best: bool = False
     ):
         """Save a checkpoint containing all necessary states to resume."""
+        metric_name = config.get("best_model_metric", "val_acc")
         checkpoint = {
             "epoch": epoch,
             "model_state_dict": model.state_dict(),
             "optimizer_state_dict": optimizer.state_dict(),
             "best_metric": best_metric,
+            "best_metric_name": metric_name,
+            "model_name": config.get("model_name", getattr(model, "model_name", "resnet18")),
+            "training_mode": config.get("training_mode", "head_only"),
+            "num_classes": config.get("num_classes", 10),
             "config": config,
         }
+        if val_loss is not None:
+            checkpoint["val_loss"] = val_loss
+        if val_acc is not None:
+            checkpoint["val_acc"] = val_acc
         if scheduler is not None:
             checkpoint["scheduler_state_dict"] = scheduler.state_dict()
 
@@ -97,7 +108,10 @@ class CheckpointManager:
         # Save best
         if is_best:
             torch.save(checkpoint, self.best_path)
-            self.logger.info(f"Saved new best model at epoch {epoch} with val_loss={best_metric:.4f}")
+            self.logger.info(
+                f"Saved new best model at epoch {epoch} with "
+                f"{metric_name}={best_metric:.4f}"
+            )
 
     def load_checkpoint(
         self, 
@@ -125,7 +139,11 @@ class CheckpointManager:
         epoch = checkpoint.get("epoch", 0)
         best_metric = checkpoint.get("best_metric", float("inf"))
         
-        self.logger.info(f"Loaded checkpoint at epoch {epoch} with best_val_loss={best_metric:.4f}")
+        metric_name = checkpoint.get("best_metric_name", "best_metric")
+        self.logger.info(
+            f"Loaded checkpoint at epoch {epoch} with "
+            f"{metric_name}={best_metric:.4f}"
+        )
         return epoch, best_metric
 
 
@@ -238,12 +256,17 @@ def train_model(
     resume_from: Optional[str] = None,
     tb_logger: Optional[Any] = None,
     run_logger: Optional[logging.Logger] = None
-) -> Dict[str, list]:
+) -> Dict[str, Any]:
     """Full training loop orchestrator."""
     active_logger = run_logger or logger
     epochs = config.get("epochs", 10)
     patience = config.get("early_stopping_patience", 3)
     grad_clip = config.get("grad_clip", 1.0)
+    best_metric_name = config.get("best_model_metric", "val_acc")
+    if best_metric_name not in {"val_acc", "accuracy", "val_loss"}:
+        raise ValueError(
+            "best_model_metric must be one of: val_acc, accuracy, val_loss"
+        )
     
     optimizer = get_optimizer(model, config)
     scheduler = get_scheduler(optimizer, config)
@@ -258,24 +281,34 @@ def train_model(
     scaler = torch.cuda.amp.GradScaler() if device.type == "cuda" else None
     
     start_epoch = 0
-    best_val_loss = float('inf')
+    best_metric = (
+        float("inf")
+        if best_metric_name == "val_loss"
+        else float("-inf")
+    )
     epochs_no_improve = 0
     
     # Resume
     if resume_from:
         try:
-            start_epoch, best_val_loss = checkpoint_manager.load_checkpoint(resume_from, model, optimizer, scheduler)
+            start_epoch, best_metric = checkpoint_manager.load_checkpoint(
+                resume_from, model, optimizer, scheduler
+            )
             active_logger.info(f"Resumed from epoch {start_epoch}")
         except FileNotFoundError as e:
             active_logger.warning(f"{e}. Starting from scratch.")
 
     history = {
+        "epoch": [],
         "train_loss": [],
         "train_acc": [],
         "val_loss": [],
         "val_acc": [],
-        "lr": []
+        "lr": [],
+        "epoch_time": [],
     }
+    best_epoch = 0
+    stopped_early = False
     
     active_logger.info("Starting training loop...")
     
@@ -298,10 +331,12 @@ def train_model(
         epoch_time = time.time() - start_time
         
         # Update history
+        history["epoch"].append(epoch + 1)
         history["train_loss"].append(train_loss)
         history["train_acc"].append(train_acc)
         history["val_loss"].append(val_loss)
         history["val_acc"].append(val_acc)
+        history["epoch_time"].append(epoch_time)
         
         # Log to TensorBoard
         if tb_logger:
@@ -330,20 +365,44 @@ def train_model(
                 scheduler.step()
                 
         # Checkpointing and Early Stopping
-        is_best = val_loss < best_val_loss
+        current_metric = (
+            val_loss
+            if best_metric_name == "val_loss"
+            else val_acc
+        )
+        is_best = (
+            current_metric < best_metric
+            if best_metric_name == "val_loss"
+            else current_metric > best_metric
+        )
         if is_best:
-            best_val_loss = val_loss
+            best_metric = current_metric
+            best_epoch = epoch + 1
             epochs_no_improve = 0
         else:
             epochs_no_improve += 1
             
         checkpoint_manager.save_checkpoint(
-            model, optimizer, scheduler, epoch + 1, best_val_loss, config, is_best
+            model,
+            optimizer,
+            scheduler,
+            epoch + 1,
+            best_metric,
+            config,
+            val_loss=val_loss,
+            val_acc=val_acc,
+            is_best=is_best,
         )
         
         if patience > 0 and epochs_no_improve >= patience:
             active_logger.info(f"Early stopping triggered after {epoch + 1} epochs!")
+            stopped_early = True
             break
             
+    history["best_epoch"] = best_epoch
+    history["best_metric"] = best_metric
+    history["best_metric_name"] = best_metric_name
+    history["stopped_early"] = stopped_early
+    history["epochs_planned"] = epochs
     active_logger.info("Training complete.")
     return history
