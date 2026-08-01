@@ -1,0 +1,7 @@
+# Ảnh sạch sau khi xử lý (clean → dedupe → quality → resize).
+# Cấu trúc giống data/ nhưng tất cả ảnh đã được:
+#   - kiểm tra hợp lệ
+#   - loại bỏ trùng lặp
+#   - lọc blur / không nội dung
+#   - resize về 224×224 (mode crop)
+# Folder này được gitignore — không commit ảnh lên repo.

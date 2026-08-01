@@ -1,0 +1,37 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Env
+.env
+.venv/
+
+# Raw crawled data
+data/*.jpg
+data/*.jpeg
+data/*.png
+data/*.webp
+data/*/*.jpg
+data/*/*.jpeg
+data/*/*.png
+data/*/*.webp
+
+# Cleaned data
+data_clean/*.jpg
+data_clean/*.jpeg
+data_clean/*.png
+data_clean/*.webp
+data_clean/*/*.jpg
+data_clean/*/*.jpeg
+data_clean/*/*.png
+data_clean/*/*.webp
+
+# Logs
+*.log
+logs/
