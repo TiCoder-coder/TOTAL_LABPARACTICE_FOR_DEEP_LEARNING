@@ -1,138 +1,230 @@
 # PyTorch FashionMNIST Classification
 
-## 1. Tổng quan project
+## 1. Giới thiệu
 
-Project này xây dựng một pipeline Deep Learning hoàn chỉnh bằng PyTorch để phân loại ảnh FashionMNIST vào 10 nhóm trang phục. Notebook chính là `practice_1.ipynb`; thư mục `processing_own_phase/` cung cấp cùng workflow dưới dạng các Python module có thể tái sử dụng và chạy từ command line.
+Project này triển khai một pipeline Deep Learning hoàn chỉnh bằng PyTorch để
+phân loại ảnh FashionMNIST vào 10 nhóm trang phục. Deliverable trung tâm là
+notebook [`practice_1.ipynb`](practice_1.ipynb), được tổ chức thành chín phase từ
+định nghĩa bài toán đến lưu, nạp lại và trực quan hóa dự đoán của model.
 
-Đây là bài toán:
+Project phục vụ hai mục tiêu song song:
+
+- Học đúng các thành phần nền tảng của PyTorch: tensor, Dataset, DataLoader,
+  transform, `nn.Module`, Autograd, loss, optimizer và checkpoint.
+- Xây một baseline có evaluation protocol rõ ràng, tránh data leakage và có thể
+  giải thích được toàn bộ modeling decision.
+
+### 1.1. Bài toán
 
 | Thuộc tính | Giá trị |
 |---|---|
 | Learning paradigm | Supervised learning |
 | Task | Single-label multi-class classification |
+| Dataset | FashionMNIST |
 | Input | Ảnh grayscale `28 x 28` |
-| Tensor input | `[batch_size, 1, 28, 28]` |
-| Target | Một class index trong `[0, 9]` |
+| Tensor input | `[batch_size, 1, 28, 28]`, `torch.float32` |
+| Target | Một class index trong `[0, 9]`, `torch.int64` |
 | Model output | 10 raw logits |
-| Loss | `CrossEntropyLoss` |
+| Optimization objective | `CrossEntropyLoss` |
 | Primary metric | Accuracy |
-| Supporting metrics | Loss, precision, recall, F1-score, confusion matrix |
+| Supporting metrics | Loss, precision, recall, F1-score và confusion matrix |
+| Baseline model | Configurable multi-layer perceptron |
 
-Mục tiêu của project không chỉ là đạt accuracy cao. Pipeline còn phải bảo đảm:
+Contract đầy đủ của bài toán được khóa trước khi modeling tại
+[Cell 1][cell-1].
 
-- Không để official test set tham gia preprocessing, training hoặc model selection.
-- Có validation protocol rõ ràng để so sánh architecture và hyperparameters.
-- Mỗi experiment bắt đầu từ model, optimizer và shuffle state mới.
-- Metric được tính đúng trên toàn bộ số sample.
-- Có thể tái lập workflow bằng notebook hoặc reusable package.
-- Checkpoint chứa đủ thông tin để dựng lại model.
-- Model sau khi load phải cho kết quả giống model trước khi save.
-- Có loss graph, accuracy graph, confusion matrix và predicted-versus-actual images.
+### 1.2. Trạng thái hiện tại
 
-### 1.1. Đối chiếu với yêu cầu bài tập
+Notebook hiện có một stored run hoàn chỉnh với execution count liên tục từ
+`In [1]` đến `In [54]`. Stored run đã thực hiện đủ data loading, EDA,
+preprocessing, training, validation, final retraining, official-test evaluation
+và checkpoint round trip.
 
-| Yêu cầu bài tập | Nơi thực hiện |
+| Hạng mục | Trạng thái hiện tại |
 |---|---|
-| Học PyTorch tensors | Phase 3, Phase 4 và Phase 5 |
-| Học Dataset và DataLoader | Phase 3 và Phase 5 |
-| Học transforms | Phase 3 và Phase 5 |
-| Build neural network | Phase 6 |
-| Forward pass | Phase 6 và Phase 7 |
-| Autograd và backward pass | Phase 6 sanity check và Phase 7 |
-| Optimization | Phase 7 |
-| Validation và model selection | Phase 7 |
-| Evaluate model accuracy | Phase 8 |
-| Precision, recall, F1 và confusion matrix | Phase 8 |
-| Experiment architecture/hyperparameters | Phase 7 |
-| Visualize loss | Phase 7 và artifact `loss_curve.png` |
-| Display predicted versus actual images | Phase 9 |
-| Save và load model | Phase 9 |
-| Python code | `practice_1.ipynb` và `processing_own_phase/` |
-| Brief report | Phase 8 analysis và README này |
+| Độ phủ yêu cầu bài tập | Đầy đủ trong notebook |
+| Data split và leakage control | Đúng protocol |
+| Stored training/evaluation outputs | Có |
+| Final checkpoint | Có và load được |
+| Clean-kernel `Run All` | Chưa đạt |
+| EDA numerical health | Còn runtime warnings tại bốn cell |
+| Dependency lock | Chưa có |
 
-## 2. Luồng xử lý end-to-end
+Hai giới hạn cần hiểu trước khi chạy lại:
 
-Pipeline được thực hiện theo thứ tự:
+1. [Cell 10][cell-10] import `practice_1.processing_own_phase.data` và
+   `practice_1.processing_own_phase.visualize`, nhưng package
+   `processing_own_phase/` không tồn tại trong project hiện tại.
+2. Stored outputs tại [Cell 27][cell-27], [Cell 29][cell-29],
+   [Cell 32][cell-32] và [Cell 36][cell-36] chứa numerical warnings từ
+   scikit-learn linear algebra operations.
 
-```text
-Define problem and metrics
-        |
-        v
-Record environment and imports
-        |
-        v
-Load official FashionMNIST partitions
-        |
-        v
-EDA on the 60,000-image official training pool
-        |
-        v
-Class-stratified split: 54,000 train + 6,000 validation
-        |
-        v
-Compute normalization statistics from 54,000 train images only
-        |
-        v
-Create deterministic and augmented dataset views
-        |
-        v
-Build and sanity-check the MLP
-        |
-        v
-Run five controlled experiments on train/validation
-        |
-        v
-Select configuration and best epoch using validation metrics
-        |
-        v
-Rebuild from fresh state and train on all 60,000 official training images
-        |
-        v
-Evaluate once per completed run on the 10,000-image official test set
-        |
-        v
-Save checkpoint, reload model, verify logits and display predictions
+Vì vậy, stored results có thể được đọc và audit, nhưng chưa nên tuyên bố project
+`clean-run reproducible` cho tới khi hai vấn đề trên được xử lý. Chi tiết nằm
+trong [Code Base Audit](description/code_base_audit/code_base_audit.md).
+
+## 2. Điều hướng nhanh
+
+### 2.1. Tài liệu chính
+
+| Tài liệu | Vai trò |
+|---|---|
+| [Notebook](practice_1.ipynb) | Source code, Markdown và stored outputs của toàn pipeline |
+| [Mô tả từng phase](description/description_own_phase/README.md) | Giải thích chi tiết và deep-link tới code/output từng phase |
+| [Chỉ mục kết quả](description/description_result/README.md) | Danh sách ngắn gọn 40 cell kết quả đang lưu |
+| [Code Base Audit](description/code_base_audit/code_base_audit.md) | Đánh giá correctness, reproducibility, findings và release gate |
+| [Notebook-link helper](tools/vscode-notebook-links/README.md) | Cách cài extension mở chính xác notebook cell từ Markdown |
+
+### 2.2. Bản đồ phase
+
+| Phase | Phạm vi notebook | Trách nhiệm | Mô tả | Kết quả |
+|---|---:|---|---|---|
+| 1 - Problem Definition | Cell 1 | Khóa task, tensor contract, metric và protocol | [Chi tiết](description/description_own_phase/phase_01_problem_definition.md) | [Outputs](description/description_result/phase_01_results.md) |
+| 2 - Environment Setup | Cell 2-5 | Paths, versions và imports | [Chi tiết](description/description_own_phase/phase_02_environment_setup.md) | [Outputs](description/description_result/phase_02_results.md) |
+| 3 - Data Loading | Cell 6-7 | Load hai official partitions | [Chi tiết](description/description_own_phase/phase_03_data_loading.md) | [Outputs](description/description_result/phase_03_results.md) |
+| 4 - Exploratory Data Analysis | Cell 8-43 | Audit official training pool | [Chi tiết](description/description_own_phase/phase_04_exploratory_data_analysis.md) | [Outputs](description/description_result/phase_04_results.md) |
+| 5 - Data Preprocessing | Cell 44-54 | Split, normalize, transform và DataLoader | [Chi tiết](description/description_own_phase/phase_05_data_preprocessing.md) | [Outputs](description/description_result/phase_05_results.md) |
+| 6 - Model Building | Cell 55-59 | Xây MLP và sanity check | [Chi tiết](description/description_own_phase/phase_06_model_building.md) | [Outputs](description/description_result/phase_06_results.md) |
+| 7 - Model Training | Cell 60-78 | Train, validate, experiment và final retraining | [Chi tiết](description/description_own_phase/phase_07_model_training.md) | [Outputs](description/description_result/phase_07_results.md) |
+| 8 - Model Evaluation | Cell 79-84 | Official-test metrics và error analysis | [Chi tiết](description/description_own_phase/phase_08_model_evaluation.md) | [Outputs](description/description_result/phase_08_results.md) |
+| 9 - Save Model & Visualization | Cell 85-88 | Checkpoint round trip và prediction display | [Chi tiết](description/description_own_phase/phase_09_save_model_and_visualization.md) | [Outputs](description/description_result/phase_09_results.md) |
+
+### 2.3. Deep-link tới notebook
+
+Các liên kết **Mở Cell** trong README dùng URI handler
+`ticoder.practice1-notebook-links`. Trong VS Code Markdown Preview, liên kết sẽ
+mở notebook, chọn đúng cell và đưa cell đó lên đầu viewport.
+
+Để cài helper một lần từ workspace root:
+
+```bash
+code --install-extension total_practice/practice_1/tools/vscode-notebook-links/practice1-notebook-links-0.1.0.vsix --force
 ```
 
-### 2.1. Vai trò của từng data partition
+Nếu terminal không có command `code`, mở file VSIX bằng giao diện Extensions của
+VS Code. [Notebook-link helper](tools/vscode-notebook-links/README.md) mô tả đầy
+đủ quy trình và giới hạn của deep-link.
 
-FashionMNIST có hai official partitions:
+## 3. Đối chiếu yêu cầu bài tập
 
-- Official training pool: 60,000 labeled images.
-- Official test set: 10,000 labeled images.
+| Yêu cầu | Cách project đáp ứng | Bằng chứng |
+|---|---|---|
+| PyTorch tensors | `ToTensor`, normalize, batch contracts và device transfer | [Cell 7][cell-7], [Cell 47][cell-47], [Cell 54][cell-54] |
+| Dataset và DataLoader | FashionMNIST, Subset và loader riêng cho từng partition | [Cell 49][cell-49], [Cell 51][cell-51] |
+| Transforms | Raw, baseline, augmented và evaluation transforms | [Cell 7][cell-7], [Cell 47][cell-47] |
+| Model building | Configurable MLP trả 10 logits | [Cell 57][cell-57] |
+| Autograd | Forward, loss, backward, gradient checks và parameter update | [Cell 59][cell-59], [Cell 65][cell-65] |
+| Optimization | Adam, SGD và controlled experiments | [Cell 63][cell-63], [Cell 69][cell-69] |
+| Training loop | Sample-weighted metrics và validation mỗi epoch | [Cell 65][cell-65], [Cell 67][cell-67] |
+| Evaluate accuracy | Official-test loss và accuracy trên 10,000 ảnh | [Cell 81][cell-81] |
+| Detailed evaluation | Classification report và confusion matrix | [Cell 82][cell-82], [Cell 84][cell-84] |
+| Hyperparameter experiments | So sánh architecture, dropout, optimizer và augmentation | [Cell 69][cell-69], [Cell 72][cell-72] |
+| Visualize loss | Train/validation learning curves | [Cell 73][cell-73] |
+| Predicted vs actual | Grid 4 x 4 trên official-test batch | [Cell 88][cell-88] |
+| Save và load model | State-dict checkpoint, reconstruction và logit verification | [Cell 86][cell-86], [Cell 87][cell-87] |
+| Brief report | Problem statement, EDA conclusions và result analysis | [Cell 1][cell-1], [Cell 43][cell-43], [Cell 83][cell-83] |
+| PyTorch docs/tutorials | Chưa có references section trong notebook | Xem gap trong [audit](description/code_base_audit/code_base_audit.md) |
 
-Project chia official training pool thành train và validation trước khi fit model:
+## 4. Dataset và class mapping
 
-| Partition | Số sample | Số sample mỗi class | Vai trò |
+FashionMNIST cung cấp hai official partitions:
+
+| Partition | Kích thước | Vai trò trong project |
+|---|---:|---|
+| Official training pool | 60,000 | EDA; nguồn tạo internal train/validation; final retraining |
+| Official test set | 10,000 | Một lần đánh giá cuối cùng sau khi modeling decision đã cố định |
+
+Stored output xác nhận đúng hai kích thước tại [Cell 7][cell-7].
+
+### 4.1. Class mapping
+
+| Index | Class | Official-train count | Official-test support |
+|---:|---|---:|---:|
+| 0 | T-shirt/top | 6,000 | 1,000 |
+| 1 | Trouser | 6,000 | 1,000 |
+| 2 | Pullover | 6,000 | 1,000 |
+| 3 | Dress | 6,000 | 1,000 |
+| 4 | Coat | 6,000 | 1,000 |
+| 5 | Sandal | 6,000 | 1,000 |
+| 6 | Shirt | 6,000 | 1,000 |
+| 7 | Sneaker | 6,000 | 1,000 |
+| 8 | Bag | 6,000 | 1,000 |
+| 9 | Ankle boot | 6,000 | 1,000 |
+
+Official training pool cân bằng hoàn toàn, được kiểm chứng tại
+[Cell 13][cell-13]. Điều này làm accuracy phù hợp làm primary metric và khiến
+baseline class weighting không cần thiết.
+
+### 4.2. Internal split
+
+Official training pool được chia class-stratified với seed `42`:
+
+| Internal partition | Kích thước | Mỗi class | Vai trò |
 |---|---:|---:|---|
-| Training subset | 54,000 | 5,400 | Tính normalization statistics, optimization và controlled experiments |
-| Validation subset | 6,000 | 600 | Theo dõi epoch, so sánh experiment và model selection |
-| Official test set | 10,000 | 1,000 | Final generalization evaluation |
+| Training subset | 54,000 | 5,400 | Normalization, gradient updates và controlled experiments |
+| Validation subset | 6,000 | 600 | Epoch monitoring, checkpoint selection và experiment selection |
 
-Sau khi validation đã chọn xong configuration và số epoch, model được khởi tạo lại rồi train trên toàn bộ 60,000 official training images. Việc này cho phép model cuối sử dụng lại 6,000 validation images để fit parameters sau khi mọi modeling decision đã được khóa.
+Sau model selection, selected configuration được train lại từ fresh state trên
+toàn bộ 60,000 official-training images. Official test set luôn giữ nguyên
+10,000 images và không tham gia bước chọn model.
 
-### 2.2. Quy tắc chống data leakage
+## 5. Luồng xử lý end-to-end
 
-Pipeline áp dụng các ràng buộc sau:
+```text
+Problem definition
+    -> environment and imports
+    -> load 60,000 official-train + 10,000 official-test
+    -> EDA on official training pool only
+    -> class-stratified split: 54,000 train + 6,000 validation
+    -> compute mean/std from 54,000 train images only
+    -> build deterministic and augmented dataset views
+    -> create train/validation/test DataLoaders
+    -> build and sanity-check configurable MLP
+    -> run E0-E4 with fresh model/optimizer/loader state
+    -> select experiment and epoch by validation metrics
+    -> rebuild and train on all 60,000 official-training images
+    -> evaluate once on 10,000 official-test images
+    -> save checkpoint
+    -> reconstruct model and verify logits
+    -> display predicted-versus-actual images
+```
 
-1. Official test set không được dùng để tính mean hoặc standard deviation.
-2. Official test set không được truyền vào training API.
-3. Official test result không được dùng để chọn architecture, optimizer, learning rate, dropout, augmentation hoặc epoch.
-4. Validation subset không được nhận random augmentation.
-5. Train và validation indices phải disjoint.
-6. Normalization statistics chỉ được tính từ 54,000 training indices.
-7. Experiment selection chỉ dựa trên validation accuracy và validation loss.
-8. Sau final test evaluation, model configuration không được thay đổi dựa trên test result.
+### 5.1. Data-governance rules
 
-EDA được phép quan sát official training pool trước split vì EDA không fit model parameters. Tuy nhiên, official test set vẫn bị loại khỏi EDA để giữ final evaluation độc lập.
+1. Official test images và labels không được dùng trong EDA.
+2. Official test set không được dùng để tính normalization statistics.
+3. Official test loader không được truyền vào training functions.
+4. Official test metrics không được dùng để chọn architecture, optimizer,
+   learning rate, dropout, augmentation hoặc epoch.
+5. Train và validation indices phải disjoint và phủ đủ 60,000 images.
+6. Validation transform và test transform không được chứa random operation.
+7. Mỗi experiment phải bắt đầu từ fresh model, optimizer và shuffle generator.
+8. Experiment selection chỉ dùng validation accuracy; validation loss là
+   tie-breaker.
+9. Final retraining chỉ bắt đầu sau khi configuration và epoch count đã khóa.
+10. Result analysis sau test không được quay lại thay đổi model trong cùng
+    evaluation protocol.
 
-## 3. Cấu trúc project
+Các assertions tại [Cell 53][cell-53] kiểm chứng split, disjointness, coverage,
+class balance và validation determinism.
+
+## 6. Cấu trúc project hiện tại
 
 ```text
 practice_1/
   README.md
   practice_1.ipynb
   data/
+    FashionMNIST/
+  description/
+    code_base_audit/
+      code_base_audit.md
+    description_own_phase/
+      README.md
+      phase_01_...md -> phase_09_...md
+    description_result/
+      README.md
+      phase_01_results.md -> phase_09_results.md
   diagrams/
     01_preprocessing.png
     02_model_building.png
@@ -140,608 +232,511 @@ practice_1/
     04_training_batch.png
     Pratice_diagram.pdf
     pratice1_diagram.drawio
-  processing_own_phase/
-    __init__.py
-    config.py
-    data.py
-    evaluate.py
-    experiment.py
-    main.py
-    model.py
-    requirements.txt
-    save_load.py
-    train.py
-    utils.py
-    visualize.py
   outputs/
     experiments/
-      E0_baseline.pth
-      E1_deeper.pth
-      E2_dropout.pth
-      E3_sgd.pth
-      E4_augmentation.pth
     fashion_mnist_model.pth
-    summary.json
-    summary_quick.json
-    notebook_verification.json
-    eda_class_distribution.png
-    pixel_intensity_distribution.png
-    image_brightness_contrast.png
-    per_class_intensity_boxplot.png
-    class_samples.png
-    class_mean_images.png
-    eda_outliers.png
-    data_samples.png
-    class_distribution.png
-    loss_curve.png
-    accuracy_curve.png
-    experiment_comparison.png
-    confusion_matrix.png
-    predictions_grid.png
+    EDA images and historical report artifacts
   runs/
-    <run-session>/
-      <experiment-id>/
+    <timestamp>/<experiment-id>/
   save_log_agent_process_each_phase/
+  tools/
+    vscode-notebook-links/
 ```
 
-### 3.1. Hai cách biểu diễn cùng pipeline
+Không có thư mục `processing_own_phase/` trong tree hiện tại. Những hướng dẫn cũ
+về `python -m ...processing_own_phase.main`, quick mode hoặc
+`processing_own_phase/requirements.txt` không còn hợp lệ và đã được loại khỏi
+README này.
 
-`practice_1.ipynb` là deliverable có tính trình bày. Nó sắp xếp code, Markdown, output và biểu đồ theo từng phase để người học có thể theo dõi toàn bộ quá trình.
+## 7. Môi trường thực thi
 
-`processing_own_phase/` là reusable implementation. Logic được tách theo trách nhiệm để có thể test, import và chạy lại mà không phụ thuộc notebook state.
+### 7.1. Environment của stored notebook run
 
-| Module | Trách nhiệm |
+| Thuộc tính | Giá trị | Bằng chứng |
+|---|---|---|
+| Python | `3.10.11` | [Cell 4][cell-4] |
+| PyTorch | `2.13.0` | [Cell 4][cell-4] |
+| TorchVision | `0.28.0` | [Cell 4][cell-4] |
+| CUDA available | `False` | [Cell 4][cell-4] |
+| MPS available | `True` | [Cell 4][cell-4] |
+| Selected device | `mps` | [Cell 62][cell-62] |
+
+`mps` là backend GPU của PyTorch cho Apple Silicon. Model và batch tensors được
+đưa lên MPS trong training; đây không phải CPU fallback.
+
+### 7.2. Dependency roles
+
+| Dependency | Vai trò |
 |---|---|
-| `config.py` | Paths, class names, baseline config và experiment configs |
-| `data.py` | Loading, chunked EDA analysis, duplicate audit, stratified split, normalization, transforms, datasets và DataLoaders |
-| `model.py` | Configurable MLP, model builder và fail-fast sanity check |
-| `train.py` | Optimizer factory, one-epoch training, experiment training và final training |
-| `experiment.py` | Chạy các controlled experiments, lưu checkpoint và chọn experiment |
-| `evaluate.py` | Validation/test evaluation và per-class accuracy |
-| `save_load.py` | Save checkpoint, load checkpoint, rebuild model và verify reload |
-| `visualize.py` | Data samples, distributions, curves, comparison, predictions và confusion matrix |
-| `utils.py` | Device selection, reproducibility, parameter count và environment summary |
-| `main.py` | Orchestrate toàn bộ pipeline end-to-end |
+| `torch` | Tensor, `nn.Module`, Autograd, loss, optimizer và checkpoint |
+| `torchvision` | FashionMNIST và transforms |
+| `numpy` | Array processing và EDA |
+| `matplotlib` | Plotting trong notebook |
+| `seaborn` | Distribution và confusion-matrix visualization |
+| `scikit-learn` | PCA, t-SNE, classification report và confusion matrix |
+| `tensorboard` | Epoch-level experiment logging |
+| `ipykernel`/Jupyter | Notebook execution |
 
-### 3.2. Notebook-to-module mapping
+Project hiện chưa có dependency manifest hoặc lock file. Cell 4 ghi versions của
+một run nhưng chưa đủ để dựng lại environment từ đầu. Khi bổ sung manifest, cần
+pin một tổ hợp NumPy/SciPy/scikit-learn đã chạy sạch PCA và t-SNE trên máy này.
 
-| Notebook phase | Reusable module tương ứng |
-|---|---|
-| Phase 1 | Problem contract trong notebook và README |
-| Phase 2 | `config.py`, `utils.py` |
-| Phase 3 | `data.load_raw_datasets()` |
-| Phase 4 | `data.analyze_training_pool()` và các hàm EDA plotting trong `visualize.py` |
-| Phase 5 | `data.stratified_split_indices()`, `prepare_datasets()` và loader factories |
-| Phase 6 | `model.FashionMNISTModel`, `build_model()` và `sanity_check_model()` |
-| Phase 7 | `train.py` và `experiment.py` |
-| Phase 8 | `evaluate.py` |
-| Phase 9 | `save_load.py` và `visualize.py` |
+### 7.3. Chọn kernel
 
-## 4. Class mapping và configuration chung
+Trong VS Code:
 
-FashionMNIST sử dụng class index theo thứ tự:
+1. Mở `practice_1.ipynb`.
+2. Chọn `Select Kernel`.
+3. Chọn `Python Environments` hoặc `Jupyter Kernel`.
+4. Chọn interpreter tại workspace `venv`, hiện dùng Python `3.10.11`.
+5. Chạy [Cell 4][cell-4] để xác nhận Python, PyTorch, TorchVision và MPS.
 
-| Index | Class |
-|---:|---|
-| 0 | T-shirt/top |
-| 1 | Trouser |
-| 2 | Pullover |
-| 3 | Dress |
-| 4 | Coat |
-| 5 | Sandal |
-| 6 | Shirt |
-| 7 | Sneaker |
-| 8 | Bag |
-| 9 | Ankle boot |
+Từ workspace root, có thể kiểm tra interpreter:
 
-Baseline configuration:
+```bash
+./venv/bin/python --version
+./venv/bin/python -m pip check
+```
 
-| Hyperparameter | Giá trị |
-|---|---|
-| Seed | `42` |
-| Validation ratio | `0.10` |
-| Batch size | `64` |
-| Number of workers | `0` |
-| Input dimension | `784` |
-| Hidden dimensions | `[128]` |
-| Number of classes | `10` |
-| Dropout | `0.0` |
-| Optimizer | Adam |
-| Learning rate | `0.001` |
-| Weight decay | `0.0` |
-| Epoch budget | `10` |
-| Baseline augmentation | Không |
+Không nên force-reinstall scientific packages chỉ để làm mất warning. Cần xác
+định và pin một dependency set tương thích, sau đó chạy lại numerical assertions.
 
-Seed `42` được dùng cho Python, NumPy, PyTorch, train/validation split và DataLoader shuffle generator. Mục tiêu là làm cho cùng một run trong cùng môi trường có khả năng tái lập. Seed không bảo đảm bitwise-identical result giữa CPU, CUDA và MPS vì mỗi backend có thể dùng numerical kernels khác nhau.
+### 7.4. Trình tự chạy notebook
 
-## 5. Phase 1 - Problem Definition
+Notebook phụ thuộc state theo thứ tự cell. Quy trình đúng là:
 
-### 5.1. Phase này làm gì?
+1. Chọn đúng kernel.
+2. Restart kernel để xóa object từ run trước.
+3. Khôi phục package `processing_own_phase` được import tại Cell 10.
+4. Chạy notebook từ trên xuống dưới.
+5. Dừng và xử lý mọi error hoặc numerical warning trước khi dùng kết quả.
+6. Không chạy Phase 8 trước khi Phase 7 và final retraining hoàn tất.
+7. Đối chiếu checkpoint, plot và report phải thuộc cùng run session.
 
-Phase 1 xác định chính xác bài toán trước khi viết model:
+Với codebase hiện tại, bước 3 là blocker bắt buộc; stored outputs không thay thế
+khả năng chạy source từ kernel sạch.
 
-- Dữ liệu đầu vào là ảnh grayscale `28 x 28`.
-- Mỗi ảnh chỉ thuộc một class.
-- Có 10 classes.
-- Model trả về một score cho mỗi class.
-- Accuracy là primary metric.
+## 8. Phase 1 - Problem Definition
+
+[Mở Phase 1 trong notebook][cell-1]
+
+### 8.1. Mục tiêu
+
+Phase 1 định nghĩa bài toán trước khi chọn model:
+
+- Input là ảnh grayscale `28 x 28`.
+- Mỗi sample có đúng một label trong 10 classes.
+- Model phải trả 10 raw logits.
 - Cross-entropy là optimization objective.
-- Train/validation/test protocol phải được khóa trước experiment.
+- Accuracy là primary metric.
+- Train/validation/test protocol phải khóa trước experiment.
 
-### 5.2. Tại sao phải định nghĩa metric trước model?
+### 8.2. Tensor contract
 
-Architecture chỉ có ý nghĩa khi biết tiêu chí đánh giá. FashionMNIST được cân bằng, mỗi class có cùng số sample, vì vậy overall accuracy là primary metric hợp lý:
+| Thành phần | Shape | Dtype | Ý nghĩa |
+|---|---|---|---|
+| Một ảnh | `[1, 28, 28]` | `torch.float32` | Channel-first grayscale tensor |
+| Batch ảnh | `[B, 1, 28, 28]` | `torch.float32` | Input của model |
+| Batch labels | `[B]` | `torch.int64` | Class indices cho loss |
+| Model output | `[B, 10]` | Floating point | Raw logits |
+| Predictions | `[B]` | Integer indices | `argmax(logits, dim=1)` |
 
-```text
-accuracy = number_of_correct_predictions / number_of_samples
-```
+Model không trả class name. Prediction index được ánh xạ sang `class_names` sau
+`argmax`.
 
-Accuracy cho biết tỷ lệ dự đoán đúng tổng thể. Tuy nhiên, accuracy không giải thích model đang yếu ở class nào, nên Phase 8 bổ sung precision, recall, F1-score và confusion matrix.
+### 8.3. Tại sao dùng CrossEntropyLoss?
 
-Cross-entropy cho một sample có target class `y` được hiểu là:
+Với target class `y`, loss cho một sample có thể hiểu là:
 
 ```text
 loss = -log(softmax(logits)[y])
 ```
 
-Khi lấy trung bình trên dataset, loss phạt model nếu probability dành cho true class thấp. Đây là signal khả vi để Autograd tính gradient.
+`CrossEntropyLoss` nhận raw logits và nội bộ kết hợp log-softmax với negative
+log-likelihood. Model vì vậy không thêm Softmax vào output layer.
 
-### 5.3. Input, target và output contract
+### 8.4. Success criteria
 
-| Thành phần | Contract |
+Một baseline hoàn chỉnh phải:
+
+1. Load đúng hai official partitions.
+2. Tạo train/validation split không overlap.
+3. Fit preprocessing statistics chỉ trên train subset.
+4. Build model tương thích tensor contract.
+5. Chạy forward, loss, backward và optimizer update.
+6. Chọn experiment bằng validation metrics.
+7. Final-train model từ fresh state.
+8. Evaluate đủ 10,000 official-test samples.
+9. Có learning curves và predicted-versus-actual display.
+10. Save/load checkpoint và verify output của loaded model.
+
+## 9. Phase 2 - Environment Setup
+
+[Mở Phase 2 trong notebook][cell-2]
+
+### 9.1. Path resolution
+
+[Cell 3][cell-3] tìm `PROJECT_DIR` từ current working directory, sau đó định
+nghĩa:
+
+| Path object | Vai trò |
 |---|---|
-| Một ảnh trước batch | `[1, 28, 28]`, `torch.float32` |
-| Một batch ảnh | `[B, 1, 28, 28]`, `torch.float32` |
-| Một batch label | `[B]`, `torch.int64` |
-| Model output | `[B, 10]` raw logits |
-| Prediction | `argmax(logits, dim=1)` |
+| `PROJECT_DIR` | Root của `practice_1` |
+| `DATA_DIR` | FashionMNIST storage |
+| `OUTPUT_DIR` | Checkpoints và figures |
+| `RUNS_DIR` | TensorBoard event logs |
 
-Model không trả về class name trực tiếp. Nó trả về 10 logits; index của logit lớn nhất được ánh xạ sang `class_names`.
+Parent của project được thêm vào `sys.path` để import local package. Chính cơ
+chế này làm [Cell 10][cell-10] tìm package `practice_1.processing_own_phase`.
 
-### 5.4. Success criteria
+### 9.2. Environment record
 
-Một run được xem là hoàn chỉnh khi:
+[Cell 4][cell-4] bật inline plotting, import Torch/TorchVision và in version cùng
+backend availability. Việc ghi environment giúp phân biệt ba loại thay đổi:
 
-1. Load đúng 60,000 training images và 10,000 test images.
-2. Tạo đúng train/validation split mà không overlap.
-3. Build model nhận đúng tensor shape.
-4. Forward, loss, backward và optimizer update đều hoạt động.
-5. Controlled experiments chỉ dùng train và validation.
-6. Selected configuration được train lại từ fresh state.
-7. Final model được đánh giá trên đủ 10,000 test samples.
-8. Có learning curves và error analysis.
-9. Checkpoint load lại thành công.
-10. Loaded model khớp model trước khi save.
+- Code regression.
+- Dependency incompatibility.
+- Sai khác numerical kernel giữa CPU, CUDA và MPS.
 
-## 6. Phase 2 - Environment Setup
+### 9.3. Imports
 
-### 6.1. Phase này làm gì?
+[Cell 5][cell-5] tập hợp dependency cho toàn pipeline: model, optimizer,
+TorchVision datasets/transforms, plotting, scikit-learn metrics, DataLoader,
+Subset, TensorBoard và typing.
 
-Phase 2 chuẩn bị execution environment trước khi xử lý data:
+Phase này hiện chưa có import smoke test độc lập. Vì vậy missing local package
+chỉ được phát hiện khi sang Phase 4.
 
-- Resolve `PROJECT_DIR`, `DATA_DIR`, `OUTPUT_DIR` và `RUNS_DIR`.
-- Thêm project parent vào `sys.path` khi cần.
-- Kích hoạt inline plotting trong notebook.
-- Import PyTorch, TorchVision, NumPy, Matplotlib, Seaborn, scikit-learn và TensorBoard.
-- In Python, PyTorch và TorchVision versions.
-- Kiểm tra CUDA và Apple MPS.
+## 10. Phase 3 - Data Loading
 
-### 6.2. Tại sao phải ghi nhận environment?
+[Mở Phase 3 trong notebook][cell-6]
 
-Deep Learning result phụ thuộc không chỉ vào code và seed mà còn vào:
+### 10.1. Official partitions
 
-- Python version.
-- PyTorch/TorchVision version.
-- CPU, CUDA hoặc MPS backend.
-- Numerical kernel của thiết bị.
-- Dependency versions.
+[Cell 7][cell-7] tạo:
 
-Ghi environment giúp phân biệt code regression với sai khác số học do backend.
+| Object | TorchVision option | Kích thước | Mục đích |
+|---|---|---:|---|
+| `train_dataset` | `train=True` | 60,000 | EDA và nguồn train/validation |
+| `test_dataset` | `train=False` | 10,000 | Final evaluation only |
 
-Latest notebook run hiện ghi nhận:
+`SEED = 42` được áp dụng cho Python, NumPy và Torch trước các bước ngẫu nhiên.
+
+### 10.2. `ToTensor()` xử lý gì?
+
+Ở giai đoạn load, `raw_transform = transforms.ToTensor()` thực hiện bốn chuyển
+đổi quan trọng:
+
+1. Chuyển PIL/NumPy image thành `torch.Tensor`.
+2. Chuyển layout sang channel-first `[1, 28, 28]`.
+3. Chuyển dtype sang `torch.float32`.
+4. Scale pixel từ integer `[0, 255]` sang floating-point `[0, 1]`.
+
+Channel-first là convention PyTorch dùng cho image tensors. Floating-point input
+là điều kiện để neural-network layers và Autograd thực hiện phép toán liên tục.
+Scale `[0, 1]` tạo numerical range có ý nghĩa trước bước normalize.
+
+### 10.3. Tại sao chưa normalize ở Phase 3?
+
+Normalization cần mean/std được fit trên internal training subset. Nếu tính từ
+official test hoặc future validation subset, preprocessing sẽ tiếp nhận thông tin
+ngoài train boundary.
+
+Phase 3 chỉ load raw partitions. Split và training-only statistics được trì hoãn
+đến Phase 5 để giữ evaluation protocol đúng.
+
+## 11. Phase 4 - Exploratory Data Analysis
+
+[Mở Phase 4 trong notebook][cell-8]
+
+### 11.1. Phạm vi EDA
+
+EDA chỉ quan sát official training pool 60,000 ảnh. Official test images và labels
+không được dùng cho statistics, visualization hoặc modeling decision.
+
+EDA có hai vai trò:
+
+- Xác minh dataset contract trước preprocessing.
+- Tạo hypotheses mô tả dữ liệu để giải thích model behavior sau evaluation.
+
+EDA không fit model parameters. Mean/std dùng để normalize vẫn được tính lại chỉ
+từ internal train subset ở Phase 5.
+
+### 11.2. Local analysis dependency
+
+[Cell 10][cell-10] kỳ vọng hai module:
+
+```text
+practice_1.processing_own_phase.data
+practice_1.processing_own_phase.visualize
+```
+
+`analyze_training_pool()` phải tạo `EDA_ANALYSIS` và `EDA_SUMMARY`; plotting
+functions phải tạo các EDA artifacts. Các source modules này hiện thiếu khỏi
+filesystem, dù stored outputs và PNG từ lần chạy trước vẫn còn.
+
+Đây là blocker về reproducibility, không phải bằng chứng rằng stored outputs tự
+động sai. Tuy nhiên, source implementation cần được khôi phục trước khi audit
+logic chunking, duplicate detection và plotting một cách đầy đủ.
+
+### 11.3. Raw data contract
+
+Stored output tại [Cell 11][cell-11]:
 
 | Thuộc tính | Giá trị |
 |---|---|
-| Python | `3.10.11` |
-| PyTorch | `2.13.0` |
-| TorchVision | `0.28.0` |
-| CUDA available | `False` |
-| MPS available | `True` |
-| Selected notebook device | `mps` |
-
-Reusable package chọn device theo thứ tự:
-
-```text
-CUDA -> MPS -> CPU
-```
-
-Điều này cho phép cùng source code chạy trên NVIDIA GPU, Apple Silicon GPU hoặc CPU mà không thay training logic.
-
-### 6.3. Vai trò của các dependency chính
-
-| Dependency | Mục đích |
-|---|---|
-| `torch` | Tensor, Autograd, model, loss và optimization |
-| `torchvision` | FashionMNIST dataset và transforms |
-| `numpy` | Array processing và evaluation output |
-| `matplotlib` | Plot samples và learning curves |
-| `seaborn` | Confusion matrix heatmap |
-| `scikit-learn` | Classification report và confusion matrix trong notebook |
-| `tensorboard` | Theo dõi train/validation metrics theo epoch |
-| `notebook`, `jupyter` | Chạy interactive notebook |
-
-Version constraints được lưu trong `processing_own_phase/requirements.txt`.
-
-## 7. Phase 3 - Data Loading
-
-### 7.1. Phase này làm gì?
-
-FashionMNIST được load bằng `torchvision.datasets.FashionMNIST`:
-
-```text
-train=True  -> official training pool, 60,000 images
-train=False -> official test set, 10,000 images
-```
-
-Ở phase này chỉ áp dụng `ToTensor()`.
-
-### 7.2. `ToTensor()` xử lý gì?
-
-`ToTensor()`:
-
-- Chuyển PIL image hoặc NumPy image thành `torch.Tensor`.
-- Đổi shape thành channel-first `[1, 28, 28]`.
-- Đổi dtype thành `torch.float32`.
-- Scale raw pixel từ `[0, 255]` sang `[0, 1]`.
-
-Normalization chưa được áp dụng ở Phase 3 vì mean và standard deviation hợp lệ phải được tính sau khi có training indices ở Phase 5.
-
-### 7.3. Tại sao chưa split ngay trong Data Loading?
-
-Phase 3 chịu trách nhiệm load hai official partitions đúng theo TorchVision. Phase 4 cần quan sát cấu trúc toàn bộ official training pool cho EDA. Train/validation split được tạo ở Phase 5, trước mọi bước fit model hoặc tính preprocessing statistics.
-
-Việc tách trách nhiệm như vậy giúp phân biệt:
-
-- Official partition do dataset provider định nghĩa.
-- Internal validation split do project định nghĩa.
-
-### 7.4. Output của phase
-
-| Object | Kích thước | Transform |
-|---|---:|---|
-| `train_dataset` | 60,000 | `ToTensor()` |
-| `test_dataset` | 10,000 | `ToTensor()` |
-| `class_names` | 10 | Class label mapping |
-
-Official test set được load để chuẩn bị pipeline nhưng không được đọc trong EDA, preprocessing statistics, experiment hoặc model selection.
-
-## 8. Phase 4 - Exploratory Data Analysis
-
-### 8.1. Mục tiêu của EDA
-
-EDA kiểm tra data contract và các assumption trước khi preprocessing hoặc xây model:
-
-- Raw image shape, dtype, range và label domain có đúng contract không?
-- Class distribution có cân bằng và có class nào bị thiếu không?
-- Pixel intensity phân bố như thế nào trên cả background và foreground?
-- Brightness và contrast thay đổi ra sao giữa từng ảnh và từng class?
-- Có non-finite value, all-black, all-white hoặc constant image không?
-- Có raw image trùng hoàn toàn hoặc duplicate mang conflicting label không?
-- Sample, class-average image và statistical extreme có phù hợp với label không?
-
-EDA chỉ đọc `train_dataset.data` và `train_dataset.targets` của 60,000-image official training pool. Official test images và labels không được đọc, trực quan hóa hoặc dùng để đưa ra modeling decision.
-
-`analyze_training_pool()` xử lý ảnh theo chunk mặc định 2,048 samples. Cách này tính exact histogram, sums và image-level statistics mà không tạo thêm một floating-point copy của toàn bộ 60,000 ảnh. Duplicate audit dùng raw image bytes nên không bị sai lệch bởi normalization.
-
-### 8.2. Raw data contract
-
-Kết quả kiểm tra trên current dataset copy:
-
-| Thuộc tính | Giá trị |
-|---|---|
-| EDA scope | Official training pool only |
 | Samples | 60,000 |
-| Raw shape | `[60000, 28, 28]` |
-| Resolution | `28 x 28` |
-| Channels | `1` |
+| Raw shape | `(60000, 28, 28)` |
+| Transformed sample shape | `(1, 28, 28)` |
 | Raw dtype | `torch.uint8` |
 | Raw range | `[0, 255]` |
 | Label range | `[0, 9]` |
-| Number of classes | `10` |
-| Shape after `ToTensor()` | `[1, 28, 28]` |
+| Classes | 10 |
 
-Raw contract xác nhận mỗi model input có một channel và `28 * 28 = 784` features sau khi flatten. Assertions fail ngay nếu dataset size, dimensions, dtype, pixel range hoặc label domain lệch khỏi contract.
+Assertions bảo vệ sample count, image dimensions, channel count, dtype, pixel
+range và label domain.
 
-### 8.3. Class distribution
+### 11.4. Class distribution
 
-Class count được tính bằng `torch.bincount`; mỗi class có đúng 6,000 images, tương đương 10% official training pool:
+[Cell 13][cell-13] xác nhận mỗi class có đúng 6,000 images, tương đương 10% pool.
+Artifact canonical cho phần này là
+[eda_class_distribution.png](outputs/eda_class_distribution.png).
 
-| Class | Count |
-|---|---:|
-| T-shirt/top | 6,000 |
-| Trouser | 6,000 |
-| Pullover | 6,000 |
-| Dress | 6,000 |
-| Coat | 6,000 |
-| Sandal | 6,000 |
-| Shirt | 6,000 |
-| Sneaker | 6,000 |
-| Bag | 6,000 |
-| Ankle boot | 6,000 |
+Notebook đồng thời có một pie chart và sampled pixel histogram tại
+[Cell 15][cell-15]. Cell này materialize toàn bộ transformed dataset thành một
+batch 60,000 ảnh, tạo floating-point copy lớn. Nó cũng lặp lại class-distribution
+visualization đã được tạo ở Cell 13.
 
-Dataset cân bằng nên:
+### 11.5. Pixel intensity
 
-- Accuracy có thể dùng làm primary selection metric.
-- Không cần class weighting trong baseline loss.
-- Stratified split có thể giữ chính xác cùng tỷ lệ ở mỗi class.
-
-`outputs/eda_class_distribution.png` dùng bar chart để count giữa các class có thể được so sánh trực tiếp.
-
-### 8.4. Pixel intensity distribution
-
-Exact 256-bin histogram kiểm kê toàn bộ `60,000 x 28 x 28 = 47,040,000` raw pixels. Statistics được scale sang `[0, 1]` để cùng interpretation với output của `ToTensor()`:
+Stored statistics tại [Cell 17][cell-17]:
 
 | Statistic | Giá trị |
 |---|---:|
-| Pixel count | `47,040,000` |
-| Mean | `0.286041` |
-| Standard deviation | `0.353024` |
-| Median | `0.000000` |
-| 5th percentile | `0.000000` |
-| 95th percentile | `0.905882` |
-| Zero-valued fraction | `50.21%` |
-| Maximum-valued fraction | `0.81%` |
+| Pixel count | 47,040,000 |
+| Mean | 0.286041 |
+| Standard deviation | 0.353024 |
+| Median | 0.000000 |
+| Q05 | 0.000000 |
+| Q95 | 0.905882 |
+| Zero-valued fraction | 50.21% |
+| Maximum-valued fraction | 0.81% |
 
-`outputs/pixel_intensity_distribution.png` gồm một full-range histogram và một non-zero view. Full view làm rõ background spike tại zero; non-zero view giúp quan sát foreground clothing pixels mà không bị spike này che khuất.
+Khoảng một nửa pixel là background zero. Distribution vẫn rộng ở foreground,
+ủng hộ global normalization nhưng không quyết định giá trị mean/std dùng cho
+model. Artifact: [pixel_intensity_distribution.png](outputs/pixel_intensity_distribution.png).
 
-Các giá trị mean và standard deviation trên đây chỉ là descriptive EDA statistics. Phase 5 tính lại statistics từ 54,000 training subset; validation samples không tham gia fit normalization.
-
-### 8.5. Image-level brightness và contrast
+### 11.6. Brightness và contrast
 
 Với mỗi ảnh:
 
-- Brightness được định nghĩa là mean của 784 pixel đã scale.
-- Contrast được định nghĩa là population standard deviation của 784 pixel đã scale.
+```text
+brightness = mean(pixel_values)
+contrast   = std(pixel_values)
+```
 
-Mean brightness của toàn pool là `0.286041`; mean image contrast là `0.320249`. Per-class summaries cho thấy footwear và upper-body garments không chiếm cùng intensity range. Ví dụ, Sandal có mean brightness `0.1367`, trong khi Coat có mean brightness `0.3853`.
+[Cell 20][cell-20] báo overall brightness mean `0.286041` và overall contrast
+mean `0.320249`. Per-class values khác nhau rõ, nhưng class-specific
+normalization không hợp lệ vì true class không có sẵn tại inference time.
 
-`outputs/image_brightness_contrast.png` biểu diễn overall distributions. `outputs/per_class_intensity_boxplot.png` dùng boxplot để so sánh spread, median và outlier giữa 10 classes.
+Artifacts:
 
-Sự khác nhau giữa class không dẫn đến class-specific normalization, vì true class không tồn tại tại inference time. Project dùng một bộ training-only global statistics nhất quán cho mọi input.
+- [image_brightness_contrast.png](outputs/image_brightness_contrast.png)
+- [per_class_intensity_boxplot.png](outputs/per_class_intensity_boxplot.png)
 
-### 8.6. Data quality và duplicate audit
+### 11.7. Data-quality audit
 
-Quality audit kiểm tra:
-
-- Non-finite transformed values.
-- All-black, all-white và constant images.
-- Labels ngoài `[0, 9]` và missing classes.
-- Exact duplicates dựa trên raw bytes.
-- Duplicate groups có nhiều hơn một label.
-
-Current dataset copy ghi nhận:
+[Cell 23][cell-23] lưu các kết quả sau:
 
 | Check | Count |
 |---|---:|
-| Non-finite images | `0` |
-| All-black images | `0` |
-| All-white images | `0` |
-| Constant images | `0` |
-| Invalid labels | `0` |
-| Missing classes | `0` |
-| Exact duplicate groups | `0` |
-| Exact duplicate samples | `0` |
-| Conflicting-label duplicate groups | `0` |
+| Non-finite images | 0 |
+| All-black images | 0 |
+| All-white images | 0 |
+| Constant images | 0 |
+| Invalid labels | 0 |
+| Missing classes | 0 |
+| Exact duplicate groups | 0 |
+| Conflicting-label duplicate groups | 0 |
 
-Audit chỉ report và assert các contract quan trọng; nó không tự động xóa dữ liệu. Một observation cực trị về brightness hoặc contrast chưa đủ để kết luận ảnh bị corrupt.
+Audit report chứ không tự động xóa image. Extreme brightness/contrast không đồng
+nghĩa với corruption.
 
-### 8.7. Class samples và class-average images
+### 11.8. Correlation, PCA và t-SNE
 
-`outputs/class_samples.png` hiển thị hai samples cho mỗi class. Indices được chọn bằng local generator với seed `42`, nên kết quả reproducible và không thay đổi global RNG state dùng cho split hoặc training.
+[Cell 24][cell-24] và [Cell 25][cell-25] vẽ correlation heatmaps. PCA được fit ở
+[Cell 27][cell-27], sau đó fit lặp lại tại [Cell 29][cell-29]. Full PCA trên
+standardized features chạy tại [Cell 32][cell-32], còn t-SNE trên toàn bộ pool
+chạy tại [Cell 36][cell-36].
 
-Grid này kiểm tra orientation, grayscale rendering, label mapping và intra-class variation. Việc lấy đúng số sample theo từng class tránh trường hợp một random batch vô tình thiếu class.
+Stored numerical results gồm:
 
-`outputs/class_mean_images.png` tính pixel-wise mean image cho từng class. Mean silhouettes làm rõ:
+- PC1 explained variance: `29.03%`.
+- PC2 explained variance: `17.76%`.
+- PC3 explained variance: `6.02%`.
+- 137 components cho 90% cumulative variance.
+- 256 components cho 95% cumulative variance.
 
-- Separation tương đối rõ giữa footwear, bag và upper-body garments.
-- Visual overlap đáng kể giữa T-shirt/top, Pullover, Coat và Shirt.
-- Confusion giữa các upper-body classes là hypothesis hợp lý để kiểm tra ở Phase 8, không phải kết luận model trước khi evaluate.
+Tuy nhiên, bốn output cells 27, 29, 32 và 36 chứa `divide by zero`, `overflow`
+và `invalid value encountered in matmul` warnings. Trước khi dùng PCA/t-SNE làm
+bằng chứng khoa học cần:
 
-### 8.8. Statistical extremes
+1. Ổn định NumPy/SciPy/scikit-learn stack.
+2. Assert `np.isfinite` cho input, scaled data, embeddings và variance arrays.
+3. Chọn PCA solver rõ ràng.
+4. Pre-reduce và dùng stratified sample cho t-SNE.
+5. Chạy lại mà không còn unexplained stderr warning.
 
-`outputs/eda_outliers.png` hiển thị darkest, brightest, lowest-contrast và highest-contrast images theo deterministic ranking. Ảnh cực trị vẫn là garment hợp lệ trong current inspection nên được giữ nguyên.
+### 11.9. Representative và extreme images
 
-Mục đích của bước này là tạo review candidates có cơ sở định lượng. EDA không tự động gán “outlier” thành “corruption”, vì extreme-but-valid samples có thể đại diện cho variation thật mà model cần học.
+[Cell 38][cell-38] tạo hai deterministic samples mỗi class và class-average
+images. [Cell 41][cell-41] tạo brightness/contrast extremes.
 
-### 8.9. Kết luận từ EDA
+Artifacts:
 
-EDA cho phép chốt các quyết định:
+- [class_samples.png](outputs/class_samples.png)
+- [class_mean_images.png](outputs/class_mean_images.png)
+- [eda_outliers.png](outputs/eda_outliers.png)
 
-1. MLP input phải có 784 features.
-2. Output layer phải có 10 units.
-3. Accuracy phù hợp làm primary metric vì class balance hoàn toàn.
-4. Baseline không cần class weights.
-5. Không có bằng chứng để tự động loại image trong current dataset copy.
-6. Global normalization là phù hợp; statistics phải được fit lại trên training subset.
-7. Official training pool đủ lớn để dành 10% làm validation.
-8. Upper-body class overlap cần được kiểm tra bằng confusion matrix sau final evaluation.
+Mean images cho thấy visual overlap giữa T-shirt/top, Pullover, Coat và Shirt.
+Đây là hypothesis phù hợp để kiểm tra bằng confusion matrix, chưa phải bằng chứng
+để quy toàn bộ lỗi cho dataset.
 
-## 9. Phase 5 - Data Preprocessing
+### 11.10. EDA conclusions
 
-### 9.1. Mục tiêu của phase
+[Cell 43][cell-43] kết luận:
 
-Phase 5 biến raw dataset thành các dataset views và DataLoaders có contract rõ ràng cho training, validation và final test.
+- Dataset contract hợp lệ và class-balanced.
+- Accuracy phù hợp làm primary metric.
+- Baseline không cần class weights.
+- Global normalization có lý do hợp lý.
+- Không có bằng chứng phải tự động loại ảnh.
+- Upper-body garments là nhóm cần theo dõi ở error analysis.
 
-Các bước được thực hiện:
+Các conclusions không phụ thuộc PCA/t-SNE để quyết định data split hoặc model
+selection; vì vậy warnings ở projection cells không làm thay đổi training
+protocol, nhưng vẫn phải được sửa để EDA sạch.
 
-1. Tạo class-stratified train/validation split.
-2. Tính training-only mean và standard deviation.
-3. Định nghĩa baseline, augmented và evaluation transforms.
-4. Tạo các FashionMNIST parent datasets riêng.
-5. Gắn disjoint indices bằng `Subset`.
-6. Tạo DataLoaders.
-7. Chạy assertions cho split, class balance, determinism, shape và dtype.
+## 12. Phase 5 - Data Preprocessing
 
-### 9.2. Class-stratified split
+[Mở Phase 5 trong notebook][cell-44]
 
-Với từng class từ `0` đến `9`:
+![Preprocessing pipeline](diagrams/01_preprocessing.png)
 
-1. Lấy toàn bộ indices thuộc class đó.
-2. Shuffle indices bằng `torch.Generator().manual_seed(42)`.
-3. Lấy 10% đầu tiên, tương đương 600 images, cho validation.
-4. Lấy 90% còn lại, tương đương 5,400 images, cho training.
-5. Ghép indices của tất cả classes.
-6. Shuffle lại train indices và validation indices bằng cùng seeded generator.
+### 12.1. Class-stratified split
 
-Kết quả:
+[Cell 47][cell-47] thực hiện split theo từng class:
+
+1. Lấy indices của class.
+2. Shuffle bằng `torch.Generator().manual_seed(42)`.
+3. Đưa 10% đầu vào validation.
+4. Đưa 90% còn lại vào train.
+5. Ghép và shuffle lại từng partition.
+
+Kết quả chính xác:
 
 | Partition | Total | Mỗi class |
 |---|---:|---:|
 | Train | 54,000 | 5,400 |
 | Validation | 6,000 | 600 |
 
-### 9.3. Tại sao dùng stratified split?
+Stratification giữ class composition ổn định giữa experiments và làm per-class
+validation support nhất quán.
 
-Random split thông thường có thể tạo chênh lệch nhỏ về class count. Stratification bảo đảm:
+### 12.2. Training-only normalization
 
-- Train và validation giữ đúng class balance.
-- Accuracy giữa experiment không bị ảnh hưởng bởi validation class composition khác nhau.
-- Per-class comparison có cùng support.
-- Split có thể tái tạo bằng seed.
-
-### 9.4. Training-only normalization statistics
-
-Raw pixels tại `train_indices` được chuyển sang `float32`, chia `255.0`, rồi tính:
+Chỉ raw pixels tại `train_indices` được dùng để tính:
 
 ```text
 TRAIN_MEAN = 0.286139
 TRAIN_STD  = 0.353084
 ```
 
-Normalization áp dụng:
+Normalization:
 
 ```text
 normalized_pixel = (pixel - TRAIN_MEAN) / TRAIN_STD
 ```
 
-Mục đích:
+Validation và test chỉ tiêu thụ hai statistics đã fit từ train. Chúng không đóng
+góp dữ liệu vào phép tính.
 
-- Center input quanh zero.
-- Đưa scale feature về phạm vi ổn định hơn.
-- Hỗ trợ optimizer học hiệu quả hơn.
-- Giữ cùng preprocessing contract cho train, validation, test và inference.
+### 12.3. Transform strategy
 
-Chỉ 54,000 training images tham gia tính statistics. Validation và test chỉ tiêu thụ hai giá trị đã được tính từ train.
-
-### 9.5. Transform strategy
-
-| Dataset view | Transform pipeline | Tính chất |
+| Dataset view | Pipeline | Random? |
 |---|---|---|
-| Baseline train | `ToTensor()` -> `Normalize()` | Deterministic |
-| Augmented train | `RandomHorizontalFlip(0.5)` -> `RandomRotation(10)` -> `ToTensor()` -> `Normalize()` | Stochastic |
-| Validation | `ToTensor()` -> `Normalize()` | Deterministic |
-| Test | `ToTensor()` -> `Normalize()` | Deterministic |
+| Baseline train | `ToTensor -> Normalize` | Không |
+| Augmented train | `RandomHorizontalFlip -> RandomRotation -> ToTensor -> Normalize` | Có |
+| Validation | `ToTensor -> Normalize` | Không |
+| Test | `ToTensor -> Normalize` | Không |
 
-Baseline transform không chứa augmentation để E0, E1, E2 và E3 so sánh trong điều kiện data giống nhau.
+Augmentation chỉ thuộc E4. Baseline và architecture/optimizer experiments dùng
+deterministic transform để comparison được kiểm soát.
 
-Augmentation chỉ xuất hiện ở E4. Thiết kế này giúp đo riêng tác động của augmentation thay vì trộn augmentation vào baseline.
+### 12.4. Dataset views và Subset
 
-Validation và test không được augment vì:
+[Cell 49][cell-49] tạo parent dataset riêng cho baseline train, augmented train,
+validation và test. `Subset` chỉ lưu indices và gọi transform của parent, nên
+parent riêng ngăn validation vô tình dùng random training transform.
 
-- Cùng một sample phải cho cùng tensor ở mỗi lần evaluation.
-- Metric phải phản ánh dữ liệu gốc, không phản ánh một random view.
-- Random evaluation transform làm metric dao động ngoài tác động của model.
+| Object | Parent transform | Indices |
+|---|---|---|
+| `train_subset` | Baseline | 54,000 train indices |
+| `augmented_train_subset` | Augmented | Cùng 54,000 train indices |
+| `validation_subset` | Evaluation | 6,000 validation indices |
+| `test_dataset` | Evaluation | Official test partition |
 
-### 9.6. Tại sao phải tạo các parent dataset riêng?
+### 12.5. DataLoaders
 
-`Subset` chỉ lưu indices và gọi transform của parent dataset. Nếu train và validation dùng chung một parent có random augmentation, validation cũng có thể bị augment.
+[Cell 51][cell-51] tạo:
 
-Project tạo riêng:
+| Loader | Samples | Batch size | Shuffle | Stored batch count |
+|---|---:|---:|---|---:|
+| Train | 54,000 | 64 | Có | 844 |
+| Validation | 6,000 | 64 | Không | 94 |
+| Test | 10,000 | 64 | Không | 157 |
 
-- `baseline_training_pool`
-- `augmented_training_pool`
-- `validation_pool`
-- `test_dataset`
+Phase 7 tạo lại train loader cho từng experiment với fresh seeded generator.
 
-Sau đó:
+### 12.6. Sanity checks
 
-- `train_subset` dùng baseline parent và train indices.
-- `augmented_train_subset` dùng augmented parent nhưng vẫn chỉ dùng train indices.
-- `validation_subset` dùng deterministic parent và validation indices.
+[Cell 53][cell-53] kiểm tra:
 
-Nhờ vậy, transform policy được tách khỏi index policy.
+- Đúng kích thước train, augmented train, validation và test.
+- Train/validation intersection rỗng.
+- Train/validation union có 60,000 unique indices.
+- Train có 5,400 và validation có 600 samples mỗi class.
+- Validation sample deterministic qua hai lần đọc.
 
-### 9.7. DataLoader strategy
+[Cell 54][cell-54] kiểm tra batch contract:
 
-| Loader | Dataset | Batch size | Shuffle | Số batch |
-|---|---|---:|---|---:|
-| Train | 54,000 train samples | 64 | Có | 844 |
-| Validation | 6,000 validation samples | 64 | Không | 94 |
-| Test | 10,000 official test samples | 64 | Không | 157 |
+| Split | Images | Labels | Normalized range trong stored first batch |
+|---|---|---|---|
+| Train | `(64, 1, 28, 28)` float32 | `(64,)` int64 | `[-0.810, 2.022]` |
+| Validation | `(64, 1, 28, 28)` float32 | `(64,)` int64 | `[-0.810, 2.022]` |
+| Test | `(64, 1, 28, 28)` float32 | `(64,)` int64 | `[-0.810, 2.022]` |
 
-Training cần shuffle để batch order không bị cố định theo dataset order. Validation và test không shuffle để evaluation order deterministic và dễ đối chiếu predictions.
+Normalized values không còn bị giới hạn ở `[0, 1]`; đây là expected behavior.
 
-Trong Phase 7, mỗi experiment tạo train DataLoader mới với generator mới nhưng cùng seed. Điều này bảo đảm mỗi experiment nhận cùng initial shuffle protocol.
+## 13. Phase 6 - Model Building
 
-### 9.8. Sanity checks
+[Mở Phase 6 trong notebook][cell-55]
 
-Pipeline assert:
+![Model building flow](diagrams/02_model_building.png)
 
-- `len(train_subset) == 54_000`
-- `len(validation_subset) == 6_000`
-- `len(test_dataset) == 10_000`
-- Train và validation không overlap.
-- Union của train và validation có đủ 60,000 unique indices.
-- Train có 5,400 samples mỗi class.
-- Validation có 600 samples mỗi class.
-- Cùng một validation item được đọc hai lần cho tensor giống nhau.
-- Images có shape `[B, 1, 28, 28]`.
-- Images có dtype `torch.float32`.
-- Labels có shape `[B]`.
-- Labels có dtype `torch.int64`.
-- Tất cả image values đều finite.
+### 13.1. Architecture
 
-Batch đầu tiên trong current run:
-
-```text
-Train:      images=(64, 1, 28, 28), labels=(64,), range=[-0.810, 2.022]
-Validation: images=(64, 1, 28, 28), labels=(64,), range=[-0.810, 2.022]
-Test:       images=(64, 1, 28, 28), labels=(64,), range=[-0.810, 2.022]
-```
-
-Giá trị sau normalization không còn giới hạn trong `[0, 1]`; đây là expected behavior.
-
-![Phase 5 preprocessing pipeline](diagrams/01_preprocessing.png)
-
-## 10. Phase 6 - Model Building
-
-### 10.1. Architecture
-
-Model là configurable multi-layer perceptron:
+[Cell 57][cell-57] định nghĩa `FashionMNISTModel` dưới dạng configurable MLP:
 
 ```text
 Input [B, 1, 28, 28]
-        |
-        v
-Flatten -> [B, 784]
-        |
-        v
-Linear hidden layer
-        |
-        v
-ReLU
-        |
-        v
-Optional Dropout
-        |
-        v
-Additional hidden layers when configured
-        |
-        v
-Linear output layer -> [B, 10] raw logits
+    -> Flatten [B, 784]
+    -> one or more Linear + ReLU blocks
+    -> optional Dropout after each hidden activation
+    -> Linear output [B, 10]
 ```
 
-Baseline:
+Baseline architecture:
 
 ```text
 Flatten
@@ -750,7 +745,7 @@ ReLU
 Linear(128, 10)
 ```
 
-Deeper configuration:
+Deeper architecture:
 
 ```text
 Flatten
@@ -761,48 +756,24 @@ ReLU
 Linear(128, 10)
 ```
 
-### 10.2. Tại sao chọn MLP?
+### 13.2. Constructor validation
 
-MLP là Deep Learning baseline phù hợp với mục tiêu học PyTorch cơ bản:
+Model validate:
 
-- Architecture đủ đơn giản để quan sát rõ forward, loss, backward và optimizer.
-- Parameter count có thể tính và kiểm tra trực tiếp.
-- Training nhanh hơn CNN trên môi trường không có GPU mạnh.
-- Có thể kiểm soát riêng depth, dropout và optimizer.
-
-Trade-off là `Flatten` làm mất explicit spatial structure. MLP không khai thác locality và translation patterns tốt như CNN, nên các class có hình dạng gần nhau vẫn khó phân biệt.
-
-### 10.3. Configurable constructor
-
-`FashionMNISTModel` nhận:
-
-| Argument | Ý nghĩa |
-|---|---|
-| `hidden_dims` | Số unit của từng hidden layer |
-| `dropout` | Dropout probability |
-| `num_classes` | Số output logits |
-| `input_dim` | Số flattened input features |
-
-Constructor validate:
-
-- `input_dim > 0`
-- `num_classes > 1`
+- `input_dim > 0`.
+- `num_classes > 1`.
 - Mọi hidden dimension phải dương.
-- `0 <= dropout < 1`
+- `0 <= dropout < 1`.
 
-Validation này làm configuration error fail sớm thay vì chỉ phát hiện sau khi training đã bắt đầu.
+Configuration lỗi vì vậy fail trước training thay vì xuất hiện giữa một run dài.
 
-### 10.4. Tại sao output không có Softmax?
+### 13.3. Raw logits, không Softmax
 
-`CrossEntropyLoss` nhận raw logits và nội bộ kết hợp `LogSoftmax` với negative log-likelihood. Thêm Softmax vào model trước loss sẽ:
+Output layer trả raw logits. `CrossEntropyLoss` tự thực hiện numerically-stable
+log-softmax bên trong. Thêm Softmax vào model sẽ lặp transformation và làm sai
+loss contract.
 
-- Lặp transformation không cần thiết.
-- Làm numerical stability kém hơn.
-- Vi phạm input contract của `CrossEntropyLoss`.
-
-Softmax chỉ được dùng ở evaluation hoặc visualization khi cần chuyển logits thành probabilities.
-
-### 10.5. Parameter count
+### 13.4. Parameter count
 
 Baseline:
 
@@ -812,7 +783,7 @@ Linear(128, 10):  128 * 10 + 10   =   1,290
 Total                                  101,770
 ```
 
-Deeper model:
+Deeper MLP:
 
 ```text
 Linear(784, 256): 784 * 256 + 256 = 200,960
@@ -821,335 +792,241 @@ Linear(128, 10):  128 * 10 + 10   =   1,290
 Total                                  235,146
 ```
 
-Parameter count được report để accuracy gain có thể được so sánh với model complexity.
+[Cell 58][cell-58] xác nhận baseline có 101,770 trainable parameters.
 
-### 10.6. Fail-fast model sanity check
+### 13.5. Fail-fast model sanity check
 
-Trước training, pipeline tạo một model riêng cho sanity check và chạy 8 real samples:
+[Cell 59][cell-59] tạo model riêng và chạy tám real samples:
 
-1. Kiểm tra image shape `(8, 1, 28, 28)`.
-2. Kiểm tra image dtype và device khớp model parameters.
-3. Kiểm tra label shape `(8,)` và dtype `int64`.
-4. Chạy forward.
-5. Kiểm tra logits shape `(8, 10)`.
-6. Kiểm tra logits finite.
-7. Tính `CrossEntropyLoss`.
-8. Kiểm tra loss finite.
-9. Snapshot parameters.
-10. Chạy `zero_grad`, `backward` và kiểm tra gradients.
-11. Chạy một optimizer step.
-12. Xác nhận ít nhất một parameter đã thay đổi.
+1. Kiểm tra input shape, dtype và device.
+2. Forward để tạo logits `(8, 10)`.
+3. Kiểm tra logits và loss finite.
+4. Snapshot parameters.
+5. `zero_grad(set_to_none=True)`.
+6. `loss.backward()`.
+7. Kiểm tra mọi gradient tồn tại và finite.
+8. Xác nhận có non-zero gradient.
+9. `optimizer.step()`.
+10. Xác nhận parameters thay đổi.
 
-Current sanity result:
+Stored result:
 
-| Check | Result |
+| Check | Giá trị |
 |---|---|
 | Output shape | `(8, 10)` |
-| Finite loss | `2.312276` trong latest notebook run |
-| Gradients present | Pass |
-| Gradients finite | Pass |
-| Non-zero gradient exists | Pass |
-| Parameters changed | Pass |
+| Finite loss | `2.219638` |
+| Gradients finite | `True` |
+| Parameters changed | `True` |
 
-Sanity check dùng model riêng để không làm thay đổi model sẽ được dùng cho controlled experiment.
+Sanity model độc lập nên optimizer step này không làm bẩn state của controlled
+experiments.
 
-![Phase 6 model building and sanity-check flow](diagrams/02_model_building.png)
+## 14. Phase 7 - Model Training
 
-## 11. Phase 7 - Model Training
+[Mở Phase 7 trong notebook][cell-60]
 
-### 11.1. Mục tiêu của phase
+![Epoch-level training flow](diagrams/03_training_epoch.png)
 
-Phase 7 triển khai:
+![Batch-level training flow](diagrams/04_training_batch.png)
 
-- Device selection.
-- Reproducibility setup.
-- Optimizer factory.
-- One-epoch training loop.
-- Validation loop.
-- Best-checkpoint selection.
-- TensorBoard logging.
-- Controlled experiments.
-- Final retraining trên toàn bộ official training pool.
+### 14.1. Device và reproducibility
 
-### 11.2. Reproducibility
-
-Trước mỗi run:
+[Cell 62][cell-62] seed Python, NumPy và Torch, sau đó chọn device theo thứ tự:
 
 ```text
-random.seed(seed)
-numpy.random.seed(seed)
-torch.manual_seed(seed)
+CUDA -> MPS -> CPU
 ```
 
-Mỗi experiment đồng thời nhận:
+Stored run chọn `mps`. Mỗi experiment gọi lại reproducibility setup và nhận fresh
+train loader với generator có seed tại [Cell 63][cell-63].
 
-- Fresh model.
-- Fresh optimizer.
-- Fresh DataLoader.
-- Fresh seeded shuffle generator.
-- Fresh history list.
-- Fresh TensorBoard writer.
+Seed làm run có khả năng lặp trong cùng environment nhưng không bảo đảm bitwise
+identity giữa CPU, CUDA và MPS. Numerical kernels khác nhau có thể làm metric và
+best epoch thay đổi nhẹ.
 
-Nếu tái sử dụng model hoặc optimizer giữa các experiment, experiment sau sẽ hưởng weights hoặc momentum từ experiment trước và comparison sẽ không còn công bằng.
+### 14.2. Optimizer factory
 
-### 11.3. Device selection
+[Cell 63][cell-63] hỗ trợ:
 
-Priority:
+| Optimizer | Parameters |
+|---|---|
+| Adam | Learning rate, weight decay |
+| SGD | Learning rate, momentum, weight decay |
 
-```text
-torch.cuda.is_available()
-torch.backends.mps.is_available()
-fallback to cpu
-```
+Unsupported optimizer tạo `ValueError` thay vì silently fallback.
 
-Mọi image và label batch được chuyển sang selected device trước forward. Model cũng được chuyển sang cùng device.
+### 14.3. Batch-level training loop
 
-### 11.4. Batch-level training flow
-
-Với mỗi batch:
+[Cell 65][cell-65] thực hiện đúng thứ tự:
 
 ```text
 images, labels -> device
 optimizer.zero_grad(set_to_none=True)
 logits = model(images)
 loss = criterion(logits, labels)
-validate loss is finite
+assert finite loss
 loss.backward()
 optimizer.step()
-accumulate weighted loss and correct predictions
+accumulate loss and correct predictions
 ```
 
-Ý nghĩa từng bước:
+Ý nghĩa:
 
-| Bước | Mục đích |
+| Bước | Vai trò |
 |---|---|
-| `zero_grad` | Xóa gradients từ batch trước |
-| Forward | Tính logits từ images |
-| Loss | Đo sai lệch giữa logits và labels |
-| `backward` | Autograd tính gradient theo từng parameter |
-| `optimizer.step` | Cập nhật parameters theo gradient |
-| Metric accumulation | Tính epoch loss và accuracy |
+| `zero_grad` | Xóa gradients của batch trước |
+| Forward | Tính logits từ input |
+| Loss | Đo mức sai của logits so với labels |
+| `backward` | Autograd tính gradient cho parameters |
+| `step` | Optimizer cập nhật parameters |
+| Accumulation | Tính epoch metrics trên đủ samples |
 
-![Phase 7 batch-level training flow](diagrams/04_training_batch.png)
-
-### 11.5. Sample-weighted epoch loss
-
-`CrossEntropyLoss` mặc định trả mean loss của batch. Batch cuối có thể nhỏ hơn batch size chuẩn. Vì vậy epoch loss được tính:
+Epoch loss được sample-weighted:
 
 ```text
 loss_sum += batch_loss * actual_batch_size
-epoch_loss = loss_sum / total_sample_count
+epoch_loss = loss_sum / total_samples
 ```
 
-Nếu chỉ lấy trung bình đều giữa các batch, batch cuối nhỏ vẫn có trọng số bằng batch đầy và epoch loss sẽ bị lệch nhẹ.
+Cách này xử lý đúng batch cuối nhỏ hơn 64.
 
-Accuracy được tính:
+### 14.4. Validation loop
 
-```text
-correct += (argmax(logits) == labels).sum()
-epoch_accuracy = correct / total_sample_count
-```
+[Cell 64][cell-64] dùng:
 
-Không dùng `tensor.data`; predictions được lấy trực tiếp từ logits bằng `argmax`.
+- `model.eval()`.
+- `torch.inference_mode()`.
+- Không backward.
+- Không optimizer step.
+- Sample-weighted validation loss.
+- Accuracy trên toàn bộ validation subset.
 
-### 11.6. Validation flow
+Validation function không biết official test loader; training API vì vậy giữ
+test set ngoài Phase 7.
 
-Sau mỗi training epoch:
+### 14.5. Best-checkpoint rule
 
-- Chuyển model sang `eval()`.
-- Chạy validation trong `torch.inference_mode()`.
-- Không tạo gradient graph.
-- Không update parameters.
-- Tính sample-weighted validation loss.
-- Tính validation accuracy.
+[Cell 67][cell-67] xem epoch mới tốt hơn khi:
 
-`inference_mode()` giảm memory và computation vì evaluation không cần backward.
+1. Validation accuracy cao hơn best hiện tại.
+2. Nếu accuracy bằng nhau, validation loss thấp hơn.
 
-### 11.7. Best-checkpoint rule
+Best `state_dict` được clone về CPU. Sau run, model load lại best state thay vì
+giữ epoch cuối. `SummaryWriter` được đóng trong `finally` để flush logs cả khi
+có exception.
 
-Một epoch được xem là tốt hơn nếu:
+### 14.6. Controlled experiments
 
-1. Validation accuracy cao hơn best accuracy hiện tại.
-2. Nếu accuracy bằng chính xác, validation loss thấp hơn được dùng làm tie-breaker.
+[Cell 69][cell-69] định nghĩa:
 
-Khi có best epoch mới, `state_dict` được clone về CPU. Sau khi experiment kết thúc, model load lại best state thay vì giữ weights của epoch cuối.
-
-Điều này quan trọng vì train loss có thể tiếp tục giảm trong khi validation performance bắt đầu xấu đi.
-
-![Phase 7 epoch-level training and checkpoint-selection flow](diagrams/03_training_epoch.png)
-
-### 11.8. Optimizers
-
-Optimizer factory hỗ trợ:
-
-| Optimizer | Configuration |
-|---|---|
-| Adam | Learning rate và weight decay |
-| SGD | Learning rate, momentum và weight decay |
-
-Adam là baseline vì adaptive learning rate thường hội tụ nhanh trong bài toán nhỏ. SGD được giữ thành controlled experiment để quan sát trade-off, không được thay vào baseline mà không có validation evidence.
-
-### 11.9. Controlled experiment design
-
-Năm experiments:
-
-| ID | Hidden dimensions | Dropout | Optimizer | Learning rate | Momentum | Augmentation |
+| ID | Hidden dims | Dropout | Optimizer | Learning rate | Momentum | Augmentation |
 |---|---|---:|---|---:|---:|---|
-| E0_baseline | `[128]` | 0.0 | Adam | 0.001 | Không áp dụng | Không |
-| E1_deeper | `[256, 128]` | 0.0 | Adam | 0.001 | Không áp dụng | Không |
-| E2_dropout | `[256, 128]` | 0.2 | Adam | 0.001 | Không áp dụng | Không |
-| E3_sgd | `[256, 128]` | 0.0 | SGD | 0.01 | 0.9 | Không |
-| E4_augmentation | `[256, 128]` | 0.0 | Adam | 0.001 | Không áp dụng | Có |
+| E0_baseline | `(128,)` | 0.0 | Adam | 0.001 | N/A | Không |
+| E1_deeper | `(256, 128)` | 0.0 | Adam | 0.001 | N/A | Không |
+| E2_dropout | `(256, 128)` | 0.2 | Adam | 0.001 | N/A | Không |
+| E3_sgd | `(256, 128)` | 0.0 | SGD | 0.01 | 0.9 | Không |
+| E4_augmentation | `(256, 128)` | 0.0 | Adam | 0.001 | N/A | Có |
 
-Logic comparison:
+Các yếu tố cố định:
 
-- E0 thiết lập simple MLP baseline.
-- E1 chỉ thay architecture depth và width so với E0.
-- E2 giữ architecture E1, chỉ thêm dropout.
-- E3 giữ architecture E1, chỉ thay optimizer và learning rate phù hợp với SGD.
-- E4 giữ architecture/optimizer của E1, chỉ thêm augmentation.
+- Train/validation indices.
+- Seed.
+- Batch size `64`.
+- Epoch budget `10`.
+- Normalization statistics.
+- Primary selection metric.
+- Fresh model, optimizer và loader state.
 
-Các yếu tố được giữ cố định:
+E3 thay optimizer cùng learning rate phù hợp với optimizer đó, nên đây là một
+optimizer configuration comparison chứ không phải phép thử chỉ thay đúng một
+scalar.
 
-- Cùng train/validation indices.
-- Cùng seed.
-- Cùng batch size.
-- Cùng 10-epoch budget.
-- Cùng normalization statistics.
-- Cùng primary metric.
-- Mỗi run bắt đầu từ fresh state.
+### 14.7. Experiment results của stored run
 
-### 11.10. TensorBoard logging
-
-Mỗi experiment ghi:
-
-- `Loss/Train`
-- `Loss/Validation`
-- `Accuracy/Train`
-- `Accuracy/Validation`
-- `LearningRate`
-
-Logs được đặt trong:
-
-```text
-runs/<YYYYMMDD-HHMMSS>/<experiment-id>/
-```
-
-Session timestamp ngăn experiment mới ghi đè TensorBoard event của session trước. Writer luôn được close bằng `finally` để event buffer được flush ngay cả khi training gặp exception.
-
-### 11.11. Latest notebook experiment results
-
-Latest interactive notebook run ngày `2026-07-27` sử dụng MPS:
+[Cell 70][cell-70] chạy năm experiments; [Cell 72][cell-72] tổng hợp best
+validation checkpoint:
 
 | Experiment | Best epoch | Validation loss | Validation accuracy | Parameters | Runtime |
 |---|---:|---:|---:|---:|---:|
-| E0_baseline | 6 | 0.3265 | 88.43% | 101,770 | 76.9 s |
-| E1_deeper | 7 | 0.3177 | 89.15% | 235,146 | 81.0 s |
-| E2_dropout | 8 | 0.3279 | 88.72% | 235,146 | 85.3 s |
-| E3_sgd | 10 | 0.3183 | 88.93% | 235,146 | 65.6 s |
-| E4_augmentation | 10 | 0.3366 | 87.82% | 235,146 | 92.0 s |
+| E0_baseline | 6 | 0.3265 | 88.43% | 101,770 | 69.3 s |
+| E1_deeper | 7 | 0.3177 | 89.15% | 235,146 | 76.1 s |
+| E2_dropout | 8 | 0.3279 | 88.72% | 235,146 | 80.0 s |
+| E3_sgd | 10 | 0.3183 | 88.93% | 235,146 | 81.3 s |
+| E4_augmentation | 10 | 0.3366 | 87.82% | 235,146 | 104.2 s |
 
-E1_deeper được chọn vì có validation accuracy cao nhất là `89.15%`.
+`E1_deeper` được chọn vì validation accuracy `89.15%` là cao nhất. Kết quả chỉ
+hỗ trợ kết luận cho configuration, seed, epoch budget và environment của run
+này; nó không chứng minh deeper model luôn tốt hơn trên mọi run.
 
-Interpretation:
+### 14.8. Learning curves và comparison
 
-- Deeper MLP cải thiện baseline trong run này.
-- Dropout `0.2` không cải thiện validation accuracy trong 10-epoch budget.
-- SGD đạt gần E1 nhưng vẫn thấp hơn primary metric.
-- Augmentation được chọn chưa phù hợp với MLP/budget hiện tại hoặc cần tuning riêng.
-- Kết quả không hỗ trợ việc tự động kết luận model phức tạp hơn luôn tốt hơn; quyết định vẫn dựa trên validation evidence.
+[Cell 73][cell-73] hiển thị train/validation loss và accuracy theo epoch cho
+selected experiment. [Cell 74][cell-74] hiển thị best validation accuracy của
+năm experiments.
 
-Các plots dưới đây được tạo bởi recorded reusable-package CPU run. Chúng minh họa cùng experiment protocol; số liệu chính xác của latest MPS notebook run nằm trong bảng phía trên.
+Hai cell hiện chỉ gọi `plt.show()` và không lưu canonical PNG. Các file
+`loss_curve.png`, `accuracy_curve.png` và `experiment_comparison.png` trong
+`outputs/` có provenance cũ hơn stored notebook run, nên không được xem là bản
+export của các metrics trong bảng trên.
 
-![Recorded CPU experiment comparison](outputs/experiment_comparison.png)
+### 14.9. Final retraining
 
-![Recorded CPU loss curves](outputs/loss_curve.png)
-
-![Recorded CPU accuracy curves](outputs/accuracy_curve.png)
-
-### 11.12. Final retraining
-
-Sau model selection:
+Sau model selection, [Cell 76][cell-76] và [Cell 77][cell-77]:
 
 1. Copy selected configuration.
-2. Đổi experiment ID thành `<selected-experiment>_final`.
-3. Đặt epoch count bằng selected best epoch.
-4. Khởi tạo model mới từ fresh state.
-5. Khởi tạo optimizer mới.
-6. Train trên toàn bộ 60,000 official training images.
-7. Không evaluate official test set trong quá trình final training.
+2. Đặt epoch count bằng selected best epoch.
+3. Rebuild model từ fresh random state.
+4. Tạo optimizer và loader mới.
+5. Train trên toàn bộ 60,000 official-training images.
+6. Không validation và không official-test feedback trong final training.
 
-Trong latest MPS notebook run:
+Stored final-training result:
 
-```text
-Selected configuration: E1_deeper
-Final training samples: 60,000
-Final training epochs: 7
-Final epoch train loss: 0.2323
-Final epoch train accuracy: 91.30%
+| Thuộc tính | Giá trị |
+|---|---:|
+| Selected configuration | `E1_deeper` |
+| Training samples | 60,000 |
+| Epochs | 7 |
+| Final epoch loss | 0.2323 |
+| Final epoch train accuracy | 91.30% |
+
+Internal validation images chỉ được đưa lại vào parameter fitting sau khi model
+configuration và epoch count đã khóa.
+
+### 14.10. TensorBoard
+
+[Cell 78][cell-78] nhúng TensorBoard với root log directory `runs/`.
+
+Mở từ terminal:
+
+```bash
+./venv/bin/tensorboard --logdir total_practice/practice_1/runs
 ```
 
-Final training không còn validation loop vì validation đã hoàn thành vai trò model selection. Epoch count đã được cố định trước khi 6,000 validation samples được đưa trở lại training pool.
+Mỗi session dùng timestamp và mỗi experiment có subdirectory riêng, tránh ghi
+đè event logs giữa các lần chạy.
 
-## 12. Phase 8 - Model Evaluation
+## 15. Phase 8 - Model Evaluation
 
-### 12.1. Mục tiêu của phase
+[Mở Phase 8 trong notebook][cell-79]
 
-Phase 8 đo generalization của final model trên official test set. Test evaluation chỉ diễn ra sau khi:
+### 15.1. Evaluation contract
 
-- Preprocessing protocol đã cố định.
-- Experiment comparison đã hoàn thành.
-- Architecture và hyperparameters đã được chọn.
-- Epoch count đã được chọn.
+Phase 8 chỉ bắt đầu sau khi:
+
+- Preprocessing đã khóa.
+- Experiments hoàn thành.
+- Configuration và epoch count đã chọn.
 - Final model đã train xong.
 
-Trong một completed pipeline run, test result không được dùng để quay lại sửa model.
+[Cell 80][cell-80] chạy model với `eval()` và `torch.inference_mode()`, tích lũy
+sample-weighted loss, correct count, predictions và targets.
 
-### 12.2. Evaluation procedure
+### 15.2. Official-test result
 
-Evaluation:
+[Cell 81][cell-81] xác nhận:
 
-1. Chuyển model sang `eval()`.
-2. Chạy trong `torch.inference_mode()`.
-3. Forward toàn bộ 10,000 test images.
-4. Tính sample-weighted cross-entropy loss.
-5. Lấy prediction bằng `argmax`.
-6. Tích lũy predictions và targets trên CPU.
-7. Kiểm tra đã evaluate đủ số sample.
-
-### 12.3. Các metrics
-
-Accuracy:
-
-```text
-accuracy = correct_predictions / all_predictions
-```
-
-Precision cho class `c`:
-
-```text
-precision_c = true_positive_c / predicted_positive_c
-```
-
-Recall cho class `c`:
-
-```text
-recall_c = true_positive_c / actual_positive_c
-```
-
-F1-score:
-
-```text
-F1_c = 2 * precision_c * recall_c / (precision_c + recall_c)
-```
-
-Vì test set có support 1,000 cho mỗi class, macro average và weighted average rất gần nhau.
-
-### 12.4. Latest notebook test result
-
-Latest MPS notebook run:
-
-| Metric | Value |
+| Metric | Giá trị |
 |---|---:|
 | Test samples | 10,000 |
 | Test loss | 0.3294 |
@@ -1158,7 +1035,9 @@ Latest MPS notebook run:
 | Macro recall | 88.79% |
 | Macro F1 | 88.79% |
 
-Per-class report:
+### 15.3. Per-class report
+
+[Cell 82][cell-82]:
 
 | Class | Precision | Recall | F1-score | Support |
 |---|---:|---:|---:|---:|
@@ -1173,517 +1052,461 @@ Per-class report:
 | Bag | 0.9805 | 0.9560 | 0.9681 | 1,000 |
 | Ankle boot | 0.9770 | 0.9330 | 0.9545 | 1,000 |
 
-### 12.5. Error analysis
+### 15.4. Error analysis
 
-Trong latest notebook run:
+Observed results:
 
-- Trouser, Bag và Sandal có F1 cao nhất.
-- Shirt có F1 thấp nhất.
-- Pullover và Coat cũng yếu hơn các class có silhouette rõ.
-- Shirt có cả precision và recall thấp, nghĩa là model vừa bỏ sót true Shirt images vừa dự đoán nhầm các class khác thành Shirt.
-- Confusion matrix cho thấy nhóm upper-body garments như T-shirt/top, Pullover, Coat và Shirt dễ bị nhầm lẫn với nhau.
+- Trouser, Bag, Sandal và Ankle boot có F1 cao.
+- Shirt có F1 thấp nhất: `0.7099`.
+- Pullover và Coat cũng thấp hơn nhóm có silhouette rõ.
+- Upper-body garment classes bị nhầm lẫn nhiều hơn.
 
-Nguyên nhân hợp lý từ dữ liệu:
+Giải thích hợp lý là sự kết hợp của:
 
-- Ảnh chỉ có độ phân giải `28 x 28`.
-- Ảnh là grayscale.
-- Fine-grained details như cổ áo, tay áo và texture bị giảm mạnh.
-- MLP flatten ảnh nên không tận dụng spatial locality như CNN.
+- Visual overlap trong ảnh grayscale `28 x 28`.
+- Mất fine-grained texture/detail ở resolution thấp.
+- MLP flatten ảnh và không khai thác spatial locality như CNN.
 
-Đây là phân tích từ observed metrics và confusion matrix của run hiện tại. Nó không được dùng để thay đổi final model sau khi đã xem test set.
+[Cell 83][cell-83] hiện quy pattern lỗi chủ yếu cho giới hạn dataset và nói đó
+không phải flaw của architecture. Cách kết luận này mạnh hơn bằng chứng. Confusion
+matrix cho thấy lỗi xảy ra ở đâu, nhưng không tách được nguyên nhân dataset khỏi
+giới hạn của MLP nếu chưa có controlled CNN comparison.
 
-### 12.6. Confusion matrix
+### 15.5. Confusion matrix
 
-Notebook hiển thị raw count confusion matrix:
+[Cell 84][cell-84] tạo raw-count confusion matrix:
 
-- Row biểu diễn actual class.
-- Column biểu diễn predicted class.
-- Diagonal là số prediction đúng.
-- Off-diagonal cells thể hiện cặp class bị nhầm.
+- Row là actual class.
+- Column là predicted class.
+- Diagonal là correct predictions.
+- Off-diagonal là confusion pairs.
 
-Reusable package lưu normalized confusion matrix vào `outputs/confusion_matrix.png`, giúp so sánh recall pattern giữa các class theo tỷ lệ.
+Cell hiện hiển thị bằng `plt.show()` nhưng không lưu canonical file của run này.
+`outputs/confusion_matrix.png` là artifact cũ và không nên ghép tự động với stored
+MPS metrics.
 
-![Recorded CPU normalized confusion matrix](outputs/confusion_matrix.png)
+## 16. Phase 9 - Save Model & Visualization
 
-## 13. Phase 9 - Save Model and Visualization
+[Mở Phase 9 trong notebook][cell-85]
 
-### 13.1. Mục tiêu của phase
+### 16.1. Canonical checkpoint
 
-Phase 9 bảo đảm final model không chỉ tồn tại trong notebook memory. Model phải:
-
-- Được save thành checkpoint.
-- Có đủ architecture và preprocessing metadata.
-- Có thể load trên selected device hoặc CPU.
-- Có thể dựng lại đúng architecture.
-- Cho predictions và logits giống model trước khi save.
-- Có visual examples để kiểm tra prediction.
-
-### 13.2. Canonical checkpoint path
-
-Checkpoint hiện tại:
+[Cell 86][cell-86] lưu:
 
 ```text
 outputs/fashion_mnist_model.pth
 ```
 
-File này có thể bị ghi đè khi chạy lại full notebook hoặc package. Vì vậy metrics đi kèm cần được đọc từ chính checkpoint hoặc summary có cùng run provenance.
-
-### 13.3. Notebook checkpoint content
-
-Notebook lưu:
+Checkpoint keys:
 
 | Key | Nội dung |
 |---|---|
-| `model_state_dict` | Final learned weights và biases |
-| `model_config` | Hidden dimensions, dropout, classes và input dimension |
-| `training_config` | Selected optimizer, learning rate, epochs và các config khác |
+| `model_state_dict` | Learned weights và biases đã clone về CPU |
+| `model_config` | Hidden dims, dropout, class count và input dimension |
+| `training_config` | Selected optimizer, learning rate, epochs và settings |
 | `selected_experiment` | Experiment thắng validation |
-| `best_epoch` | Epoch được validation chọn |
+| `best_epoch` | Epoch validation đã chọn |
 | `best_validation_accuracy` | Best validation accuracy |
 | `best_validation_loss` | Best validation loss |
-| `test_accuracy` | Final test accuracy |
-| `test_loss` | Final test loss |
+| `test_accuracy` | Official-test accuracy của cùng run |
+| `test_loss` | Official-test loss của cùng run |
 | `train_mean` | Training-only normalization mean |
-| `train_std` | Training-only normalization standard deviation |
-| `class_names` | Mapping class index sang label |
+| `train_std` | Training-only normalization std |
+| `class_names` | Mapping index sang label |
 
-Reusable package lưu cùng nhóm thông tin theo schema:
+Checkpoint hiện load được bằng `weights_only=True` và chứa:
 
 ```text
-model_state_dict
-model_config
-training_config
-metadata
+selected_experiment = E1_deeper
+best_epoch          = 7
+test_accuracy       = 0.8879
 ```
 
-Trong package, selection metrics, test metrics, normalization statistics và class names nằm trong `metadata`.
+### 16.2. Tại sao lưu `state_dict` cùng config?
 
-### 13.4. Tại sao không save toàn bộ model object?
+Weights một mình không cho biết architecture, hidden dimensions, dropout,
+normalization hoặc class mapping. Lưu state dict cùng explicit config:
 
-Save `state_dict` cùng configuration có các lợi ích:
+- Giảm phụ thuộc vào serialized model object.
+- Cho phép reconstruct architecture có kiểm soát.
+- Cho phép load trên device khác qua `map_location`.
+- Làm preprocessing và label contract kiểm tra được.
 
-- Ít phụ thuộc vào Python object serialization.
-- Architecture được tái tạo một cách explicit.
-- Configuration có thể kiểm tra độc lập.
-- Dễ load trên device khác bằng `map_location`.
-- Phù hợp với PyTorch checkpoint practice.
+### 16.3. Reload verification
 
-### 13.5. Load procedure
-
-Load flow:
+[Cell 87][cell-87]:
 
 1. `torch.load(..., map_location=device, weights_only=True)`.
-2. Đọc `model_config`.
-3. Khởi tạo `FashionMNISTModel(**model_config)`.
-4. Load `model_state_dict`.
-5. Chuyển model sang selected device.
-6. Gọi `model.eval()`.
+2. Rebuild `FashionMNISTModel` từ `model_config`.
+3. Load `model_state_dict`.
+4. Chuyển model lên selected device và gọi `eval()`.
+5. Chạy original và loaded model trên cùng test batch.
+6. So sánh predictions và logits.
 
-`weights_only=True` giới hạn loading vào dữ liệu checkpoint cần thiết thay vì arbitrary Python object.
-
-### 13.6. Reload verification
-
-Project lấy cùng một test batch và chạy:
-
-- Original in-memory model.
-- Freshly reconstructed loaded model.
-
-Sau đó kiểm tra:
-
-```text
-argmax(original_logits) == argmax(loaded_logits)
-torch.allclose(original_logits, loaded_logits)
-maximum absolute logit difference
-```
-
-Latest notebook result:
+Stored verification:
 
 | Check | Result |
 |---|---|
 | Predictions match | `True` |
-| Logits match | `True` |
+| `torch.allclose` logits | Pass |
 | Maximum logit difference | `0.00000000` |
 
-Verification này mạnh hơn việc chỉ load không báo lỗi. Nó xác nhận architecture và weights thực sự tái tạo cùng function output trên input đã kiểm tra.
+Đây là round-trip check mạnh hơn việc chỉ xác nhận file load không báo lỗi.
 
-### 13.7. Predicted-versus-actual visualization
+### 16.4. Predicted-versus-actual display
 
-Notebook:
+[Cell 88][cell-88]:
 
-1. Chạy loaded model trên một test batch.
-2. Lấy predicted class bằng `argmax`.
-3. Unnormalize images:
+1. Chạy loaded model trên test batch.
+2. Lấy prediction bằng `argmax`.
+3. Unnormalize image bằng `image * TRAIN_STD + TRAIN_MEAN`.
+4. Clamp về `[0, 1]`.
+5. Hiển thị grid 4 x 4.
+6. Ghi predicted và actual labels.
+7. Dùng xanh cho đúng, đỏ cho sai.
 
-```text
-display_image = normalized_image * TRAIN_STD + TRAIN_MEAN
-```
+Cell đáp ứng yêu cầu image display trong notebook nhưng không lưu
+`predictions_grid.png` cho run hiện tại.
 
-4. Clamp pixel về `[0, 1]`.
-5. Hiển thị grid `4 x 4`.
-6. Ghi predicted label và actual label.
-7. Dùng màu xanh cho correct prediction và màu đỏ cho incorrect prediction.
+## 17. Configuration reference
 
-Unnormalization chỉ phục vụ display. Model vẫn nhận normalized tensor.
+### 17.1. Shared configuration
 
-Reusable package còn tính Softmax probabilities để hiển thị confidence của predicted class trong `outputs/predictions_grid.png`.
-
-![Recorded CPU predicted-versus-actual examples](outputs/predictions_grid.png)
-
-## 14. Artifacts và ý nghĩa
-
-### 14.1. Experiment checkpoints
-
-```text
-outputs/experiments/E0_baseline.pth
-outputs/experiments/E1_deeper.pth
-outputs/experiments/E2_dropout.pth
-outputs/experiments/E3_sgd.pth
-outputs/experiments/E4_augmentation.pth
-```
-
-Mỗi checkpoint chứa best validation state và experiment history của một controlled run.
-
-### 14.2. Final model và reports
-
-| Artifact | Nội dung |
+| Hyperparameter | Giá trị |
 |---|---|
-| `outputs/fashion_mnist_model.pth` | Final selected model checkpoint |
-| `outputs/summary.json` | Full reusable-package run summary |
-| `outputs/summary_quick.json` | Quick integration run summary |
-| `outputs/notebook_verification.json` | Notebook verification evidence của recorded verification run |
+| Seed | `42` |
+| Validation ratio | `0.10` |
+| Batch size | `64` |
+| Number of workers | `0` |
+| Input dimension | `784` |
+| Number of classes | `10` |
+| Experiment epoch budget | `10` |
+| Weight decay | `0.0` |
+| Primary selection metric | Validation accuracy |
+| Tie-breaker | Validation loss |
 
-### 14.3. Visual artifacts
+### 17.2. Preprocessing reference
 
-| Artifact | Câu hỏi được trả lời |
-|---|---|
-| `eda_class_distribution.png` | Official training pool có cân bằng giữa 10 classes không? |
-| `pixel_intensity_distribution.png` | Background và foreground pixel intensities phân bố như thế nào? |
-| `image_brightness_contrast.png` | Brightness và contrast thay đổi ra sao giữa các ảnh? |
-| `per_class_intensity_boxplot.png` | Intensity characteristics khác nhau như thế nào giữa classes? |
-| `class_samples.png` | Mỗi class có sample và label mapping hợp lý không? |
-| `class_mean_images.png` | Silhouette trung bình và visual overlap giữa classes là gì? |
-| `eda_outliers.png` | Những ảnh cực trị theo brightness và contrast có hợp lệ không? |
-| `data_samples.png` | Input images và labels có hợp lý không? |
-| `class_distribution.png` | Train/validation/test có cân bằng không? |
-| `loss_curve.png` | Train và validation loss thay đổi thế nào? |
-| `accuracy_curve.png` | Train và validation accuracy thay đổi thế nào? |
-| `experiment_comparison.png` | Experiment nào có best validation accuracy cao nhất? |
-| `confusion_matrix.png` | Model nhầm class nào với class nào? |
-| `predictions_grid.png` | Loaded model dự đoán đúng/sai trên sample cụ thể ra sao? |
-
-### 14.4. Legacy artifacts
-
-Một số root-level `.pt` files trong `outputs/` có tên như `E1_lr_low.pt`, `E2_lr_high.pt` hoặc `E5_adam.pt`. Đây là artifacts từ experiment protocol cũ, không thuộc controlled experiment set hiện tại.
-
-Nguồn hiện tại cần ưu tiên:
-
-- `outputs/experiments/*.pth` cho experiment checkpoints mới.
-- `outputs/fashion_mnist_model.pth` cho final checkpoint.
-- `outputs/summary.json` hoặc notebook outputs cho metrics, kèm đúng run provenance.
-
-File `fashion_mnist_model.pth` ở project root cũng không phải canonical path của pipeline hiện tại.
-
-## 15. Kết quả theo execution environment
-
-### 15.1. Tại sao có hai bộ số liệu?
-
-Project có recorded full runs trên CPU và MPS. Cùng seed và cùng protocol không bảo đảm bitwise-identical training giữa device backends vì floating-point operations và numerical kernels có thể khác.
-
-Hai run đều:
-
-- Chọn `E1_deeper`.
-- Đạt validation accuracy xấp xỉ 89%.
-- Đạt official test accuracy xấp xỉ 88.8%.
-- Verify checkpoint reload với maximum logit difference bằng zero trong chính run đó.
-
-### 15.2. So sánh recorded runs
-
-| Run | Device | Selected experiment | Best epoch | Validation loss | Validation accuracy | Test loss | Test accuracy |
-|---|---|---|---:|---:|---:|---:|---:|
-| Latest notebook, 2026-07-27 | MPS | E1_deeper | 7 | 0.3177 | 89.15% | 0.3294 | 88.79% |
-| Reusable package, 2026-07-25 | CPU | E1_deeper | 10 | 0.3308 | 89.30% | 0.3320 | 88.84% |
-
-Không nên ghép best epoch của run này với checkpoint hoặc test metric của run kia. Mỗi result phải được đọc như một complete run:
-
-```text
-environment
-split and seed
-experiment history
-selected epoch
-final retraining
-test metrics
-checkpoint
-```
-
-### 15.3. CPU package experiment results
-
-Recorded trong `outputs/summary.json`:
-
-| Experiment | Best epoch | Validation loss | Validation accuracy | Parameters |
-|---|---:|---:|---:|---:|
-| E0_baseline | 10 | 0.3509 | 88.45% | 101,770 |
-| E1_deeper | 10 | 0.3308 | 89.30% | 235,146 |
-| E2_dropout | 7 | 0.3201 | 88.65% | 235,146 |
-| E3_sgd | 7 | 0.3204 | 89.07% | 235,146 |
-| E4_augmentation | 10 | 0.3440 | 87.67% | 235,146 |
-
-CPU package final metrics:
-
-| Metric | Value |
+| Value | Stored result |
 |---|---:|
-| Test loss | 0.3320 |
-| Test accuracy | 88.84% |
-| Maximum reload logit difference | 0.00000000 |
-| Full pipeline runtime | Khoảng 6 phút 18 giây |
+| Train normalization mean | 0.286139 |
+| Train normalization std | 0.353084 |
+| Normalized first-batch minimum | -0.810 |
+| Normalized first-batch maximum | 2.022 |
 
-## 16. Cách chạy project
+### 17.3. Model reference
 
-### 16.1. Chạy notebook
+| Model | Hidden dims | Dropout | Parameters |
+|---|---|---:|---:|
+| Baseline | `(128,)` | 0.0 | 101,770 |
+| Deeper | `(256, 128)` | 0.0 | 235,146 |
+| Deeper + dropout | `(256, 128)` | 0.2 | 235,146 |
 
-Từ workspace root:
+## 18. Outputs và provenance
 
-```bash
-cd "/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE"
-```
+### 18.1. Canonical current-run artifacts
 
-Chọn Python kernel từ project virtual environment:
+| Artifact | Nguồn tạo | Trạng thái |
+|---|---|---|
+| `outputs/experiments/E0_baseline.pth` | Cell 70 | Experiment checkpoint |
+| `outputs/experiments/E1_deeper.pth` | Cell 70 | Selected experiment checkpoint |
+| `outputs/experiments/E2_dropout.pth` | Cell 70 | Experiment checkpoint |
+| `outputs/experiments/E3_sgd.pth` | Cell 70 | Experiment checkpoint |
+| `outputs/experiments/E4_augmentation.pth` | Cell 70 | Experiment checkpoint |
+| `outputs/fashion_mnist_model.pth` | Cell 86 | Canonical final checkpoint |
+| `runs/20260801-083732/...` | Phase 7 | TensorBoard logs của stored run |
 
-```text
-venv (3.10.11)
-```
+### 18.2. EDA artifacts được notebook tham chiếu
 
-Mở:
+| Artifact | Vai trò |
+|---|---|
+| [eda_class_distribution.png](outputs/eda_class_distribution.png) | Class balance |
+| [pixel_intensity_distribution.png](outputs/pixel_intensity_distribution.png) | Pixel histogram |
+| [image_brightness_contrast.png](outputs/image_brightness_contrast.png) | Overall image statistics |
+| [per_class_intensity_boxplot.png](outputs/per_class_intensity_boxplot.png) | Per-class distributions |
+| [class_samples.png](outputs/class_samples.png) | Stratified samples |
+| [class_mean_images.png](outputs/class_mean_images.png) | Mean image per class |
+| [eda_outliers.png](outputs/eda_outliers.png) | Statistical extremes |
 
-```text
-total_practice/practice_1/practice_1.ipynb
-```
+### 18.3. Historical hoặc potentially stale artifacts
 
-Sau đó:
+Các file sau tồn tại nhưng current notebook cells không ghi chúng trong stored
+run ngày 2026-08-01:
 
-1. Restart kernel để xóa state từ run trước.
-2. Chạy notebook từ trên xuống dưới.
-3. Không chạy Phase 8 trước khi Phase 7 hoàn thành.
-4. Không dùng test result để sửa experiment config trong cùng evaluation protocol.
+- `outputs/loss_curve.png`
+- `outputs/accuracy_curve.png`
+- `outputs/experiment_comparison.png`
+- `outputs/confusion_matrix.png`
+- `outputs/predictions_grid.png`
+- `outputs/summary.json`
+- `outputs/summary_quick.json`
+- `outputs/notebook_verification.json`
+- Root-level `outputs/E*.pt` files.
+- `fashion_mnist_model.pth` ở project root.
 
-Notebook cần chạy theo thứ tự vì các phase sau sử dụng object được tạo ở phase trước.
+Không dùng các file này để thay cho stored notebook metrics nếu chưa xác minh run
+provenance. Nguồn ưu tiên cho snapshot hiện tại là notebook output,
+`outputs/experiments/*.pth`, `outputs/fashion_mnist_model.pth` và TensorBoard
+session `20260801-083732`.
 
-### 16.2. Kiểm tra dependencies
+### 18.4. Artifact policy đề xuất
 
-```bash
-./venv/bin/python -m pip check
-```
+Để lần chạy sau không bị drift:
 
-Install hoặc đồng bộ dependencies khi cần:
+1. Mỗi run có `run_id` duy nhất.
+2. Checkpoint, metrics và plots cùng nằm dưới một run directory.
+3. Mọi figure gọi `savefig` trước `show`.
+4. Summary ghi environment, seed, split hash và checkpoint path.
+5. README chỉ cập nhật số liệu sau khi Run All và artifact verification pass.
 
-```bash
-./venv/bin/python -m pip install -r total_practice/practice_1/processing_own_phase/requirements.txt
-```
+## 19. Verification checklist
 
-### 16.3. Chạy reusable full pipeline
+### 19.1. Environment
 
-Từ workspace root:
+- Kernel trỏ đúng workspace venv.
+- Python, PyTorch và TorchVision import thành công.
+- NumPy, SciPy và scikit-learn binary stack tương thích.
+- MPS/CUDA/CPU device được ghi lại.
+- Local EDA package import thành công.
 
-```bash
-./venv/bin/python -m total_practice.practice_1.processing_own_phase.main
-```
-
-Full pipeline:
-
-- Chuẩn bị data.
-- Chạy năm experiments.
-- Chọn best validation result.
-- Final train trên 60,000 images.
-- Evaluate official test set.
-- Save/reload checkpoint.
-- Tạo figures.
-- Ghi `outputs/summary.json`.
-
-### 16.4. Chạy quick integration check
-
-```bash
-./venv/bin/python -m total_practice.practice_1.processing_own_phase.main --quick
-```
-
-Quick mode:
-
-- Giới hạn training data còn tối đa 1,024 samples.
-- Giới hạn validation và test còn tối đa 512 samples.
-- Chạy mỗi experiment 1 epoch.
-
-Quick result chỉ dùng để kiểm tra integration contract. Nó không phải benchmark và không được so sánh với full-run accuracy.
-
-### 16.5. Mở TensorBoard
-
-Trong notebook:
-
-```python
-%load_ext tensorboard
-%tensorboard --logdir $TENSORBOARD_LOG_DIR
-```
-
-Hoặc từ terminal:
-
-```bash
-./venv/bin/tensorboard --logdir total_practice/practice_1/runs
-```
-
-## 17. Verification checklist
-
-### 17.1. Data verification
+### 19.2. Data
 
 - Official training pool có 60,000 samples.
 - Official test set có 10,000 samples.
-- Internal train subset có 54,000 samples.
-- Internal validation subset có 6,000 samples.
-- Train và validation không overlap.
+- Internal train có 54,000 samples.
+- Internal validation có 6,000 samples.
+- Train/validation không overlap.
 - Train/validation union có 60,000 unique indices.
-- Train có 5,400 samples mỗi class.
-- Validation có 600 samples mỗi class.
-- Mean/std chỉ được tính từ training indices.
-- Validation transform deterministic.
-- Test transform deterministic.
+- Train có 5,400 và validation có 600 samples mỗi class.
+- Mean/std chỉ tính từ train indices.
+- Validation/test transforms deterministic.
 
-### 17.2. Tensor and loader verification
+### 19.3. Tensor và loader
 
-- Image batch có shape `[B, 1, 28, 28]`.
-- Label batch có shape `[B]`.
-- Image dtype là `float32`.
-- Label dtype là `int64`.
-- Image values đều finite.
-- Train loader shuffle.
-- Validation và test loaders không shuffle.
+- Images có shape `[B, 1, 28, 28]`.
+- Labels có shape `[B]`.
+- Images là `torch.float32`.
+- Labels là `torch.int64`.
+- Tất cả input values finite.
+- Train loader shuffle; validation/test loaders không shuffle.
 
-### 17.3. Model verification
+### 19.4. Model
 
-- Baseline có 101,770 trainable parameters.
-- Deeper model có 235,146 trainable parameters.
+- Baseline có 101,770 parameters.
+- Deeper model có 235,146 parameters.
 - Forward output có shape `[B, 10]`.
-- Logits finite.
-- Loss finite.
-- Gradients tồn tại.
-- Gradients finite.
-- Ít nhất một gradient non-zero.
-- Optimizer step làm parameters thay đổi.
+- Logits và loss finite.
+- Mọi required gradient tồn tại và finite.
+- Optimizer step làm parameter thay đổi.
 
-### 17.4. Training verification
+### 19.5. Training
 
-- Mỗi experiment dùng fresh model và optimizer.
-- Mỗi experiment dùng fresh seeded shuffle generator.
+- Mỗi experiment dùng fresh model, optimizer và loader.
 - Epoch loss được sample-weighted.
 - Validation chạy trong inference mode.
-- Best state được chọn bằng validation accuracy.
-- Validation loss chỉ là tie-breaker.
-- Official test loader không được truyền vào Phase 7 training functions.
+- Best state chọn bằng validation rule đã khai báo.
+- Official test loader không xuất hiện trong training path.
+- Final training dùng 60,000 samples và selected epoch count.
 - TensorBoard writer được close.
 
-### 17.5. Final evaluation và checkpoint verification
+### 19.6. Evaluation và checkpoint
 
-- Final training dùng đủ 60,000 official training images.
-- Final epoch count được chọn trước test evaluation.
-- Test evaluation dùng đủ 10,000 official test images.
-- Test loss được sample-weighted.
-- Checkpoint chứa weights, architecture, preprocessing và metrics.
-- Loaded model được dựng từ checkpoint config.
+- Test evaluation xử lý đủ 10,000 samples.
+- Test result không thay đổi modeling decisions.
+- Classification report dùng đúng class order.
+- Confusion matrix rows/columns được label đúng.
+- Checkpoint chứa weights, model config, preprocessing và class names.
 - Loaded predictions khớp original predictions.
-- Loaded logits khớp original logits.
-- Prediction visualization dùng ảnh đã unnormalize.
+- Loaded logits nằm trong tolerance.
+- Prediction display dùng ảnh đã unnormalize.
 
-## 18. Các design decision quan trọng
+### 19.7. Documentation và artifacts
 
-### 18.1. Accuracy là primary metric
+- Không có unexplained stderr warnings.
+- Markdown conclusions khớp stored outputs.
+- Plot files được tạo trong cùng run.
+- Deep-links vẫn trỏ đúng cell sau khi notebook thay đổi.
+- README, phase descriptions, result index và audit cùng một notebook version.
 
-Được chọn vì dataset cân bằng hoàn toàn. Precision, recall và F1 vẫn cần cho error analysis nhưng không được dùng ngầm để thay selection rule sau khi experiment bắt đầu.
+## 20. Known issues và release gate
 
-### 18.2. Baseline-first
+### 20.1. Blocker
 
-Simple MLP E0 được thiết lập trước deeper model. E1 chỉ được chấp nhận khi validation evidence cho thấy cải thiện.
+`processing_own_phase` thiếu khỏi project trong khi [Cell 10][cell-10] import
+package này. Cần khôi phục source và thêm import smoke test.
 
-### 18.3. Validation-driven selection
+### 20.2. High-priority issue
 
-Nếu chọn model bằng test accuracy, test set sẽ trở thành validation set không chính thức và reported test performance sẽ lạc quan. Vì vậy model selection chỉ dùng validation.
+PCA/t-SNE stored outputs tại Cells 27, 29, 32 và 36 có numerical warnings. Cần
+sửa environment/solver/data path và thêm finiteness assertions.
 
-### 18.4. Controlled experiments thay vì thay nhiều yếu tố cùng lúc
+### 20.3. Medium-priority issues
 
-Mỗi experiment sau anchor E1 chỉ thay một nhóm quyết định chính. Điều này giúp giải thích nguyên nhân performance thay đổi.
+- Chưa có dependency manifest.
+- EDA materialize full transformed pool và fit PCA lặp lại.
+- Current learning/evaluation figures không được lưu bởi notebook cells.
+- Cell 83 đưa ra causal conclusion mạnh hơn evidence.
 
-### 18.5. Best checkpoint thay vì last checkpoint
+### 20.4. Low-priority issues
 
-Epoch cuối không nhất thiết có validation performance tốt nhất. Best state được giữ độc lập với last epoch.
+- Reproducibility trên MPS/CUDA mới ở mức best effort.
+- Config dùng broad `Dict` thay vì typed schema.
+- Train/final-train và validation/test logic có duplication.
+- Chưa có automated pipeline tests ngoài notebook assertions.
 
-### 18.6. Final retraining trên toàn bộ official training pool
+### 20.5. Release gate
 
-Validation samples chỉ cần tách ra trong model selection. Sau khi selection hoàn thành, chúng trở thành labeled training data hợp lệ cho final parameter fitting.
+Project chỉ nên được đánh dấu `Reproducible Baseline: Pass` khi:
 
-### 18.7. Save configuration cùng weights
+1. Restart Kernel + Run All hoàn tất từ đầu đến cuối.
+2. Không có error hoặc unexplained stderr warning.
+3. EDA modules tồn tại và import được trong venv mới.
+4. Data split và leakage assertions pass.
+5. Numerical arrays của PCA/t-SNE đều finite.
+6. Final evaluation vẫn dùng đủ 10,000 official-test images.
+7. Checkpoint round trip pass.
+8. Required figures được regenerate trong cùng run.
+9. Report và README khớp run artifacts.
+10. Dependency manifest dựng lại được environment.
 
-Weights không đủ để biết số layer, hidden dimensions, dropout, input dimension hoặc normalization statistics. Checkpoint phải chứa cả model/preprocessing contract.
+## 21. Design decisions cần giữ
 
-## 19. Giới hạn hiện tại
+### 21.1. Baseline-first
 
-### 19.1. Model limitation
+Simple MLP giúp quan sát rõ tensor flow, Autograd và optimizer. Model phức tạp hơn
+chỉ nên được chấp nhận khi validation evidence cho thấy lợi ích.
 
-MLP flatten ảnh nên không khai thác spatial structure. Đây là lý do hợp lý để một CNN có thể là bước phát triển tiếp theo, nhưng CNN chưa được tự động thay vào baseline vì project hiện tập trung vào PyTorch fundamentals và controlled comparison.
+### 21.2. Validation-driven selection
 
-### 19.2. Experiment budget
+Chọn model bằng official test result sẽ biến test thành validation không chính
+thức. Project hiện chọn architecture và epoch bằng internal validation, đây là
+quyết định đúng cần giữ nguyên.
 
-Mỗi experiment chỉ có 10 epochs và một seed. Result đủ cho exercise nhưng chưa phải robust benchmark trên nhiều seeds.
+### 21.3. Best checkpoint thay vì last checkpoint
 
-### 19.3. Cross-device reproducibility
+Validation performance có thể giảm dù train loss tiếp tục giảm. Lưu best state
+theo predefined rule đáng tin hơn giữ epoch cuối.
 
-CPU và MPS có thể chọn best epoch khác nhau dù dùng cùng seed. README vì vậy tách result theo execution environment.
+### 21.4. Final retraining trên toàn official training pool
 
-### 19.4. Test-set governance
+Validation subset chỉ cần tách trong model-selection stage. Sau khi decisions đã
+khóa, 6,000 validation images trở thành labeled data hợp lệ cho final parameter
+fitting.
 
-Mỗi lần chạy full pipeline sẽ evaluate test set lại. Trong học tập điều này giúp verify implementation, nhưng trong benchmark nghiêm ngặt cần hạn chế số lần quan sát test result và giữ một evaluation record cố định.
+### 21.5. Save preprocessing cùng model
 
-### 19.5. Artifact overwrite
+Inference không thể tái tạo nếu chỉ có weights mà thiếu architecture,
+normalization và class mapping. Checkpoint hiện lưu đủ ba contract này.
 
-`outputs/fashion_mnist_model.pth` và các figure names là fixed paths. Full run mới có thể ghi đè artifacts cũ. TensorBoard logs tránh vấn đề này bằng timestamped session folders.
+### 21.6. Không tối ưu accuracy trước correctness
 
-### 19.6. EDA memory use
+Missing source và numerical warning phải được xử lý trước khi mở rộng model. Một
+accuracy cao hơn từ pipeline không tái tạo hoặc numerically unstable không phải
+cải thiện đáng tin.
 
-EDA không stack 60,000 floating-point tensors. `analyze_training_pool()` đọc raw `uint8` images theo chunk 2,048 samples để cập nhật exact histogram, sums, per-image statistics và class sums. Cách này phù hợp với FashionMNIST và giảm peak memory, nhưng duplicate audit vẫn giữ một hash map của raw image bytes. Với dataset lớn hơn, duplicate detection nên chuyển sang batched cryptographic hashes hoặc một external indexing workflow.
+## 22. Hướng phát triển tiếp theo
 
-## 20. Hướng cải thiện hợp lệ trong tương lai
+Sau khi release gate pass, các hướng hợp lệ gồm:
 
-Các hướng có thể nghiên cứu tiếp, nhưng phải tiếp tục giữ official test set ngoài model selection:
-
-1. Thêm CNN baseline để tận dụng spatial locality.
+1. Thêm CNN baseline để khai thác spatial locality.
 2. Chạy nhiều seeds và report mean cùng standard deviation.
-3. Tuning learning rate và weight decay trên validation.
-4. Thêm learning-rate scheduler thành controlled experiment.
-5. Thử augmentation phù hợp hơn với FashionMNIST.
-6. Phân tích calibration và confidence.
-7. Lưu run manifest liên kết environment, summary và checkpoint.
-8. Thêm automated tests cho split, metrics và checkpoint contracts.
+3. Tuning learning rate, weight decay và batch size bằng validation.
+4. Thử learning-rate scheduler như một controlled experiment.
+5. Thiết kế augmentation phù hợp hơn với FashionMNIST.
+6. Thêm calibration và confidence analysis.
+7. Lưu run manifest liên kết environment, split, metrics, plots và checkpoint.
+8. Thêm command-line smoke tests và notebook execution test.
+9. Thêm references tới PyTorch tensors, data loading, training và save/load docs.
 
-Mỗi improvement cần:
+Mọi experiment mới phải:
 
 - Có hypothesis trước khi chạy.
-- Giữ baseline để so sánh.
-- Chỉ thay một factor chính khi có thể.
-- Dùng validation metric cho quyết định.
+- Giữ baseline và evaluation protocol cố định.
+- Chỉ dùng validation cho quyết định.
 - Không dùng official test set để tuning.
+- Ghi run provenance riêng.
+- Không ghi đè kết quả cũ mà không có run identifier.
 
-## 21. Tóm tắt project
+## 23. Tóm tắt kết quả
 
-Project hiện triển khai đầy đủ một PyTorch classification workflow:
+Stored notebook run hiện cho thấy:
 
-1. Xác định classification task, loss và metrics.
-2. Ghi execution environment.
-3. Load đúng official FashionMNIST partitions.
-4. Thực hiện EDA trên official training pool.
-5. Tạo stratified train/validation split.
-6. Tính training-only normalization statistics.
-7. Xây deterministic và augmented data pipelines.
-8. Build configurable MLP và chạy fail-fast sanity check.
-9. Train năm controlled experiments.
-10. Chọn model bằng validation accuracy.
-11. Train lại selected configuration trên 60,000 images.
-12. Evaluate trên 10,000-image official test set.
-13. Phân tích per-class errors và confusion matrix.
-14. Save checkpoint cùng configuration và preprocessing metadata.
-15. Load model và verify predictions/logits.
-16. Tạo learning curves, experiment comparison và prediction displays.
+```text
+Dataset:                 FashionMNIST
+Internal split:          54,000 train / 6,000 validation
+Official test:           10,000
+Selected device:         MPS
+Selected experiment:     E1_deeper
+Selected architecture:   784 -> 256 -> 128 -> 10
+Selected epoch:          7
+Best validation accuracy: 89.15%
+Final training samples:  60,000
+Official-test loss:      0.3294
+Official-test accuracy:  88.79%
+Checkpoint reload diff:  0.00000000
+```
 
-Kết luận chính từ các recorded runs là deeper MLP `E1_deeper` cải thiện simple baseline và được chọn nhất quán trên cả CPU lẫn MPS. Official test accuracy nằm quanh `88.8%`. Điểm yếu chính vẫn là phân biệt các upper-body garment classes có hình dạng gần nhau ở độ phân giải `28 x 28` grayscale.
+Về mặt học tập, notebook đã bao phủ đầy đủ PyTorch classification workflow và
+có data-governance tốt. Về mặt bàn giao kỹ thuật, trạng thái đúng là
+`Conditional Pass`: cần khôi phục EDA source modules, sửa numerical warnings,
+khóa dependencies và đồng bộ artifacts trước khi tuyên bố baseline có thể tái
+tạo hoàn toàn.
+
+[cell-1]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=1>
+[cell-2]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=2>
+[cell-3]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=3>
+[cell-4]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=4>
+[cell-5]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=5>
+[cell-6]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=6>
+[cell-7]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=7>
+[cell-8]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=8>
+[cell-10]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=10>
+[cell-11]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=11>
+[cell-13]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=13>
+[cell-15]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=15>
+[cell-17]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=17>
+[cell-20]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=20>
+[cell-23]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=23>
+[cell-24]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=24>
+[cell-25]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=25>
+[cell-27]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=27>
+[cell-29]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=29>
+[cell-32]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=32>
+[cell-36]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=36>
+[cell-38]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=38>
+[cell-41]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=41>
+[cell-43]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=43>
+[cell-44]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=44>
+[cell-47]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=47>
+[cell-49]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=49>
+[cell-51]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=51>
+[cell-53]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=53>
+[cell-54]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=54>
+[cell-55]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=55>
+[cell-57]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=57>
+[cell-58]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=58>
+[cell-59]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=59>
+[cell-60]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=60>
+[cell-62]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=62>
+[cell-63]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=63>
+[cell-64]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=64>
+[cell-65]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=65>
+[cell-67]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=67>
+[cell-69]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=69>
+[cell-70]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=70>
+[cell-72]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=72>
+[cell-73]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=73>
+[cell-74]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=74>
+[cell-76]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=76>
+[cell-77]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=77>
+[cell-78]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=78>
+[cell-79]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=79>
+[cell-80]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=80>
+[cell-81]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=81>
+[cell-82]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=82>
+[cell-83]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=83>
+[cell-84]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=84>
+[cell-85]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=85>
+[cell-86]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=86>
+[cell-87]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=87>
+[cell-88]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=88>
