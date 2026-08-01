@@ -35,18 +35,12 @@ CONTROLLED_EXPERIMENT_IDS = (
     "E1_resnet18_head",
     "E2_resnet18_partial",
 )
-CONTROLLED_FIELDS = (
-    "model_name",
-    "optimizer",
-    "scheduler",
-    "learning_rate",
-    "batch_size",
-    "epochs",
-    "weight_decay",
-    "image_size",
-    "seed",
-    "early_stopping_patience",
-    "best_model_metric",
+CONTROLLED_FIELDS = tuple(
+    sorted(
+        set(EXPERIMENTS[CONTROLLED_EXPERIMENT_IDS[0]])
+        .union(EXPERIMENTS[CONTROLLED_EXPERIMENT_IDS[1]])
+        .difference({"training_mode"})
+    )
 )
 
 
@@ -93,6 +87,16 @@ def validate_controlled_experiment_configs() -> None:
         )
     if e1["training_mode"] == e2["training_mode"]:
         raise ValueError("E1/E2 must use different fine-tuning strategies.")
+    differing_fields = {
+        field
+        for field in set(e1).union(e2)
+        if e1.get(field) != e2.get(field)
+    }
+    if differing_fields != {"training_mode"}:
+        raise ValueError(
+            "E1/E2 may differ only by training_mode; found: "
+            + ", ".join(sorted(differing_fields))
+        )
 
 
 def select_experiment_by_validation(results):
@@ -175,7 +179,8 @@ def run_experiment(
     model = build_model(
         model_name=run_config["model_name"],
         training_mode=run_config["training_mode"],
-        num_classes=len(CLASS_NAMES)
+        num_classes=len(CLASS_NAMES),
+        dropout=run_config.get("dropout", 0.0),
     )
     
     # Log Model Graph

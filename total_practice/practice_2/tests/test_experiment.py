@@ -60,6 +60,16 @@ def test_e1_e2_are_controlled_experiments():
     assert e1["epochs"] >= 5
     assert e1["early_stopping_patience"] == 3
     assert e1["best_model_metric"] == "val_acc"
+    assert e1["early_stopping_metric"] == "val_loss"
+    assert e1["optimizer"] == "AdamW"
+    assert e1["dropout"] == 0.20
+    assert e1["label_smoothing"] == 0.05
+    differing_fields = {
+        field
+        for field in set(e1).union(e2)
+        if e1.get(field) != e2.get(field)
+    }
+    assert differing_fields == {"training_mode"}
 
 
 def test_selection_uses_validation_accuracy_and_rejects_test_metrics():

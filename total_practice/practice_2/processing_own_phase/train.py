@@ -17,14 +17,66 @@ from configs import CONFIG
 logger = logging.getLogger(__name__)
 
 
+def set_frozen_batchnorm_eval(model: nn.Module) -> int:
+    """Prevent frozen BatchNorm layers from silently updating running stats.
+
+    ``requires_grad=False`` freezes affine parameters but ``model.train()`` would
+    still mutate running_mean/running_var. A frozen backbone must keep both its
+    parameters and BatchNorm state fixed; trainable fine-tuning blocks are left
+    untouched.
+    """
+    frozen_count = 0
+    for module in model.modules():
+        if not isinstance(module, nn.modules.batchnorm._BatchNorm):
+            continue
+        parameters = list(module.parameters(recurse=False))
+        if parameters and not any(parameter.requires_grad for parameter in parameters):
+            module.eval()
+            frozen_count += 1
+    return frozen_count
+
+
 def get_optimizer(model: nn.Module, config: Dict[str, Any]) -> torch.optim.Optimizer:
     """Factory function for optimizers."""
     opt_name = config.get("optimizer", "Adam").lower()
     lr = config.get("learning_rate", 0.001)
     wd = config.get("weight_decay", 1e-4)
-    
-    # Filter only trainable parameters
-    trainable_params = filter(lambda p: p.requires_grad, model.parameters())
+    head_lr = config.get("head_learning_rate", lr)
+    backbone_lr = config.get("backbone_learning_rate", lr)
+
+    # PretrainedClassifier exposes the final head through network.fc for
+    # ResNet18. Keep generic models on a single backwards-compatible group.
+    classifier = getattr(getattr(model, "network", None), "fc", None)
+    if classifier is not None:
+        head_parameters = [
+            parameter for parameter in classifier.parameters() if parameter.requires_grad
+        ]
+        head_ids = {id(parameter) for parameter in head_parameters}
+        backbone_parameters = [
+            parameter
+            for parameter in model.parameters()
+            if parameter.requires_grad and id(parameter) not in head_ids
+        ]
+        parameter_groups = []
+        if backbone_parameters:
+            parameter_groups.append(
+                {
+                    "params": backbone_parameters,
+                    "lr": backbone_lr,
+                    "group_name": "backbone",
+                }
+            )
+        if head_parameters:
+            parameter_groups.append(
+                {"params": head_parameters, "lr": head_lr, "group_name": "head"}
+            )
+        trainable_params = parameter_groups
+    else:
+        trainable_params = [
+            parameter for parameter in model.parameters() if parameter.requires_grad
+        ]
+    if not trainable_params:
+        raise ValueError("Model contains no trainable parameters")
     
     if opt_name == "adam":
         return torch.optim.Adam(trainable_params, lr=lr, weight_decay=wd)
@@ -55,9 +107,16 @@ def get_scheduler(optimizer: torch.optim.Optimizer, config: Dict[str, Any]):
         return None
 
 
-def get_criterion() -> nn.Module:
-    """Factory function for loss."""
-    return nn.CrossEntropyLoss()
+def get_criterion(
+    config: Optional[Dict[str, Any]] = None,
+    class_weights: Optional[torch.Tensor] = None,
+) -> nn.Module:
+    """Build Train-fitted weighted CrossEntropy with optional smoothing."""
+    config = config or {}
+    return nn.CrossEntropyLoss(
+        weight=class_weights,
+        label_smoothing=float(config.get("label_smoothing", 0.0)),
+    )
 
 
 class CheckpointManager:
@@ -158,6 +217,7 @@ def train_one_epoch(
 ) -> Tuple[float, float]:
     """Train the model for one epoch."""
     model.train()
+    set_frozen_batchnorm_eval(model)
     
     running_loss = 0.0
     correct = 0
@@ -219,14 +279,16 @@ def evaluate(
     model: nn.Module,
     dataloader: DataLoader,
     criterion: nn.Module,
-    device: torch.device
-) -> Tuple[float, float]:
+    device: torch.device,
+    return_macro_f1: bool = False,
+):
     """Evaluate the model."""
     model.eval()
     
     running_loss = 0.0
     correct = 0
     total = 0
+    confusion = None
     
     pbar = tqdm(dataloader, desc="Validating", leave=False)
     with torch.no_grad():
@@ -240,11 +302,29 @@ def evaluate(
             _, predicted = outputs.max(1)
             total += labels.size(0)
             correct += predicted.eq(labels).sum().item()
+            if return_macro_f1:
+                num_classes = outputs.shape[1]
+                if confusion is None:
+                    confusion = torch.zeros(
+                        (num_classes, num_classes), dtype=torch.int64
+                    )
+                encoded = labels.detach().cpu() * num_classes + predicted.detach().cpu()
+                confusion += torch.bincount(
+                    encoded,
+                    minlength=num_classes * num_classes,
+                ).reshape(num_classes, num_classes)
             
     epoch_loss = running_loss / total
     epoch_acc = correct / total * 100.0
     
-    return epoch_loss, epoch_acc
+    if not return_macro_f1:
+        return epoch_loss, epoch_acc
+
+    true_positive = confusion.diag().float()
+    precision = true_positive / confusion.sum(dim=0).clamp_min(1).float()
+    recall = true_positive / confusion.sum(dim=1).clamp_min(1).float()
+    f1 = 2 * precision * recall / (precision + recall).clamp_min(1e-12)
+    return epoch_loss, epoch_acc, float(f1.mean().item())
 
 
 def train_model(
@@ -255,7 +335,8 @@ def train_model(
     device: torch.device,
     resume_from: Optional[str] = None,
     tb_logger: Optional[Any] = None,
-    run_logger: Optional[logging.Logger] = None
+    run_logger: Optional[logging.Logger] = None,
+    class_weights: Optional[torch.Tensor] = None,
 ) -> Dict[str, Any]:
     """Full training loop orchestrator."""
     active_logger = run_logger or logger
@@ -263,6 +344,9 @@ def train_model(
     patience = config.get("early_stopping_patience", 3)
     grad_clip = config.get("grad_clip", 1.0)
     best_metric_name = config.get("best_model_metric", "val_acc")
+    early_stopping_metric = config.get("early_stopping_metric", "val_loss")
+    if early_stopping_metric != "val_loss":
+        raise ValueError("early_stopping_metric must be val_loss")
     if best_metric_name not in {"val_acc", "accuracy", "val_loss"}:
         raise ValueError(
             "best_model_metric must be one of: val_acc, accuracy, val_loss"
@@ -270,7 +354,9 @@ def train_model(
     
     optimizer = get_optimizer(model, config)
     scheduler = get_scheduler(optimizer, config)
-    criterion = get_criterion()
+    if class_weights is not None:
+        class_weights = class_weights.to(device)
+    criterion = get_criterion(config, class_weights)
     
     checkpoint_manager = CheckpointManager(
         config.get("output_dir", "outputs/models"), 
@@ -287,6 +373,9 @@ def train_model(
         else float("-inf")
     )
     epochs_no_improve = 0
+    early_stopping_best = float("inf")
+    early_stopping_min_delta = float(config.get("early_stopping_min_delta", 0.0))
+    best_val_loss_at_best = float("inf")
     
     # Resume
     if resume_from:
@@ -304,7 +393,10 @@ def train_model(
         "train_acc": [],
         "val_loss": [],
         "val_acc": [],
+        "val_macro_f1": [],
+        "generalization_gap": [],
         "lr": [],
+        "learning_rates": [],
         "epoch_time": [],
     }
     best_epoch = 0
@@ -315,8 +407,13 @@ def train_model(
     for epoch in range(start_epoch, epochs):
         start_time = time.time()
         
-        current_lr = optimizer.param_groups[0]['lr']
+        learning_rates = {
+            group.get("group_name", f"group_{index}"): group["lr"]
+            for index, group in enumerate(optimizer.param_groups)
+        }
+        current_lr = max(learning_rates.values())
         history["lr"].append(current_lr)
+        history["learning_rates"].append(learning_rates)
         
         # Train
         train_loss, train_acc = train_one_epoch(
@@ -324,8 +421,12 @@ def train_model(
         )
         
         # Validate
-        val_loss, val_acc = evaluate(
-            model, val_loader, criterion, device
+        val_loss, val_acc, val_macro_f1 = evaluate(
+            model,
+            val_loader,
+            criterion,
+            device,
+            return_macro_f1=True,
         )
         
         epoch_time = time.time() - start_time
@@ -336,6 +437,8 @@ def train_model(
         history["train_acc"].append(train_acc)
         history["val_loss"].append(val_loss)
         history["val_acc"].append(val_acc)
+        history["val_macro_f1"].append(val_macro_f1)
+        history["generalization_gap"].append(train_acc - val_acc)
         history["epoch_time"].append(epoch_time)
         
         # Log to TensorBoard
@@ -354,7 +457,8 @@ def train_model(
             f"Time: {format_time(epoch_time)} | "
             f"LR: {current_lr:.6f} | "
             f"Train Loss: {train_loss:.4f} - Train Acc: {train_acc:.2f}% | "
-            f"Val Loss: {val_loss:.4f} - Val Acc: {val_acc:.2f}%"
+            f"Val Loss: {val_loss:.4f} - Val Acc: {val_acc:.2f}% - "
+            f"Val Macro F1: {val_macro_f1:.4f}"
         )
         
         # Step scheduler
@@ -370,14 +474,19 @@ def train_model(
             if best_metric_name == "val_loss"
             else val_acc
         )
-        is_best = (
-            current_metric < best_metric
-            if best_metric_name == "val_loss"
-            else current_metric > best_metric
-        )
+        if best_metric_name == "val_loss":
+            is_best = current_metric < best_metric
+        else:
+            is_best = current_metric > best_metric or (
+                current_metric == best_metric and val_loss < best_val_loss_at_best
+            )
         if is_best:
             best_metric = current_metric
             best_epoch = epoch + 1
+            best_val_loss_at_best = val_loss
+
+        if val_loss < early_stopping_best - early_stopping_min_delta:
+            early_stopping_best = val_loss
             epochs_no_improve = 0
         else:
             epochs_no_improve += 1
@@ -402,6 +511,8 @@ def train_model(
     history["best_epoch"] = best_epoch
     history["best_metric"] = best_metric
     history["best_metric_name"] = best_metric_name
+    history["early_stopping_metric"] = early_stopping_metric
+    history["early_stopping_best"] = early_stopping_best
     history["stopped_early"] = stopped_early
     history["epochs_planned"] = epochs
     active_logger.info("Training complete.")

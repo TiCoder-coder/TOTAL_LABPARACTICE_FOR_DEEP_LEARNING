@@ -1,0 +1,12 @@
+# Crawl dependencies
+duckduckgo-search>=4.0.0
+requests>=2.31.0
+Pillow>=10.0.0
+tqdm>=4.65.0
+
+# Google (optional, for crawl_google.py)
+selenium>=4.10.0
+webdriver-manager>=4.0.0
+
+# Data processing
+numpy>=1.24.0

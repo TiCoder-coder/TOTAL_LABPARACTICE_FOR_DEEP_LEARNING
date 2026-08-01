@@ -13,6 +13,8 @@ from processing_own_phase.train import (
     CheckpointManager, 
     get_optimizer, 
     get_scheduler,
+    get_criterion,
+    set_frozen_batchnorm_eval,
     train_model,
 )
 
@@ -42,6 +44,19 @@ def test_train_one_epoch():
     assert loss > 0
     assert 0 <= acc <= 100
     assert not torch.allclose(model.weight, initial_weight), "Weights did not update!"
+
+
+def test_frozen_batchnorm_running_stats_are_locked_but_trainable_bn_is_not():
+    model = nn.Sequential(nn.BatchNorm2d(3), nn.BatchNorm2d(3))
+    for parameter in model[0].parameters():
+        parameter.requires_grad = False
+    model.train()
+
+    frozen_count = set_frozen_batchnorm_eval(model)
+
+    assert frozen_count == 1
+    assert model[0].training is False
+    assert model[1].training is True
 
 
 def test_checkpoint_manager():
@@ -100,6 +115,35 @@ def test_get_optimizer_and_scheduler():
     assert isinstance(sched_cosine, torch.optim.lr_scheduler.CosineAnnealingLR)
 
 
+def test_regularized_criterion_and_differential_learning_rates():
+    from processing_own_phase.model import build_model
+
+    model = build_model(
+        "resnet18",
+        "partial_finetune",
+        num_classes=10,
+        dropout=0.2,
+    )
+    optimizer = get_optimizer(
+        model,
+        {
+            "optimizer": "AdamW",
+            "learning_rate": 1e-3,
+            "head_learning_rate": 1e-3,
+            "backbone_learning_rate": 1e-4,
+            "weight_decay": 2e-4,
+        },
+    )
+    groups = {group["group_name"]: group["lr"] for group in optimizer.param_groups}
+    assert groups == {"backbone": 1e-4, "head": 1e-3}
+    assert all(group["weight_decay"] == 2e-4 for group in optimizer.param_groups)
+
+    weights = torch.ones(10)
+    criterion = get_criterion({"label_smoothing": 0.05}, weights)
+    assert criterion.label_smoothing == 0.05
+    assert torch.equal(criterion.weight, weights)
+
+
 def test_train_model_records_multi_epoch_history_and_best_epoch(tmp_path):
     model = nn.Linear(2, 2)
     loader = DataLoader(
@@ -126,7 +170,11 @@ def test_train_model_records_multi_epoch_history_and_best_epoch(tmp_path):
         ),
         patch(
             "processing_own_phase.train.evaluate",
-            side_effect=[(0.8, 65.0), (0.6, 75.0), (0.65, 74.0)],
+            side_effect=[
+                (0.8, 65.0, 0.64),
+                (0.6, 75.0, 0.74),
+                (0.65, 74.0, 0.73),
+            ],
         ),
     ):
         history = train_model(
@@ -142,7 +190,11 @@ def test_train_model_records_multi_epoch_history_and_best_epoch(tmp_path):
     assert len(history["train_acc"]) == 3
     assert len(history["val_loss"]) == 3
     assert len(history["val_acc"]) == 3
+    assert len(history["val_macro_f1"]) == 3
+    assert len(history["generalization_gap"]) == 3
+    assert len(history["learning_rates"]) == 3
     assert len(history["lr"]) == 3
     assert len(history["epoch_time"]) == 3
     assert history["best_epoch"] == 2
     assert history["stopped_early"] is False
+    assert history["early_stopping_metric"] == "val_loss"
