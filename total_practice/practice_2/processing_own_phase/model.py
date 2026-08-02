@@ -12,10 +12,18 @@ from configs import NUM_CLASSES
 class PretrainedClassifier(nn.Module):
     """A wrapper for pre-trained models from torchvision."""
     
-    def __init__(self, model_name: str = "resnet18", num_classes: int = NUM_CLASSES):
+    def __init__(
+        self,
+        model_name: str = "resnet18",
+        num_classes: int = NUM_CLASSES,
+        dropout: float = 0.0,
+    ):
         super().__init__()
         self.model_name = model_name.lower()
         self.num_classes = num_classes
+        self.dropout = float(dropout)
+        if not 0.0 <= self.dropout < 1.0:
+            raise ValueError("dropout must be in [0, 1)")
         
         self.network, self.classifier_name = self._build_model()
         self._initialize_classifier()
@@ -25,31 +33,46 @@ class PretrainedClassifier(nn.Module):
         if self.model_name == "resnet18":
             network = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
             in_features = network.fc.in_features
-            network.fc = nn.Linear(in_features, self.num_classes)
+            network.fc = self._make_classifier(in_features)
             classifier_name = "fc"
             
         elif self.model_name == "vgg16":
             network = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
             in_features = network.classifier[6].in_features
-            network.classifier[6] = nn.Linear(in_features, self.num_classes)
+            network.classifier[6] = self._make_classifier(in_features)
             classifier_name = "classifier.6"
             
         elif self.model_name == "densenet121":
             network = models.densenet121(weights=models.DenseNet121_Weights.DEFAULT)
             in_features = network.classifier.in_features
-            network.classifier = nn.Linear(in_features, self.num_classes)
+            network.classifier = self._make_classifier(in_features)
             classifier_name = "classifier"
             
         elif self.model_name == "mobilenet_v3_small":
             network = models.mobilenet_v3_small(weights=models.MobileNet_V3_Small_Weights.DEFAULT)
             in_features = network.classifier[3].in_features
-            network.classifier[3] = nn.Linear(in_features, self.num_classes)
+            network.classifier[3] = self._make_classifier(in_features)
             classifier_name = "classifier.3"
             
         else:
             raise ValueError(f"Model {self.model_name} not supported.")
             
         return network, classifier_name
+
+    def _make_classifier(self, in_features: int) -> nn.Module:
+        linear = nn.Linear(in_features, self.num_classes)
+        if self.dropout > 0:
+            return nn.Sequential(nn.Dropout(self.dropout), linear)
+        return linear
+
+    @staticmethod
+    def _classifier_linear(module: nn.Module) -> nn.Linear:
+        if isinstance(module, nn.Linear):
+            return module
+        linear_layers = [layer for layer in module.modules() if isinstance(layer, nn.Linear)]
+        if not linear_layers:
+            raise RuntimeError("Classifier head contains no Linear layer")
+        return linear_layers[-1]
         
     def _initialize_classifier(self):
         """Initialize the newly replaced classifier head properly."""
@@ -64,9 +87,10 @@ class PretrainedClassifier(nn.Module):
         else:
             return
 
-        nn.init.xavier_normal_(layer.weight)
-        if layer.bias is not None:
-            nn.init.zeros_(layer.bias)
+        linear = self._classifier_linear(layer)
+        nn.init.xavier_normal_(linear.weight)
+        if linear.bias is not None:
+            nn.init.zeros_(linear.bias)
 
     def set_training_mode(self, mode: str = "head_only"):
         """Configure which parameters require gradients based on the training mode.
@@ -100,7 +124,7 @@ class PretrainedClassifier(nn.Module):
                 for i in range(12, len(self.network.features)):
                     for param in self.network.features[i].parameters():
                         param.requires_grad = True
-                        
+
         elif mode == "full_finetune":
             for param in self.network.parameters():
                 param.requires_grad = True
@@ -151,9 +175,18 @@ class PretrainedClassifier(nn.Module):
         }
 
 
-def build_model(model_name: str, training_mode: str = "head_only", num_classes: int = NUM_CLASSES) -> PretrainedClassifier:
+def build_model(
+    model_name: str,
+    training_mode: str = "head_only",
+    num_classes: int = NUM_CLASSES,
+    dropout: float = 0.0,
+) -> PretrainedClassifier:
     """Factory function to build a pre-trained classifier with a specific mode."""
-    model = PretrainedClassifier(model_name=model_name, num_classes=num_classes)
+    model = PretrainedClassifier(
+        model_name=model_name,
+        num_classes=num_classes,
+        dropout=dropout,
+    )
     model.set_training_mode(training_mode)
     return model
 

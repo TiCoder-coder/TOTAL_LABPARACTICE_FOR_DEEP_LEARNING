@@ -1,143 +1,203 @@
-# Practice 2: Pre-trained Neural Networks (Transfer Learning)
+# Practice 2 — Transfer Learning on CIFAR-10
 
-![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
-![PyTorch](https://img.shields.io/badge/pytorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+Practice 2 implements a multiclass image-classification pipeline with PyTorch, TorchVision, and transfer learning. The official presentation notebook is [`notebooks/demo_practice_2.ipynb`](notebooks/demo_practice_2.ipynb). It reads verified artifacts and does not retrain the models or repeat the Final Test evaluation during `Run All`.
 
-## 1. Project Overview
-This repository contains a **production-ready Deep Learning pipeline** for applying **Transfer Learning** and **Fine-Tuning** to image classification tasks. Built on PyTorch and `torchvision`, it demonstrates how to leverage powerful pre-trained neural networks (like ResNet, VGG, MobileNet) on the CIFAR-10 dataset using a clean, reproducible, and scalable software architecture.
+## 1. Official results
 
-## 2. Project Objectives
-- Demonstrate mastery in **Transfer Learning strategies** (Feature Extraction / Head-only training vs Partial Fine-Tuning).
-- Establish a **Clean Architecture** separating Data, Model, Training, and Visualization logic.
-- Ensure **Reproducibility** through strict seeding and robust configurations.
-- Provide a **Professional Portfolio Piece** for AI Engineering.
+| Item | Value |
+|---|---:|
+| Dataset | CIFAR-10 from `torchvision.datasets.CIFAR10` |
+| Train / Validation / Test | 45,000 / 5,000 / 10,000 |
+| Backbone | ImageNet-pretrained ResNet18 |
+| Selected experiment | E2 — `partial_finetune` |
+| Best epoch | 4/5 |
+| Validation Accuracy | 89.72% |
+| Test Accuracy | 88.95% |
+| Test Loss | 0.341539 |
+| Macro Precision | 89.2836% |
+| Macro Recall | 88.9500% |
+| Macro F1 | 88.9933% |
+| Final Test evaluations | 1 |
 
-## 3. Features & Highlights
-- **Transfer Learning**: Seamlessly switch between freezing backbones or unfreezing specific blocks.
-- **Multiple Pretrained Models**: Support for ResNet18, VGG16, DenseNet121, and MobileNetV3.
-- **Experiment Management**: Config-driven hyperparameter tuning and model tracking.
-- **TensorBoard Integration**: Real-time logging of scalars (loss, accuracy) and execution graphs.
-- **Comprehensive Evaluation**: Metrics reporting including Accuracy, Precision, Recall, Macro-F1, and Confusion Matrices.
-- **Visualization**: Rich EDA and post-training gallery generation (predictions, learning curves).
-- **Research Notebook**: Highly documented presentation notebook importing logic directly from the source.
+These values come from [`outputs/controlled_experiment_selection.json`](outputs/controlled_experiment_selection.json) and [`outputs/summary.json`](outputs/summary.json). They are not manually entered metrics.
 
-## 4. Dataset
-We use the **CIFAR-10** dataset:
-- **Classes**: 10 (Airplane, Automobile, Bird, Cat, Deer, Dog, Frog, Horse, Ship, Truck).
-- **Image Size**: Resized to `224x224` to match standard ImageNet dimensions required by most pre-trained models.
-- **Splits**: 45,000 (Train) / 5,000 (Validation) / 10,000 (Test). Data leakage is strictly prevented by initializing independent Dataset objects with appropriate transformations.
+## 2. Official workflow
 
-## 5. Project Architecture
-
-The pipeline follows a modular execution flow, ensuring strict separation of concerns.
-
-```mermaid
-graph TD;
-    A[Raw CIFAR-10] --> B[Data Pipeline]
-    B --> C[Model Architecture]
-    C --> D[Training Loop]
-    D --> E[Evaluation & Inference]
-    E --> F[Visualization & Reports]
-    D -.->|Real-time| G[TensorBoard]
-    
-    subgraph Core Components
-    B
-    C
-    D
-    end
+```text
+CIFAR-10
+   ↓
+Determine Train/Validation indices before preprocessing
+   ↓
+Train transform with random augmentation
+Deterministic Validation/Test transform
+   ↓
+Controlled E1/E2 training
+   ↓
+Select the experiment using Validation Accuracy
+   ↓
+Reload best.pt and verify Validation performance
+   ↓
+If verification passes: evaluate the Final Test exactly once
+   ↓
+Generate summary, predictions, classification report, and visualizations
 ```
 
-## 6. Repository Structure
+Data-use rules:
 
-```
+- Train is used to optimize model parameters.
+- Validation is used for epoch monitoring, Early Stopping, experiment selection, and checkpoint selection.
+- Test does not participate in preprocessing decisions, training, or model selection.
+- The official Test set is evaluated only after the selected checkpoint reproduces its recorded Validation Accuracy.
+
+## 3. Which notebook to use
+
+- **Official demo and presentation notebook:** [`notebooks/demo_practice_2.ipynb`](notebooks/demo_practice_2.ipynb)
+
+The previous baseline notebook is no longer present in the current workspace. All documentation therefore points to `demo_practice_2.ipynb` as the single canonical notebook.
+
+The demo notebook contains 12 phases, GPU-training evidence, controlled E1/E2 comparison, multi-epoch learning curves, a Validation–Test comparison, raw and normalized confusion matrices, confidence analysis, correct/incorrect galleries, and a mixed prediction grid.
+
+## 4. Documentation map
+
+- [Documentation index](description/README.md): single entry point for all Practice 2 documentation.
+- [Project requirements](description/project_requirements.md): assignment scope and expected deliverables.
+- [Reference workflow](description/reference/working_flow.md): original workflow used to guide the notebook structure.
+- [Codebase audit](description/code_base_audit/code_base_audit.md): architecture, correctness, leakage controls, Test isolation, artifacts, tests, and technical debt.
+- [Phase description index](description/description_own_phase/README.md): detailed explanation of all 12 notebook phases.
+- [Phase result index](description/description_result/README.md): Phase → Cell → source code → canonical output/artifact links.
+
+## 5. Repository structure
+
+```text
 practice_2/
-├── checkpoints/             # Saved model weights (.pth)
-├── configs/                 # Configurations (Core, Training, Experiments)
-├── docs/                    # Documentation and logs
-├── notebooks/               # Research and presentation notebooks
-├── processing_own_phase/    # Main Python source package (Data, Model, Train, Eval, Viz)
-├── reports/                 # Generated visualizations (Plots, Confusion Matrices)
-├── runs/                    # TensorBoard event logs
-├── scripts/                 # Utility scripts (if any)
-├── tests/                   # Pytest test suite
-├── README.md                # Project documentation
-├── requirements.txt         # Dependencies
-└── LICENSE                  # MIT License
+├── configs/                    # Core paths and experiment/training configuration
+├── data/                       # CIFAR-10 downloaded by TorchVision
+├── description/
+│   ├── code_base_audit/        # Technical and correctness audit
+│   ├── description_own_phase/  # Detailed descriptions for all 12 phases
+│   ├── description_result/     # Phase/cell/source/output mapping and results
+│   ├── reference/              # Reference workflow
+│   ├── project_requirements.md # Assignment description and requirements
+│   └── README.md               # Documentation index
+├── notebooks/
+│   └── demo_practice_2.ipynb   # Official presentation notebook
+├── outputs/                    # Machine-readable JSON and CSV artifacts
+├── processing_own_phase/       # Reusable implementation package
+├── reports/                    # Visual artifacts used by the notebook
+├── runs/                       # Per-run checkpoints, logs, and TensorBoard files
+├── tests/                      # Unit and integration tests
+└── README.md
 ```
 
-## 7. Installation
+## 6. Source modules
 
-1. Clone the repository and navigate to the project directory:
-   ```bash
-   git clone <repository_url>
-   cd practice_2
-   ```
-2. Create and activate a Python virtual environment:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+| Module | Responsibility |
+|---|---|
+| `data.py` | Split construction, dataset views, transforms, DataLoaders, and class distribution |
+| `model.py` | Pretrained architectures and parameter-freezing strategies |
+| `train.py` | Train/Validation loops, scheduler, checkpointing, and Early Stopping |
+| `experiment.py` | Controlled experiments and Validation-only model selection |
+| `evaluate.py` | Loss, Accuracy, Precision, Recall, F1, and prediction collection |
+| `final_evaluate.py` | Checkpoint verification, single Test pass, and final artifacts |
+| `visualize.py` | EDA, learning curves, confusion matrices, and prediction galleries |
+| `save_load.py` | Checkpoint persistence and output-equivalence verification |
 
-*(Note for macOS users: If you encounter SSL verification issues when downloading CIFAR-10, run `Install Certificates.command` in your Python Applications folder).*
+## 7. Environment setup
 
-## 8. Quick Start
-
-Run a fast sanity check (1 epoch, small batch size) to ensure the pipeline executes successfully end-to-end:
 ```bash
-python -m processing_own_phase.main --quick
+cd total_practice/practice_2
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-## 9. Training
+Select the `venv-practice-2` kernel when opening the notebook.
 
-To run the complete suite of experiments defined in `configs/experiment_config.py`:
+The device-selection policy is CUDA → Apple MPS → CPU. The official E1/E2 logs record `Using device: mps`, so the controlled experiments were trained on the Apple GPU through Metal Performance Shaders.
+
+## 8. Safe notebook execution
+
 ```bash
-python -m processing_own_phase.main
+jupyter notebook notebooks/demo_practice_2.ipynb
 ```
-This will automatically execute the Data Pipeline, loop through the configurations, select the Best Model based on Validation Accuracy, and run Final Evaluation.
 
-## 10. Evaluation
+Then select:
 
-Evaluation is integrated into the main pipeline. The `processing_own_phase/evaluate.py` module computes loss, accuracy, precision, recall, and macro F1-score for both validation and test sets.
+```text
+Kernel → Restart Kernel and Run All Cells
+```
 
-## 11. TensorBoard
+The demo notebook:
 
-Monitor your training progress (Loss/Accuracy scalars and Model Graphs) in real-time:
+- reads controlled history and final artifacts;
+- reads the selected training log to prove the accelerator used during training;
+- verifies the selected checkpoint on Validation;
+- displays previously generated Test artifacts;
+- accesses Test images only to assemble the artifact-backed error-analysis grid;
+- does not call `run_controlled_experiments()`;
+- does not call `regenerate_final_artifacts()`;
+- does not run model inference on Test again.
+
+## 9. Training and Final Test
+
+Do not repeat training or Final Test merely to view the notebook. The official artifacts already exist.
+
+If a new experiment is intentionally required, run `run_controlled_experiments()` as a new controlled run with separate checkpoints and artifacts. If Final Test regeneration is explicitly required, ensure the new selection artifact is valid and understand that `regenerate_final_artifacts()` evaluates the official Test set.
+
+> **Warning:** `python -m processing_own_phase.main` is a legacy artifact-writing path. Although only E1/E2 remain, it can overwrite official artifacts. Review the [codebase audit](description/code_base_audit/code_base_audit.md) before using it.
+
+## 10. Tests
+
 ```bash
-tensorboard --logdir=runs
+pytest -q
+git diff --check
 ```
-Then navigate to `http://localhost:6006` in your browser.
 
-## 12. Notebook
+Most recent verification: **45 tests passed**. The three remaining warnings are `torch.jit.trace` deprecation warnings and do not affect pipeline correctness.
 
-We provide a presentation-ready Research Notebook.
-1. Open Jupyter or your IDE:
-   ```bash
-   jupyter notebook notebooks/notebook.ipynb
-   ```
-2. Ensure you select the correct Python kernel (`.venv`) to avoid import errors.
+## 11. Canonical artifacts
 
-## 13. Results
+### Controlled selection and history
 
-*(Note: The following table reflects a fast 1-epoch execution track from our Quick Run validation phase).*
+- [`outputs/controlled_experiment_comparison.csv`](outputs/controlled_experiment_comparison.csv)
+- [`outputs/controlled_experiment_selection.json`](outputs/controlled_experiment_selection.json)
+- [`outputs/controlled_training_history.json`](outputs/controlled_training_history.json)
 
-| Best Model | Best Accuracy | Best Hyperparameters |
-| :--- | :--- | :--- |
-| **ResNet18 (Partial Fine-Tune)** | 83.85% | Optimizer: Adam, LR: 0.0005, Batch Size: 8 |
+### Final evaluation
 
-## 14. Future Improvements
+- [`outputs/summary.json`](outputs/summary.json)
+- [`outputs/classification_report.csv`](outputs/classification_report.csv)
+- [`outputs/predictions.csv`](outputs/predictions.csv)
+- [`outputs/confusion_matrix.csv`](outputs/confusion_matrix.csv)
 
-While this repository is production-ready, possible future iterations could include:
-- **Vision Transformers (ViT)**: Adding support for self-attention based architectures.
-- **ONNX Export**: Serializing the trained PyTorch model to ONNX for cross-platform deployment.
-- **Deployment**: Serving the model via FastAPI or TorchServe.
-- **MLflow / Weights & Biases**: Upgrading experiment tracking beyond TensorBoard.
-- **Dockerization**: Containerizing the environment and training pipeline.
+### Visualizations used by the demo
 
-## 15. License
+- [`reports/controlled_training_curves.png`](reports/controlled_training_curves.png)
+- [`reports/controlled_learning_rate.png`](reports/controlled_learning_rate.png)
+- [`reports/controlled_experiment_comparison.png`](reports/controlled_experiment_comparison.png)
+- [`reports/validation_test_comparison_current.png`](reports/validation_test_comparison_current.png)
+- [`reports/confusion_matrix_raw.png`](reports/confusion_matrix_raw.png)
+- [`reports/confusion_matrix_normalized.png`](reports/confusion_matrix_normalized.png)
+- [`reports/prediction_grid_mixed.png`](reports/prediction_grid_mixed.png)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 12. Known limitations
+
+- The controlled comparison uses one seed; mean and standard deviation across multiple seeds are not available.
+- The `head_only` strategy still requires care with BatchNorm running statistics while the full model is in `train()` mode.
+- `main.py` is a legacy orchestration path and is not fully aligned with the guarded final-evaluation workflow.
+- Only the two official controlled runs and the artifacts linked by the demo notebook are retained as canonical presentation evidence.
+- Grad-CAM is not implemented. The notebook presents it as future interpretability work and does not claim attribution evidence.
+- The five-epoch budget is sufficient for a meaningful multi-point comparison but does not prove full convergence.
+
+## 13. Presentation checklist
+
+1. Open `demo_practice_2.ipynb`.
+2. Use Cell 4 to prove E2 training used the Apple GPU through MPS.
+3. Use Cell 6 to explain the 45,000/5,000/10,000 split.
+4. Use Cell 11 to explain transform separation and leakage prevention.
+5. Use Cell 19 to compare controlled E1 and E2.
+6. Confirm that Cell 21 reports Validation Verification `PASS`.
+7. Use Cell 23 for Final Test metrics and confusion matrices.
+8. Use Cell 25 for the mixed error-analysis grid.
+9. Present only the canonical plots linked by the current notebook and phase-result documentation.
+10. Do not retrain or repeat Final Test during the presentation.
