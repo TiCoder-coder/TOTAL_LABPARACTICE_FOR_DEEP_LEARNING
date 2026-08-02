@@ -1,6 +1,7 @@
 """Training pipeline module with robust production features."""
 
 import os
+import math
 import time
 import logging
 from typing import Dict, Tuple, Optional, Any
@@ -91,7 +92,7 @@ def get_optimizer(model: nn.Module, config: Dict[str, Any]) -> torch.optim.Optim
 def get_scheduler(optimizer: torch.optim.Optimizer, config: Dict[str, Any]):
     """Factory function for learning rate schedulers."""
     sched_name = config.get("scheduler", "ReduceLROnPlateau").lower()
-    
+
     if sched_name == "reducelronplateau":
         return torch.optim.lr_scheduler.ReduceLROnPlateau(
             optimizer, mode="min", factor=0.5, patience=2
@@ -102,9 +103,64 @@ def get_scheduler(optimizer: torch.optim.Optimizer, config: Dict[str, Any]):
     elif sched_name == "cosineannealinglr":
         t_max = config.get("epochs", 10)
         return torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=t_max)
+    elif sched_name == "warmupcosine":
+        return WarmupCosineLR(
+            optimizer,
+            warmup_epochs=int(config.get("warmup_epochs", 2)),
+            max_epochs=int(config.get("epochs", 10)),
+            min_lr_ratio=float(config.get("min_lr_ratio", 0.01)),
+        )
     else:
         logger.warning(f"Unsupported scheduler: {sched_name}. Defaulting to None.")
         return None
+
+
+class WarmupCosineLR(torch.optim.lr_scheduler._LRScheduler):
+    """Linear warmup followed by cosine decay to ``min_lr_ratio * base_lr``.
+
+    The scheduler is stepped once per epoch via ``scheduler.step()`` exactly
+    like ``CosineAnnealingLR``. The warmup keeps the backbone stable in the
+    first epochs (critical when fine-tuning a pretrained backbone on a small
+    dataset) and the cosine tail ensures a smooth descent without plateau
+    plateaus that ``ReduceLROnPlateau`` sometimes shows on small data.
+
+    Reference: He et al. (2019) "Bag of Tricks for Image Classification with
+    Convolutional Neural Networks"; Loshchilov & Hutter (2017).
+    """
+
+    def __init__(
+        self,
+        optimizer: torch.optim.Optimizer,
+        warmup_epochs: int = 2,
+        max_epochs: int = 10,
+        min_lr_ratio: float = 0.01,
+    ) -> None:
+        if warmup_epochs < 0:
+            raise ValueError("warmup_epochs must be >= 0")
+        if max_epochs <= 0:
+            raise ValueError("max_epochs must be > 0")
+        if warmup_epochs >= max_epochs:
+            raise ValueError("warmup_epochs must be < max_epochs")
+        if not 0.0 < min_lr_ratio <= 1.0:
+            raise ValueError("min_lr_ratio must be in (0, 1]")
+        self.warmup_epochs = int(warmup_epochs)
+        self.max_epochs = int(max_epochs)
+        self.min_lr_ratio = float(min_lr_ratio)
+        super().__init__(optimizer)
+
+    def get_lr(self):
+        epoch = max(self.last_epoch, 0)
+        if self.warmup_epochs > 0 and epoch < self.warmup_epochs:
+            factor = (epoch + 1) / float(self.warmup_epochs)
+        else:
+            progress = (epoch - self.warmup_epochs) / max(
+                1, self.max_epochs - self.warmup_epochs
+            )
+            progress = min(max(progress, 0.0), 1.0)
+            factor = self.min_lr_ratio + 0.5 * (1.0 - self.min_lr_ratio) * (
+                1.0 + math.cos(math.pi * progress)
+            )
+        return [base_lr * factor for base_lr in self.base_lrs]
 
 
 def get_criterion(

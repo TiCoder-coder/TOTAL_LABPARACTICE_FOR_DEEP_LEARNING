@@ -31,6 +31,18 @@ data_clean/*/*.jpg
 data_clean/*/*.jpeg
 data_clean/*/*.png
 data_clean/*/*.webp
+data_clean_224/*.jpg
+data_clean_224/*.jpeg
+data_clean_224/*.png
+data_clean_224/*.webp
+data_clean_224/*/*.jpg
+data_clean_224/*/*.jpeg
+data_clean_224/*/*.png
+data_clean_224/*/*.webp
+
+# EDA grids / reports (regenerated locally)
+data/eda_grids/
+data/eda_report.json
 
 # Logs
 *.log
