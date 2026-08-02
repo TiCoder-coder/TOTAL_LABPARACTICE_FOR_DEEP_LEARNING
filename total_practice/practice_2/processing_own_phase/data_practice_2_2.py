@@ -23,32 +23,66 @@ IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)
 
 
-def get_practice_2_2_transforms(image_size=224):
+def get_practice_2_2_transforms(image_size=224, augment_strength="strong"):
     """Return lazy Train and deterministic Validation/Test transforms.
 
     Split membership is read from the manifest before either transform is
     attached.  TorchVision applies these transforms only in ``__getitem__``.
+
+    ``augment_strength`` controls the magnitude of random augmentation:
+
+    - ``"base"`` keeps the original light recipe.
+    - ``"strong"`` adds RandAugment + rotation + affine, which is recommended
+      for fine-grained classification on small datasets such as
+      ``data_clean_balanced`` (~3.2k images).
     """
-    train_transform = transforms.Compose(
-        [
-            transforms.RandomResizedCrop(image_size, scale=(0.70, 1.0)),
-            transforms.RandomHorizontalFlip(),
-            transforms.ColorJitter(
-                brightness=0.20,
-                contrast=0.20,
-                saturation=0.20,
-                hue=0.05,
-            ),
-            transforms.ToTensor(),
-            transforms.RandomErasing(
-                p=0.10,
-                scale=(0.02, 0.10),
-                ratio=(0.5, 2.0),
-                value="random",
-            ),
-            transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
-        ]
-    )
+    if augment_strength == "base":
+        train_transform = transforms.Compose(
+            [
+                transforms.RandomResizedCrop(image_size, scale=(0.70, 1.0)),
+                transforms.RandomHorizontalFlip(),
+                transforms.ColorJitter(
+                    brightness=0.20,
+                    contrast=0.20,
+                    saturation=0.20,
+                    hue=0.05,
+                ),
+                transforms.ToTensor(),
+                transforms.RandomErasing(
+                    p=0.10,
+                    scale=(0.02, 0.10),
+                    ratio=(0.5, 2.0),
+                    value="random",
+                ),
+                transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
+            ]
+        )
+    elif augment_strength == "strong":
+        train_transform = transforms.Compose(
+            [
+                # Slightly wider crop window than base to avoid learning
+                # absolute pose cues.
+                transforms.RandomResizedCrop(image_size, scale=(0.60, 1.0), ratio=(0.75, 1.333)),
+                transforms.RandomHorizontalFlip(),
+                transforms.RandomApply(
+                    [transforms.ColorJitter(0.30, 0.30, 0.30, 0.05)],
+                    p=0.8,
+                ),
+                transforms.RandomApply(
+                    [transforms.RandomRotation(degrees=15, interpolation=transforms.InterpolationMode.BILINEAR)],
+                    p=0.5,
+                ),
+                transforms.RandomApply(
+                    [transforms.RandomAffine(degrees=0, translate=(0.05, 0.05), scale=(0.9, 1.1))],
+                    p=0.4,
+                ),
+                transforms.ToTensor(),
+                transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
+                transforms.RandomErasing(p=0.25, scale=(0.02, 0.20), ratio=(0.3, 3.3), value="random"),
+            ]
+        )
+    else:
+        raise ValueError(f"Unknown augment_strength: {augment_strength!r}")
     eval_transform = transforms.Compose(
         [
             transforms.Resize(256),
@@ -117,6 +151,7 @@ def create_train_validation_datasets(
     dataset_root,
     manifest_path,
     image_size=224,
+    augment_strength="strong",
 ):
     """Create Train/Validation only; no Test dataset is constructed here."""
     manifest = load_split_manifest(manifest_path)
@@ -126,7 +161,9 @@ def create_train_validation_datasets(
     if train_rows.empty or validation_rows.empty:
         raise RuntimeError("Both Train and Validation must be non-empty")
 
-    train_transform, eval_transform = get_practice_2_2_transforms(image_size)
+    train_transform, eval_transform = get_practice_2_2_transforms(
+        image_size, augment_strength=augment_strength
+    )
     train_dataset = _dataset_subset_from_manifest(
         dataset_root,
         train_rows,
