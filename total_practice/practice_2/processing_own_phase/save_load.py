@@ -63,7 +63,8 @@ def load_model_from_checkpoint(
     checkpoint = load_checkpoint(path, device=device)
     model = PretrainedClassifier(
         model_name=checkpoint.get("model_name", checkpoint.get("config", {}).get("model_name", "resnet18")),
-        num_classes=checkpoint.get("num_classes", NUM_CLASSES)
+        num_classes=checkpoint.get("num_classes", NUM_CLASSES),
+        dropout=checkpoint.get("config", {}).get("dropout", 0.0),
     )
     training_mode = checkpoint.get(
         "training_mode",

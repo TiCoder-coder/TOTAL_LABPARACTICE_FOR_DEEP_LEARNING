@@ -2,7 +2,7 @@
 
 Pipeline độc lập cho **Practice 2**: crawl ảnh mỹ phẩm từ web → làm sạch → cân bằng → xuất dataset **sẵn sàng cho Transfer Learning**.
 
-> **Dataset cuối**: `data_clean_balanced/` — 3,202 ảnh, 10 lớp × 320 ảnh (cân bằng tuyệt đối), 224×224 RGB JPEG.
+> **Dataset cuối**: `data_clean_balanced/` — 3,202 files, 10 classes, 224×224 RGB JPEG. File counts nearly balanced (nine classes có 320 files, `facial_cleanser` có 322). Tuy nhiên dataset thực chất chỉ có **2,896 source groups độc lập + 306 ảnh offline-augmented**, nên không nên mô tả là 3,202 ảnh độc lập hay cân bằng tuyệt đối ở cấp source.
 
 ---
 
@@ -132,7 +132,7 @@ python -m data_processing.pipeline
    - `RandomRotation(15°)`
    - `ColorJitter(brightness/contrast/saturation=0.2, hue=0.05)`
    - `RandomResizedCrop(224, scale=(0.85, 1.0))`
-3. Output: `data_clean_balanced/` (320 ảnh/lớp × 10 = **3,202 ảnh**)
+3. Output: `data_clean_balanced/` (320 ảnh/lớp × 10 = **3,202 ảnh**, với `facial_cleanser` có 322 file)
 
 **Số ảnh augment thêm vào mỗi lớp:**
 
@@ -158,10 +158,27 @@ data_clean/        2,896 ảnh sạch 224×224
   ↓ dedup MD5
 data_clean_dedup/  2,896 ảnh (đã dedup)   ← folder trung gian
   ↓ augment về 320/lớp
-data_clean_balanced/  3,202 ảnh ★ (320/lớp, cân bằng tuyệt đối)
-```
-
 **Δ phân bố trước → sau:** min=241, max=322 (Δ=81) → min=320, max=322 (Δ=2) — cân bằng **40× tốt hơn**.
+
+### Data audit và leakage-safe use
+
+Audit tái lập được viết tại `practice_2/processing_own_phase/audit_practice_2_2_data.py`. Kết quả đã verify nằm ở `practice_2/outputs/practice_2_2/data_audit.json`:
+
+- 3,202 ảnh RGB readable, tất cả 224×224; không có file corrupt.
+- 2,896 source groups và 306 file offline-generated.
+- Không tìm thấy exact duplicate ở decoded pixel. Tuy nhiên, các group dựa trên filename không đáng tin làm product identity: audit thị giác tìm thấy 16 cặp cross-split gần giống pixel-hoàn-toàn ở MAE ≤ 1 (và 255 candidate review rộng hơn ở MAE ≤ 5). Vì vậy split và metrics cũ cần coi là provisional cho tới khi perceptual duplicate clusters được gán trước khi split và model được train lại.
+- Split là group-aware: Train 2,028 groups, Validation 434 groups, Test 434 groups.
+- Validation và Test chỉ chứa originals. Historical Train policy chứa 2,028 originals + 198 file offline-generated mà source thuộc Train.
+
+**Quy tắc split:**
+- Split phải được gán từ source groups **trước khi** attach transforms.
+- Augmentation ngẫu nhiên chỉ được dùng ở Train; Validation và Test dùng deterministic transform.
+- File offline-generated phải ở cùng split với ảnh source.
+- Crawled files phải được cluster bằng perceptual-duplicate rule đã review; filename stems không đủ vì ảnh sản phẩm lặp lại có thể khác filename.
+
+Original-only Train set với inverse-frequency sampling cũng được đánh giá làm controlled experiment (best Val Acc = 78.11%), document nhưng không chọn. Fix audit giữ group-safe Train set hiện tại và freeze running statistics chỉ cho BatchNorm layers thuộc backbone đã đóng băng.
+
+> **Hạn chế reproducibility**: `dedup_and_balance.py` và `quality_check_extra.py` đã bị xoá sau khi sinh dataset. File cuối có thể audit, nhưng offline-generation step chính xác không reproduce được từ repo này. Version tương lai nên phục hồi script đó hoặc thay offline balancing bằng versioned online augmentation.
 
 ---
 
