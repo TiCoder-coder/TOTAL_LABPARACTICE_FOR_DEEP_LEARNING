@@ -2,7 +2,7 @@
 
 ## Notebook location
 
-- Presentation notebook: [demo_practice_2.ipynb](../../notebooks/demo_practice_2.ipynb)
+- Presentation notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
 - Main cell: **Cell 2** using 1-based numbering
 - Full mapping: [Cell–Output Map](../description_result/README.md)
 

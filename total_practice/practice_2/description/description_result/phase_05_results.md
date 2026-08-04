@@ -1,6 +1,6 @@
 # Phase 5 — Data Preprocessing Results
 
-[Phase 4 results](phase_04_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 6 results](phase_06_results.md)
+[Phase 4 results](phase_04_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 6 results](phase_06_results.md)
 
 | Cell output | Stored result |
 |---|---|

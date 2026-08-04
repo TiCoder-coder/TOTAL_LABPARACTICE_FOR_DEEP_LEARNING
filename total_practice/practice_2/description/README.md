@@ -14,7 +14,7 @@ This directory follows the documentation layout used by Practice 1 while preserv
 
 ## Canonical notebook
 
-- [demo_practice_2.ipynb](../notebooks/demo_practice_2.ipynb)
+- [practice_2_presentation.ipynb](../notebooks/practice_2_presentation.ipynb)
 
 The notebook is the presentation layer. Reusable training and evaluation logic remains under [`processing_own_phase/`](../processing_own_phase/).
 

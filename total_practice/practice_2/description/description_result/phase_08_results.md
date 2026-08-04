@@ -1,6 +1,6 @@
 # Phase 8 — Controlled Experiment Results
 
-[Phase 7 results](phase_07_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 9 results](phase_09_results.md)
+[Phase 7 results](phase_07_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 9 results](phase_09_results.md)
 
 | Cell output | Stored result |
 |---|---|

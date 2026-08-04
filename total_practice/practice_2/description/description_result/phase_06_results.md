@@ -1,6 +1,6 @@
 # Phase 6 — Model Building Results
 
-[Phase 5 results](phase_05_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 7 results](phase_07_results.md)
+[Phase 5 results](phase_05_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 7 results](phase_07_results.md)
 
 | Cell output | Description |
 |---|---|

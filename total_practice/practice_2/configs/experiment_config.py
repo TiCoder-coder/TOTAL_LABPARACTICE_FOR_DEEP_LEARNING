@@ -14,19 +14,19 @@ CONTROLLED_BASE_CONFIG = {
     "weight_decay": 2e-4,
     "image_size": 224,
     "seed": 42,
-    "early_stopping_patience": 4,
+    "early_stopping_patience": 3,
     "best_model_metric": "val_acc",
     "early_stopping_metric": "val_loss",
     "scheduler_metric": "val_loss",
-    "label_smoothing": 0.10,
-    "dropout": 0.30,
+    "label_smoothing": 0.05,
+    "dropout": 0.20,
     "random_erasing_probability": 0.25,
     "grad_clip": 1.0,
     "num_classes": 10,
     "selection_source": "validation_only",
     "test_data_used": False,
 
-    # ===== Anti-overfitting improvements (Practice 2.2+) =====
+    # ===== Anti-overfitting improvements =====
     # Stronger random augmentation is applied to Train only; Val/Test are
     # deterministic and unchanged.
     "augment_strength": "strong",

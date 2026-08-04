@@ -1,6 +1,6 @@
 # Practice 2 Results by Phase
 
-This directory indexes the outputs currently stored in [`demo_practice_2.ipynb`](../../notebooks/demo_practice_2.ipynb) and the canonical artifacts associated with each phase. Cell numbering is 1-based and follows the current 30-cell notebook.
+This directory indexes the outputs currently stored in [`practice_2_presentation.ipynb`](../../notebooks/practice_2_presentation.ipynb) and the canonical artifacts associated with each phase. Cell numbering is 1-based and follows the current 30-cell notebook.
 
 ## Result index
 

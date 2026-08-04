@@ -1,6 +1,6 @@
 # Practice 2 Phase Documentation
 
-This directory documents the 12 phases of [`demo_practice_2.ipynb`](../../notebooks/demo_practice_2.ipynb) in presentation order. Each document explains the phase objective, inputs, implementation, outputs, assertions, interpretation, presentation guidance, risks, and transition to the next phase.
+This directory documents the 12 phases of [`practice_2_presentation.ipynb`](../../notebooks/practice_2_presentation.ipynb) in presentation order. Each document explains the phase objective, inputs, implementation, outputs, assertions, interpretation, presentation guidance, risks, and transition to the next phase.
 
 1. [Phase 1 — Problem Definition](phase_01_problem_definition.md)
 2. [Phase 2 — Environment Setup](phase_02_environment_setup.md)

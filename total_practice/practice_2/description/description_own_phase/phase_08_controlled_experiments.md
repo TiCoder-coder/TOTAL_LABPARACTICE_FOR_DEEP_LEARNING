@@ -2,7 +2,7 @@
 
 ## Notebook location
 
-- Notebook: [demo_practice_2.ipynb](../../notebooks/demo_practice_2.ipynb)
+- Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
 - Main cells: **Cells 16–17**
 - Source: [experiment.py](../../processing_own_phase/experiment.py)
 - Configuration: [experiment_config.py](../../configs/experiment_config.py)

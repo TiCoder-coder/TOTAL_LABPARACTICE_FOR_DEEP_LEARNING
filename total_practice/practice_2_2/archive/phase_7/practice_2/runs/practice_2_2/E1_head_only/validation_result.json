@@ -1,0 +1,22 @@
+{
+  "experiment": "E1_head_only",
+  "strategy": "head_only",
+  "epochs_trained": 15,
+  "epochs_planned": 15,
+  "best_epoch": 11,
+  "best_val_accuracy": 59.1324200913242,
+  "best_val_loss": 1.4401579403986124,
+  "best_val_macro_f1": 0.5833688974380493,
+  "train_accuracy_at_best": 55.208333333333336,
+  "generalization_gap_at_best": -3.924086757990864,
+  "training_time": 162.71012711524963,
+  "early_stopping_triggered": false,
+  "checkpoint_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs/practice_2_2/E1_head_only/best.pt",
+  "checkpoint_sha256": "794b70d900d13882d4613c0cb526b7e0812641fd737c424dbb041812e4526889",
+  "validation_verification_passed": true,
+  "validation_verification_delta": 0.0,
+  "selection_source": "validation_only",
+  "test_loader_constructed": false,
+  "test_evaluated": false,
+  "test_access_count": 0
+}

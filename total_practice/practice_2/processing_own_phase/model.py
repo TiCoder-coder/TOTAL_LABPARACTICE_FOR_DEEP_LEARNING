@@ -98,6 +98,7 @@ class PretrainedClassifier(nn.Module):
         Modes:
             - head_only: Freeze everything except the final classification layer.
             - partial_finetune: Open the last blocks and the classifier.
+            - last_block_finetune: Open ResNet18 layer4.1 and the classifier.
             - full_finetune: Train the entire network.
         """
         # First freeze all parameters
@@ -124,6 +125,15 @@ class PretrainedClassifier(nn.Module):
                 for i in range(12, len(self.network.features)):
                     for param in self.network.features[i].parameters():
                         param.requires_grad = True
+
+        elif mode == "last_block_finetune":
+            if self.model_name != "resnet18":
+                raise ValueError(
+                    "last_block_finetune is defined only for ResNet18"
+                )
+            self._unfreeze_classifier()
+            for param in self.network.layer4[1].parameters():
+                param.requires_grad = True
 
         elif mode == "full_finetune":
             for param in self.network.parameters():

@@ -1,249 +1,177 @@
-# Practice 2.2 — Custom Image Crawl & Data Pipeline
+# Practice 2.2 — Canonical Cosmetic Product Classification
 
-Pipeline độc lập cho **Practice 2**: crawl ảnh mỹ phẩm từ web → làm sạch → cân bằng → xuất dataset **sẵn sàng cho Transfer Learning**.
+Practice 2.2 is a 10-class cosmetic-product image classification project using ImageNet-pretrained ResNet18. The submission is an educational, reproducible experiment from the persisted cleaned dataset; it is **not claimed to be production-ready**.
 
-> **Dataset cuối**: `data_clean_balanced/` — 3,202 files, 10 classes, 224×224 RGB JPEG. File counts nearly balanced (nine classes có 320 files, `facial_cleanser` có 322). Tuy nhiên dataset thực chất chỉ có **2,896 source groups độc lập + 306 ảnh offline-augmented**, nên không nên mô tả là 3,202 ảnh độc lập hay cân bằng tuyệt đối ở cấp source.
+The official presentation is [`notebooks/04_canonical_report.ipynb`](notebooks/04_canonical_report.ipynb). Its `Run All` flow is read-only: it loads persisted artifacts through the active registry and never trains a model, creates a Test DataLoader, or repeats Final Test.
 
----
+## Canonical result
 
-## 📁 Cấu trúc dự án
+| Item | Canonical value |
+|---|---|
+| Run ID | `canonical_26dc4625_52aaf974_s42_v1` |
+| Winner | `E2_partial_finetune` |
+| Architecture | ResNet18, full `layer4` + classifier trainable |
+| Validation Accuracy | 78.31% |
+| Validation Macro F1 | 0.7821 |
+| Final Test Accuracy | **76.36%** |
+| Final Test Macro F1 | **0.7617** |
+| Final Test evaluations | **1** |
 
+Canonical artifacts live only under:
+
+```text
+artifacts/canonical/canonical_26dc4625_52aaf974_s42_v1/
 ```
+
+Any result outside this lineage is historical, ablation-only, or legacy and must not be reported as the final result. In particular, stale metrics such as 78.57% or 81.80% are non-canonical.
+
+## Objective and dataset provenance
+
+The objective is supervised single-label classification of cosmetic product images into:
+
+```text
+body_wash, face_mask, facial_cleanser, lipstick, moisturizer,
+perfume, serum, shampoo, sunscreen, toner
+```
+
+- Source: Tiki.vn internal search API.
+- Raw images collected: approximately 2,922.
+- Final balanced directory: 3,202 files.
+- Offline-generated derivatives: 306.
+- Cross-class suspicious files quarantined: 2.
+- Exact decoded-pixel duplicates remaining: 0 groups.
+- Per-image source URLs were not persisted.
+- Raw-data reconstruction is therefore not fully reproducible.
+
+The original crawl/clean process removed corrupt or small files, exact duplicates and low-quality content, then resized images to 224×224. Offline derivatives were created historically for balancing, but the canonical model-use policy excludes every generated derivative.
+
+## Leakage-safe canonical split
+
+The canonical split is generated once with seed 42 and stored in:
+
+```text
+data/manifests/canonical_split/split_manifest.csv
+```
+
+| Split | Model-use originals |
+|---|---:|
+| Train | 2,016 |
+| Validation | 438 |
+| Test | 440 |
+
+Exact hashes, generated families and perceptual duplicate clusters cannot cross split boundaries. Cross-class suspicious near-duplicates are quarantined. Test remained locked throughout model selection.
+
+## Model and training protocol
+
+- ResNet18 with `ResNet18_Weights.DEFAULT`.
+- Image size 224 and ImageNet normalization.
+- AdamW; head LR `1e-3`, backbone LR `1e-4`.
+- Weight decay `2e-4`.
+- Batch size 32, maximum 15 epochs.
+- Class-weighted CrossEntropyLoss with label smoothing `0.05`.
+- Dropout `0.20`, gradient clipping `1.0`.
+- ReduceLROnPlateau; early stopping on Validation loss with patience 3.
+- Best checkpoint selected only by Validation Accuracy.
+- Seed 42 and deterministic behavior where supported.
+
+## Controlled experiments
+
+| Experiment | Strategy | Train Acc | Val Acc | Val Loss | Val Macro F1 | Gap | Decision |
+|---|---|---:|---:|---:|---:|---:|---|
+| E1 | Head only | 59.87% | 59.82% | 1.3976 | 0.5975 | 0.05 | Underfit |
+| E2 | Full layer4 + head | 98.31% | **78.31%** | **1.0218** | **0.7821** | 20.00 | Selected |
+| E3 | layer4.1 + head | 90.08% | 70.32% | 1.2799 | 0.7017 | 19.76 | Rejected |
+| E4 | Stronger online augmentation | 85.76% | 72.37% | 1.2491 | 0.7229 | 13.39 | Rejected |
+
+E1 underfit. E3 reduced capacity but lost domain adaptation. E4 reduced memorization but also reduced Validation performance materially. E2 was frozen as winner entirely from Validation evidence; only E2 was evaluated on Final Test.
+
+## Final Test
+
+Final Test was evaluated exactly once after `final_selection.json` froze E2.
+
+| Metric | Result |
+|---|---:|
+| Test Loss | 1.0187 |
+| Test Accuracy | **76.36%** |
+| Macro Precision | 0.7654 |
+| Macro Recall | 0.7655 |
+| Macro F1 | 0.7617 |
+| Weighted F1 | 0.7622 |
+| Correct / Incorrect | 336 / 104 |
+| Samples | 440 |
+
+Validation Accuracy was 78.31% and Test Accuracy was 76.36%, a difference of 1.95 percentage points. No retraining or model reselection occurred after Test results were viewed.
+
+The five lowest-recall Test classes were serum, body_wash, facial_cleanser, sunscreen and moisturizer. The largest confusion pairs were body_wash→shampoo (10), serum→sunscreen (5), serum→toner (5), sunscreen→serum (5), and serum→moisturizer (4). This error analysis is descriptive only.
+
+## Reproducibility and integrity
+
+```text
+Seed:                42
+Dataset fingerprint: 26dc4625f96c7cb86bc6a4df0fbed34bc8b22fb6472ef0d008df341f99f71fd6
+Split fingerprint:   52aaf97499ede5dd4689c2bb36dc0679fe04b8ec8139aae7e8fdcde88042043d
+Checkpoint SHA-256:  4f65bec200d023c51f95493833d057029b83a92729c3b88dd9159158dd949ae3
+```
+
+Environment recorded by the canonical snapshot: Python 3.11.9, PyTorch 2.12.1, TorchVision 0.27.1, NumPy 1.26.4 and pandas 2.2.2. Exact package information and transform representations are stored in `config_snapshot.json`.
+
+The completion guard is:
+
+```text
+final_test/FINAL_TEST_COMPLETED.json
+FINAL_TEST_COMPLETED = true
+final_test_evaluation_count = 1
+repeat_evaluation_allowed = false
+```
+
+Experiment reproduction is supported from the current cleaned dataset and canonical manifest. Full raw-data reconstruction is only partial because source URLs and historical offline-generation scripts were not preserved.
+
+## Inspect results safely
+
+```bash
+cd total_practice/practice_2_2
+jupyter notebook notebooks/04_canonical_report.ipynb
+```
+
+`Run All` only reads the manifest, histories, comparisons and Final Test files. If required artifacts are missing, it raises a clear `FileNotFoundError`; it does not regenerate them.
+
+Run automated tests without training or Test evaluation:
+
+```bash
+cd total_practice/practice_2_2
+PYTHONDONTWRITEBYTECODE=1 MPLCONFIGDIR=/private/tmp/matplotlib-cache \
+  PYTHONPATH=src python3 -m pytest -q -p no:cacheprovider tests
+```
+
+## Project structure
+
+```text
 practice_2_2/
-├── craw/                          # GIAI ĐOẠN 1 — Thu thập ảnh thô
-│   ├── __init__.py
-│   ├── config.py                  # Cấu hình DuckDuckGo / Google
-│   ├── config_tiki.py             # Cấu hình Tiki (10 lớp mỹ phẩm)
-│   ├── crawl_duckduckgo.py        # Crawl DuckDuckGo (free, no API key)
-│   ├── crawl_google.py            # Crawl Google Images (cần Chrome + Selenium)
-│   ├── crawl_tiki.py              # ★ Crawl Tiki.vn (dùng cho project này)
-│   └── README.md
-│
-├── data_processing/               # GIAI ĐOẠN 2 — Làm sạch & chuẩn hoá
-│   ├── __init__.py
-│   ├── clean_data.py              # Bước 1: Xoá ảnh lỗi / kích thước quá nhỏ
-│   ├── deduplicate.py             # Bước 2: Loại ảnh trùng bằng MD5
-│   ├── quality_check.py           # Bước 3: Lọc ảnh mờ / low-content
-│   ├── resize_data.py             # Bước 4: Resize về 224×224 (crop/pad/stretch)
-│   ├── pipeline.py                # Chạy tổng hợp 4 bước trên
-│   └── README.md
-│
-├── data_clean/                    # Thư mục trung gian (chỉ giữ .gitkeep)
-│   └── .gitkeep
-│
-├── data_clean_balanced/           # ★ DATASET CUỐI — dùng cho training
-│   ├── body_wash/        (320 ảnh)
-│   ├── face_mask/        (320 ảnh)
-│   ├── facial_cleanser/  (322 ảnh)
-│   ├── lipstick/         (320 ảnh)
-│   ├── moisturizer/      (320 ảnh)
-│   ├── perfume/          (320 ảnh)
-│   ├── serum/            (320 ảnh)
-│   ├── shampoo/          (320 ảnh)
-│   ├── sunscreen/        (320 ảnh)
-│   └── toner/            (320 ảnh)
-│
-├── requirements.txt
-└── README.md
+├── configs/                      # Active relative-path authority registry
+├── data/final/                   # Canonical dataset authority
+├── data/manifests/               # Canonical split and fingerprints
+├── notebooks/                    # Official read-only report
+├── src/practice_2_2/             # Recommended canonical import package
+├── artifacts/canonical/          # E1/E2 lineage and locked Final Test artifacts
+├── artifacts/ablations/          # E3/E4 controlled experiments
+├── reports/html/                 # Static canonical report
+└── tests/                        # Automated contracts and guards
 ```
 
----
+Pre-migration resources inside this project are archived under
+`archive/phase_7/pre_migration_practice_2_2/` as read-only compatibility
+locations. Practice 2-owned duplicate notebooks, outputs, reports, source and
+tests were moved to `archive/phase_7/`; the duplicate cosmetic dataset under
+`practice_2/data/` was removed after byte-for-byte verification. Only documented
+thin `processing_own_phase.*` forwarding wrappers remain in Practice 2.
 
-## 🔄 Chu trình Pipeline (đã chạy thực tế)
+## Limitations
 
-### Sơ đồ tổng quan
+- Per-image Tiki source URLs and product IDs are unavailable.
+- Historical raw reconstruction and offline augmentation cannot be reproduced exactly.
+- Some visually ambiguous or weakly informative samples remain.
+- Several cosmetic categories overlap strongly in packaging and shape.
+- Evaluation uses one canonical split and one seed, not cross-validation.
+- The project has no deployment, monitoring, calibration or production-provenance layer.
 
-```
-┌─────────────────┐    ┌──────────────────────┐    ┌──────────────────┐
-│ 1. CRAWL (raw)  │ →  │ 2. PROCESS (clean)   │ →  │ 3. BALANCE       │
-│ Tiki.vn API     │    │ 4 bước pipeline      │    │ Offline augment  │
-│ 10 lớp, ~400/lớp│    │ data/  →  data_clean │    │ data_clean →     │
-└─────────────────┘    └──────────────────────┘    │ data_clean_balanced│
-   ↓                       ↓                          └──────────────────┘
- data/                  data_clean/                      ↓
- (raw, duplicate)       (sạch, imbalanced)         data_clean_balanced/
-                                                    (320/lớp, ready)
-```
-
-### Chi tiết từng bước
-
-#### **Giai đoạn 1 — Crawl** (`craw/crawl_tiki.py`)
-
-Dùng Tiki internal API, search 10 query tiếng Việt → lấy `images[*].base_url` của từng sản phẩm.
-
-```bash
-python -m craw.crawl_tiki
-```
-
-**Output thực tế** (`data/`):
-
-| Lớp | Query | Ảnh thô |
-|---|---|---|
-| facial_cleanser | "sữa rửa mặt" | 322 |
-| sunscreen | "kem chống nắng" | 318 |
-| body_wash | "sữa tắm" | 303 |
-| serum | "serum" | 300 |
-| face_mask | "mặt nạ" | 299 |
-| toner | "nước hoa hồng" | 292 |
-| perfume | "nước hoa" | 287 |
-| lipstick | "son môi" | 286 |
-| shampoo | "dầu gội đầu" | 274 |
-| moisturizer | "kem dưỡng ẩm" | 241 |
-| **Tổng** | | **~2,922** |
-
-#### **Giai đoạn 2 — Data Processing Pipeline** (`data_processing/pipeline.py`)
-
-4 bước chạy nối tiếp trong cùng folder `data/` → copy kết quả sạch sang `data_clean/`:
-
-```bash
-python -m data_processing.pipeline
-```
-
-| Bước | Script | Hành động | Tiêu chí |
-|---|---|---|---|
-| **1. Clean** | `clean_data.py` | Xoá ảnh corrupt, kích thước quá nhỏ | min 64×64 |
-| **2. Dedupe** | `deduplicate.py` | Xoá ảnh trùng MD5 | exact match |
-| **3. Quality** | `quality_check.py` | Xoá ảnh mờ / nội dung rỗng | Laplacian var ≥ 30, content ratio ≥ 10% |
-| **4. Resize** | `resize_data.py` | Resize về 224×224 + copy sang `data_clean/` | crop center |
-
-**Kết quả thực tế** (`data_clean/`):
-
-- Tổng: **~2,896 ảnh** (sau khi loại bỏ 26 ảnh trùng MD5)
-- Ảnh sắc nét (sharpness trung bình: 2,000–3,000 Laplacian variance)
-- Kích thước chuẩn **224×224** RGB JPEG
-- Phân bố vẫn lệch: `moisturizer` chỉ 241 ảnh, các lớp khác 274–322
-
-#### **Giai đoạn 3 — Balance via Augmentation** (`quality_check_extra.py` + `dedup_and_balance.py`)
-
-> **Lưu ý**: Hai script này (`dedup_and_balance.py`, `quality_check_extra.py`) đã được **xoá sau khi chạy xong** để giữ repo gọn. Logic của chúng vẫn được tài liệu hoá ở đây để có thể tái tạo.
-
-**Bước 3a — Deep EDA** (`quality_check_extra.py`):
-
-- MD5 scan: phát hiện **18 nhóm trùng lặp** (26 ảnh)
-- Laplacian variance: đánh giá độ sắc nét
-- Size + aspect ratio: phát hiện ảnh nhỏ bất thường
-- Output: `quality_report.csv`, `quality_summary.csv`, `quality_heatmap.png`
-
-**Bước 3b — Dedupe + Balance** (`dedup_and_balance.py`):
-
-1. **Dedupe**: copy `data_clean/` → `data_clean_dedup/`, bỏ MD5 trùng (giữ 2,896 ảnh).
-2. **Augment**: tăng mỗi lớp lên **320 ảnh** bằng augmentation nhẹ:
-   - `RandomHorizontalFlip(p=0.5)`
-   - `RandomRotation(15°)`
-   - `ColorJitter(brightness/contrast/saturation=0.2, hue=0.05)`
-   - `RandomResizedCrop(224, scale=(0.85, 1.0))`
-3. Output: `data_clean_balanced/` (320 ảnh/lớp × 10 = **3,202 ảnh**, với `facial_cleanser` có 322 file)
-
-**Số ảnh augment thêm vào mỗi lớp:**
-
-| Lớp | Trước | Sau | Augment |
-|---|---|---|---|
-| moisturizer | 228 | 320 | **+92** ← yếu nhất |
-| shampoo | 274 | 320 | +46 |
-| toner | 281 | 320 | +39 |
-| lipstick | 286 | 320 | +34 |
-| perfume | 287 | 320 | +33 |
-| face_mask | 297 | 320 | +23 |
-| serum | 300 | 320 | +20 |
-| body_wash | 303 | 320 | +17 |
-| sunscreen | 318 | 320 | +2 |
-| facial_cleanser | 322 | 322 | +0 (đã đủ) |
-
-### Tổng kết pipeline
-
-```
-data/              2,922 ảnh thô từ Tiki
-  ↓ pipeline.py (clean + dedupe + quality + resize)
-data_clean/        2,896 ảnh sạch 224×224
-  ↓ dedup MD5
-data_clean_dedup/  2,896 ảnh (đã dedup)   ← folder trung gian
-  ↓ augment về 320/lớp
-**Δ phân bố trước → sau:** min=241, max=322 (Δ=81) → min=320, max=322 (Δ=2) — cân bằng **40× tốt hơn**.
-
-### Data audit và leakage-safe use
-
-Audit tái lập được viết tại `practice_2/processing_own_phase/audit_practice_2_2_data.py`. Kết quả đã verify nằm ở `practice_2/outputs/practice_2_2/data_audit.json`:
-
-- 3,202 ảnh RGB readable, tất cả 224×224; không có file corrupt.
-- 2,896 source groups và 306 file offline-generated.
-- Không tìm thấy exact duplicate ở decoded pixel. Tuy nhiên, các group dựa trên filename không đáng tin làm product identity: audit thị giác tìm thấy 16 cặp cross-split gần giống pixel-hoàn-toàn ở MAE ≤ 1 (và 255 candidate review rộng hơn ở MAE ≤ 5). Vì vậy split và metrics cũ cần coi là provisional cho tới khi perceptual duplicate clusters được gán trước khi split và model được train lại.
-- Split là group-aware: Train 2,028 groups, Validation 434 groups, Test 434 groups.
-- Validation và Test chỉ chứa originals. Historical Train policy chứa 2,028 originals + 198 file offline-generated mà source thuộc Train.
-
-**Quy tắc split:**
-- Split phải được gán từ source groups **trước khi** attach transforms.
-- Augmentation ngẫu nhiên chỉ được dùng ở Train; Validation và Test dùng deterministic transform.
-- File offline-generated phải ở cùng split với ảnh source.
-- Crawled files phải được cluster bằng perceptual-duplicate rule đã review; filename stems không đủ vì ảnh sản phẩm lặp lại có thể khác filename.
-
-Original-only Train set với inverse-frequency sampling cũng được đánh giá làm controlled experiment (best Val Acc = 78.11%), document nhưng không chọn. Fix audit giữ group-safe Train set hiện tại và freeze running statistics chỉ cho BatchNorm layers thuộc backbone đã đóng băng.
-
-> **Hạn chế reproducibility**: `dedup_and_balance.py` và `quality_check_extra.py` đã bị xoá sau khi sinh dataset. File cuối có thể audit, nhưng offline-generation step chính xác không reproduce được từ repo này. Version tương lai nên phục hồi script đó hoặc thay offline balancing bằng versioned online augmentation.
-
----
-
-## 🚀 Cách chạy lại toàn bộ từ đầu
-
-```bash
-# 1. Cài thư viện
-pip install -r requirements.txt
-
-# 2. Crawl ảnh thô từ Tiki
-python -m craw.crawl_tiki
-
-# 3. Chạy pipeline xử lý 4 bước
-python -m data_processing.pipeline
-
-# 4. (Tái tạo) Phân tích chất lượng + dedup + balance
-#    Cần đặt lại file dedup_and_balance.py nếu muốn chạy
-#    hoặc viết script riêng theo logic trong README này.
-```
-
----
-
-## 🎯 Nguồn crawl thay thế
-
-| Nguồn | File | Cần gì | Tốc độ | Chất lượng |
-|---|---|---|---|---|
-| **Tiki.vn** ★ | `crawl_tiki.py` | Chỉ `pip` | Vừa (rate-limit 2s) | Rất cao (sản phẩm chuẩn pose) |
-| **DuckDuckGo** | `crawl_duckduckgo.py` | Chỉ `pip` | Nhanh | Trung bình |
-| **Google Images** | `crawl_google.py` | Chrome + Selenium | Chậm | Cao |
-
-```bash
-python -m craw.crawl_duckduckgo    # Tổng quát
-python -m craw.crawl_google        # Cần Chrome
-python -m craw.crawl_tiki          # ★ Đã dùng cho project
-```
-
----
-
-## 📦 Đầu ra — Dùng cho Practice 2
-
-Dataset `data_clean_balanced/` đã sẵn sàng:
-
-```python
-from torchvision import datasets, transforms
-
-transform = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                         std=[0.229, 0.224, 0.225]),
-])
-
-dataset = datasets.ImageFolder(
-    root="total_practice/practice_2_2/data_clean_balanced",
-    transform=transform,
-)
-print(f"Classes: {dataset.classes}")    # 10 lớp
-print(f"Total:   {len(dataset)}")       # 3,202 ảnh
-```
-
-Trỏ `DATA_DIR` trong `practice_2/configs/core_config.py` đến `data_clean_balanced/` rồi train.
-
----
-
-## ⚠️ Lưu ý ToS
-
-- Crawl Tiki tuân thủ `REQUEST_DELAY_SEC=2.0` để tránh bị block.
-- Ảnh chỉ dùng cho mục đích **học tập / nghiên cứu**, không thương mại hoá.
+See [`LEGACY_ARTIFACTS.md`](LEGACY_ARTIFACTS.md) for non-canonical output treatment and [`SUBMISSION_AUDIT.md`](SUBMISSION_AUDIT.md) for the final consistency audit.

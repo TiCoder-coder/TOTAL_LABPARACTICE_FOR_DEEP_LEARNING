@@ -2,7 +2,7 @@
 
 ## Notebook location
 
-- Notebook: [demo_practice_2.ipynb](../../notebooks/demo_practice_2.ipynb)
+- Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
 - Main cells: **Cells 22–23**
 - Source: [final_evaluate.py](../../processing_own_phase/final_evaluate.py)
 - Full mapping: [Cell–Output Map](../description_result/README.md)
