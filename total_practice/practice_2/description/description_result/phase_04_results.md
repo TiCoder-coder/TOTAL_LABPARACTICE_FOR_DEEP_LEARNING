@@ -1,6 +1,6 @@
 # Phase 4 — Exploratory Data Analysis Results
 
-[Phase 3 results](phase_03_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 5 results](phase_05_results.md)
+[Phase 3 results](phase_03_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 5 results](phase_05_results.md)
 
 | Output | Description | Artifact |
 |---|---|---|

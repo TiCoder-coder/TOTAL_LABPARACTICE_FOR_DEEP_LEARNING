@@ -2,7 +2,7 @@
 
 ## Notebook location
 
-- Notebook: [demo_practice_2.ipynb](../../notebooks/demo_practice_2.ipynb)
+- Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
 - Main cells: **Cells 18–21**
 - Selection source: [experiment.py](../../processing_own_phase/experiment.py)
 - Verification source: [final_evaluate.py](../../processing_own_phase/final_evaluate.py)

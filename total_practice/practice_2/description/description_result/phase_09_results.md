@@ -1,6 +1,6 @@
 # Phase 9 — Selection and Verification Results
 
-[Phase 8 results](phase_08_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 10 results](phase_10_results.md)
+[Phase 8 results](phase_08_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 10 results](phase_10_results.md)
 
 | Output | Stored result | Evidence |
 |---|---|---|

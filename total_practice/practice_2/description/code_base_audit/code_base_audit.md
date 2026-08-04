@@ -4,7 +4,7 @@
 
 **Scope:** `total_practice/practice_2`
 
-**Primary notebook:** [`notebooks/demo_practice_2.ipynb`](../../notebooks/demo_practice_2.ipynb)
+**Primary notebook:** [`notebooks/practice_2_presentation.ipynb`](../../notebooks/practice_2_presentation.ipynb)
 
 **Review role:** Senior Deep Learning Engineer and Technical Reviewer
 

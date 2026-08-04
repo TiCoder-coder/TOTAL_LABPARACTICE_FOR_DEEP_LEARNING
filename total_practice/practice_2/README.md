@@ -1,6 +1,6 @@
 # Practice 2 — Transfer Learning on CIFAR-10
 
-Practice 2 implements a multiclass image-classification pipeline with PyTorch, TorchVision, and transfer learning. The official presentation notebook is [`notebooks/demo_practice_2.ipynb`](notebooks/demo_practice_2.ipynb). It reads verified artifacts and does not retrain the models or repeat the Final Test evaluation during `Run All`.
+Practice 2 implements a multiclass image-classification pipeline with PyTorch, TorchVision, and transfer learning. The official presentation notebook is [`notebooks/practice_2_presentation.ipynb`](notebooks/practice_2_presentation.ipynb). It reads verified artifacts and does not retrain the models or repeat the Final Test evaluation during `Run All`.
 
 ## 1. Official results
 
@@ -51,9 +51,9 @@ Data-use rules:
 
 ## 3. Which notebook to use
 
-- **Official demo and presentation notebook:** [`notebooks/demo_practice_2.ipynb`](notebooks/demo_practice_2.ipynb)
+- **Official demo and presentation notebook:** [`notebooks/practice_2_presentation.ipynb`](notebooks/practice_2_presentation.ipynb)
 
-The previous baseline notebook is no longer present in the current workspace. All documentation therefore points to `demo_practice_2.ipynb` as the single canonical notebook.
+The previous baseline notebook is no longer present in the current workspace. All documentation therefore points to `practice_2_presentation.ipynb` as the single canonical notebook.
 
 The demo notebook contains 12 phases, GPU-training evidence, controlled E1/E2 comparison, multi-epoch learning curves, a Validation–Test comparison, raw and normalized confusion matrices, confidence analysis, correct/incorrect galleries, and a mixed prediction grid.
 
@@ -80,7 +80,7 @@ practice_2/
 │   ├── project_requirements.md # Assignment description and requirements
 │   └── README.md               # Documentation index
 ├── notebooks/
-│   └── demo_practice_2.ipynb   # Official presentation notebook
+│   └── practice_2_presentation.ipynb   # Official presentation notebook
 ├── outputs/                    # Machine-readable JSON and CSV artifacts
 ├── processing_own_phase/       # Reusable implementation package
 ├── reports/                    # Visual artifacts used by the notebook
@@ -118,7 +118,7 @@ The device-selection policy is CUDA → Apple MPS → CPU. The official E1/E2 lo
 ## 8. Safe notebook execution
 
 ```bash
-jupyter notebook notebooks/demo_practice_2.ipynb
+jupyter notebook notebooks/practice_2_presentation.ipynb
 ```
 
 Then select:
@@ -191,7 +191,7 @@ Most recent verification: **45 tests passed**. The three remaining warnings are 
 
 ## 13. Presentation checklist
 
-1. Open `demo_practice_2.ipynb`.
+1. Open `practice_2_presentation.ipynb`.
 2. Use Cell 4 to prove E2 training used the Apple GPU through MPS.
 3. Use Cell 6 to explain the 45,000/5,000/10,000 split.
 4. Use Cell 11 to explain transform separation and leakage prevention.

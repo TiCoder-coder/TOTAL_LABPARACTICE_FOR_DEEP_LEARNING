@@ -1,42 +1,20 @@
-# Activate venv & install dependencies
+# Practice 2.2 — Submission Quickstart
 
-```powershell
-# 1. Activate (PowerShell)
-cd D:\Hoc_tap\TOTAL_LABPARACTICE_FOR_DEEP_LEARNING\total_practice\practice_2_2
-.venv\Scripts\Activate.ps1
-
-# Nếu gặp lỗi "running scripts is disabled on this system":
-#   Mở PowerShell as Administrator, chạy:
-#   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-#   rồi activate lại
-
-# 2. Cập nhật pip + cài dependencies
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-
-# 3. Crawl ảnh
-python -m craw.crawl_tiki
-
-# 4. Làm sạch & resize
-python -m data_processing.pipeline
-```
-
-## CMD (alternative)
-
-```cmd
-.venv\Scripts\activate.bat
-pip install -r requirements.txt
-```
-
-## Bash (Git Bash / WSL)
+## View the canonical report
 
 ```bash
-source .venv/Scripts/activate
-pip install -r requirements.txt
+cd total_practice/practice_2_2
+jupyter notebook notebooks/04_canonical_report.ipynb
 ```
 
-## Deactivate khi xong
+Use `Run All`. It is artifact-only and safe: no training and no Final Test evaluation.
+
+## Verify the project
 
 ```bash
-deactivate
+cd total_practice/practice_2_2
+PYTHONDONTWRITEBYTECODE=1 MPLCONFIGDIR=/private/tmp/matplotlib-cache \
+  PYTHONPATH=src python3 -m pytest -q -p no:cacheprovider tests
 ```
+
+Canonical result: E2, Final Test Accuracy 76.36%, Macro F1 0.7617. See [`README.md`](README.md) for provenance, limitations and hashes. A static export is available at [`reports/html/practice_2_2_canonical_report.html`](reports/html/practice_2_2_canonical_report.html).

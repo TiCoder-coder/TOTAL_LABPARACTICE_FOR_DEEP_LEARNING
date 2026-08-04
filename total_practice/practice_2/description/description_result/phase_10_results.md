@@ -1,6 +1,6 @@
 # Phase 10 — Final Test Evaluation Results
 
-[Phase 9 results](phase_09_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 11 results](phase_11_results.md)
+[Phase 9 results](phase_09_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 11 results](phase_11_results.md)
 
 | Metric | Official value |
 |---|---:|

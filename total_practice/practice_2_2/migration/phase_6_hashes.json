@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "switch_timestamp_utc": "2026-08-03T16:38:00Z",
+  "authority_status": "active",
+  "registry": {
+    "old_active_backup_sha256": "685518548bc56441e9edf34843b9584b2df6a13e26c1e811391f8f30ff37d21c",
+    "phase5_draft_sha256": "a389353f1666a6c01b86cf7acbe50517acfa1b13a64422160e6b1f7d17f29bff",
+    "active_sha256": "fc5490192c6cccdef70995d9a11598c7325665222e4c64d408e039474aef4ccd",
+    "legacy_compat_sha256": "e00e81337a984b34cea67668d3a748d153e0164ccd6485014d2482091d48f3a1"
+  },
+  "canonical": {
+    "dataset_fingerprint_sha256": "26dc4625f96c7cb86bc6a4df0fbed34bc8b22fb6472ef0d008df341f99f71fd6",
+    "split_fingerprint_sha256": "52aaf97499ede5dd4689c2bb36dc0679fe04b8ec8139aae7e8fdcde88042043d",
+    "split_manifest_sha256": "aa7d6d4bb77f8ca6e7e5599ac2d49e8d55ce8192e8353f5cb90bbd0f0a4f49b4",
+    "e2_best_checkpoint_sha256": "4f65bec200d023c51f95493833d057029b83a92729c3b88dd9159158dd949ae3"
+  },
+  "immutable_artifacts_before_and_after": {
+    "config_snapshot.json": "44c8ad38c836d3cf4590f7afa9a62b244265f027209a9ad7bc7bfdb5635f07ae",
+    "checkpoint_verification.json": "d394b012a61f32c3831b0666096ae1898b12a287bd8fc9fc15474c2d7916aed1",
+    "lineage_manifest.json": "9459928df3bcb987e1daabcbb3db2114ad204e9410e4d53042ecb1369e01804e",
+    "final_selection.json": "f532909243ba3f06f7860ca77e76a89718b5cee6fab765f6fa1b4a07310fa81e",
+    "final_test_lineage.json": "e4407aaeeab1f5becf7c53808113a2f90b3ef836e4f7e7537a5d5dff012e81ab",
+    "final_test_summary.json": "b346f542d600c8442571f597ce71093a9d1230a1d7fe2c1b6408861992bc7e38",
+    "FINAL_TEST_COMPLETED.json": "532172911f09936c33d5fb999effe0e516ffd8e6f6e2bc36df9cd5f92c53e345"
+  },
+  "report": {
+    "notebook_sha256": "2784779b136977df803cd479ec088ab88b14aa1b3cb1ba69e126da887ffab972",
+    "html_sha256": "da644d4872d56ea01d7b77afba84df539b1c3d84b2b4726113bbae06bf7231a2",
+    "run_all": "PASS",
+    "executed_code_cells": 19,
+    "error_outputs": 0
+  },
+  "validation_reload": {
+    "samples": 438,
+    "accuracy_percent": 78.31050228310502,
+    "loss": 1.0217703706053294,
+    "macro_f1": 0.7820960879325867,
+    "test_loader_constructed": false,
+    "test_evaluated": false
+  },
+  "tests": {
+    "new_suite": "50 passed in 3.56s",
+    "old_full_regression": "87 passed, 3 warnings in 9.16s",
+    "new_import": "PASS",
+    "old_import": "PASS"
+  }
+}

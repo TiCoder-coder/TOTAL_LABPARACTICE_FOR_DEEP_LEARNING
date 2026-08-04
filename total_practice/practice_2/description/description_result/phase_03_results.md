@@ -1,6 +1,6 @@
 # Phase 3 — Data Loading Results
 
-[Phase 2 results](phase_02_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 4 results](phase_04_results.md)
+[Phase 2 results](phase_02_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 4 results](phase_04_results.md)
 
 | Cell output | Stored result |
 |---|---|

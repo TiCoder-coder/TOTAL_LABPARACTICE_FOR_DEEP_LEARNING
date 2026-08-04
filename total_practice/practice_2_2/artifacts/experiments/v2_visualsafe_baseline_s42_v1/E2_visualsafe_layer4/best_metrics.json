@@ -1,0 +1,15 @@
+{
+    "run_id": "v2_visualsafe_baseline_s42_v1",
+    "experiment_id": "E2_visualsafe_layer4",
+    "epoch": 8,
+    "seed": 42,
+    "dataset_fingerprint": "d20079086a97a863f91803d1ca798007d25b2542dfff9b0270968de2ff057531",
+    "split_fingerprint": "bb83c2172dc40bfd1ad4d56ea25bc61f3752acf2efdc9d5767a211727015d461",
+    "manifest_hash": "d94a9ae7b3aefa54bff7f5f24af075afe95f71a0fec8922bd04be46ff6952b67",
+    "initial_tensor_hash": "4e7500733de1a2f3262489d172646dcc5c730ec8ffe0e82f00a9533a1b9368fd",
+    "train_acc": 0.9827160493827161,
+    "val_acc": 0.6912442396313364,
+    "val_loss": 1.2005970527499503,
+    "val_f1": 0.6819711933123569,
+    "test_evaluated": false
+}

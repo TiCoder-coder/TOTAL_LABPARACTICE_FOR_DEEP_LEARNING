@@ -1,0 +1,6 @@
+{
+    "seed": 42,
+    "model": "ResNet18",
+    "tensor_hash": "4e7500733de1a2f3262489d172646dcc5c730ec8ffe0e82f00a9533a1b9368fd",
+    "file_hash": "4e23f0308f5dfb713d154571b37e5c07b522278a29be4e2198e519a2874b16f0"
+}

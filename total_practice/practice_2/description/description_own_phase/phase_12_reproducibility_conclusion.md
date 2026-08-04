@@ -2,7 +2,7 @@
 
 ## Notebook location
 
-- Notebook: [demo_practice_2.ipynb](../../notebooks/demo_practice_2.ipynb)
+- Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
 - Main cells: **Cells 29–30**
 - Full mapping: [Cell–Output Map](../description_result/README.md)
 
@@ -64,7 +64,7 @@ Use the [Cell–Output Map](../description_result/README.md) to trace every note
 
 ### Presentation-only execution
 
-Open [demo_practice_2.ipynb](../../notebooks/demo_practice_2.ipynb) and run its artifact-reading cells. The notebook reads the selected training log, verifies Validation, and displays saved Test artifacts. It does not retrain or repeat Test inference.
+Open [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb) and run its artifact-reading cells. The notebook reads the selected training log, verifies Validation, and displays saved Test artifacts. It does not retrain or repeat Test inference.
 
 ### Reproducing the complete experiment
 
@@ -132,7 +132,7 @@ Current official result:
 
 ## 6. Submission and presentation checklist
 
-- Open [demo_practice_2.ipynb](../../notebooks/demo_practice_2.ipynb).
+- Open [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb).
 - Confirm Cell 4 shows E2 training device `mps` and GPU accelerated `True`.
 - Confirm Cell 6 displays the correct split sizes.
 - Confirm Cell 11 proves transform separation.

@@ -1,6 +1,6 @@
 # Phase 7 — Model Training Results
 
-[Phase 6 results](phase_06_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/demo_practice_2.ipynb) | [Phase 8 results](phase_08_results.md)
+[Phase 6 results](phase_06_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 8 results](phase_08_results.md)
 
 | Output | Description | Artifact |
 |---|---|---|
