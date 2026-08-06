@@ -1,0 +1,23 @@
+{
+  "source_split": "Train",
+  "image_count": 2034,
+  "pixel_count": 102057984,
+  "rgb_mean": [
+    0.7763873586936753,
+    0.7600134661548519,
+    0.7499809264520293
+  ],
+  "rgb_std": [
+    0.27711896665913804,
+    0.268085589777018,
+    0.2843022131055096
+  ],
+  "minimum_width": 224,
+  "maximum_width": 224,
+  "minimum_height": 224,
+  "maximum_height": 224,
+  "mean_brightness": 0.762127251176561,
+  "mean_contrast": 0.1972851941202682,
+  "validation_images_used": 0,
+  "test_images_used": 0
+}

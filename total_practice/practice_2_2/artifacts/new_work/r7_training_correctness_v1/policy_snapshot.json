@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "policy_version": "r7_training_correctness_v1",
+  "seed": 42,
+  "predecessor_phase": "R6",
+  "predecessor_gate_required": true,
+  "loss_contract": "exact_global_cross_entropy_mean",
+  "supported_metric_splits": [
+    "Train",
+    "Validation",
+    "Test"
+  ],
+  "baseline_loss": {
+    "name": "cross_entropy",
+    "class_weights": null,
+    "label_smoothing": 0.0
+  },
+  "class_weighting_requires_separate_experiment": true,
+  "label_smoothing_requires_separate_experiment": true,
+  "checkpoint": {
+    "architecture": "resnet18",
+    "constructor_weights": null,
+    "strict_state_dict_loading": true,
+    "map_location": "cpu"
+  },
+  "optimizer": {
+    "name": "AdamW",
+    "head_learning_rate": 0.001,
+    "backbone_learning_rate": 0.0001,
+    "weight_decay": 0.0002,
+    "named_learning_rate_groups": [
+      "backbone",
+      "head"
+    ]
+  },
+  "frozen_batchnorm_statistics": "evaluation_mode",
+  "validation_controls_metric": "corrected_validation_loss",
+  "real_training_allowed": false,
+  "validation_content_access_allowed": false,
+  "test_content_access_allowed": false,
+  "test_loader_construction_allowed": false,
+  "successor_phase_not_authorized": "R8"
+}

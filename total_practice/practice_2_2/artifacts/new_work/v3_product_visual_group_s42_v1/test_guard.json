@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "lineage": "v3_product_visual_group_s42_v1",
+  "guard_state": "sealed_candidate_blocked",
+  "lineage_authorized": false,
+  "model_training_authorized": false,
+  "test_partition_cryptographically_sealed": true,
+  "split_fingerprint_sha256": "111844fe2197a1c9bdf7f7a3abe01487f2dfdc545127ad7a2406c3820beb6e5b",
+  "test_partition_fingerprint_sha256": "edf3fc67683df1cc1d9f417d47dea206534e351b35f80feee9e27760a3254b88",
+  "test_access_allowed": false,
+  "test_access_count": 0,
+  "test_evaluation_count": 0,
+  "authorization_token_sha256": null,
+  "repeat_evaluation_allowed": false,
+  "maintenance_override_used": false
+}

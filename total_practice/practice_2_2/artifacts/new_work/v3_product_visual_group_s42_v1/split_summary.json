@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "lineage": "v3_product_visual_group_s42_v1",
+  "seed": 42,
+  "target_ratios": {
+    "Train": 0.7,
+    "Validation": 0.15,
+    "Test": 0.15
+  },
+  "images": 2896,
+  "components": 2462,
+  "split_inventory": [
+    {
+      "split": "Train",
+      "images": 2034,
+      "image_ratio": 0.7023480662983426,
+      "image_ratio_deviation": 0.0023480662983426104,
+      "components": 1725,
+      "component_ratio": 0.7006498781478473
+    },
+    {
+      "split": "Validation",
+      "images": 431,
+      "image_ratio": 0.14882596685082872,
+      "image_ratio_deviation": 0.0011740331491712774,
+      "components": 369,
+      "component_ratio": 0.14987814784727863
+    },
+    {
+      "split": "Test",
+      "images": 431,
+      "image_ratio": 0.14882596685082872,
+      "image_ratio_deviation": 0.0011740331491712774,
+      "components": 368,
+      "component_ratio": 0.14947197400487408
+    }
+  ],
+  "class_inventory": [
+    {
+      "class_name": "body_wash",
+      "images": 303,
+      "components": 246,
+      "splits": {
+        "Train": {
+          "images": 213,
+          "image_ratio": 0.7029702970297029,
+          "image_ratio_deviation": 0.002970297029702973,
+          "components": 172,
+          "component_ratio": 0.6991869918699187,
+          "component_ratio_deviation": 0.0008130081300812275
+        },
+        "Validation": {
+          "images": 45,
+          "image_ratio": 0.1485148514851485,
+          "image_ratio_deviation": 0.0014851485148514865,
+          "components": 37,
+          "component_ratio": 0.15040650406504066,
+          "component_ratio_deviation": 0.00040650406504066927
+        },
+        "Test": {
+          "images": 45,
+          "image_ratio": 0.1485148514851485,
+          "image_ratio_deviation": 0.0014851485148514865,
+          "components": 37,
+          "component_ratio": 0.15040650406504066,
+          "component_ratio_deviation": 0.00040650406504066927
+        }
+      }
+    },
+    {
+      "class_name": "face_mask",
+      "images": 297,
+      "components": 249,
+      "splits": {
+        "Train": {
+          "images": 209,
+          "image_ratio": 0.7037037037037037,
+          "image_ratio_deviation": 0.0037037037037037646,
+          "components": 175,
+          "component_ratio": 0.7028112449799196,
+          "component_ratio_deviation": 0.0028112449799196915
+        },
+        "Validation": {
+          "images": 44,
+          "image_ratio": 0.14814814814814814,
+          "image_ratio_deviation": 0.0018518518518518545,
+          "components": 37,
+          "component_ratio": 0.14859437751004015,
+          "component_ratio_deviation": 0.0014056224899598457
+        },
+        "Test": {
+          "images": 44,
+          "image_ratio": 0.14814814814814814,
+          "image_ratio_deviation": 0.0018518518518518545,
+          "components": 37,
+          "component_ratio": 0.14859437751004015,
+          "component_ratio_deviation": 0.0014056224899598457
+        }
+      }
+    },
+    {
+      "class_name": "facial_cleanser",
+      "images": 322,
+      "components": 274,
+      "splits": {
+        "Train": {
+          "images": 226,
+          "image_ratio": 0.7018633540372671,
+          "image_ratio_deviation": 0.0018633540372671176,
+          "components": 192,
+          "component_ratio": 0.7007299270072993,
+          "component_ratio_deviation": 0.0007299270072993469
+        },
+        "Validation": {
+          "images": 48,
+          "image_ratio": 0.14906832298136646,
+          "image_ratio_deviation": 0.000931677018633531,
+          "components": 41,
+          "component_ratio": 0.14963503649635038,
+          "component_ratio_deviation": 0.00036496350364961794
+        },
+        "Test": {
+          "images": 48,
+          "image_ratio": 0.14906832298136646,
+          "image_ratio_deviation": 0.000931677018633531,
+          "components": 41,
+          "component_ratio": 0.14963503649635038,
+          "component_ratio_deviation": 0.00036496350364961794
+        }
+      }
+    },
+    {
+      "class_name": "lipstick",
+      "images": 286,
+      "components": 245,
+      "splits": {
+        "Train": {
+          "images": 201,
+          "image_ratio": 0.7027972027972028,
+          "image_ratio_deviation": 0.002797202797202858,
+          "components": 172,
+          "component_ratio": 0.7020408163265306,
+          "component_ratio_deviation": 0.0020408163265306367
+        },
+        "Validation": {
+          "images": 43,
+          "image_ratio": 0.15034965034965034,
+          "image_ratio_deviation": 0.00034965034965034336,
+          "components": 37,
+          "component_ratio": 0.1510204081632653,
+          "component_ratio_deviation": 0.0010204081632653184
+        },
+        "Test": {
+          "images": 42,
+          "image_ratio": 0.14685314685314685,
+          "image_ratio_deviation": 0.0031468531468531458,
+          "components": 36,
+          "component_ratio": 0.1469387755102041,
+          "component_ratio_deviation": 0.0030612244897958996
+        }
+      }
+    },
+    {
+      "class_name": "moisturizer",
+      "images": 228,
+      "components": 192,
+      "splits": {
+        "Train": {
+          "images": 160,
+          "image_ratio": 0.7017543859649122,
+          "image_ratio_deviation": 0.0017543859649122862,
+          "components": 134,
+          "component_ratio": 0.6979166666666666,
+          "component_ratio_deviation": 0.002083333333333326
+        },
+        "Validation": {
+          "images": 34,
+          "image_ratio": 0.14912280701754385,
+          "image_ratio_deviation": 0.0008771929824561431,
+          "components": 29,
+          "component_ratio": 0.15104166666666666,
+          "component_ratio_deviation": 0.001041666666666663
+        },
+        "Test": {
+          "images": 34,
+          "image_ratio": 0.14912280701754385,
+          "image_ratio_deviation": 0.0008771929824561431,
+          "components": 29,
+          "component_ratio": 0.15104166666666666,
+          "component_ratio_deviation": 0.001041666666666663
+        }
+      }
+    },
+    {
+      "class_name": "perfume",
+      "images": 287,
+      "components": 245,
+      "splits": {
+        "Train": {
+          "images": 201,
+          "image_ratio": 0.7003484320557491,
+          "image_ratio_deviation": 0.00034843205574919267,
+          "components": 171,
+          "component_ratio": 0.6979591836734694,
+          "component_ratio_deviation": 0.0020408163265305257
+        },
+        "Validation": {
+          "images": 43,
+          "image_ratio": 0.14982578397212543,
+          "image_ratio_deviation": 0.00017421602787456858,
+          "components": 37,
+          "component_ratio": 0.1510204081632653,
+          "component_ratio_deviation": 0.0010204081632653184
+        },
+        "Test": {
+          "images": 43,
+          "image_ratio": 0.14982578397212543,
+          "image_ratio_deviation": 0.00017421602787456858,
+          "components": 37,
+          "component_ratio": 0.1510204081632653,
+          "component_ratio_deviation": 0.0010204081632653184
+        }
+      }
+    },
+    {
+      "class_name": "serum",
+      "images": 300,
+      "components": 261,
+      "splits": {
+        "Train": {
+          "images": 211,
+          "image_ratio": 0.7033333333333334,
+          "image_ratio_deviation": 0.0033333333333334103,
+          "components": 183,
+          "component_ratio": 0.7011494252873564,
+          "component_ratio_deviation": 0.0011494252873563982
+        },
+        "Validation": {
+          "images": 44,
+          "image_ratio": 0.14666666666666667,
+          "image_ratio_deviation": 0.003333333333333327,
+          "components": 39,
+          "component_ratio": 0.14942528735632185,
+          "component_ratio_deviation": 0.0005747126436781436
+        },
+        "Test": {
+          "images": 45,
+          "image_ratio": 0.15,
+          "image_ratio_deviation": 0.0,
+          "components": 39,
+          "component_ratio": 0.14942528735632185,
+          "component_ratio_deviation": 0.0005747126436781436
+        }
+      }
+    },
+    {
+      "class_name": "shampoo",
+      "images": 274,
+      "components": 227,
+      "splits": {
+        "Train": {
+          "images": 192,
+          "image_ratio": 0.7007299270072993,
+          "image_ratio_deviation": 0.0007299270072993469,
+          "components": 159,
+          "component_ratio": 0.7004405286343612,
+          "component_ratio_deviation": 0.0004405286343612813
+        },
+        "Validation": {
+          "images": 41,
+          "image_ratio": 0.14963503649635038,
+          "image_ratio_deviation": 0.00036496350364961794,
+          "components": 34,
+          "component_ratio": 0.14977973568281938,
+          "component_ratio_deviation": 0.0002202643171806129
+        },
+        "Test": {
+          "images": 41,
+          "image_ratio": 0.14963503649635038,
+          "image_ratio_deviation": 0.00036496350364961794,
+          "components": 34,
+          "component_ratio": 0.14977973568281938,
+          "component_ratio_deviation": 0.0002202643171806129
+        }
+      }
+    },
+    {
+      "class_name": "sunscreen",
+      "images": 318,
+      "components": 281,
+      "splits": {
+        "Train": {
+          "images": 224,
+          "image_ratio": 0.7044025157232704,
+          "image_ratio_deviation": 0.004402515723270439,
+          "components": 197,
+          "component_ratio": 0.701067615658363,
+          "component_ratio_deviation": 0.001067615658362997
+        },
+        "Validation": {
+          "images": 47,
+          "image_ratio": 0.14779874213836477,
+          "image_ratio_deviation": 0.0022012578616352196,
+          "components": 42,
+          "component_ratio": 0.1494661921708185,
+          "component_ratio_deviation": 0.0005338078291814985
+        },
+        "Test": {
+          "images": 47,
+          "image_ratio": 0.14779874213836477,
+          "image_ratio_deviation": 0.0022012578616352196,
+          "components": 42,
+          "component_ratio": 0.1494661921708185,
+          "component_ratio_deviation": 0.0005338078291814985
+        }
+      }
+    },
+    {
+      "class_name": "toner",
+      "images": 281,
+      "components": 242,
+      "splits": {
+        "Train": {
+          "images": 197,
+          "image_ratio": 0.701067615658363,
+          "image_ratio_deviation": 0.001067615658362997,
+          "components": 170,
+          "component_ratio": 0.7024793388429752,
+          "component_ratio_deviation": 0.0024793388429752428
+        },
+        "Validation": {
+          "images": 42,
+          "image_ratio": 0.1494661921708185,
+          "image_ratio_deviation": 0.0005338078291814985,
+          "components": 36,
+          "component_ratio": 0.1487603305785124,
+          "component_ratio_deviation": 0.0012396694214875936
+        },
+        "Test": {
+          "images": 42,
+          "image_ratio": 0.1494661921708185,
+          "image_ratio_deviation": 0.0005338078291814985,
+          "components": 36,
+          "component_ratio": 0.1487603305785124,
+          "component_ratio_deviation": 0.0012396694214875936
+        }
+      }
+    }
+  ],
+  "maximum_overall_image_ratio_deviation": 0.0023480662983426104,
+  "maximum_per_class_image_ratio_deviation": 0.004402515723270439,
+  "maximum_per_class_component_ratio_deviation": 0.0030612244897958996,
+  "every_class_in_every_split": true
+}

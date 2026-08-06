@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "contract_version": "r1_label_contract_v1",
+  "status": "proposed_for_pilot_review",
+  "target_semantics": "dominant_visible_product_category",
+  "dataset_root": "data/final/data_clean_balanced",
+  "allowed_decisions": [
+    "accept",
+    "quarantine",
+    "relabel"
+  ],
+  "review_policy": {
+    "pilot_seed": 42,
+    "samples_per_label": 10,
+    "required_reviewer_count": 2,
+    "minimum_exact_decision_agreement": 0.85,
+    "minimum_cohen_kappa": 0.8,
+    "minimum_per_label_agreement": 0.7,
+    "require_zero_unresolved_policy_cases": true,
+    "reviewers_must_be_independent": true,
+    "reviewers_must_be_blind_to_split": true,
+    "reviewers_must_be_blind_to_model_outputs": true
+  },
+  "global_rules": {
+    "accept": [
+      "Ảnh có một sản phẩm hoặc một nhóm biến thể cùng lớp làm chủ thể chính.",
+      "Bao bì, hình dạng hoặc chữ trên sản phẩm cung cấp đủ bằng chứng cho đúng lớp hiện tại.",
+      "Ảnh không phụ thuộc vào banner, watermark hoặc template nguồn để xác định lớp.",
+      "Các sản phẩm phụ nếu có không thuộc lớp mục tiêu khác và không làm thay đổi chủ thể chính."
+    ],
+    "quarantine": [
+      "Không có sản phẩm chính nhìn thấy rõ.",
+      "Ảnh chỉ có chữ, người mẫu, before-after, hướng dẫn hoặc nội dung quảng cáo.",
+      "Ảnh chứa nhiều lớp mục tiêu nhưng không xác định được sản phẩm chiếm ưu thế.",
+      "Sản phẩm hybrid đồng thời phù hợp từ hai lớp mục tiêu trở lên.",
+      "Sản phẩm nằm ngoài ontology, không phải mỹ phẩm hoặc bằng chứng hình ảnh mâu thuẫn.",
+      "Ảnh quá mờ, bị che, bị cắt hoặc quá nhỏ để gán nhãn đáng tin cậy."
+    ],
+    "relabel": [
+      "Ảnh có đúng một lớp khác trong mười lớp mục tiêu làm chủ thể rõ ràng.",
+      "Nhãn mới phải được xác định từ nội dung sản phẩm, không chỉ từ tên file hoặc query nguồn.",
+      "Trường hợp chưa đủ chắc chắn phải quarantine thay vì relabel."
+    ],
+    "bundles": "Chỉ accept khi mọi sản phẩm nhìn thấy đều thuộc cùng một lớp và cùng mục đích sử dụng; bundle nhiều lớp phải quarantine.",
+    "listing_metadata": "Metadata chỉ là bằng chứng hỗ trợ và không được ghi đè nội dung nhìn thấy trong ảnh.",
+    "generated_images": "Mọi ảnh augmentation hoặc derivative offline không được tham gia review, split hay model selection.",
+    "destructive_actions": "Review chỉ ghi quyết định; không xóa, ghi đè hoặc di chuyển ảnh nguồn."
+  },
+  "reason_codes": {
+    "ACCEPT_CLEAR_SINGLE_PRODUCT": "Một sản phẩm rõ ràng và khớp nhãn hiện tại.",
+    "ACCEPT_SAME_CLASS_VARIANTS": "Nhiều biến thể nhưng cùng một lớp mục tiêu.",
+    "RELABEL_WRONG_TARGET_CLASS": "Sản phẩm rõ ràng thuộc một lớp mục tiêu khác.",
+    "QUARANTINE_AMBIGUOUS_CLASS": "Không đủ bằng chứng phân biệt giữa các lớp mục tiêu.",
+    "QUARANTINE_MULTIPLE_TARGET_CLASSES": "Ảnh chứa nhiều lớp mục tiêu không có lớp chiếm ưu thế.",
+    "QUARANTINE_HYBRID_PRODUCT": "Một sản phẩm có đồng thời nhiều chức năng thuộc các lớp mục tiêu.",
+    "QUARANTINE_NO_DOMINANT_PRODUCT": "Không có sản phẩm chính đủ rõ.",
+    "QUARANTINE_TEXT_ONLY": "Nội dung chủ yếu là chữ hoặc banner.",
+    "QUARANTINE_LIFESTYLE_ONLY": "Ảnh người mẫu hoặc bối cảnh nhưng không có sản phẩm chính.",
+    "QUARANTINE_BEFORE_AFTER": "Ảnh before-after không cho thấy sản phẩm chính đủ rõ.",
+    "QUARANTINE_NON_COSMETIC": "Nội dung không phải mỹ phẩm.",
+    "QUARANTINE_OUTSIDE_ONTOLOGY": "Sản phẩm không thuộc mười lớp mục tiêu.",
+    "QUARANTINE_LOW_INFORMATION": "Ảnh quá mờ, nhỏ, che khuất hoặc bị cắt.",
+    "QUARANTINE_CONFLICTING_EVIDENCE": "Chữ, bao bì và hình ảnh đưa ra bằng chứng mâu thuẫn.",
+    "QUARANTINE_INVALID_IMAGE": "File không thể giải mã thành ảnh hợp lệ."
+  },
+  "classes": {
+    "body_wash": {
+      "display_name": "Sữa tắm",
+      "definition": "Sản phẩm làm sạch da cơ thể có cơ chế rửa trôi khi tắm.",
+      "positive_evidence": [
+        "Bao bì ghi body wash, shower gel, shower cream hoặc sữa tắm.",
+        "Sản phẩm được mô tả rõ là chất làm sạch cơ thể rửa trôi."
+      ],
+      "negative_evidence": [
+        "Dầu gội, sữa rửa mặt, nước rửa tay, lotion dưỡng thể hoặc dung dịch vệ sinh.",
+        "Sản phẩm 2-in-1 vừa gội đầu vừa tắm khi không có chức năng chiếm ưu thế."
+      ],
+      "borderline_cases": [
+        "Bao bì chai bơm không có chữ đủ đọc để phân biệt với shampoo.",
+        "Combo gồm body wash và body lotion."
+      ],
+      "confusable_labels": [
+        "shampoo",
+        "facial_cleanser",
+        "moisturizer"
+      ]
+    },
+    "face_mask": {
+      "display_name": "Mặt nạ chăm sóc da mặt",
+      "definition": "Sản phẩm chăm sóc da mặt được dùng như sheet mask, wash-off mask, clay mask hoặc sleeping mask và được bán rõ ràng dưới tên mặt nạ.",
+      "positive_evidence": [
+        "Gói sheet mask hoặc bao bì ghi face mask, facial mask, sleeping mask hay mặt nạ.",
+        "Hũ hoặc tuýp có chức năng mặt nạ da mặt được thể hiện rõ."
+      ],
+      "negative_evidence": [
+        "Khẩu trang, mặt nạ bảo hộ, mặt nạ tóc, dụng cụ đắp mặt nạ hoặc ảnh khuôn mặt đơn thuần.",
+        "Kem dưỡng không được định danh là sleeping mask."
+      ],
+      "borderline_cases": [
+        "Sleeping mask có hình thức giống moisturizer nhưng chữ sản phẩm không đọc được.",
+        "Combo nhiều loại skincare có kèm một gói mask nhỏ."
+      ],
+      "confusable_labels": [
+        "moisturizer"
+      ]
+    },
+    "facial_cleanser": {
+      "display_name": "Sữa rửa mặt",
+      "definition": "Sản phẩm làm sạch da mặt có cơ chế rửa trôi như foam, gel hoặc cream cleanser.",
+      "positive_evidence": [
+        "Bao bì ghi facial cleanser, face wash, cleansing foam, gel cleanser hoặc sữa rửa mặt.",
+        "Công dụng chính là làm sạch da mặt và rửa lại với nước."
+      ],
+      "negative_evidence": [
+        "Body wash, shampoo, toner, micellar water, cleansing oil hoặc tẩy trang không rửa trôi.",
+        "Ảnh bọt rửa mặt hoặc người đang rửa mặt nhưng không có sản phẩm chính."
+      ],
+      "borderline_cases": [
+        "Sản phẩm cleanser đa dụng cho cả mặt và cơ thể.",
+        "Chai không có chữ rõ và hình thức giống toner hoặc body wash."
+      ],
+      "confusable_labels": [
+        "body_wash",
+        "toner"
+      ]
+    },
+    "lipstick": {
+      "display_name": "Son môi",
+      "definition": "Mỹ phẩm có chức năng chính tạo màu cho môi như lipstick, liquid lipstick hoặc lip tint.",
+      "positive_evidence": [
+        "Thỏi son, son kem hoặc lip tint có sản phẩm và bao bì rõ.",
+        "Swatch được chấp nhận khi sản phẩm son vẫn là chủ thể chính."
+      ],
+      "negative_evidence": [
+        "Son dưỡng không màu, chì kẻ môi, sản phẩm má hoặc mắt và ảnh môi không có sản phẩm.",
+        "Lip gloss trong suốt khi không có bằng chứng về chức năng tạo màu."
+      ],
+      "borderline_cases": [
+        "Tint đa năng dùng cho cả môi và má.",
+        "Ảnh swatch hoặc người mẫu chiếm phần lớn khung hình còn sản phẩm quá nhỏ."
+      ],
+      "confusable_labels": []
+    },
+    "moisturizer": {
+      "display_name": "Kem dưỡng ẩm",
+      "definition": "Sản phẩm leave-on có chức năng chính dưỡng ẩm da mặt hoặc cơ thể dưới dạng cream, lotion hoặc gel.",
+      "positive_evidence": [
+        "Bao bì ghi moisturizer, moisturizing cream, hydrating cream, lotion hoặc kem dưỡng ẩm.",
+        "Chức năng chính là cấp ẩm và lưu lại trên da."
+      ],
+      "negative_evidence": [
+        "Serum, toner, sunscreen, body wash hoặc sleeping mask được định danh rõ là mask.",
+        "Kem chống nắng hay kem nền chỉ có dưỡng ẩm như công dụng phụ."
+      ],
+      "borderline_cases": [
+        "Kem dưỡng có SPF nổi bật ngang chức năng dưỡng ẩm.",
+        "Gel cream hoặc sleeping mask không có chữ đủ rõ."
+      ],
+      "confusable_labels": [
+        "serum",
+        "sunscreen",
+        "face_mask",
+        "body_wash"
+      ]
+    },
+    "perfume": {
+      "display_name": "Nước hoa",
+      "definition": "Sản phẩm tạo hương cho cơ thể có chức năng chính là fragrance, perfume, eau de parfum, eau de toilette hoặc body mist.",
+      "positive_evidence": [
+        "Chai hoặc hộp nước hoa với định danh fragrance, perfume, EDP, EDT hoặc body mist.",
+        "Sản phẩm tạo hương cho người là chủ thể chính."
+      ],
+      "negative_evidence": [
+        "Tinh dầu phòng, nước hoa xe, diffuser, xịt khử mùi, deodorant hoặc toner nước hoa hồng.",
+        "Ảnh hoa hoặc chai trang trí không có bằng chứng sản phẩm tạo hương cho cơ thể."
+      ],
+      "borderline_cases": [
+        "Body spray vừa tạo hương vừa khử mùi.",
+        "Chai không có chữ rõ và hình thức giống toner."
+      ],
+      "confusable_labels": [
+        "toner"
+      ]
+    },
+    "serum": {
+      "display_name": "Serum",
+      "definition": "Sản phẩm leave-on chăm sóc da cô đặc được định danh là serum hoặc ampoule.",
+      "positive_evidence": [
+        "Bao bì ghi serum hoặc ampoule và sản phẩm chăm sóc da là chủ thể chính.",
+        "Chai dropper được chấp nhận khi có thêm bằng chứng chữ hoặc bao bì phù hợp."
+      ],
+      "negative_evidence": [
+        "Toner, essence không định danh serum, dầu dưỡng tóc, serum tóc hoặc serum mi.",
+        "Chai dropper không có bằng chứng để xác định công dụng."
+      ],
+      "borderline_cases": [
+        "Essence-serum hybrid hoặc sản phẩm vừa serum vừa sunscreen.",
+        "Chai nhỏ giọt giống nhiều loại sản phẩm khác nhưng chữ không đọc được."
+      ],
+      "confusable_labels": [
+        "toner",
+        "moisturizer",
+        "sunscreen"
+      ]
+    },
+    "shampoo": {
+      "display_name": "Dầu gội",
+      "definition": "Sản phẩm làm sạch tóc hoặc da đầu có cơ chế rửa trôi.",
+      "positive_evidence": [
+        "Bao bì ghi shampoo, scalp cleanser hoặc dầu gội.",
+        "Chức năng chính là làm sạch tóc hoặc da đầu."
+      ],
+      "negative_evidence": [
+        "Conditioner, hair mask, hair serum, body wash hoặc shower gel.",
+        "Sản phẩm 2-in-1 shampoo-body wash khi không có chức năng chiếm ưu thế."
+      ],
+      "borderline_cases": [
+        "Chai bơm không có chữ rõ và giống body wash.",
+        "Combo shampoo và conditioner có hai sản phẩm nổi bật ngang nhau."
+      ],
+      "confusable_labels": [
+        "body_wash"
+      ]
+    },
+    "sunscreen": {
+      "display_name": "Kem chống nắng",
+      "definition": "Sản phẩm có chức năng chính bảo vệ da khỏi tia UV và thể hiện rõ SPF, PA hoặc sunscreen.",
+      "positive_evidence": [
+        "Bao bì ghi sunscreen, sun cream, UV protection, SPF hoặc PA như chức năng chính.",
+        "Sản phẩm chống nắng cho mặt hoặc cơ thể là chủ thể chính."
+      ],
+      "negative_evidence": [
+        "Moisturizer, foundation hoặc lip product chỉ có SPF như lợi ích phụ.",
+        "After-sun gel, tanning oil không bảo vệ UV hoặc ảnh mặt trời không có sản phẩm."
+      ],
+      "borderline_cases": [
+        "Tone-up cream, BB cream hoặc moisturizer có SPF nổi bật ngang chức năng trang điểm hay dưỡng ẩm.",
+        "Tuýp không có chữ rõ và giống facial cleanser hoặc moisturizer."
+      ],
+      "confusable_labels": [
+        "moisturizer",
+        "serum",
+        "facial_cleanser"
+      ]
+    },
+    "toner": {
+      "display_name": "Toner",
+      "definition": "Dung dịch leave-on dùng sau làm sạch để cân bằng hoặc chuẩn bị da mặt, được định danh là toner hoặc nước cân bằng.",
+      "positive_evidence": [
+        "Bao bì ghi toner, skin toner, balancing water hoặc nước cân bằng da.",
+        "Nước hoa hồng chỉ được accept khi thể hiện rõ là toner chăm sóc da mặt."
+      ],
+      "negative_evidence": [
+        "Nước hoa, nước hoa hồng thực phẩm, chất dưỡng hoa, micellar water, essence hoặc xịt khoáng.",
+        "Chai dung dịch không có bằng chứng về công dụng toner da mặt."
+      ],
+      "borderline_cases": [
+        "Toner-essence hybrid hoặc toner-serum hai chức năng ngang nhau.",
+        "Sản phẩm rose water không thể xác định là mỹ phẩm chỉ từ ảnh."
+      ],
+      "confusable_labels": [
+        "serum",
+        "facial_cleanser",
+        "perfume"
+      ]
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "policy_version": "r12_artifact_only_report_v1",
+  "predecessor_phase": "R11",
+  "predecessor_gate_required": true,
+  "r11_completion_required": true,
+  "canonical_notebook": {
+    "path": "notebooks/04_canonical_report.ipynb",
+    "expected_sha256": "a4eb294b3c4e8ec9619255f4acdd529094c0abd47eed9a263cf8bc96a7a8ff0d",
+    "mutation_allowed": false
+  },
+  "outputs": {
+    "notebook": "notebooks/05_product_visualsafe_report.ipynb",
+    "html": "reports/html/practice_2_2_product_visualsafe_report.html",
+    "artifact_root": "artifacts/new_work/r12_artifact_report_v1",
+    "verification_report": "docs/R12_VERIFICATION.json"
+  },
+  "phase_reports": [
+    {"artifact_id": "r0_verification", "phase": "R0", "path": "docs/R0_AUTHORITY_INVENTORY.json"},
+    {"artifact_id": "r1_verification", "phase": "R1", "path": "docs/R1_VERIFICATION.json"},
+    {"artifact_id": "r2_verification", "phase": "R2", "path": "docs/R2_VERIFICATION.json"},
+    {"artifact_id": "r3_verification", "phase": "R3", "path": "docs/R3_VERIFICATION.json"},
+    {"artifact_id": "r4_verification", "phase": "R4", "path": "docs/R4_VERIFICATION.json"},
+    {"artifact_id": "r5_verification", "phase": "R5", "path": "docs/R5_VERIFICATION.json"},
+    {"artifact_id": "r6_verification", "phase": "R6", "path": "docs/R6_VERIFICATION.json"},
+    {"artifact_id": "r7_verification", "phase": "R7", "path": "docs/R7_VERIFICATION.json"},
+    {"artifact_id": "r8_verification", "phase": "R8", "path": "docs/R8_VERIFICATION.json"},
+    {"artifact_id": "r9_verification", "phase": "R9", "path": "docs/R9_VERIFICATION.json"},
+    {"artifact_id": "r10_verification", "phase": "R10", "path": "docs/R10_VERIFICATION.json"}
+  ],
+  "evidence_artifacts": [
+    {"artifact_id": "r1_contract", "phase": "R1", "path": "configs/r1_label_contract.json", "evidence_class": "review_contract", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r2_data_quality", "phase": "R2", "path": "artifacts/new_work/r2_provenance_semantic_audit_v1/audit_report.json", "evidence_class": "dataset_audit", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r3_groups", "phase": "R3", "path": "artifacts/new_work/r3_product_visual_groups_v1/group_report.json", "evidence_class": "candidate_group_audit", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r4_split", "phase": "R4", "path": "artifacts/new_work/v3_product_visual_group_s42_v1/split_report.json", "evidence_class": "candidate_split_audit", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r4_leakage", "phase": "R4", "path": "artifacts/new_work/v3_product_visual_group_s42_v1/leakage_report.json", "evidence_class": "candidate_leakage_audit", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r5_readiness", "phase": "R5", "path": "artifacts/new_work/r5_train_only_data_readiness_v1/data_readiness_report.json", "evidence_class": "train_only_audit", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r6_transforms", "phase": "R6", "path": "artifacts/new_work/r6_transform_ablation_s42_v1/transform_ablation_report.json", "evidence_class": "train_only_transform_audit", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r7_correctness", "phase": "R7", "path": "artifacts/new_work/r7_training_correctness_v1/training_correctness_report.json", "evidence_class": "synthetic_protocol_verification", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r8_staged", "phase": "R8", "path": "artifacts/new_work/r8_staged_transfer_s42_123_2026_v1/staged_transfer_report.json", "evidence_class": "synthetic_protocol_verification", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r9_ceiling", "phase": "R9", "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/feature_ceiling_report.json", "evidence_class": "synthetic_protocol_verification", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r10_selection", "phase": "R10", "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/robust_model_selection_report.json", "evidence_class": "synthetic_protocol_verification", "eligible_for_model_conclusion": false},
+    {"artifact_id": "r10_uncertainty", "phase": "R10", "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/uncertainty_report.json", "evidence_class": "synthetic_protocol_fixture", "eligible_for_model_conclusion": false}
+  ],
+  "expected_r11_report": "docs/R11_VERIFICATION.json",
+  "execution": {
+    "kernel_name": "deep-learning",
+    "timeout_seconds": 120,
+    "training_allowed": false,
+    "test_evaluation_allowed": false,
+    "test_loader_construction_allowed": false,
+    "network_access_allowed": false,
+    "persisted_artifact_writes_allowed": false
+  },
+  "successor_phase_authorized": false
+}

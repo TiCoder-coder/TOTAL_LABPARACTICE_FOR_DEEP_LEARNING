@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "policy_version": "r6_domain_safe_transform_ablation_s42_v1",
+  "seed": 42,
+  "authorized_content_split": "Train",
+  "predecessor_phase": "R5",
+  "predecessor_gate_required": true,
+  "image_size": 224,
+  "interpolation": "bilinear",
+  "color_jitter": {
+    "brightness": 0.2,
+    "contrast": 0.2,
+    "saturation": 0.2,
+    "hue": 0.05
+  },
+  "imagenet_mean": [0.485, 0.456, 0.406],
+  "imagenet_std": [0.229, 0.224, 0.225],
+  "random_resized_crop_ratio": [0.75, 1.3333333333333333],
+  "random_erasing_scale": [0.02, 0.1],
+  "random_erasing_ratio": [0.5, 2.0],
+  "contact_sheet_samples_per_class": 12,
+  "contact_sheet_columns": [
+    "original",
+    "train_transform",
+    "evaluation_transform"
+  ],
+  "black_border_pixel_threshold": 5,
+  "recipes": {
+    "T0": {
+      "parent": null,
+      "single_change": "existing_baseline",
+      "evaluation_mode": "resize_256_center_crop_224",
+      "crop_scale_floor": 0.7,
+      "horizontal_flip_probability": 0.5,
+      "random_erasing_probability": 0.1
+    },
+    "T1": {
+      "parent": "T0",
+      "single_change": "evaluation_mode",
+      "evaluation_mode": "direct_resize_224",
+      "crop_scale_floor": 0.7,
+      "horizontal_flip_probability": 0.5,
+      "random_erasing_probability": 0.1
+    },
+    "T2": {
+      "parent": "T1",
+      "single_change": "crop_scale_floor",
+      "evaluation_mode": "direct_resize_224",
+      "crop_scale_floor": 0.9,
+      "horizontal_flip_probability": 0.5,
+      "random_erasing_probability": 0.1
+    },
+    "T3": {
+      "parent": "T2",
+      "single_change": "horizontal_flip_probability",
+      "evaluation_mode": "direct_resize_224",
+      "crop_scale_floor": 0.9,
+      "horizontal_flip_probability": 0.0,
+      "random_erasing_probability": 0.1
+    },
+    "T4": {
+      "parent": "T2",
+      "single_change": "random_erasing_probability",
+      "evaluation_mode": "direct_resize_224",
+      "crop_scale_floor": 0.9,
+      "horizontal_flip_probability": 0.5,
+      "random_erasing_probability": 0.0
+    }
+  },
+  "manual_review_fields": [
+    "dominant_product_clipped",
+    "black_border_visible",
+    "text_reversal_harmful",
+    "erasing_removed_discriminative_cue",
+    "review_status",
+    "reviewer_id",
+    "reviewed_at_utc"
+  ],
+  "automatic_recipe_selection_allowed": false,
+  "validation_content_access_allowed": false,
+  "test_content_access_allowed": false,
+  "model_training_allowed": false,
+  "successor_phase_not_authorized": "R7"
+}

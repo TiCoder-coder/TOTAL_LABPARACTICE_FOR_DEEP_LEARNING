@@ -1,0 +1,708 @@
+{
+  "schema_version": 1,
+  "reviewer_id": "",
+  "contract_version": "r1_label_contract_v1",
+  "pilot_sha256": "d7df3e3ae558cbb1e5e5c8093b991ef0a355d236ca4ff4e362ac65d9a392bfe4",
+  "decisions": [
+    {
+      "sample_id": "0260582fbd7daeea1161",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "b9f8bcae069244a34eb9",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "98a2a4484d306bcf7e30",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "f94cdf42c1c0ae035041",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "e163e3f5b89c2c555d5b",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "552e450951be51a91595",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "9201525b828fa1c2df19",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "ec9bea69a6b03580e785",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "4d27ecb219ed7eb46aac",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "fcd9cfbbcc0b2927ac1c",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "13565fa96273fdb2a290",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0da20dfe301590048a50",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "10ac1c1e4efa9b329f03",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "9b7dfecdbb4edf0197f1",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0bc5cc4213179e039967",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "a270a7e0bc4accaf9736",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "1b71dc3fd9c4f44f17b7",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "af97a166f706aee3ee17",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "58f7bd9a990d767dcb3d",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "896bb9d1c8cb81a9ec75",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "f28e1a5e66e7f14f3489",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "5ce44ddd65ff051578ed",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0586ba550aae27ecb6a2",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0e918da8410329ed2ae3",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "dc3ffcaf8cb6e0a7cd17",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "a179f4e8ed2767c851d5",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "c29c3160cadf17f82b06",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "e2811b4c384300a2a363",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "94937467949d714e8af8",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "6b018dd5332576e05af7",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "4c3488c7dbaf31294fd1",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "3fea185e36c886dab912",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "977fc711653a3756bef4",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "a525331f1cf248868646",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "9e5bf5fa576d4e456704",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "19c59d22ad318f611cb5",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "40e3a0a88eb024f74c20",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "6b91be63d0430498b722",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "8fc678ba6a2ba644455f",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "52d3c7129238fe6e9416",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "a5d8b60b4c5356b38979",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "6bd2a2f0909d693e05a5",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "19c6bb97bace7e1bc509",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "a36507d3fcb10cb0f418",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "269dcb4bd25aeff393fe",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "b1a26f1ffa958ad78fde",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "666690ded0423f5fda1e",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "f798fb898e6cf4f8770a",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "c4c89f2880b4ab46e038",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "4f5d3651ef8b33f82443",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "6955c2702adfff7fc2dc",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "6f01e0291dd2b2f41d4a",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "cd775a9fdef1e8ad7c61",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "54ca18bf625caaf1e2b2",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "5b7770926ac2f6c75196",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "db44834ef802220d00a5",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "69cfad52ed7b6fb2063a",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "f967eefb6de3b5be9489",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0ec7254b4b098e51cb33",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "966f93195437fc0f191c",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "d2579e072edda5469799",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0e41ac79c4b7f64e1228",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "a6e7046c71e0e14f29d6",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "35d2bbb7ce2cb89dd514",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "d613663b42761725094a",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "77d937f4e8199e59e916",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "f0dce5835ec820cfdfd4",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "92ee1fa97d53b976e2f0",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "e837ffd51e47fbf2444c",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "991e37c075f24b5d28fd",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0bba47b3b5a9d2d23160",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "7e6100187dcf8e0df23a",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "94213a68c70a231d77f2",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "c604f2c14c8083320e4b",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "91bdf41105bae029e982",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "9f0056c649f358e45132",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "9064dd320f354d7d0ce3",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "018c00afd9ccb11a0687",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "4dd36235df8453c1a917",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "c3be64f05bee1b1f210f",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "d196c951a103bebaa261",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "ab67751b0e0099f1395e",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "74334f5d18e1a4dbfbfa",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "e3f253b332945cabaa94",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "ced38b48936db05f0334",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "ebd4add0a6e0376a8db3",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "20538f233050cdcd2451",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "b7bf932f9ed4c6391803",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "9da5c4e439c8835cb06d",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "ab28a7313ebfa71f0080",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "104e8b90e954c5d4b5f6",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "f33d70f92df4b011ee7d",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "d7e2c4c6cc8182fe1654",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "29902d7ee369575afb79",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "3569dab38ed922b0a22d",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "0a31d9f93b199785556b",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "94d31c206053e71b7c54",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "ead3f49562624bce5a57",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "7964a81a110322e682c8",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    },
+    {
+      "sample_id": "798d27213b7d3f9e156f",
+      "decision": null,
+      "proposed_label": null,
+      "reason_code": null,
+      "policy_case_resolved": null
+    }
+  ]
+}

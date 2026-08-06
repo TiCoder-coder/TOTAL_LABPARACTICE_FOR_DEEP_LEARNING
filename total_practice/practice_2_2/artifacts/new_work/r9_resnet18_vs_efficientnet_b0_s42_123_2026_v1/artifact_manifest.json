@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "lineage": "r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1",
+  "synthetic_protocol_verification_only": true,
+  "architecture_profile_evidence_only": true,
+  "fixture_is_model_quality_evidence": false,
+  "authorized_architecture_experiment_id": null,
+  "real_training_performed": false,
+  "validation_content_access_count": 0,
+  "test_content_access_count": 0,
+  "test_loader_constructed": false,
+  "source_images_mutated": false,
+  "canonical_notebook_mutated": false,
+  "canonical_notebook_sha256": "a4eb294b3c4e8ec9619255f4acdd529094c0abd47eed9a263cf8bc96a7a8ff0d",
+  "artifacts": [
+    {
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/policy_snapshot.json",
+      "size_bytes": 2454,
+      "sha256": "12cdbae58a77520aa6c34d4605e820fb2a666764a15d0e1447eff9a7da062ba7"
+    },
+    {
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/experiment_registry.json",
+      "size_bytes": 585,
+      "sha256": "7a3742053655e039f8fe90c68be5e2b86fc0fbf591d4d2df7df283f9311fc7f2"
+    },
+    {
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/pretrained_authority.json",
+      "size_bytes": 447,
+      "sha256": "aeae80b0130f35a7a27675fa116f01dd15caf1d98787aefb2a512a4803234f4c"
+    },
+    {
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/architecture_protocol_verification.json",
+      "size_bytes": 1724,
+      "sha256": "f0773547f9edf3d9b06a430ce09e6d0967b386a6e6d88727182a183e4cda4921"
+    },
+    {
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/architecture_profiles.json",
+      "size_bytes": 1238,
+      "sha256": "925889460194dd77e22bcd78514ed4ef5ce6ee9ee47841708cbf1fed79269152"
+    },
+    {
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/selection_logic_verification.json",
+      "size_bytes": 3365,
+      "sha256": "823e8811ee053f43f99befacc54daf5b7908554012a77641b9d1f7ba9b573f41"
+    },
+    {
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/feature_ceiling_report.json",
+      "size_bytes": 2416,
+      "sha256": "2a58332575fa9df25c1efb2c1923019e8fecb02be3de690f4a1e206b0f91223c"
+    },
+    {
+      "path": "docs/R9_VERIFICATION.json",
+      "size_bytes": 2416,
+      "sha256": "2a58332575fa9df25c1efb2c1923019e8fecb02be3de690f4a1e206b0f91223c"
+    }
+  ]
+}

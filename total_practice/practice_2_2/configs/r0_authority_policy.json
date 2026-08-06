@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "canonical_run_id": "canonical_26dc4625_52aaf974_s42_v1",
+  "implementation_authorized": false,
+  "canonical_notebook_mutation_authorized": false,
+  "final_test_re_evaluation_authorized": false,
+  "classifications": {
+    "frozen_historical": [
+      "configs/canonical_registry.json",
+      "data/final/data_clean_balanced",
+      "data/manifests/canonical_split",
+      "data/quarantine/quarantined_images.csv",
+      "artifacts/canonical/canonical_26dc4625_52aaf974_s42_v1",
+      "artifacts/ablations/E3/canonical_26dc4625_52aaf974_s42_phase25_e3_layer4_1_v1",
+      "artifacts/ablations/E4/canonical_26dc4625_52aaf974_s42_phase26_e4_augmentation_v1",
+      "notebooks/04_canonical_report.ipynb",
+      "reports/html/practice_2_2_canonical_report.html"
+    ],
+    "v2_experimental": [
+      "data/manifests/v2_stratified_group_s42",
+      "data/manifests/v2_visual_group_stratified_s42",
+      "artifacts/experiments/v2_visualsafe_baseline_s42_v1"
+    ],
+    "new_work": [
+      "data/new_work",
+      "artifacts/new_work",
+      "notebooks/05_product_visualsafe_report.ipynb"
+    ]
+  },
+  "authorities": [
+    {
+      "name": "canonical_registry",
+      "classification": "frozen_historical",
+      "path": "configs/canonical_registry.json",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "fc5490192c6cccdef70995d9a11598c7325665222e4c64d408e039474aef4ccd"
+    },
+    {
+      "name": "canonical_dataset",
+      "classification": "frozen_historical",
+      "path": "data/final/data_clean_balanced",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 3202,
+      "expected_total_bytes": 48502262,
+      "expected_directory_sha256": "fd1cd4557352b28054b976feebd69932c34af9edda44eb1251e8f46b7e97e8a5"
+    },
+    {
+      "name": "canonical_split",
+      "classification": "frozen_historical",
+      "path": "data/manifests/canonical_split",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 3,
+      "expected_total_bytes": 1067486,
+      "expected_directory_sha256": "8016ca618fd203955f1597e2fbd308b6bb5bdae578428fdc59d9b6d8f9a9cd1c"
+    },
+    {
+      "name": "canonical_quarantine",
+      "classification": "frozen_historical",
+      "path": "data/quarantine/quarantined_images.csv",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "be08d24f3e2b105bbd02728bb276811f4a1fec304ffb51cc8e3b7af15086cef1"
+    },
+    {
+      "name": "canonical_checkpoints",
+      "classification": "frozen_historical",
+      "path": "artifacts/canonical/canonical_26dc4625_52aaf974_s42_v1/checkpoints",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 4,
+      "expected_total_bytes": 313702500,
+      "expected_directory_sha256": "171e418b986aee6b1c25bd85d4ec177da3196d3c8739536f76e66ec6aa657d04"
+    },
+    {
+      "name": "canonical_outputs",
+      "classification": "frozen_historical",
+      "path": "artifacts/canonical/canonical_26dc4625_52aaf974_s42_v1/outputs",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 16,
+      "expected_total_bytes": 335691,
+      "expected_directory_sha256": "1805e4bff094dc512f57ef82bd9e8e3f2c1d4e3dacb9a27aef5710b5b4334184"
+    },
+    {
+      "name": "canonical_e3_checkpoints",
+      "classification": "frozen_historical",
+      "path": "artifacts/ablations/E3/canonical_26dc4625_52aaf974_s42_phase25_e3_layer4_1_v1/checkpoints",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 2,
+      "expected_total_bytes": 165229782,
+      "expected_directory_sha256": "e9a87b489493fdb42667828cab06b014750e99d5da01b5e43fb402bdddd5df22"
+    },
+    {
+      "name": "canonical_e3_outputs",
+      "classification": "frozen_historical",
+      "path": "artifacts/ablations/E3/canonical_26dc4625_52aaf974_s42_phase25_e3_layer4_1_v1/outputs",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 4,
+      "expected_total_bytes": 7360,
+      "expected_directory_sha256": "36daf35df1e9bf2551d437cc78227d32b2821e48229dfdd96f22367cbd84eaaf"
+    },
+    {
+      "name": "canonical_e4_checkpoints",
+      "classification": "frozen_historical",
+      "path": "artifacts/ablations/E4/canonical_26dc4625_52aaf974_s42_phase26_e4_augmentation_v1/checkpoints",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 2,
+      "expected_total_bytes": 224014206,
+      "expected_directory_sha256": "f22fe7ee7afdeb59af00807b175a6d7bf3ef8e993377ddd71c305f39a8b556d2"
+    },
+    {
+      "name": "canonical_e4_outputs",
+      "classification": "frozen_historical",
+      "path": "artifacts/ablations/E4/canonical_26dc4625_52aaf974_s42_phase26_e4_augmentation_v1/outputs",
+      "kind": "directory",
+      "required": true,
+      "expected_file_count": 4,
+      "expected_total_bytes": 10219,
+      "expected_directory_sha256": "70c3f90d1da9e69b573def0fdc9f2041c6a3322963c7a9a3c1b48b7873739794"
+    },
+    {
+      "name": "canonical_notebook",
+      "classification": "frozen_historical",
+      "path": "notebooks/04_canonical_report.ipynb",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "48793d9ef49529b978ad30047f3f514f81bff2e0741e96c13a27e5b147503a2a"
+    },
+    {
+      "name": "canonical_html",
+      "classification": "frozen_historical",
+      "path": "reports/html/practice_2_2_canonical_report.html",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "a4c866d2e2137052f8fea288bd51cb980e54f0de85ddb4e980e68e6450cb956d"
+    },
+    {
+      "name": "v2_group_manifest",
+      "classification": "v2_experimental",
+      "path": "data/manifests/v2_stratified_group_s42/split_manifest_v2.csv",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "2c2f6d300e5ce127001c107124e21333c7edaaa0e74d763c6f685a2cedec1ff6"
+    },
+    {
+      "name": "v2_visual_manifest",
+      "classification": "v2_experimental",
+      "path": "data/manifests/v2_visual_group_stratified_s42/split_manifest.csv",
+      "kind": "pandas_manifest",
+      "required": true,
+      "expected_dataframe_sha256": "d94a9ae7b3aefa54bff7f5f24af075afe95f71a0fec8922bd04be46ff6952b67",
+      "expected_dataset_sha256": "d20079086a97a863f91803d1ca798007d25b2542dfff9b0270968de2ff057531",
+      "expected_split_sha256": "bb83c2172dc40bfd1ad4d56ea25bc61f3752acf2efdc9d5767a211727015d461"
+    },
+    {
+      "name": "v2_initial_state",
+      "classification": "v2_experimental",
+      "path": "artifacts/experiments/v2_visualsafe_baseline_s42_v1/initial_state.pt",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "6cf20a22e84d28929e00662d5138137397b973fb6222bde97f1f31f9d45e4abf"
+    },
+    {
+      "name": "v2_e1_best_checkpoint",
+      "classification": "v2_experimental",
+      "path": "artifacts/experiments/v2_visualsafe_baseline_s42_v1/E1_visualsafe_head_only/best.pt",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "afbee6796e8cc6ce1466eabcf3bc2e932c1bdad25e9680342040747617b2c5b8"
+    },
+    {
+      "name": "v2_e2_best_checkpoint",
+      "classification": "v2_experimental",
+      "path": "artifacts/experiments/v2_visualsafe_baseline_s42_v1/E2_visualsafe_layer4/best.pt",
+      "kind": "file",
+      "required": true,
+      "expected_sha256": "4484a0f34b94ac60ee15cf99302e05f21a93acbe53604ec7b8af3df54ccfb63d"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "policy_version": "r3_product_visual_grouping_v1",
+  "seed": 42,
+  "input_scope": "r2_original_assets_only",
+  "generated_assets_excluded": true,
+  "split_creation_allowed": false,
+  "automatic_deletion_allowed": false,
+  "automatic_quarantine_allowed": false,
+  "cross_label_union_allowed": false,
+  "identity_keys": [
+    "product_id",
+    "raw_sha256",
+    "decoded_pixel_sha256",
+    "source_group"
+  ],
+  "visual_evidence": {
+    "phash_size": 8,
+    "phash_candidate_distance": 8,
+    "dhash_candidate_distance": 5,
+    "ssim_image_size": 96,
+    "embedding_model": "resnet18",
+    "embedding_weights": "IMAGENET1K_V1",
+    "embedding_dimension": 512,
+    "embedding_neighbor_count": 8,
+    "embedding_candidate_cosine": 0.94,
+    "confirmed_same_label": {
+      "maximum_phash_distance": 4,
+      "maximum_dhash_distance": 4,
+      "minimum_ssim": 0.95,
+      "minimum_embedding_cosine": 0.98
+    }
+  },
+  "review_decisions": [
+    "confirm_same_product",
+    "confirm_visual_duplicate",
+    "reject_edge",
+    "confirm_cross_label_conflict"
+  ],
+  "component_id_prefix": "r3g_",
+  "predecessor_phase": "R2",
+  "successor_phase_not_authorized": "R4"
+}

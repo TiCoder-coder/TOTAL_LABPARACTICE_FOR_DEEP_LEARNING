@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "fixture_type": "synthetic_protocol_only",
+  "fixture_is_performance_evidence": false,
+  "experiment_snapshots": [
+    {
+      "experiment_id": "M0",
+      "stage": "layer4_finetune",
+      "warmup_epochs_planned": 0,
+      "warmup_epochs_completed": 0,
+      "best_warmup_epoch": null,
+      "initial_state_sha256": "d17dd638068778a32142207fcdbf4a2e1bf58cc8fbaafacadb65dd9d1124c6a4",
+      "best_warmup_state_sha256": null,
+      "current_state_sha256": "d17dd638068778a32142207fcdbf4a2e1bf58cc8fbaafacadb65dd9d1124c6a4",
+      "trainable_parameter_names": [
+        "layer4.0.conv1.weight",
+        "layer4.0.bn1.weight",
+        "layer4.0.bn1.bias",
+        "layer4.0.conv2.weight",
+        "layer4.0.bn2.weight",
+        "layer4.0.bn2.bias",
+        "layer4.0.downsample.0.weight",
+        "layer4.0.downsample.1.weight",
+        "layer4.0.downsample.1.bias",
+        "layer4.1.conv1.weight",
+        "layer4.1.bn1.weight",
+        "layer4.1.bn1.bias",
+        "layer4.1.conv2.weight",
+        "layer4.1.bn2.weight",
+        "layer4.1.bn2.bias",
+        "fc.1.weight",
+        "fc.1.bias"
+      ],
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "M1",
+      "stage": "layer4_finetune",
+      "warmup_epochs_planned": 4,
+      "warmup_epochs_completed": 4,
+      "best_warmup_epoch": 2,
+      "initial_state_sha256": "d17dd638068778a32142207fcdbf4a2e1bf58cc8fbaafacadb65dd9d1124c6a4",
+      "best_warmup_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "current_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "trainable_parameter_names": [
+        "layer4.0.conv1.weight",
+        "layer4.0.bn1.weight",
+        "layer4.0.bn1.bias",
+        "layer4.0.conv2.weight",
+        "layer4.0.bn2.weight",
+        "layer4.0.bn2.bias",
+        "layer4.0.downsample.0.weight",
+        "layer4.0.downsample.1.weight",
+        "layer4.0.downsample.1.bias",
+        "layer4.1.conv1.weight",
+        "layer4.1.bn1.weight",
+        "layer4.1.bn1.bias",
+        "layer4.1.conv2.weight",
+        "layer4.1.bn2.weight",
+        "layer4.1.bn2.bias",
+        "fc.1.weight",
+        "fc.1.bias"
+      ],
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "M2",
+      "stage": "layer4_finetune",
+      "warmup_epochs_planned": 4,
+      "warmup_epochs_completed": 4,
+      "best_warmup_epoch": 2,
+      "initial_state_sha256": "d17dd638068778a32142207fcdbf4a2e1bf58cc8fbaafacadb65dd9d1124c6a4",
+      "best_warmup_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "current_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "trainable_parameter_names": [
+        "layer4.0.conv1.weight",
+        "layer4.0.bn1.weight",
+        "layer4.0.bn1.bias",
+        "layer4.0.conv2.weight",
+        "layer4.0.bn2.weight",
+        "layer4.0.bn2.bias",
+        "layer4.0.downsample.0.weight",
+        "layer4.0.downsample.1.weight",
+        "layer4.0.downsample.1.bias",
+        "layer4.1.conv1.weight",
+        "layer4.1.bn1.weight",
+        "layer4.1.bn1.bias",
+        "layer4.1.conv2.weight",
+        "layer4.1.bn2.weight",
+        "layer4.1.bn2.bias",
+        "fc.1.weight",
+        "fc.1.bias"
+      ],
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "M3",
+      "stage": "layer4_finetune",
+      "warmup_epochs_planned": 4,
+      "warmup_epochs_completed": 4,
+      "best_warmup_epoch": 2,
+      "initial_state_sha256": "d17dd638068778a32142207fcdbf4a2e1bf58cc8fbaafacadb65dd9d1124c6a4",
+      "best_warmup_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "current_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "trainable_parameter_names": [
+        "layer4.0.conv1.weight",
+        "layer4.0.bn1.weight",
+        "layer4.0.bn1.bias",
+        "layer4.0.conv2.weight",
+        "layer4.0.bn2.weight",
+        "layer4.0.bn2.bias",
+        "layer4.0.downsample.0.weight",
+        "layer4.0.downsample.1.weight",
+        "layer4.0.downsample.1.bias",
+        "layer4.1.conv1.weight",
+        "layer4.1.bn1.weight",
+        "layer4.1.bn1.bias",
+        "layer4.1.conv2.weight",
+        "layer4.1.bn2.weight",
+        "layer4.1.bn2.bias",
+        "fc.1.weight",
+        "fc.1.bias"
+      ],
+      "test_evidence_used": false
+    }
+  ],
+  "transition_records": [
+    {
+      "experiment_id": "M1",
+      "best_warmup_epoch": 2,
+      "pre_transition_state_sha256": "a64f24f1a66e91f4fc86a7a1209bca1c4efa47672c44bf5a6c288d6baf9f81f6",
+      "restored_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "post_transition_learning_rates": {
+        "backbone": 2e-05,
+        "head": 0.0005
+      },
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "M2",
+      "best_warmup_epoch": 2,
+      "pre_transition_state_sha256": "a64f24f1a66e91f4fc86a7a1209bca1c4efa47672c44bf5a6c288d6baf9f81f6",
+      "restored_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "post_transition_learning_rates": {
+        "backbone": 2e-05,
+        "head": 0.0005
+      },
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "M3",
+      "best_warmup_epoch": 2,
+      "pre_transition_state_sha256": "a64f24f1a66e91f4fc86a7a1209bca1c4efa47672c44bf5a6c288d6baf9f81f6",
+      "restored_state_sha256": "b5f188c9ea0380a1f02e656878e14e89344594912b3bc23fa11449d6e5121224",
+      "post_transition_learning_rates": {
+        "backbone": 2e-05,
+        "head": 0.0005
+      },
+      "test_evidence_used": false
+    }
+  ],
+  "shared_initial_state_sha256": "d17dd638068778a32142207fcdbf4a2e1bf58cc8fbaafacadb65dd9d1124c6a4",
+  "shared_initial_state_count": 1,
+  "loss_values_by_experiment": {
+    "M0": 2.4292341734959746,
+    "M1": 2.4292341734959746,
+    "M2": 2.4292341734959746,
+    "M3": 2.446815234096183
+  },
+  "test_evidence_used": false,
+  "real_training_performed": false,
+  "initialization_fixture_type": "synthetic_protocol_only"
+}

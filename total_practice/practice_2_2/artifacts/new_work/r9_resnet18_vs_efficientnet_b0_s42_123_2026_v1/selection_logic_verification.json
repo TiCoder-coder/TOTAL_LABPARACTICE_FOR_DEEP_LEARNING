@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "fixture_type": "synthetic_selection_logic_only",
+  "fixture_is_model_quality_evidence": false,
+  "improvement_fixture_summaries": [
+    {
+      "experiment_id": "A0",
+      "architecture": "resnet18",
+      "seed_count": 3,
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "initial_state_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mean_train_accuracy": 0.88,
+      "mean_validation_accuracy": 0.72,
+      "std_validation_accuracy": 0.0020000000000000018,
+      "mean_validation_macro_f1": 0.7,
+      "std_validation_macro_f1": 0.0020000000000000018,
+      "mean_generalization_gap": 0.16000000000000003,
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "A1",
+      "architecture": "efficientnet_b0",
+      "seed_count": 3,
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "initial_state_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "mean_train_accuracy": 0.86,
+      "mean_validation_accuracy": 0.74,
+      "std_validation_accuracy": 0.0020000000000000018,
+      "mean_validation_macro_f1": 0.73,
+      "std_validation_macro_f1": 0.0020000000000000018,
+      "mean_generalization_gap": 0.12,
+      "test_evidence_used": false
+    }
+  ],
+  "improvement_fixture_selection": {
+    "selected_experiment_id": "A1",
+    "comparator_advances": true,
+    "macro_f1_improvement": 0.030000000000000027,
+    "validation_accuracy_change": 0.020000000000000018,
+    "generalization_gap_reduction": 0.040000000000000036,
+    "train_only_improvement": false,
+    "selection_source": "Validation_only",
+    "test_evidence_used": false
+  },
+  "train_only_fixture_summaries": [
+    {
+      "experiment_id": "A0",
+      "architecture": "resnet18",
+      "seed_count": 3,
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "initial_state_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mean_train_accuracy": 0.88,
+      "mean_validation_accuracy": 0.72,
+      "std_validation_accuracy": 0.0020000000000000018,
+      "mean_validation_macro_f1": 0.7,
+      "std_validation_macro_f1": 0.0020000000000000018,
+      "mean_generalization_gap": 0.16000000000000003,
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "A1",
+      "architecture": "efficientnet_b0",
+      "seed_count": 3,
+      "seeds": [
+        42,
+        123,
+        2026
+      ],
+      "initial_state_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "mean_train_accuracy": 0.95,
+      "mean_validation_accuracy": 0.72,
+      "std_validation_accuracy": 0.0020000000000000018,
+      "mean_validation_macro_f1": 0.7,
+      "std_validation_macro_f1": 0.0020000000000000018,
+      "mean_generalization_gap": 0.22999999999999998,
+      "test_evidence_used": false
+    }
+  ],
+  "train_only_fixture_selection": {
+    "selected_experiment_id": "A0",
+    "comparator_advances": false,
+    "macro_f1_improvement": 0.0,
+    "validation_accuracy_change": 0.0,
+    "generalization_gap_reduction": -0.06999999999999995,
+    "train_only_improvement": true,
+    "selection_source": "Validation_only",
+    "test_evidence_used": false
+  },
+  "test_field_rejection_verified": true,
+  "authorized_architecture_experiment_id": null,
+  "test_evidence_used": false
+}
