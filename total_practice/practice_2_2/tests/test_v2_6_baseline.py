@@ -3,6 +3,7 @@ import pandas as pd
 import torch
 import json
 import hashlib
+# pyrefly: ignore [missing-import]
 from practice_2_2.train_v2_6_baseline import verify_data, get_hash
 
 def test_new_visualsafe_manifest_loaded():
