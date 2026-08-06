@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "component_cross_split_violation_count": 0,
+  "component_cross_split_violations": [],
+  "identity_cross_split_violation_counts": {
+    "product_id": 0,
+    "raw_sha256": 0,
+    "decoded_pixel_sha256": 0,
+    "source_group": 0
+  },
+  "identity_cross_split_violations": {
+    "product_id": [],
+    "raw_sha256": [],
+    "decoded_pixel_sha256": [],
+    "source_group": []
+  },
+  "confirmed_visual_cross_split_violation_count": 0,
+  "confirmed_visual_cross_split_violations": [],
+  "strong_leakage_violation_count": 0,
+  "review_only_cross_split_pair_count": 1172,
+  "review_only_cross_split_same_label_count": 663,
+  "review_only_cross_split_cross_label_count": 509,
+  "all_review_only_cross_split_pairs_documented": true
+}

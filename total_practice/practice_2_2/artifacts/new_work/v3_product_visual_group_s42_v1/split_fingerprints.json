@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "dataset_fingerprint_sha256": "c590fc70bdb02c264ed995ed1816ffa40650298c41bda990b2296fed04e6bc2e",
+  "component_fingerprint_sha256": "9561794e71c48ac14a2215aa3f0c1344b2fcd9a7a68ff023ab64b82cce316043",
+  "split_fingerprint_sha256": "111844fe2197a1c9bdf7f7a3abe01487f2dfdc545127ad7a2406c3820beb6e5b",
+  "test_partition_fingerprint_sha256": "edf3fc67683df1cc1d9f417d47dea206534e351b35f80feee9e27760a3254b88",
+  "manifest_json_sha256": "c62f2cacde3db92b5a4844157625a36201139fa3d4e2bbf986cb50c86b68ec65",
+  "manifest_csv_sha256": "b87720bbd00c1ca5908e7e61a5730fd922092d9a479ab27bb6f585939198dcaf"
+}

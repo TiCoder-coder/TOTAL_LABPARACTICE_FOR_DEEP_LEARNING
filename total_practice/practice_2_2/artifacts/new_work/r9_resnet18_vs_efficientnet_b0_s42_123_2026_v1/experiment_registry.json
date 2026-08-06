@@ -1,0 +1,20 @@
+{
+  "A0": {
+    "parent": null,
+    "single_change": "resnet18_baseline",
+    "architecture": "resnet18",
+    "image_size": 224,
+    "pretrained_weights": "IMAGENET1K_V1",
+    "pretrained_checkpoint_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "final_backbone_block": "layer4"
+  },
+  "A1": {
+    "parent": "A0",
+    "single_change": "architecture",
+    "architecture": "efficientnet_b0",
+    "image_size": 224,
+    "pretrained_weights": "IMAGENET1K_V1",
+    "pretrained_checkpoint_sha256": null,
+    "final_backbone_block": "features.7_and_8"
+  }
+}

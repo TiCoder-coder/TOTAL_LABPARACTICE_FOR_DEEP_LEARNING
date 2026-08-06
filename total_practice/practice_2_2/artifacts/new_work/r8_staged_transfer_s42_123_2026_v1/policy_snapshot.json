@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "policy_version": "r8_staged_transfer_s42_123_2026_v1",
+  "predecessor_phase": "R7",
+  "predecessor_gate_required": true,
+  "architecture": "resnet18",
+  "pretrained_weights": "IMAGENET1K_V1",
+  "pretrained_checkpoint_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+  "num_classes": 10,
+  "head_initialization_seed": 42,
+  "experiment_seeds": [
+    42,
+    123,
+    2026
+  ],
+  "warmup_epoch_range": [
+    3,
+    5
+  ],
+  "staged_warmup_epochs": 4,
+  "fine_tune_block": "layer4",
+  "optimizer": {
+    "name": "AdamW",
+    "head_learning_rate": 0.0005,
+    "backbone_learning_rate": 2e-05,
+    "weight_decay": 0.0002
+  },
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 2
+  },
+  "early_stopping": {
+    "metric": "corrected_validation_loss",
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "warmup_checkpoint_selection": {
+    "primary": "validation_macro_f1",
+    "tie_breaker": "validation_loss"
+  },
+  "experiment_selection": {
+    "primary": "mean_validation_macro_f1",
+    "secondary": "mean_validation_accuracy",
+    "minimum_macro_f1_improvement": 0.005,
+    "maximum_validation_accuracy_decrease": 0.01,
+    "minimum_generalization_gap_reduction": 0.02
+  },
+  "experiments": {
+    "M0": {
+      "parent": null,
+      "single_change": "immediate_layer4_finetuning",
+      "warmup_epochs": 0,
+      "dropout": 0.2,
+      "label_smoothing": 0.0
+    },
+    "M1": {
+      "parent": "M0",
+      "single_change": "warmup_epochs",
+      "warmup_epochs": 4,
+      "dropout": 0.2,
+      "label_smoothing": 0.0
+    },
+    "M2": {
+      "parent": "M1",
+      "single_change": "dropout",
+      "warmup_epochs": 4,
+      "dropout": 0.35,
+      "label_smoothing": 0.0
+    },
+    "M3": {
+      "parent": "M1",
+      "single_change": "label_smoothing",
+      "warmup_epochs": 4,
+      "dropout": 0.2,
+      "label_smoothing": 0.05
+    }
+  },
+  "selected_transform_required": true,
+  "authorized_train_manifest_required": true,
+  "shared_pretrained_initial_state_required": true,
+  "repeated_seed_validation_evidence_required": true,
+  "test_evidence_allowed": false,
+  "test_content_access_allowed": false,
+  "test_loader_construction_allowed": false,
+  "successor_phase_not_authorized": "R9"
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "fixture_type": "synthetic_architecture_protocol_only",
+  "fixture_is_model_quality_evidence": false,
+  "experiments": [
+    {
+      "experiment_id": "A0",
+      "architecture": "resnet18",
+      "initial_state_sha256": "11b4bbbb479c0e1c3da9198588ff0ea824394c7e6454c839a75c749f5516f108",
+      "head_warmup_trainable_parameter_count": 2,
+      "final_block_trainable_parameter_count": 17,
+      "head_learning_rates": {
+        "head": 0.0005
+      },
+      "final_block_learning_rates": {
+        "backbone": 2e-05,
+        "head": 0.0005
+      },
+      "checkpoint_output_sha256_before": "0d8b0f24760a24155883d0c70adb5d5251e04c9e4f5690e181bf056b48d25a79",
+      "checkpoint_output_sha256_after": "0d8b0f24760a24155883d0c70adb5d5251e04c9e4f5690e181bf056b48d25a79",
+      "checkpoint_predictions_identical": true,
+      "test_evidence_used": false
+    },
+    {
+      "experiment_id": "A1",
+      "architecture": "efficientnet_b0",
+      "initial_state_sha256": "11e7c9c532268e85ba051af9fd268bfe432640fb9fa5d2421ebc94e78639c0a1",
+      "head_warmup_trainable_parameter_count": 2,
+      "final_block_trainable_parameter_count": 18,
+      "head_learning_rates": {
+        "head": 0.0005
+      },
+      "final_block_learning_rates": {
+        "backbone": 2e-05,
+        "head": 0.0005
+      },
+      "checkpoint_output_sha256_before": "58a86a5710a1ec5bfc0d8f2528fce42fb396ebbc09c0deddead1671d960b74d8",
+      "checkpoint_output_sha256_after": "58a86a5710a1ec5bfc0d8f2528fce42fb396ebbc09c0deddead1671d960b74d8",
+      "checkpoint_predictions_identical": true,
+      "test_evidence_used": false
+    }
+  ],
+  "r8_protocol_match": true,
+  "test_evidence_used": false,
+  "real_training_performed": false
+}

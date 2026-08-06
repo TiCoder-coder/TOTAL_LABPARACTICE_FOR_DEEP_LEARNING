@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "policy_version": "r5_train_only_data_readiness_s42_v1",
+  "seed": 42,
+  "authorized_content_split": "Train",
+  "predecessor_lineage": "v3_product_visual_group_s42_v1",
+  "predecessor_gate_required": true,
+  "contact_sheet_samples_per_class": 20,
+  "contact_sheet_columns": 5,
+  "embedding_cluster_count": 20,
+  "embedding_neighbor_count": 5,
+  "cluster_contact_sheet_samples": 12,
+  "cross_label_pair_sheet_count": 12,
+  "thresholds": {
+    "minimum_component_diversity_ratio": 0.8,
+    "maximum_source_group_share": 0.1,
+    "maximum_duplicate_component_share": 0.1,
+    "maximum_embedding_cluster_class_share": 0.35,
+    "cross_label_neighbor_review_cosine": 0.95,
+    "text_like_area_review_ratio": 0.12,
+    "border_edge_crop_review_ratio": 0.12,
+    "banner_band_edge_multiplier": 1.5
+  },
+  "manual_review_fields": [
+    "semantic_decision",
+    "proposed_label",
+    "reason_code",
+    "dominant_product_visible",
+    "text_role",
+    "crop_loss",
+    "watermark_present",
+    "banner_present",
+    "bundle_present",
+    "bundle_policy_compliant",
+    "people_only",
+    "reviewer_id",
+    "reviewed_at_utc"
+  ],
+  "allowed_text_roles": [
+    "supporting",
+    "dominant",
+    "text_only"
+  ],
+  "automatic_semantic_decisions_allowed": false,
+  "automatic_quarantine_allowed": false,
+  "validation_content_access_allowed": false,
+  "test_content_access_allowed": false,
+  "model_training_allowed": false,
+  "successor_phase_not_authorized": "R6"
+}

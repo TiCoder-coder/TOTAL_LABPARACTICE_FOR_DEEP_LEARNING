@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "lineage": "r10_robust_validation_selection_s42_123_2026_v1",
+  "synthetic_protocol_verification_only": true,
+  "fixture_is_model_selection_evidence": false,
+  "selected_finalist_id": null,
+  "final_checkpoint_frozen": false,
+  "real_training_performed": false,
+  "validation_content_access_count": 0,
+  "test_content_access_count": 0,
+  "test_loader_constructed": false,
+  "source_images_mutated": false,
+  "canonical_notebook_mutated": false,
+  "canonical_notebook_sha256": "a4eb294b3c4e8ec9619255f4acdd529094c0abd47eed9a263cf8bc96a7a8ff0d",
+  "artifacts": [
+    {
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/policy_snapshot.json",
+      "size_bytes": 1699,
+      "sha256": "3e2632ba19a600a586aa6c8331137563b158529f039b010a8b3499bbd9bdab93"
+    },
+    {
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/prerequisite_report.json",
+      "size_bytes": 262,
+      "sha256": "facb171ec670463d98a80c38ab7c6eb9351bb0f16eceaaf7b0cea4ef9b795d76"
+    },
+    {
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/selection_logic_verification.json",
+      "size_bytes": 1773,
+      "sha256": "0fa8e59b72ef23cfc3508a8a2ef851fa3f07e8429895bfa1d303ab069a2fce43"
+    },
+    {
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/uncertainty_report.json",
+      "size_bytes": 5505,
+      "sha256": "df64d014310b69d4911aa11f749e997928f17f44e6ad805e035e17c2cc337bdd"
+    },
+    {
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/freeze_logic_verification.json",
+      "size_bytes": 914,
+      "sha256": "e325f7d7ee6aee803d49eee625932eb5bce2eb6e1ad1e4011eecc4400a18f490"
+    },
+    {
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/robust_model_selection_report.json",
+      "size_bytes": 2111,
+      "sha256": "0134bd26d60016ea2fd09492f8365590d5cbd87e76a8c74be5b989fbf7d7b55b"
+    },
+    {
+      "path": "docs/R10_VERIFICATION.json",
+      "size_bytes": 2111,
+      "sha256": "0134bd26d60016ea2fd09492f8365590d5cbd87e76a8c74be5b989fbf7d7b55b"
+    }
+  ]
+}

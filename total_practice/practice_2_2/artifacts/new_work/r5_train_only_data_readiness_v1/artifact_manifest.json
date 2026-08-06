@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "lineage": "r5_train_only_data_readiness_s42_v1",
+  "content_authority": "Train",
+  "validation_content_access_count": 0,
+  "test_content_access_count": 0,
+  "source_images_mutated": false,
+  "canonical_notebook_mutated": false,
+  "artifacts": [
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/train_image_audit.json",
+      "size_bytes": 1579573,
+      "sha256": "b8761e1f4ecc0cf9479b0c976382f13e27ef2d7139701fc73d2f01a52a70208b"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/train_pixel_statistics.json",
+      "size_bytes": 497,
+      "sha256": "b9917442b7beb76d618bd8695ecc8b219aa7f47da4012d234b05456fb8bc0601"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_readiness.json",
+      "size_bytes": 6071,
+      "sha256": "dc0b144b2c0a668cc1f5bf86947bba8808006b50161f54fc0f83d78bd480d605"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/embedding_cluster_report.json",
+      "size_bytes": 275068,
+      "sha256": "314ba2a17fbf38eb7d3ac3cd5c520f6c7ef2d2e6532f5915c891fa13231b8a35"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/embedding_neighbor_report.json",
+      "size_bytes": 3991869,
+      "sha256": "df3d2782e1b6bbb0dacf28d3f25417f93bb2c47598cddbf48440f4eada89bfaf"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/train_review_queue.json",
+      "size_bytes": 2457942,
+      "sha256": "37404b68d24a329fbac164e886f543a5ec2a9569088e718848bdac442ecc4267"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/contact_sheet_index.json",
+      "size_bytes": 37580,
+      "sha256": "0e0b7dc659c15ae04ddba8cf692fc69b0aedd2189e450dac002b9e46ba1c62b6"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/content_access_manifest.json",
+      "size_bytes": 146641,
+      "sha256": "1d7202264d9cf2796bdd97692f202800891fd5d38d000315fb8e0f4c2f0d424c"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/data_readiness_report.json",
+      "size_bytes": 1563,
+      "sha256": "1684723b6570f7d8dd87113095ab62126082e4402bd6023f0594fb29298998b6"
+    },
+    {
+      "path": "docs/R5_VERIFICATION.json",
+      "size_bytes": 1563,
+      "sha256": "1684723b6570f7d8dd87113095ab62126082e4402bd6023f0594fb29298998b6"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/body_wash.png",
+      "size_bytes": 388643,
+      "sha256": "3eb0845e1f21968d5627a9a382f55fbe2ce1f410b30047cad43187c32f2ce1f0"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/face_mask.png",
+      "size_bytes": 371820,
+      "sha256": "1a9d42b377d2de9e7e1ebab1eb21cb9197c4e634791cab50b1221492aeb8a261"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/facial_cleanser.png",
+      "size_bytes": 366373,
+      "sha256": "0c7efea66dbd92ca2e0cf27ed2abf95016257c6bf36e1fda6ac433f55b0ae46d"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/lipstick.png",
+      "size_bytes": 372669,
+      "sha256": "c183cc811234928f1a1110a759105aa4060831d5edfee1ec779698977bf9f13f"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/moisturizer.png",
+      "size_bytes": 328008,
+      "sha256": "70fb2356b4874951164a7a1a2f49da7df5b0fb4cfa4f09c365b76147b8ab827f"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/perfume.png",
+      "size_bytes": 395698,
+      "sha256": "8ab4a4a7b82192ac1f7e431251c5919940321f263036fe45588ab5b3124184df"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/serum.png",
+      "size_bytes": 377775,
+      "sha256": "64f11b759089dfa9944466bf117d13e636a68d89041f4c4e8da42461460f6853"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/shampoo.png",
+      "size_bytes": 324721,
+      "sha256": "25ff755bfa772854f039a1bf6b32824d3d2c0ba8dc903d0e7b7b3d254b7082ca"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/sunscreen.png",
+      "size_bytes": 371389,
+      "sha256": "68983f6ea702ee04796d8f8691d297dc0d07ff6eb3a4a13da7d8e07253bd1502"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/class_contact_sheets/toner.png",
+      "size_bytes": 363369,
+      "sha256": "3be5d945ac8f4faf029e2e153967bc631684a5e53248781dd64cfb44484592c2"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_00.png",
+      "size_bytes": 173485,
+      "sha256": "7e8a7bb15e8ebd0ad8da56415f6c43a5f6de8d3711476cb07c510847f00da6ad"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_01.png",
+      "size_bytes": 184530,
+      "sha256": "874f97b2caa76e89d5a246ab0286f23cf9afa86d748ef3e6b470d2969626f487"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_02.png",
+      "size_bytes": 96024,
+      "sha256": "2160ecf41baf388e6d03912c8d52834ac1e936c0f9a0ce5a348b0f6b965bf2b8"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_03.png",
+      "size_bytes": 163238,
+      "sha256": "3b08e3e8addd1f7396b31d845e0ee45a3b7ac29f58bbe2366464ec4c2676ddd0"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_04.png",
+      "size_bytes": 179165,
+      "sha256": "7ceb5ea7c87b82526d06870a1e06046a6c260de3d14ad10c7bac7b4041fd88a7"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_05.png",
+      "size_bytes": 262868,
+      "sha256": "fb963d8fb948aaac5d878bf32d065094eb349b4421112e29e8de9cfe2cf96ed1"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_06.png",
+      "size_bytes": 204671,
+      "sha256": "d7ac796c554c7e5f5a6b4b2bcde54e57a54632bf58772108fe6e88aa70c9233b"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_07.png",
+      "size_bytes": 245944,
+      "sha256": "9b6ab0c058096e0c2c4d48559be84fbd61646bc9e0f9e45a9cd379dac78cb541"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_08.png",
+      "size_bytes": 215258,
+      "sha256": "e678ef50112a21b2a195fd6a1af8643eda470c6977c5473c3b0efd0ea51bd8b3"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_09.png",
+      "size_bytes": 291024,
+      "sha256": "cd04cc92740737901c0eab0b0e63f7a176da8e8e7b1ebe6a11d83dee21985bb6"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_10.png",
+      "size_bytes": 189948,
+      "sha256": "c19f24789b6412e13258ee1002eb521c0ec82d252289ed3bc172ea0bf71eabe3"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_11.png",
+      "size_bytes": 244041,
+      "sha256": "b712926969240385dd64f260bd3b9356f9283c9378eec1e82096ca31c75a880e"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_12.png",
+      "size_bytes": 192921,
+      "sha256": "ebdafdff6b683a292714a7b60eb51a64e8254b7cafd7b63fa5df8c1757be289f"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_13.png",
+      "size_bytes": 155670,
+      "sha256": "ed0f535dfdc349adddd2514714d0e4b00d05f7b8e6296fedf76e3d54d4900b04"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_14.png",
+      "size_bytes": 253633,
+      "sha256": "097e4f3caa13241ecfa584b78ef570858ac18602585a7c7d51729e77ccc5a689"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_15.png",
+      "size_bytes": 290737,
+      "sha256": "06a88ddc0af612b1cbaed0447e8293da47bb6127bec22ca2843f85cb75a296d2"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_16.png",
+      "size_bytes": 172792,
+      "sha256": "14614116be091316b62053e75826c6f3a26b49d53787f86e8ad42d4f3e356945"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_17.png",
+      "size_bytes": 265577,
+      "sha256": "b388f10a53806082d7f96cc93996456a7f49d85d548dcfebb4b130f8b6d33afd"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_18.png",
+      "size_bytes": 247331,
+      "sha256": "8d0d148617c646ae1833c411376611a9bd969d0a9547425adbbc340e3e46573d"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cluster_contact_sheets/cluster_19.png",
+      "size_bytes": 286121,
+      "sha256": "38ab15578a1a988146f5d0b508b4fd6eb634d675e433ebc823da87fb5ef04d41"
+    },
+    {
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/cross_label_neighbor_pairs.png",
+      "size_bytes": 488092,
+      "sha256": "9c00aa7a9fcc8ef7cf26dae878d7f614f6922b525cd842195f7f02f3071ee4f7"
+    }
+  ]
+}

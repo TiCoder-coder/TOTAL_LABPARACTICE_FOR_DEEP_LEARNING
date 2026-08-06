@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "phase": "R12",
+  "registry_version": "r12_artifact_only_report_v1",
+  "path_base": "practice_2_2_root",
+  "source_artifacts": [
+    {
+      "artifact_id": "r0_verification",
+      "phase": "R0",
+      "path": "docs/R0_AUTHORITY_INVENTORY.json",
+      "size_bytes": 6892,
+      "sha256": "42719ff6bc5f8213ce313cd8c8921ca8c3907c69729c0dd64ab76bc687a833a5"
+    },
+    {
+      "artifact_id": "r1_verification",
+      "phase": "R1",
+      "path": "docs/R1_VERIFICATION.json",
+      "size_bytes": 1105,
+      "sha256": "b99398f60bdb5448c9676c7b697a62c5ef471eb3b75b039d4a04a948c2e40f27"
+    },
+    {
+      "artifact_id": "r2_verification",
+      "phase": "R2",
+      "path": "docs/R2_VERIFICATION.json",
+      "size_bytes": 4349,
+      "sha256": "7f1dcc8258e1fec46eab828c8bf9b9c742c5815f5f535a61eeb87304674d0fbc"
+    },
+    {
+      "artifact_id": "r3_verification",
+      "phase": "R3",
+      "path": "docs/R3_VERIFICATION.json",
+      "size_bytes": 1676,
+      "sha256": "18cdbe2fadc837aef906415b1702758f14341587eac1ae026ef91f1f3519e8c3"
+    },
+    {
+      "artifact_id": "r4_verification",
+      "phase": "R4",
+      "path": "docs/R4_VERIFICATION.json",
+      "size_bytes": 1159,
+      "sha256": "7804def881a40c67fe3b4c3dec832ff137c0d34f77b38b416e909b9b0fe01dd1"
+    },
+    {
+      "artifact_id": "r5_verification",
+      "phase": "R5",
+      "path": "docs/R5_VERIFICATION.json",
+      "size_bytes": 1563,
+      "sha256": "1684723b6570f7d8dd87113095ab62126082e4402bd6023f0594fb29298998b6"
+    },
+    {
+      "artifact_id": "r6_verification",
+      "phase": "R6",
+      "path": "docs/R6_VERIFICATION.json",
+      "size_bytes": 1271,
+      "sha256": "dcb29cbbb96d2eecfea3dac7958d3c2bb3a26ee8fbd9cea5c52730682dbf8415"
+    },
+    {
+      "artifact_id": "r7_verification",
+      "phase": "R7",
+      "path": "docs/R7_VERIFICATION.json",
+      "size_bytes": 1908,
+      "sha256": "83d81f0cfa3453e51d5d1e4ef0ee7c948557b9f2bb9ec173abee39f426c29cf2"
+    },
+    {
+      "artifact_id": "r8_verification",
+      "phase": "R8",
+      "path": "docs/R8_VERIFICATION.json",
+      "size_bytes": 2205,
+      "sha256": "ebed6e79e6f163a1b3ead07910ab532a75ef08d4e68d15744c64fd13c4b03ce4"
+    },
+    {
+      "artifact_id": "r9_verification",
+      "phase": "R9",
+      "path": "docs/R9_VERIFICATION.json",
+      "size_bytes": 2416,
+      "sha256": "2a58332575fa9df25c1efb2c1923019e8fecb02be3de690f4a1e206b0f91223c"
+    },
+    {
+      "artifact_id": "r10_verification",
+      "phase": "R10",
+      "path": "docs/R10_VERIFICATION.json",
+      "size_bytes": 2111,
+      "sha256": "0134bd26d60016ea2fd09492f8365590d5cbd87e76a8c74be5b989fbf7d7b55b"
+    },
+    {
+      "artifact_id": "r1_contract",
+      "phase": "R1",
+      "path": "configs/r1_label_contract.json",
+      "evidence_class": "review_contract",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 13746,
+      "sha256": "054da8cbd9eef342008437e3b5b887bef6f6588c73cae67d6559479e8f3d24d7"
+    },
+    {
+      "artifact_id": "r2_data_quality",
+      "phase": "R2",
+      "path": "artifacts/new_work/r2_provenance_semantic_audit_v1/audit_report.json",
+      "evidence_class": "dataset_audit",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 4349,
+      "sha256": "7f1dcc8258e1fec46eab828c8bf9b9c742c5815f5f535a61eeb87304674d0fbc"
+    },
+    {
+      "artifact_id": "r3_groups",
+      "phase": "R3",
+      "path": "artifacts/new_work/r3_product_visual_groups_v1/group_report.json",
+      "evidence_class": "candidate_group_audit",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 1676,
+      "sha256": "18cdbe2fadc837aef906415b1702758f14341587eac1ae026ef91f1f3519e8c3"
+    },
+    {
+      "artifact_id": "r4_split",
+      "phase": "R4",
+      "path": "artifacts/new_work/v3_product_visual_group_s42_v1/split_report.json",
+      "evidence_class": "candidate_split_audit",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 1159,
+      "sha256": "7804def881a40c67fe3b4c3dec832ff137c0d34f77b38b416e909b9b0fe01dd1"
+    },
+    {
+      "artifact_id": "r4_leakage",
+      "phase": "R4",
+      "path": "artifacts/new_work/v3_product_visual_group_s42_v1/leakage_report.json",
+      "evidence_class": "candidate_leakage_audit",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 748,
+      "sha256": "e025bf623184ae1a8efd5dc94c4dc1cf2223819cc3671e91a419af70d9968282"
+    },
+    {
+      "artifact_id": "r5_readiness",
+      "phase": "R5",
+      "path": "artifacts/new_work/r5_train_only_data_readiness_v1/data_readiness_report.json",
+      "evidence_class": "train_only_audit",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 1563,
+      "sha256": "1684723b6570f7d8dd87113095ab62126082e4402bd6023f0594fb29298998b6"
+    },
+    {
+      "artifact_id": "r6_transforms",
+      "phase": "R6",
+      "path": "artifacts/new_work/r6_transform_ablation_s42_v1/transform_ablation_report.json",
+      "evidence_class": "train_only_transform_audit",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 1271,
+      "sha256": "dcb29cbbb96d2eecfea3dac7958d3c2bb3a26ee8fbd9cea5c52730682dbf8415"
+    },
+    {
+      "artifact_id": "r7_correctness",
+      "phase": "R7",
+      "path": "artifacts/new_work/r7_training_correctness_v1/training_correctness_report.json",
+      "evidence_class": "synthetic_protocol_verification",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 1908,
+      "sha256": "83d81f0cfa3453e51d5d1e4ef0ee7c948557b9f2bb9ec173abee39f426c29cf2"
+    },
+    {
+      "artifact_id": "r8_staged",
+      "phase": "R8",
+      "path": "artifacts/new_work/r8_staged_transfer_s42_123_2026_v1/staged_transfer_report.json",
+      "evidence_class": "synthetic_protocol_verification",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 2205,
+      "sha256": "ebed6e79e6f163a1b3ead07910ab532a75ef08d4e68d15744c64fd13c4b03ce4"
+    },
+    {
+      "artifact_id": "r9_ceiling",
+      "phase": "R9",
+      "path": "artifacts/new_work/r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1/feature_ceiling_report.json",
+      "evidence_class": "synthetic_protocol_verification",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 2416,
+      "sha256": "2a58332575fa9df25c1efb2c1923019e8fecb02be3de690f4a1e206b0f91223c"
+    },
+    {
+      "artifact_id": "r10_selection",
+      "phase": "R10",
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/robust_model_selection_report.json",
+      "evidence_class": "synthetic_protocol_verification",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 2111,
+      "sha256": "0134bd26d60016ea2fd09492f8365590d5cbd87e76a8c74be5b989fbf7d7b55b"
+    },
+    {
+      "artifact_id": "r10_uncertainty",
+      "phase": "R10",
+      "path": "artifacts/new_work/r10_robust_validation_selection_s42_123_2026_v1/uncertainty_report.json",
+      "evidence_class": "synthetic_protocol_fixture",
+      "eligible_for_model_conclusion": false,
+      "size_bytes": 5505,
+      "sha256": "df64d014310b69d4911aa11f749e997928f17f44e6ad805e035e17c2cc337bdd"
+    }
+  ],
+  "phase_report_ids": [
+    "r0_verification",
+    "r1_verification",
+    "r2_verification",
+    "r3_verification",
+    "r4_verification",
+    "r5_verification",
+    "r6_verification",
+    "r7_verification",
+    "r8_verification",
+    "r9_verification",
+    "r10_verification"
+  ],
+  "expected_r11_report": "docs/R11_VERIFICATION.json",
+  "r11_report_exists": false,
+  "training_allowed": false,
+  "test_evaluation_allowed": false
+}

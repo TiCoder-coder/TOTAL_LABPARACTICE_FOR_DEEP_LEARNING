@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "lineage": "r7_training_correctness_v1",
+  "synthetic_tensor_verification_only": true,
+  "real_training_performed": false,
+  "validation_content_access_count": 0,
+  "test_content_access_count": 0,
+  "test_loader_constructed": false,
+  "source_images_mutated": false,
+  "canonical_notebook_mutated": false,
+  "canonical_notebook_sha256": "a4eb294b3c4e8ec9619255f4acdd529094c0abd47eed9a263cf8bc96a7a8ff0d",
+  "artifacts": [
+    {
+      "path": "artifacts/new_work/r7_training_correctness_v1/policy_snapshot.json",
+      "size_bytes": 1197,
+      "sha256": "e76a9c11117ab56801f7d50af6e6065083a7ca7a37ed41e16dc969b97e6999a0"
+    },
+    {
+      "path": "artifacts/new_work/r7_training_correctness_v1/loss_verification.json",
+      "size_bytes": 2751,
+      "sha256": "26dbab08074e5ee5bbe18ed2ed501190aa05a0d0cf5693573519d49ed2de5638"
+    },
+    {
+      "path": "artifacts/new_work/r7_training_correctness_v1/validation_control_verification.json",
+      "size_bytes": 383,
+      "sha256": "aabdb1ca8ab06dfb1c5a890d0500194f0814ab5cb46e78f1be15a7a45df639d2"
+    },
+    {
+      "path": "artifacts/new_work/r7_training_correctness_v1/model_verification.json",
+      "size_bytes": 867,
+      "sha256": "d080a149153d17f66aee6a949342639c573fc15c0ff7cfd725024f12104e60a8"
+    },
+    {
+      "path": "artifacts/new_work/r7_training_correctness_v1/checkpoint_reload_verification.json",
+      "size_bytes": 704,
+      "sha256": "17f306b8f34a717786e00fae8e2ae4a42a2764f11800d764f06e2bdeec43b825"
+    },
+    {
+      "path": "artifacts/new_work/r7_training_correctness_v1/training_correctness_report.json",
+      "size_bytes": 1908,
+      "sha256": "83d81f0cfa3453e51d5d1e4ef0ee7c948557b9f2bb9ec173abee39f426c29cf2"
+    },
+    {
+      "path": "docs/R7_VERIFICATION.json",
+      "size_bytes": 1908,
+      "sha256": "83d81f0cfa3453e51d5d1e4ef0ee7c948557b9f2bb9ec173abee39f426c29cf2"
+    }
+  ]
+}

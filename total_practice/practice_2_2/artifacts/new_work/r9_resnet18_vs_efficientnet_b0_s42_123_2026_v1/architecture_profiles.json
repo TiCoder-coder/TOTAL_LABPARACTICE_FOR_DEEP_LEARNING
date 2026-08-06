@@ -1,0 +1,52 @@
+[
+  {
+    "architecture": "resnet18",
+    "device": "cpu",
+    "input_shape": [
+      1,
+      3,
+      224,
+      224
+    ],
+    "output_shape": [
+      1,
+      10
+    ],
+    "parameter_count": 11181642,
+    "trainable_parameter_count": 8398858,
+    "parameter_memory_bytes": 44726568,
+    "buffer_memory_bytes": 38560,
+    "forward_activation_bytes_sum": 29909032,
+    "warmup_iterations": 2,
+    "measured_iterations": 5,
+    "latency_ms_mean": 17.539124998438638,
+    "latency_ms_median": 17.45620899600908,
+    "latency_ms_std": 0.6147733892745832,
+    "performance_metric_source": "synthetic_input_only"
+  },
+  {
+    "architecture": "efficientnet_b0",
+    "device": "cpu",
+    "input_shape": [
+      1,
+      3,
+      224,
+      224
+    ],
+    "output_shape": [
+      1,
+      10
+    ],
+    "parameter_count": 4020358,
+    "trainable_parameter_count": 1142202,
+    "parameter_memory_bytes": 16081432,
+    "buffer_memory_bytes": 168456,
+    "forward_activation_bytes_sum": 79493000,
+    "warmup_iterations": 2,
+    "measured_iterations": 5,
+    "latency_ms_mean": 216.07904180127662,
+    "latency_ms_median": 213.34650000062538,
+    "latency_ms_std": 5.102462936035831,
+    "performance_metric_source": "synthetic_input_only"
+  }
+]

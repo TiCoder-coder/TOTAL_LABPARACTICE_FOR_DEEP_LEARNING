@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "policy_version": "r9_resnet18_vs_efficientnet_b0_s42_123_2026_v1",
+  "predecessor_phase": "R8",
+  "predecessor_gate_required": true,
+  "baseline_source": "authorized_r8_candidate",
+  "num_classes": 10,
+  "head_initialization_seed": 42,
+  "experiment_seeds": [
+    42,
+    123,
+    2026
+  ],
+  "image_size": 224,
+  "staged_warmup_epochs": 4,
+  "optimizer": {
+    "name": "AdamW",
+    "head_learning_rate": 0.0005,
+    "backbone_learning_rate": 0.00002,
+    "weight_decay": 0.0002
+  },
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 2
+  },
+  "early_stopping": {
+    "metric": "corrected_validation_loss",
+    "patience": 4,
+    "min_delta": 0.0
+  },
+  "experiments": {
+    "A0": {
+      "parent": null,
+      "single_change": "resnet18_baseline",
+      "architecture": "resnet18",
+      "image_size": 224,
+      "pretrained_weights": "IMAGENET1K_V1",
+      "pretrained_checkpoint_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+      "final_backbone_block": "layer4"
+    },
+    "A1": {
+      "parent": "A0",
+      "single_change": "architecture",
+      "architecture": "efficientnet_b0",
+      "image_size": 224,
+      "pretrained_weights": "IMAGENET1K_V1",
+      "pretrained_checkpoint_sha256": null,
+      "final_backbone_block": "features.7_and_8"
+    }
+  },
+  "controlled_experiment_fields": [
+    "architecture",
+    "image_size"
+  ],
+  "higher_resolution_experiment_enabled": false,
+  "ocr_or_image_text_features_enabled": false,
+  "profiling": {
+    "device": "cpu",
+    "batch_size": 1,
+    "warmup_iterations": 2,
+    "measured_iterations": 5
+  },
+  "selection": {
+    "primary": "mean_validation_macro_f1",
+    "secondary": "mean_validation_accuracy",
+    "minimum_macro_f1_improvement": 0.005,
+    "maximum_validation_accuracy_decrease": 0.01,
+    "minimum_generalization_gap_reduction": 0.01,
+    "reject_train_only_improvement": true
+  },
+  "same_split_required": true,
+  "same_transform_required": true,
+  "same_seeds_required": true,
+  "same_staged_protocol_required": true,
+  "selected_r8_candidate_required": true,
+  "authorized_train_manifest_required": true,
+  "authorized_pretrained_states_required": true,
+  "repeated_seed_validation_evidence_required": true,
+  "test_evidence_allowed": false,
+  "test_content_access_allowed": false,
+  "test_loader_construction_allowed": false,
+  "successor_phase_not_authorized": "R10"
+}

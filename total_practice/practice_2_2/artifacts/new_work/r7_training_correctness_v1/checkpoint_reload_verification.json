@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "architecture": "resnet18",
+  "constructor_weights": null,
+  "strict_state_dict_loading": true,
+  "network_access_guarded": true,
+  "model_state_sha256_before_save": "d86d776f68860373fc84d085b8196502e1608a081c83cce0edb9dcf88a993e95",
+  "model_state_sha256_after_load": "d86d776f68860373fc84d085b8196502e1608a081c83cce0edb9dcf88a993e95",
+  "prediction_tensor_sha256_before_save": "ab816a519ebb90022e4d3a868c4956d16b72e2ebecc9badba96755d80767779a",
+  "prediction_tensor_sha256_after_load": "ab816a519ebb90022e4d3a868c4956d16b72e2ebecc9badba96755d80767779a",
+  "predictions_identical": true,
+  "maximum_logit_difference": 0.0,
+  "checkpoint_persisted_after_verification": false
+}
