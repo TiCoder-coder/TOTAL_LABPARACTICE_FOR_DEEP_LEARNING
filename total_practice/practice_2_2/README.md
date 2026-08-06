@@ -4,6 +4,8 @@ Practice 2.2 is a 10-class cosmetic-product image classification project using I
 
 The official presentation is [`notebooks/04_canonical_report.ipynb`](notebooks/04_canonical_report.ipynb). Its `Run All` flow is read-only: it loads persisted artifacts through the active registry and never trains a model, creates a Test DataLoader, or repeats Final Test.
 
+The Validation-only accuracy development workflow is [`notebooks/05_accuracy_refactor.ipynb`](notebooks/05_accuracy_refactor.ipynb). It is non-canonical and cannot replace the frozen report. It remains fail-closed until its Train/Validation manifest is explicitly authorized, and it contains no Final Test loading or evaluation path.
+
 ## Canonical result
 
 | Item | Canonical value |
@@ -135,7 +137,16 @@ jupyter notebook notebooks/04_canonical_report.ipynb
 
 `Run All` only reads the manifest, histories, comparisons and Final Test files. If required artifacts are missing, it raises a clear `FileNotFoundError`; it does not regenerate them.
 
-Run automated tests without training or Test evaluation:
+Inspect the accuracy refactor without training:
+
+```bash
+cd total_practice/practice_2_2
+jupyter notebook notebooks/05_accuracy_refactor.ipynb
+```
+
+The development notebook defaults to `RUN_TRAINING = False`. Its preflight cell reports the current manifest blockers. After the data gates are genuinely resolved and `use_for_model=True` is authorized, the notebook can run controlled ResNet18 and EfficientNet-B0 experiments across seeds 42, 123 and 2026, followed by Validation-only soft-voting and safe TTA selection.
+
+Run automated tests without project-data training or Test evaluation:
 
 ```bash
 cd total_practice/practice_2_2
@@ -150,7 +161,7 @@ practice_2_2/
 ├── configs/                      # Active relative-path authority registry
 ├── data/final/                   # Canonical dataset authority
 ├── data/manifests/               # Canonical split and fingerprints
-├── notebooks/                    # Official read-only report
+├── notebooks/                    # Official report and Validation-only development notebook
 ├── src/practice_2_2/             # Recommended canonical import package
 ├── artifacts/canonical/          # E1/E2 lineage and locked Final Test artifacts
 ├── artifacts/ablations/          # E3/E4 controlled experiments

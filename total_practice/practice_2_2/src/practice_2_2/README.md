@@ -12,3 +12,5 @@ compatibility. It is not the canonical resource authority.
 
 `paths.py` and `resources.py` provide cwd-independent discovery, active
 canonical validation and explicit read-only fallback for pre-migration paths.
+
+`accuracy_pipeline.py` provides the fail-closed Train/Validation accuracy workflow: manifest authorization, domain-safe transforms, staged transfer learning, exact epoch loss, repeated-seed selection, offline checkpoint reload, soft voting and safe TTA. Its public data APIs reject the Test split.
