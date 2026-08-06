@@ -113,10 +113,10 @@ def cross_entropy_batch_terms(
     else:
         denominator_tensor = class_weights[targets].sum()
         metric_denominator = float(
-            class_weights[targets].detach().to(torch.float64).sum().item()
+            class_weights[targets].detach().cpu().to(torch.float64).sum().item()
         )
     metric_numerator = float(
-        losses.detach().to(torch.float64).sum().item()
+        losses.detach().cpu().to(torch.float64).sum().item()
     )
     if not torch.isfinite(optimization_numerator):
         raise RuntimeError("CrossEntropy numerator is not finite")
