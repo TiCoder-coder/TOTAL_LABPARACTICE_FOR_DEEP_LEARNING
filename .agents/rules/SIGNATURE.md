@@ -270,3 +270,15 @@
 **Acknowledgement:** Toi xac nhan da doc ky lai toan bo 20 file rule trong `.agents/rules/` (`1.md`, `3.md`, `4.md`, `5.md`, `6.md`, `7.md`, `8.md`, `9.md`, `10.md`, `11.md`, `12.md`, `13.md`, `14.md`, `15.md`, `16.md`, `17.md`, `18.md`, `19.md`, `20.md`). Tat ca deu co `trigger: always_on`; toi cam ket ap dung cho moi task va truyen dat lai cho bat ky subagent nao duoc su dung.
 
 **Violation of any always-on rule is treated as a serious collaboration error.**
+
+---
+
+## Signature — `2026-08-10`
+
+**Agent:** Codex — Main Agent
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement:** Đã đọc và cam kết tuân thủ toàn bộ 19 rule files hiện hữu, tất cả đều có `trigger: always_on`. `.agents/rules/2.md` không tồn tại nên không được tuyên bố là đã đọc.
+
+**Signature:** `Codex — Main Agent — 2026-08-10`

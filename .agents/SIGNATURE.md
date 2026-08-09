@@ -75,6 +75,18 @@
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+---
+
+## Signature — `2026-08-10`
+
+**Representative Agent:** Codex — Main Agent
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement:** Đã đọc đầy đủ `.agents/`: 19 rule files hiện hữu (`1.md`, `3.md`–`20.md`), 3 workflow files và 3 `SIGNATURE.md`. Tôi cam kết áp dụng các rule `always_on`, truyền rule liên quan cho mọi subagent và chịu trách nhiệm review cuối cùng. `.agents/rules/2.md` không tồn tại; các thống kê và đường dẫn cũ được giữ như lịch sử.
+
+**Signature:** `Codex — Main Agent — 2026-08-10`
+
 
 ---
 

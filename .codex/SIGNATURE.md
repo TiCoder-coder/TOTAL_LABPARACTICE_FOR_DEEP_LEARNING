@@ -156,6 +156,18 @@ args = [ "nx-mcp@latest", "--minimal" ]
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+---
+
+## Signature — `2026-08-10`
+
+**Representative Agent:** Codex — Main Agent
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement:** Đã đọc toàn bộ `.codex/`, ghi nhận cấu hình `nx-mcp`, và cam kết chỉ dùng theo đúng scope. Tôi tuân thủ toàn bộ project rules và chịu trách nhiệm truyền chúng cho subagent được sử dụng.
+
+**Signature:** `Codex — Main Agent — 2026-08-10`
+
 
 ---
 

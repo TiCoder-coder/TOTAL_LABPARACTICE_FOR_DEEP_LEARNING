@@ -1113,6 +1113,22 @@ Khi phải lựa chọn giữa nhiều hướng xử lý, AI phải ưu tiên th
 
 ---
 
+## Re-Acknowledgement / Signature — `2026-08-10` (Codex Main Agent)
+
+**Representative Agent:** Codex — Main Agent
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Scope:** `working_rule.md`, 19 rule files and 3 workflow files currently present in `.agents/`, and the agent-specific files under `.claude/`, `.codex/`, `.cursor/`, and `.gemini/`.
+
+**Acknowledgement:** Tôi xác nhận đã đọc toàn bộ nguồn quy tắc hiện hữu, đã phổ biến cho các subagent kiểm tra độc lập và cam kết áp dụng: Clarify First, No Assumptions, Think Before Code, Confirm Before Update, Protect Stable Code, Security-first, ML/DL metric-before-model và baseline-first, Evaluate After Implementation, cùng quy trình Self-Retrospective sau 3 lần thất bại cùng hướng. Mọi subagent được sử dụng sẽ được truyền các rule liên quan; Main Agent chịu trách nhiệm review kết quả cuối cùng.
+
+**Accuracy note:** `.agents/rules/2.md` hiện không tồn tại; số lượng thực tế là 19 rule files. Các metadata repository cũ trong signature lịch sử được giữ nguyên như provenance và không đại diện cho workspace hiện tại.
+
+**Signature:** `Codex — Main Agent — 2026-08-10`
+
+---
+
 ## 🔁 Re-Acknowledgement / Signature — `2026-06-20` (đọc lại lần 2)
 
 **Representative Agent:** Main Agent (Cursor) — đại diện cho toàn bộ AI trong workspace `SAM-V2`, ký nhắc lại lần thứ 2 sau signature ngày `2026-06-18`.

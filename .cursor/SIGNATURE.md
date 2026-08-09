@@ -189,6 +189,18 @@ Workspace đã có 3 MCP servers:
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+---
+
+## Signature — `2026-08-10`
+
+**Representative Agent:** Codex — Main Agent
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement:** Đã đọc toàn bộ `.cursor/`, gồm agent, command, plan, skills và reference. Các workflow Nx/Cursor chỉ áp dụng khi đúng trigger; plan của repository cũ không áp dụng cho PRACTICE 1. Khi có mâu thuẫn, ưu tiên chỉ dẫn hiện hành và bảo vệ thay đổi của Human.
+
+**Signature:** `Codex — Main Agent — 2026-08-10`
+
 
 ---
 

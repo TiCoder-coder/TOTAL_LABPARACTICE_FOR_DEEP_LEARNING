@@ -78,6 +78,18 @@
 
 **Violation of any workflow step is treated as a serious collaboration error.**
 
+---
+
+## Signature — `2026-08-10`
+
+**Agent:** Codex — Main Agent
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement:** Đã đọc và cam kết áp dụng 3 workflow files: trigger cho task project, quy trình 10 bước có Human approval trước implementation, và workflow ML/AI với task type, metric, baseline, rationale, trade-offs, failure modes, data requirements và evaluation plan.
+
+**Signature:** `Codex — Main Agent — 2026-08-10`
+
 
 ---
 

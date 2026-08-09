@@ -82,6 +82,18 @@
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+---
+
+## Signature — `2026-08-10`
+
+**Representative Agent:** Codex — Main Agent
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement:** Đã đọc toàn bộ `.claude/`. Cấu hình Nx chỉ được áp dụng khi task thực sự liên quan; mọi rule dự án và giới hạn quyền hiện hành vẫn được ưu tiên.
+
+**Signature:** `Codex — Main Agent — 2026-08-10`
+
 
 ---
 
