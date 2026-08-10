@@ -5,7 +5,7 @@
 | Metric | Official value |
 |---|---:|
 | Test Accuracy | 0.8895 |
-| Test Loss | 0.3415388059 |
+| Test Loss | 0.3415387766 |
 | Macro Precision | 0.8928359014 |
 | Macro Recall | 0.8895 |
 | Macro F1 | 0.8899327014 |
@@ -22,4 +22,10 @@ Artifacts displayed in Cell 23:
 - [confusion_matrix_normalized.png](../../reports/confusion_matrix_normalized.png)
 - [validation_test_comparison_current.png](../../reports/validation_test_comparison_current.png)
 
-The machine-readable [confusion_matrix.csv](../../outputs/confusion_matrix.csv) sums to 10,000, and diagonal Accuracy matches `summary.json`.
+Cell 23 also renders:
+
+- a per-class report extended with TP, TN, FP, FN, TPR, and FPR;
+- multiclass One-vs-Rest ROC and Precision–Recall curves from the ten exported probability columns;
+- a ground-truth/prediction table combining confident errors with challenging correct cases.
+
+The machine-readable [confusion_matrix.csv](../../outputs/confusion_matrix.csv) sums to 10,000, and diagonal Accuracy matches `summary.json`. The regenerated [predictions.csv](../../outputs/predictions.csv) contains all ten `probability_<class>` columns and passes probability, argmax, confidence, sample-count, and Accuracy consistency checks.

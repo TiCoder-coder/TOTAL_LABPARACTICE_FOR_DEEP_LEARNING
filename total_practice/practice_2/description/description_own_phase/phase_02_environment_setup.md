@@ -49,10 +49,10 @@ The `GPU accelerator evidence` table compares three sources:
 | Stage | Source | Expected device |
 |---|---|---|
 | Selected E2 controlled training | Persistent run log | `mps` |
-| Final Evaluation | `outputs/summary.json` | `mps` |
+| Final Evaluation | `outputs/summary.json` | `cpu` |
 | Current notebook runtime | Live `get_device()` call | `mps` on the current machine |
 
-The cell asserts that the recorded training device belongs to `{cuda, mps}`. It fails clearly if the selected run was trained on CPU. The cell does not retrain the model.
+The current artifact records Final Evaluation on CPU, while the persistent training log proves that the selected E2 model was trained on MPS. These are separate stages and therefore do not need to use the same backend. The cell asserts that the recorded **training** device belongs to `{cuda, mps}` and fails clearly if the selected run was trained on CPU. It does not retrain the model.
 
 ## 4. Expected cell output
 
@@ -63,7 +63,7 @@ The setup cells display:
 - TorchVision version.
 - Resolved project root.
 - GPU accelerator evidence table.
-- A green `True` indicator for GPU-accelerated rows.
+- A green `True` indicator for the MPS training/runtime rows and a gray `False` indicator for the CPU Final Evaluation row.
 
 These outputs are environment and provenance evidence, not model-performance metrics.
 

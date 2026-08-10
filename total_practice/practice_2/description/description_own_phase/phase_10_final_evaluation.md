@@ -46,7 +46,7 @@ Values are read from [summary.json](../../outputs/summary.json):
 | Metric | Value |
 |---|---:|
 | Test Accuracy | 0.8895 |
-| Test Loss | 0.3415388059 |
+| Test Loss | 0.3415387766 |
 | Macro Precision | 0.8928359014 |
 | Macro Recall | 0.8895 |
 | Macro F1 | 0.8899327014 |
@@ -76,7 +76,7 @@ This file stores per-class Precision, Recall, F1-score, and support. It reveals 
 
 - [predictions.csv](../../outputs/predictions.csv)
 
-Each row represents one Test sample and includes the true label, predicted label, confidence, correctness, and fields required for error analysis. The file must contain exactly 10,000 data rows.
+Each row represents one Test sample and includes the true label, predicted label, confidence, correctness, and ten `probability_<class>` columns. The file must contain exactly 10,000 data rows. The probability rows must be finite, remain within `[0, 1]`, sum to one within tolerance, and agree with both the predicted-label argmax and exported confidence.
 
 ## 7. Confusion matrices
 
@@ -106,6 +106,8 @@ Before accepting the result, the pipeline verifies:
 - `trace(confusion_matrix) / test_samples` matches `summary.test_accuracy` within tolerance;
 - `len(predictions) == test_samples`;
 - prediction-row Accuracy matches the summary;
+- all ten probability columns exist and each row forms a valid class distribution;
+- probability argmax matches `predicted_label_id` and its selected value matches `confidence`;
 - classification-report support totals Test samples;
 - `test_evaluation_count == 1`.
 
@@ -118,9 +120,11 @@ Any inconsistency must raise an exception rather than display conflicting metric
 - [prediction_gallery_correct.png](../../reports/prediction_gallery_correct.png)
 - [prediction_gallery_incorrect.png](../../reports/prediction_gallery_incorrect.png)
 
-## 10. ROC/AUC decision
+## 10. ROC and Precision–Recall analysis
 
-ROC/AUC is not required for the current assignment. CIFAR-10 is a ten-class single-label problem, so ROC would require a declared One-vs-Rest or One-vs-One strategy and explicit macro/micro aggregation. Accuracy, macro metrics, the per-class report, and confusion matrices already satisfy the core evaluation requirement.
+Cell 23 computes multiclass ROC and Precision–Recall curves directly from the exported per-class probabilities. Each CIFAR-10 class is treated with a declared **One-vs-Rest** strategy. The figure contains per-class curves plus micro and macro summaries. The notebook calculates these curves from `predictions.csv`; it does not substitute hardcoded AUC or Average Precision values.
+
+ROC and Precision–Recall are supplementary to the primary Accuracy and Macro F1 results. They expose ranking quality across thresholds, while the confusion matrix and classification report describe behavior at the fixed argmax decision rule.
 
 ## 11. Suggested presentation script
 

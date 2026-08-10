@@ -29,6 +29,8 @@ Seed 42 is applied to the split and primary random-number generators. It reprodu
 
 Persistent E1/E2 logs record `Using device: mps`, proving that official controlled training ran on the Apple GPU. Cell 4 displays this evidence alongside the final-evaluation device and current runtime backend.
 
+The regenerated `summary.json` records the Final Evaluation backend as `cpu`. This does not change training provenance: E2 training used MPS, whereas deterministic checkpoint verification and artifact regeneration were performed in a separate CPU evaluation process.
+
 ### Isolated run directories
 
 Each controlled experiment has its own directory:
@@ -117,6 +119,7 @@ The current pipeline satisfies the core requirements:
 - selected checkpoint reloaded and Validation Verification passed;
 - Final Test executed after verification;
 - Accuracy, Loss, Macro Precision/Recall/F1, per-class report, confusion matrices, confidence analysis, and prediction galleries;
+- One-vs-Rest ROC and Precision–Recall analysis derived from exported per-class probabilities;
 - metrics and outputs read from artifacts instead of hardcoded notebook values.
 
 Current official result:
@@ -129,6 +132,7 @@ Current official result:
 | Test Accuracy | 88.95% |
 | Test Macro F1 | 88.99% |
 | Training backend | Apple MPS GPU |
+| Final Evaluation backend | CPU |
 
 ## 6. Submission and presentation checklist
 
