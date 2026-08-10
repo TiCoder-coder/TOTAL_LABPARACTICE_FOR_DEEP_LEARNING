@@ -27,7 +27,7 @@ Project phục vụ hai mục tiêu song song:
 | Model output | 10 raw logits |
 | Optimization objective | `CrossEntropyLoss` |
 | Primary metric | Accuracy |
-| Supporting metrics | Loss, precision, recall, F1-score và confusion matrix |
+| Supporting metrics | Loss, precision, recall, F1-score, TN, TP, FN, FP, TPR, FPR, confusion matrix, ROC/AUC và Precision-Recall/AP |
 | Baseline model | Configurable multi-layer perceptron |
 
 Contract đầy đủ của bài toán được khóa trước khi modeling tại
@@ -35,33 +35,24 @@ Contract đầy đủ của bài toán được khóa trước khi modeling tạ
 
 ### 1.2. Trạng thái hiện tại
 
-Notebook hiện có một stored run hoàn chỉnh với execution count liên tục từ
-`In [1]` đến `In [54]`. Stored run đã thực hiện đủ data loading, EDA,
-preprocessing, training, validation, final retraining, official-test evaluation
-và checkpoint round trip.
+Notebook hiện lưu clean-kernel `Run All` hoàn chỉnh của staged hyperparameter
+search, final retraining và official-test evaluation. Execution count liên tục
+từ `In [1]` đến `In [57]` và không có error output.
 
 | Hạng mục | Trạng thái hiện tại |
 |---|---|
 | Độ phủ yêu cầu bài tập | Đầy đủ trong notebook |
 | Data split và leakage control | Đúng protocol |
-| Stored training/evaluation outputs | Có |
-| Final checkpoint | Có và load được |
-| Clean-kernel `Run All` | Chưa đạt |
-| EDA numerical health | Còn runtime warnings tại bốn cell |
+| Stored training/evaluation outputs | Có, thuộc staged-search run hiện tại |
+| Final checkpoint | Có, load được và logit round trip khớp tuyệt đối |
+| Staged hyperparameter-search source | Đã triển khai và có automated tests |
+| Clean-kernel `Run All` cho search mới | Pass, execution count `1-57` |
+| Anti-fail resume và live plots | Đã triển khai, 25 automated tests pass |
 | Dependency lock | Chưa có |
 
-Hai giới hạn cần hiểu trước khi chạy lại:
-
-1. [Cell 10][cell-10] import `practice_1.processing_own_phase.data` và
-   `practice_1.processing_own_phase.visualize`, nhưng package
-   `processing_own_phase/` không tồn tại trong project hiện tại.
-2. Stored outputs tại [Cell 27][cell-27], [Cell 29][cell-29],
-   [Cell 32][cell-32] và [Cell 36][cell-36] chứa numerical warnings từ
-   scikit-learn linear algebra operations.
-
-Vì vậy, stored results có thể được đọc và audit, nhưng chưa nên tuyên bố project
-`clean-run reproducible` cho tới khi hai vấn đề trên được xử lý. Chi tiết nằm
-trong [Code Base Audit](description/code_base_audit/code_base_audit.md).
+Package `processing_own_phase/` hiện chứa data/visualization helpers,
+checkpoint recovery, live monitor và staged-search engine. Canonical metrics và
+artifact counts của run hiện tại đã được audit sau `Run All`.
 
 ## 2. Điều hướng nhanh
 
@@ -86,8 +77,8 @@ trong [Code Base Audit](description/code_base_audit/code_base_audit.md).
 | 5 - Data Preprocessing | Cell 44-54 | Split, normalize, transform và DataLoader | [Chi tiết](description/description_own_phase/phase_05_data_preprocessing.md) | [Outputs](description/description_result/phase_05_results.md) |
 | 6 - Model Building | Cell 55-59 | Xây MLP và sanity check | [Chi tiết](description/description_own_phase/phase_06_model_building.md) | [Outputs](description/description_result/phase_06_results.md) |
 | 7 - Model Training | Cell 60-78 | Train, validate, experiment và final retraining | [Chi tiết](description/description_own_phase/phase_07_model_training.md) | [Outputs](description/description_result/phase_07_results.md) |
-| 8 - Model Evaluation | Cell 79-84 | Official-test metrics và error analysis | [Chi tiết](description/description_own_phase/phase_08_model_evaluation.md) | [Outputs](description/description_result/phase_08_results.md) |
-| 9 - Save Model & Visualization | Cell 85-88 | Checkpoint round trip và prediction display | [Chi tiết](description/description_own_phase/phase_09_save_model_and_visualization.md) | [Outputs](description/description_result/phase_09_results.md) |
+| 8 - Model Evaluation | Cell 79-87 | Official-test metrics, error analysis, ROC và Precision-Recall | [Chi tiết](description/description_own_phase/phase_08_model_evaluation.md) | [Outputs](description/description_result/phase_08_results.md) |
+| 9 - Save Model & Visualization | Cell 88-91 | Checkpoint round trip và prediction display | [Chi tiết](description/description_own_phase/phase_09_save_model_and_visualization.md) | [Outputs](description/description_result/phase_09_results.md) |
 
 ### 2.3. Deep-link tới notebook
 
@@ -117,11 +108,11 @@ VS Code. [Notebook-link helper](tools/vscode-notebook-links/README.md) mô tả 
 | Optimization | Adam, SGD và controlled experiments | [Cell 63][cell-63], [Cell 69][cell-69] |
 | Training loop | Sample-weighted metrics và validation mỗi epoch | [Cell 65][cell-65], [Cell 67][cell-67] |
 | Evaluate accuracy | Official-test loss và accuracy trên 10,000 ảnh | [Cell 81][cell-81] |
-| Detailed evaluation | Classification report và confusion matrix | [Cell 82][cell-82], [Cell 84][cell-84] |
-| Hyperparameter experiments | So sánh architecture, dropout, optimizer và augmentation | [Cell 69][cell-69], [Cell 72][cell-72] |
-| Visualize loss | Train/validation learning curves | [Cell 73][cell-73] |
-| Predicted vs actual | Grid 4 x 4 trên official-test batch | [Cell 88][cell-88] |
-| Save và load model | State-dict checkpoint, reconstruction và logit verification | [Cell 86][cell-86], [Cell 87][cell-87] |
+| Detailed evaluation | Classification report, confusion matrix, ROC và Precision-Recall | [Cell 82][cell-82], [Cell 84][cell-84], [Cell 86][cell-86], [Cell 87][cell-87] |
+| Hyperparameter experiments | Controlled baseline rồi staged learning-rate, architecture, refinement và multi-seed confirmation | [Cell 69][cell-69]-[Cell 74][cell-74] |
+| Visualize loss | Realtime curve từng trial, staged comparison và selected-candidate history | [Cell 70][cell-70], [Cell 73][cell-73], [Cell 74][cell-74] |
+| Predicted vs actual | Grid 4 x 4 trên official-test batch | [Cell 91][cell-91] |
+| Save và load model | State-dict checkpoint, reconstruction và logit verification | [Cell 89][cell-89], [Cell 90][cell-90] |
 | Brief report | Problem statement, EDA conclusions và result analysis | [Cell 1][cell-1], [Cell 43][cell-43], [Cell 83][cell-83] |
 | PyTorch docs/tutorials | Chưa có references section trong notebook | Xem gap trong [audit](description/code_base_audit/code_base_audit.md) |
 
@@ -234,19 +225,28 @@ practice_1/
     pratice1_diagram.drawio
   outputs/
     experiments/
+    hyperparameter_search/
+      plots/
+      trials/
+    recovery/
     fashion_mnist_model.pth
     EDA images and historical report artifacts
+  processing_own_phase/
+    data.py
+    hyperparameter_search.py
+    training_checkpoint.py
+    training_monitor.py
+    visualize.py
   runs/
     <timestamp>/<experiment-id>/
+  tests/
   save_log_agent_process_each_phase/
   tools/
     vscode-notebook-links/
 ```
 
-Không có thư mục `processing_own_phase/` trong tree hiện tại. Những hướng dẫn cũ
-về `python -m ...processing_own_phase.main`, quick mode hoặc
-`processing_own_phase/requirements.txt` không còn hợp lệ và đã được loại khỏi
-README này.
+Notebook là entry point thực thi. `processing_own_phase/` cung cấp các module có
+thể test độc lập; project không khai báo CLI `processing_own_phase.main`.
 
 ## 7. Môi trường thực thi
 
@@ -577,15 +577,10 @@ Stored numerical results gồm:
 - 137 components cho 90% cumulative variance.
 - 256 components cho 95% cumulative variance.
 
-Tuy nhiên, bốn output cells 27, 29, 32 và 36 chứa `divide by zero`, `overflow`
-và `invalid value encountered in matmul` warnings. Trước khi dùng PCA/t-SNE làm
-bằng chứng khoa học cần:
-
-1. Ổn định NumPy/SciPy/scikit-learn stack.
-2. Assert `np.isfinite` cho input, scaled data, embeddings và variance arrays.
-3. Chọn PCA solver rõ ràng.
-4. Pre-reduce và dùng stratified sample cho t-SNE.
-5. Chạy lại mà không còn unexplained stderr warning.
+Fresh stored run không còn `divide by zero`, `overflow` hoặc `invalid value`
+warning. PCA dùng solver rõ ràng và các intermediate arrays quan trọng có
+finiteness checks. Full-pool t-SNE vẫn là điểm tốn runtime/memory nên có thể được
+thay bằng stratified sample trong lần tối ưu hiệu năng sau.
 
 ### 11.9. Representative và extreme images
 
@@ -614,8 +609,7 @@ Mean images cho thấy visual overlap giữa T-shirt/top, Pullover, Coat và Shi
 - Upper-body garments là nhóm cần theo dõi ở error analysis.
 
 Các conclusions không phụ thuộc PCA/t-SNE để quyết định data split hoặc model
-selection; vì vậy warnings ở projection cells không làm thay đổi training
-protocol, nhưng vẫn phải được sửa để EDA sạch.
+selection; projection cells hiện đã chạy sạch trong cùng Run All.
 
 ## 12. Phase 5 - Data Preprocessing
 
@@ -915,6 +909,40 @@ Best `state_dict` được clone về CPU. Sau run, model load lại best state 
 giữ epoch cuối. `SummaryWriter` được đóng trong `finally` để flush logs cả khi
 có exception.
 
+#### Live training dashboard
+
+[`TrainingMonitor`](processing_own_phase/training_monitor.py) được truyền vào
+[Cell 67][cell-67] dưới dạng callback tùy chọn. Sau mỗi epoch hoàn thành, cùng
+một history record dùng cho checkpoint và TensorBoard sẽ cập nhật hai panel loss
+và accuracy. Experiment dashboard có train/validation curves và best-epoch
+marker; final retraining tại [Cell 77][cell-77] dùng train-only curves.
+
+[Cell 70][cell-70] đặt `ENABLE_LIVE_TRAINING_PLOTS = True`. Đổi flag thành
+`False` sẽ tắt rendering mà không đổi training, checkpoint hay TensorBoard.
+Monitor chỉ cập nhật theo epoch, tái sử dụng một IPython display, fallback sang
+backend headless ngoài notebook và đóng figure bằng context manager.
+
+#### Anti-fail recovery checkpoint
+
+[`TrainingCheckpointManager`](processing_own_phase/training_checkpoint.py) lưu
+recovery state sau từng completed epoch vào `outputs/recovery/*.resume.pth`.
+Recovery state gồm current model, optimizer, history, best state, epoch, toàn bộ
+process/backend RNG state, DataLoader generator, elapsed time và TensorBoard log
+directory. File được ghi theo cơ chế temporary file + `fsync` + `os.replace` và
+được load bằng `weights_only=True`.
+
+[Cell 70][cell-70] bật hai flag mặc định:
+
+```python
+ENABLE_RECOVERY_CHECKPOINTS = True
+RESUME_IF_AVAILABLE = True
+```
+
+SHA-256 signature khóa config, split, normalization, device và library versions.
+Checkpoint corrupted hoặc không tương thích làm run fail closed. Khi resume,
+history được restore vào live monitor một lần và TensorBoard dùng log directory
+cũ với `purge_step`, nên epoch steps không bị trùng.
+
 ### 14.6. Controlled experiments
 
 [Cell 69][cell-69] định nghĩa:
@@ -948,28 +976,72 @@ validation checkpoint:
 
 | Experiment | Best epoch | Validation loss | Validation accuracy | Parameters | Runtime |
 |---|---:|---:|---:|---:|---:|
-| E0_baseline | 6 | 0.3265 | 88.43% | 101,770 | 69.3 s |
-| E1_deeper | 7 | 0.3177 | 89.15% | 235,146 | 76.1 s |
-| E2_dropout | 8 | 0.3279 | 88.72% | 235,146 | 80.0 s |
-| E3_sgd | 10 | 0.3183 | 88.93% | 235,146 | 81.3 s |
-| E4_augmentation | 10 | 0.3366 | 87.82% | 235,146 | 104.2 s |
+| E0_baseline | 6 | 0.3265 | 88.43% | 101,770 | 43.5 s |
+| E1_deeper | 7 | 0.3177 | 89.15% | 235,146 | 46.9 s |
+| E2_dropout | 8 | 0.3279 | 88.72% | 235,146 | 45.8 s |
+| E3_sgd | 10 | 0.3183 | 88.93% | 235,146 | 42.0 s |
+| E4_augmentation | 10 | 0.3366 | 87.82% | 235,146 | 59.3 s |
 
-`E1_deeper` được chọn vì validation accuracy `89.15%` là cao nhất. Kết quả chỉ
-hỗ trợ kết luận cho configuration, seed, epoch budget và environment của run
-này; nó không chứng minh deeper model luôn tốt hơn trên mọi run.
+Trong controlled baseline, `E1_deeper` có validation accuracy `89.15%` cao
+nhất. Bảng này là mốc đối chiếu trước staged search và không chứng minh deeper
+model luôn tốt hơn trên mọi run.
 
-### 14.8. Learning curves và comparison
+### 14.8. Staged hyperparameter search
 
-[Cell 73][cell-73] hiển thị train/validation loss và accuracy theo epoch cho
-selected experiment. [Cell 74][cell-74] hiển thị best validation accuracy của
-năm experiments.
+[Cell 69][cell-69] đến [Cell 74][cell-74] bổ sung search tuần tự, không lấy
+official-test data làm tín hiệu chọn model:
 
-Hai cell hiện chỉ gọi `plt.show()` và không lưu canonical PNG. Các file
-`loss_curve.png`, `accuracy_curve.png` và `experiment_comparison.png` trong
-`outputs/` có provenance cũ hơn stored notebook run, nên không được xem là bản
-export của các metrics trong bảng trên.
+| Stage | Không gian thử | Epoch/trial | Seed | Mục tiêu |
+|---|---|---:|---|---|
+| A - Learning rate | `0.0001`, `0.0003`, `0.001`, `0.003` | 20 | 42 | Chọn learning-rate vùng thô tại hidden dims `(256, 128)` |
+| B - Architecture | `(256,)`, `(256,128)`, `(256,128,64)`, `(256,128,64,32)`, `(512,256,128)` | 25 | 42 | So sánh depth/capacity với learning rate thắng Stage A |
+| C - Refinement | Hai geometric neighbors quanh coarse best, factor `sqrt(3)` | 25 | 42 | Tinh chỉnh learning rate cho architecture thắng Stage B |
+| D - Confirmation | Top 2 candidate từ B+C | 40 | 42, 123, 2026 | Chọn cấu hình ổn định theo nhiều seed |
 
-### 14.9. Final retraining
+Search dùng Adam, dropout `0`, batch size `64`, weight decay `0` và không
+augmentation để giữ comparison có kiểm soát. Mỗi trial luôn khởi tạo model,
+optimizer và DataLoader generator mới.
+
+Ranking single-seed theo thứ tự validation accuracy giảm dần, validation loss
+tăng dần, parameter count tăng dần và experiment ID. Confirmation xếp theo mean
+validation accuracy, mean loss, standard deviation, parameter count và candidate
+key. Epoch budget cho final retraining là median best epoch của candidate thắng.
+
+Tổng search gồm `4 + 5 + 2 + 6 = 17` trial; Stage C loại cấu hình coarse-best đã
+chạy ở Stage B để không lặp vô ích. Recovery checkpoint sau mỗi epoch cho phép
+chạy lại notebook mà không lặp optimizer steps đã hoàn thành.
+
+Kết quả stored run hiện tại:
+
+| Kết quả | Giá trị |
+|---|---:|
+| Stage A coarse best | Learning rate `0.001` |
+| Stage B architecture best | `(512, 256, 128)` |
+| Stage C refined rates | `0.0005774`, `0.001732` |
+| Confirmation runner-up | `(256, 128)`, `0.001`: `89.6222% ± 0.0864%` |
+| Selected candidate | `(512, 256, 128)`, `0.001` |
+| Selected validation accuracy | `89.7833% ± 0.0816%` |
+| Selected mean validation loss | `0.5520` |
+| Selected parameter count | 567,434 |
+| Median best epoch | 32 |
+
+Chênh lệch mean validation accuracy giữa hai candidate confirmation chỉ khoảng
+`0.1611` percentage point. Validation loss tăng về các epoch muộn trong khi
+accuracy gần như bão hòa, cho thấy overfitting đáng kể; đây là lý do phải đọc
+loss curves cùng accuracy thay vì chỉ nhìn một scalar cuối.
+
+### 14.9. Realtime curves và comparison
+
+[Cell 70][cell-70] mở một live dashboard riêng cho từng trial. Monitor render
+train/validation loss, accuracy, best-epoch marker và adaptive epoch ticks; khi
+trial đóng, PNG được lưu atomically dưới
+`outputs/hyperparameter_search/plots/`.
+
+[Cell 73][cell-73] lưu comparison A/B/C. [Cell 74][cell-74] lưu confirmation
+mean ± standard deviation và history của representative run thuộc candidate
+thắng. Mỗi search trial đồng thời có TensorBoard event directory riêng.
+
+### 14.10. Final retraining
 
 Sau model selection, [Cell 76][cell-76] và [Cell 77][cell-77]:
 
@@ -980,20 +1052,22 @@ Sau model selection, [Cell 76][cell-76] và [Cell 77][cell-77]:
 5. Train trên toàn bộ 60,000 official-training images.
 6. Không validation và không official-test feedback trong final training.
 
-Stored final-training result:
+Stored final-training result của selected search model:
 
 | Thuộc tính | Giá trị |
 |---|---:|
-| Selected configuration | `E1_deeper` |
+| Selected configuration | `(512, 256, 128)`, Adam, learning rate `0.001` |
 | Training samples | 60,000 |
-| Epochs | 7 |
-| Final epoch loss | 0.2323 |
-| Final epoch train accuracy | 91.30% |
+| Epochs | 32 |
+| Final epoch loss | 0.0819 |
+| Final epoch train accuracy | 96.82% |
+| Official-test loss | 0.5489 |
+| Official-test accuracy | 89.42% |
 
 Internal validation images chỉ được đưa lại vào parameter fitting sau khi model
 configuration và epoch count đã khóa.
 
-### 14.10. TensorBoard
+### 14.11. TensorBoard
 
 [Cell 78][cell-78] nhúng TensorBoard với root log directory `runs/`.
 
@@ -1003,8 +1077,10 @@ Mở từ terminal:
 ./venv/bin/tensorboard --logdir total_practice/practice_1/runs
 ```
 
-Mỗi session dùng timestamp và mỗi experiment có subdirectory riêng, tránh ghi
-đè event logs giữa các lần chạy.
+Mỗi session dùng timestamp. Search log có hierarchy
+`<timestamp>/hyperparameter_search/<stage>/<trial-id>/`, tránh ghi đè event logs
+giữa trial và seed. Khi resume, checkpoint giữ lại log directory gốc và
+`purge_step` ngăn duplicate TensorBoard steps.
 
 ## 15. Phase 8 - Model Evaluation
 
@@ -1020,7 +1096,9 @@ Phase 8 chỉ bắt đầu sau khi:
 - Final model đã train xong.
 
 [Cell 80][cell-80] chạy model với `eval()` và `torch.inference_mode()`, tích lũy
-sample-weighted loss, correct count, predictions và targets.
+sample-weighted loss, correct count, predictions, targets và Softmax
+probabilities. Evaluator kiểm tra shape, finite values, probability range, tổng
+xác suất mỗi sample và quan hệ giữa probability argmax với predictions.
 
 ### 15.2. Official-test result
 
@@ -1029,35 +1107,53 @@ sample-weighted loss, correct count, predictions và targets.
 | Metric | Giá trị |
 |---|---:|
 | Test samples | 10,000 |
-| Test loss | 0.3294 |
-| Test accuracy | 88.79% |
-| Macro precision | 88.92% |
-| Macro recall | 88.79% |
-| Macro F1 | 88.79% |
+| Test loss | 0.5489 |
+| Test accuracy | 89.42% |
+| Macro precision | 89.46% |
+| Macro recall | 89.42% |
+| Macro F1 | 89.39% |
 
 ### 15.3. Per-class report
 
 [Cell 82][cell-82]:
 
+Cell 82 kết hợp classification report với one-vs-rest confusion metrics cho từng
+class. Các cột `TN`, `TP`, `FN`, `FP`, `TPR` và `FPR` được sinh trực tiếp từ
+cùng `targets`, `predictions` của official-test run.
+
 | Class | Precision | Recall | F1-score | Support |
 |---|---:|---:|---:|---:|
-| T-shirt/top | 0.8247 | 0.8610 | 0.8425 | 1,000 |
-| Trouser | 0.9928 | 0.9670 | 0.9797 | 1,000 |
-| Pullover | 0.7874 | 0.8480 | 0.8166 | 1,000 |
-| Dress | 0.8815 | 0.9150 | 0.8979 | 1,000 |
-| Coat | 0.8474 | 0.7720 | 0.8080 | 1,000 |
-| Sandal | 0.9763 | 0.9490 | 0.9625 | 1,000 |
-| Shirt | 0.7202 | 0.7000 | 0.7099 | 1,000 |
-| Sneaker | 0.9039 | 0.9780 | 0.9395 | 1,000 |
-| Bag | 0.9805 | 0.9560 | 0.9681 | 1,000 |
-| Ankle boot | 0.9770 | 0.9330 | 0.9545 | 1,000 |
+| T-shirt/top | 0.8092 | 0.8820 | 0.8440 | 1,000 |
+| Trouser | 0.9949 | 0.9750 | 0.9848 | 1,000 |
+| Pullover | 0.8465 | 0.8050 | 0.8252 | 1,000 |
+| Dress | 0.8941 | 0.9030 | 0.8985 | 1,000 |
+| Coat | 0.8061 | 0.8480 | 0.8265 | 1,000 |
+| Sandal | 0.9875 | 0.9460 | 0.9663 | 1,000 |
+| Shirt | 0.7476 | 0.6930 | 0.7193 | 1,000 |
+| Sneaker | 0.9445 | 0.9530 | 0.9487 | 1,000 |
+| Bag | 0.9737 | 0.9640 | 0.9688 | 1,000 |
+| Ankle boot | 0.9419 | 0.9730 | 0.9572 | 1,000 |
+
+Với class index `i`:
+
+```text
+TP = confusion[i, i]
+FN = row_sum[i] - TP
+FP = column_sum[i] - TP
+TN = total_samples - TP - FN - FP
+TPR = TP / (TP + FN)
+FPR = FP / (FP + TN)
+```
+
+Mỗi row được assert `TN + TP + FN + FP == 10,000`; `TPR` được đối chiếu với
+recall; tổng TP được đối chiếu với overall accuracy; tổng FN phải bằng tổng FP.
 
 ### 15.4. Error analysis
 
 Observed results:
 
 - Trouser, Bag, Sandal và Ankle boot có F1 cao.
-- Shirt có F1 thấp nhất: `0.7099`.
+- Shirt có F1 thấp nhất: `0.7193`.
 - Pullover và Coat cũng thấp hơn nhóm có silhouette rõ.
 - Upper-body garment classes bị nhầm lẫn nhiều hơn.
 
@@ -1067,14 +1163,14 @@ Giải thích hợp lý là sự kết hợp của:
 - Mất fine-grained texture/detail ở resolution thấp.
 - MLP flatten ảnh và không khai thác spatial locality như CNN.
 
-[Cell 83][cell-83] hiện quy pattern lỗi chủ yếu cho giới hạn dataset và nói đó
-không phải flaw của architecture. Cách kết luận này mạnh hơn bằng chứng. Confusion
-matrix cho thấy lỗi xảy ra ở đâu, nhưng không tách được nguyên nhân dataset khỏi
-giới hạn của MLP nếu chưa có controlled CNN comparison.
+[Cell 83][cell-83] diễn giải pattern lỗi là kết quả có thể đến từ cả visual
+overlap của dataset và giới hạn spatial của MLP. Confusion counts cho biết lỗi
+xảy ra ở đâu, nhưng chưa tách được hai nguyên nhân nếu thiếu controlled CNN
+comparison.
 
 ### 15.5. Confusion matrix
 
-[Cell 84][cell-84] tạo raw-count confusion matrix:
+[Cell 84][cell-84] tái sử dụng raw-count confusion matrix đã được Cell 82 tạo:
 
 - Row là actual class.
 - Column là predicted class.
@@ -1085,13 +1181,29 @@ Cell hiện hiển thị bằng `plt.show()` nhưng không lưu canonical file c
 `outputs/confusion_matrix.png` là artifact cũ và không nên ghép tự động với stored
 MPS metrics.
 
+### 15.6. Per-class ROC curves
+
+[Cell 85][cell-85] tạo binary targets one-vs-rest và kiểm tra probability contract
+`(10,000, 10)`. [Cell 86][cell-86] vẽ 10 ROC subplot theo bố cục `2 x 5`, tính
+AUC cho từng class và so sánh với random baseline `TPR = FPR`.
+
+ROC dùng toàn bộ probability scores theo threshold; không dùng hard predictions.
+Do đó mỗi curve biểu diễn đầy đủ trade-off TPR/FPR thay vì chỉ một điểm từ
+confusion matrix.
+
+### 15.7. Per-class Precision-Recall curves
+
+[Cell 87][cell-87] vẽ 10 Precision-Recall subplot và hiển thị Average Precision
+cho từng class. Baseline của mỗi subplot được suy ra từ class prevalence trong
+ground truth, không hardcode theo giả định dataset cân bằng.
+
 ## 16. Phase 9 - Save Model & Visualization
 
-[Mở Phase 9 trong notebook][cell-85]
+[Mở Phase 9 trong notebook][cell-88]
 
 ### 16.1. Canonical checkpoint
 
-[Cell 86][cell-86] lưu:
+[Cell 89][cell-89] lưu:
 
 ```text
 outputs/fashion_mnist_model.pth
@@ -1113,13 +1225,17 @@ Checkpoint keys:
 | `train_mean` | Training-only normalization mean |
 | `train_std` | Training-only normalization std |
 | `class_names` | Mapping index sang label |
+| `final_training_history` | Toàn bộ final train metrics theo epoch |
+| `final_training_total_seconds` | Runtime tích lũy qua các lần resume |
+| `final_training_resumed_from_epoch` | Epoch recovery được sử dụng |
+| `recovery_checkpoint_path` | Recovery source của final training |
 
 Checkpoint hiện load được bằng `weights_only=True` và chứa:
 
 ```text
-selected_experiment = E1_deeper
-best_epoch          = 7
-test_accuracy       = 0.8879
+selected_experiment = H_selected_h512x256x128_lr1p000e-03_do0p00_adam_aug0
+best_epoch          = 32
+test_accuracy       = 0.8942
 ```
 
 ### 16.2. Tại sao lưu `state_dict` cùng config?
@@ -1134,7 +1250,7 @@ normalization hoặc class mapping. Lưu state dict cùng explicit config:
 
 ### 16.3. Reload verification
 
-[Cell 87][cell-87]:
+[Cell 90][cell-90]:
 
 1. `torch.load(..., map_location=device, weights_only=True)`.
 2. Rebuild `FashionMNISTModel` từ `model_config`.
@@ -1155,7 +1271,7 @@ Stored verification:
 
 ### 16.4. Predicted-versus-actual display
 
-[Cell 88][cell-88]:
+[Cell 91][cell-91]:
 
 1. Chạy loaded model trên test batch.
 2. Lấy prediction bằng `argmax`.
@@ -1213,8 +1329,25 @@ Cell đáp ứng yêu cầu image display trong notebook nhưng không lưu
 | `outputs/experiments/E2_dropout.pth` | Cell 70 | Experiment checkpoint |
 | `outputs/experiments/E3_sgd.pth` | Cell 70 | Experiment checkpoint |
 | `outputs/experiments/E4_augmentation.pth` | Cell 70 | Experiment checkpoint |
-| `outputs/fashion_mnist_model.pth` | Cell 86 | Canonical final checkpoint |
-| `runs/20260801-083732/...` | Phase 7 | TensorBoard logs của stored run |
+| `outputs/recovery/*.resume.pth` | Cell 70/77 | Atomic anti-fail recovery checkpoints |
+| `outputs/fashion_mnist_model.pth` | Cell 89 | Canonical final checkpoint |
+| `runs/20260811-010514/...` | Phase 7 | TensorBoard logs của staged-search run |
+
+Clean-kernel staged-search run đã tạo và audit các artifact sau:
+
+| Artifact | Nội dung |
+|---|---|
+| `outputs/hyperparameter_search/trials/*.pth` | Best state, config, metrics, history và recovery provenance của từng trial |
+| `outputs/hyperparameter_search/plots/*.png` | Realtime history từng trial và aggregate comparison A-D |
+| `outputs/hyperparameter_search/search_summary.json` | Trial manifest và confirmation ranking |
+| `outputs/hyperparameter_search/search_summary.csv` | Bảng phẳng toàn bộ trial |
+| `outputs/hyperparameter_search/best_hyperparameters.json` | Cấu hình thắng, mean/std và median best epoch |
+| `outputs/recovery/hyperparameter_search/*.resume.pth` | Atomic epoch-level recovery của 17 search trials |
+| `runs/<timestamp>/hyperparameter_search/...` | TensorBoard events tách theo stage/trial |
+
+Audit count: 17 trial `.pth`, 17 completed recovery checkpoints, 21 PNG (17
+trial histories + 4 aggregate/final charts), 17 JSON/CSV manifest rows và không
+còn temporary file.
 
 ### 18.2. EDA artifacts được notebook tham chiếu
 
@@ -1246,8 +1379,10 @@ run ngày 2026-08-01:
 
 Không dùng các file này để thay cho stored notebook metrics nếu chưa xác minh run
 provenance. Nguồn ưu tiên cho snapshot hiện tại là notebook output,
-`outputs/experiments/*.pth`, `outputs/fashion_mnist_model.pth` và TensorBoard
-session `20260801-083732`.
+`outputs/hyperparameter_search/`, `outputs/fashion_mnist_model.pth` và
+TensorBoard session `20260811-010514`. Trong run này, E0-E4 được phục hồi từ
+completed checkpoints; toàn bộ 17 search trials và final 32-epoch retraining
+được thực thi, sau đó official test được đánh giá đúng một lần.
 
 ### 18.4. Artifact policy đề xuất
 
@@ -1307,6 +1442,8 @@ session `20260801-083732`.
 - Best state chọn bằng validation rule đã khai báo.
 - Official test loader không xuất hiện trong training path.
 - Final training dùng 60,000 samples và selected epoch count.
+- Live monitor nhận đúng history record sau mỗi epoch và không sở hữu model state.
+- Recovery checkpoint chỉ lưu completed epoch và fail closed khi signature lệch.
 - TensorBoard writer được close.
 
 ### 19.6. Evaluation và checkpoint
@@ -1332,19 +1469,18 @@ session `20260801-083732`.
 
 ### 20.1. Blocker
 
-`processing_own_phase` thiếu khỏi project trong khi [Cell 10][cell-10] import
-package này. Cần khôi phục source và thêm import smoke test.
+Không còn blocker được phát hiện trong clean-kernel Run All hiện tại.
 
 ### 20.2. High-priority issue
 
-PCA/t-SNE stored outputs tại Cells 27, 29, 32 và 36 có numerical warnings. Cần
-sửa environment/solver/data path và thêm finiteness assertions.
+Confirmation curves cho thấy validation loss tăng trong khi accuracy bão hòa;
+trước khi tăng thêm epoch/depth cần xử lý overfitting hoặc thử CNN baseline.
 
 ### 20.3. Medium-priority issues
 
 - Chưa có dependency manifest.
 - EDA materialize full transformed pool và fit PCA lặp lại.
-- Current learning/evaluation figures không được lưu bởi notebook cells.
+- Search/final figures đã lưu; một số evaluation figures còn inline-only.
 - Cell 83 đưa ra causal conclusion mạnh hơn evidence.
 
 ### 20.4. Low-priority issues
@@ -1406,11 +1542,11 @@ cải thiện đáng tin.
 
 ## 22. Hướng phát triển tiếp theo
 
-Sau khi release gate pass, các hướng hợp lệ gồm:
+Sau khi full search run và release gate pass, các hướng hợp lệ gồm:
 
 1. Thêm CNN baseline để khai thác spatial locality.
-2. Chạy nhiều seeds và report mean cùng standard deviation.
-3. Tuning learning rate, weight decay và batch size bằng validation.
+2. Mở rộng confirmation lên nhiều seed hơn nếu variance còn cao.
+3. Tuning weight decay và batch size bằng validation.
 4. Thử learning-rate scheduler như một controlled experiment.
 5. Thiết kế augmentation phù hợp hơn với FashionMNIST.
 6. Thêm calibration và confidence analysis.
@@ -1436,21 +1572,20 @@ Dataset:                 FashionMNIST
 Internal split:          54,000 train / 6,000 validation
 Official test:           10,000
 Selected device:         MPS
-Selected experiment:     E1_deeper
-Selected architecture:   784 -> 256 -> 128 -> 10
-Selected epoch:          7
-Best validation accuracy: 89.15%
+Selected candidate:      (512, 256, 128), Adam, lr=0.001
+Selected architecture:   784 -> 512 -> 256 -> 128 -> 10
+Selected epoch:          32 (multi-seed median best epoch)
+Mean validation accuracy: 89.7833% +/- 0.0816%
 Final training samples:  60,000
-Official-test loss:      0.3294
-Official-test accuracy:  88.79%
+Official-test loss:      0.5489
+Official-test accuracy:  89.42%
 Checkpoint reload diff:  0.00000000
 ```
 
 Về mặt học tập, notebook đã bao phủ đầy đủ PyTorch classification workflow và
-có data-governance tốt. Về mặt bàn giao kỹ thuật, trạng thái đúng là
-`Conditional Pass`: cần khôi phục EDA source modules, sửa numerical warnings,
-khóa dependencies và đồng bộ artifacts trước khi tuyên bố baseline có thể tái
-tạo hoàn toàn.
+có data-governance tốt. Staged search, anti-fail recovery, artifacts và
+clean-kernel execution đã được kiểm chứng; giới hạn bàn giao còn lại là chưa có
+dependency lock và MLP vẫn thể hiện overfitting ở các epoch muộn.
 
 [cell-1]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=1>
 [cell-2]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=2>
@@ -1510,3 +1645,6 @@ tạo hoàn toàn.
 [cell-86]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=86>
 [cell-87]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=87>
 [cell-88]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=88>
+[cell-89]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=89>
+[cell-90]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=90>
+[cell-91]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=91>

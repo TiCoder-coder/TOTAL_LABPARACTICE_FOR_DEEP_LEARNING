@@ -43,8 +43,8 @@ hay metadata của notebook.
 | 5 | Cell 44-54, `In [27]`-`In [31]` | Split, normalization, transform và DataLoader | [Phase 5](phase_05_data_preprocessing.md) | [Mở đúng Cell 44][cell-44] |
 | 6 | Cell 55-59, `In [32]`-`In [34]` | Xây dựng và kiểm tra MLP | [Phase 6](phase_06_model_building.md) | [Mở đúng Cell 55][cell-55] |
 | 7 | Cell 60-78, `In [35]`-`In [47]` | Train, validate, so sánh experiment và final training | [Phase 7](phase_07_model_training.md) | [Mở đúng Cell 60][cell-60] |
-| 8 | Cell 79-84, `In [48]`-`In [51]` | Đánh giá một lần trên official test set | [Phase 8](phase_08_model_evaluation.md) | [Mở đúng Cell 79][cell-79] |
-| 9 | Cell 85-88, `In [52]`-`In [54]` | Save/load checkpoint và hiển thị dự đoán | [Phase 9](phase_09_save_model_and_visualization.md) | [Mở đúng Cell 85][cell-85] |
+| 8 | Cell 79-87 | Official-test metrics, confusion matrix, ROC và Precision-Recall | [Phase 8](phase_08_model_evaluation.md) | [Mở đúng Cell 79][cell-79] |
+| 9 | Cell 88-91, `In [55]`-`In [57]` | Save/load checkpoint và hiển thị dự đoán | [Phase 9](phase_09_save_model_and_visualization.md) | [Mở đúng Cell 88][cell-88] |
 
 ## Luồng dữ liệu tổng quát
 
@@ -57,8 +57,10 @@ hay metadata của notebook.
     -> tính normalization từ 54,000 train
     -> dựng MLP và sanity check
     -> train/validate 5 experiment độc lập
-    -> chọn E1_deeper theo validation accuracy
-    -> train mới trên toàn bộ 60,000 ảnh trong 7 epoch
+    -> staged search: learning rate -> architecture -> refinement
+    -> multi-seed confirmation top 2
+    -> chọn (512,256,128), Adam, lr=0.001
+    -> train mới trên toàn bộ 60,000 ảnh trong 32 epoch
     -> đánh giá một lần trên 10,000 official-test
     -> lưu, nạp lại và kiểm chứng checkpoint
 ```
@@ -75,12 +77,12 @@ hay metadata của notebook.
 ## Kết quả đang lưu trong notebook
 
 - Thiết bị train: Apple Metal Performance Shaders (`mps`).
-- Experiment được chọn: `E1_deeper`.
-- Best validation epoch: `7`.
-- Best validation accuracy: `89.15%`.
-- Final training: `60,000` ảnh trong `7` epoch.
-- Official test loss: `0.3294`.
-- Official test accuracy: `88.79%`.
+- Candidate được chọn: `(512,256,128)`, Adam, learning rate `0.001`.
+- Multi-seed mean validation accuracy: `89.7833% ± 0.0816%`.
+- Median best validation epoch: `32`.
+- Final training: `60,000` ảnh trong `32` epoch.
+- Official test loss: `0.5489`.
+- Official test accuracy: `89.42%`.
 - Save/load verification: prediction khớp và sai khác logit lớn nhất bằng
   `0.00000000`.
 
@@ -95,4 +97,4 @@ cam kết rằng mọi lần chạy lại sẽ cho kết quả giống tuyệt �
 [cell-55]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=55>
 [cell-60]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=60>
 [cell-79]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=79>
-[cell-85]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=85>
+[cell-88]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=88>
