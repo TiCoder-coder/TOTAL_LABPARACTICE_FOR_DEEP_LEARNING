@@ -15,13 +15,13 @@
 | Cell 23, `In [11]` | Data-quality audit; corruption, invalid label và duplicate-conflict counts đều bằng 0. | [Mở output Cell 23][cell-23] |
 | Cell 24, `In [12]` | Correlation heatmap của 100 pixel đầu tiên. | [Mở output Cell 24][cell-24] |
 | Cell 25, `In [13]` | Correlation heatmap của 100 pixel positions lấy mẫu với seed 42. | [Mở output Cell 25][cell-25] |
-| Cell 27, `In [15]` | Runtime warnings đang lưu và 3D PCA projection theo class. | [Mở output Cell 27][cell-27] |
+| Cell 27, `In [15]` | Finite 3D PCA projection theo class, không có stderr warning. | [Mở output Cell 27][cell-27] |
 | Cell 28, `In [16]` | Explained variance của PC1, PC2 và PC3 lần lượt là 29.03%, 17.76% và 6.02%. | [Mở output Cell 28][cell-28] |
-| Cell 29, `In [17]` | Runtime warnings đang lưu và heatmaps của ba principal-component images. | [Mở output Cell 29][cell-29] |
-| Cell 32, `In [20]` | Runtime warnings đang lưu và cumulative explained-variance curve của full PCA. | [Mở output Cell 32][cell-32] |
+| Cell 29, `In [17]` | Heatmaps của ba principal-component images, không có stderr warning. | [Mở output Cell 29][cell-29] |
+| Cell 32, `In [20]` | Cumulative explained-variance curve của full PCA, không có stderr warning. | [Mở output Cell 32][cell-32] |
 | Cell 33, `In [21]` | Số components cần cho 90% và 95% variance lần lượt là 137 và 256. | [Mở output Cell 33][cell-33] |
 | Cell 34, `In [22]` | Scree plot của explained variance ratio theo principal component. | [Mở output Cell 34][cell-34] |
-| Cell 36, `In [24]` | Runtime warnings đang lưu và t-SNE scatter plot hai chiều theo class. | [Mở output Cell 36][cell-36] |
+| Cell 36, `In [24]` | Finite t-SNE scatter plot hai chiều theo class, không có stderr warning. | [Mở output Cell 36][cell-36] |
 | Cell 39 | Hai artifact: class-stratified sample grid và class-average images. | [Mở output Cell 39][cell-39] |
 | Cell 42 | Artifact hiển thị các ảnh cực trị theo brightness và contrast. | [Mở output Cell 42][cell-42] |
 

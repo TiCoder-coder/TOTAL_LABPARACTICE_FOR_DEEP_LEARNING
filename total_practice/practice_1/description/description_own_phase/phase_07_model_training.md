@@ -8,8 +8,8 @@
 - Code cells đã chạy: `In [35]` đến `In [47]`.
 - Input: model factory, train/augmented-train datasets, validation loader và các
   experiment config.
-- Output: lịch sử train/validation của năm experiment, best checkpoint của từng
-  experiment, experiment được chọn và final model train trên 60,000 ảnh.
+- Output: controlled-baseline results, 17 staged-search trials, multi-seed
+  confirmation, selected hyperparameters và final model train trên 60,000 ảnh.
 
 | Nhóm nội dung | Code và output chính xác trong notebook |
 |---|---|
@@ -18,11 +18,12 @@
 | Train-loader và optimizer factories | [Cell 63, `In [36]`][cell-63] |
 | Validation loop | [Cell 64, `In [37]`][cell-64] |
 | Batch training loop và sơ đồ | [Cell 65, `In [38]`][cell-65]; [Cell 66, sơ đồ đã render][cell-66] |
-| Experiment runner | [Cell 67, `In [39]`][cell-67] |
+| Experiment runner và live-monitor callback | [Cell 67, `In [39]`][cell-67] |
 | Controlled experiment configs | [Cell 69, `In [40]`][cell-69] |
-| Chạy năm experiments | [Cell 70, `In [41]` + output][cell-70] |
-| Experiment summary | [Cell 72, `In [42]` + output][cell-72] |
-| Learning curves và comparison | [Cell 73, `In [43]` + output][cell-73]; [Cell 74, `In [44]` + output][cell-74] |
+| Controlled runs + Stage A + search runner | [Cell 70][cell-70] |
+| Controlled summary + Stage B | [Cell 72][cell-72] |
+| Stage C và A/B/C comparison | [Cell 73][cell-73] |
+| Stage D, final selection và exports | [Cell 74][cell-74] |
 | Final-training function | [Cell 76, `In [45]`][cell-76] |
 | Final-training run | [Cell 77, `In [46]` + output][cell-77] |
 | TensorBoard integration | [Cell 78, `In [47]` + output][cell-78] |
@@ -224,6 +225,59 @@ Khi có `log_directory`, `SummaryWriter` ghi:
 
 Writer luôn được đóng trong `finally`, kể cả khi training raise exception.
 
+### Live training monitor
+
+`run_training(...)` nhận thêm callback tùy chọn `monitor`. Sau khi epoch metrics,
+best-checkpoint decision và TensorBoard logging hoàn tất, hàm gửi chính
+`epoch_record` đó tới monitor. Thứ tự này bảo đảm dashboard chỉ hiển thị epoch đã
+hoàn thành và dùng cùng nguồn số liệu với checkpoint/history, không tính lại
+metric riêng.
+
+Module
+[`processing_own_phase/training_monitor.py`](../../processing_own_phase/training_monitor.py)
+cung cấp `TrainingMonitor` với hai panel cập nhật theo epoch:
+
+- cross-entropy loss;
+- accuracy theo phần trăm.
+
+Experiment monitor hiển thị cả train/validation và đánh dấu best epoch bằng
+đường dọc nét đứt. Final-training monitor chỉ hiển thị train vì validation đã
+được đưa lại vào full training pool. Monitor dùng một IPython `display_id` để cập
+nhật cùng một dashboard thay vì tạo một output mới ở mỗi epoch; ngoài notebook,
+nó fallback về Matplotlib `Agg`. Context manager luôn đóng figure khi run kết
+thúc hoặc raise exception.
+
+Đây là giám sát ở **epoch level**. Monitor không chạy trong batch loop, không giữ
+model/optimizer/DataLoader và không thay đổi random state, nên không can thiệp
+gradient updates hay model-selection protocol.
+
+### Anti-fail recovery checkpoint
+
+Module
+[`processing_own_phase/training_checkpoint.py`](../../processing_own_phase/training_checkpoint.py)
+quản lý recovery checkpoint độc lập với best-model artifact. Sau khi epoch đã
+hoàn thành đủ train, validation, history/best-state update và TensorBoard flush,
+training loop atomic-save trạng thái tại:
+
+```text
+outputs/recovery/<experiment_id>.resume.pth
+```
+
+Mỗi file chứa current model, optimizer, completed epoch, history, best state,
+Python/NumPy/Torch CPU/CUDA/MPS RNG, DataLoader generator state, elapsed time và
+log directory. Nếu crash giữa một epoch, file của epoch hoàn thành trước đó vẫn
+nguyên vẹn; epoch đang dở được chạy lại từ đầu.
+
+`TrainingCheckpointManager` ghi vào file tạm cùng directory, `fsync`, rồi
+`os.replace`, và load bằng `weights_only=True`. Schema version cùng SHA-256
+signature của config, split indices, normalization, device và library versions
+ngăn resume nhầm checkpoint của một run không tương thích. Corrupted hoặc
+mismatched checkpoint làm notebook dừng rõ ràng thay vì silently overwrite.
+
+Khi resume, model/optimizer/RNG/DataLoader state được restore trước epoch kế
+tiếp. Monitor render history cũ một lần; TensorBoard tiếp tục log directory cũ và
+dùng `purge_step` để không tạo step trùng.
+
 ## 9. Controlled experiments
 
 [Mở controlled-experiment configs tại đúng Cell 69][cell-69].
@@ -260,14 +314,45 @@ outputs/experiments/<experiment_id>.pth
 ```
 
 Mỗi experiment checkpoint chứa config, best epoch, best validation metrics và
-history. TensorBoard event file được tách theo experiment ID trong cùng run
-session.
+history, parameter/sample count, elapsed time và recovery provenance. Artifact
+được atomic-save sau khi `run_training(...)` hoàn tất. TensorBoard event file
+được tách theo experiment ID trong cùng run session.
 
-Sau khi cả năm run hoàn tất, `max(...)` chọn result theo tuple:
+`ENABLE_LIVE_TRAINING_PLOTS = True` bật dashboard cho từng experiment. Cell tạo
+một `TrainingMonitor` mới bên trong vòng lặp, truyền nó vào `run_training(...)`
+và quản lý bằng `with`, vì vậy history/display state không bị chia sẻ giữa E0-E4.
+Có thể đặt flag thành `False` để giữ nguyên training và TensorBoard nhưng bỏ phần
+render realtime.
+
+`ENABLE_RECOVERY_CHECKPOINTS = True` bật checkpoint sau từng epoch;
+`RESUME_IF_AVAILABLE = True` cho phép tự động tiếp tục từ file tương thích. Vì
+recovery directory không chứa timestamp, một kernel/notebook session mới vẫn tìm
+được đúng run đang dở. Checkpoint có trạng thái `completed` cho phép dựng lại
+result và bỏ qua training đã hoàn tất.
+
+Sau khi cả năm run hoàn tất, `max(...)` giữ lại baseline đối chiếu theo tuple:
 
 ```text
 (best_validation_accuracy, -best_validation_loss)
 ```
+
+### Staged search sau controlled baseline
+
+Source hiện tại tiếp tục với bốn stage:
+
+1. Stage A chạy bốn learning rate trên anchor `(256, 128)` trong 20 epoch.
+2. Stage B chạy năm hidden architecture với learning rate thắng trong 25 epoch.
+3. Stage C chạy hai geometric neighbors quanh coarse best trong 25 epoch; trial
+   trùng Stage B bị loại bằng seed-independent `candidate_key`.
+4. Stage D chạy top hai candidate qua seed `42`, `123`, `2026` trong 40 epoch.
+
+Mỗi trial dùng `outputs/recovery/hyperparameter_search/<trial-id>.resume.pth`,
+TensorBoard directory riêng, live PNG riêng và atomic best-model artifact riêng.
+Official test loader không xuất hiện trong source Cell 69-74.
+
+Confirmation chọn theo mean validation accuracy rồi mean loss, standard
+deviation, parameter count và candidate key. Final epoch count dùng median best
+epoch của candidate thắng; không lấy best seed đơn lẻ làm estimator cuối.
 
 ## 11. Kết quả năm experiment hiện tại
 
@@ -275,11 +360,11 @@ Sau khi cả năm run hoàn tất, `max(...)` chọn result theo tuple:
 
 | Experiment | Best val accuracy | Best val loss | Best epoch | Parameters | Runtime |
 |---|---:|---:|---:|---:|---:|
-| E0_baseline | `88.43%` | `0.3265` | 6 | 101,770 | 69.3 s |
-| E1_deeper | `89.15%` | `0.3177` | 7 | 235,146 | 76.1 s |
-| E2_dropout | `88.72%` | `0.3279` | 8 | 235,146 | 80.0 s |
-| E3_sgd | `88.93%` | `0.3183` | 10 | 235,146 | 81.3 s |
-| E4_augmentation | `87.82%` | `0.3366` | 10 | 235,146 | 104.2 s |
+| E0_baseline | `88.43%` | `0.3265` | 6 | 101,770 | 43.5 s |
+| E1_deeper | `89.15%` | `0.3177` | 7 | 235,146 | 46.9 s |
+| E2_dropout | `88.72%` | `0.3279` | 8 | 235,146 | 45.8 s |
+| E3_sgd | `88.93%` | `0.3183` | 10 | 235,146 | 42.0 s |
+| E4_augmentation | `87.82%` | `0.3366` | 10 | 235,146 | 59.3 s |
 
 Theo primary metric, `E1_deeper` được chọn với:
 
@@ -290,55 +375,63 @@ Theo primary metric, `E1_deeper` được chọn với:
 Dropout và augmentation ở đúng cấu hình đang thử không cải thiện accuracy so với
 E1. SGD đạt gần E1 nhưng vẫn thấp hơn 0.22 percentage point trong lần chạy này.
 
-## 12. Learning curves và experiment comparison
+Các runtime controlled trên thuộc fresh run `20260811-002044`. Trong staged
+search run `20260811-010514`, E0-E4 được restore từ completed checkpoints rồi 17
+search trials và final retraining được thực thi mới.
+
+Kết quả Stage D:
+
+| Candidate | Mean val accuracy | Std | Mean val loss | Median best epoch |
+|---|---:|---:|---:|---:|
+| `(512,256,128)`, lr `0.001` | `89.7833%` | `0.0816%` | `0.5520` | 32 |
+| `(256,128)`, lr `0.001` | `89.6222%` | `0.0864%` | `0.4962` | 25 |
+
+Candidate rộng hơn thắng primary metric với margin khoảng `0.1611` percentage
+point. Loss tăng trong khi accuracy bão hòa ở các epoch muộn là dấu hiệu
+overfitting cần được nêu cùng kết quả accuracy.
+
+## 12. Staged-search curves và comparison
 
 [Mở learning curves tại Cell 73][cell-73] và
 [experiment comparison tại Cell 74][cell-74].
 
-Notebook lấy history của experiment được chọn rồi vẽ hai panel:
-
-- train/validation cross-entropy loss theo epoch;
-- train/validation accuracy theo epoch.
-
-Biểu đồ cho phép quan sát convergence và khoảng cách train-validation. Notebook
-cũng vẽ bar chart best validation accuracy của năm experiment, ghi phần trăm trên
-từng cột.
-
-Các chart này được hiển thị inline bằng `plt.show()`; code hiện tại không gọi
-`savefig` trong các cell này.
+Cell 73 lưu comparison accuracy của Stage A/B/C. Cell 74 lưu confirmation mean ±
+standard deviation và loss/accuracy history của representative run thuộc
+candidate thắng. Ngoài aggregate charts, monitor của mỗi trial lưu PNG history
+riêng với adaptive ticks dưới `outputs/hyperparameter_search/plots/`.
 
 ## 13. Final training sau model selection
 
 [Mở final-training function tại Cell 76][cell-76] và
 [final-training run/output tại Cell 77][cell-77].
 
-Sau khi đã khóa config và số epoch, notebook dựng một model mới hoàn toàn và train
-trên toàn bộ 60,000 official training images.
+Sau multi-seed confirmation khóa config và median best epoch, notebook dựng một
+model mới hoàn toàn và train trên toàn bộ 60,000 official training images.
 
 Quy trình:
 
-1. Copy `selected_config`.
-2. Đổi experiment ID thành `E1_deeper_final`.
-3. Đặt số epoch bằng best epoch của E1, tức 7.
-4. Chọn full `baseline_training_pool` vì E1 không dùng augmentation.
+1. Copy `selected_config` từ Stage D.
+2. Thêm hậu tố `_final` vào selected candidate ID.
+3. Đặt số epoch bằng confirmation median best epoch.
+4. Chọn full `baseline_training_pool` vì selected config không dùng augmentation.
 5. Khởi tạo fresh model/optimizer/loader.
-6. Train đủ 7 epoch, không chạy validation và không chọn lại checkpoint.
+6. Train đủ 32 epoch, không chạy validation và không chọn lại checkpoint.
+7. Cập nhật dashboard train-only sau mỗi epoch rồi đóng figure khi hoàn tất.
+8. Atomic-save train-only recovery state sau mỗi completed epoch.
 
 Việc đưa 6,000 validation images trở lại training chỉ diễn ra **sau** khi
 architecture, optimizer và epoch count đã được quyết định. Nhờ vậy final model có
 thể học từ toàn bộ 60,000 labeled development images mà không dùng official test.
 
-Output hiện tại:
+Stored output hiện tại của final selected model:
 
 | Epoch | Train loss | Train accuracy |
 |---:|---:|---:|
-| 1 | `0.4648` | `83.00%` |
-| 2 | `0.3439` | `87.27%` |
-| 3 | `0.3110` | `88.47%` |
-| 4 | `0.2834` | `89.47%` |
-| 5 | `0.2664` | `89.96%` |
-| 6 | `0.2473` | `90.61%` |
-| 7 | `0.2323` | `91.30%` |
+| 1 | `0.4703` | `82.83%` |
+| 8 | `0.2227` | `91.55%` |
+| 16 | `0.1488` | `94.25%` |
+| 24 | `0.1090` | `95.86%` |
+| 32 | `0.0819` | `96.82%` |
 
 Final training sample count được assert/in là `60,000`.
 
@@ -367,11 +460,19 @@ chọn mps
          train 54,000
          validate 6,000 mỗi epoch
          giữ best validation state
-         ghi TensorBoard + checkpoint
-    -> chọn E1_deeper theo validation accuracy
-    -> lấy best epoch = 7
-    -> fresh final E1 model
-    -> train 7 epoch trên toàn bộ 60,000
+         flush TensorBoard
+         atomic-save recovery checkpoint
+         cập nhật live dashboard
+    -> Stage A: learning-rate coarse search
+    -> Stage B: hidden architecture search
+    -> Stage C: local learning-rate refinement
+    -> Stage D: top-2 x 3-seed confirmation
+    -> chọn config bằng aggregate validation metrics
+    -> lấy median best epoch
+    -> fresh final selected model
+    -> train trên toàn bộ 60,000
+    -> atomic-save final recovery state theo epoch
+    -> cập nhật live train-only dashboard theo epoch
     -> chuyển final model sang eval mode
 ```
 

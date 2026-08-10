@@ -22,9 +22,10 @@ Thư mục này là chỉ mục ngắn gọn cho các output hiện đang đư�
 | 5 - Data Preprocessing | 3 | [Kết quả Phase 5](phase_05_results.md) |
 | 6 - Model Building | 2 | [Kết quả Phase 6](phase_06_results.md) |
 | 7 - Model Training | 7 | [Kết quả Phase 7](phase_07_results.md) |
-| 8 - Model Evaluation | 3 | [Kết quả Phase 8](phase_08_results.md) |
+| 8 - Model Evaluation | 5 | [Kết quả Phase 8](phase_08_results.md) |
 | 9 - Save Model & Visualization | 3 | [Kết quả Phase 9](phase_09_results.md) |
 
-Tổng cộng có **40 cell kết quả** được liên kết. Hướng dẫn cài helper và tài liệu
-mô tả đầy đủ từng phase nằm tại
+Sau khi chạy lại notebook, chỉ mục liên kết **42 vị trí kết quả**, gồm bảng
+one-vs-rest tại Cell 82 cùng hai figure ROC và Precision-Recall mới. Hướng dẫn
+cài helper và tài liệu mô tả đầy đủ từng phase nằm tại
 [description_own_phase](../description_own_phase/README.md).
