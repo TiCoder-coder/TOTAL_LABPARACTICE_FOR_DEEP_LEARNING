@@ -97,5 +97,5 @@ token
 *.tmp
 *.temp
 .cache/
-.npm/
-.yarn/
+vscode-notebook-cell:/
+practice_1.ipynb#Y116sZmlsZQ%3D%3D
