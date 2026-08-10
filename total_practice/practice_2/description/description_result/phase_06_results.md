@@ -4,10 +4,9 @@
 
 | Cell output | Description |
 |---|---|
-| Cell 13 | ResNet18 model name and ten-class output |
-| Cell 13 | Total, trainable, and frozen parameter counts |
-| Cell 13 | Forward shape `[batch_size, 10]` |
-| Cell 13 | Finite Cross Entropy loss |
-| Cell 13 | Gradient-population sanity check |
+| Cell 13 | ResNet18 `head_only` baseline |
+| Cell 13 | Total parameters: 11,181,642 |
+| Cell 13 | Trainable classifier parameters: 5,130 |
+| Cell 13 | Random ten-class baseline: 10% |
 
-The model returns raw logits and uses the ImageNet-pretrained ResNet18 backbone. The official selected checkpoint is [E2 best.pt](../../runs/E2_resnet18_partial_6c5d4ec5/best.pt).
+The cell builds the ImageNet-pretrained ResNet18 baseline and summarizes its parameter policy; it does not train the model. The official selected checkpoint is [E2 best.pt](../../runs/E2_resnet18_partial_6c5d4ec5/best.pt).

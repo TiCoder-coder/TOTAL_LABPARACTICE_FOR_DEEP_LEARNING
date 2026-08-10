@@ -7,6 +7,6 @@
 | Cell 4 | Python, PyTorch, TorchVision, and project-root information | [Notebook](../../notebooks/practice_2_presentation.ipynb) |
 | Cell 4 | `GPU accelerator evidence` table | [Notebook](../../notebooks/practice_2_presentation.ipynb) |
 | Cell 4 | Selected E2 training device is `mps`; assertion confirms GPU acceleration | [Selected E2 log](../../runs/E2_resnet18_partial_6c5d4ec5/E2_resnet18_partial_6c5d4ec5.log) |
-| Cell 4 | Final-evaluation device is `mps` | [Final summary](../../outputs/summary.json) |
+| Cell 4 | Final-evaluation device is `cpu`; this is distinct from the MPS training provenance | [Final summary](../../outputs/summary.json) |
 
-The training-device claim is derived from the persistent run log rather than inferred only from current hardware availability.
+The training-device claim is derived from the persistent run log rather than inferred from either the current runtime or the backend used to regenerate the final artifacts.
