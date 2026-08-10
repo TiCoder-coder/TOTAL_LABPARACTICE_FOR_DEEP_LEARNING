@@ -290,6 +290,35 @@ def validate_final_artifacts(
             f"predictions={predictions_accuracy:.8f}, "
             f"summary={summary['test_accuracy']:.8f}."
         )
+    probability_columns = [f"probability_{class_name}" for class_name in CLASS_NAMES]
+    missing_probability_columns = sorted(
+        set(probability_columns).difference(predictions.columns)
+    )
+    if missing_probability_columns:
+        raise RuntimeError(
+            "Predictions artifact is missing probability columns: "
+            + ", ".join(missing_probability_columns)
+        )
+    probabilities = predictions[probability_columns].to_numpy(dtype=float)
+    if not np.isfinite(probabilities).all():
+        raise RuntimeError("Predictions artifact contains non-finite probabilities.")
+    if np.any(probabilities < 0.0) or np.any(probabilities > 1.0):
+        raise RuntimeError("Predictions artifact contains probabilities outside [0, 1].")
+    if not np.allclose(probabilities.sum(axis=1), 1.0, atol=1e-6):
+        raise RuntimeError("Prediction probabilities do not sum to one.")
+    predicted_label_ids = predictions["predicted_label_id"].to_numpy(dtype=int)
+    if not np.array_equal(probabilities.argmax(axis=1), predicted_label_ids):
+        raise RuntimeError("Predicted labels do not match probability argmax values.")
+    expected_confidence = probabilities[
+        np.arange(len(predictions)),
+        predicted_label_ids,
+    ]
+    if not np.allclose(
+        predictions["confidence"].to_numpy(dtype=float),
+        expected_confidence,
+        atol=1e-12,
+    ):
+        raise RuntimeError("Prediction confidence does not match class probability.")
     return {
         "status": "PASS",
         "test_samples": int(summary["test_samples"]),
