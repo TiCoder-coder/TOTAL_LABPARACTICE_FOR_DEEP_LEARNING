@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from configs import CLASS_NAMES
 from processing_own_phase.final_evaluate import (
     _assert_validation_match,
     _load_selection_record,
@@ -125,7 +126,17 @@ def test_validate_final_artifacts_checks_summary_predictions_and_matrix(
     matrix[0, 0] = 0
     matrix[0, 1] = 1
     pd.DataFrame(matrix).to_csv(tmp_path / "confusion_matrix.csv")
-    pd.DataFrame({"is_correct": [True] * 9 + [False]}).to_csv(
+    prediction_data = {
+        "is_correct": [True] * 9 + [False],
+        "predicted_label_id": list(range(1, 10)) + [1],
+        "confidence": [1.0] * 10,
+    }
+    for class_index, class_name in enumerate(CLASS_NAMES):
+        prediction_data[f"probability_{class_name}"] = [
+            float(predicted_class == class_index)
+            for predicted_class in prediction_data["predicted_label_id"]
+        ]
+    pd.DataFrame(prediction_data).to_csv(
         tmp_path / "predictions.csv",
         index=False,
     )

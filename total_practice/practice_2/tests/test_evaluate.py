@@ -75,3 +75,5 @@ def test_export_predictions():
         assert df["confidence"].iloc[1] == 0.6
         assert df["is_correct"].iloc[0] == True
         assert df["is_correct"].iloc[1] == False
+        assert df["probability_A"].tolist() == [0.9, 0.4]
+        assert df["probability_B"].tolist() == [0.1, 0.6]
