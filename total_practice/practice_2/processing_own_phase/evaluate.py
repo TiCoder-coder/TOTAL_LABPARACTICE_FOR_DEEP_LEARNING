@@ -204,6 +204,8 @@ def export_predictions(predictions: np.ndarray, labels: np.ndarray, probabilitie
         "confidence": confidences,
         "is_correct": predictions == labels
     })
+    for class_index, class_name in enumerate(class_names):
+        df[f"probability_{class_name}"] = probabilities[:, class_index]
     
     df.to_csv(csv_path, index=False)
     return df
