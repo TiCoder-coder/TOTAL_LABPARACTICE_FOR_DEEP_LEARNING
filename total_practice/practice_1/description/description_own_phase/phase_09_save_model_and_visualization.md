@@ -1,11 +1,11 @@
 # Phase 9 - Save Model & Visualization
 
-[Phase 8](phase_08_model_evaluation.md) | [Mục lục](README.md) | [Mở đúng Cell 85][cell-85] | [Notebook dự phòng](../../practice_1.ipynb)
+[Phase 8](phase_08_model_evaluation.md) | [Mục lục](README.md) | [Mở đúng Cell 88][cell-88] | [Notebook dự phòng](../../practice_1.ipynb)
 
 ## 1. Vị trí và phạm vi
 
-- Notebook cells: `85` đến `88`.
-- Code cells đã chạy: `In [52]` đến `In [54]`.
+- Notebook cells: `88` đến `91`.
+- Code cells đã chạy: `In [55]` đến `In [57]`.
 - Input: final trained model, selected/final configs, validation/test metrics,
   normalization statistics và class names.
 - Output: portable checkpoint, reconstructed model, equality verification và
@@ -13,14 +13,14 @@
 
 | Nội dung | Đích chính xác trong notebook |
 |---|---|
-| Heading Phase 9 | [Cell 85][cell-85] |
-| Tạo và lưu final checkpoint | [Cell 86, `In [52]` + output][cell-86] |
-| Load, reconstruct và equivalence verification | [Cell 87, `In [53]` + output][cell-87] |
-| Predicted-versus-actual grid | [Cell 88, `In [54]` + output][cell-88] |
+| Heading Phase 9 | [Cell 88][cell-88] |
+| Tạo và lưu final checkpoint | [Cell 89, `In [55]` + output][cell-89] |
+| Load, reconstruct và equivalence verification | [Cell 90, `In [56]` + output][cell-90] |
+| Predicted-versus-actual grid | [Cell 91, `In [57]` + output][cell-91] |
 
 ## 2. Tạo checkpoint path
 
-[Mở checkpoint-save code và output tại đúng Cell 86][cell-86].
+[Mở checkpoint-save code và output tại đúng Cell 89][cell-89].
 
 Notebook bảo đảm `OUTPUT_DIR` tồn tại bằng:
 
@@ -47,21 +47,27 @@ pipeline:
 | `model_state_dict` | Weight và bias tensors của final model |
 | `model_config` | `hidden_dims`, `dropout`, `num_classes`, `input_dim` |
 | `training_config` | Toàn bộ final experiment config |
-| `selected_experiment` | ID experiment thắng validation |
-| `best_epoch` | Epoch được chọn từ internal validation |
-| `best_validation_accuracy` | Primary selection metric |
-| `best_validation_loss` | Tie-break validation metric |
+| `selected_experiment` | ID của candidate thắng Stage D multi-seed confirmation |
+| `best_epoch` | Median best epoch của candidate thắng trên ba confirmation seeds |
+| `best_validation_accuracy` | Mean best validation accuracy của candidate thắng |
+| `best_validation_loss` | Mean best validation loss của candidate thắng |
 | `test_accuracy` | Official test accuracy |
 | `test_loss` | Official test cross-entropy |
 | `train_mean` | Mean fit từ internal train |
 | `train_std` | Standard deviation fit từ internal train |
 | `class_names` | Mapping output index sang tên lớp |
+| `final_training_history` | Final train metrics của mọi epoch |
+| `final_training_total_seconds` | Runtime tích lũy qua recovery sessions |
+| `final_training_resumed_from_epoch` | Epoch được khôi phục, hoặc 0 nếu fresh |
+| `recovery_checkpoint_path` | Đường dẫn anti-fail checkpoint nguồn |
 
 Mỗi state tensor được `detach()`, chuyển về CPU và `clone()` trước khi lưu. Điều
 này tách checkpoint khỏi autograd graph, khỏi mutable parameter hiện tại và khỏi
 device MPS, giúp file dễ nạp trên device khác hơn.
 
-`torch.save(checkpoint, MODEL_PATH)` serialize dictionary thành file `.pth`.
+`atomic_torch_save(checkpoint, MODEL_PATH)` ghi file tạm hoàn chỉnh, `fsync`, rồi
+`os.replace` sang `MODEL_PATH`. Vì vậy final checkpoint cũ không bị biến thành
+file dở nếu kernel/process lỗi đúng lúc đang ghi.
 
 ## 4. Vì sao cần lưu config và preprocessing metadata
 
@@ -79,7 +85,7 @@ không hỏng.
 
 ## 5. Nạp checkpoint an toàn theo device
 
-[Mở load/reconstruct code và output tại đúng Cell 87][cell-87].
+[Mở load/reconstruct code và output tại đúng Cell 90][cell-90].
 
 Notebook nạp bằng:
 
@@ -149,7 +155,7 @@ Prediction dùng chính `loaded_model`, vì mục tiêu của phase là chứng 
 
 ## 8. Predicted-versus-actual grid
 
-[Mở prediction-grid code và output tại đúng Cell 88][cell-88].
+[Mở prediction-grid code và output tại đúng Cell 91][cell-91].
 
 Notebook tạo grid `4 x 4`, hiển thị 16 ảnh đầu của verification batch. Mỗi subplot
 có:
@@ -168,14 +174,15 @@ mức từng sample, bổ sung cho metric aggregate của Phase 8.
 Cell hiện tại chỉ gọi `plt.show()`; nó không gọi `savefig` trong chính source của
 Phase 9.
 
-## 9. Phân biệt ba loại artifact
+## 9. Phân biệt bốn loại artifact
 
-Pipeline tạo ba nhóm artifact khác nhau:
+Pipeline tạo bốn nhóm artifact khác nhau:
 
 | Artifact | Nội dung | Mục đích |
 |---|---|---|
 | TensorBoard logs | Metric theo epoch | Theo dõi và so sánh training |
-| Experiment checkpoints | Best validation model/history của E0-E4 | Audit model selection |
+| Experiment/search checkpoints | Best validation model/history của E0-E4 và 17 staged-search trials | Audit model selection |
+| Recovery checkpoints | Model/optimizer/RNG state của completed epoch | Resume sau interruption |
 | Final checkpoint | Final weights + config + metrics + preprocessing | Reconstruct và inference |
 
 Phase 9 tập trung vào final checkpoint, còn per-experiment checkpoint đã được lưu
@@ -206,7 +213,7 @@ Notebook hiện minh họa quy trình trên bằng test DataLoader thay vì xây
 ```text
 final model + configs + metrics + normalization + class names
     -> clone weights về CPU
-    -> torch.save final checkpoint
+    -> atomic-save final checkpoint
     -> torch.load với map_location và weights_only
     -> reconstruct FashionMNISTModel
     -> load_state_dict + eval mode
@@ -236,7 +243,7 @@ Quay lại [mục lục tài liệu](README.md) để xem bản đồ toàn bộ
 [notebook dự phòng](../../practice_1.ipynb).
 
 [cell-0]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=0>
-[cell-85]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=85>
-[cell-86]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=86>
-[cell-87]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=87>
 [cell-88]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=88>
+[cell-89]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=89>
+[cell-90]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=90>
+[cell-91]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=91>

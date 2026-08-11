@@ -1941,3 +1941,27 @@ Nếu AI vi phạm rule này:
 8. 3 lần fail cùng hướng → Self-Retrospective → escalate Human
 
 **Signature:** `Main Agent (Cursor) — 2026-07-24`
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Representative Agent:** Codex (GPT-5 coding agent) — dai dien truyen dat rule cho cac AI agents/subagents khi duoc su dung trong workspace.
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`
+
+**Covered rule sources:**
+- `working_rule.md` (toan bo noi dung va signature lich su)
+- `.agents/` (20 rule `trigger: always_on`, 3 workflow, cac SIGNATURE.md)
+- `.claude/` (`settings.json`, `SIGNATURE.md`)
+- `.codex/` (`config.toml`, `SIGNATURE.md`)
+- `.cursor/` (`agents`, `commands`, 6 Nx skills, `SIGNATURE.md`)
+- `.gemini/` (`settings.json`, `commands`, 6 Nx skills mirror, `SIGNATURE.md`)
+
+**Acknowledgement:** Toi — **Codex** — xac nhan da doc ky toan bo rule sources trong workspace hien tai, hieu cac nguyen tac bat buoc: Clarify First, No Assumptions, Think Before Code, Confirm Before Update, Evaluate After Implementation, Documentation-first, Protect Stable Code, Security-first, No Hollow Praise, khong them comment/icon khong can thiet, ML/DL phai metric-before-model va baseline-first, 3 lan fail cung huong thi dung lai de Self-Retrospective va escalate Human. Khi co su dung subagents/agents khac, toi se truyen dat lai cac rule bat buoc nay trong prompt/huong dan dieu phoi va chiu trach nhiem review ket qua truoc khi tra loi Human.
+
+**Commitment:** Tu thoi diem `2026-07-25`, moi tuong tac trong workspace `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE` se duoc xu ly theo bo rule nay. Neu co conflict giua internal docs va kien thuc chung, uu tien internal docs va flag conflict cho Human.
+
+**Violation of any rule is treated as a serious collaboration error.**
