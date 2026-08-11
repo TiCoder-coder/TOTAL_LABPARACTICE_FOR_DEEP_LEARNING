@@ -20,10 +20,10 @@
 | Batch training loop và sơ đồ | [Cell 65, `In [38]`][cell-65]; [Cell 66, sơ đồ đã render][cell-66] |
 | Experiment runner và live-monitor callback | [Cell 67, `In [39]`][cell-67] |
 | Controlled experiment configs | [Cell 69, `In [40]`][cell-69] |
-| Controlled runs + Stage A + search runner | [Cell 70][cell-70] |
-| Controlled summary + Stage B | [Cell 72][cell-72] |
-| Stage C và A/B/C comparison | [Cell 73][cell-73] |
-| Stage D, final selection và exports | [Cell 74][cell-74] |
+| Controlled runs + Stage A + search runner | [Cell 70, `In [41]` + output][cell-70] |
+| Controlled summary + Stage B | [Cell 72, `In [42]` + output][cell-72] |
+| Stage C và A/B/C comparison | [Cell 73, `In [43]` + output][cell-73] |
+| Stage D, final selection và exports | [Cell 74, `In [44]` + output][cell-74] |
 | Final-training function | [Cell 76, `In [45]`][cell-76] |
 | Final-training run | [Cell 77, `In [46]` + output][cell-77] |
 | TensorBoard integration | [Cell 78, `In [47]` + output][cell-78] |
@@ -228,10 +228,10 @@ Writer luôn được đóng trong `finally`, kể cả khi training raise excep
 ### Live training monitor
 
 `run_training(...)` nhận thêm callback tùy chọn `monitor`. Sau khi epoch metrics,
-best-checkpoint decision và TensorBoard logging hoàn tất, hàm gửi chính
-`epoch_record` đó tới monitor. Thứ tự này bảo đảm dashboard chỉ hiển thị epoch đã
-hoàn thành và dùng cùng nguồn số liệu với checkpoint/history, không tính lại
-metric riêng.
+best-checkpoint decision, TensorBoard flush và recovery-checkpoint save hoàn tất,
+hàm gửi chính `epoch_record` đó tới monitor. Thứ tự này bảo đảm dashboard chỉ
+hiển thị epoch đã hoàn thành và dùng cùng nguồn số liệu với checkpoint/history,
+không tính lại metric riêng.
 
 Module
 [`processing_own_phase/training_monitor.py`](../../processing_own_phase/training_monitor.py)
@@ -392,8 +392,8 @@ overfitting cần được nêu cùng kết quả accuracy.
 
 ## 12. Staged-search curves và comparison
 
-[Mở learning curves tại Cell 73][cell-73] và
-[experiment comparison tại Cell 74][cell-74].
+[Mở Stage A/B/C comparison tại Cell 73][cell-73] và
+[Stage D cùng selected-candidate history tại Cell 74][cell-74].
 
 Cell 73 lưu comparison accuracy của Stage A/B/C. Cell 74 lưu confirmation mean ±
 standard deviation và loss/accuracy history của representative run thuộc

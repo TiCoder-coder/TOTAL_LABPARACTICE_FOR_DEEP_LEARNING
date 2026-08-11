@@ -16,6 +16,8 @@
 để mở đúng cell và đưa cell đó lên đầu viewport trong VS Code. Hướng dẫn helper
 nằm tại [description_own_phase](../description_own_phase/README.md); chỉ mục
 stored output nằm tại [description_result](../description_result/README.md).
+Cell number trong audit dùng zero-based index của VS Code Notebook API; cell
+tiêu đề đầu notebook có index `0`.
 
 ## 2. Kết luận điều hành
 
@@ -42,9 +44,9 @@ Kết quả hợp lệ đang được lưu trong lần chạy hiện tại:
 | Kết quả | Giá trị | Bằng chứng |
 |---|---:|---|
 | Thiết bị | Apple MPS | [Cell 62][cell-62] |
-| Candidate được chọn | `(512,256,128)`, Adam, lr `0.001` | [Cell 74][cell-74] |
+| Candidate được chọn | `(512, 256, 128)`, Adam, lr `0.001` | [Cell 74][cell-74] |
 | Confirmation median best epoch | 32 | [Cell 74][cell-74] |
-| Mean validation accuracy | 89.7833% ± 0.0816% | [Cell 74][cell-74] |
+| Mean validation accuracy | 89.7833% ± 0.0816% | [Cell 74][cell-74] và [`best_hyperparameters.json`](../../outputs/hyperparameter_search/best_hyperparameters.json) |
 | Final-training samples | 60,000 | [Cell 77][cell-77] |
 | Official-test loss | 0.5489 | [Cell 81][cell-81] |
 | Official-test accuracy | 89.42% | [Cell 81][cell-81] |
@@ -64,7 +66,7 @@ Kết quả hợp lệ đang được lưu trong lần chạy hiện tại:
 | Numerical health của EDA | Pass | PCA/t-SNE có finite checks và stored run không có stderr warning | [Cell 27][cell-27], [Cell 36][cell-36] |
 | Environment reproducibility | Needs Fix | Có version report nhưng không có dependency manifest/lock file | [Cell 4][cell-4] |
 | Artifact synchronization | Pass with Finding | Search có 21 PNG đồng bộ; vài evaluation figures vẫn chỉ lưu inline | [Cell 73][cell-73], [Cell 86][cell-86], [Cell 87][cell-87] |
-| Automated regression tests | Pass | 25 tests phủ search, monitor, checkpoint, deterministic resume và TensorBoard continuity | `tests/` |
+| Automated regression tests | Pass | 25 tests phủ search, monitor, checkpoint, deterministic resume và TensorBoard continuity | [`practice_1/tests`](../../tests) |
 
 ## 4. Ma trận yêu cầu bài tập
 
@@ -79,8 +81,8 @@ Kết quả hợp lệ đang được lưu trong lần chạy hiện tại:
 | Training loop | Complete | Sample-weighted loss, accuracy, validation và best-state selection | [Cell 65][cell-65], [Cell 67][cell-67] |
 | Accuracy evaluation | Complete | Overall accuracy, per-class metrics, confusion matrix, ROC và Precision-Recall | [Cell 81][cell-81], [Cell 82][cell-82], [Cell 84][cell-84], [Cell 86][cell-86], [Cell 87][cell-87] |
 | Save/load model | Complete | Lưu state dict plus metadata, reconstruct và verify logits | [Cell 89][cell-89], [Cell 90][cell-90] |
-| Hyperparameter experiments | Complete | So sánh architecture, dropout, optimizer và augmentation | [Cell 69][cell-69], [Cell 72][cell-72] |
-| Loss visualization | Complete in notebook | Learning curves hiển thị train/validation loss và accuracy | [Cell 73][cell-73] |
+| Hyperparameter experiments | Complete | Controlled comparison cộng staged search cho learning rate/architecture và multi-seed confirmation | [Cell 69][cell-69], [Cell 70][cell-70], [Cell 72][cell-72], [Cell 74][cell-74] |
+| Loss visualization | Complete in notebook | Live/history curves hiển thị train/validation loss, accuracy và final-train metrics | [Cell 70][cell-70], [Cell 74][cell-74], [Cell 77][cell-77] |
 | Predicted vs actual images | Complete in notebook | Grid 4 x 4 trên official-test batch | [Cell 91][cell-91] |
 | Brief report | Complete | Problem statement, EDA conclusions và test-result analysis có trong notebook | [Cell 1][cell-1], [Cell 43][cell-43], [Cell 83][cell-83] |
 | PyTorch docs/tutorial references | Not Evidenced | Notebook chưa có mục references hoặc citation tới tài liệu PyTorch đã sử dụng | [Cell 0][cell-0] |
@@ -101,7 +103,8 @@ FashionMNIST official training pool: 60,000
 
 FashionMNIST official test set: 10,000
     -> deterministic transform using frozen mean/std
-    -> one final evaluation
+    -> Phase 5 materializes one batch for shape/dtype/finiteness contract only
+    -> one final metrics evaluation after model selection
     -> classification report, confusion matrix and prediction display
     -> checkpoint metadata only; never feeds back into training
 ```
@@ -110,7 +113,12 @@ Ranh giới trên được khai báo tại [Cell 1][cell-1], hiện thực bằn
 [Cell 47][cell-47], kiểm tra bằng assertions tại [Cell 53][cell-53], áp dụng vào
 experiment tại [Cell 70][cell-70], final training tại [Cell 77][cell-77] và
 official-test evaluation tại [Cell 81][cell-81]. Không phát hiện code path nào
-đưa `test_loader` vào training hoặc model selection.
+đưa `test_loader` vào training hoặc model selection. [Cell 54][cell-54] có đọc
+batch test đầu tiên để assert tensor contract và transformed range; batch này
+không fit normalization, không tính model metric và không ảnh hưởng quyết định
+modeling. Vì vậy cụm “untouched until final evaluation” chỉ đúng theo nghĩa
+không dùng test labels/metrics để học hoặc chọn model, không đúng nếu hiểu là
+không materialize bất kỳ test tensor nào trước Phase 8.
 
 ## 6. Audit theo từng phase
 
@@ -123,7 +131,7 @@ official-test evaluation tại [Cell 81][cell-81]. Không phát hiện code path
 | 5 - Data Preprocessing | Cell 44-54 | Stratified split, train-only statistics, deterministic validation/test và strong assertions | `std()` convention nên được ghi rõ là sample hay population; ảnh hưởng số học rất nhỏ | Pass |
 | 6 - Model Building | Cell 55-59 | MLP configurable, raw logits đúng với CrossEntropyLoss, fail-fast sanity test tốt | Type contract của config còn rộng (`Dict`) | Pass |
 | 7 - Model Training | Cell 60-78 | Best-state selection, atomic anti-fail resume, live monitor, TensorBoard continuity và final retraining đúng protocol | Determinism trên CUDA/MPS chưa được cam kết; training/final loops còn lặp code | Pass with Finding |
-| 8 - Model Evaluation | Cell 79-87 | Sample-weighted loss, accuracy, report, confusion matrix, ROC và Precision-Recall đầy đủ | Kết luận nguyên nhân lỗi ở Cell 83 mạnh hơn bằng chứng hiện có | Pass with Finding |
+| 8 - Model Evaluation | Cell 79-87 | Sample-weighted loss, accuracy, report, confusion matrix, ROC và Precision-Recall đầy đủ; Cell 83 phân biệt observation và hypothesis | Confusion matrix, ROC và Precision-Recall vẫn chỉ lưu inline | Pass with Finding |
 | 9 - Save/Load & Visualization | Cell 88-91 | Inference checkpoint đầy đủ, load bằng `map_location`, verify logits và hiển thị predictions | Prediction plot không được `savefig` bởi cell hiện tại | Pass with Finding |
 
 ### Phase 1 - Problem Definition
@@ -156,8 +164,10 @@ samples, mean images và statistical extremes cũng được tạo có chủ đ�
 [Cell 38][cell-38] và [Cell 41][cell-41].
 
 Package local tại [Cell 10][cell-10] đã được khôi phục. PCA/t-SNE paths kiểm tra
-finiteness và clean run không còn stderr warning. Finding còn lại là materialize
-toàn bộ training pool và full-pool t-SNE làm Phase 4 tốn memory/runtime.
+finiteness và clean run không còn stderr warning. PCA component heatmaps tại
+[Cell 29][cell-29] tái sử dụng PCA đã fit ở [Cell 27][cell-27]. Finding còn lại
+là materialize toàn bộ training pool, vẽ lại class distribution và chạy PCA/
+t-SNE trên full pool, làm Phase 4 tốn memory/runtime.
 
 ### Phase 5 - Data Preprocessing
 
@@ -204,6 +214,9 @@ targets và probabilities dưới inference mode. [Cell 81][cell-81] đánh giá
 confusion matrix, [Cell 86][cell-86] tạo ROC curves và [Cell 87][cell-87] tạo
 Precision-Recall curves.
 Kết quả cho thấy nhóm upper-body garments là điểm yếu chính của baseline MLP.
+[Cell 83][cell-83] hiện diễn giải visual overlap và giới hạn không gian của MLP
+như các yếu tố có thể cùng đóng góp, đồng thời yêu cầu controlled CNN comparison
+trước khi khẳng định nguyên nhân thuộc riêng dataset.
 
 ### Phase 9 - Save Model & Visualization
 
@@ -226,7 +239,7 @@ không đáng tin; `Medium` ảnh hưởng reproducibility, deliverable hoặc d
 | Severity | Resolved |
 | Evidence | [Cell 10][cell-10] |
 | Hiện trạng | `data.py` và `visualize.py` tồn tại, import thành công trong clean kernel |
-| Bằng chứng đóng | Run All hoàn tất Cell 1-91 và EDA artifacts được regenerate |
+| Bằng chứng đóng | Run All hoàn tất notebook Cell 0-91 và EDA artifacts được regenerate |
 
 ### F-02 - Numerical warnings trong PCA và t-SNE — Resolved
 
@@ -235,7 +248,7 @@ không đáng tin; `Medium` ảnh hưởng reproducibility, deliverable hoặc d
 | Severity | Resolved |
 | Evidence | [Cell 27][cell-27], [Cell 29][cell-29], [Cell 32][cell-32], [Cell 36][cell-36] |
 | Hiện trạng | Fresh stored run không có stderr warning; intermediate arrays có finite checks |
-| Bằng chứng đóng | Cell 27, 29, 32 và 36 chạy thành công trong execution sequence 1-57 |
+| Bằng chứng đóng | Cell 27, 29, 32 và 36 chạy thành công trong execution sequence `In [1]`-`In [57]` |
 
 ### F-03 - EDA trùng lặp và sử dụng bộ nhớ lớn
 
@@ -243,10 +256,10 @@ không đáng tin; `Medium` ảnh hưởng reproducibility, deliverable hoặc d
 |---|---|
 | Severity | Medium |
 | Evidence | [Cell 9][cell-9], [Cell 12][cell-12], [Cell 15][cell-15], [Cell 27][cell-27], [Cell 29][cell-29], [Cell 36][cell-36] |
-| Hiện trạng | Cell 9 mô tả chunked aggregation nhưng Cell 15 materialize toàn bộ 60,000 ảnh float; class distribution được vẽ lại bằng pie; PCA 3 components được fit hai lần; t-SNE chạy trên toàn bộ pool |
-| Ảnh hưởng | Narrative không hoàn toàn khớp code, tăng peak memory và kéo dài runtime mà không thêm nhiều thông tin |
-| Hướng xử lý | Dùng artifact từ `EDA_ANALYSIS`, giữ một class-distribution chart, reuse PCA fit và dùng stratified sample cho projection visualization |
-| Tiêu chí đóng | Mỗi statistic/embedding chỉ được tính một lần, memory strategy khớp Markdown và kết quả vẫn đủ cho EDA conclusions |
+| Hiện trạng | Helper EDA dùng chunked aggregation, nhưng Cell 15 vẫn materialize thêm toàn bộ 60,000 ảnh transformed; class distribution được vẽ lại bằng pie; raw PCA 3D, standardized full PCA và t-SNE đều chạy trên full pool. Cell 29 hiện đã tái sử dụng PCA fit từ Cell 27, không còn fit PCA 3D lần hai |
+| Ảnh hưởng | Tăng peak memory và kéo dài runtime; pie chart lặp thông tin của bar chart trong khi các full-pool embedding là phần tốn kém nhất |
+| Hướng xử lý | Dùng array/artifact sẵn có từ `EDA_ANALYSIS`, giữ một class-distribution chart và dùng stratified sample có seed cho projection visualization khi full-pool embedding không phải yêu cầu bắt buộc |
+| Tiêu chí đóng | Không còn full transformed copy không cần thiết; sampling/memory strategy được ghi rõ và EDA conclusions vẫn tái lập được |
 
 ### F-04 - Thiếu dependency manifest
 
@@ -270,16 +283,15 @@ không đáng tin; `Medium` ảnh hưởng reproducibility, deliverable hoặc d
 | Hướng xử lý | Evaluation figures còn lại dùng `fig.savefig(...)` trước `plt.show()` với tên canonical |
 | Tiêu chí đóng | Regenerate confusion, ROC/PR và prediction grid trong cùng run session |
 
-### F-06 - Kết luận nguyên nhân lỗi vượt quá bằng chứng
+### F-06 - Kết luận nguyên nhân lỗi vượt quá bằng chứng — Resolved
 
 | Thuộc tính | Nội dung |
 |---|---|
-| Severity | Medium |
+| Severity | Resolved |
 | Evidence | [Cell 83][cell-83] |
-| Hiện trạng | Report quy khó khăn ở upper-body classes cho dataset bottleneck và loại trừ model architecture như một nguyên nhân |
-| Ảnh hưởng | Confusion matrix chỉ cho biết pattern lỗi, không đủ để kết luận architecture không đóng góp; CNN thường khai thác spatial structure tốt hơn MLP |
-| Hướng xử lý | Diễn đạt đây là kết quả của visual overlap kết hợp giới hạn baseline MLP; chỉ khẳng định nhân quả sau controlled architecture comparison |
-| Tiêu chí đóng | Report phân biệt rõ observation, interpretation và hypothesis |
+| Hiện trạng | Report mô tả trực tiếp pattern upper-body confusion, nêu visual overlap và spatial limitation của MLP là các yếu tố có thể cùng đóng góp |
+| Bằng chứng đóng | Cell 83 nói rõ confusion counts chưa chứng minh nguyên nhân thuộc riêng dataset và cần controlled CNN comparison trước khi kết luận nhân quả |
+| Lưu ý còn lại | CNN comparison vẫn là đề xuất cải thiện model, không còn là lỗi diễn giải của report hiện tại |
 
 ### F-07 - Reproducibility mới ở mức best effort
 
@@ -308,7 +320,7 @@ không đáng tin; `Medium` ảnh hưởng reproducibility, deliverable hoặc d
 | Thuộc tính | Nội dung |
 |---|---|
 | Severity | Low |
-| Evidence | [Cell 53][cell-53], [Cell 59][cell-59], [Cell 90][cell-90], `tests/test_training_checkpoint.py`, `tests/test_notebook_training_resume.py` |
+| Evidence | [Cell 53][cell-53], [Cell 59][cell-59], [Cell 90][cell-90], [`test_training_checkpoint.py`](../../tests/test_training_checkpoint.py), [`test_notebook_training_resume.py`](../../tests/test_notebook_training_resume.py) |
 | Hiện trạng | 25 tests bao phủ search engine/notebook wiring, monitor, atomic checkpoint, corrupted/mismatched state, RNG, deterministic resume và TensorBoard; data acquisition/EDA vẫn dựa vào Run All |
 | Ảnh hưởng | Data/artifact drift hoặc numerical warning ngoài training path chưa được test suite phát hiện đầy đủ |
 | Hướng xử lý | Thêm smoke test cho import, split, one-batch train/eval, checkpoint round trip và notebook execution |
@@ -333,7 +345,8 @@ execution; full notebook đã được kiểm tra qua clean-kernel Run All.
 - Final model được rebuild từ fresh state và train trên toàn bộ 60,000 samples
   tại [Cell 76][cell-76] và [Cell 77][cell-77].
 - Official test set chỉ được sử dụng sau khi modeling decisions đã cố định tại
-  [Cell 79][cell-79].
+  [Cell 79][cell-79] để tính model metrics; Cell 54 chỉ kiểm tra tensor contract
+  của một batch và không tham gia model selection.
 - Checkpoint lưu preprocessing và class metadata, sau đó được round-trip verify
   tại [Cell 89][cell-89] và [Cell 90][cell-90].
 
@@ -342,28 +355,29 @@ execution; full notebook đã được kiểm tra qua clean-kernel Run All.
 | Ưu tiên | Hành động | Findings được đóng | Kết quả mong đợi |
 |---:|---|---|---|
 | 1 | Thêm dependency manifest/lock từ environment đã verify | F-04 | Dựng lại được kernel mới |
-| 2 | Refactor EDA để bỏ full-copy, duplicate plot/PCA và full-pool t-SNE | F-03 | Runtime, memory và narrative nhất quán |
+| 2 | Refactor EDA để bỏ full-copy, duplicate class plot và giảm chi phí full-pool PCA/t-SNE | F-03 | Runtime, memory và narrative nhất quán |
 | 3 | Lưu các evaluation figures còn inline-only | F-05 | Artifact bên ngoài đồng bộ stored run |
-| 4 | Chỉnh Result Analysis theo đúng mức bằng chứng | F-06 | Report chính xác về mặt khoa học |
-| 5 | Bổ sung deterministic policy, typed config và data/EDA tests | F-07, F-08, F-09 | Pipeline dễ bảo trì và phát hiện regression sớm |
-| 6 | Thêm mục PyTorch references | Requirement gap | Chứng minh yêu cầu sử dụng docs/tutorials |
+| 4 | Bổ sung deterministic policy, typed config và data/EDA tests | F-07, F-08, F-09 | Pipeline dễ bảo trì và phát hiện regression sớm |
+| 5 | Thêm mục PyTorch references | Requirement gap | Chứng minh yêu cầu sử dụng docs/tutorials |
 
-F-01 và F-02 đã đóng trước staged search. Không nên mở rộng experiment space tiếp
-cho tới khi phân tích overfitting hiện tại và cân nhắc CNN baseline.
+F-01, F-02 và F-06 đã đóng. Không nên mở rộng experiment space tiếp cho tới khi
+phân tích overfitting hiện tại và cân nhắc CNN baseline.
 
 ## 10. Release Gate đề xuất
 
 Notebook chỉ nên được đánh dấu `Reproducible Baseline: Pass` khi đồng thời thỏa
 các điều kiện sau:
 
-- Restart Kernel + Run All hoàn tất từ Cell 1 đến Cell 91.
+- Restart Kernel + Run All hoàn tất notebook Cell 0 đến Cell 91, với code-cell
+  execution count liên tục `In [1]` đến `In [57]`.
 - Không có error output hoặc stderr warning chưa được giải thích.
 - Import local modules thành công trong venv mới.
 - Split vẫn là 54,000/6,000, disjoint và class-stratified.
 - `TRAIN_MEAN`/`TRAIN_STD` chỉ được tính từ internal training indices.
 - Mỗi experiment bắt đầu từ fresh model và optimizer state.
-- Official test set không tham gia preprocessing, model selection hoặc gradient
-  update.
+- Official test set không tham gia fit preprocessing, model selection hoặc
+  gradient update; pre-evaluation access nếu có chỉ giới hạn ở tensor-contract
+  assertions đã ghi rõ.
 - Checkpoint round trip giữ predictions và logits trong tolerance.
 - Learning curves, experiment comparison, confusion matrix và prediction grid
   được regenerate trong cùng run.
@@ -442,7 +456,6 @@ chiếu. Khi cell được thêm, xóa hoặc đổi thứ tự, các deep-link 
 [cell-84]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=84>
 [cell-86]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=86>
 [cell-87]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=87>
-[cell-88]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=88>
 [cell-89]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=89>
 [cell-90]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=90>
 [cell-91]: <vscode://ticoder.practice1-notebook-links/open-cell?notebook=total_practice%2Fpractice_1%2Fpractice_1.ipynb&cell=91>

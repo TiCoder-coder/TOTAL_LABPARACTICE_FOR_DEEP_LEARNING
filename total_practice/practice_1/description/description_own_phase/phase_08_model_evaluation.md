@@ -5,8 +5,9 @@
 ## 1. Vị trí và phạm vi
 
 - Notebook cells: `79` đến `87`.
-- Cells 85-87 được thêm cho probability contract, ROC và Precision-Recall;
-  output của ba cell này phải được tạo từ cùng lần chạy với evaluator mới.
+- Code cells đã chạy: `In [48]` đến `In [54]`.
+- Cells 85-87 dùng probability output của cùng lần chạy evaluator để kiểm tra
+  contract, vẽ ROC và vẽ Precision-Recall.
 - Input: final model train trên 60,000 ảnh, deterministic `test_loader`, selected
   device và 10 class names.
 - Output: official test loss/accuracy, prediction/target/probability arrays,
@@ -18,12 +19,12 @@
 | Heading Phase 8 | [Cell 79][cell-79] |
 | `evaluate_classifier` implementation | [Cell 80, `In [48]`][cell-80] |
 | Official test loss/accuracy | [Cell 81, `In [49]` + output][cell-81] |
-| Per-class classification và one-vs-rest report | [Cell 82][cell-82] |
+| Per-class classification và one-vs-rest report | [Cell 82, `In [50]` + output][cell-82] |
 | Result Analysis | [Cell 83][cell-83] |
 | Confusion matrix | [Cell 84, `In [51]` + output][cell-84] |
-| One-vs-rest target/probability contract | [Cell 85][cell-85] |
-| Per-class ROC curves và AUC | [Cell 86][cell-86] |
-| Per-class Precision-Recall curves và AP | [Cell 87][cell-87] |
+| One-vs-rest target/probability contract | [Cell 85, `In [52]`][cell-85] |
+| Per-class ROC curves và AUC | [Cell 86, `In [53]` + output][cell-86] |
+| Per-class Precision-Recall curves và AP | [Cell 87, `In [54]` + output][cell-87] |
 
 ## 2. Ranh giới đánh giá
 
@@ -179,7 +180,7 @@ tốt hơn.
 - Coat: F1 `0.8265`.
 - Pullover: F1 `0.8252`.
 
-Shirt vừa có precision thấp (`0.7202`) vừa có recall thấp (`0.7000`): model bỏ sót
+Shirt vừa có precision thấp (`0.7476`) vừa có recall thấp (`0.6930`): model bỏ sót
 nhiều ảnh Shirt thật và đồng thời gán nhầm một số class khác thành Shirt.
 
 Notebook liên hệ confusion của Shirt với T-shirt/top, Pullover và Coat. Đây đều là

@@ -62,7 +62,7 @@ artifact counts của run hiện tại đã được audit sau `Run All`.
 |---|---|
 | [Notebook](practice_1.ipynb) | Source code, Markdown và stored outputs của toàn pipeline |
 | [Mô tả từng phase](description/description_own_phase/README.md) | Giải thích chi tiết và deep-link tới code/output từng phase |
-| [Chỉ mục kết quả](description/description_result/README.md) | Danh sách ngắn gọn 40 cell kết quả đang lưu |
+| [Chỉ mục kết quả](description/description_result/README.md) | Danh sách ngắn gọn 42 vị trí kết quả đang lưu |
 | [Code Base Audit](description/code_base_audit/code_base_audit.md) | Đánh giá correctness, reproducibility, findings và release gate |
 | [Notebook-link helper](tools/vscode-notebook-links/README.md) | Cách cài extension mở chính xác notebook cell từ Markdown |
 
@@ -84,7 +84,8 @@ artifact counts của run hiện tại đã được audit sau `Run All`.
 
 Các liên kết **Mở Cell** trong README dùng URI handler
 `ticoder.practice1-notebook-links`. Trong VS Code Markdown Preview, liên kết sẽ
-mở notebook, chọn đúng cell và đưa cell đó lên đầu viewport.
+mở notebook, chọn đúng cell và đưa cell đó lên đầu viewport. Cell number dùng
+zero-based index của VS Code Notebook API; cell tiêu đề đầu tiên có index `0`.
 
 Để cài helper một lần từ workspace root:
 
@@ -123,7 +124,7 @@ FashionMNIST cung cấp hai official partitions:
 | Partition | Kích thước | Vai trò trong project |
 |---|---:|---|
 | Official training pool | 60,000 | EDA; nguồn tạo internal train/validation; final retraining |
-| Official test set | 10,000 | Một lần đánh giá cuối cùng sau khi modeling decision đã cố định |
+| Official test set | 10,000 | Tensor-contract check ở Phase 5; model metrics chỉ được tính sau khi modeling decision đã cố định |
 
 Stored output xác nhận đúng hai kích thước tại [Cell 7][cell-7].
 
@@ -171,8 +172,12 @@ Problem definition
     -> build deterministic and augmented dataset views
     -> create train/validation/test DataLoaders
     -> build and sanity-check configurable MLP
-    -> run E0-E4 with fresh model/optimizer/loader state
-    -> select experiment and epoch by validation metrics
+    -> run E0-E4 as controlled baseline comparisons
+    -> Stage A: coarse learning-rate search
+    -> Stage B: hidden-architecture search
+    -> Stage C: local learning-rate refinement
+    -> Stage D: top-2 x 3-seed confirmation
+    -> select configuration and median best epoch by validation metrics
     -> rebuild and train on all 60,000 official-training images
     -> evaluate once on 10,000 official-test images
     -> save checkpoint
@@ -196,57 +201,207 @@ Problem definition
 10. Result analysis sau test không được quay lại thay đổi model trong cùng
     evaluation protocol.
 
+Cell 54 materialize batch test đầu tiên để assert shape, dtype, finiteness và
+transformed range. Việc truy cập này không fit preprocessing, không tính model
+metric và không tham gia model selection; model evaluation chính thức vẫn chỉ
+bắt đầu ở Phase 8.
+
 Các assertions tại [Cell 53][cell-53] kiểm chứng split, disjointness, coverage,
 class balance và validation determinism.
 
-## 6. Cấu trúc project hiện tại
+## 6. Kiến trúc project hiện tại
+
+### 6.1. Kiểu kiến trúc và entry point
+
+Project dùng **notebook-centered layered architecture**. Đây không phải web app,
+service hoặc Python CLI package truyền thống:
+
+- [`practice_1.ipynb`](practice_1.ipynb) là executable entry point và
+  orchestration layer duy nhất.
+- `processing_own_phase/` chứa các service/helper thuần Python có thể import và
+  test độc lập.
+- `data/` chỉ chứa input dataset; `outputs/` và `runs/` chỉ chứa state/artifact
+  sinh ra trong quá trình chạy.
+- `tests/` kiểm tra helper modules và notebook wiring mà không thay notebook
+  thành application package.
+- `description/`, `diagrams/` và `tools/` hỗ trợ đọc, review và điều hướng; chúng
+  không tham gia gradient update.
+
+Project hiện không có `main.py`, CLI command hoặc `processing_own_phase.main`.
+Muốn chạy pipeline đầy đủ phải chọn đúng kernel rồi chạy notebook theo thứ tự
+Cell 0-91.
+
+```text
+Documentation / diagrams / notebook-link tool
+                    |
+                    v
+        practice_1.ipynb (orchestration)
+          |          |             |
+          v          v             v
+       EDA/data   search/train   checkpoint/monitor
+       helpers      helpers          helpers
+          |          |             |
+          +----------+-------------+
+                     |
+            data -> model -> outputs
+                     |
+              tests verify contracts
+```
+
+### 6.2. Các tầng và trách nhiệm
+
+| Tầng | Chứa gì | Trách nhiệm | Không sở hữu |
+|---|---|---|---|
+| 1. Documentation & navigation | `README.md`, `description/`, `diagrams/`, `tools/` | Giải thích protocol, kiến trúc, kết quả và mở đúng notebook cell | Training state hoặc model decision |
+| 2. Notebook orchestration | `practice_1.ipynb` | Điều phối chín phase; định nghĩa model, train/eval loops; gọi helpers; giữ live state | Reusable helper implementation đã tách module |
+| 3. Processing services | `processing_own_phase/*.py` | EDA aggregation/plots, search config/ranking/export, recovery checkpoint, live monitor | Dataset binaries, canonical output hay TensorBoard events |
+| 4. Data storage | `data/FashionMNIST/raw/` | Lưu hai official FashionMNIST partitions | Preprocessing decision hoặc learned weights |
+| 5. Artifact & observability | `outputs/`, `runs/` | Lưu checkpoint, JSON/CSV, PNG và TensorBoard events | Source of truth cho code; artifact có thể được regenerate |
+| 6. Verification | `tests/` và notebook assertions | Phát hiện regression về search, resume, monitor, tensors và notebook wiring | Thay thế full dataset Run All |
+| 7. Historical process records | `save_log_agent_process_each_phase/` | Lưu plan/log phát triển trước đây để truy vết | Runtime dependency của notebook |
+
+Dependency direction được giữ một chiều: notebook gọi processing services;
+services không import notebook; tests có thể đọc notebook/source modules; data và
+artifact directories không được import như source code.
+
+### 6.3. Cây thư mục canonical
 
 ```text
 practice_1/
-  README.md
-  practice_1.ipynb
-  data/
-    FashionMNIST/
-  description/
-    code_base_audit/
-      code_base_audit.md
-    description_own_phase/
-      README.md
-      phase_01_...md -> phase_09_...md
-    description_result/
-      README.md
-      phase_01_results.md -> phase_09_results.md
-  diagrams/
-    01_preprocessing.png
-    02_model_building.png
-    03_training_epoch.png
-    04_training_batch.png
-    Pratice_diagram.pdf
-    pratice1_diagram.drawio
-  outputs/
-    experiments/
-    hyperparameter_search/
-      plots/
-      trials/
-    recovery/
-    fashion_mnist_model.pth
-    EDA images and historical report artifacts
-  processing_own_phase/
-    data.py
-    hyperparameter_search.py
-    training_checkpoint.py
-    training_monitor.py
-    visualize.py
-  runs/
-    <timestamp>/<experiment-id>/
-  tests/
-  save_log_agent_process_each_phase/
-  tools/
-    vscode-notebook-links/
+├── README.md
+├── practice_1.ipynb
+├── data/
+│   └── FashionMNIST/raw/                  # official dataset binaries
+├── processing_own_phase/
+│   ├── __init__.py                        # package marker + package docstring
+│   ├── config.py                          # cấu hình tham khảo, chưa được notebook import
+│   ├── data.py                            # EDA aggregation + reusable data helpers
+│   ├── visualize.py                       # EDA và generic plotting helpers
+│   ├── hyperparameter_search.py           # staged-search configs/ranking/export
+│   ├── training_checkpoint.py             # atomic save/resume + RNG/signature
+│   └── training_monitor.py                # realtime epoch-level curves
+├── tests/
+│   ├── test_hyperparameter_search.py
+│   ├── test_notebook_hyperparameter_pipeline.py
+│   ├── test_notebook_training_resume.py
+│   ├── test_training_checkpoint.py
+│   └── test_training_monitor.py
+├── outputs/
+│   ├── experiments/                       # E0-E4 best-validation artifacts
+│   ├── hyperparameter_search/
+│   │   ├── trials/                        # 17 best-trial checkpoints
+│   │   ├── plots/                         # 17 trial + 4 aggregate/final PNG
+│   │   ├── search_summary.json
+│   │   ├── search_summary.csv
+│   │   └── best_hyperparameters.json
+│   ├── recovery/                          # epoch-level resume checkpoints
+│   ├── fashion_mnist_model.pth            # canonical inference checkpoint
+│   └── *.png                              # seven EDA artifacts
+├── runs/                                  # TensorBoard sessions theo timestamp
+├── description/
+│   ├── description_own_phase/             # giải thích Phase 1-9
+│   ├── description_result/                # chỉ mục 42 vị trí kết quả
+│   └── code_base_audit/                    # correctness/release-gate audit
+├── diagrams/                              # PNG, Draw.io source và PDF tổng hợp
+├── tools/vscode-notebook-links/           # VS Code URI-handler extension
+└── save_log_agent_process_each_phase/     # historical plans/process logs
 ```
 
-Notebook là entry point thực thi. `processing_own_phase/` cung cấp các module có
-thể test độc lập; project không khai báo CLI `processing_own_phase.main`.
+`__pycache__/` và `*.pyc` là cache do Python sinh tự động. Chúng không phải
+source layer, không được dùng làm bằng chứng rằng source module còn tồn tại và
+không nên đưa vào sơ đồ kiến trúc logic.
+
+### 6.4. Notebook orchestration layer
+
+Notebook giữ các thành phần có tính giáo dục và cần nhìn thấy trực tiếp trong
+coursework:
+
+| Phạm vi | Thành phần chính | Trách nhiệm |
+|---|---|---|
+| Phase 1-3 | Task contract, project paths, imports, dataset load | Khóa bài toán và tạo raw in-memory state |
+| Phase 4 | `EDA_ANALYSIS`, PCA, t-SNE và plotting calls | Điều phối phân tích descriptive trên official train pool |
+| Phase 5 | Split, normalization, transforms, Subset, DataLoader | Thiết lập data boundary và tensor contract |
+| Phase 6 | `FashionMNISTModel`, `build_model`, parameter count, sanity check | Định nghĩa MLP và xác minh forward/backward |
+| Phase 7 | `train_one_epoch`, `evaluate_loader`, `run_training`, `train_final_model` | Controlled experiments, staged search, resume và final retraining |
+| Phase 8 | `evaluate_classifier`, per-class metrics, confusion/ROC/PR | Official-test evaluation sau model selection |
+| Phase 9 | Final checkpoint payload, reload check và prediction grid | Đóng gói inference contract và chứng minh round trip |
+
+Các function train/model nói trên hiện nằm trong notebook, không nằm trong
+`processing_own_phase/`. Đây là lựa chọn giúp người học đọc được training flow,
+nhưng cũng tạo duplication nhẹ giữa experiment/final-training và
+validation/test evaluation paths.
+
+### 6.5. Processing-service layer theo từng file
+
+| File | Notebook gọi trực tiếp | Chức năng chính |
+|---|---|---|
+| [`processing_own_phase/__init__.py`](processing_own_phase/__init__.py) | Import package gián tiếp | Đánh dấu package helper và mô tả phạm vi FashionMNIST processing |
+| [`config.py`](processing_own_phase/config.py) | **Không** | Lưu paths, class names, baseline `CONFIG` và E0-E4 reference configs; hiện là reference/legacy-compatible config, không phải nguồn config runtime của notebook |
+| [`data.py`](processing_own_phase/data.py) | Có: `analyze_training_pool` | Chunked EDA statistics, duplicate/quality audit, deterministic samples/outliers; đồng thời cung cấp reusable load/split/mean-std/transform/DataLoader helpers chưa được notebook wiring hiện tại gọi |
+| [`visualize.py`](processing_own_phase/visualize.py) | Có: bảy EDA plot functions | Lưu/hiển thị class, pixel, brightness, sample, mean-image và outlier figures; generic loss/accuracy/comparison/prediction/confusion helpers tồn tại nhưng notebook hiện vẽ các phần đó trực tiếp |
+| [`hyperparameter_search.py`](processing_own_phase/hyperparameter_search.py) | Có | Validate trial configs, tạo Stage A-D trials, tạo stable candidate key, ranking, multi-seed aggregation và atomic JSON/CSV export |
+| [`training_checkpoint.py`](processing_own_phase/training_checkpoint.py) | Có | SHA-256 signature, index fingerprint, CPU clone, RNG capture/restore, atomic `torch.save` và compatibility-checked `TrainingCheckpointManager` |
+| [`training_monitor.py`](processing_own_phase/training_monitor.py) | Có | `TrainingMonitor` nhận một completed epoch record, cập nhật loss/accuracy dashboard, restore history khi resume, lưu PNG và đóng figure an toàn |
+
+Chi tiết ownership quan trọng:
+
+- `config.py` không được import trong Cell 5 hoặc Cell 10; thay đổi file này không
+  tự động đổi experiment đang chạy trong notebook.
+- `data.py` là module duy nhất sở hữu thuật toán EDA aggregation hiện tại;
+  split/transform code dùng trong notebook vẫn được viết trực tiếp ở Phase 5.
+- `visualize.py` sở hữu EDA artifact rendering; ROC, PR, confusion matrix và
+  prediction grid hiện vẫn được vẽ inline trong notebook.
+- Search module không train model. Nó chỉ tạo/rank/export configurations và
+  results; notebook `run_search_trials()` mới sở hữu vòng train thật.
+- Checkpoint manager không quyết định best model. Notebook cập nhật best state,
+  còn manager chịu trách nhiệm durability và compatibility của recovery state.
+- Training monitor không đọc model/optimizer/DataLoader; nó chỉ nhận metrics đã
+  hoàn thành nên không tác động gradient hoặc random state.
+
+### 6.6. Data, artifact và observability layers
+
+| Path | Nội dung | Producer | Consumer |
+|---|---|---|---|
+| `data/FashionMNIST/raw/` | 8 IDX/IDX.GZ image-label files cho train/test | TorchVision download | Phase 3 và các dataset views Phase 5 |
+| `outputs/experiments/` | E0-E4 best-validation checkpoints | Cell 70 | Audit/controlled comparison |
+| `outputs/hyperparameter_search/trials/` | 17 search best-state artifacts | Cells 70, 72-74 | Search audit và provenance |
+| `outputs/hyperparameter_search/plots/` | 21 current-run PNG | `TrainingMonitor` và Cells 73-74/77 | Human review |
+| `outputs/hyperparameter_search/*.json|csv` | Trial manifest, confirmation ranking, best config | `export_search_outputs` | README/audit và downstream reporting |
+| `outputs/recovery/` | Current model/optimizer/history/RNG after completed epoch | `TrainingCheckpointManager` | Resume cùng compatible run |
+| `outputs/fashion_mnist_model.pth` | Final weights + model/preprocessing/metric metadata | Cell 89 | Cell 90 reload và inference |
+| `runs/<timestamp>/` | TensorBoard event files theo experiment/stage/trial | `SummaryWriter` | Cell 78 hoặc TensorBoard CLI |
+
+Recovery checkpoint và final inference checkpoint có mục đích khác nhau:
+recovery checkpoint chứa optimizer/RNG để tiếp tục training; final checkpoint
+chứa portable inference contract và metrics để reconstruct model.
+
+### 6.7. Verification layer theo từng test file
+
+| File | Phạm vi bảo vệ |
+|---|---|
+| [`test_hyperparameter_search.py`](tests/test_hyperparameter_search.py) | Trial IDs, ranking, refinement bounds, multi-seed aggregation và atomic exports |
+| [`test_notebook_hyperparameter_pipeline.py`](tests/test_notebook_hyperparameter_pipeline.py) | Thứ tự Stage A-D, validation-only selection, isolated trial paths và Python syntax của pipeline cells |
+| [`test_notebook_training_resume.py`](tests/test_notebook_training_resume.py) | Uninterrupted so với interrupted/resumed experiment/final runs và TensorBoard continuity |
+| [`test_training_checkpoint.py`](tests/test_training_checkpoint.py) | Atomic round trip, signature/fingerprint, RNG restore, corrupted/mismatched state và disabled mode |
+| [`test_training_monitor.py`](tests/test_training_monitor.py) | Train-only/validation charts, restore, adaptive ticks, input validation và lifecycle khi exception |
+
+Tổng hiện tại: **25 tests và 11 subtests pass**. Test layer chưa thay thế việc
+download FashionMNIST và chạy full EDA/notebook trên environment thật.
+
+### 6.8. Documentation, diagrams và tooling
+
+| Path/file | Chức năng |
+|---|---|
+| [`description/description_own_phase/`](description/description_own_phase/) | Giải thích chi tiết source, output và decision của Phase 1-9 |
+| [`description/description_result/`](description/description_result/) | Chỉ mục ngắn gọn 42 result locations |
+| [`description/code_base_audit/`](description/code_base_audit/) | Findings, health scorecard và release gate đã đối chiếu source/artifact |
+| [`diagrams/`](diagrams/) | Bốn PNG nhúng trong notebook, Draw.io source và PDF kiến trúc tổng hợp |
+| [`tools/vscode-notebook-links/`](tools/vscode-notebook-links/) | Extension đăng ký `vscode://` URI, validate workspace-relative path và mở zero-based notebook cell |
+| [`save_log_agent_process_each_phase/`](save_log_agent_process_each_phase/) | Plan/log lịch sử; dùng để truy vết quá trình, không phải tài liệu canonical hiện tại |
+
+Khi có mâu thuẫn, thứ tự nguồn sự thật là: notebook/source modules → stored
+outputs và canonical current-run artifacts → phase documentation/audit →
+historical process logs.
 
 ## 7. Môi trường thực thi
 
@@ -307,14 +462,14 @@ Notebook phụ thuộc state theo thứ tự cell. Quy trình đúng là:
 
 1. Chọn đúng kernel.
 2. Restart kernel để xóa object từ run trước.
-3. Khôi phục package `processing_own_phase` được import tại Cell 10.
+3. Xác nhận package `processing_own_phase` import được từ workspace.
 4. Chạy notebook từ trên xuống dưới.
 5. Dừng và xử lý mọi error hoặc numerical warning trước khi dùng kết quả.
 6. Không chạy Phase 8 trước khi Phase 7 và final retraining hoàn tất.
 7. Đối chiếu checkpoint, plot và report phải thuộc cùng run session.
 
-Với codebase hiện tại, bước 3 là blocker bắt buộc; stored outputs không thay thế
-khả năng chạy source từ kernel sạch.
+Package hiện tồn tại và clean-kernel Run All đã import thành công. Stored outputs
+vẫn không thay thế việc kiểm tra source từ kernel sạch sau mỗi thay đổi.
 
 ## 8. Phase 1 - Problem Definition
 
@@ -404,8 +559,9 @@ backend availability. Việc ghi environment giúp phân biệt ba loại thay �
 TorchVision datasets/transforms, plotting, scikit-learn metrics, DataLoader,
 Subset, TensorBoard và typing.
 
-Phase này hiện chưa có import smoke test độc lập. Vì vậy missing local package
-chỉ được phát hiện khi sang Phase 4.
+Cell 5 import các helper checkpoint/search/monitor, còn Cell 10 import helper
+EDA/visualization. Bộ 25 tests kiểm tra sâu training helpers và notebook wiring;
+data acquisition cùng full EDA vẫn được xác minh bằng clean-kernel Run All.
 
 ## 10. Phase 3 - Data Loading
 
@@ -471,13 +627,9 @@ practice_1.processing_own_phase.data
 practice_1.processing_own_phase.visualize
 ```
 
-`analyze_training_pool()` phải tạo `EDA_ANALYSIS` và `EDA_SUMMARY`; plotting
-functions phải tạo các EDA artifacts. Các source modules này hiện thiếu khỏi
-filesystem, dù stored outputs và PNG từ lần chạy trước vẫn còn.
-
-Đây là blocker về reproducibility, không phải bằng chứng rằng stored outputs tự
-động sai. Tuy nhiên, source implementation cần được khôi phục trước khi audit
-logic chunking, duplicate detection và plotting một cách đầy đủ.
+`analyze_training_pool()` tạo `EDA_ANALYSIS` và `EDA_SUMMARY`; các plotting
+functions tạo EDA artifacts. Hai source modules hiện tồn tại, import thành công
+trong clean kernel và được kiểm tra gián tiếp qua Run All cùng artifact audit.
 
 ### 11.3. Raw data contract
 
@@ -564,14 +716,14 @@ nghĩa với corruption.
 
 ### 11.8. Correlation, PCA và t-SNE
 
-[Cell 24][cell-24] và [Cell 25][cell-25] vẽ correlation heatmaps. PCA được fit ở
-[Cell 27][cell-27], sau đó fit lặp lại tại [Cell 29][cell-29]. Full PCA trên
-standardized features chạy tại [Cell 32][cell-32], còn t-SNE trên toàn bộ pool
-chạy tại [Cell 36][cell-36].
+[Cell 24][cell-24] và [Cell 25][cell-25] vẽ correlation heatmaps. PCA 3D được fit
+ở [Cell 27][cell-27]; [Cell 29][cell-29] tái sử dụng chính PCA đó để reshape ba
+component thành heatmap. Full PCA trên standardized features chạy tại
+[Cell 32][cell-32], còn t-SNE trên toàn bộ pool chạy tại [Cell 36][cell-36].
 
 Stored numerical results gồm:
 
-- PC1 explained variance: `29.03%`.
+- PC1 explained variance: `29.04%`.
 - PC2 explained variance: `17.76%`.
 - PC3 explained variance: `6.02%`.
 - 137 components cho 90% cumulative variance.
@@ -749,6 +901,39 @@ Linear(256, 128)
 ReLU
 Linear(128, 10)
 ```
+
+Selected architecture sau Stage D:
+
+```text
+[B, 1, 28, 28]
+    -> Flatten
+[B, 784]
+    -> Linear(784, 512) -> ReLU
+[B, 512]
+    -> Linear(512, 256) -> ReLU
+[B, 256]
+    -> Linear(256, 128) -> ReLU
+[B, 128]
+    -> Linear(128, 10)
+[B, 10] raw logits
+```
+
+| Layer | Input → output | Chứa gì/làm gì | Trainable parameters |
+|---|---|---|---:|
+| `Flatten` | `[B,1,28,28]` → `[B,784]` | Trải ảnh thành feature vector; không học parameter | 0 |
+| Hidden linear 1 | `784` → `512` | Học projection lớn đầu tiên từ toàn bộ pixel | 401,920 |
+| `ReLU` 1 | `[B,512]` → `[B,512]` | Thêm phi tuyến, giữ activation dương | 0 |
+| Hidden linear 2 | `512` → `256` | Nén representation và học tổ hợp feature cấp cao hơn | 131,328 |
+| `ReLU` 2 | `[B,256]` → `[B,256]` | Phi tuyến cho hidden block thứ hai | 0 |
+| Hidden linear 3 | `256` → `128` | Tạo representation gọn trước classifier | 32,896 |
+| `ReLU` 3 | `[B,128]` → `[B,128]` | Phi tuyến cho hidden block cuối | 0 |
+| Output linear | `128` → `10` | Sinh một raw logit cho mỗi FashionMNIST class | 1,290 |
+| **Tổng** | `784 → 512 → 256 → 128 → 10` | Selected MLP, dropout `0.0` | **567,434** |
+
+Candidate thắng không dùng Dropout hoặc Softmax trong network. Dropout `0.0`
+được khóa bởi selected config; Softmax chỉ được tính ở Phase 8 khi cần
+probability-based ROC/PR metrics. Trong training, `CrossEntropyLoss` nhận trực
+tiếp 10 raw logits.
 
 ### 13.2. Constructor validation
 
@@ -994,7 +1179,7 @@ official-test data làm tín hiệu chọn model:
 | Stage | Không gian thử | Epoch/trial | Seed | Mục tiêu |
 |---|---|---:|---|---|
 | A - Learning rate | `0.0001`, `0.0003`, `0.001`, `0.003` | 20 | 42 | Chọn learning-rate vùng thô tại hidden dims `(256, 128)` |
-| B - Architecture | `(256,)`, `(256,128)`, `(256,128,64)`, `(256,128,64,32)`, `(512,256,128)` | 25 | 42 | So sánh depth/capacity với learning rate thắng Stage A |
+| B - Architecture | `(256,)`, `(256, 128)`, `(256, 128, 64)`, `(256, 128, 64, 32)`, `(512, 256, 128)` | 25 | 42 | So sánh depth/capacity với learning rate thắng Stage A |
 | C - Refinement | Hai geometric neighbors quanh coarse best, factor `sqrt(3)` | 25 | 42 | Tinh chỉnh learning rate cho architecture thắng Stage B |
 | D - Confirmation | Top 2 candidate từ B+C | 40 | 42, 123, 2026 | Chọn cấu hình ổn định theo nhiều seed |
 
@@ -1046,7 +1231,7 @@ thắng. Mỗi search trial đồng thời có TensorBoard event directory riên
 Sau model selection, [Cell 76][cell-76] và [Cell 77][cell-77]:
 
 1. Copy selected configuration.
-2. Đặt epoch count bằng selected best epoch.
+2. Đặt epoch count bằng median best epoch từ Stage D multi-seed confirmation.
 3. Rebuild model từ fresh random state.
 4. Tạo optimizer và loader mới.
 5. Train trên toàn bộ 60,000 official-training images.
@@ -1216,10 +1401,10 @@ Checkpoint keys:
 | `model_state_dict` | Learned weights và biases đã clone về CPU |
 | `model_config` | Hidden dims, dropout, class count và input dimension |
 | `training_config` | Selected optimizer, learning rate, epochs và settings |
-| `selected_experiment` | Experiment thắng validation |
-| `best_epoch` | Epoch validation đã chọn |
-| `best_validation_accuracy` | Best validation accuracy |
-| `best_validation_loss` | Best validation loss |
+| `selected_experiment` | ID của candidate thắng Stage D multi-seed confirmation |
+| `best_epoch` | Median best epoch của candidate thắng trên ba confirmation seeds |
+| `best_validation_accuracy` | Mean best validation accuracy của candidate thắng |
+| `best_validation_loss` | Mean best validation loss của candidate thắng |
 | `test_accuracy` | Official-test accuracy của cùng run |
 | `test_loss` | Official-test loss của cùng run |
 | `train_mean` | Training-only normalization mean |
@@ -1301,6 +1486,10 @@ Cell đáp ứng yêu cầu image display trong notebook nhưng không lưu
 | Primary selection metric | Validation accuracy |
 | Tie-breaker | Validation loss |
 
+`Experiment epoch budget = 10` chỉ áp dụng E0-E4. Staged search dùng lần lượt
+20 epoch (Stage A), 25 epoch (Stage B/C), 40 epoch (Stage D) và final retraining
+dùng median best epoch `32` của candidate thắng.
+
 ### 17.2. Preprocessing reference
 
 | Value | Stored result |
@@ -1317,6 +1506,7 @@ Cell đáp ứng yêu cầu image display trong notebook nhưng không lưu
 | Baseline | `(128,)` | 0.0 | 101,770 |
 | Deeper | `(256, 128)` | 0.0 | 235,146 |
 | Deeper + dropout | `(256, 128)` | 0.2 | 235,146 |
+| Selected Stage D | `(512, 256, 128)` | 0.0 | 567,434 |
 
 ## 18. Outputs và provenance
 
@@ -1363,26 +1553,25 @@ còn temporary file.
 
 ### 18.3. Historical hoặc potentially stale artifacts
 
-Các file sau tồn tại nhưng current notebook cells không ghi chúng trong stored
-run ngày 2026-08-01:
+Filesystem hiện không còn các detached root artifacts như
+`outputs/loss_curve.png`, `outputs/confusion_matrix.png`, root-level `E*.pt` hoặc
+`practice_1/fashion_mnist_model.pth`. Các thành phần cần phân biệt với canonical
+current run là:
 
-- `outputs/loss_curve.png`
-- `outputs/accuracy_curve.png`
-- `outputs/experiment_comparison.png`
-- `outputs/confusion_matrix.png`
-- `outputs/predictions_grid.png`
-- `outputs/summary.json`
-- `outputs/summary_quick.json`
-- `outputs/notebook_verification.json`
-- Root-level `outputs/E*.pt` files.
-- `fashion_mnist_model.pth` ở project root.
+- `runs/` chứa nhiều timestamp cũ và `runs/fashion_mnist_experiment_1`; chỉ
+  session `20260811-010514` được dùng làm provenance cho staged-search snapshot
+  hiện tại.
+- `outputs/recovery/E1_deeper_final.resume.pth` thuộc final-training flow cũ;
+  current selected final recovery là
+  `H_selected_h512x256x128_lr1p000e-03_do0p00_adam_aug0_final.resume.pth`.
+- E0-E4 experiment/recovery artifacts được current notebook restore để giữ
+  controlled-baseline provenance, nhưng chúng không phải final selected model.
 
-Không dùng các file này để thay cho stored notebook metrics nếu chưa xác minh run
-provenance. Nguồn ưu tiên cho snapshot hiện tại là notebook output,
+Nguồn ưu tiên cho snapshot hiện tại là notebook stored output,
 `outputs/hyperparameter_search/`, `outputs/fashion_mnist_model.pth` và
 TensorBoard session `20260811-010514`. Trong run này, E0-E4 được phục hồi từ
 completed checkpoints; toàn bộ 17 search trials và final 32-epoch retraining
-được thực thi, sau đó official test được đánh giá đúng một lần.
+được thực thi, sau đó official test model metrics được tính một lần.
 
 ### 18.4. Artifact policy đề xuất
 
@@ -1479,16 +1668,17 @@ trước khi tăng thêm epoch/depth cần xử lý overfitting hoặc thử CNN
 ### 20.3. Medium-priority issues
 
 - Chưa có dependency manifest.
-- EDA materialize full transformed pool và fit PCA lặp lại.
+- EDA materialize full transformed pool, lặp class-distribution plot và chạy
+  full-pool PCA/t-SNE với memory/runtime cost cao.
 - Search/final figures đã lưu; một số evaluation figures còn inline-only.
-- Cell 83 đưa ra causal conclusion mạnh hơn evidence.
 
 ### 20.4. Low-priority issues
 
 - Reproducibility trên MPS/CUDA mới ở mức best effort.
 - Config dùng broad `Dict` thay vì typed schema.
 - Train/final-train và validation/test logic có duplication.
-- Chưa có automated pipeline tests ngoài notebook assertions.
+- 25 automated tests đã phủ search/resume/monitor, nhưng data acquisition và
+  full EDA/notebook execution vẫn phụ thuộc clean-kernel Run All.
 
 ### 20.5. Release gate
 
@@ -1536,9 +1726,9 @@ normalization và class mapping. Checkpoint hiện lưu đủ ba contract này.
 
 ### 21.6. Không tối ưu accuracy trước correctness
 
-Missing source và numerical warning phải được xử lý trước khi mở rộng model. Một
-accuracy cao hơn từ pipeline không tái tạo hoặc numerically unstable không phải
-cải thiện đáng tin.
+Data leakage, incompatible checkpoint, missing dependency và numerical warning
+phải được xử lý trước khi mở rộng model. Một accuracy cao hơn từ pipeline không
+tái tạo hoặc numerically unstable không phải cải thiện đáng tin.
 
 ## 22. Hướng phát triển tiếp theo
 
