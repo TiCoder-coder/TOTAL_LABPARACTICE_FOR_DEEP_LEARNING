@@ -1,0 +1,19 @@
+2026-07-30 12:17:40 | INFO    | processing_own_phase.experiment | Starting experiment: E1_resnet18_head - Run ID: E1_resnet18_head_3069508a
+2026-07-30 12:17:40 | INFO    | processing_own_phase.experiment | Configuration: {'seed': 42, 'batch_size': 64, 'num_workers': 0, 'train_split_ratio': 0.9, 'image_size': 224, 'epochs': 5, 'optimizer': 'Adam', 'learning_rate': 0.001, 'weight_decay': 0.0001, 'scheduler': 'ReduceLROnPlateau', 'grad_clip': 1.0, 'early_stopping_patience': 3, 'best_model_metric': 'val_acc', 'data_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/data', 'output_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs/E1_resnet18_head_3069508a', 'runs_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs', 'reports_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/reports', 'model_save_path': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/checkpoints/best_model.pth', 'experiment_results_csv': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/outputs/experiment_results.csv', 'model_name': 'resnet18', 'training_mode': 'head_only', 'description': 'ResNet18 Transfer Learning: Freeze backbone, train only the classification head.', 'run_id': 'E1_resnet18_head_3069508a'}
+2026-07-30 12:17:40 | INFO    | processing_own_phase.experiment | Using device: mps
+2026-07-30 12:17:40 | INFO    | processing_own_phase.experiment | Loading Datasets...
+2026-07-30 12:17:42 | INFO    | processing_own_phase.experiment | Initializing Model...
+2026-07-30 12:17:44 | INFO    | processing_own_phase.experiment | Running Model Sanity Check...
+2026-07-30 12:17:45 | INFO    | processing_own_phase.experiment | Sanity Check Passed. Model Output Shape: (4, 10)
+2026-07-30 12:17:45 | INFO    | processing_own_phase.experiment | Starting Training...
+2026-07-30 12:17:45 | INFO    | processing_own_phase.experiment | Starting training loop...
+2026-07-30 12:21:22 | INFO    | processing_own_phase.experiment | Epoch 1/5 | Time: 03:36 | LR: 0.001000 | Train Loss: 1.0951 - Train Acc: 62.33% | Val Loss: 0.7634 - Val Acc: 73.88%
+2026-07-30 12:21:22 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 1 with val_acc=73.8800
+2026-07-30 12:25:32 | INFO    | processing_own_phase.experiment | Epoch 2/5 | Time: 04:10 | LR: 0.001000 | Train Loss: 0.8251 - Train Acc: 71.54% | Val Loss: 0.7106 - Val Acc: 75.30%
+2026-07-30 12:25:32 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 2 with val_acc=75.3000
+2026-07-30 12:30:13 | INFO    | processing_own_phase.experiment | Epoch 3/5 | Time: 04:41 | LR: 0.001000 | Train Loss: 0.7850 - Train Acc: 73.13% | Val Loss: 0.7223 - Val Acc: 74.86%
+2026-07-30 12:35:02 | INFO    | processing_own_phase.experiment | Epoch 4/5 | Time: 04:48 | LR: 0.001000 | Train Loss: 0.7686 - Train Acc: 73.48% | Val Loss: 0.6963 - Val Acc: 75.76%
+2026-07-30 12:35:02 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 4 with val_acc=75.7600
+2026-07-30 12:40:16 | INFO    | processing_own_phase.experiment | Epoch 5/5 | Time: 05:13 | LR: 0.001000 | Train Loss: 0.7566 - Train Acc: 73.79% | Val Loss: 0.6968 - Val Acc: 75.74%
+2026-07-30 12:40:16 | INFO    | processing_own_phase.experiment | Training complete.
+2026-07-30 12:40:16 | INFO    | processing_own_phase.experiment | Evaluating Best Model on Validation Set...

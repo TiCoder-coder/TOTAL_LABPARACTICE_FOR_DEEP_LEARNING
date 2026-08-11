@@ -1,0 +1,34 @@
+2026-08-10 23:20:48 | INFO    | processing_own_phase.experiment | Starting experiment: E2_resnet18_partial - Run ID: E2_resnet18_partial_baf0fc38
+2026-08-10 23:20:48 | INFO    | processing_own_phase.experiment | Configuration: {'seed': 42, 'batch_size': 32, 'num_workers': 0, 'train_split_ratio': 0.9, 'image_size': 224, 'epochs': 15, 'optimizer': 'AdamW', 'learning_rate': 0.001, 'weight_decay': 0.0002, 'scheduler': 'WarmupCosine', 'grad_clip': 1.0, 'early_stopping_patience': 3, 'best_model_metric': 'val_acc', 'data_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/data', 'output_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs/E2_resnet18_partial_baf0fc38', 'runs_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs', 'reports_dir': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/reports', 'model_save_path': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/checkpoints/best_model.pth', 'experiment_results_csv': '/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/outputs/experiment_results.csv', 'model_name': 'resnet18', 'head_learning_rate': 0.001, 'backbone_learning_rate': 0.0001, 'early_stopping_metric': 'val_loss', 'scheduler_metric': 'val_loss', 'label_smoothing': 0.05, 'dropout': 0.2, 'random_erasing_probability': 0.25, 'num_classes': 10, 'selection_source': 'validation_only', 'test_data_used': False, 'augment_strength': 'strong', 'mixup_alpha': 0.2, 'cutmix_alpha': 1.0, 'cutmix_prob': 0.5, 'use_ema': True, 'ema_decay': 0.999, 'warmup_epochs': 2, 'min_lr_ratio': 0.01, 'report_metric': 'val_acc', 'training_mode': 'partial_finetune', 'run_id': 'E2_resnet18_partial_baf0fc38'}
+2026-08-10 23:20:48 | INFO    | processing_own_phase.experiment | Using device: mps
+2026-08-10 23:20:48 | INFO    | processing_own_phase.experiment | Loading Datasets...
+2026-08-10 23:20:50 | INFO    | processing_own_phase.experiment | Initializing Model...
+2026-08-10 23:20:50 | INFO    | processing_own_phase.experiment | Running Model Sanity Check...
+2026-08-10 23:20:50 | INFO    | processing_own_phase.experiment | Sanity Check Passed. Model Output Shape: (4, 10)
+2026-08-10 23:20:50 | INFO    | processing_own_phase.experiment | Starting Training...
+2026-08-10 23:20:50 | INFO    | processing_own_phase.experiment | Starting training loop...
+2026-08-10 23:22:49 | INFO    | processing_own_phase.experiment | Epoch 1/15 | Time: 01:58 | LR: 0.000500 | Train Loss: 0.8568 - Train Acc: 79.43% | Val Loss: 0.5887 - Val Acc: 89.58% - Val Macro F1: 0.8950
+2026-08-10 23:22:49 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 1 with val_acc=89.5800
+2026-08-10 23:24:50 | INFO    | processing_own_phase.experiment | Epoch 2/15 | Time: 02:00 | LR: 0.001000 | Train Loss: 0.6717 - Train Acc: 86.62% | Val Loss: 0.6033 - Val Acc: 89.16% - Val Macro F1: 0.8900
+2026-08-10 23:26:50 | INFO    | processing_own_phase.experiment | Epoch 3/15 | Time: 01:59 | LR: 0.001000 | Train Loss: 0.5762 - Train Acc: 90.39% | Val Loss: 0.5329 - Val Acc: 91.52% - Val Macro F1: 0.9144
+2026-08-10 23:26:50 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 3 with val_acc=91.5200
+2026-08-10 23:28:48 | INFO    | processing_own_phase.experiment | Epoch 4/15 | Time: 01:57 | LR: 0.000986 | Train Loss: 0.5234 - Train Acc: 92.13% | Val Loss: 0.5206 - Val Acc: 92.26% - Val Macro F1: 0.9206
+2026-08-10 23:28:48 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 4 with val_acc=92.2600
+2026-08-10 23:30:47 | INFO    | processing_own_phase.experiment | Epoch 5/15 | Time: 01:58 | LR: 0.000943 | Train Loss: 0.4829 - Train Acc: 93.94% | Val Loss: 0.4948 - Val Acc: 93.22% - Val Macro F1: 0.9318
+2026-08-10 23:30:48 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 5 with val_acc=93.2200
+2026-08-10 23:32:44 | INFO    | processing_own_phase.experiment | Epoch 6/15 | Time: 01:56 | LR: 0.000876 | Train Loss: 0.4511 - Train Acc: 95.14% | Val Loss: 0.4919 - Val Acc: 93.24% - Val Macro F1: 0.9321
+2026-08-10 23:32:44 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 6 with val_acc=93.2400
+2026-08-10 23:34:41 | INFO    | processing_own_phase.experiment | Epoch 7/15 | Time: 01:56 | LR: 0.000786 | Train Loss: 0.4226 - Train Acc: 96.15% | Val Loss: 0.4701 - Val Acc: 93.98% - Val Macro F1: 0.9393
+2026-08-10 23:34:42 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 7 with val_acc=93.9800
+2026-08-10 23:36:37 | INFO    | processing_own_phase.experiment | Epoch 8/15 | Time: 01:55 | LR: 0.000681 | Train Loss: 0.3984 - Train Acc: 97.11% | Val Loss: 0.4756 - Val Acc: 93.68% - Val Macro F1: 0.9364
+2026-08-10 23:38:36 | INFO    | processing_own_phase.experiment | Epoch 9/15 | Time: 01:58 | LR: 0.000565 | Train Loss: 0.3794 - Train Acc: 97.79% | Val Loss: 0.4618 - Val Acc: 93.76% - Val Macro F1: 0.9367
+2026-08-10 23:40:33 | INFO    | processing_own_phase.experiment | Epoch 10/15 | Time: 01:55 | LR: 0.000445 | Train Loss: 0.3624 - Train Acc: 98.29% | Val Loss: 0.4532 - Val Acc: 94.08% - Val Macro F1: 0.9406
+2026-08-10 23:40:33 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 10 with val_acc=94.0800
+2026-08-10 23:42:28 | INFO    | processing_own_phase.experiment | Epoch 11/15 | Time: 01:55 | LR: 0.000329 | Train Loss: 0.3503 - Train Acc: 98.69% | Val Loss: 0.4468 - Val Acc: 94.54% - Val Macro F1: 0.9450
+2026-08-10 23:42:29 | INFO    | processing_own_phase.experiment | Saved new best model at epoch 11 with val_acc=94.5400
+2026-08-10 23:44:26 | INFO    | processing_own_phase.experiment | Epoch 12/15 | Time: 01:57 | LR: 0.000224 | Train Loss: 0.3404 - Train Acc: 99.08% | Val Loss: 0.4447 - Val Acc: 94.42% - Val Macro F1: 0.9437
+2026-08-10 23:46:27 | INFO    | processing_own_phase.experiment | Epoch 13/15 | Time: 01:59 | LR: 0.000134 | Train Loss: 0.3333 - Train Acc: 99.29% | Val Loss: 0.4419 - Val Acc: 94.44% - Val Macro F1: 0.9439
+2026-08-10 23:48:26 | INFO    | processing_own_phase.experiment | Epoch 14/15 | Time: 01:59 | LR: 0.000067 | Train Loss: 0.3297 - Train Acc: 99.42% | Val Loss: 0.4402 - Val Acc: 94.30% - Val Macro F1: 0.9426
+2026-08-10 23:50:26 | INFO    | processing_own_phase.experiment | Epoch 15/15 | Time: 01:59 | LR: 0.000024 | Train Loss: 0.3270 - Train Acc: 99.48% | Val Loss: 0.4395 - Val Acc: 94.34% - Val Macro F1: 0.9430
+2026-08-10 23:50:26 | INFO    | processing_own_phase.experiment | Training complete.
+2026-08-10 23:50:26 | INFO    | processing_own_phase.experiment | Evaluating Best Model on Validation Set...
