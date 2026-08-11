@@ -1,1 +1,2 @@
 model_artifacts/practice_2/*.pt filter=lfs diff=lfs merge=lfs -text
+total_practice/practice_2/runs/**/*.pt filter=lfs diff=lfs merge=lfs -text
