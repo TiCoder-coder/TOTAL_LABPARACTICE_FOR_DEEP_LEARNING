@@ -47,10 +47,10 @@ pipeline:
 | `model_state_dict` | Weight và bias tensors của final model |
 | `model_config` | `hidden_dims`, `dropout`, `num_classes`, `input_dim` |
 | `training_config` | Toàn bộ final experiment config |
-| `selected_experiment` | ID experiment thắng validation |
-| `best_epoch` | Epoch được chọn từ internal validation |
-| `best_validation_accuracy` | Primary selection metric |
-| `best_validation_loss` | Tie-break validation metric |
+| `selected_experiment` | ID của candidate thắng Stage D multi-seed confirmation |
+| `best_epoch` | Median best epoch của candidate thắng trên ba confirmation seeds |
+| `best_validation_accuracy` | Mean best validation accuracy của candidate thắng |
+| `best_validation_loss` | Mean best validation loss của candidate thắng |
 | `test_accuracy` | Official test accuracy |
 | `test_loss` | Official test cross-entropy |
 | `train_mean` | Mean fit từ internal train |
@@ -174,14 +174,14 @@ mức từng sample, bổ sung cho metric aggregate của Phase 8.
 Cell hiện tại chỉ gọi `plt.show()`; nó không gọi `savefig` trong chính source của
 Phase 9.
 
-## 9. Phân biệt ba loại artifact
+## 9. Phân biệt bốn loại artifact
 
-Pipeline tạo ba nhóm artifact khác nhau:
+Pipeline tạo bốn nhóm artifact khác nhau:
 
 | Artifact | Nội dung | Mục đích |
 |---|---|---|
 | TensorBoard logs | Metric theo epoch | Theo dõi và so sánh training |
-| Experiment checkpoints | Best validation model/history của E0-E4 | Audit model selection |
+| Experiment/search checkpoints | Best validation model/history của E0-E4 và 17 staged-search trials | Audit model selection |
 | Recovery checkpoints | Model/optimizer/RNG state của completed epoch | Resume sau interruption |
 | Final checkpoint | Final weights + config + metrics + preprocessing | Reconstruct và inference |
 

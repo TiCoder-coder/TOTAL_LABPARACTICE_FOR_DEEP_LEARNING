@@ -24,13 +24,14 @@ output hiện đang được lưu trong notebook.
    giữ nguyên.
 
 Helper được lưu tại
-[tools/vscode-notebook-links](../../tools/vscode-notebook-links/README.md) và đã
-được cài trong VS Code trên máy hiện tại. Liên kết
+[tools/vscode-notebook-links](../../tools/vscode-notebook-links/README.md). Liên kết
 [Mở notebook dự phòng](../../practice_1.ipynb) chỉ mở file từ đầu và dành cho
 máy chưa cài helper hoặc trình Markdown ngoài VS Code. Deep-link bám theo thứ tự
-cell hiện tại; nếu chèn, xóa hoặc đổi thứ tự cell thì cần đồng bộ lại bản đồ liên
-kết. Việc bổ sung deep-link không thay đổi source code, output, execution count
-hay metadata của notebook.
+cell hiện tại và dùng **zero-based cell index** đúng theo VS Code Notebook API:
+cell tiêu đề đầu notebook có index `0`, còn `Cell 1` trong tài liệu là cell
+Objective của Phase 1. Nếu chèn, xóa hoặc đổi thứ tự cell thì cần đồng bộ lại bản
+đồ liên kết. Việc bổ sung deep-link không thay đổi source code, output, execution
+count hay metadata của notebook.
 
 ## Bản đồ pipeline
 
@@ -43,7 +44,7 @@ hay metadata của notebook.
 | 5 | Cell 44-54, `In [27]`-`In [31]` | Split, normalization, transform và DataLoader | [Phase 5](phase_05_data_preprocessing.md) | [Mở đúng Cell 44][cell-44] |
 | 6 | Cell 55-59, `In [32]`-`In [34]` | Xây dựng và kiểm tra MLP | [Phase 6](phase_06_model_building.md) | [Mở đúng Cell 55][cell-55] |
 | 7 | Cell 60-78, `In [35]`-`In [47]` | Train, validate, so sánh experiment và final training | [Phase 7](phase_07_model_training.md) | [Mở đúng Cell 60][cell-60] |
-| 8 | Cell 79-87 | Official-test metrics, confusion matrix, ROC và Precision-Recall | [Phase 8](phase_08_model_evaluation.md) | [Mở đúng Cell 79][cell-79] |
+| 8 | Cell 79-87, `In [48]`-`In [54]` | Official-test metrics, confusion matrix, ROC và Precision-Recall | [Phase 8](phase_08_model_evaluation.md) | [Mở đúng Cell 79][cell-79] |
 | 9 | Cell 88-91, `In [55]`-`In [57]` | Save/load checkpoint và hiển thị dự đoán | [Phase 9](phase_09_save_model_and_visualization.md) | [Mở đúng Cell 88][cell-88] |
 
 ## Luồng dữ liệu tổng quát

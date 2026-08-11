@@ -16,7 +16,7 @@
 | Cell 24, `In [12]` | Correlation heatmap của 100 pixel đầu tiên. | [Mở output Cell 24][cell-24] |
 | Cell 25, `In [13]` | Correlation heatmap của 100 pixel positions lấy mẫu với seed 42. | [Mở output Cell 25][cell-25] |
 | Cell 27, `In [15]` | Finite 3D PCA projection theo class, không có stderr warning. | [Mở output Cell 27][cell-27] |
-| Cell 28, `In [16]` | Explained variance của PC1, PC2 và PC3 lần lượt là 29.03%, 17.76% và 6.02%. | [Mở output Cell 28][cell-28] |
+| Cell 28, `In [16]` | Explained variance của PC1, PC2 và PC3 lần lượt là 29.04%, 17.76% và 6.02%. | [Mở output Cell 28][cell-28] |
 | Cell 29, `In [17]` | Heatmaps của ba principal-component images, không có stderr warning. | [Mở output Cell 29][cell-29] |
 | Cell 32, `In [20]` | Cumulative explained-variance curve của full PCA, không có stderr warning. | [Mở output Cell 32][cell-32] |
 | Cell 33, `In [21]` | Số components cần cho 90% và 95% variance lần lượt là 137 và 256. | [Mở output Cell 33][cell-33] |

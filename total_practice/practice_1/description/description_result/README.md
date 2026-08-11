@@ -9,7 +9,8 @@ Thư mục này là chỉ mục ngắn gọn cho các output hiện đang đư�
 - Bao gồm code cell có stored output và Markdown cell hiển thị artifact kết quả.
 - Không liên kết tới code-only cell, phase heading hoặc UML diagram.
 - Phase 1 không có output vì chỉ định nghĩa bài toán bằng Markdown.
-- Cell number và execution count bám sát phiên bản notebook hiện tại.
+- Cell number dùng zero-based index của VS Code Notebook API; execution count
+  bám sát phiên bản notebook hiện tại.
 
 ## Mục lục
 
@@ -25,7 +26,7 @@ Thư mục này là chỉ mục ngắn gọn cho các output hiện đang đư�
 | 8 - Model Evaluation | 5 | [Kết quả Phase 8](phase_08_results.md) |
 | 9 - Save Model & Visualization | 3 | [Kết quả Phase 9](phase_09_results.md) |
 
-Sau khi chạy lại notebook, chỉ mục liên kết **42 vị trí kết quả**, gồm bảng
-one-vs-rest tại Cell 82 cùng hai figure ROC và Precision-Recall mới. Hướng dẫn
+Chỉ mục liên kết **42 vị trí kết quả**, gồm bảng one-vs-rest tại Cell 82 cùng hai
+figure ROC và Precision-Recall. Hướng dẫn
 cài helper và tài liệu mô tả đầy đủ từng phase nằm tại
 [description_own_phase](../description_own_phase/README.md).
