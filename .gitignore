@@ -55,6 +55,8 @@ external/
 
 # ─── Model outputs & logs ────────────────────────────────────────────────────
 outputs/
+runs/
+total_practice/practice_1/runs/
 logs/
 *.pth
 *.pt
@@ -99,6 +101,6 @@ token
 .cache/
 .npm/
 .yarn/
-
-# Selected Practice 2 checkpoint tracked by Git LFS
-!model_artifacts/practice_2/*.pt
+runs/
+/total_practice/practice_1/runs/
+*.tfevents.*

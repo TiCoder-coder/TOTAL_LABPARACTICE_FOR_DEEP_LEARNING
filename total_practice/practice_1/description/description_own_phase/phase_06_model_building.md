@@ -208,14 +208,18 @@ Giữ cố định:
 - output là 10 logits;
 - objective sau này là cross-entropy.
 
-Cho phép experiment thay đổi:
+Cho phép Phase 7 thay đổi:
 
-- một hidden layer `(128,)` hoặc hai layer `(256, 128)`;
-- dropout `0.0` hoặc `0.2`;
-- optimizer Adam hoặc SGD;
+- controlled experiments: baseline `(128,)` và anchor `(256, 128)`;
+- staged architecture search: `(256,)`, `(256, 128)`, `(256, 128, 64)`,
+  `(256, 128, 64, 32)` và `(512, 256, 128)`;
+- learning rate theo các mức coarse rồi refinement quanh mức tốt nhất;
+- dropout `0.0` hoặc `0.2` trong controlled experiments;
+- optimizer Adam hoặc SGD trong controlled experiments;
 - có/không augmentation ở input pipeline.
 
-Nhờ đó Phase 7 có thể đo tác động của từng lựa chọn trong một pipeline chung.
+Class không hard-code số hidden layer, nên cùng một factory phục vụ cả controlled
+experiments lẫn hyperparameter search mà vẫn giữ nguyên hợp đồng input/output.
 
 ## 11. Giới hạn có chủ đích của baseline
 

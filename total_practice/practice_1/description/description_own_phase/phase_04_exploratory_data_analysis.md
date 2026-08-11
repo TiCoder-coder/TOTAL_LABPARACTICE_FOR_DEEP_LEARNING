@@ -21,7 +21,7 @@
 | Pixel correlation | [Cell 24, `In [12]` + output][cell-24]; [Cell 25, `In [13]` + output][cell-25] |
 | PCA ba chiều | [Cell 27, `In [15]` + output][cell-27]; [Cell 28, `In [16]` + output][cell-28]; [Cell 29, `In [17]` + output][cell-29] |
 | Standardized full PCA | [Cell 32, `In [20]` + output][cell-32]; [Cell 33, `In [21]` + output][cell-33]; [Cell 34, `In [22]` + output][cell-34] |
-| t-SNE | [Cell 36, `In [24]` + output][cell-36] |
+| t-SNE | [Cell 36, `In [24]` + hình output][cell-36] |
 | Class samples và mean images | [Cell 38, `In [25]`][cell-38]; [Cell 39, hình đã render][cell-39] |
 | Statistical extremes | [Cell 41, `In [26]`][cell-41]; [Cell 42, hình đã render][cell-42] |
 | EDA conclusions | [Cell 43][cell-43] |
@@ -244,11 +244,11 @@ Notebook import `PCA` từ scikit-learn rồi fit `PCA(n_components=3)` trên
 
 | Component | Explained variance |
 |---|---:|
-| PC1 | `29.03%` |
+| PC1 | `29.04%` |
 | PC2 | `17.76%` |
 | PC3 | `6.02%` |
 
-Ba component đầu giữ khoảng 52.81% variance, cho thấy có cấu trúc thấp chiều rõ
+Ba component đầu giữ khoảng 52.82% variance, cho thấy có cấu trúc thấp chiều rõ
 rệt nhưng ba chiều chưa đủ mô tả toàn bộ khác biệt ảnh.
 
 ### Component heatmaps
@@ -288,7 +288,14 @@ preprocessing cho MLP; model ở Phase 6 vẫn nhận đủ 784 pixel đã norma
 Notebook chạy:
 
 ```text
-TSNE(n_components=2, random_state=42, perplexity=30, max_iter=1000)
+TSNE(
+    n_components=2,
+    random_state=42,
+    perplexity=30,
+    max_iter=1000,
+    init='random',
+    learning_rate='auto',
+)
 ```
 
 trên toàn bộ `X_scaled` và vẽ scatter 2D theo class label. t-SNE ưu tiên cấu trúc

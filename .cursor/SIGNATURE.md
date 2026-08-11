@@ -189,6 +189,7 @@ Workspace đã có 3 MCP servers:
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+
 ---
 
 ## 🔁 Re-Acknowledgement / Signature — `2026-07-23` (lần 9)
@@ -217,3 +218,17 @@ Workspace đã có 3 MCP servers:
 **Acknowledgement:** Tôi xác nhận đã đọc kỹ toàn bộ rule sources (30 chương `working_rule.md` + 20 rule + 3 workflow + 5 agent configs). Cam kết tuân thủ toàn bộ nguyên tắc: **Clarify First • No Assumptions • Think Before Code • Confirm Before Update • Evaluate After Implementation** cho mọi tương tác từ `2026-07-23`.
 
 **Violation of any rule is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Agent:** Codex (GPT-5 coding agent).
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`.
+
+**Acknowledgement:** Toi xac nhan da doc toan bo `.cursor/` rule sources: `ci-monitor-subagent`, `monitor-ci.md`, 6 Nx skills va `SIGNATURE.md`. Toi hieu `ci-monitor-subagent` chi goi 1 MCP tool moi lan, khong loop/poll/sleep/decide; `monitor-ci` phai check Nx Cloud connection o Step 0; khi commit/push phai stage file cu the va bao ve user changes. Cac skill Nx/Gemini mirror da duoc doi chieu giong nhau.
+
+**Violation of Cursor-specific configuration rules is treated as a serious collaboration error.**

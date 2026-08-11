@@ -75,6 +75,7 @@
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+
 ---
 
 ## 🔗 Related Signatures
@@ -186,3 +187,17 @@
 **Acknowledgement:** Tôi xác nhận đã đọc kỹ toàn bộ rule sources (30 chương `working_rule.md` + 20 rule + 3 workflow + 5 agent configs). Cam kết tuân thủ toàn bộ nguyên tắc: **Clarify First • No Assumptions • Think Before Code • Confirm Before Update • Evaluate After Implementation** cho mọi tương tác từ `2026-07-23`.
 
 **Violation of any rule is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Agent:** Codex (GPT-5 coding agent).
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`.
+
+**Acknowledgement:** Toi xac nhan da doc ky toan bo `.agents/`: 20 rule file trong `.agents/rules/`, 3 workflow file trong `.agents/workflows/`, va cac `SIGNATURE.md` lien quan. Tat ca rule co `trigger: always_on` se duoc ap dung cho moi task. Khi dieu phoi subagents/agents khac, toi se truyen dat lai cac rule cot loi: clarify first, no assumptions, implementation plan va Human confirmation truoc file/code changes, protect stable code, security-first, documentation priority, ML baseline/metric first, va final evaluation report.
+
+**Violation of any `.agents/` rule or workflow is treated as a serious collaboration error.**
