@@ -95,14 +95,17 @@ Cell `In [3]` tập trung import dependency cho các phase sau:
 | `torch.optim` | Adam và SGD |
 | `torchvision.datasets` | Tải FashionMNIST |
 | `torchvision.transforms` | `ToTensor`, normalize và augmentation |
-| `matplotlib.pyplot` | Vẽ EDA, learning curves, confusion matrix, sample grid |
+| `matplotlib.pyplot`, `mpl_toolkits.mplot3d.Axes3D` | Vẽ EDA/PCA 3D, learning curves, confusion matrix, ROC, Precision-Recall và sample grid |
 | `numpy` | Xử lý array và thống kê/phép biến đổi cho EDA |
 | `seaborn` | Histogram, heatmap và biểu đồ phân phối |
-| `sklearn.metrics` | Classification report và confusion matrix |
+| `sklearn.metrics` | Classification report, confusion matrix, ROC/AUC và Precision-Recall/AP |
 | `collections.Counter` | Tiện ích đếm được import sẵn |
 | `DataLoader`, `Subset` | Batch dữ liệu và ánh xạ train/validation indices |
 | `SummaryWriter` | Ghi metric vào TensorBoard |
-| `typing` | Type hint cho config, sequence và giá trị optional |
+| `processing_own_phase.training_checkpoint` | Atomic checkpoint, resume, RNG state, signature và data fingerprint |
+| `processing_own_phase.hyperparameter_search` | Sinh trial, xếp hạng, tổng hợp multi-seed và export kết quả search |
+| `processing_own_phase.training_monitor.TrainingMonitor` | Cập nhật biểu đồ metric theo epoch trong quá trình train |
+| `typing` | Type hint cho dictionary, list, sequence, optional và `cast` phục vụ static type checking |
 
 Một số import EDA chuyên biệt như `PCA`, `StandardScaler` và `TSNE` được đặt ngay
 tại cell sử dụng trong Phase 4 thay vì ở import block chung.

@@ -156,6 +156,7 @@ args = [ "nx-mcp@latest", "--minimal" ]
 
 **Violation of any rule is treated as a serious collaboration error.**
 
+
 ---
 
 ## 🔁 Re-Acknowledgement / Signature — `2026-07-23` (lần 9)
@@ -179,3 +180,17 @@ args = [ "nx-mcp@latest", "--minimal" ]
 **Acknowledgement:** Tôi xác nhận đã đọc kỹ toàn bộ rule sources (30 chương `working_rule.md` + 20 rule + 3 workflow + 5 agent configs). Cam kết tuân thủ toàn bộ nguyên tắc: **Clarify First • No Assumptions • Think Before Code • Confirm Before Update • Evaluate After Implementation** cho mọi tương tác từ `2026-07-23`.
 
 **Violation of any rule is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-07-25` (Codex representative)
+
+**Agent:** Codex (GPT-5 coding agent).
+
+**Repository:** `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE`
+
+**Acknowledgement date:** `2026-07-25`.
+
+**Acknowledgement:** Toi xac nhan da doc `.codex/config.toml` va `.codex/SIGNATURE.md`. Codex duoc cau hinh MCP `nx-mcp` bang `npx nx-mcp@latest --minimal`. Khi task lien quan Nx workspace, toi se uu tien dung tooling/skill phu hop; voi task deep learning khong lien quan Nx, toi se chi ap dung working rules va khong tu y them Nx workflow vao scope.
+
+**Violation of Codex-specific configuration rules is treated as a serious collaboration error.**
