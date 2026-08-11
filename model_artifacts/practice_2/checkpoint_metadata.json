@@ -1,0 +1,16 @@
+{
+  "selection_metric": "val_accuracy",
+  "selection_source": "validation_only",
+  "selected_experiment": "E2_resnet18_partial",
+  "selected_checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs/E2_resnet18_partial_baf0fc38/best.pt",
+  "best_epoch": 11,
+  "best_val_accuracy": 0.9454,
+  "best_val_loss": 0.4467758646965027,
+  "epochs_trained": 15,
+  "early_stopping_triggered": false,
+  "test_data_used": false,
+  "experiments": [
+    "E1_resnet18_head",
+    "E2_resnet18_partial"
+  ]
+}
