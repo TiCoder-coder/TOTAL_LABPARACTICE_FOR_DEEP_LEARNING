@@ -36,6 +36,10 @@ predictions/
 *.pth
 *.pt
 
-# Publish complete Practice 2 training runs. Checkpoints are stored with Git LFS.
+# Publish only the controlled runs trained on 2026-08-10.
 !runs/
-!runs/**
+runs/*
+!runs/E1_resnet18_head_c841bcc1/
+!runs/E1_resnet18_head_c841bcc1/**
+!runs/E2_resnet18_partial_baf0fc38/
+!runs/E2_resnet18_partial_baf0fc38/**
