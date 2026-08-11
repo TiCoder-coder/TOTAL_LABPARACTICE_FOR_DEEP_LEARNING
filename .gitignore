@@ -55,6 +55,8 @@ external/
 
 # ─── Model outputs & logs ────────────────────────────────────────────────────
 outputs/
+runs/
+total_practice/practice_1/runs/
 logs/
 *.pth
 *.pt
@@ -100,4 +102,5 @@ token
 .npm/
 .yarn/
 runs/
+/total_practice/practice_1/runs/
 *.tfevents.*
