@@ -36,3 +36,6 @@ predictions/
 *.pth
 *.pt
 
+# Publish complete Practice 2 training runs. Checkpoints are stored with Git LFS.
+!runs/
+!runs/**

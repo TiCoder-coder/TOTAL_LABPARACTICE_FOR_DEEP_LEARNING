@@ -1,0 +1,368 @@
+{
+  "metadata": {
+    "exp_id": "E1_resnet18_head",
+    "run_id": "E1_resnet18_head_c841bcc1",
+    "timestamp": "2026-08-10 23:20:48",
+    "model_name": "resnet18",
+    "seed": 42,
+    "accuracy": 0.8144,
+    "precision": 0.8143441397692703,
+    "recall": 0.8136571127270882,
+    "f1_score": 0.8125480820090469,
+    "loss": 0.5869493403434753,
+    "training_time": 1270.0452420711517,
+    "validation_time": 6.005313158035278,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "optimizer": "AdamW",
+    "scheduler": "WarmupCosine",
+    "freeze_strategy": "head_only",
+    "epochs_trained": 15,
+    "best_epoch": 12,
+    "best_val_acc": 0.8144,
+    "best_val_loss": 0.8063240280151367,
+    "early_stopping_triggered": false,
+    "selection_source": "validation_only",
+    "test_data_used": false,
+    "checkpoint_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs/E1_resnet18_head_c841bcc1/best.pt"
+  },
+  "history": {
+    "epoch": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "train_loss": [
+      1.260182403780488,
+      1.0061685595963452,
+      0.9730272251969551,
+      0.9628648398865337,
+      0.9630502293238768,
+      0.9571274008554211,
+      0.9478416787102755,
+      0.9474271508741854,
+      0.946618317031589,
+      0.935791511496643,
+      0.9325988518649111,
+      0.9264274973363998,
+      0.9298149450744368,
+      0.9266217428963012,
+      0.9224013931212012
+    ],
+    "train_acc": [
+      61.48870910384068,
+      72.17727596017069,
+      73.82645803698435,
+      74.11539829302988,
+      74.36655405405406,
+      74.61326458036984,
+      74.89998221906117,
+      75.04667496443813,
+      75.10001778093883,
+      75.30227596017069,
+      75.46674964438122,
+      75.9001600284495,
+      75.68012091038406,
+      75.9068278805121,
+      76.15798364153628
+    ],
+    "val_loss": [
+      0.8903041007041931,
+      0.8500260147094727,
+      0.8369112686157226,
+      0.8387983872413636,
+      0.8197872283935547,
+      0.813816096496582,
+      0.8226400916099549,
+      0.8206280511856079,
+      0.8120395700454712,
+      0.8192335545539856,
+      0.8110765662193299,
+      0.8063240280151367,
+      0.8031615802764892,
+      0.8007168497085572,
+      0.8007522669792175
+    ],
+    "val_acc": [
+      77.28,
+      79.17999999999999,
+      79.74,
+      79.92,
+      80.54,
+      80.92,
+      80.24,
+      80.36,
+      81.42,
+      80.4,
+      81.08,
+      81.44,
+      81.36,
+      81.39999999999999,
+      81.38
+    ],
+    "val_macro_f1": [
+      0.7725555300712585,
+      0.7897229194641113,
+      0.7963308095932007,
+      0.7958844304084778,
+      0.8039003610610962,
+      0.8079260587692261,
+      0.8014938235282898,
+      0.8038539886474609,
+      0.8124545812606812,
+      0.8040399551391602,
+      0.8088667988777161,
+      0.812548041343689,
+      0.8114011883735657,
+      0.8129763603210449,
+      0.8123494982719421
+    ],
+    "generalization_gap": [
+      -15.791290896159325,
+      -7.002724039829303,
+      -5.913541963015646,
+      -5.804601706970118,
+      -6.173445945945943,
+      -6.306735419630158,
+      -5.3400177809388225,
+      -5.313325035561874,
+      -6.319982219061174,
+      -5.097724039829316,
+      -5.613250355618774,
+      -5.539839971550492,
+      -5.6798790896159375,
+      -5.493172119487895,
+      -5.222016358463719
+    ],
+    "lr": [
+      0.0005,
+      0.001,
+      0.001,
+      0.0009856161996258958,
+      0.0009433007326983388,
+      0.000875512820344695,
+      0.0007861920496319221,
+      0.0006805294190860552,
+      0.000564665656726385,
+      0.0004453343432736152,
+      0.0003294705809139448,
+      0.00022380795036807793,
+      0.0001344871796553049,
+      6.669926730166114e-05,
+      2.4383800374104253e-05
+    ],
+    "learning_rates": [
+      {
+        "head": 0.0005
+      },
+      {
+        "head": 0.001
+      },
+      {
+        "head": 0.001
+      },
+      {
+        "head": 0.0009856161996258958
+      },
+      {
+        "head": 0.0009433007326983388
+      },
+      {
+        "head": 0.000875512820344695
+      },
+      {
+        "head": 0.0007861920496319221
+      },
+      {
+        "head": 0.0006805294190860552
+      },
+      {
+        "head": 0.000564665656726385
+      },
+      {
+        "head": 0.0004453343432736152
+      },
+      {
+        "head": 0.0003294705809139448
+      },
+      {
+        "head": 0.00022380795036807793
+      },
+      {
+        "head": 0.0001344871796553049
+      },
+      {
+        "head": 6.669926730166114e-05
+      },
+      {
+        "head": 2.4383800374104253e-05
+      }
+    ],
+    "epoch_time": [
+      77.462721824646,
+      76.77188396453857,
+      96.19209909439087,
+      119.62638211250305,
+      86.75602412223816,
+      88.04832696914673,
+      86.2378740310669,
+      81.61852598190308,
+      80.6006691455841,
+      78.69862294197083,
+      79.94647288322449,
+      78.97051811218262,
+      78.94455981254578,
+      78.91545128822327,
+      79.58406090736389
+    ],
+    "best_epoch": 12,
+    "best_metric": 81.44,
+    "best_metric_name": "val_acc",
+    "early_stopping_metric": "val_loss",
+    "early_stopping_best": 0.8007168497085572,
+    "stopped_early": false,
+    "epochs_planned": 15
+  },
+  "metrics": {
+    "accuracy": 0.8144,
+    "macro_avg": {
+      "precision": 0.8143441397692703,
+      "recall": 0.8136571127270882,
+      "f1-score": 0.8125480820090469,
+      "support": 5000
+    },
+    "weighted_avg": {
+      "precision": 0.8153206922622984,
+      "recall": 0.8144,
+      "f1-score": 0.8134030009297948,
+      "support": 5000
+    },
+    "per_class": {
+      "airplane": {
+        "precision": 0.8589473684210527,
+        "recall": 0.8360655737704918,
+        "f1-score": 0.8473520249221184,
+        "accuracy": 0.8360655737704918,
+        "support": "488"
+      },
+      "automobile": {
+        "precision": 0.9141716566866267,
+        "recall": 0.89453125,
+        "f1-score": 0.9042448173741362,
+        "accuracy": 0.89453125,
+        "support": "512"
+      },
+      "bird": {
+        "precision": 0.8076109936575053,
+        "recall": 0.7180451127819549,
+        "f1-score": 0.7601990049751244,
+        "accuracy": 0.7180451127819549,
+        "support": "532"
+      },
+      "cat": {
+        "precision": 0.6694045174537988,
+        "recall": 0.692144373673036,
+        "f1-score": 0.6805845511482255,
+        "accuracy": 0.692144373673036,
+        "support": "471"
+      },
+      "deer": {
+        "precision": 0.8028846153846154,
+        "recall": 0.7091295116772823,
+        "f1-score": 0.7531003382187149,
+        "accuracy": 0.7091295116772823,
+        "support": "471"
+      },
+      "dog": {
+        "precision": 0.7957446808510639,
+        "recall": 0.7276264591439688,
+        "f1-score": 0.7601626016260163,
+        "accuracy": 0.7276264591439688,
+        "support": "514"
+      },
+      "frog": {
+        "precision": 0.7981651376146789,
+        "recall": 0.8579881656804734,
+        "f1-score": 0.8269961977186312,
+        "accuracy": 0.8579881656804734,
+        "support": "507"
+      },
+      "horse": {
+        "precision": 0.7667238421955404,
+        "recall": 0.894,
+        "f1-score": 0.8254847645429363,
+        "accuracy": 0.894,
+        "support": "500"
+      },
+      "ship": {
+        "precision": 0.8718446601941747,
+        "recall": 0.8908730158730159,
+        "f1-score": 0.8812561334641806,
+        "accuracy": 0.8908730158730159,
+        "support": "504"
+      },
+      "truck": {
+        "precision": 0.8579439252336448,
+        "recall": 0.9161676646706587,
+        "f1-score": 0.886100386100386,
+        "accuracy": 0.9161676646706587,
+        "support": "501"
+      }
+    }
+  },
+  "config": {
+    "seed": 42,
+    "batch_size": 32,
+    "num_workers": 0,
+    "train_split_ratio": 0.9,
+    "image_size": 224,
+    "epochs": 15,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0002,
+    "scheduler": "WarmupCosine",
+    "grad_clip": 1.0,
+    "early_stopping_patience": 3,
+    "best_model_metric": "val_acc",
+    "data_dir": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/data",
+    "output_dir": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs/E1_resnet18_head_c841bcc1",
+    "runs_dir": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/runs",
+    "reports_dir": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/reports",
+    "model_save_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/checkpoints/best_model.pth",
+    "experiment_results_csv": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_2/outputs/experiment_results.csv",
+    "model_name": "resnet18",
+    "head_learning_rate": 0.001,
+    "backbone_learning_rate": 0.0001,
+    "early_stopping_metric": "val_loss",
+    "scheduler_metric": "val_loss",
+    "label_smoothing": 0.05,
+    "dropout": 0.2,
+    "random_erasing_probability": 0.25,
+    "num_classes": 10,
+    "selection_source": "validation_only",
+    "test_data_used": false,
+    "augment_strength": "strong",
+    "mixup_alpha": 0.2,
+    "cutmix_alpha": 1.0,
+    "cutmix_prob": 0.5,
+    "use_ema": true,
+    "ema_decay": 0.999,
+    "warmup_epochs": 2,
+    "min_lr_ratio": 0.01,
+    "report_metric": "val_acc",
+    "training_mode": "head_only",
+    "run_id": "E1_resnet18_head_c841bcc1"
+  }
+}
