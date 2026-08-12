@@ -29,3 +29,14 @@ Cell 23 also renders:
 - a ground-truth/prediction table combining confident errors with challenging correct cases.
 
 The machine-readable [confusion_matrix.csv](../../outputs/confusion_matrix.csv) sums to 10,000, and diagonal Accuracy matches `summary.json`. The regenerated [predictions.csv](../../outputs/predictions.csv) contains all ten `probability_<class>` columns and passes probability, argmax, confidence, sample-count, and Accuracy consistency checks.
+## Updated locked Final Test
+
+The locked winner was evaluated on the official 10,000-image CIFAR-10 Test set
+exactly once. Accuracy is `94.06%`, loss is `0.226486`, and macro F1 is
+`0.940458`. The persistent receipt is keyed by checkpoint SHA256 and prevents a
+second Final Test run for this checkpoint.
+
+`classification_report.csv` contains per-class TP, TN, FP, FN, TPR, FPR, and
+`class_accuracy = (TP + TN) / N`. One-vs-Rest ROC and Precision–Recall outputs
+cover all ten classes; micro ROC-AUC is `0.996542` and micro average precision
+is `0.982046`.

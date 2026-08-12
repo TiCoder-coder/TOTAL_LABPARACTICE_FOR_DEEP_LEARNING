@@ -65,6 +65,7 @@ def load_model_from_checkpoint(
         model_name=checkpoint.get("model_name", checkpoint.get("config", {}).get("model_name", "resnet18")),
         num_classes=checkpoint.get("num_classes", NUM_CLASSES),
         dropout=checkpoint.get("config", {}).get("dropout", 0.0),
+        hidden_layers=checkpoint.get("config", {}).get("hidden_layers", []),
     )
     training_mode = checkpoint.get(
         "training_mode",

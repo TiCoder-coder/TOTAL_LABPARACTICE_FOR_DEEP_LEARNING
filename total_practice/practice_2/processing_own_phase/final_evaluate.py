@@ -23,6 +23,7 @@ from .evaluate import (
     generate_classification_report,
 )
 from .save_load import load_model_from_checkpoint
+from .train import get_criterion
 from .utils import get_device, setup_reproducibility
 from .visualize import (
     _compute_confusion_matrix,
@@ -57,9 +58,9 @@ def _load_selection_record(selection_path: str) -> Dict[str, Any]:
         raise ValueError(
             "Selection artifact is missing required fields: " + ", ".join(missing)
         )
-    if selection["selection_metric"] != "val_accuracy":
+    if selection["selection_metric"] not in {"val_accuracy", "val_loss"}:
         raise ValueError(
-            "Final evaluation requires selection_metric='val_accuracy'; "
+            "Final evaluation requires a Validation-only accuracy/loss metric; "
             f"received {selection['selection_metric']!r}."
         )
     if selection["selection_source"] != "validation_only":
@@ -76,6 +77,11 @@ def _load_selection_record(selection_path: str) -> Dict[str, Any]:
         )
     selection["selected_checkpoint"] = str(checkpoint)
     selection["best_val_accuracy"] = float(selection["best_val_accuracy"])
+    if selection.get("best_val_loss") is not None:
+        selection["best_val_loss"] = float(selection["best_val_loss"])
+    expected_sha256 = selection.get("checkpoint_sha256")
+    if expected_sha256 and _checkpoint_sha256(checkpoint) != expected_sha256:
+        raise RuntimeError("Selected checkpoint SHA256 does not match locked selection.")
     return selection
 
 
@@ -162,10 +168,14 @@ def _verify_checkpoint_context(
         selection["selected_checkpoint"],
         device=resolved_device,
     )
+    checkpoint_payload = torch.load(
+        selection["selected_checkpoint"], map_location="cpu", weights_only=False
+    )
+    criterion = get_criterion(checkpoint_payload.get("config", {}))
     validation_result = evaluate(
         model,
         val_loader,
-        nn.CrossEntropyLoss(),
+        criterion,
         resolved_device,
     )
     validation_delta = _assert_validation_match(
@@ -173,12 +183,22 @@ def _verify_checkpoint_context(
         validation_result["accuracy"],
         validation_tolerance,
     )
+    loss_delta = None
+    if selection.get("best_val_loss") is not None:
+        loss_delta = abs(validation_result["loss"] - selection["best_val_loss"])
+        if loss_delta > validation_tolerance:
+            raise RuntimeError(
+                "Checkpoint verification failed; Final Test was not run: "
+                f"Validation loss delta={loss_delta:.8f}, "
+                f"tolerance={validation_tolerance:.8f}."
+            )
     return {
         "selection": selection,
         "model": model,
         "device": resolved_device,
         "validation_result": validation_result,
         "validation_delta": validation_delta,
+        "validation_loss_delta": loss_delta,
     }
 
 
@@ -207,6 +227,7 @@ def verify_selected_checkpoint(
         "verified_val_accuracy": validation_result["accuracy"],
         "validation_loss": validation_result["loss"],
         "validation_delta": context["validation_delta"],
+        "validation_loss_delta": context["validation_loss_delta"],
         "test_accessed": False,
     }
 
@@ -354,6 +375,14 @@ def regenerate_final_artifacts(
     selection = context["selection"]
     validation_result = context["validation_result"]
     checkpoint = Path(selection["selected_checkpoint"])
+    checkpoint_hash = _checkpoint_sha256(checkpoint)
+    output_path = Path(output_dir)
+    receipt_path = output_path / f"final_test_receipt_{checkpoint_hash[:12]}.json"
+    if receipt_path.exists():
+        raise RuntimeError(
+            "Final Test is already recorded for this checkpoint; refusing rerun: "
+            f"{receipt_path}"
+        )
 
     # Official Test is intentionally constructed only after Validation verification.
     test_dataset = _load_official_test_dataset()
@@ -371,7 +400,6 @@ def regenerate_final_artifacts(
     if test_evaluation_count != 1:
         raise RuntimeError("Final Test evaluation count is not exactly one.")
 
-    output_path = Path(output_dir)
     reports_path = Path(reports_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     reports_path.mkdir(parents=True, exist_ok=True)
@@ -476,7 +504,7 @@ def regenerate_final_artifacts(
         "selected_experiment": selection["selected_experiment"],
         "device": str(context["device"]),
         "checkpoint": str(checkpoint),
-        "checkpoint_sha256": _checkpoint_sha256(checkpoint),
+        "checkpoint_sha256": checkpoint_hash,
         "checkpoint_epoch": checkpoint_data.get("epoch"),
         "model_name": checkpoint_data.get(
             "model_name",
@@ -504,4 +532,13 @@ def regenerate_final_artifacts(
     }
     (output_path / "summary.json").write_text(json.dumps(summary, indent=2))
     validate_final_artifacts(output_dir=str(output_path))
+    receipt = {
+        "status": "FINAL_TEST_COMPLETE",
+        "checkpoint_sha256": checkpoint_hash,
+        "selection_artifact": str(Path(selection_path).resolve()),
+        "test_evaluation_count": 1,
+        "test_samples": summary["test_samples"],
+        "test_accuracy": summary["test_accuracy"],
+    }
+    receipt_path.write_text(json.dumps(receipt, indent=2))
     return summary
