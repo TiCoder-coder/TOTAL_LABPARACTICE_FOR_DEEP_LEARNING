@@ -60,6 +60,24 @@ Train with the same Train loader and base configuration
 Evaluate each epoch with the same Validation loader
         ↓
 Save best.pt by Validation Accuracy
+
+## Two-stage hyperparameter search
+
+The new Validation-only search first compares head/backbone learning-rate pairs
+`3e-4/3e-5`, `6e-4/6e-5`, and `1e-3/1e-4`. It then holds the winning learning
+rate fixed and compares a linear classifier, one hidden layer `[256]`, and two
+hidden layers `[256, 128]`. Runs use at most 25 epochs and early stopping with a
+patience of four epochs. The Test set is not loaded for either stage.
+
+The command is:
+
+```bash
+python -m processing_own_phase.hyperparameter_search --output-dir outputs
+```
+
+The final ranking is written to `outputs/hyperparameter_ranking.csv`; primary
+ordering is minimum Validation loss and the tie-breaker is maximum Validation
+accuracy.
         ↓
 Store run history, metadata, and Validation metrics
 ```

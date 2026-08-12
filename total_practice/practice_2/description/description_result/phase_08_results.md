@@ -10,3 +10,13 @@
 | Cell 17 | Assertions confirm that fine-tuning strategy is the only controlled difference |
 
 Configuration source: [experiment_config.py](../../configs/experiment_config.py).
+## Hyperparameter search result
+
+Three head/backbone learning-rate pairs and three classifier heads were compared
+using Validation only. The winning configuration is ResNet18 partial fine-tune,
+head LR `1e-3`, backbone LR `1e-4`, and a linear classifier with no hidden
+layer. Its Validation loss `0.43036` is lower than the medium-LR result
+`0.44074`, low-LR result `0.46263`, two-hidden-layer result `0.46720`, and
+one-hidden-layer result `0.48979`.
+
+The corrected ranking is stored in `outputs/hyperparameter_ranking.csv`.

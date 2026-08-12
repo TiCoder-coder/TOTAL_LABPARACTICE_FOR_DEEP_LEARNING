@@ -12,3 +12,14 @@
 | Cell 21 | Validation delta: 0.0; status: PASS | [summary JSON](../../outputs/summary.json) |
 
 No Test metric appears in the controlled selection artifact.
+## Locked checkpoint verification
+
+The winner is locked in `outputs/hyperparameter_selection_locked.json` using
+Validation loss as the primary metric and Validation accuracy as tie-breaker.
+The selected checkpoint is `best_val_loss.pt` from epoch 24, SHA256
+`a906600b717f94aa4cf40ca8504f1b82f6618b80cc6bf9b1a7a63813cfd3223b`.
+
+Reload verification used the same label-smoothed Cross Entropy criterion as
+training. Recorded and reloaded Validation accuracy are both `94.42%` (delta
+`0`); Validation-loss delta is `1.34e-9`. Verification passed before Test was
+constructed.

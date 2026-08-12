@@ -5,6 +5,22 @@ import torch.nn as nn
 from processing_own_phase.model import build_model
 
 
+def test_resnet_classifier_supports_zero_one_and_two_hidden_layers():
+    for hidden_layers, expected_linear_layers in (([], 1), ([256], 2), ([256, 128], 3)):
+        model = build_model(
+            "resnet18",
+            "head_only",
+            num_classes=10,
+            dropout=0.2,
+            hidden_layers=hidden_layers,
+        )
+        linear_layers = [
+            layer for layer in model.network.fc.modules() if isinstance(layer, nn.Linear)
+        ]
+        assert len(linear_layers) == expected_linear_layers
+        assert linear_layers[-1].out_features == 10
+
+
 def test_model_output_shape_all_models():
     """Test that all supported models produce the correct output shape [B, 10]."""
     for model_name in ["resnet18", "vgg16", "densenet121", "mobilenet_v3_small"]:

@@ -57,6 +57,22 @@ def test_selection_record_requires_validation_only_checkpoint(tmp_path):
     assert selection["best_val_accuracy"] == pytest.approx(0.89)
 
 
+def test_selection_record_accepts_validation_loss_selection(tmp_path):
+    checkpoint = tmp_path / "best_val_loss.pt"
+    checkpoint.touch()
+    selection_path = tmp_path / "selection.json"
+    selection_path.write_text(json.dumps({
+        "selection_metric": "val_loss",
+        "selection_source": "validation_only",
+        "selected_experiment": "winner",
+        "selected_checkpoint": str(checkpoint),
+        "best_val_accuracy": 0.89,
+        "best_val_loss": 0.4,
+        "test_data_used": False,
+    }))
+    assert _load_selection_record(str(selection_path))["best_val_loss"] == pytest.approx(0.4)
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [

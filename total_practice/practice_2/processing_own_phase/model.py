@@ -1,6 +1,6 @@
 """Model architecture for Practice 2 (Pre-trained Neural Networks)."""
 
-from typing import Dict, Tuple
+from typing import Dict, Optional, Sequence, Tuple
 
 import torch
 import torch.nn as nn
@@ -17,13 +17,17 @@ class PretrainedClassifier(nn.Module):
         model_name: str = "resnet18",
         num_classes: int = NUM_CLASSES,
         dropout: float = 0.0,
+        hidden_layers: Optional[Sequence[int]] = None,
     ):
         super().__init__()
         self.model_name = model_name.lower()
         self.num_classes = num_classes
         self.dropout = float(dropout)
+        self.hidden_layers = tuple(int(size) for size in (hidden_layers or ()))
         if not 0.0 <= self.dropout < 1.0:
             raise ValueError("dropout must be in [0, 1)")
+        if any(size <= 0 for size in self.hidden_layers):
+            raise ValueError("hidden layer sizes must be positive")
         
         self.network, self.classifier_name = self._build_model()
         self._initialize_classifier()
@@ -60,10 +64,21 @@ class PretrainedClassifier(nn.Module):
         return network, classifier_name
 
     def _make_classifier(self, in_features: int) -> nn.Module:
-        linear = nn.Linear(in_features, self.num_classes)
-        if self.dropout > 0:
-            return nn.Sequential(nn.Dropout(self.dropout), linear)
-        return linear
+        if not self.hidden_layers:
+            linear = nn.Linear(in_features, self.num_classes)
+            if self.dropout > 0:
+                return nn.Sequential(nn.Dropout(self.dropout), linear)
+            return linear
+
+        layers = []
+        previous = in_features
+        for width in self.hidden_layers:
+            layers.extend([nn.Linear(previous, width), nn.ReLU(inplace=True)])
+            if self.dropout > 0:
+                layers.append(nn.Dropout(self.dropout))
+            previous = width
+        layers.append(nn.Linear(previous, self.num_classes))
+        return nn.Sequential(*layers)
 
     @staticmethod
     def _classifier_linear(module: nn.Module) -> nn.Linear:
@@ -87,10 +102,10 @@ class PretrainedClassifier(nn.Module):
         else:
             return
 
-        linear = self._classifier_linear(layer)
-        nn.init.xavier_normal_(linear.weight)
-        if linear.bias is not None:
-            nn.init.zeros_(linear.bias)
+        for linear in (item for item in layer.modules() if isinstance(item, nn.Linear)):
+            nn.init.xavier_normal_(linear.weight)
+            if linear.bias is not None:
+                nn.init.zeros_(linear.bias)
 
     def set_training_mode(self, mode: str = "head_only"):
         """Configure which parameters require gradients based on the training mode.
@@ -190,12 +205,14 @@ def build_model(
     training_mode: str = "head_only",
     num_classes: int = NUM_CLASSES,
     dropout: float = 0.0,
+    hidden_layers: Optional[Sequence[int]] = None,
 ) -> PretrainedClassifier:
     """Factory function to build a pre-trained classifier with a specific mode."""
     model = PretrainedClassifier(
         model_name=model_name,
         num_classes=num_classes,
         dropout=dropout,
+        hidden_layers=hidden_layers,
     )
     model.set_training_mode(training_mode)
     return model

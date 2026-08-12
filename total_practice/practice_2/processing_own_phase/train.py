@@ -4,6 +4,12 @@ import os
 import math
 import time
 import logging
+import hashlib
+import json
+import subprocess
+import shutil
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Dict, Tuple, Optional, Any
 
 import torch
@@ -16,6 +22,12 @@ from configs import CONFIG
 
 # Configure logger
 logger = logging.getLogger(__name__)
+
+
+def _progress_disabled() -> bool:
+    return os.environ.get("PRACTICE2_DISABLE_TQDM", "").lower() in {
+        "1", "true", "yes", "on"
+    }
 
 
 def set_frozen_batchnorm_eval(model: nn.Module) -> int:
@@ -182,7 +194,66 @@ class CheckpointManager:
         os.makedirs(output_dir, exist_ok=True)
         self.latest_path = os.path.join(output_dir, "latest.pt")
         self.best_path = os.path.join(output_dir, "best.pt")
+        self.best_loss_path = os.path.join(output_dir, "best_val_loss.pt")
+        self.best_accuracy_path = os.path.join(output_dir, "best_val_accuracy.pt")
+        self.manifest_path = os.path.join(output_dir, "checkpoint_manifest.json")
         self.logger = logger_instance or logger
+
+    @staticmethod
+    def _sha256(path: str) -> str:
+        digest = hashlib.sha256()
+        with open(path, "rb") as stream:
+            for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(chunk)
+        return digest.hexdigest()
+
+    @staticmethod
+    def _git_commit() -> Optional[str]:
+        try:
+            return subprocess.check_output(
+                ["git", "rev-parse", "HEAD"],
+                stderr=subprocess.DEVNULL,
+                text=True,
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            return None
+
+    @staticmethod
+    def _atomic_torch_save(checkpoint: Dict[str, Any], path: str) -> None:
+        temporary = f"{path}.tmp"
+        torch.save(checkpoint, temporary)
+        os.replace(temporary, path)
+
+    def _write_manifest(self, config: Dict[str, Any]) -> None:
+        checkpoint_files = {}
+        for name in ("latest.pt", "best.pt", "best_val_loss.pt", "best_val_accuracy.pt"):
+            path = os.path.join(self.output_dir, name)
+            if os.path.isfile(path):
+                payload = torch.load(path, map_location="cpu", weights_only=False)
+                checkpoint_files[name] = {
+                    "sha256": self._sha256(path),
+                    "bytes": os.path.getsize(path),
+                    "epoch": int(payload.get("epoch", 0)),
+                    "val_loss": payload.get("val_loss"),
+                    "val_acc": payload.get("val_acc"),
+                    "payload_load_status": "PASS",
+                }
+        manifest = {
+            "schema_version": 1,
+            "created_at_utc": datetime.now(timezone.utc).isoformat(),
+            "run_id": config.get("run_id"),
+            "git_commit": self._git_commit(),
+            "selection_policy": {
+                "primary": "minimum_validation_loss",
+                "tie_breaker": "maximum_validation_accuracy",
+                "test_data_used": False,
+            },
+            "config": config,
+            "checkpoints": checkpoint_files,
+        }
+        temporary = f"{self.manifest_path}.tmp"
+        Path(temporary).write_text(json.dumps(manifest, indent=2, default=str))
+        os.replace(temporary, self.manifest_path)
 
     def save_checkpoint(
         self, 
@@ -194,7 +265,9 @@ class CheckpointManager:
         config: Dict[str, Any],
         val_loss: Optional[float] = None,
         val_acc: Optional[float] = None,
-        is_best: bool = False
+        is_best: bool = False,
+        is_best_loss: bool = False,
+        is_best_accuracy: bool = False,
     ):
         """Save a checkpoint containing all necessary states to resume."""
         metric_name = config.get("best_model_metric", "val_acc")
@@ -217,16 +290,28 @@ class CheckpointManager:
             checkpoint["scheduler_state_dict"] = scheduler.state_dict()
 
         # Save latest
-        torch.save(checkpoint, self.latest_path)
+        self._atomic_torch_save(checkpoint, self.latest_path)
         self.logger.debug(f"Saved latest checkpoint at epoch {epoch}")
         
         # Save best
+        if is_best_loss:
+            self._atomic_torch_save(checkpoint, self.best_loss_path)
+        if is_best_accuracy:
+            self._atomic_torch_save(checkpoint, self.best_accuracy_path)
         if is_best:
-            torch.save(checkpoint, self.best_path)
+            selected_source = (
+                self.best_loss_path
+                if metric_name == "val_loss"
+                else self.best_accuracy_path
+            )
+            if not os.path.isfile(selected_source):
+                self._atomic_torch_save(checkpoint, selected_source)
+            shutil.copyfile(selected_source, self.best_path)
             self.logger.info(
                 f"Saved new best model at epoch {epoch} with "
                 f"{metric_name}={best_metric:.4f}"
             )
+        self._write_manifest(config)
 
     def load_checkpoint(
         self, 
@@ -279,7 +364,9 @@ def train_one_epoch(
     correct = 0
     total = 0
     
-    pbar = tqdm(dataloader, desc="Training", leave=False)
+    pbar = tqdm(
+        dataloader, desc="Training", leave=False, disable=_progress_disabled()
+    )
     for inputs, labels in pbar:
         inputs, labels = inputs.to(device), labels.to(device)
         
@@ -346,7 +433,9 @@ def evaluate(
     total = 0
     confusion = None
     
-    pbar = tqdm(dataloader, desc="Validating", leave=False)
+    pbar = tqdm(
+        dataloader, desc="Validating", leave=False, disable=_progress_disabled()
+    )
     with torch.no_grad():
         for inputs, labels in pbar:
             inputs, labels = inputs.to(device), labels.to(device)
@@ -432,6 +521,15 @@ def train_model(
     early_stopping_best = float("inf")
     early_stopping_min_delta = float(config.get("early_stopping_min_delta", 0.0))
     best_val_loss_at_best = float("inf")
+    best_val_loss = float("inf")
+    best_val_accuracy = float("-inf")
+    best_val_accuracy_loss = float("inf")
+    best_val_loss_epoch = 0
+    best_val_accuracy_epoch = 0
+    metrics_path = Path(config.get("output_dir", "outputs/models")) / "metrics.jsonl"
+    metrics_path.parent.mkdir(parents=True, exist_ok=True)
+    if not resume_from:
+        metrics_path.write_text("")
     
     # Resume
     if resume_from:
@@ -541,6 +639,20 @@ def train_model(
             best_epoch = epoch + 1
             best_val_loss_at_best = val_loss
 
+        is_best_loss = val_loss < best_val_loss or (
+            val_loss == best_val_loss and val_acc > best_val_accuracy
+        )
+        is_best_accuracy = val_acc > best_val_accuracy or (
+            val_acc == best_val_accuracy and val_loss < best_val_accuracy_loss
+        )
+        if is_best_loss:
+            best_val_loss = val_loss
+            best_val_loss_epoch = epoch + 1
+        if is_best_accuracy:
+            best_val_accuracy = val_acc
+            best_val_accuracy_loss = val_loss
+            best_val_accuracy_epoch = epoch + 1
+
         if val_loss < early_stopping_best - early_stopping_min_delta:
             early_stopping_best = val_loss
             epochs_no_improve = 0
@@ -557,7 +669,29 @@ def train_model(
             val_loss=val_loss,
             val_acc=val_acc,
             is_best=is_best,
+            is_best_loss=is_best_loss,
+            is_best_accuracy=is_best_accuracy,
         )
+
+        epoch_record = {
+            "epoch": epoch + 1,
+            "epochs_planned": epochs,
+            "train_loss": train_loss,
+            "val_loss": val_loss,
+            "train_accuracy": train_acc,
+            "val_accuracy": val_acc,
+            "val_macro_f1": val_macro_f1,
+            "generalization_gap": train_acc - val_acc,
+            "learning_rates": learning_rates,
+            "epoch_seconds": epoch_time,
+            "best_val_loss_epoch": best_val_loss_epoch,
+            "best_val_accuracy_epoch": best_val_accuracy_epoch,
+            "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        }
+        with metrics_path.open("a", encoding="utf-8") as stream:
+            stream.write(json.dumps(epoch_record) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
         
         if patience > 0 and epochs_no_improve >= patience:
             active_logger.info(f"Early stopping triggered after {epoch + 1} epochs!")
@@ -569,6 +703,10 @@ def train_model(
     history["best_metric_name"] = best_metric_name
     history["early_stopping_metric"] = early_stopping_metric
     history["early_stopping_best"] = early_stopping_best
+    history["best_val_loss"] = best_val_loss
+    history["best_val_loss_epoch"] = best_val_loss_epoch
+    history["best_val_accuracy"] = best_val_accuracy
+    history["best_val_accuracy_epoch"] = best_val_accuracy_epoch
     history["stopped_early"] = stopped_early
     history["epochs_planned"] = epochs
     active_logger.info("Training complete.")
