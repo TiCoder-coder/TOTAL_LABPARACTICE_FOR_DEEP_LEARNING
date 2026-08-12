@@ -42,7 +42,7 @@ The selected controlled E1/E2 runs used `mps`, meaning computation was accelerat
 
 Cell 4 does more than check whether a GPU is currently available. It reads the selection artifact, resolves the selected E2 checkpoint, finds the persistent log stored beside that checkpoint, and extracts the exact `Using device: mps` line.
 
-This is stronger evidence than a live `torch.backends.mps.is_available()` check. Live availability proves only what the current kernel can use; the run log proves what the training process that produced `best.pt` actually used.
+This is stronger evidence than a live `torch.backends.mps.is_available()` check. Live availability proves only what the current kernel can use; the run log proves what the training process that produced the selected `best_val_loss.pt` actually used.
 
 The `GPU accelerator evidence` table compares three sources:
 
@@ -100,7 +100,7 @@ The notebook should therefore be tested with **Restart Kernel → Run All Cells*
 - [core_config.py](../../configs/core_config.py)
 - [experiment_config.py](../../configs/experiment_config.py)
 - [utils.py](../../processing_own_phase/utils.py)
-- [Selected E2 training log](../../runs/E2_resnet18_partial_6c5d4ec5/E2_resnet18_partial_6c5d4ec5.log)
+- [Selected winner training log](../../runs/E2_resnet18_partial_2b5b94de/E2_resnet18_partial_2b5b94de.log)
 - [Final summary](../../outputs/summary.json)
 
 ## 9. Suggested presentation script

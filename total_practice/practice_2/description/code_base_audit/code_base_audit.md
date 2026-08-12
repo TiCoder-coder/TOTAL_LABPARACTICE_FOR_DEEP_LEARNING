@@ -8,6 +8,13 @@
 
 **Review role:** Senior Deep Learning Engineer and Technical Reviewer
 
+> **Historical snapshot:** This audit records the 2026-07-31 E1/E2 baseline.
+> The current canonical result is the later six-run Validation-loss search in
+> [hyperparameter ranking](../../outputs/hyperparameter_ranking.csv), with
+> [locked selection](../../outputs/hyperparameter_selection_locked.json) and
+> [final summary](../../outputs/summary.json). Where metrics differ, those
+> newer artifacts supersede this audit snapshot.
+
 ## 1. Executive summary
 
 Practice 2 contains a complete deep-learning workflow suitable for the assignment. CIFAR-10 is divided into Train, Validation, and Test; split indices are determined before transformed dataset views are built; E1 and E2 use a controlled configuration; model selection uses Validation only; the selected checkpoint is reloaded and verified; the official Test set is evaluated once; and final metrics, predictions, classification reports, and confusion matrices are generated programmatically.

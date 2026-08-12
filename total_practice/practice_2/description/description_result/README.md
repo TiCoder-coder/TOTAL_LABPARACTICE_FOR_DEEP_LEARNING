@@ -1,30 +1,31 @@
 # Practice 2 Results by Phase
 
-This directory indexes the outputs currently stored in [`practice_2_presentation.ipynb`](../../notebooks/practice_2_presentation.ipynb) and the canonical artifacts associated with each phase. Cell numbering is 1-based and follows the current 30-cell notebook.
+This index follows the current 30-cell
+[`practice_2_presentation.ipynb`](../../notebooks/practice_2_presentation.ipynb).
+Cell positions are 1-based; execution counts shown by Jupyter may differ.
 
-## Result index
-
-| Phase | Notebook cells | Primary stored output | Result document |
+| Phase | Notebook cells | Current primary result | Detail |
 |---|---:|---|---|
-| 1 — Problem Definition | 2 | Markdown experiment contract | [Phase 1 results](phase_01_results.md) |
-| 2 — Environment Setup | 3–4 | Runtime versions and GPU evidence | [Phase 2 results](phase_02_results.md) |
-| 3 — Data Loading | 5–6 | Split table and leakage assertions | [Phase 3 results](phase_03_results.md) |
-| 4 — Exploratory Data Analysis | 7–9 | Raw contract, distribution, RGB statistics, quality audit, image grids, PCA/t-SNE | [Phase 4 results](phase_04_results.md) |
-| 5 — Data Preprocessing | 10–11 | Transform audit table | [Phase 5 results](phase_05_results.md) |
-| 6 — Model Building | 12–13 | Model and parameter sanity checks | [Phase 6 results](phase_06_results.md) |
-| 7 — Model Training | 14–15 | Multi-epoch history and learning curves | [Phase 7 results](phase_07_results.md) |
-| 8 — Controlled Experiments | 16–17 | E1/E2 configuration comparison | [Phase 8 results](phase_08_results.md) |
-| 9 — Selection and Verification | 18–21 | Validation-only selection and PASS | [Phase 9 results](phase_09_results.md) |
-| 10 — Final Test Evaluation | 22–23 | Final metrics, report, and confusion matrices | [Phase 10 results](phase_10_results.md) |
-| 11 — Error Analysis | 24–28 | Confidence, galleries, grid, and diagnostics | [Phase 11 results](phase_11_results.md) |
-| 12 — Reproducibility and Conclusion | 29–30 | Limitations and final conclusion | [Phase 12 results](phase_12_results.md) |
+| 1 — Problem Definition | 2 | Leakage-safe multiclass contract | [Phase 1](phase_01_results.md) |
+| 2 — Environment | 3–4 | Runtime and MPS evidence | [Phase 2](phase_02_results.md) |
+| 3 — Data Loading | 5–6 | 45k/5k/10k split | [Phase 3](phase_03_results.md) |
+| 4 — EDA | 7–9 | RGB statistics, quality audit, PCA/t-SNE | [Phase 4](phase_04_results.md) |
+| 5 — Preprocessing | 10–11 | Train-only stochastic transforms | [Phase 5](phase_05_results.md) |
+| 6 — Model | 12–13 | ResNet18 parameter sanity checks | [Phase 6](phase_06_results.md) |
+| 7 — Training | 14–15 | 25-epoch winner log and four-panel dashboard | [Phase 7](phase_07_results.md) |
+| 8 — Hyperparameters | 16–17 | Three LR pairs and three heads | [Phase 8](phase_08_results.md) |
+| 9 — Selection | 18–21 | Loss-selected SHA256 lock and PASS | [Phase 9](phase_09_results.md) |
+| 10 — Final Test | 22–23 | 94.06% accuracy; per-class and ROC/PR | [Phase 10](phase_10_results.md) |
+| 11 — Error Analysis | 24–28 | Confidence, confusion and galleries | [Phase 11](phase_11_results.md) |
+| 12 — Conclusion | 29–30 | Reproducible locked result | [Phase 12](phase_12_results.md) |
 
-## Canonical artifact rule
+## Current canonical artifacts
 
-Use only the artifact links in these result documents. Historical quick-run figures and unit-test images are not part of the current presentation result.
+- [ranking](../../outputs/hyperparameter_ranking.csv)
+- [locked selection](../../outputs/hyperparameter_selection_locked.json)
+- [summary](../../outputs/summary.json)
+- [Final Test receipt](../../outputs/final_test_receipt_a906600b717f.json)
+- [training dashboard](../../reports/winner_training_log_dashboard.png)
+- [ROC/PR dashboard](../../reports/roc_pr_curves_notebook.png)
 
-Related documentation:
-
-- [Phase descriptions](../description_own_phase/README.md)
-- [Codebase audit](../code_base_audit/code_base_audit.md)
-- [Documentation home](../README.md)
+Older E1/E2 files are baseline history, not the current final selection.

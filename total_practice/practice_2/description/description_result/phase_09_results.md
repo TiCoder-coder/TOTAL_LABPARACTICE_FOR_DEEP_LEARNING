@@ -1,25 +1,16 @@
-# Phase 9 — Selection and Verification Results
+# Phase 9 Results — Locked Selection and Verification
 
-[Phase 8 results](phase_08_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 10 results](phase_10_results.md)
+Notebook cells 18–21 present the ranking winner and reload verification.
 
-| Output | Stored result | Evidence |
+| Evidence | Result | Artifact |
 |---|---|---|
-| Cell 19 | Controlled E1/E2 comparison table | [comparison CSV](../../outputs/controlled_experiment_comparison.csv) |
-| Cell 19 | Controlled comparison chart | [comparison PNG](../../reports/controlled_experiment_comparison.png) |
-| Cell 19 | E2 selected through Validation Accuracy only | [selection JSON](../../outputs/controlled_experiment_selection.json) |
-| Cell 21 | Recorded Validation Accuracy: 0.8972 | [summary JSON](../../outputs/summary.json) |
-| Cell 21 | Reloaded Validation Accuracy: 0.8972 | [summary JSON](../../outputs/summary.json) |
-| Cell 21 | Validation delta: 0.0; status: PASS | [summary JSON](../../outputs/summary.json) |
+| Locked winner | `E2_resnet18_partial_2b5b94de` | [selection JSON](../../outputs/hyperparameter_selection_locked.json) |
+| Selected checkpoint | epoch 24 `best_val_loss.pt` | [checkpoint](../../runs/E2_resnet18_partial_2b5b94de/best_val_loss.pt) |
+| SHA256 | `a906600b...fd3223b` | [manifest](../../runs/E2_resnet18_partial_2b5b94de/checkpoint_manifest.json) |
+| Accuracy reload | 94.42% → 94.42%, delta 0 | [summary](../../outputs/summary.json) |
+| Loss reload | delta `1.34e-9` | [locked selection](../../outputs/hyperparameter_selection_locked.json) |
+| Verification | PASS before Test access | [verification implementation](../../processing_own_phase/final_evaluate.py) |
+| Final Test receipt | one evaluation | [receipt](../../outputs/final_test_receipt_a906600b717f.json) |
 
-No Test metric appears in the controlled selection artifact.
-## Locked checkpoint verification
-
-The winner is locked in `outputs/hyperparameter_selection_locked.json` using
-Validation loss as the primary metric and Validation accuracy as tie-breaker.
-The selected checkpoint is `best_val_loss.pt` from epoch 24, SHA256
-`a906600b717f94aa4cf40ca8504f1b82f6618b80cc6bf9b1a7a63813cfd3223b`.
-
-Reload verification used the same label-smoothed Cross Entropy criterion as
-training. Recorded and reloaded Validation accuracy are both `94.42%` (delta
-`0`); Validation-loss delta is `1.34e-9`. Verification passed before Test was
-constructed.
+SHA256 provides change detection. The documentation does not claim an
+independently signed, absolute anti-forgery guarantee.
