@@ -172,6 +172,9 @@ After executing the notebook through Phase 6:
 - No unresolved Phase 0–6 syntax, import or runtime error remains in the final
   executed notebook.
 - Phase 7 and later phases are intentionally not implemented in this handoff.
+- The verified local commits have not yet been pushed because external-egress
+  approval for the configured GitHub remote is still required. Handoff cannot
+  be declared READY until that push is confirmed.
 - The unrelated unstaged modification at
   `total_practice/practice_1/practice_1.ipynb` is outside Practice 3 and is not
   included in the handoff commits.
@@ -184,4 +187,4 @@ after the commit completed; it is not fabricated.
 
 **Handoff status:**
 
-`READY FOR VIÊN TO START PHASE 7`
+`NOT READY FOR PHASE 7 — VERIFIED LOCALLY, PUSH PENDING`
