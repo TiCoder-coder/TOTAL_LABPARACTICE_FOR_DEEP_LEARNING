@@ -1,22 +1,12 @@
-# Phase 8 — Controlled Experiment Results
+# Phase 8 Results — Hyperparameter Search
 
-[Phase 7 results](phase_07_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb) | [Phase 9 results](phase_09_results.md)
+Notebook cells 16–17 present two Validation-only tables: three learning-rate
+pairs and three classifier heads. The complete ranking is stored in
+[`hyperparameter_ranking.csv`](../../outputs/hyperparameter_ranking.csv).
 
-| Cell output | Stored result |
-|---|---|
-| Cell 17 | E1 strategy is `head_only` |
-| Cell 17 | E2 strategy is `partial_finetune` |
-| Cell 17 | Backbone, split, seed, optimizer, LR, scheduler, batch size, augmentation, loss, epoch budget, and patience match |
-| Cell 17 | Assertions confirm that fine-tuning strategy is the only controlled difference |
+The winner uses head LR `1e-3`, backbone LR `1e-4`, a linear head, and no
+additional hidden layer. Its Validation loss is `0.430360`. The next-best loss
+is `0.440741` for the medium learning rate. MLP-2 reaches `0.467199`; MLP-1
+stops early at epoch 9 with `0.489788`.
 
-Configuration source: [experiment_config.py](../../configs/experiment_config.py).
-## Hyperparameter search result
-
-Three head/backbone learning-rate pairs and three classifier heads were compared
-using Validation only. The winning configuration is ResNet18 partial fine-tune,
-head LR `1e-3`, backbone LR `1e-4`, and a linear classifier with no hidden
-layer. Its Validation loss `0.43036` is lower than the medium-LR result
-`0.44074`, low-LR result `0.46263`, two-hidden-layer result `0.46720`, and
-one-hidden-layer result `0.48979`.
-
-The corrected ranking is stored in `outputs/hyperparameter_ranking.csv`.
+Test is absent from all selection rows.

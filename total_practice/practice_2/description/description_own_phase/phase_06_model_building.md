@@ -91,7 +91,8 @@ The phase produces model and parameter summaries rather than final metrics. The 
 
 Selected checkpoint:
 
-- [best.pt](../../runs/E2_resnet18_partial_6c5d4ec5/best.pt)
+- [selected best_val_loss.pt](../../runs/E2_resnet18_partial_2b5b94de/best_val_loss.pt)
+- [locked selection metadata](../../outputs/hyperparameter_selection_locked.json)
 
 ## 8. Suggested presentation script
 

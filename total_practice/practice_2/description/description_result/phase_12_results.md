@@ -1,15 +1,18 @@
-# Phase 12 — Reproducibility and Conclusion Results
+# Phase 12 Results — Reproducibility and Conclusion
 
-[Phase 11 results](phase_11_results.md) | [Result index](README.md) | [Open notebook](../../notebooks/practice_2_presentation.ipynb)
+The final selected configuration is ResNet18 `partial_finetune`, head LR
+`1e-3`, backbone LR `1e-4`, and a linear classifier. Epoch 24 was selected by
+minimum Validation loss (`0.430360`) and verified at `94.42%` Validation
+accuracy before Test access.
 
-Phase 12 is primarily a Markdown conclusion and reproducibility checklist in Cells 29–30.
+The SHA256-locked checkpoint achieved `94.06%` Test Accuracy and `0.940458`
+Macro F1 on 10,000 images. The Final Test receipt records one evaluation.
 
-Stored evidence referenced by the phase:
+Canonical entry points:
 
-- selected checkpoint path and SHA-256: [summary.json](../../outputs/summary.json);
-- controlled selection source: [controlled_experiment_selection.json](../../outputs/controlled_experiment_selection.json);
-- E1 training provenance: [E1 run](../../runs/E1_resnet18_head_3069508a);
-- E2 training provenance: [E2 run](../../runs/E2_resnet18_partial_6c5d4ec5);
-- final notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb).
-
-Final conclusion: E2 `partial_finetune`, trained on Apple MPS, was selected using Validation only, passed checkpoint verification, and achieved 88.95% Test Accuracy with 88.99% Macro F1.
+- [official notebook](../../notebooks/practice_2_presentation.ipynb)
+- [ranking](../../outputs/hyperparameter_ranking.csv)
+- [locked selection](../../outputs/hyperparameter_selection_locked.json)
+- [final summary](../../outputs/summary.json)
+- [training dashboard](../../reports/winner_training_log_dashboard.png)
+- [ROC/PR dashboard](../../reports/roc_pr_curves_notebook.png)
