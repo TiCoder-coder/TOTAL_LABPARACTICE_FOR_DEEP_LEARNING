@@ -87,18 +87,28 @@ def compute_classification_metrics(predictions: np.ndarray, labels: np.ndarray, 
         tp = np.sum((predictions == c) & (labels == c))
         fp = np.sum((predictions == c) & (labels != c))
         fn = np.sum((predictions != c) & (labels == c))
+        tn = np.sum((predictions != c) & (labels != c))
         support = np.sum(labels == c)
         
         precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
         recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
         f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0.0
-        accuracy = tp / support if support > 0 else 0.0
+        class_accuracy = (tp + tn) / total_samples if total_samples > 0 else 0.0
+        tpr = recall
+        fpr = fp / (fp + tn) if (fp + tn) > 0 else 0.0
         
         per_class_metrics[class_names[c]] = {
             "precision": precision,
             "recall": recall,
             "f1-score": f1,
-            "accuracy": accuracy,
+            "accuracy": class_accuracy,
+            "class_accuracy": class_accuracy,
+            "tp": int(tp),
+            "tn": int(tn),
+            "fp": int(fp),
+            "fn": int(fn),
+            "tpr": tpr,
+            "fpr": fpr,
             "support": support
         }
         
@@ -155,7 +165,14 @@ def generate_classification_report(metrics_dict: dict, class_names: list, txt_pa
             "precision": m['precision'],
             "recall": m['recall'],
             "f1-score": m['f1-score'],
-            "support": m['support']
+            "support": m['support'],
+            "TP": m.get("tp"),
+            "TN": m.get("tn"),
+            "FP": m.get("fp"),
+            "FN": m.get("fn"),
+            "TPR": m.get("tpr", m["recall"]),
+            "FPR": m.get("fpr"),
+            "class_accuracy": m.get("class_accuracy"),
         })
         
     lines.append("-" * 60)

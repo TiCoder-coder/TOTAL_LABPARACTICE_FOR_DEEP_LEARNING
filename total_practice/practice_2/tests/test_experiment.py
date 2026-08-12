@@ -58,8 +58,8 @@ def test_e1_e2_are_controlled_experiments():
     assert e1["training_mode"] == "head_only"
     assert e2["training_mode"] == "partial_finetune"
     assert e1["epochs"] >= 5
-    assert e1["early_stopping_patience"] == 3
-    assert e1["best_model_metric"] == "val_acc"
+    assert e1["early_stopping_patience"] == 4
+    assert e1["best_model_metric"] == "val_loss"
     assert e1["early_stopping_metric"] == "val_loss"
     assert e1["optimizer"] == "AdamW"
     assert e1["dropout"] == 0.20

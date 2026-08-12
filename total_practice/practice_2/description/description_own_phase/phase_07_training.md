@@ -84,6 +84,20 @@ Whenever the Validation metric improves, the pipeline saves a best checkpoint co
 
 The best checkpoint is not necessarily the final epoch. Final evaluation must reload `best.pt` rather than use the model state left in memory after the last epoch.
 
+## Realtime monitoring and dual checkpoint policy
+
+The revised training loop appends one durable JSON object per completed epoch to
+`runs/<run_id>/metrics.jsonl`. The standalone
+`processing_own_phase/live_training_monitor.py` process reads this file without
+touching the model or Test data and refreshes loss, accuracy, macro F1,
+generalization gap, and differential learning rates every two seconds.
+
+Every run now writes `latest.pt`, `best_val_loss.pt`, and
+`best_val_accuracy.pt`. For compatibility, `best.pt` points to the checkpoint
+chosen by `best_model_metric`. Hyperparameter search sets that metric to
+Validation loss. `checkpoint_manifest.json` records SHA256, byte size, epoch,
+metrics, Git commit, and reload status for auditability.
+
 ## 7. Reading the learning curves
 
 ### Loss curves

@@ -144,6 +144,22 @@ Do not repeat training or Final Test merely to view the notebook. The official a
 
 If a new experiment is intentionally required, run `run_controlled_experiments()` as a new controlled run with separate checkpoints and artifacts. If Final Test regeneration is explicitly required, ensure the new selection artifact is valid and understand that `regenerate_final_artifacts()` evaluates the official Test set.
 
+### Validation-only hyperparameter search and live chart
+
+Run these commands from `total_practice/practice_2` in two terminals:
+
+```bash
+python -m processing_own_phase.hyperparameter_search --output-dir outputs
+```
+
+```bash
+python -m processing_own_phase.live_training_monitor --runs-dir runs --refresh-seconds 2
+```
+
+The search does not evaluate Test. It produces per-epoch `metrics.jsonl`, dual
+best checkpoints, an integrity manifest, and a Validation-loss ranking. Run the
+official Test evaluation only after the winning configuration is locked.
+
 > **Warning:** `python -m processing_own_phase.main` is a legacy artifact-writing path. Although only E1/E2 remain, it can overwrite official artifacts. Review the [codebase audit](description/code_base_audit/code_base_audit.md) before using it.
 
 ## 10. Tests

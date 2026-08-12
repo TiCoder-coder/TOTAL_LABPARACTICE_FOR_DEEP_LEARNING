@@ -198,3 +198,9 @@ def test_train_model_records_multi_epoch_history_and_best_epoch(tmp_path):
     assert history["best_epoch"] == 2
     assert history["stopped_early"] is False
     assert history["early_stopping_metric"] == "val_loss"
+    assert history["best_val_loss_epoch"] == 2
+    assert history["best_val_accuracy_epoch"] == 2
+    assert (tmp_path / "metrics.jsonl").is_file()
+    assert (tmp_path / "best_val_loss.pt").is_file()
+    assert (tmp_path / "best_val_accuracy.pt").is_file()
+    assert (tmp_path / "checkpoint_manifest.json").is_file()

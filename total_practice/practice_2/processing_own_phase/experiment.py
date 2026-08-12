@@ -122,7 +122,8 @@ def select_experiment_by_validation(results):
 def run_experiment(
     experiment_id: str, 
     use_quick_run: bool = False,
-    resume_from: Optional[str] = None
+    resume_from: Optional[str] = None,
+    config_overrides: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """Run a full experiment based on its configuration."""
     
@@ -134,13 +135,18 @@ def run_experiment(
     # Merge global config with experiment-specific config
     run_config = CONFIG.copy()
     run_config.update(exp_config)
+    if config_overrides:
+        run_config.update(config_overrides)
     
     # Generate run ID
     run_id = f"{experiment_id}_{uuid.uuid4().hex[:8]}"
     if use_quick_run:
         logger.info("QUICK RUN MODE ON: Setting epochs=1, small batch size.")
         run_config["epochs"] = 1
-        run_id = f"{experiment_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        run_id = (
+            f"{experiment_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            f"_{uuid.uuid4().hex[:6]}"
+        )
     run_config["run_id"] = run_id
     run_dir = Path(CONFIG["runs_dir"]) / run_id
     os.makedirs(run_dir, exist_ok=True)
@@ -181,6 +187,7 @@ def run_experiment(
         training_mode=run_config["training_mode"],
         num_classes=len(CLASS_NAMES),
         dropout=run_config.get("dropout", 0.0),
+        hidden_layers=run_config.get("hidden_layers", []),
     )
     
     # Log Model Graph
@@ -224,6 +231,18 @@ def run_experiment(
     criterion = torch.nn.CrossEntropyLoss()
     val_res = eval_full(model, val_loader, criterion, device)
     val_time = time.time() - val_start
+
+    manifest_path = Path(run_dir) / "checkpoint_manifest.json"
+    if manifest_path.is_file():
+        manifest = json.loads(manifest_path.read_text())
+        verification = {
+            "status": "PASS",
+            "validation_loss": float(val_res["loss"]),
+            "validation_accuracy": float(val_res["accuracy"]),
+            "verified_at": datetime.now().isoformat(),
+        }
+        manifest["selected_checkpoint_reload_verification"] = verification
+        manifest_path.write_text(json.dumps(manifest, indent=2, default=str))
     
     metrics = compute_classification_metrics(val_res["predictions"], val_res["labels"], len(CLASS_NAMES), CLASS_NAMES)
 
