@@ -1,4 +1,4 @@
-# Handoff — Phase 6 → Phase 7
+# Handoff Phase 6 → Phase 7
 
 **Date:** 2026-08-12  
 **From:** Stage 1 - Phase 0–6
@@ -152,23 +152,7 @@ Dynamic padding works correctly: sequences in the batch have been padded to the 
 
 ---
 
-## 7. Known Issues
-
-| Issue                                       | Severity | Status  | Notes                                                  |
-| ------------------------------------------- | -------- | ------- | ------------------------------------------------------ |
-| Notebook has icons in output                | Low      | Fixed   | All icons removed per personal preference              |
-| Notebook comments in Vietnamese             | Low      | Fixed   | All comments translated to English                     |
-| Phase 4 missing `verify_split_sizes` import | Medium   | Fixed   | Added to notebook import list                          |
-| `phase_06_preprocessing.py` syntax error    | High     | Fixed   | Added missing imports and functions                    |
-| Markdown cells have Vietnamese text         | Low      | Fixed   | "và" -> "and", "Không" -> "No", "High hơn" -> "Higher" |
-| Phase 6 handoff document                    | Low      | Created | This document                                          |
-| `DataCollatorWithPadding` import            | Low      | Fixed   | Imported from transformers                             |
-
-**No unresolved issues blocking Phase 7.**
-
----
-
-## 8. Files Created / Modified
+## 7. Files Created / Modified
 
 ### Plans (docs/plan-doc/plan_before_process/)
 
@@ -209,7 +193,7 @@ Dynamic padding works correctly: sequences in the batch have been padded to the 
 
 ---
 
-## 9. Last Commit
+## 8. Last Commit
 
 | Property       | Value                                               |
 | -------------- | --------------------------------------------------- |
@@ -220,11 +204,11 @@ Dynamic padding works correctly: sequences in the batch have been padded to the 
 
 ---
 
-## 10. Next Phase
+## 9. Next Phase
 
 Phase 7 Model Construction
 
-**Tasks for Viên:**
+**Tasks:**
 
 1. Pull the latest code from branch `Vien10082026`.
 2. Verify Phase 0–6 notebook runs end-to-end.
@@ -235,9 +219,9 @@ Phase 7 Model Construction
 
 ---
 
-## 11. Handoff Verification (Viên)
+## 10. Handoff Verification (Viên)
 
-Before starting Phase 7, Viên must verify:
+Before starting Phase 7, must verify:
 
 ### Dataset
 
@@ -262,9 +246,7 @@ Before starting Phase 7, Viên must verify:
 
 ---
 
-## 12. Declaration
-
-I, **Duyên**, confirm that:
+## 11. Declaration
 
 - Phase 0–6 have been completed and verified.
 - All sanity checks have passed.
@@ -272,12 +254,11 @@ I, **Duyên**, confirm that:
 - Handoff document has been created and committed.
 - All issues have been resolved or documented.
 
-**Signature:** Duyên  
 **Date:** 2026-08-12
 
 ---
 
-## 13. Handoff Summary
+## 12. Handoff Summary
 
 Phase 0–6 COMPLETE
 |
