@@ -9,7 +9,7 @@ This directory documents the 12 phases of [`practice_2_presentation.ipynb`](../.
 5. [Phase 5 — Data Preprocessing](phase_05_preprocessing.md)
 6. [Phase 6 — Model Building and Baseline](phase_06_model_building.md)
 7. [Phase 7 — Model Training](phase_07_training.md)
-8. [Phase 8 — Controlled Experiments](phase_08_controlled_experiments.md)
+8. [Phase 8 — Validation-only Hyperparameter Search](phase_08_controlled_experiments.md)
 9. [Phase 9 — Model Selection and Checkpoint Verification](phase_09_selection_verification.md)
 10. [Phase 10 — Final Test Evaluation](phase_10_final_evaluation.md)
 11. [Phase 11 — Error Analysis and Visualization](phase_11_error_analysis.md)

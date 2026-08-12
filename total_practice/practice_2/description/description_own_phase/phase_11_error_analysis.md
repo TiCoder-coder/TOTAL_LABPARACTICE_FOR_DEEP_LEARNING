@@ -77,7 +77,7 @@ The mixed prediction grid differs from the input grid in Phase 4:
 
 - [validation_test_comparison_current.png](../../reports/validation_test_comparison_current.png)
 
-This plot uses the selected checkpoint's verified Validation Accuracy and the current official Test Accuracy. It replaces older comparison images that may belong to a one-epoch quick run. The 0.77-percentage-point decrease is small and does not indicate severe generalization collapse.
+This plot uses the selected checkpoint's verified Validation Accuracy (`94.42%`) and current official Test Accuracy (`94.06%`). The 0.36-percentage-point decrease is small and does not indicate severe generalization collapse. Validation and Test loss are displayed but are not treated as a direct gap because their criteria differ by label smoothing.
 
 ## 7. Diagnostic hypotheses
 
