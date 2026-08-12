@@ -3,7 +3,7 @@
 **Date:** 2026-08-12  
 **Scope:** Stage 1 — Phase 0 through Phase 6  
 **Working branch:** `Practice2`  
-**Implementation commit:** `PENDING_FIRST_COMMIT`  
+**Implementation commit:** `0778a79c5411e0daecdeedcfcc0fbc4751907b55`  
 **Next phase:** Phase 7 — Model Construction
 
 ## Completed Phases
@@ -179,9 +179,9 @@ After executing the notebook through Phase 6:
 ## Handoff Declaration
 
 Phase 0–6 implementation, notebook calls, executed outputs and result artifacts
-have been verified. The implementation commit hash will be inserted only after
-the commit exists; no hash is fabricated.
+have been verified. The implementation commit hash above was read from Git
+after the commit completed; it is not fabricated.
 
-**Target status after commit, push and re-audit:**
+**Handoff status:**
 
 `READY FOR VIÊN TO START PHASE 7`
