@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-08-12T19:13:51.574901",
+  "python_version": "3.11.14",
+  "device": "mps",
+  "seed": 42,
+  "packages": {
+    "transformers": {
+      "installed": "5.14.1",
+      "required": "5.14.1",
+      "status": "OK"
+    },
+    "datasets": {
+      "installed": "5.0.1",
+      "required": "5.0.1",
+      "status": "OK"
+    },
+    "evaluate": {
+      "installed": "0.4.6",
+      "required": "0.4.6",
+      "status": "OK"
+    },
+    "accelerate": {
+      "installed": "1.14.0",
+      "required": "1.14.0",
+      "status": "OK"
+    },
+    "torch": {
+      "installed": "2.13.0",
+      "required": "2.13.0",
+      "status": "OK"
+    },
+    "numpy": {
+      "installed": "2.4.6",
+      "required": "2.4.6",
+      "status": "OK"
+    },
+    "matplotlib": {
+      "installed": "3.11.1",
+      "required": "3.11.1",
+      "status": "OK"
+    },
+    "pandas": {
+      "installed": "3.0.5",
+      "required": "3.0.5",
+      "status": "OK"
+    },
+    "scikit-learn": {
+      "installed": "1.9.0",
+      "required": "1.9.0",
+      "status": "OK"
+    }
+  },
+  "huggingface_connectivity": {
+    "status": "ok",
+    "error": null,
+    "checkpoint": "distilbert-base-uncased",
+    "vocab_size": 30522
+  }
+}

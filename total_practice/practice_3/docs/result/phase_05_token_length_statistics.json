@@ -1,0 +1,35 @@
+{
+  "train_length_statistics": {
+    "character": {
+      "min": 4.0,
+      "max": 267.0,
+      "mean": 113.97162954279015,
+      "median": 111.0,
+      "p95": 204.0,
+      "p99": 241.0
+    },
+    "word": {
+      "min": 1.0,
+      "max": 59.0,
+      "mean": 20.99284876905041,
+      "median": 20.0,
+      "p95": 37.0,
+      "p99": 45.0
+    },
+    "token": {
+      "min": 3.0,
+      "max": 78.0,
+      "mean": 27.368347010550995,
+      "median": 27.0,
+      "p95": 47.0,
+      "p99": 56.0
+    }
+  },
+  "token_length_recommendation": {
+    "p95": 47.0,
+    "p99": 56.0,
+    "max": 78.0
+  },
+  "selected_max_length": 80,
+  "justification": "P95=47, P99=56, observed max=78; selected 80 is the smallest convenient rounded value above the observed maximum."
+}
