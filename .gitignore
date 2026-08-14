@@ -99,8 +99,14 @@ token
 *.tmp
 *.temp
 .cache/
+<<<<<<< Updated upstream
 .npm/
 .yarn/
 runs/
 /total_practice/practice_1/runs/
 *.tfevents.*
+=======
+vscode-notebook-cell:/
+practice_1.ipynb#Y116sZmlsZQ%3D%3D
+total_practice/
+>>>>>>> Stashed changes
