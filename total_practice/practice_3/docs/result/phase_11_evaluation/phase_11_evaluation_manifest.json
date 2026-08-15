@@ -1,0 +1,51 @@
+{
+  "status": "FINAL_TEST_COMPLETE",
+  "created_at_utc": "2026-08-14T03:04:21.923803+00:00",
+  "python_version": "3.11.14",
+  "transformers_version": "5.14.1",
+  "torch_version": "2.13.0",
+  "checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+  "checkpoint_weight_sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660",
+  "selection_record_sha256": "1ed11b3b832c765dd522d0b9363aa981930290e9d2d904b962cefc1ba0abb52a",
+  "selected_epoch": 2.0,
+  "selected_step": 1068,
+  "validation_samples": 1066,
+  "test_samples": 1066,
+  "checkpoint_selected_before_test": true,
+  "validation_verified_before_test": true,
+  "test_used_for_selection": false,
+  "test_evaluation_count": 1,
+  "training_performed": false,
+  "backward_called": false,
+  "optimizer_step_performed": false,
+  "scheduler_step_performed": false,
+  "checkpoint_changed_after_test": false,
+  "phase_12_started": false,
+  "artifact_files": {
+    "checkpoint_verification.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/checkpoint_verification.json",
+      "bytes": 1778,
+      "sha256": "c783d87cb2bb91f1d5e9ca8cc9e50c3482f997306d5fe13328e6614ebee8e756"
+    },
+    "validation_evaluation.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/validation_evaluation.json",
+      "bytes": 1950,
+      "sha256": "bf15c352db7141c0c073011c2b5ae36707c18d0acb633d217009f5d4f4f1a62d"
+    },
+    "test_evaluation.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/test_evaluation.json",
+      "bytes": 1028,
+      "sha256": "425f3ae285e64c742d5db11aeecffaaa4cc336bc2f91a7a9207fc392a7169dee"
+    },
+    "test_predictions.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/test_predictions.json",
+      "bytes": 520095,
+      "sha256": "0873a792b77142af693849f4438f73a045e9dd0573650e61c75b9128b6057e7c"
+    },
+    "final_test_attempt_receipt.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/final_test_attempt_receipt.json",
+      "bytes": 1012,
+      "sha256": "c82c645293eeaa0f4a618746187f1f58656a6be4fde7e698249b9c9323b11bd0"
+    }
+  }
+}

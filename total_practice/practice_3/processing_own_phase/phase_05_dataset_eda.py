@@ -62,6 +62,93 @@ def compute_text_lengths(dataset: DatasetDict, tokenizer, split: str = "train") 
     }
 
 
+def compute_all_split_text_lengths(
+    dataset: DatasetDict, tokenizer
+) -> Dict[str, Dict[str, Dict[str, float]]]:
+    """Compute character, word and tokenizer-length statistics for every split."""
+    return {
+        split_name: compute_text_lengths(dataset, tokenizer, split_name)
+        for split_name in ("train", "validation", "test")
+    }
+
+
+def _sample_length_records(dataset: DatasetDict, tokenizer, split: str) -> list:
+    """Return deterministic, index-addressable length records for one split."""
+    records = []
+    for index, sample in enumerate(dataset[split]):
+        text = sample["text"]
+        records.append({
+            "split": split,
+            "index": index,
+            "label": int(sample["label"]),
+            "label_name": "Positive" if sample["label"] == 1 else "Negative",
+            "character_count": len(text),
+            "word_count": len(text.split()),
+            "token_count": len(tokenizer(text, truncation=False)["input_ids"]),
+            "text": text,
+        })
+    return records
+
+
+def get_representative_samples(
+    dataset: DatasetDict,
+    tokenizer,
+    split: str = "train",
+    samples_per_label: int = 3,
+) -> list:
+    """Select the first N indexed samples per label; no quality-based cherry-picking."""
+    if samples_per_label <= 0:
+        raise ValueError("samples_per_label must be positive")
+    records = _sample_length_records(dataset, tokenizer, split)
+    selected = []
+    for label in (0, 1):
+        selected.extend([
+            record for record in records if record["label"] == label
+        ][:samples_per_label])
+    return sorted(selected, key=lambda record: (record["label"], record["index"]))
+
+
+def get_extreme_samples(
+    dataset: DatasetDict,
+    tokenizer,
+    split: str = "train",
+    samples_per_extreme: int = 5,
+) -> Dict[str, list]:
+    """Return shortest/longest reviews by token count with stable index ties."""
+    if samples_per_extreme <= 0:
+        raise ValueError("samples_per_extreme must be positive")
+    records = _sample_length_records(dataset, tokenizer, split)
+    shortest = sorted(records, key=lambda row: (row["token_count"], row["index"]))[
+        :samples_per_extreme
+    ]
+    longest = sorted(
+        records, key=lambda row: (-row["token_count"], row["index"])
+    )[:samples_per_extreme]
+    return {"shortest": shortest, "longest": longest}
+
+
+def compute_truncation_impact(
+    dataset: DatasetDict, tokenizer, max_length: int
+) -> Dict[str, Dict[str, float]]:
+    """Count sequences that would be truncated at the configured maximum."""
+    if max_length <= 0:
+        raise ValueError("max_length must be positive")
+    report = {}
+    for split_name in ("train", "validation", "test"):
+        lengths = [
+            len(tokenizer(text, truncation=False)["input_ids"])
+            for text in dataset[split_name]["text"]
+        ]
+        truncated = sum(length > max_length for length in lengths)
+        report[split_name] = {
+            "samples": len(lengths),
+            "samples_over_max_length": truncated,
+            "percentage_over_max_length": 100.0 * truncated / len(lengths),
+            "observed_max": int(max(lengths)),
+        }
+    return report
+
+
 def recommend_max_length(dataset: DatasetDict, tokenizer, split: str = "train") -> Dict[str, float]:
     """
     Compute P95/P99/max of actual token lengths (without padding) to choose max_length
@@ -140,6 +227,104 @@ def plot_token_length_distribution(
     print(f"Histogram saved to: {save_path}")
 
 
+def plot_label_distribution(
+    dataset: DatasetDict,
+    save_path: Optional[str] = None,
+) -> Path:
+    """Save per-split Negative/Positive counts as a grouped bar chart."""
+    output_path = Path(save_path or RESULT_DIR / "phase_05_label_distribution.png")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    balance = get_label_balance(dataset)
+    splits = ["train", "validation", "test"]
+    negative = [balance[split]["negative"] for split in splits]
+    positive = [balance[split]["positive"] for split in splits]
+    x = np.arange(len(splits))
+    width = 0.36
+    figure, axis = plt.subplots(figsize=(10, 6))
+    axis.bar(x - width / 2, negative, width, label="Negative (0)", color="#d95f5f")
+    axis.bar(x + width / 2, positive, width, label="Positive (1)", color="#4c9f70")
+    axis.set_xticks(x, [name.title() for name in splits])
+    axis.set(xlabel="Official split", ylabel="Sample count", title="Phase 5 — Label Distribution")
+    axis.grid(axis="y", alpha=0.25)
+    axis.legend()
+    figure.tight_layout()
+    figure.savefig(output_path, dpi=150, bbox_inches="tight")
+    plt.close(figure)
+    return output_path
+
+
+def _plot_length_distribution(
+    dataset: DatasetDict,
+    measure: str,
+    save_path: Path,
+) -> Path:
+    """Plot comparable per-split character or word distributions."""
+    if measure not in {"character", "word"}:
+        raise ValueError("measure must be 'character' or 'word'")
+    save_path.parent.mkdir(parents=True, exist_ok=True)
+    figure, axis = plt.subplots(figsize=(10, 6))
+    for split_name in ("train", "validation", "test"):
+        texts = dataset[split_name]["text"]
+        values = (
+            [len(text) for text in texts]
+            if measure == "character"
+            else [len(text.split()) for text in texts]
+        )
+        axis.hist(values, bins=45, density=True, histtype="step", linewidth=1.8,
+                  label=split_name.title())
+    label = "Characters" if measure == "character" else "Words"
+    axis.set(xlabel=f"{label} per review", ylabel="Density",
+             title=f"Phase 5 — {label} Length Distribution")
+    axis.grid(axis="y", alpha=0.25)
+    axis.legend()
+    figure.tight_layout()
+    figure.savefig(save_path, dpi=150, bbox_inches="tight")
+    plt.close(figure)
+    return save_path
+
+
+def plot_character_length_distribution(
+    dataset: DatasetDict, save_path: Optional[str] = None
+) -> Path:
+    return _plot_length_distribution(
+        dataset,
+        "character",
+        Path(save_path or RESULT_DIR / "phase_05_character_length_distribution.png"),
+    )
+
+
+def plot_word_length_distribution(
+    dataset: DatasetDict, save_path: Optional[str] = None
+) -> Path:
+    return _plot_length_distribution(
+        dataset,
+        "word",
+        Path(save_path or RESULT_DIR / "phase_05_word_length_distribution.png"),
+    )
+
+
+def create_eda_figures(
+    dataset: DatasetDict,
+    tokenizer,
+    max_length: int,
+) -> Dict[str, str]:
+    """Create the concise Phase 5 figure set and return artifact paths."""
+    paths = {
+        "label_distribution": plot_label_distribution(dataset),
+        "character_length_distribution": plot_character_length_distribution(dataset),
+        "word_length_distribution": plot_word_length_distribution(dataset),
+        "token_length_distribution": RESULT_DIR / "phase_05_token_length_distribution.png",
+    }
+    plot_token_length_distribution(
+        dataset,
+        tokenizer,
+        split="train",
+        max_length_reference=max_length,
+        save_path=str(paths["token_length_distribution"]),
+    )
+    return {name: str(path) for name, path in paths.items()}
+
+
 def get_label_balance(dataset: DatasetDict) -> Dict[str, Dict[str, Any]]:
     """
     Get label balance (positive/negative counts and percentages) for each split.
@@ -166,15 +351,25 @@ def get_label_balance(dataset: DatasetDict) -> Dict[str, Dict[str, Any]]:
     return balance
 
 
-def build_eda_summary(dataset: DatasetDict, tokenizer) -> Dict[str, Any]:
+def build_eda_summary(
+    dataset: DatasetDict, tokenizer, max_length: Optional[int] = None
+) -> Dict[str, Any]:
     """Run the complete task-focused EDA required before preprocessing."""
     schema = check_schema(dataset)
     text_quality = check_text_quality(dataset)
     within_split_duplicates = check_duplicates(dataset)
     cross_split_overlap = check_cross_split_overlap(dataset)
     label_distribution = get_label_balance(dataset)
-    train_lengths = compute_text_lengths(dataset, tokenizer, "train")
+    all_split_lengths = compute_all_split_text_lengths(dataset, tokenizer)
+    train_lengths = all_split_lengths["train"]
     token_recommendation = recommend_max_length(dataset, tokenizer, "train")
+    representative_samples = get_representative_samples(dataset, tokenizer)
+    extreme_samples = get_extreme_samples(dataset, tokenizer)
+    truncation_impact = (
+        compute_truncation_impact(dataset, tokenizer, max_length)
+        if max_length is not None
+        else None
+    )
     all_pass = (
         all(schema.values())
         and all(sum(counts.values()) == 0 for counts in text_quality.values())
@@ -187,7 +382,11 @@ def build_eda_summary(dataset: DatasetDict, tokenizer) -> Dict[str, Any]:
         "within_split_duplicates": within_split_duplicates,
         "cross_split_overlap": cross_split_overlap,
         "train_length_statistics": train_lengths,
+        "all_split_length_statistics": all_split_lengths,
         "token_length_recommendation": token_recommendation,
+        "representative_samples": representative_samples,
+        "extreme_samples": extreme_samples,
+        "truncation_impact": truncation_impact,
         "all_pass": all_pass,
     }
 

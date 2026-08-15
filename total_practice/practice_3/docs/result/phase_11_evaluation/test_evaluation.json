@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "evaluated_at_utc": "2026-08-14T03:04:21.914357+00:00",
+  "attempt_id": "44feddba-69fc-496a-b4b4-2245648b5d50",
+  "checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+  "checkpoint_weight_sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660",
+  "sample_count": 1066,
+  "prediction_count": 1066,
+  "label_set": [
+    0,
+    1
+  ],
+  "logits_shape": [
+    1066,
+    2
+  ],
+  "logits_finite": true,
+  "metrics": {
+    "loss": 0.44851231575012207,
+    "accuracy": 0.8452157598499062,
+    "precision": 0.8458646616541353,
+    "recall": 0.8442776735459663,
+    "f1": 0.8450704225352113
+  },
+  "test_evaluation_count": 1,
+  "validation_verified_before_test": true,
+  "test_used_for_selection": false,
+  "checkpoint_changed_after_test": false,
+  "training_performed": false,
+  "backward_called": false,
+  "optimizer_step_performed": false,
+  "scheduler_step_performed": false
+}

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "run_role": "debug_only_not_final",
+  "train_samples": 1000,
+  "validation_samples": 200,
+  "epochs": 1.0,
+  "global_step": 63,
+  "training_loss": 0.10204486241416326,
+  "validation_record": {
+    "eval_loss": 0.007877531461417675,
+    "eval_accuracy": 1.0,
+    "eval_precision": 1.0,
+    "eval_recall": 1.0,
+    "eval_f1": 1.0,
+    "eval_runtime": 0.3349,
+    "eval_samples_per_second": 597.279,
+    "eval_steps_per_second": 20.905,
+    "epoch": 1.0,
+    "step": 63
+  },
+  "checkpoint_paths": [
+    "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/debug_checkpoints/checkpoint-63"
+  ],
+  "optimizer_updates_occurred": true,
+  "test_accessed": false,
+  "final_experiment": false
+}

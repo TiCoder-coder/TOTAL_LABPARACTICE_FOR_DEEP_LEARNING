@@ -1,9 +1,0 @@
-{
-  "model": "resnet18",
-  "weights": "IMAGENET1K_V1",
-  "checkpoint_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
-  "embedding_dimension": 512,
-  "asset_count": 2896,
-  "normalized": true,
-  "device": "cpu"
-}

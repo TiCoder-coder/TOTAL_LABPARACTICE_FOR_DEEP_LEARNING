@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "evaluated_at_utc": "2026-08-14T03:04:20.500866+00:00",
+  "checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+  "checkpoint_weight_sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660",
+  "sample_count": 1066,
+  "label_set": [
+    0,
+    1
+  ],
+  "metrics": {
+    "loss": 0.39046531915664673,
+    "accuracy": 0.8564727954971857,
+    "precision": 0.8492647058823529,
+    "recall": 0.8667917448405253,
+    "f1": 0.8579387186629527
+  },
+  "comparisons": {
+    "loss": {
+      "phase_09_expected": 0.39046531915664673,
+      "reloaded_value": 0.39046531915664673,
+      "absolute_delta": 0.0,
+      "absolute_tolerance": 1e-05,
+      "relative_tolerance": 0.0,
+      "pass": true
+    },
+    "accuracy": {
+      "phase_09_expected": 0.8564727954971857,
+      "reloaded_value": 0.8564727954971857,
+      "absolute_delta": 0.0,
+      "absolute_tolerance": 1e-06,
+      "relative_tolerance": 0.0,
+      "pass": true
+    },
+    "precision": {
+      "phase_09_expected": 0.8492647058823529,
+      "reloaded_value": 0.8492647058823529,
+      "absolute_delta": 0.0,
+      "absolute_tolerance": 1e-06,
+      "relative_tolerance": 0.0,
+      "pass": true
+    },
+    "recall": {
+      "phase_09_expected": 0.8667917448405253,
+      "reloaded_value": 0.8667917448405253,
+      "absolute_delta": 0.0,
+      "absolute_tolerance": 1e-06,
+      "relative_tolerance": 0.0,
+      "pass": true
+    },
+    "f1": {
+      "phase_09_expected": 0.8579387186629527,
+      "reloaded_value": 0.8579387186629527,
+      "absolute_delta": 0.0,
+      "absolute_tolerance": 1e-06,
+      "relative_tolerance": 0.0,
+      "pass": true
+    }
+  },
+  "test_accessed_before_validation_pass": false,
+  "training_performed": false,
+  "backward_called": false,
+  "optimizer_step_performed": false,
+  "scheduler_step_performed": false
+}

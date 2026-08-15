@@ -1,9 +1,0 @@
-{
-  "schema_version": 1,
-  "r9_gate_passed": false,
-  "r9_authorized_architecture_experiment_id": null,
-  "repeated_seed_finalist_results_available": false,
-  "authorized_finalist_id": null,
-  "authorized_final_checkpoint": null,
-  "test_evidence_used": false
-}

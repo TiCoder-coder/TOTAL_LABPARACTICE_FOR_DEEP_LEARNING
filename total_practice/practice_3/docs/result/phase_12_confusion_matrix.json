@@ -1,0 +1,170 @@
+{
+  "status": "PASS",
+  "source": "frozen_phase_11_predictions_only",
+  "total": 1066,
+  "correct": 901,
+  "incorrect": 165,
+  "counts": {
+    "TN": 451,
+    "FP": 82,
+    "FN": 83,
+    "TP": 450
+  },
+  "matrix_actual_rows_predicted_columns": [
+    [
+      451,
+      82
+    ],
+    [
+      83,
+      450
+    ]
+  ],
+  "cells": [
+    {
+      "cell": "TN",
+      "actual": "NEGATIVE",
+      "predicted": "NEGATIVE",
+      "count": 451,
+      "overall_rate": 0.4230769230769231,
+      "row_rate": 0.8461538461538461
+    },
+    {
+      "cell": "FP",
+      "actual": "NEGATIVE",
+      "predicted": "POSITIVE",
+      "count": 82,
+      "overall_rate": 0.07692307692307693,
+      "row_rate": 0.15384615384615385
+    },
+    {
+      "cell": "FN",
+      "actual": "POSITIVE",
+      "predicted": "NEGATIVE",
+      "count": 83,
+      "overall_rate": 0.07786116322701689,
+      "row_rate": 0.15572232645403378
+    },
+    {
+      "cell": "TP",
+      "actual": "POSITIVE",
+      "predicted": "POSITIVE",
+      "count": 450,
+      "overall_rate": 0.42213883677298314,
+      "row_rate": 0.8442776735459663
+    }
+  ],
+  "row_percentages": [
+    [
+      84.61538461538461,
+      15.384615384615385
+    ],
+    [
+      15.572232645403378,
+      84.42776735459663
+    ]
+  ],
+  "class_level": [
+    {
+      "actual_class": "NEGATIVE",
+      "total": 533,
+      "correct": 451,
+      "errors": 82,
+      "conditional_accuracy": 0.8461538461538461,
+      "error_rate": 0.15384615384615385,
+      "error_direction": "NEGATIVE_TO_POSITIVE"
+    },
+    {
+      "actual_class": "POSITIVE",
+      "total": 533,
+      "correct": 450,
+      "errors": 83,
+      "conditional_accuracy": 0.8442776735459663,
+      "error_rate": 0.15572232645403378,
+      "error_direction": "POSITIVE_TO_NEGATIVE"
+    }
+  ],
+  "derived_metrics": {
+    "accuracy": 0.8452157598499062,
+    "precision": 0.8458646616541353,
+    "recall": 0.8442776735459663,
+    "f1": 0.8450704225352113
+  },
+  "phase_11_metric_comparisons": [
+    {
+      "metric": "accuracy",
+      "phase_11_value": 0.8452157598499062,
+      "derived_value": 0.8452157598499062,
+      "absolute_delta": 0.0,
+      "tolerance": 1e-12,
+      "pass": true
+    },
+    {
+      "metric": "precision",
+      "phase_11_value": 0.8458646616541353,
+      "derived_value": 0.8458646616541353,
+      "absolute_delta": 0.0,
+      "tolerance": 1e-12,
+      "pass": true
+    },
+    {
+      "metric": "recall",
+      "phase_11_value": 0.8442776735459663,
+      "derived_value": 0.8442776735459663,
+      "absolute_delta": 0.0,
+      "tolerance": 1e-12,
+      "pass": true
+    },
+    {
+      "metric": "f1",
+      "phase_11_value": 0.8450704225352113,
+      "derived_value": 0.8450704225352113,
+      "absolute_delta": 0.0,
+      "tolerance": 1e-12,
+      "pass": true
+    }
+  ],
+  "validation_checks": {
+    "confusion_sum_1066": true,
+    "correct_plus_incorrect_1066": true,
+    "diagonal_equals_correct": true,
+    "off_diagonal_equals_incorrect": true,
+    "row_totals_match_true_labels": true,
+    "column_totals_match_predictions": true,
+    "counts_non_negative_integers": true,
+    "rates_finite_in_range": true,
+    "row_rates_sum_one": true,
+    "derived_metrics_match_phase_11": true
+  },
+  "source_artifacts": {
+    "test_predictions": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/test_predictions.json",
+    "test_evaluation": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/test_evaluation.json",
+    "phase_11_manifest": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/phase_11_evaluation_manifest.json"
+  },
+  "input_validation_checks": {
+    "phase_11_manifest_pass": true,
+    "frozen_artifact_hashes_pass": true,
+    "phase_11_test_evaluation_pass": true,
+    "prediction_count_1066": true,
+    "sample_identity_complete_ordered_unique": true,
+    "prediction_schema_pass": true,
+    "all_prediction_records_valid": true
+  },
+  "figure": {
+    "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_confusion_matrix.png",
+    "exists": true,
+    "non_empty": true,
+    "decodable": true,
+    "pixel_shape": [
+      1050,
+      1309,
+      4
+    ]
+  },
+  "frozen_source_hashes": {
+    "test_predictions.json": "0873a792b77142af693849f4438f73a045e9dd0573650e61c75b9128b6057e7c",
+    "test_evaluation.json": "425f3ae285e64c742d5db11aeecffaaa4cc336bc2f91a7a9207fc392a7169dee",
+    "phase_11_evaluation_manifest.json": "baff7faa12bebfe9406938c011eaf590e5eabdd4fe9aa75feff41539adb1daf5"
+  },
+  "frozen_sources_unchanged": true
+}

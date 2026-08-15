@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "run_mode": "fresh_full_baseline",
+  "started_at": "2026-08-12T20:52:32.046015",
+  "ended_at": "2026-08-12T20:56:18.680230",
+  "python_version": "3.11.14",
+  "transformers_version": "5.14.1",
+  "torch_version": "2.13.0",
+  "device": "mps",
+  "seed": 42,
+  "debug_passed_before_full": true,
+  "fresh_model_after_debug": true,
+  "train_samples": 8530,
+  "validation_samples": 1066,
+  "completed_epochs": 3.0,
+  "global_step": 1602,
+  "training_loss": 0.27031363917051926,
+  "validation_record_count": 3,
+  "checkpoint_record_count": 3,
+  "selected_checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+  "selected_checkpoint_loaded": true,
+  "artifact_paths": {
+    "debug_verification.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/debug_verification.json",
+    "training_configuration.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/training_configuration.json",
+    "training_history.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/training_history.json",
+    "validation_metrics_by_epoch.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/validation_metrics_by_epoch.json",
+    "checkpoint_records.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoint_records.json",
+    "selected_checkpoint.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/selected_checkpoint.json",
+    "trainer_state.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/trainer_state.json",
+    "phase_09_training_manifest.json": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/phase_09_training_manifest.json"
+  },
+  "trainer_created": true,
+  "training_performed": true,
+  "test_accessed": false,
+  "phase_10_started": false,
+  "selected_forward_sanity": {
+    "status": "PASS",
+    "source": "validation",
+    "samples": 2,
+    "logits_shape": [
+      2,
+      2
+    ],
+    "logits_finite": true,
+    "loss_finite": true,
+    "test_accessed": false
+  }
+}

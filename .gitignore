@@ -104,3 +104,4 @@ token
 runs/
 /total_practice/practice_1/runs/
 *.tfevents.*
+total_practice/practice_3/docs/result/phase_14_saved_model/model.safetensors

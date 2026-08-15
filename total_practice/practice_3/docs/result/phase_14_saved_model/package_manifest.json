@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "schema_version": 1,
+  "created_at_utc": "2026-08-14T03:44:21.195798+00:00",
+  "package_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_14_saved_model",
+  "source_checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+  "source_checkpoint_name": "checkpoint-1068",
+  "source_epoch": 2.0,
+  "source_step": 1068,
+  "source_weight_sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660",
+  "selection_record_sha256": "1ed11b3b832c765dd522d0b9363aa981930290e9d2d904b962cefc1ba0abb52a",
+  "package_weight_file": "model.safetensors",
+  "package_weight_sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660",
+  "model": {
+    "class": "DistilBertForSequenceClassification",
+    "model_type": "distilbert",
+    "num_labels": 2,
+    "id2label": {
+      "0": "NEGATIVE",
+      "1": "POSITIVE"
+    },
+    "label2id": {
+      "NEGATIVE": 0,
+      "POSITIVE": 1
+    }
+  },
+  "tokenizer": {
+    "class": "BertTokenizer",
+    "vocab_size": 30522,
+    "model_max_length": 512,
+    "special_tokens": {
+      "unk_token": "[UNK]",
+      "sep_token": "[SEP]",
+      "pad_token": "[PAD]",
+      "cls_token": "[CLS]",
+      "mask_token": "[MASK]"
+    },
+    "special_token_ids": {
+      "unk_token": 100,
+      "sep_token": 102,
+      "pad_token": 0,
+      "cls_token": 101,
+      "mask_token": 103
+    }
+  },
+  "preprocessing": {
+    "max_length": 80,
+    "truncation": true,
+    "per_example_padding": false,
+    "batch_padding": "DataCollatorWithPadding_dynamic"
+  },
+  "save_methods": [
+    "model.save_pretrained",
+    "tokenizer.save_pretrained"
+  ],
+  "python_version": "3.11.14",
+  "torch_version": "2.13.0",
+  "transformers_version": "5.14.1",
+  "package_files": {
+    "config.json": {
+      "relative_path": "config.json",
+      "bytes": 762,
+      "sha256": "2c9cd5b950a56f19713c5f24c82ab5c77d72b2399940465160d47067020b3cdf"
+    },
+    "model.safetensors": {
+      "relative_path": "model.safetensors",
+      "bytes": 267832560,
+      "sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660"
+    },
+    "tokenizer.json": {
+      "relative_path": "tokenizer.json",
+      "bytes": 711396,
+      "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+    },
+    "tokenizer_config.json": {
+      "relative_path": "tokenizer_config.json",
+      "bytes": 349,
+      "sha256": "04c4c3f8c445a1415ccbb7578053de0d66aeeb2f34b2bee6073e599cf39a0516"
+    }
+  },
+  "manifest_self_hash_excluded": true,
+  "training_performed": false,
+  "test_accessed": false,
+  "test_evaluated": false,
+  "test_evaluation_count": 1,
+  "checkpoint_selected_or_changed": false,
+  "phase_15_started": false
+}
