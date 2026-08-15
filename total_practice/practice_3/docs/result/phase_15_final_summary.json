@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "created_at_utc": "2026-08-14T07:52:53.774162+00:00",
+  "created_at_utc": "2026-08-15T09:18:52.379778+00:00",
   "practice": {
     "name": "Practice 3 — Hugging Face Transformers",
     "task": "English binary sentiment classification",
@@ -438,7 +438,7 @@
     "docs/result/2026-08-10_phase01-environment-log.json": {
       "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/2026-08-10_phase01-environment-log.json",
       "bytes": 1197,
-      "sha256": "84ecbcbb91540a5dc2b799cb8978c59264689b290926dc5ebbf995698dca38ac"
+      "sha256": "62936e0f7c41781369d1ef45c6db9288e80b0bcc301e982dcae89c4d3c499e50"
     },
     "docs/result/phase_04_dataset_summary.json": {
       "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_04_dataset_summary.json",
@@ -463,7 +463,7 @@
     "docs/result/phase_07_model_verification.json": {
       "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_07_model_verification.json",
       "bytes": 1528,
-      "sha256": "ae95b80ab10806457e6ecd7aac95c563bfb00a4617f2ad5daa97d25c3e6372f3"
+      "sha256": "10572d694242d444a880c9434d31daef260c9026cc53733225ac0e88f74efe89"
     },
     "docs/result/phase_08_metrics_training_configuration_verification.json": {
       "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_08_metrics_training_configuration_verification.json",

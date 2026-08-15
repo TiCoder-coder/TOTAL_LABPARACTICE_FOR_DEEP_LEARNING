@@ -60,7 +60,7 @@
   "logits_finite": true,
   "loss_present": true,
   "loss_finite": true,
-  "sanity_loss": 0.6816133856773376,
+  "sanity_loss": 0.6836702823638916,
   "model_in_eval_mode_during_sanity": true,
   "no_grad_forward": true,
   "backward_called": false,
