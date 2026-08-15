@@ -1,0 +1,19 @@
+digraph Practice3Pipeline {
+  graph [rankdir=LR, bgcolor="#FFFFFF", pad="0.25", nodesep="0.22", ranksep="0.38",
+         fontname="Helvetica", fontsize=17,
+         label="Practice 3 — Sentiment Classification Workflow", labelloc=t];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10,
+        color="#334155", fontcolor="#0F172A", penwidth=1.2, margin="0.14,0.09"];
+  edge [color="#475569", penwidth=1.3, arrowsize=0.7];
+
+  problem [label="Problem &\nEnvironment", fillcolor="#E2E8F0"];
+  explore [label="Pretrained Inference\n& Tokenizer", fillcolor="#DBEAFE"];
+  data [label="Dataset, EDA &\nPreprocessing", fillcolor="#D1FAE5"];
+  model [label="DistilBERT\nConstruction", fillcolor="#EDE9FE"];
+  train [label="Fine-tuning\nTrain + Validation", fillcolor="#DDD6FE"];
+  select [label="Best Checkpoint\nValidation only", fillcolor="#C4B5FD", penwidth=1.7];
+  test [label="Final Test &\nError Analysis", fillcolor="#FFEDD5"];
+  reuse [label="Inference &\nSave / Reload", fillcolor="#FED7AA"];
+
+  problem -> explore -> data -> model -> train -> select -> test -> reuse;
+}

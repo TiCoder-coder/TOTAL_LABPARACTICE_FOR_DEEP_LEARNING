@@ -1,0 +1,614 @@
+{
+  "status": "PASS",
+  "created_at_utc": "2026-08-14T07:52:53.774162+00:00",
+  "practice": {
+    "name": "Practice 3 — Hugging Face Transformers",
+    "task": "English binary sentiment classification",
+    "dataset": "cornell-movie-review-data/rotten_tomatoes",
+    "phase_range": "0–15",
+    "completed_phases": "0–14 results summarized by Phase 15"
+  },
+  "phase_status": {
+    "phase_00": "PASS",
+    "phase_01": "PASS",
+    "phase_02": "PASS",
+    "phase_03": "PASS",
+    "phase_04": "PASS",
+    "phase_05": "PASS",
+    "phase_06": "PASS",
+    "phase_07": "PASS",
+    "phase_08": "PASS",
+    "phase_09": "PASS",
+    "phase_10": "PASS",
+    "phase_11": "PASS",
+    "phase_12": "PASS",
+    "phase_13": "PASS",
+    "phase_14": "PASS"
+  },
+  "pipeline": [
+    {
+      "phase": "0–1",
+      "name": "Overview & Environment",
+      "processing": "Define the two-exercise workflow and reproducible runtime",
+      "verified_output": "Environment/package contract",
+      "status": "PASS"
+    },
+    {
+      "phase": "2",
+      "name": "Pretrained Inference",
+      "processing": "Run the already fine-tuned SST-2 sentiment model",
+      "verified_output": "Sentiment labels and confidence examples",
+      "status": "PASS"
+    },
+    {
+      "phase": "3",
+      "name": "Tokenization Investigation",
+      "processing": "Inspect tokens, IDs, masks and decode behavior",
+      "verified_output": "Verified tokenizer understanding",
+      "status": "PASS"
+    },
+    {
+      "phase": "4",
+      "name": "Dataset Loading",
+      "processing": "Load and verify Rotten Tomatoes fixed splits",
+      "verified_output": "Train/Validation/Test contract",
+      "status": "PASS"
+    },
+    {
+      "phase": "5",
+      "name": "EDA & Sanity Checks",
+      "processing": "Inspect text quality, labels, duplicates, overlaps and lengths",
+      "verified_output": "Evidence for maximum token length",
+      "status": "PASS"
+    },
+    {
+      "phase": "6",
+      "name": "Preprocessing",
+      "processing": "Tokenize all splits with truncation and dynamic padding",
+      "verified_output": "Verified model-ready inputs",
+      "status": "PASS"
+    },
+    {
+      "phase": "7",
+      "name": "Model Construction",
+      "processing": "Attach a two-label classification head to generic DistilBERT",
+      "verified_output": "Forward-pass-verified baseline model",
+      "status": "PASS"
+    },
+    {
+      "phase": "8",
+      "name": "Metrics & Configuration",
+      "processing": "Define metrics, training arguments and checkpoint policy",
+      "verified_output": "Locked baseline configuration",
+      "status": "PASS"
+    },
+    {
+      "phase": "9",
+      "name": "Fine-Tuning",
+      "processing": "Train for three epochs using Train and Validation only",
+      "verified_output": "History and three checkpoints",
+      "status": "PASS"
+    },
+    {
+      "phase": "10",
+      "name": "Learning Curves",
+      "processing": "Analyze artifact-only training/Validation trajectories",
+      "verified_output": "Selected epoch and cautious generalization evidence",
+      "status": "PASS"
+    },
+    {
+      "phase": "11",
+      "name": "Validation & Final Test",
+      "processing": "Verify checkpoint reload on Validation, then evaluate Test once",
+      "verified_output": "Frozen final metrics and predictions",
+      "status": "PASS"
+    },
+    {
+      "phase": "12",
+      "name": "Error Analysis",
+      "processing": "Derive confusion matrix and deterministic errors from frozen predictions",
+      "verified_output": "Class/error evidence without reevaluation",
+      "status": "PASS"
+    },
+    {
+      "phase": "13",
+      "name": "New-Sentence Inference",
+      "processing": "Run guarded inference on four custom sentences",
+      "verified_output": "Verified custom prediction artifact",
+      "status": "PASS"
+    },
+    {
+      "phase": "14",
+      "name": "Save & Reload",
+      "processing": "Save a reusable local package and prove exact equivalence",
+      "verified_output": "Integrity-verified local model/tokenizer package",
+      "status": "PASS"
+    }
+  ],
+  "environment_and_reproducibility": {
+    "python_version": "3.11.14",
+    "device_recorded_by_latest_run": "mps",
+    "seed": 42,
+    "package_versions": {
+      "transformers": "5.14.1",
+      "datasets": "5.0.1",
+      "evaluate": "0.4.6",
+      "accelerate": "1.14.0",
+      "torch": "2.13.0",
+      "numpy": "2.4.6",
+      "matplotlib": "3.11.1",
+      "pandas": "3.0.5",
+      "scikit-learn": "1.9.0"
+    }
+  },
+  "dataset_contract": {
+    "identifier": "cornell-movie-review-data/rotten_tomatoes",
+    "split_counts": {
+      "train": 8530,
+      "validation": 1066,
+      "test": 1066
+    },
+    "label_sets": {
+      "train": [
+        0,
+        1
+      ],
+      "validation": [
+        0,
+        1
+      ],
+      "test": [
+        0,
+        1
+      ]
+    },
+    "label_mapping": {
+      "0": "NEGATIVE",
+      "1": "POSITIVE"
+    },
+    "balanced": true,
+    "null_empty_whitespace_found": false,
+    "duplicate_or_cross_split_overlap_found": false
+  },
+  "preprocessing_contract": {
+    "tokenizer": "distilbert/distilbert-base-uncased",
+    "max_length": 80,
+    "truncation": true,
+    "dynamic_padding": "DataCollatorWithPadding",
+    "token_length_evidence": {
+      "p95": 47.0,
+      "p99": 56.0,
+      "max": 78.0
+    },
+    "justification": "P95=47, P99=56, observed max=78; selected 80 is the smallest convenient rounded value above the observed maximum.",
+    "verification_pass": true
+  },
+  "final_model": {
+    "architecture": "DistilBERT for sequence classification",
+    "model_class": "DistilBertForSequenceClassification",
+    "num_labels": 2,
+    "label_mapping": {
+      "0": "NEGATIVE",
+      "1": "POSITIVE"
+    },
+    "selected_checkpoint": "checkpoint-1068",
+    "selected_checkpoint_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+    "epoch": 2.0,
+    "step": 1068,
+    "selection_reason": "minimum eval_loss",
+    "tie_breaker": "maximum eval_f1",
+    "remaining_tie": "earlier epoch/checkpoint",
+    "selected_validation_loss": 0.39046531915664673,
+    "selected_validation_f1": 0.8579387186629527,
+    "test_used_for_selection": false,
+    "authoritative_weight_sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660"
+  },
+  "training_configuration": {
+    "epochs": 3.0,
+    "train_samples": 8530,
+    "validation_samples": 1066,
+    "seed": 42,
+    "effective": {
+      "output_dir": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints",
+      "num_train_epochs": 3.0,
+      "per_device_train_batch_size": 16,
+      "per_device_eval_batch_size": 32,
+      "learning_rate": 2e-05,
+      "weight_decay": 0.01,
+      "seed": 42,
+      "data_seed": 42,
+      "eval_strategy": "epoch",
+      "logging_strategy": "epoch",
+      "save_strategy": "epoch",
+      "load_best_model_at_end": true,
+      "metric_for_best_model": "eval_loss",
+      "greater_is_better": false,
+      "report_to": [],
+      "train_samples": 8530,
+      "validation_samples": 1066,
+      "model_fresh_after_debug": true,
+      "test_accessed": false
+    }
+  },
+  "training_and_generalization": {
+    "epoch_records": [
+      {
+        "epoch": 1.0,
+        "step": 534,
+        "train_loss": 0.42136791672152973,
+        "validation_loss": 0.41523078083992004,
+        "validation_accuracy": 0.8189493433395872,
+        "validation_f1": 0.837951301427372
+      },
+      {
+        "epoch": 2.0,
+        "step": 1068,
+        "train_loss": 0.2416094947843516,
+        "validation_loss": 0.39046531915664673,
+        "validation_accuracy": 0.8564727954971857,
+        "validation_f1": 0.8579387186629527
+      },
+      {
+        "epoch": 3.0,
+        "step": 1602,
+        "train_loss": 0.1479635060056765,
+        "validation_loss": 0.4926925003528595,
+        "validation_accuracy": 0.8545966228893058,
+        "validation_f1": 0.8576675849403123
+      }
+    ],
+    "epoch_deltas": {
+      "epoch_1_to_2": {
+        "train_loss": -0.17975842193717814,
+        "validation_loss": -0.024765461683273315,
+        "validation_accuracy": 0.03752345215759845,
+        "validation_f1": 0.01998741723558073
+      },
+      "epoch_2_to_3": {
+        "train_loss": -0.09364598877867508,
+        "validation_loss": 0.10222718119621277,
+        "validation_accuracy": -0.0018761726078798668,
+        "validation_f1": -0.00027113372264042646
+      }
+    },
+    "selected_checkpoint": {
+      "epoch": 2.0,
+      "step": 1068,
+      "checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+      "eval_loss": 0.39046531915664673,
+      "eval_f1": 0.8579387186629527
+    },
+    "interpretation": "Epoch 1 to 2 improves both fit and Validation behavior. From epoch 2 to 3, Train loss continues to decrease while Validation loss increases and Validation Accuracy/F1 do not improve. This indicates generalization begins to worsen after epoch 2 and is consistent with the onset of overfitting. With only three epochs and one run, this is limited evidence rather than a definitive broad conclusion.",
+    "evidence_limit": "Three epochs and one seeded baseline run are limited evidence; no broad conclusion is claimed.",
+    "figures": {
+      "loss_curves": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_10_loss_curves.png",
+      "validation_metrics": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_10_validation_metrics.png"
+    }
+  },
+  "validation_metrics": {
+    "loss": 0.39046531915664673,
+    "accuracy": 0.8564727954971857,
+    "precision": 0.8492647058823529,
+    "recall": 0.8667917448405253,
+    "f1": 0.8579387186629527
+  },
+  "final_test_metrics": {
+    "loss": 0.44851231575012207,
+    "accuracy": 0.8452157598499062,
+    "precision": 0.8458646616541353,
+    "recall": 0.8442776735459663,
+    "f1": 0.8450704225352113
+  },
+  "final_test_policy": {
+    "validation_verified_before_test": true,
+    "test_used_for_selection": false,
+    "test_evaluation_count": 1,
+    "checkpoint_changed_after_test": false
+  },
+  "confusion_matrix": {
+    "counts": {
+      "TN": 451,
+      "FP": 82,
+      "FN": 83,
+      "TP": 450
+    },
+    "total": 1066,
+    "correct": 901,
+    "incorrect": 165,
+    "class_level": [
+      {
+        "actual_class": "NEGATIVE",
+        "total": 533,
+        "correct": 451,
+        "errors": 82,
+        "conditional_accuracy": 0.8461538461538461,
+        "error_rate": 0.15384615384615385,
+        "error_direction": "NEGATIVE_TO_POSITIVE"
+      },
+      {
+        "actual_class": "POSITIVE",
+        "total": 533,
+        "correct": 450,
+        "errors": 83,
+        "conditional_accuracy": 0.8442776735459663,
+        "error_rate": 0.15572232645403378,
+        "error_direction": "POSITIVE_TO_NEGATIVE"
+      }
+    ],
+    "figure": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_confusion_matrix.png",
+    "metrics_match_phase_11": true
+  },
+  "error_analysis": {
+    "total_errors": 165,
+    "direction_counts": {
+      "NEGATIVE_TO_POSITIVE": 82,
+      "POSITIVE_TO_NEGATIVE": 83
+    },
+    "representative_count": 10,
+    "interpretation": "The frozen artifact contains 165 errors: 82 NEGATIVE→POSITIVE and 83 POSITIVE→NEGATIVE. The highest-confidence error is 0.9915. Length, confidence and lexical flags below are descriptive co-occurrences only; they do not establish that a text feature caused an error.",
+    "causal_claim_made": false
+  },
+  "custom_inference": {
+    "status": "PASS",
+    "input_provenance": "custom_authored_not_test",
+    "input_count": 4,
+    "results": [
+      {
+        "input_index": 0,
+        "text": "The performances were warm, convincing, and deeply moving.",
+        "predicted_label": "POSITIVE",
+        "confidence": 0.9937013387680054
+      },
+      {
+        "input_index": 1,
+        "text": "The story was tedious, predictable, and painfully slow.",
+        "predicted_label": "NEGATIVE",
+        "confidence": 0.9876157641410828
+      },
+      {
+        "input_index": 2,
+        "text": "It is not a bad movie at all.",
+        "predicted_label": "POSITIVE",
+        "confidence": 0.9251915216445923
+      },
+      {
+        "input_index": 3,
+        "text": "The acting is excellent, but the plot is disappointingly shallow.",
+        "predicted_label": "NEGATIVE",
+        "confidence": 0.9770970940589905
+      }
+    ],
+    "verification_status": "PASS",
+    "test_accessed": false
+  },
+  "saved_package": {
+    "status": "PASS",
+    "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_14_saved_model",
+    "files": {
+      "config.json": {
+        "relative_path": "config.json",
+        "bytes": 762,
+        "sha256": "2c9cd5b950a56f19713c5f24c82ab5c77d72b2399940465160d47067020b3cdf"
+      },
+      "model.safetensors": {
+        "relative_path": "model.safetensors",
+        "bytes": 267832560,
+        "sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660"
+      },
+      "tokenizer.json": {
+        "relative_path": "tokenizer.json",
+        "bytes": 711396,
+        "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+      },
+      "tokenizer_config.json": {
+        "relative_path": "tokenizer_config.json",
+        "bytes": 349,
+        "sha256": "04c4c3f8c445a1415ccbb7578053de0d66aeeb2f34b2bee6073e599cf39a0516"
+      }
+    },
+    "state_dict_exact_equal": true,
+    "state_tensor_count": 104,
+    "logits_max_abs_diff": 0.0,
+    "probability_max_abs_diff": 0.0,
+    "confidence_max_abs_diff": 0.0,
+    "package_weight_sha256": "22fcd24d3db7bfebc8ea1dd4f6c0665be5176e34de005e168a747ee83acfa660",
+    "package_resaved_by_phase_15": false
+  },
+  "limitations": [
+    "The baseline was trained for only three epochs.",
+    "Fine-tuning evidence comes from one DistilBERT baseline configuration and one full seeded run.",
+    "No broad hyperparameter search or multi-seed robustness study was performed.",
+    "The implemented task is English binary sentiment classification only.",
+    "Evaluation evidence is tied to the Rotten Tomatoes dataset and its fixed splits.",
+    "Mixed sentiment, negation and high-confidence errors remain observable challenges; descriptive flags do not establish causes.",
+    "The project reports aggregate evaluation and artifact-based error analysis, not production monitoring.",
+    "A local package was verified, but no production API, serving infrastructure, load/latency test, drift monitoring, security review or deployment was implemented."
+  ],
+  "source_artifacts": {
+    "docs/plan-doc/plan_overview/plan.md": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/plan-doc/plan_overview/plan.md",
+      "bytes": 31742,
+      "sha256": "3237bdaeb6339f62d0cb91a977263b78d98c3991de81c2a03d18e2c60450c1ee"
+    },
+    "docs/save_process_proceduce_own_phase_refactor&fix/phase_00_03_priority_1_fix_log_2026-08-12.md": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/save_process_proceduce_own_phase_refactor&fix/phase_00_03_priority_1_fix_log_2026-08-12.md",
+      "bytes": 1698,
+      "sha256": "658783a11f238474f17938c3adc7c8331b4c934e598741a0d8a947d17587eab8"
+    },
+    "docs/result/2026-08-10_phase01-environment-log.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/2026-08-10_phase01-environment-log.json",
+      "bytes": 1197,
+      "sha256": "84ecbcbb91540a5dc2b799cb8978c59264689b290926dc5ebbf995698dca38ac"
+    },
+    "docs/result/phase_04_dataset_summary.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_04_dataset_summary.json",
+      "bytes": 1612,
+      "sha256": "eacc2fdf5bed74e0e931a0429a168d7347ff36a536a08643ea5706d2b98868d5"
+    },
+    "docs/result/phase_05_eda_summary.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_05_eda_summary.json",
+      "bytes": 9821,
+      "sha256": "23639b0cc291de6ccf3bc4630b765005926aeeb2ebb7281b4ec9d44146739759"
+    },
+    "docs/result/phase_05_token_length_statistics.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_05_token_length_statistics.json",
+      "bytes": 2379,
+      "sha256": "82d75b35b857d7a4603b2309d8c7634032ab1dfbdfc5d056f15e38f7ba264762"
+    },
+    "docs/result/phase_06_preprocessing_verification.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_06_preprocessing_verification.json",
+      "bytes": 3815,
+      "sha256": "20549bb524e911aacc800bc3ac32100fb403899d3255244b8739fa1f6f36a80a"
+    },
+    "docs/result/phase_07_model_verification.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_07_model_verification.json",
+      "bytes": 1528,
+      "sha256": "ae95b80ab10806457e6ecd7aac95c563bfb00a4617f2ad5daa97d25c3e6372f3"
+    },
+    "docs/result/phase_08_metrics_training_configuration_verification.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_08_metrics_training_configuration_verification.json",
+      "bytes": 2973,
+      "sha256": "fe3157853194b1cebdd7624839fefe11ab8b2e2863d553bd85b652a5ec3eeb60"
+    },
+    "docs/result/phase_09_training/phase_09_training_manifest.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/phase_09_training_manifest.json",
+      "bytes": 2602,
+      "sha256": "b7200d78c6034fb6e9fca3399db4e9836d76f1948ebafe0c11a3ac6b8d5b20ff"
+    },
+    "docs/result/phase_09_training/training_configuration.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/training_configuration.json",
+      "bytes": 663,
+      "sha256": "9f861c8c4db3023d3a6e41269ded80f904e5fa99953d9ce626180d4cc8d5354f"
+    },
+    "docs/result/phase_09_training/training_history.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/training_history.json",
+      "bytes": 1729,
+      "sha256": "804a83e6e7055daa0e633fa305bc5df64984af7c1fd1e43f9284007af14bd33d"
+    },
+    "docs/result/phase_09_training/validation_metrics_by_epoch.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/validation_metrics_by_epoch.json",
+      "bytes": 1030,
+      "sha256": "e0c7bc3545d180bb19ec465b1e416eb5e537c472a08b22076e20901c71e24e4e"
+    },
+    "docs/result/phase_09_training/checkpoint_records.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoint_records.json",
+      "bytes": 859,
+      "sha256": "b62b23b1baa0d9abd776bba3b52197fdd01ab9197f9714e1f67c07aa50fdec04"
+    },
+    "docs/result/phase_09_training/selected_checkpoint.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/selected_checkpoint.json",
+      "bytes": 944,
+      "sha256": "11cb297d9905cd0692470f5f710d409bfd62d9ff41654e75700757fb0e383a5d"
+    },
+    "docs/result/phase_10_learning_curve_analysis.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_10_learning_curve_analysis.json",
+      "bytes": 4568,
+      "sha256": "91ab20a922d1c5ed488905919f43bfdfe74fc706d7e1e2633f5dcda1c1583405"
+    },
+    "docs/result/phase_10_loss_curves.png": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_10_loss_curves.png",
+      "bytes": 76561,
+      "sha256": "5948785c16e7969e1ada54c426ddd60c29d6c2e1f455e68292d37f9ea9a3f3f7"
+    },
+    "docs/result/phase_10_validation_metrics.png": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_10_validation_metrics.png",
+      "bytes": 54650,
+      "sha256": "05093cd8048d071947f39adf805b3b6c4d56fcc35908251cce252ab37e890117"
+    },
+    "docs/result/phase_11_evaluation/validation_evaluation.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/validation_evaluation.json",
+      "bytes": 1950,
+      "sha256": "bf15c352db7141c0c073011c2b5ae36707c18d0acb633d217009f5d4f4f1a62d"
+    },
+    "docs/result/phase_11_evaluation/test_evaluation.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/test_evaluation.json",
+      "bytes": 1028,
+      "sha256": "425f3ae285e64c742d5db11aeecffaaa4cc336bc2f91a7a9207fc392a7169dee"
+    },
+    "docs/result/phase_11_evaluation/phase_11_evaluation_manifest.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_evaluation/phase_11_evaluation_manifest.json",
+      "bytes": 2602,
+      "sha256": "baff7faa12bebfe9406938c011eaf590e5eabdd4fe9aa75feff41539adb1daf5"
+    },
+    "docs/result/phase_12_confusion_matrix.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_confusion_matrix.json",
+      "bytes": 4734,
+      "sha256": "8c2a44c330634c970eccdab941fd301d7524fcfa489c23fe385c5103d4f23c1c"
+    },
+    "docs/result/phase_12_confusion_matrix.png": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_confusion_matrix.png",
+      "bytes": 73866,
+      "sha256": "a9d548f150e32c6cdf032654aefd6f8c982b4a5e18bfcc62f1a3a1f7dd72c6ea"
+    },
+    "docs/result/phase_12_error_analysis.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_error_analysis.json",
+      "bytes": 9465,
+      "sha256": "317ecee4c29a094e5e763a56a4b206843abfe02d2a4ac5408cce687aec6621a8"
+    },
+    "docs/result/phase_12_error_samples.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_error_samples.json",
+      "bytes": 149156,
+      "sha256": "6ad6ee0a10bd8f33075bf3e70718be8e58dd9763a870cab8bd97d2bc0b9b948f"
+    },
+    "docs/result/phase_13_inference_examples.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_13_inference_examples.json",
+      "bytes": 5550,
+      "sha256": "a44e72bf38bec6091e369e9e5ef672df74f418d692f8135f0872f4c5e016f847"
+    },
+    "docs/result/phase_14_save_reload_verification.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_14_save_reload_verification.json",
+      "bytes": 14483,
+      "sha256": "ac9f520c893d05330b3af7077efd3526c97c46cecd7cae4f2ffcd72e1fafb07d"
+    },
+    "docs/result/phase_14_saved_model/package_manifest.json": {
+      "path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_14_saved_model/package_manifest.json",
+      "bytes": 2849,
+      "sha256": "49c12226b1bb96589f9805748799612b0e64a85dbdf1db15272a19a543a03615"
+    }
+  },
+  "verification_checks": {
+    "all_phases_00_14_pass": true,
+    "environment_packages_no_error": true,
+    "dataset_counts_8530_1066_1066": true,
+    "all_split_label_sets_0_1": true,
+    "eda_max_length_80": true,
+    "preprocessing_contract_locked": true,
+    "phase_07_model_contract": true,
+    "phase_08_metrics_configuration_pass": true,
+    "phase_09_training_contract": true,
+    "three_epoch_records": true,
+    "selected_checkpoint_identity_consistent": true,
+    "selected_by_minimum_validation_loss": true,
+    "validation_reload_matches_epoch_two": true,
+    "validation_metrics_valid": true,
+    "test_metrics_valid": true,
+    "one_time_test_policy": true,
+    "confusion_total_1066": true,
+    "confusion_metrics_match_phase_11": true,
+    "error_directions_match_fp_fn": true,
+    "phase_13_artifact_only_evidence": true,
+    "phase_14_exact_equivalence": true,
+    "authoritative_source_hash_unchanged": true,
+    "phase_14_package_hashes_unchanged": true,
+    "test_count_remains_one_through_phase_14": true,
+    "package_config.json_integrity": true,
+    "package_model.safetensors_integrity": true,
+    "package_tokenizer.json_integrity": true,
+    "package_tokenizer_config.json_integrity": true,
+    "package_has_no_training_state": true
+  },
+  "artifact_only_summary": true,
+  "model_loaded": false,
+  "dataset_loaded": false,
+  "training_performed": false,
+  "inference_performed": false,
+  "validation_evaluated": false,
+  "test_accessed": false,
+  "test_evaluated": false,
+  "test_evaluation_count": 1,
+  "checkpoint_changed": false,
+  "package_resaved": false,
+  "production_ready_claimed": false,
+  "sota_claimed": false,
+  "final_conclusion": "Phase 0–14 evidence is internally consistent and PASS; Practice 3 implementation is complete without new model execution in Phase 15."
+}

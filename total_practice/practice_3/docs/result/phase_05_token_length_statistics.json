@@ -1,28 +1,82 @@
 {
-  "train_length_statistics": {
-    "character": {
-      "min": 4.0,
-      "max": 267.0,
-      "mean": 113.97162954279015,
-      "median": 111.0,
-      "p95": 204.0,
-      "p99": 241.0
+  "all_split_length_statistics": {
+    "train": {
+      "character": {
+        "min": 4.0,
+        "max": 267.0,
+        "mean": 113.97162954279015,
+        "median": 111.0,
+        "p95": 204.0,
+        "p99": 241.0
+      },
+      "word": {
+        "min": 1.0,
+        "max": 59.0,
+        "mean": 20.99284876905041,
+        "median": 20.0,
+        "p95": 37.0,
+        "p99": 45.0
+      },
+      "token": {
+        "min": 3.0,
+        "max": 78.0,
+        "mean": 27.368347010550995,
+        "median": 27.0,
+        "p95": 47.0,
+        "p99": 56.0
+      }
     },
-    "word": {
-      "min": 1.0,
-      "max": 59.0,
-      "mean": 20.99284876905041,
-      "median": 20.0,
-      "p95": 37.0,
-      "p99": 45.0
+    "validation": {
+      "character": {
+        "min": 6.0,
+        "max": 263.0,
+        "mean": 114.29549718574108,
+        "median": 112.0,
+        "p95": 211.0,
+        "p99": 243.3499999999999
+      },
+      "word": {
+        "min": 1.0,
+        "max": 54.0,
+        "mean": 20.99718574108818,
+        "median": 21.0,
+        "p95": 38.0,
+        "p99": 46.0
+      },
+      "token": {
+        "min": 4.0,
+        "max": 72.0,
+        "mean": 27.322701688555348,
+        "median": 27.0,
+        "p95": 49.0,
+        "p99": 55.0
+      }
     },
-    "token": {
-      "min": 3.0,
-      "max": 78.0,
-      "mean": 27.368347010550995,
-      "median": 27.0,
-      "p95": 47.0,
-      "p99": 56.0
+    "test": {
+      "character": {
+        "min": 14.0,
+        "max": 261.0,
+        "mean": 115.5234521575985,
+        "median": 113.0,
+        "p95": 206.0,
+        "p99": 245.0
+      },
+      "word": {
+        "min": 3.0,
+        "max": 52.0,
+        "mean": 21.22045028142589,
+        "median": 20.0,
+        "p95": 38.0,
+        "p99": 45.0
+      },
+      "token": {
+        "min": 5.0,
+        "max": 67.0,
+        "mean": 27.662288930581614,
+        "median": 27.0,
+        "p95": 48.0,
+        "p99": 57.0
+      }
     }
   },
   "token_length_recommendation": {
@@ -31,5 +85,25 @@
     "max": 78.0
   },
   "selected_max_length": 80,
+  "truncation_impact": {
+    "train": {
+      "samples": 8530,
+      "samples_over_max_length": 0,
+      "percentage_over_max_length": 0.0,
+      "observed_max": 78
+    },
+    "validation": {
+      "samples": 1066,
+      "samples_over_max_length": 0,
+      "percentage_over_max_length": 0.0,
+      "observed_max": 72
+    },
+    "test": {
+      "samples": 1066,
+      "samples_over_max_length": 0,
+      "percentage_over_max_length": 0.0,
+      "observed_max": 67
+    }
+  },
   "justification": "P95=47, P99=56, observed max=78; selected 80 is the smallest convenient rounded value above the observed maximum."
 }

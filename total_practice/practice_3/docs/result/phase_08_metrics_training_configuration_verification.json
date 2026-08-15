@@ -1,0 +1,127 @@
+{
+  "status": "PASS",
+  "transformers_version": "5.14.1",
+  "metrics_verification": {
+    "metric_names": [
+      "accuracy",
+      "precision",
+      "recall",
+      "f1"
+    ],
+    "positive_class": 1,
+    "zero_division": 0,
+    "fixture_labels": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "fixture_predictions": [
+      0,
+      1,
+      1,
+      0
+    ],
+    "expected_metrics": {
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5
+    },
+    "executed_metrics": {
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5
+    },
+    "known_answer_pass": true,
+    "finite_and_in_range": true,
+    "zero_division_fixture_metrics": {
+      "accuracy": 1.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "zero_division_pass": true
+  },
+  "effective_training_arguments": {
+    "output_dir": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints",
+    "num_train_epochs": 3.0,
+    "per_device_train_batch_size": 16,
+    "per_device_eval_batch_size": 32,
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "seed": 42,
+    "data_seed": 42,
+    "eval_strategy": "epoch",
+    "logging_strategy": "epoch",
+    "save_strategy": "epoch",
+    "load_best_model_at_end": true,
+    "metric_for_best_model": "eval_loss",
+    "greater_is_better": false,
+    "report_to": []
+  },
+  "training_arguments_verification_pass": true,
+  "checkpoint_policy": {
+    "primary": "minimum validation loss",
+    "tie_breaker": "maximum validation F1",
+    "remaining_tie": "earlier epoch/checkpoint",
+    "records_source": "synthetic validation records",
+    "tie_break_records": [
+      {
+        "checkpoint": "checkpoint-1",
+        "epoch": 1,
+        "eval_loss": 0.5,
+        "eval_f1": 0.7
+      },
+      {
+        "checkpoint": "checkpoint-2",
+        "epoch": 2,
+        "eval_loss": 0.4,
+        "eval_f1": 0.75
+      },
+      {
+        "checkpoint": "checkpoint-3",
+        "epoch": 3,
+        "eval_loss": 0.4,
+        "eval_f1": 0.82
+      }
+    ],
+    "tie_break_winner": {
+      "checkpoint": "checkpoint-3",
+      "epoch": 3,
+      "eval_loss": 0.4,
+      "eval_f1": 0.82
+    },
+    "exact_tie_records": [
+      {
+        "checkpoint": "checkpoint-2",
+        "epoch": 2,
+        "eval_loss": 0.4,
+        "eval_f1": 0.82
+      },
+      {
+        "checkpoint": "checkpoint-3",
+        "epoch": 3,
+        "eval_loss": 0.4,
+        "eval_f1": 0.82
+      }
+    ],
+    "exact_tie_winner": {
+      "checkpoint": "checkpoint-2",
+      "epoch": 2,
+      "eval_loss": 0.4,
+      "eval_f1": 0.82
+    },
+    "validation_only": true,
+    "test_fields_used": false,
+    "verification_pass": true
+  },
+  "trainer_created": false,
+  "training_performed": false,
+  "backward_called": false,
+  "optimizer_step_performed": false,
+  "scheduler_step_performed": false,
+  "test_accessed": false,
+  "checkpoint_saved": false
+}
