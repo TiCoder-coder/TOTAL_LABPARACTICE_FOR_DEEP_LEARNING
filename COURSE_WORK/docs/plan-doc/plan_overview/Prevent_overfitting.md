@@ -1923,15 +1923,20 @@ mà là:
 \[
 oxed{
 Data\ Correctness
-ightarrow
+
+ightarrow
 Leakage	ext{-}Free\ Evaluation
-ightarrow
+
+ightarrow
 Capacity\ Control
-ightarrow
+
+ightarrow
 Regularization
-ightarrow
+
+ightarrow
 Early\ Stopping
-ightarrow
+
+ightarrow
 Temporal\ Robustness
 }
 \]

@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "authoritative_checkpoint": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_09_training/checkpoints/checkpoint-1068",
+  "test_evaluation_count": 1,
+  "test_used_for_selection": false,
+  "training_performed": false,
+  "test_evaluated": false,
+  "package_resaved": false,
+  "validation_test_gaps": {
+    "accuracy_gap_percentage_points": 1.1257035647279534,
+    "precision_gap_percentage_points": 0.34000442282176024,
+    "recall_gap_percentage_points": 2.251407129455907,
+    "f1_gap_percentage_points": 1.286829612774143
+  },
+  "save_reload_status": "PASS",
+  "figures": {
+    "validation_vs_test": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_11_validation_vs_test.png",
+    "fp_vs_fn": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_fp_vs_fn.png",
+    "confidence_correct_vs_wrong": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_12_confidence_correct_vs_wrong.png",
+    "inference_probabilities": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_13_inference_probabilities.png",
+    "final_test_metrics": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/total_practice/practice_3/docs/result/phase_15_final_test_metrics.png"
+  }
+}
