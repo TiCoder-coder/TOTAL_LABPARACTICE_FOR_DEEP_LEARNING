@@ -5,7 +5,7 @@
 ```text
 Document ID: COURSE-WORK-ARCHITECTURE-v1
 Repository scope: COURSE_WORK
-Architecture style: Source-owned processing with orchestration-only notebook
+Architecture style: Source-owned processing with Human-approved direct Phase 5 EDA exception
 Scientific scope: Multivariate time-series regression
 Current implementation scope: Phase 0 through Phase 5
 Status: ACTIVE_HUMAN_APPROVED
@@ -30,7 +30,7 @@ Kiến trúc phải bảo đảm:
 
 ```text
 Một nơi sở hữu duy nhất cho mỗi loại logic.
-Notebook không phải source of truth cho xử lý dữ liệu.
+Notebook không phải source of truth cho canonical data processing ngoài direct exploratory Phase 5 exception.
 Mọi Phase có input, output và sign-off truy vết được.
 Raw data bất biến.
 Không có leakage giữa Train, Validation và Test.
@@ -43,7 +43,7 @@ Code, artifact và report có trách nhiệm tách biệt.
 ## 3. Những điều kiến trúc không cho phép
 
 ```text
-Đặt processing logic trong notebook.
+Đặt processing logic trong notebook ngoài direct exploratory Phase 5 exception đã được Human duyệt.
 Duplicate cùng một logic ở nhiều module.
 Ghi đè raw data.
 Tạo file hoặc thư mục không có owner.
@@ -93,6 +93,7 @@ COURSE_WORK/notebook_course_work/practice_3.ipynb
 COURSE_WORK/
 ├── README.md
 ├── requirements.txt
+├── pyproject.toml
 ├── working_rule.md
 ├── configs/
 │   └── base/
@@ -204,11 +205,41 @@ Notebook output không thay thế automated tests.
 
 Lưu presentation và orchestration notebook.
 
-Notebook không sở hữu scientific implementation.
+Notebook không sở hữu canonical scientific implementation.
+
+Ngoại lệ được Human duyệt cho Phase 5:
+
+```text
+CourseWork.ipynb được chứa direct descriptive EDA calculation và plotting.
+Direct EDA phải dùng validated Phase 4 view.
+Direct EDA không được fetch dataset hoặc ghi artifact.
+Direct EDA không được thay đổi raw data hoặc signed outputs.
+DataFrame smoothing chỉ được tồn tại trên deep copy để minh họa.
+Smoothed demonstration không được dùng bởi Phase 6 hoặc modeling.
+Ngoại lệ không áp dụng cho split, scaling, windowing, training hoặc evaluation.
+```
 
 ### 6.7. `docs`
 
 Lưu rules, issue synthesis, pre-process plans, Phase details, execution records và report đã được xác minh.
+
+### 6.8. `pyproject.toml`
+
+Sở hữu cấu hình packaging của canonical Python source root:
+
+```text
+COURSE_WORK/src/course_work
+```
+
+Quy tắc:
+
+```text
+Notebook và test import package qua environment đã cài project.
+Không chèn sys.path hoặc PYTHONPATH bootstrap vào notebook.
+Editable install không thay đổi scientific dependency contract.
+Không khai báo dependency trùng với requirements.txt.
+Không package namespace bảo lưu chưa có __init__.py.
+```
 
 ## 7. Source package ownership
 
@@ -432,9 +463,9 @@ Nếu hai module cần import lẫn nhau, phải dừng và sửa ownership qua 
 | 2 | `data/acquisition.py` | `utils/artifacts.py` | Gọi acquisition verification và hiển thị provenance |
 | 3 | `data/schema.py` | `utils/artifacts.py` | Gọi schema audit và hiển thị summary |
 | 4 | `data/temporal.py` | `utils/artifacts.py` | Gọi temporal audit và hiển thị summary |
-| 5 | `data/eda.py` | `reporting/eda.py`, `utils/artifacts.py` | Gọi EDA workflow và hiển thị outputs |
+| 5 | `data/eda.py` | `reporting/eda.py`, `utils/artifacts.py`, Human-approved direct notebook EDA | Gọi EDA workflow, thực hiện descriptive supplement và hiển thị outputs |
 
-Không Phase nào được triển khai trong notebook cell.
+Không Phase nào ngoài direct descriptive Phase 5 exception được triển khai trong notebook cell.
 
 ## 10. Data lifecycle
 
@@ -643,6 +674,7 @@ Tạo EDA-only temporal columns trong df_eda.
 Visualize temporal pattern.
 Tạo descriptive correlation.
 Tạo hypothesis cho Phase sau.
+Thực hiện direct descriptive EDA trong CourseWork.ipynb theo plan CW-PHASE-5-EDA-DIRECT-001.
 ```
 
 Phase 5 không được:
@@ -659,6 +691,8 @@ Tạo final regime từ full dataset.
 Tune bằng Test.
 Kết luận quan hệ nhân quả từ correlation.
 ```
+
+Direct notebook smoothing demonstration không phải canonical Phase 5 processing. Nó chỉ được chạy trên deep copy, không được ghi file và không được handoff sang Phase sau.
 
 Lag và rolling calculation phải continuity-segment-aware khi temporal audit phát hiện gap.
 
@@ -877,6 +911,8 @@ Thêm Phase mới.
 ```
 
 Không sửa architecture rule trong im lặng để hợp thức hóa code đã viết sai.
+
+Human đã duyệt direct Phase 5 EDA exception qua yêu cầu dẫn đến plan `CW-PHASE-5-EDA-DIRECT-001`. Mọi mở rộng ngoại lệ sang Phase khác vẫn phải quay lại change-control gate.
 
 ## 25. Transition state
 

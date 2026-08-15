@@ -2080,6 +2080,20 @@ không duplicate logic.
 
 # 78. Notebook structure Phase 5
 
+## Human-approved direct notebook EDA amendment
+
+Theo plan `CW-PHASE-5-EDA-DIRECT-001`, `CourseWork.ipynb` được phép chứa direct descriptive EDA để trình bày đầy đủ reference `EDA.ipynb`.
+
+Ngoại lệ này yêu cầu:
+
+```text
+Dùng validated Phase 4 view thay vì fetch lại UCI.
+Không ghi table, figure hoặc DataFrame từ direct cells.
+Không thay đổi raw data hoặc signed EDA-v1 artifacts.
+Không dùng notebook-smoothed copy cho Phase 6 hoặc modeling.
+Không mở rộng ngoại lệ sang split, scaling, windowing hoặc training.
+```
+
 Khuyến nghị:
 
 ```text

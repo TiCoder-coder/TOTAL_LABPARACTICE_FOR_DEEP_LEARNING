@@ -44,6 +44,26 @@ COMPUTE_ENVIRONMENT_VARIABLES = (
     "CUBLAS_WORKSPACE_CONFIG",
     "PYTORCH_ENABLE_MPS_FALLBACK",
 )
+STABLE_ENVIRONMENT_FIELDS = (
+    "environment_id",
+    "python_version",
+    "python_executable",
+    "pip_version",
+    "package_versions",
+    "platform",
+    "platform_release",
+    "architecture",
+    "default_dtype",
+    "development_seed",
+    "deterministic_mode",
+    "compute_environment_variables",
+    "mps_fallback_enabled",
+)
+STABLE_KERNEL_FIELDS = (
+    "kernel_name",
+    "kernel_executable",
+    "matches_interpreter",
+)
 
 
 def select_device() -> torch.device:
@@ -132,6 +152,26 @@ def environment_inventory(project_root: Path | None = None) -> dict[str, Any]:
     }
 
 
+def environment_identity(inventory: dict[str, Any]) -> dict[str, Any]:
+    identity = {field: inventory.get(field) for field in STABLE_ENVIRONMENT_FIELDS}
+    kernel = inventory.get("kernel", {})
+    identity["kernel"] = {field: kernel.get(field) for field in STABLE_KERNEL_FIELDS}
+    return identity
+
+
+def environment_identity_differences(
+    recorded: dict[str, Any],
+    current: dict[str, Any],
+) -> tuple[str, ...]:
+    recorded_identity = environment_identity(recorded)
+    current_identity = environment_identity(current)
+    return tuple(
+        field
+        for field in (*STABLE_ENVIRONMENT_FIELDS, "kernel")
+        if recorded_identity[field] != current_identity[field]
+    )
+
+
 def device_smoke_test(device: torch.device | None = None) -> dict[str, Any]:
     selected_device = device or select_device()
     configure_reproducibility("D0")
@@ -184,7 +224,7 @@ def device_smoke_test(device: torch.device | None = None) -> dict[str, Any]:
 
 def dependency_freeze() -> str:
     completed = subprocess.run(
-        [sys.executable, "-m", "pip", "freeze"],
+        [sys.executable, "-m", "pip", "freeze", "--exclude-editable"],
         check=True,
         capture_output=True,
         text=True,
@@ -207,6 +247,10 @@ def materialize_phase_1(project_root: Path | None = None) -> dict[str, Any]:
     freeze_path = environment_root / "requirements_freeze.txt"
     smoke_path = environment_root / "smoke_test_report.json"
     signoff_path = environment_root / "phase_1_signoff.json"
+    phase_paths = (environment_path, freeze_path, smoke_path, signoff_path)
+    existing_count = sum(path.exists() for path in phase_paths)
+    if existing_count not in {0, len(phase_paths)}:
+        raise RuntimeError("Phase 1 artifact set is incomplete")
     inventory = environment_inventory(root)
     if not inventory["kernel"]["matches_interpreter"]:
         raise RuntimeError("Notebook kernel does not match the active interpreter")
@@ -218,16 +262,20 @@ def materialize_phase_1(project_root: Path | None = None) -> dict[str, Any]:
     freeze = dependency_freeze()
     if environment_path.exists():
         environment_report = read_json(environment_path)
-        current = dict(inventory)
-        recorded = dict(environment_report)
-        recorded.pop("created_at", None)
-        if recorded != current:
-            raise RuntimeError("Current environment differs from signed ENV-v1")
+        differences = environment_identity_differences(environment_report, inventory)
+        if differences:
+            fields = ", ".join(differences)
+            raise RuntimeError(f"Stable environment identity differs from signed ENV-v1: {fields}")
+        if freeze_path.read_text(encoding="utf-8") != freeze:
+            raise RuntimeError("External dependency freeze differs from signed ENV-v1")
+        recorded_smoke = read_json(smoke_path)
+        if recorded_smoke.get("status") != "PASS":
+            raise RuntimeError("Signed environment smoke test is not PASS")
     else:
         environment_report = {"created_at": datetime.now(timezone.utc).isoformat(), **inventory}
         write_json_once_or_verify(environment_path, environment_report)
-    write_text_once_or_verify(freeze_path, freeze)
-    write_json_once_or_verify(smoke_path, smoke)
+        write_text_once_or_verify(freeze_path, freeze)
+        write_json_once_or_verify(smoke_path, smoke)
     output_checksums = {
         "artifacts/environment/environment_report.json": sha256_file(environment_path),
         "artifacts/environment/requirements_freeze.txt": sha256_file(freeze_path),

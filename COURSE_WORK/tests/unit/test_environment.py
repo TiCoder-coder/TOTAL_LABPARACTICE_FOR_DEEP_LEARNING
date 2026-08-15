@@ -1,10 +1,13 @@
 import unittest
+from copy import deepcopy
 from pathlib import Path
 
 import torch
 
 from course_work.utils.environment import (
     device_smoke_test,
+    dependency_freeze,
+    environment_identity_differences,
     environment_inventory,
     resolve_kernel_contract,
     select_device,
@@ -35,6 +38,33 @@ class EnvironmentTest(unittest.TestCase):
         report = device_smoke_test()
         self.assertEqual(report["status"], "PASS")
         self.assertTrue(report["all_finite"])
+
+    def test_runtime_context_drift_does_not_change_environment_identity(self) -> None:
+        recorded = environment_inventory()
+        current = deepcopy(recorded)
+        current["working_directory"] = "/different/runtime/directory"
+        current["project_root"] = "/different/project/location"
+        current["cpu_count"] = (recorded["cpu_count"] or 0) + 1
+        current["mps_available"] = not recorded["mps_available"]
+        current["mps_device_name"] = "mps" if current["mps_available"] else None
+        current["selected_device"] = "mps" if current["mps_available"] else "cpu"
+        current["kernel"]["kernel_spec_path"] = "/different/kernel/spec/path"
+        self.assertEqual(environment_identity_differences(recorded, current), ())
+
+    def test_package_version_drift_changes_environment_identity(self) -> None:
+        recorded = environment_inventory()
+        current = deepcopy(recorded)
+        current["package_versions"]["torch"] = "different"
+        self.assertEqual(
+            environment_identity_differences(recorded, current),
+            ("package_versions",),
+        )
+
+    def test_dependency_freeze_excludes_local_editable_project(self) -> None:
+        freeze = dependency_freeze()
+        self.assertNotIn("course-work", freeze.lower())
+        self.assertNotIn("course_work", freeze.lower())
+        self.assertNotIn("-e ", freeze)
 
 
 if __name__ == "__main__":
