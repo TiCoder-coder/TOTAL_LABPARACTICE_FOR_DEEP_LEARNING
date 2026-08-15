@@ -1,0 +1,92 @@
+{
+  "anomalies_count": 3,
+  "correlation_threshold": {
+    "absolute_pearson": 0.8,
+    "purpose": "descriptive_flag_not_feature_removal"
+  },
+  "created_at": "2026-08-14T19:06:31.674105+00:00",
+  "dataset_revision": "DATA-v1",
+  "decision_sensitive_policy": "hypotheses_require_future_train_validation_confirmation",
+  "eda_version": "EDA-v1",
+  "environment_id": "ENV-v1",
+  "figures_generated": [
+    "artifacts/eda/figures/EDA_01_target_histogram.png",
+    "artifacts/eda/figures/EDA_02_target_ecdf.png",
+    "artifacts/eda/figures/EDA_03_target_boxplot.png",
+    "artifacts/eda/figures/EDA_04_target_timeline.png",
+    "artifacts/eda/figures/EDA_05_energy_spikes.png",
+    "artifacts/eda/figures/EDA_06_hourly_profile.png",
+    "artifacts/eda/figures/EDA_07_weekday_profile.png",
+    "artifacts/eda/figures/EDA_08_weekday_weekend.png",
+    "artifacts/eda/figures/EDA_09_hour_weekday_heatmap.png",
+    "artifacts/eda/figures/EDA_10_temperature_distributions.png",
+    "artifacts/eda/figures/EDA_11_humidity_distributions.png",
+    "artifacts/eda/figures/EDA_12_lights_distribution.png",
+    "artifacts/eda/figures/EDA_13_correlation_heatmap.png",
+    "artifacts/eda/figures/EDA_14_target_autocorrelation.png",
+    "artifacts/eda/figures/EDA_15_rolling_mean.png",
+    "artifacts/eda/figures/EDA_16_rolling_standard_deviation.png"
+  ],
+  "global_eda_scope": "descriptive_and_explanatory_only",
+  "hypotheses_count": 10,
+  "lag_policy": "segment_aware_descriptive_not_lookback_selection",
+  "lineage_columns": [
+    "raw_row_index",
+    "continuity_segment_id"
+  ],
+  "processing_actions": {
+    "feature_selection_applied": false,
+    "imputation_applied": false,
+    "interpolation_applied": false,
+    "model_tuning_applied": false,
+    "outliers_removed": false,
+    "rows_removed": 0
+  },
+  "raw_csv_sha256": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+  "raw_dataframe_fingerprint_after": "0b6301822d80775d62155682685c2bba62b420ecc62efcbe4a60865c96bc1066",
+  "raw_dataframe_fingerprint_before": "0b6301822d80775d62155682685c2bba62b420ecc62efcbe4a60865c96bc1066",
+  "representative_windows": [
+    {
+      "end_timestamp": "2016-01-12 23:50:00",
+      "row_count": 144,
+      "selection_rule": "earliest_complete_calendar_day",
+      "start_timestamp": "2016-01-12 00:00:00",
+      "window_id": "REPRESENTATIVE_24H"
+    },
+    {
+      "end_timestamp": "2016-01-18 16:50:00",
+      "row_count": 1008,
+      "selection_rule": "earliest_complete_continuous_1008_row_block",
+      "start_timestamp": "2016-01-11 17:00:00",
+      "window_id": "REPRESENTATIVE_7D"
+    }
+  ],
+  "rolling_policy": "within_continuity_segment_only",
+  "row_count": 19735,
+  "schema_version": "SCHEMA-v1",
+  "spike_threshold_policy": "global_quantiles_descriptive_only_final_regimes_train_derived",
+  "split_distribution_analysis_status": "DEFERRED_TO_PHASE_8",
+  "tables_generated": [
+    "artifacts/eda/tables/eda_numeric_summary.csv",
+    "artifacts/eda/tables/target_quantiles.csv",
+    "artifacts/eda/tables/hourly_energy_profile.csv",
+    "artifacts/eda/tables/weekday_energy_profile.csv",
+    "artifacts/eda/tables/weekend_energy_profile.csv",
+    "artifacts/eda/tables/hour_weekday_profile.csv",
+    "artifacts/eda/tables/correlation_matrix.csv",
+    "artifacts/eda/tables/target_correlations.csv",
+    "artifacts/eda/tables/high_correlation_pairs.csv",
+    "artifacts/eda/tables/selected_lag_correlations.csv",
+    "artifacts/eda/tables/autocorrelation_profile.csv",
+    "artifacts/eda/tables/selected_exogenous_lag_correlations.csv",
+    "artifacts/eda/tables/rolling_target_statistics.csv",
+    "artifacts/eda/tables/representative_windows.csv",
+    "artifacts/eda/tables/extreme_target_samples.csv",
+    "artifacts/eda/tables/eda_hypotheses.csv"
+  ],
+  "target": "Appliances",
+  "target_value_fingerprint": "7a96d81464ca01203a149619e197e8b448af5068d1353a116e2b386787038f12",
+  "temporal_version": "TEMPORAL-v1",
+  "timestamp": "timestamp_parsed",
+  "warnings": []
+}

@@ -1,0 +1,23 @@
+{
+  "archive_integrity_ok": true,
+  "archive_path": "data/raw_data/source/appliances_energy_prediction.zip",
+  "archive_paths_safe": true,
+  "archive_sha256": "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a",
+  "archive_size_bytes": 11979507,
+  "csv_path": "data/raw_data/energydata_complete.csv",
+  "csv_sha256": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+  "csv_size_bytes": 11979363,
+  "csv_smoke_test_ok": true,
+  "dataset_revision": "DATA-v1",
+  "end_time": "2026-08-14T18:51:40.729631+00:00",
+  "environment_id": "ENV-v1",
+  "method": "AQ0_direct_uci",
+  "notes": [
+    "Existing canonical CSV reused after exact SHA-256 match with the official archive member"
+  ],
+  "run_id": "AQ0-DATA-v1",
+  "source": "https://archive.ics.uci.edu/static/public/374/appliances%2Benergy%2Bprediction.zip",
+  "start_time": "2026-08-14T18:51:40.728048+00:00",
+  "status": "PASS",
+  "ucimlrepo_crosscheck_status": "NOT_REQUIRED_OFFICIAL_AQ0_VERIFIED"
+}

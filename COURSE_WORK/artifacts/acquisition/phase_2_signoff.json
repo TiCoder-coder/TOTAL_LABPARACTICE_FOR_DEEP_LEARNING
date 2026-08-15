@@ -1,0 +1,47 @@
+{
+  "artifact_version": "DATA-v1",
+  "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+  "created_at": "2026-08-14T18:51:40.735383+00:00",
+  "dataset_revision": "DATA-v1",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/environment/phase_1_signoff.json": "d5ebc30357c3b2bc679339ae193c47023a1bfe124bfb6c498770c18129d19627",
+    "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
+  },
+  "input_paths": [
+    "artifacts/environment/phase_1_signoff.json",
+    "data/raw_data/energydata_complete.csv"
+  ],
+  "output_checksums": {
+    "artifacts/acquisition/acquisition_log.json": "00345f790e24540a146f0641cb7aeeba66739b954b141994626ea278681f38b4",
+    "data/raw_data/README_SOURCE.md": "88450f0a709399e975050d4db5e0f70199e12efe79b84e0d0a8812ce9d264ab4",
+    "data/raw_data/checksums.sha256": "3dd998be0f1b9e9893042e6833907e2d309016f421325dfb6f93c0716c0d9daa",
+    "data/raw_data/dataset_manifest.json": "f5ce3c292d2b0aaaf6d6e7ffe65f6f34dff0a47930b1781ca265a714fd6ec3fb",
+    "data/raw_data/source/appliances_energy_prediction.zip": "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a",
+    "data/raw_data/source_metadata.json": "9f8a133dfbfd350968fd4171267d706b2e5c3745ef13ac1c0449532e6cde8e0d",
+    "data/raw_data/variable_metadata.csv": "e84c1b164bae0ff267e438681b0d9b9d8f6483e61f4dbf1c1ff771e3a2eb3bd3"
+  },
+  "output_paths": [
+    "data/raw_data/source/appliances_energy_prediction.zip",
+    "data/raw_data/checksums.sha256",
+    "data/raw_data/dataset_manifest.json",
+    "data/raw_data/source_metadata.json",
+    "data/raw_data/variable_metadata.csv",
+    "data/raw_data/README_SOURCE.md",
+    "artifacts/acquisition/acquisition_log.json"
+  ],
+  "phase_id": 2,
+  "phase_version": "PHASE-2-v1",
+  "status": "PASS",
+  "tests": [
+    "official_source_identity",
+    "zip_integrity",
+    "safe_member_path",
+    "expected_csv_member",
+    "official_csv_checksum_match",
+    "minimal_csv_parse",
+    "raw_immutability"
+  ],
+  "warnings": []
+}

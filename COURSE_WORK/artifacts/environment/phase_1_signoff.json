@@ -1,0 +1,37 @@
+{
+  "artifact_version": "ENV-v1",
+  "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+  "created_at": "2026-08-14T18:43:43.950492+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/contracts/phase_0_signoff.json": "96b2e34737e43cac59d29d847b4f123f1e28a30ca372ac1f31a2823c8959d2c3"
+  },
+  "input_paths": [
+    "artifacts/contracts/phase_0_signoff.json"
+  ],
+  "output_checksums": {
+    "artifacts/environment/environment_report.json": "c0fbf498e86620e1ba52e909117e61b0a309fa7ec23fe30c89bed848cdce2524",
+    "artifacts/environment/requirements_freeze.txt": "36b39b0eb4428aa446b55e89f975d43026b0d69f632b78369330b9c5bf905af5",
+    "artifacts/environment/smoke_test_report.json": "03573a66b9ec7af94d86df2cd8c523fd2d20a25f0cb8ae5773bc6322eaea3b1a"
+  },
+  "output_paths": [
+    "artifacts/environment/environment_report.json",
+    "artifacts/environment/requirements_freeze.txt",
+    "artifacts/environment/smoke_test_report.json"
+  ],
+  "phase_id": 1,
+  "phase_version": "PHASE-1-v1",
+  "status": "PASS",
+  "tests": [
+    "interpreter_kernel_contract",
+    "core_imports",
+    "automatic_device_selection",
+    "tensor_forward",
+    "autograd_backward",
+    "module_optimizer_step",
+    "randomness_repeatability"
+  ],
+  "warnings": []
+}

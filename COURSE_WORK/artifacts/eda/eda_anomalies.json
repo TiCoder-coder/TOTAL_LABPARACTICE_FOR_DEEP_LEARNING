@@ -1,0 +1,35 @@
+{
+  "anomalies": [
+    {
+      "category": "TARGET_SPIKE",
+      "future_phase": "Phase 37;Phase 50",
+      "id": "EA-001",
+      "observation": "1001 observations are at or above the global descriptive 95th percentile",
+      "possible_interpretation": "High-consumption events are part of the observed target distribution",
+      "requires_action": false,
+      "status": "HYPOTHESIS_ONLY",
+      "timestamp_or_variable": "Appliances"
+    },
+    {
+      "category": "HIGH_REDUNDANCY",
+      "future_phase": "Phase 23",
+      "id": "EA-002",
+      "observation": "36 feature pairs meet the descriptive 0.8 threshold",
+      "possible_interpretation": "Multiple sensors may encode overlapping environmental conditions",
+      "requires_action": false,
+      "status": "HYPOTHESIS_ONLY",
+      "timestamp_or_variable": "numeric_features"
+    },
+    {
+      "category": "ZERO_INFLATION",
+      "future_phase": "Phase 6;Phase 23",
+      "id": "EA-003",
+      "observation": "15252 observations have zero lights energy use",
+      "possible_interpretation": "Zero is a valid observed energy state and not missingness",
+      "requires_action": false,
+      "status": "DESCRIPTIVE_ONLY",
+      "timestamp_or_variable": "lights"
+    }
+  ],
+  "eda_version": "EDA-v1"
+}

@@ -1,0 +1,16 @@
+{
+  "discrepancies": [
+    {
+      "action": "Preserve all raw columns and use explicit semantic roles",
+      "actual": "Raw CSV has 29 total columns: 1 time field, 1 target, 25 regular features and 2 random controls",
+      "expected": "UCI detailed page reports 28 features",
+      "field": "feature_count_display",
+      "id": "SD-001",
+      "interpretation": "UCI feature count includes the date field and all non-target columns; raw total also includes the target",
+      "resolved": true,
+      "severity": "WARNING",
+      "source_reference": "UCI dataset 374 detailed page and raw DATA-v1"
+    }
+  ],
+  "schema_version": "SCHEMA-v1"
+}

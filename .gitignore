@@ -37,7 +37,8 @@ dmypy.json
 checkpoint-*
 
 # ─── Data & Downloads ────────────────────────────────────────────────────────
-data/
+/data/
+/COURSE_WORK/data/
 raw/
 processed/
 external/

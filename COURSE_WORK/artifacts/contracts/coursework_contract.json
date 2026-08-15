@@ -1,0 +1,417 @@
+{
+  "anti_leakage_rules": [
+    "Use chronological splits based on target timestamp",
+    "Fit every scaler on Train only",
+    "Exclude unavailable future features and future targets from model inputs",
+    "Keep Test isolated from feature, hyperparameter and checkpoint selection",
+    "Inverse-transform predictions before reporting metrics in Wh"
+  ],
+  "attention_rules": [
+    "Attention is extracted from the final locked trained Transformer",
+    "Attention describes model behavior and is not causal evidence",
+    "Attention analysis includes heads, last query, error conditions, spikes and seed stability"
+  ],
+  "baseline_transformer": {
+    "activation": "gelu",
+    "batch_size": 64,
+    "d_model": 64,
+    "dropout": 0.1,
+    "feature_set": "FS1",
+    "ffn": 128,
+    "gradient_clip": 1.0,
+    "heads": 4,
+    "horizon": 1,
+    "layers": 2,
+    "learning_rate": 0.0003,
+    "lookback": 144,
+    "loss": "mse",
+    "max_epochs": 50,
+    "patience": 10,
+    "pooling": "last_step",
+    "revin": "RN0",
+    "seed": 42,
+    "status": "reference_not_optimum",
+    "target_scaling": "YS1",
+    "time_features": "TF1",
+    "weight_decay": 0.0001
+  },
+  "contract_version": "COURSEWORK-CONTRACT-v1",
+  "definition_of_done": [
+    "Raw UCI data is validated without mutation",
+    "Feature engineering, scaling and windows are leakage-safe",
+    "Persistence, LSTM and Transformer are evaluated fairly",
+    "All registered controlled sweeps are completed",
+    "Rolling-origin robustness precedes final model lock",
+    "Final LSTM and Transformer use seeds 42, 123 and 2026",
+    "Untouched Test is evaluated once after lock",
+    "MAE, RMSE and R2 are reported in original Wh",
+    "Residual, regime, worst-error and attention analyses use executed results",
+    "Conclusions answer RQ1 through RQ7 without causal overclaiming"
+  ],
+  "experiment_registry_fields": [
+    "run_id",
+    "seed",
+    "feature_set",
+    "time_features",
+    "target_scaling",
+    "revin",
+    "lookback",
+    "horizon",
+    "pooling",
+    "activation",
+    "d_model",
+    "heads",
+    "layers",
+    "ffn",
+    "dropout",
+    "batch_size",
+    "learning_rate",
+    "weight_decay",
+    "loss",
+    "max_epochs",
+    "patience",
+    "gradient_clip",
+    "parameter_count",
+    "best_epoch",
+    "train_mae",
+    "train_rmse",
+    "train_r2",
+    "val_mae",
+    "val_rmse",
+    "val_r2",
+    "generalization_gap",
+    "training_time",
+    "checkpoint_path",
+    "status",
+    "notes"
+  ],
+  "fair_comparison_rules": [
+    "LSTM and Transformer share horizon, feature set, lookback, target and split",
+    "LSTM and Transformer share window protocol, scalers, samples and metrics",
+    "Checkpoint selection uses Validation RMSE for both model families",
+    "Architecture-specific parameters may differ only through approved validation tuning"
+  ],
+  "final_seeds": [
+    42,
+    123,
+    2026
+  ],
+  "lookbacks": {
+    "options": [
+      36,
+      72,
+      144
+    ],
+    "primary": 144
+  },
+  "metrics": {
+    "final": [
+      "mae",
+      "rmse",
+      "r2"
+    ],
+    "report_scale": "original_wh",
+    "selection": "validation_rmse"
+  },
+  "models": [
+    "persistence",
+    "lstm",
+    "transformer_encoder"
+  ],
+  "option_registry": {
+    "activation": [
+      {
+        "id": "A0",
+        "value": "relu"
+      },
+      {
+        "id": "A1",
+        "value": "gelu"
+      }
+    ],
+    "batch_size": [
+      {
+        "id": "B32",
+        "value": 32
+      },
+      {
+        "id": "B64",
+        "value": 64
+      }
+    ],
+    "boundary": [
+      {
+        "id": "WB0",
+        "value": "context_carry_over"
+      },
+      {
+        "id": "WB1",
+        "value": "strict_isolation"
+      }
+    ],
+    "d_model": [
+      {
+        "id": "D32",
+        "value": 32
+      },
+      {
+        "id": "D64",
+        "value": 64
+      }
+    ],
+    "dropout": [
+      {
+        "id": "DR01",
+        "value": 0.1
+      },
+      {
+        "id": "DR02",
+        "value": 0.2
+      },
+      {
+        "id": "DR03",
+        "value": 0.3
+      }
+    ],
+    "epoch_cap": [
+      {
+        "id": "E50",
+        "value": 50
+      },
+      {
+        "id": "E100",
+        "value": 100
+      }
+    ],
+    "feature_sets": [
+      {
+        "id": "FS0",
+        "value": "exogenous_only"
+      },
+      {
+        "id": "FS1",
+        "value": "autoregressive_plus_exogenous"
+      },
+      {
+        "id": "FS2",
+        "value": "fs1_plus_rv1_rv2_random_controls"
+      }
+    ],
+    "ffn": [
+      {
+        "id": "F64",
+        "value": 64
+      },
+      {
+        "id": "F128",
+        "value": 128
+      },
+      {
+        "id": "F256",
+        "value": 256
+      }
+    ],
+    "gradient_clip": [
+      {
+        "id": "GC0",
+        "value": null
+      },
+      {
+        "id": "GC1",
+        "value": 1.0
+      }
+    ],
+    "heads": [
+      {
+        "id": "H2",
+        "value": 2
+      },
+      {
+        "id": "H4",
+        "value": 4
+      }
+    ],
+    "layers": [
+      {
+        "id": "N1",
+        "value": 1
+      },
+      {
+        "id": "N2",
+        "value": 2
+      }
+    ],
+    "learning_rate": [
+      {
+        "id": "LR1",
+        "value": 0.0001
+      },
+      {
+        "id": "LR2",
+        "value": 0.0003
+      },
+      {
+        "id": "LR3",
+        "value": 0.001
+      }
+    ],
+    "lookbacks": [
+      {
+        "id": "L36",
+        "value": 36
+      },
+      {
+        "id": "L72",
+        "value": 72
+      },
+      {
+        "id": "L144",
+        "value": 144
+      }
+    ],
+    "loss": [
+      {
+        "id": "L0",
+        "value": "mse"
+      },
+      {
+        "id": "L1",
+        "value": "huber_delta_1_standardized_target"
+      }
+    ],
+    "pooling": [
+      {
+        "id": "P0",
+        "value": "last_step"
+      },
+      {
+        "id": "P1",
+        "value": "mean"
+      }
+    ],
+    "revin": [
+      {
+        "id": "RN0",
+        "value": "off"
+      },
+      {
+        "id": "RN1",
+        "value": "on"
+      }
+    ],
+    "target_scaling": [
+      {
+        "id": "YS0",
+        "value": "off"
+      },
+      {
+        "id": "YS1",
+        "value": "train_only_standardization"
+      }
+    ],
+    "time_features": [
+      {
+        "id": "TF0",
+        "value": "off"
+      },
+      {
+        "id": "TF1",
+        "value": [
+          "hour_sin",
+          "hour_cos",
+          "dow_sin",
+          "dow_cos",
+          "weekend"
+        ]
+      }
+    ],
+    "weight_decay": [
+      {
+        "id": "WD0",
+        "value": 0.0
+      },
+      {
+        "id": "WD1",
+        "value": 0.0001
+      },
+      {
+        "id": "WD2",
+        "value": 0.001
+      },
+      {
+        "id": "WD3",
+        "value": 0.01
+      }
+    ]
+  },
+  "problem": {
+    "dataset": "UCI Appliances Energy Prediction",
+    "forecast_horizon_minutes": 10,
+    "forecast_horizon_steps": 1,
+    "sample_definition": "X[t-L+1:t] -> Appliances[t+1]",
+    "sampling_minutes": 10,
+    "target": "Appliances",
+    "target_unit": "Wh",
+    "task": "multivariate_time_series_regression"
+  },
+  "protocol_violations": [
+    "Scaler fitted outside Train",
+    "Random temporal split or shuffled windows before split",
+    "Future information in inputs",
+    "Test used for tuning or selection",
+    "Configuration changed after viewing Test",
+    "Unfair data protocol between LSTM and Transformer",
+    "Scaled metrics reported as original Wh",
+    "Checkpoint selected by Train loss",
+    "Attention extracted from a model other than the final locked Transformer",
+    "Run missing config or seed"
+  ],
+  "research_questions": [
+    {
+      "id": "RQ1",
+      "text": "Can a Transformer Encoder learn useful multivariate temporal dependencies for short-term appliance-energy forecasting?"
+    },
+    {
+      "id": "RQ2",
+      "text": "Does the Transformer outperform the LSTM under the same data and evaluation protocol?"
+    },
+    {
+      "id": "RQ3",
+      "text": "Does additional Transformer complexity improve generalization or increase overfitting risk?"
+    },
+    {
+      "id": "RQ4",
+      "text": "Which temporal patterns are visible in Transformer self-attention maps?"
+    },
+    {
+      "id": "RQ5",
+      "text": "Does historical Appliances input improve forecasting over exogenous-only input?"
+    },
+    {
+      "id": "RQ6",
+      "text": "Which approved 6-hour, 12-hour or 24-hour lookback is most suitable by validation evidence?"
+    },
+    {
+      "id": "RQ7",
+      "text": "Which approved regularization strategies improve future-validation generalization?"
+    }
+  ],
+  "split": {
+    "membership_basis": "target_timestamp",
+    "shuffle_before_split": false,
+    "test": 0.15,
+    "train": 0.7,
+    "type": "chronological",
+    "validation": 0.15
+  },
+  "test_policy": [
+    "Test remains untouched until all configurations and final seeds are locked",
+    "No model or protocol change is permitted after viewing Test results",
+    "Any post-Test change is recorded as a protocol violation"
+  ],
+  "validation_policy": [
+    "Validation selects checkpoints and approved options by RMSE",
+    "Rolling-origin robustness is evaluated before final model lock",
+    "Validation is not reported as an unbiased final estimate"
+  ]
+}
