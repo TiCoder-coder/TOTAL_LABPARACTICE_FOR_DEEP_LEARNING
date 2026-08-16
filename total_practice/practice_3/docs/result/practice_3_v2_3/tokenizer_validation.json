@@ -1,0 +1,88 @@
+{
+  "protocol_version": "practice_3_v2.3",
+  "tokenizer_identifier": "distilbert-base-uncased",
+  "tokenizer_class": "BertTokenizer",
+  "vocab_size": 30522,
+  "special_token_ids": {
+    "pad_token_id": 0,
+    "unk_token_id": 100,
+    "cls_token_id": 101,
+    "sep_token_id": 102,
+    "mask_token_id": 103
+  },
+  "known_token_checks": {
+    "this": {
+      "tokens": [
+        "this"
+      ],
+      "ids": [
+        2023
+      ],
+      "all_unknown": false
+    },
+    "movie": {
+      "tokens": [
+        "movie"
+      ],
+      "ids": [
+        3185
+      ],
+      "all_unknown": false
+    },
+    "good": {
+      "tokens": [
+        "good"
+      ],
+      "ids": [
+        2204
+      ],
+      "all_unknown": false
+    },
+    "bad": {
+      "tokens": [
+        "bad"
+      ],
+      "ids": [
+        2919
+      ],
+      "all_unknown": false
+    },
+    "positive": {
+      "tokens": [
+        "positive"
+      ],
+      "ids": [
+        3893
+      ],
+      "all_unknown": false
+    },
+    "negative": {
+      "tokens": [
+        "negative"
+      ],
+      "ids": [
+        4997
+      ],
+      "all_unknown": false
+    }
+  },
+  "sample_count": 4,
+  "sample_texts_sha256": "aa05ca3e95ac5b16908bad975b8991446a8e8a57b2a54edf77134e900d670979",
+  "unk_count": 0,
+  "lexical_token_count": 32,
+  "unk_ratio": 0.0,
+  "unique_text_count": 4,
+  "unique_encoded_sequence_count": 4,
+  "checks": {
+    "vocab_size_exact": true,
+    "known_words_not_unknown": true,
+    "special_tokens_present": true,
+    "special_ids_in_range": true,
+    "all_ids_in_range": true,
+    "unk_ratio_acceptable": true,
+    "distinct_encodings": true
+  },
+  "tokenizer_integrity": "PASS",
+  "raw_sample_text_stored": false,
+  "artifact_hash": "251a483a153eae212aa94327fdc5a65288a455f2fd826fc148220ef006aa2717"
+}

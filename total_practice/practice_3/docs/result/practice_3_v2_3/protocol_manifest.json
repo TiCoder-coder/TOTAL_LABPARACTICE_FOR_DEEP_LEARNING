@@ -1,0 +1,82 @@
+{
+  "protocol_version": "practice_3_v2.3",
+  "parent_protocol": "practice_3_v2.2",
+  "revision_reason": "v2.2 showed improved stability over v2.1 but stopped prematurely due to patience=2. v2.3 increases max_epochs to 15, patience to 4, and warmup_steps to 720.",
+  "model_identifier": "distilbert/distilbert-base-uncased",
+  "tokenizer_identifier": "distilbert-base-uncased",
+  "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
+  "split_counts": {
+    "train": 7676,
+    "validation": 960,
+    "holdout": 960
+  },
+  "holdout_status": "SEALED",
+  "holdout_evaluation_count": 0,
+  "official_test_loaded": false,
+  "winner_status": "NOT_SELECTED",
+  "stages": {
+    "A": {
+      "name": "Learning Rate Search",
+      "experiments": [
+        "E1_lr_1e-5",
+        "E2_lr_2e-5",
+        "E3_lr_3e-5"
+      ],
+      "controlled_variable": "learning_rate",
+      "selection_metric": "validation_loss"
+    },
+    "B": {
+      "name": "DistilBERT Regularization",
+      "experiments": [
+        "E4_weight_decay_0.05",
+        "E5_classifier_dropout_0.20",
+        "E6_staged_finetune"
+      ],
+      "dependency": "Stage A winner must be locked first",
+      "status": "BLOCKED_PENDING_STAGE_A"
+    }
+  },
+  "baseline_corrections_from_v21_audit": {
+    "label_smoothing_factor": 0.1,
+    "warmup_steps": 720,
+    "warmup_policy": "10_percent"
+  },
+  "fixed_variables": {
+    "model": "distilbert/distilbert-base-uncased",
+    "tokenizer": "distilbert-base-uncased",
+    "max_length": 80,
+    "seed": 42,
+    "data_seed": 42,
+    "batch_size": 16,
+    "eval_batch_size": 32,
+    "optimizer": "AdamW",
+    "scheduler": "linear",
+    "weight_decay": 0.01,
+    "gradient_clipping": 1.0,
+    "max_epochs": 15,
+    "early_stopping_patience": 4,
+    "early_stopping_threshold": 1e-06,
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch"
+  },
+  "ranking": {
+    "primary": "validation_loss",
+    "secondary": "validation_f1",
+    "tertiary": "validation_accuracy",
+    "fourth": "earlier_best_epoch",
+    "final_deterministic_fallback": "lexical_experiment_id",
+    "tolerance": 1e-06
+  },
+  "execution_order": {
+    "E1": "FIRST",
+    "E2": "requires E1 COMPLETED",
+    "E3": "requires E1, E2 COMPLETED",
+    "E4": "requires Stage A locked",
+    "E5": "requires Stage A locked",
+    "E6": "requires Stage A locked"
+  },
+  "holdout_access_condition": "winner locked AND all Stage B experiments COMPLETED",
+  "cnn_specific_techniques_imported": false,
+  "practice_2_concept_reused": "multi-experiment controlled comparison workflow only",
+  "protocol_manifest_hash": "a48f49544bbe84d77d09e0a33cc0c450b19821ff57fb3d718ab7675490e5c5a8"
+}

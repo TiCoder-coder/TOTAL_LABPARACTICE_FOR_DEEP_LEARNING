@@ -1,0 +1,84 @@
+{
+  "protocol_version": "practice_3_v2.3",
+  "status": "PASS",
+  "tokenizer_identifier": "distilbert-base-uncased",
+  "tokenizer_vocab_size": 30522,
+  "trainer_train_called": false,
+  "training_performed": false,
+  "holdout_materialized": false,
+  "official_test_loaded": false,
+  "split_checks": {
+    "train": {
+      "count": 7676,
+      "fields_present": true,
+      "labels_valid": true,
+      "max_sequence_length": 78
+    },
+    "validation": {
+      "count": 960,
+      "fields_present": true,
+      "labels_valid": true,
+      "max_sequence_length": 60
+    }
+  },
+  "train_count": 7676,
+  "validation_count": 960,
+  "experiment_reports": [
+    {
+      "experiment_id": "E1_lr_1e-5",
+      "trainer_constructed": true,
+      "trainer_train_called": false,
+      "forward_logits_shape": [
+        16,
+        2
+      ],
+      "forward_loss_finite": true,
+      "forward_pass_skipped": false,
+      "label_smoothing_factor": 0.1,
+      "warmup_steps": 480,
+      "total_parameters": 66955010,
+      "trainable_parameters": 66955010,
+      "early_stopping_patience": 4,
+      "early_stopping_threshold": 1e-06,
+      "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E1_lr_1e-5"
+    },
+    {
+      "experiment_id": "E2_lr_2e-5",
+      "trainer_constructed": true,
+      "trainer_train_called": false,
+      "forward_logits_shape": [
+        16,
+        2
+      ],
+      "forward_loss_finite": true,
+      "forward_pass_skipped": false,
+      "label_smoothing_factor": 0.1,
+      "warmup_steps": 480,
+      "total_parameters": 66955010,
+      "trainable_parameters": 66955010,
+      "early_stopping_patience": 4,
+      "early_stopping_threshold": 1e-06,
+      "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E2_lr_2e-5"
+    },
+    {
+      "experiment_id": "E3_lr_3e-5",
+      "trainer_constructed": true,
+      "trainer_train_called": false,
+      "forward_logits_shape": [
+        16,
+        2
+      ],
+      "forward_loss_finite": true,
+      "forward_pass_skipped": false,
+      "label_smoothing_factor": 0.1,
+      "warmup_steps": 480,
+      "total_parameters": 66955010,
+      "trainable_parameters": 66955010,
+      "early_stopping_patience": 4,
+      "early_stopping_threshold": 1e-06,
+      "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E3_lr_3e-5"
+    }
+  ],
+  "tensorboard_events_created": false,
+  "artifact_hash": "984b9bbc49cfb65c41f0a99b858a8422abfc06b8cfb706dafdd0b14653362f34"
+}

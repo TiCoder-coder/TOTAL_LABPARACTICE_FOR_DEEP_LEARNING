@@ -1,0 +1,85 @@
+{
+  "holdout_accessed": false,
+  "official_test_loaded": false,
+  "protocol_version": "practice_3_v2.3",
+  "records": [
+    {
+      "epoch": 1.0,
+      "eval_accuracy": 0.809375,
+      "eval_f1": 0.807570977917981,
+      "eval_loss": 0.47269150614738464,
+      "eval_precision": 0.8152866242038217,
+      "eval_recall": 0.8,
+      "global_step": 480,
+      "learning_rate": 6.652777777777778e-06,
+      "train_loss": 0.6404416402180989
+    },
+    {
+      "epoch": 2.0,
+      "eval_accuracy": 0.8364583333333333,
+      "eval_f1": 0.8440913604766633,
+      "eval_loss": 0.455813467502594,
+      "eval_precision": 0.8064516129032258,
+      "eval_recall": 0.8854166666666666,
+      "global_step": 960,
+      "learning_rate": 9.631172839506174e-06,
+      "train_loss": 0.47320502599080405
+    },
+    {
+      "epoch": 3.0,
+      "eval_accuracy": 0.865625,
+      "eval_f1": 0.8646379853095488,
+      "eval_loss": 0.41849246621131897,
+      "eval_precision": 0.8710359408033826,
+      "eval_recall": 0.8583333333333333,
+      "global_step": 1440,
+      "learning_rate": 8.890432098765432e-06,
+      "train_loss": 0.44037659962972003
+    },
+    {
+      "epoch": 4.0,
+      "eval_accuracy": 0.8677083333333333,
+      "eval_f1": 0.8672936259143156,
+      "eval_loss": 0.4325266480445862,
+      "eval_precision": 0.870020964360587,
+      "eval_recall": 0.8645833333333334,
+      "global_step": 1920,
+      "learning_rate": 8.149691358024692e-06,
+      "train_loss": 0.36098995208740237
+    },
+    {
+      "epoch": 5.0,
+      "eval_accuracy": 0.8635416666666667,
+      "eval_f1": 0.867274569402229,
+      "eval_loss": 0.4515376091003418,
+      "eval_precision": 0.8441814595660749,
+      "eval_recall": 0.8916666666666667,
+      "global_step": 2400,
+      "learning_rate": 7.408950617283951e-06,
+      "train_loss": 0.3047851880391439
+    },
+    {
+      "epoch": 6.0,
+      "eval_accuracy": 0.865625,
+      "eval_f1": 0.8682328907048008,
+      "eval_loss": 0.49201175570487976,
+      "eval_precision": 0.8517034068136272,
+      "eval_recall": 0.8854166666666666,
+      "global_step": 2880,
+      "learning_rate": 6.6682098765432105e-06,
+      "train_loss": 0.2618908723195394
+    },
+    {
+      "epoch": 7.0,
+      "eval_accuracy": 0.8708333333333333,
+      "eval_f1": 0.8697478991596639,
+      "eval_loss": 0.49538516998291016,
+      "eval_precision": 0.8771186440677966,
+      "eval_recall": 0.8625,
+      "global_step": 3360,
+      "learning_rate": 5.92746913580247e-06,
+      "train_loss": 0.24009079933166505
+    }
+  ],
+  "run_id": "E6c_staged_finetune"
+}

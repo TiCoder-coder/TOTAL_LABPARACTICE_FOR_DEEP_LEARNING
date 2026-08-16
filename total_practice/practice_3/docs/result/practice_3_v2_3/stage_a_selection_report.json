@@ -1,0 +1,33 @@
+{
+  "protocol_version": "practice_3_v2.3",
+  "stage": "A",
+  "selected_run": "E1_lr_1e-5",
+  "selected_learning_rate": 1e-05,
+  "selection_metric": "validation_loss",
+  "best_val_loss": 0.41563746333122253,
+  "experiments": {
+    "E1_lr_1e-5": {
+      "best_epoch": 2,
+      "stopped_epoch": 6,
+      "best_val_loss": 0.41563746333122253,
+      "best_val_accuracy": 0.865625,
+      "best_val_f1": 0.8660436137071651
+    },
+    "E2_lr_2e-5": {
+      "best_epoch": 2,
+      "stopped_epoch": 6,
+      "best_val_loss": 0.439610093832016,
+      "best_val_accuracy": 0.8583333333333333,
+      "best_val_f1": 0.8485523385300668
+    },
+    "E3_lr_3e-5": {
+      "best_epoch": 1,
+      "stopped_epoch": 5,
+      "best_val_loss": 0.42749443650245667,
+      "best_val_accuracy": 0.8552083333333333,
+      "best_val_f1": 0.8477546549835706
+    }
+  },
+  "rationale": "E1 had the lowest Validation Loss strictly minimizing divergence, and the highest Val F1.",
+  "selection_hash": "c9335781ab2673e2ba082b3134521f88256b3b95e160b417d16fa8b0b4d290c8"
+}
