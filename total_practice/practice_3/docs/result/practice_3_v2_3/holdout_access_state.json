@@ -1,0 +1,10 @@
+{
+  "protocol_version": "practice_3_v2.3",
+  "holdout_access_allowed": false,
+  "holdout_evaluated": false,
+  "holdout_evaluation_count": 0,
+  "winner_locked": false,
+  "official_test_loaded": false,
+  "attempt_claimed": false,
+  "access_condition": "winner_locked AND stage_b_complete"
+}

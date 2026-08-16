@@ -1,0 +1,30 @@
+{
+  "protocol_version": "practice_3_v2.3",
+  "winner_run_id": "E4_weight_decay_0.05",
+  "winner_lock_hash": "010cc06d7cb9edc31330574904f9275ec61e53b480ea99b47d860f6860d6be0e",
+  "checkpoint_path": "runs/practice_3_v2_3/E4_weight_decay_0.05/checkpoints/checkpoint-960",
+  "checkpoint_hash": "d4a8b8377de3ade5edf5d03326f5421e52065988cb27a75ed77d52d62a073191",
+  "holdout_size": 960,
+  "holdout_loss": 0.35357752442359924,
+  "holdout_accuracy": 0.853125,
+  "holdout_precision": 0.8629550321199143,
+  "holdout_recall": 0.8395833333333333,
+  "holdout_f1": 0.8511087645195353,
+  "confusion_matrix": {
+    "TP": 403,
+    "TN": 416,
+    "FP": 64,
+    "FN": 77
+  },
+  "diagnostics": {
+    "brier_score": 0.10922436006104425,
+    "prediction_entropy": 0.37791362404823303,
+    "mean_confidence": 0.8489211797714233,
+    "wrong_prediction_confidence": 0.7482547760009766,
+    "expected_calibration_error": 0.042176409251987956
+  },
+  "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
+  "evaluation_count": 1,
+  "evaluated_at": "2026-08-16T08:51:16.719041+00:00",
+  "official_test_loaded": false
+}

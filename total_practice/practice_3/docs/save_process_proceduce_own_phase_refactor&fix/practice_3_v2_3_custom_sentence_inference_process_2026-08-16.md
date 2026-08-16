@@ -1,0 +1,12 @@
+# Custom Sentence Inference Process Log
+- **Winner Checkpoint**: `E4_weight_decay_0.05` verified via SHA256.
+- **Custom Inputs**: 9 manually crafted sentences covering clear, mixed, ambiguous, and negated sentiments.
+- **Execution**: Used `model.eval()` and `torch.no_grad()`. `Trainer` was NOT used.
+- **Holdout Protection**: Holdout data was NOT loaded. Holdout evaluation count remains 1.
+- **Official Test Protection**: Official Test split was NOT loaded.
+- **Artifacts**: 
+  - `custom_inference_inputs.json`
+  - `custom_inference_results.csv`
+  - `custom_inference_results.json`
+  - `custom_inference_analysis.md`
+  - `tokenization_demo.json`

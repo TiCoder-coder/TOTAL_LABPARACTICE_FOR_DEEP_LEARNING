@@ -1,0 +1,74 @@
+{
+  "holdout_accessed": false,
+  "official_test_loaded": false,
+  "protocol_version": "practice_3_v2.3",
+  "records": [
+    {
+      "epoch": 1.0,
+      "eval_accuracy": 0.8302083333333333,
+      "eval_f1": 0.8194905869324474,
+      "eval_loss": 0.4564628005027771,
+      "eval_precision": 0.8747044917257684,
+      "eval_recall": 0.7708333333333334,
+      "global_step": 480,
+      "learning_rate": 6.652777777777778e-06,
+      "train_loss": 0.6121980667114257
+    },
+    {
+      "epoch": 2.0,
+      "eval_accuracy": 0.8677083333333333,
+      "eval_f1": 0.8678459937565036,
+      "eval_loss": 0.41533583402633667,
+      "eval_precision": 0.8669438669438669,
+      "eval_recall": 0.86875,
+      "global_step": 960,
+      "learning_rate": 9.631172839506174e-06,
+      "train_loss": 0.4407062848409017
+    },
+    {
+      "epoch": 3.0,
+      "eval_accuracy": 0.865625,
+      "eval_f1": 0.8643533123028391,
+      "eval_loss": 0.42384421825408936,
+      "eval_precision": 0.8726114649681529,
+      "eval_recall": 0.85625,
+      "global_step": 1440,
+      "learning_rate": 8.890432098765432e-06,
+      "train_loss": 0.36193052927652997
+    },
+    {
+      "epoch": 4.0,
+      "eval_accuracy": 0.8697916666666666,
+      "eval_f1": 0.8715313463514902,
+      "eval_loss": 0.46247565746307373,
+      "eval_precision": 0.8600405679513184,
+      "eval_recall": 0.8833333333333333,
+      "global_step": 1920,
+      "learning_rate": 8.149691358024692e-06,
+      "train_loss": 0.3017828941345215
+    },
+    {
+      "epoch": 5.0,
+      "eval_accuracy": 0.8614583333333333,
+      "eval_f1": 0.8652482269503546,
+      "eval_loss": 0.4830600619316101,
+      "eval_precision": 0.8422090729783037,
+      "eval_recall": 0.8895833333333333,
+      "global_step": 2400,
+      "learning_rate": 7.408950617283951e-06,
+      "train_loss": 0.2654322306315104
+    },
+    {
+      "epoch": 6.0,
+      "eval_accuracy": 0.8666666666666667,
+      "eval_f1": 0.8688524590163934,
+      "eval_loss": 0.5065887570381165,
+      "eval_precision": 0.8548387096774194,
+      "eval_recall": 0.8833333333333333,
+      "global_step": 2880,
+      "learning_rate": 6.6682098765432105e-06,
+      "train_loss": 0.23859588305155435
+    }
+  ],
+  "run_id": "E4_weight_decay_0.05"
+}

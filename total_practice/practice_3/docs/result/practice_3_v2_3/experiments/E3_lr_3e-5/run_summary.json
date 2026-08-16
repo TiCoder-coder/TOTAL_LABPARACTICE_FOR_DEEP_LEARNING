@@ -1,0 +1,23 @@
+{
+  "best_checkpoint": "runs/practice_3_v2_3/E3_lr_3e-5/checkpoints/checkpoint-480",
+  "best_epoch": 1.0,
+  "best_val_accuracy": 0.8552083333333333,
+  "best_val_f1": 0.8477546549835706,
+  "best_val_loss": 0.42749443650245667,
+  "best_val_precision": 0.8937644341801386,
+  "best_val_recall": 0.80625,
+  "checkpoint_hash": "1ee9b6d88322f25f470c4ae0724c42e9db5be574f7629bfaa9e0b73a3888d013",
+  "checkpoint_weight_file": "model.safetensors",
+  "config_hash": "2904b5f96bfdc555a0189af08fd0bcefde0cae0401778d13a965273be292e40f",
+  "execution_protocol_hash": "72733ce614b2c065d80c4d4b0d22eb47931e154e4c51365871b0410b14232792",
+  "holdout_accessed": false,
+  "learning_rate": 3e-05,
+  "official_test_loaded": false,
+  "protocol_version": "practice_3_v2.3",
+  "run_id": "E3_lr_3e-5",
+  "runtime_seconds": 339.2773,
+  "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
+  "status": "COMPLETED",
+  "stopped_epoch": 5.0,
+  "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E3_lr_3e-5"
+}

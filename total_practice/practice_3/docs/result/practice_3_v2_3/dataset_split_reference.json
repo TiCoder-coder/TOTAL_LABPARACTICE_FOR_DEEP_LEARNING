@@ -1,0 +1,15 @@
+{
+  "protocol_version": "practice_3_v2.3",
+  "source_manifest": "docs/result/practice_3_v2_1/dataset_split_manifest.json",
+  "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
+  "dataset_fingerprint": "08fad26ecaa3a68a90257f1f3c330eb5fb060c8d3f3e9c2c705b3c30fccb3621",
+  "split_counts": {
+    "train": 7676,
+    "validation": 960,
+    "holdout": 960
+  },
+  "holdout_content_in_manifest": false,
+  "official_test_loaded": false,
+  "re_split": false,
+  "rationale": "Reusing locked v2.1 split exactly. No re-split. Same holdout fingerprint."
+}
