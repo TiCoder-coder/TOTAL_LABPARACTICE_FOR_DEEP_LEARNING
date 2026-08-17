@@ -1,31 +1,30 @@
-# Practice 3 Result Provenance
+# Practice 3 Result Documentation Index
 
-JSON verification/manifest files are the source of truth. Phase result Markdown pages are generated from those JSON files by `processing_own_phase/result_documentation.py`; they provide navigation and interpretation, not a second metric source.
+This directory contains authoritative result documentation files for Practice 3 (Transfer Learning on Rotten Tomatoes). Each documentation file maps directly to a notebook phase, its execution cell, output evidence, processing scripts, and artifact sources.
 
-| Phase | Result page | Authoritative evidence |
-|---:|---|---|
-| 0 | Notebook Phase 0 | `phase_00_pipeline_uml.dot` |
-| 1 | Notebook Phase 1 | `2026-08-10_phase01-environment-log.json` |
-| 2 | Notebook Phase 2 | No standalone artifact |
-| 3 | Notebook Phase 3 | No standalone artifact |
-| 4 | `phase_04_result.md` | `phase_04_dataset_summary.json` |
-| 5 | `phase_05_result.md` | `phase_05_eda_summary.json`, token statistics, EDA figures |
-| 6 | `phase_06_result.md` | `phase_06_preprocessing_verification.json` |
-| 7 | `phase_07_result.md` | `phase_07_model_verification.json` |
-| 8 | `phase_08_result.md` | `phase_08_metrics_training_configuration_verification.json` |
-| 9 | `phase_09_result.md` | `phase_09_training/phase_09_training_manifest.json` and related records/checkpoints |
-| 10 | `phase_10_result.md` | `phase_10_learning_curve_analysis.json` and two figures |
-| 11 | `phase_11_result.md` | `phase_11_evaluation/phase_11_evaluation_manifest.json` and frozen evaluation/predictions |
-| 12 | `phase_12_result.md` | `phase_12_error_analysis.json`, confusion matrix, deterministic samples |
-| 13 | `phase_13_result.md` | `phase_13_inference_examples.json` |
-| 14 | `phase_14_result.md` | `phase_14_save_reload_verification.json` and package manifest |
-| 15 | `phase_15_result.md` | `phase_15_final_summary.json` |
+## Phase Results Provenance Table
 
-Trace a result in this order:
+| Phase | Title | Documentation File | Main Evidence in Notebook | Authoritative Artifact |
+|:---:|---|---|---|---|
+| **Phase 3** | Data Loading | [`phase_03_data_loading_results.md`](./phase_03_data_loading_results.md) | [`Cell 05`](../../notebook_practice_3/practice_3.ipynb): Dataset split summary table | [`dataset_split_reference.json`](./practice_3_v2_3/dataset_split_reference.json) |
+| **Phase 4** | Exploratory Data Analysis | [`phase_04_eda_results.md`](./phase_04_eda_results.md) | [`Cell 07`](../../notebook_practice_3/practice_3.ipynb): HTML EDA Dashboard | [`eda_visualization.py`](../../processing_own_phase/eda_visualization.py) |
+| **Phase 5** | Tokenization | [`phase_05_tokenization_results.md`](./phase_05_tokenization_results.md) | [`Cell 09`](../../notebook_practice_3/practice_3.ipynb): Tokenization mapping table | [`tokenization_demo.json`](./practice_3_v2_3/tokenization_demo.json) |
+| **Phase 6** | Model Architecture | [`phase_06_model_architecture_results.md`](./phase_06_model_architecture_results.md) | [`Cell 11`](../../notebook_practice_3/practice_3.ipynb): Architecture config table | [`final_saved_model/config.json`](./practice_3_v2_3/final_saved_model/config.json) |
+| **Phase 7** | Training Configuration | [`phase_07_training_configuration_results.md`](./phase_07_training_configuration_results.md) | [`Cell 13`](../../notebook_practice_3/practice_3.ipynb): Training hyperparameter table | [`training_authorization.json`](./practice_3_v2_3/training_authorization.json) |
+| **Phase 8** | Hyperparameter Search | [`phase_08_hyperparameter_search_results.md`](./phase_08_hyperparameter_search_results.md) | [`Cell 15`](../../notebook_practice_3/practice_3.ipynb): Final ranking table & Loss chart | [`final_validation_ranking.csv`](./practice_3_v2_3/final_validation_ranking.csv) |
+| **Phase 9** | Learning Curves & Overfitting | [`phase_09_learning_curve_results.md`](./phase_09_learning_curve_results.md) | [`Cell 19`](../../notebook_practice_3/practice_3.ipynb) & [`Cell 21`](../../notebook_practice_3/practice_3.ipynb): Training curves & Stop epoch plots | [`figures/`](./practice_3_v2_3/figures/) |
+| **Phase 10** | Final Holdout Evaluation | [`phase_10_holdout_evaluation_results.md`](./phase_10_holdout_evaluation_results.md) | [`Cell 23`](../../notebook_practice_3/practice_3.ipynb): Validation vs Holdout table | [`final_holdout_metrics.json`](./practice_3_v2_3/final_holdout_metrics.json) |
+| **Phase 11** | Error Analysis | [`phase_11_error_analysis_results.md`](./phase_11_error_analysis_results.md) | [`Cell 25`](../../notebook_practice_3/practice_3.ipynb) & [`Cell 26`](../../notebook_practice_3/practice_3.ipynb): Confusion matrix & Error tables | [`holdout_errors.csv`](./practice_3_v2_3/holdout_errors.csv) |
+| **Phase 12** | Custom Inference | [`phase_12_custom_inference_results.md`](./phase_12_custom_inference_results.md) | [`Cell 28`](../../notebook_practice_3/practice_3.ipynb): Custom test predictions table | [`custom_inference_results.csv`](./practice_3_v2_3/custom_inference_results.csv) |
+| **Phase 13** | Save / Reload Verification | [`phase_13_save_reload_verification_results.md`](./phase_13_save_reload_verification_results.md) | [`Cell 30`](../../notebook_practice_3/practice_3.ipynb): Save/Reload verification table | [`save_reload_verification.json`](./practice_3_v2_3/save_reload_verification.json) |
 
+## Traceability Chain
 ```text
-phase source module → authoritative artifact → notebook phase output → phase result page
+Markdown Result Documentation (.md)
+       ↓
+Notebook Phase & Cell Reference (practice_3.ipynb)
+       ↓
+Execution Output (HTML Table / Dashboard / Plot)
+       ↓
+Processing Script & Artifact Data (processing_own_phase/ & docs/result/practice_3_v2_3/)
 ```
-
-Finalization of `docs/current_flow/` is deferred until Practice 3 Protocol v2 is implemented.
-

@@ -7,6 +7,7 @@ import random
 from collections import Counter, defaultdict
 from typing import Any, Iterable
 
+# pyrefly: ignore [missing-import]
 from datasets import Dataset, concatenate_datasets, load_dataset
 
 from .config import DATASET_NAME
