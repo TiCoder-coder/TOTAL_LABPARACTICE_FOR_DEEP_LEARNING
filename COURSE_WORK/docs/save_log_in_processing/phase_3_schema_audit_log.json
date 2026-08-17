@@ -1,0 +1,116 @@
+{
+  "artifact_version": "SCHEMA-v1",
+  "created_at": "2026-08-14T18:55:27.188865+00:00",
+  "discrepancies": [
+    "SD-001"
+  ],
+  "phase_id": 3,
+  "phase_name": "Schema Audit",
+  "phase_version": "PHASE-3-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Check": "Expected column order",
+          "Result": true
+        },
+        {
+          "Check": "Timestamp parse failures",
+          "Result": 0
+        },
+        {
+          "Check": "Missing expected columns",
+          "Result": []
+        },
+        {
+          "Check": "Unexpected columns",
+          "Result": []
+        },
+        {
+          "Check": "Duplicate column names",
+          "Result": []
+        },
+        {
+          "Check": "Constant columns",
+          "Result": []
+        },
+        {
+          "Check": "All-null columns",
+          "Result": []
+        },
+        {
+          "Check": "Non-finite columns",
+          "Result": {}
+        }
+      ],
+      "title": "Schema integrity"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/schema/schema_manifest.json",
+      "role": "schema",
+      "sha256": "050cd2a2807eccf823ff3b7fedd5aef3254c9b072cb1159cd3e7477085644a01"
+    },
+    {
+      "path": "artifacts/schema/phase_3_signoff.json",
+      "role": "signoff",
+      "sha256": "3ce509eadab369b8b711f73038a9c3790d6b32e38bbdefd251633d6f508717f1"
+    }
+  ],
+  "status": "PASS_WITH_WARNING",
+  "summary": {
+    "Audit": "PASS_WITH_WARNING",
+    "Columns": 29,
+    "First timestamp": "2016-01-11 17:00:00",
+    "Last timestamp": "2016-05-27 18:00:00",
+    "Rows": 19735,
+    "Target": "Appliances",
+    "Timestamp": "date"
+  },
+  "technical_details": {
+    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/acquisition/phase_2_signoff.json": "b59e8fec60ed018941e741bb6d162d38f8942af9d13de7833a1139855f6b3b46",
+      "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
+    },
+    "input_paths": [
+      "artifacts/acquisition/phase_2_signoff.json",
+      "data/raw_data/energydata_complete.csv"
+    ],
+    "output_checksums": {
+      "artifacts/schema/schema_comparison.csv": "093a767b0967d2a003f31229dfcb3ce62890801c22a0c0bd5faa1000b0f2c548",
+      "artifacts/schema/schema_discrepancies.json": "80f7f886a57c11be48df34be8003b2a0388d2ca5fd222a6b372f13003676bc35",
+      "artifacts/schema/schema_fingerprint.txt": "7e5022d05814329704c15c47511c11439bda5b47ed404c1890b4d19f3ad13f02",
+      "artifacts/schema/schema_manifest.json": "050cd2a2807eccf823ff3b7fedd5aef3254c9b072cb1159cd3e7477085644a01",
+      "artifacts/schema/schema_summary.csv": "777bfb5cdc411524891218e4d147297f21d0de936fad84bcb6c092602b065cae",
+      "artifacts/schema/variable_dictionary.csv": "e0c59d94a304e9ddd1cf3b7743233f1360716de310e1121e79a3bea748e2b2c3"
+    },
+    "output_paths": [
+      "artifacts/schema/schema_summary.csv",
+      "artifacts/schema/variable_dictionary.csv",
+      "artifacts/schema/schema_comparison.csv",
+      "artifacts/schema/schema_manifest.json",
+      "artifacts/schema/schema_fingerprint.txt",
+      "artifacts/schema/schema_discrepancies.json"
+    ],
+    "schema_fingerprint": "00a8f0afa3c3f9cbbcc6686bb1b5cf744ef3dcbfb6cd45c93b80858614be54cf",
+    "tests": [
+      "data_v1_checksum",
+      "raw_shape_and_order",
+      "target_and_timestamp_cardinality",
+      "raw_dtype_audit",
+      "semantic_role_mapping",
+      "null_constant_and_non_finite_audit",
+      "numeric_coercion",
+      "timestamp_parse_probe",
+      "raw_dataframe_immutability"
+    ]
+  },
+  "warnings": [
+    "SD-001"
+  ]
+}

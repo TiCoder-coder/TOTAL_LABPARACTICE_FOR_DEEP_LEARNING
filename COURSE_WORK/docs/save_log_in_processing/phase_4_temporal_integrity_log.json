@@ -1,0 +1,116 @@
+{
+  "artifact_version": "TEMPORAL-v1",
+  "created_at": "2026-08-14T18:58:48.494320+00:00",
+  "discrepancies": [],
+  "phase_id": 4,
+  "phase_name": "Temporal Integrity Audit",
+  "phase_version": "PHASE-4-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Check": "Raw order monotonic",
+          "Result": true
+        },
+        {
+          "Check": "Validated view monotonic",
+          "Result": true
+        },
+        {
+          "Check": "Duplicate timestamps",
+          "Result": 0
+        },
+        {
+          "Check": "Missing timestamps",
+          "Result": 0
+        },
+        {
+          "Check": "Gaps",
+          "Result": 0
+        },
+        {
+          "Check": "Largest gap in minutes",
+          "Result": null
+        },
+        {
+          "Check": "Continuity ratio",
+          "Result": "100.00%"
+        },
+        {
+          "Check": "Continuity segments",
+          "Result": 1
+        }
+      ],
+      "title": "Temporal integrity"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/temporal/temporal_manifest.json",
+      "role": "temporal",
+      "sha256": "85494b9a5685161b27ce6ab2edc9a678b262c40bbde26912b75ccad2339e8f7a"
+    },
+    {
+      "path": "artifacts/temporal/phase_4_signoff.json",
+      "role": "signoff",
+      "sha256": "e60f9ac7a638a8b29c46afd272757f545f40e2d3923472a3fda0831fb75e3627"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Audit": "PASS",
+    "Coverage completeness": "100.00%",
+    "End": "2016-05-27 18:00:00",
+    "Expected cadence": "10 minutes",
+    "Parse success": "100.00%",
+    "Rows": 19735,
+    "Start": "2016-01-11 17:00:00"
+  },
+  "technical_details": {
+    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/schema/phase_3_signoff.json": "3ce509eadab369b8b711f73038a9c3790d6b32e38bbdefd251633d6f508717f1",
+      "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
+    },
+    "input_paths": [
+      "artifacts/schema/phase_3_signoff.json",
+      "data/raw_data/energydata_complete.csv"
+    ],
+    "output_checksums": {
+      "artifacts/temporal/continuity_segments.csv": "1f93fe3b96a34ab007482d554744140a5f59e9189b2ad384b72496cec5501b8b",
+      "artifacts/temporal/daily_observation_counts.csv": "b4d02d4371424379e35ffbf81de16f41ec1a7f87beb38dd19fad03e412d5db91",
+      "artifacts/temporal/duplicate_timestamps.csv": "9b1883b806ef5eb6ed6fb4b87c6d4adf39cfb63d8d84ff5e31a01753cb0f056d",
+      "artifacts/temporal/interval_distribution.csv": "5ce44210bfb17139fa13a20953a7ddbd441eba6d98cf9a80402a466b085a1316",
+      "artifacts/temporal/missing_timestamps.csv": "713e1c555ddcbc3cda36df2296fa3f6bc6b2f378643c742b7ac26b29832dce01",
+      "artifacts/temporal/temporal_discrepancies.json": "308f33d442580352aafc368a7da1ec0e50503c53f7d614b3d5438a97d58d95eb",
+      "artifacts/temporal/temporal_manifest.json": "85494b9a5685161b27ce6ab2edc9a678b262c40bbde26912b75ccad2339e8f7a",
+      "artifacts/temporal/temporal_summary.csv": "6bf9a9ce6a1a2bb80e53142b13f4f116abc251d6174526063c07ba088d22eef3",
+      "artifacts/temporal/timestamp_gaps.csv": "00b0a6ceb58bf64be767f7beb1ae9c3228cee20442ce2db928e3e4ccbc932e2d"
+    },
+    "output_paths": [
+      "artifacts/temporal/temporal_manifest.json",
+      "artifacts/temporal/temporal_summary.csv",
+      "artifacts/temporal/timestamp_gaps.csv",
+      "artifacts/temporal/missing_timestamps.csv",
+      "artifacts/temporal/duplicate_timestamps.csv",
+      "artifacts/temporal/continuity_segments.csv",
+      "artifacts/temporal/interval_distribution.csv",
+      "artifacts/temporal/daily_observation_counts.csv",
+      "artifacts/temporal/temporal_discrepancies.json"
+    ],
+    "tests": [
+      "strict_timestamp_parse",
+      "original_order_before_sort",
+      "duplicate_classification",
+      "interval_taxonomy",
+      "grid_and_gap_detection",
+      "continuity_segmentation",
+      "window_safety_contract",
+      "raw_dataframe_immutability"
+    ]
+  },
+  "warnings": []
+}

@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from course_work.data.schema import dataframe_fingerprint, load_raw_csv
+from course_work.data.splitting import load_validated_split_membership, materialize_phase_5
 from course_work.data.temporal import load_validated_temporal_view, materialize_phase_4
 from course_work.utils.artifacts import get_project_root, read_json, sha256_file
 
@@ -384,12 +385,20 @@ def prepare_eda_analysis(project_root: Path | None = None) -> dict[str, Any]:
     phase_4 = materialize_phase_4(root)
     if phase_4.get("status") not in {"PASS", "PASS_WITH_WARNING"}:
         raise RuntimeError("TEMPORAL-v1 does not permit EDA")
+    phase_5 = materialize_phase_5(root)
+    if phase_5.get("status") != "PASS":
+        raise RuntimeError("SPLIT-v1 does not permit EDA")
     raw_path = root / "data/raw_data/energydata_complete.csv"
     raw_hash_before = sha256_file(raw_path)
     raw = load_raw_csv(raw_path)
     raw_dataframe_before = dataframe_fingerprint(raw)
     temporal_view = load_validated_temporal_view(root)
-    eda_view = build_eda_view(temporal_view)
+    split_membership = load_validated_split_membership(root)
+    train_mask = split_membership["split_id"].eq("TRAIN")
+    if int(train_mask.sum()) != phase_5["train_rows"]:
+        raise RuntimeError("TRAIN mask row count does not match SPLIT-v1 train_rows")
+    train_temporal_view = temporal_view.loc[train_mask.reset_index(drop=True)].reset_index(drop=True)
+    eda_view = build_eda_view(train_temporal_view)
     schema_manifest = read_json(root / "artifacts/schema/schema_manifest.json")
     summary = numeric_summary(eda_view, schema_manifest)
     quantiles = target_quantiles(eda_view)
@@ -407,9 +416,13 @@ def prepare_eda_analysis(project_root: Path | None = None) -> dict[str, Any]:
     analysis: dict[str, Any] = {
         "project_root": root,
         "phase_4_signoff": phase_4,
+        "phase_5_signoff": phase_5,
         "raw_csv_sha256": raw_hash_before,
         "raw_dataframe_fingerprint_before": raw_dataframe_before,
         "eda_view": eda_view,
+        "train_only": True,
+        "train_rows_used": int(train_mask.sum()),
+        "total_rows": len(temporal_view),
         "numeric_summary": summary,
         "target_quantiles": quantiles,
         "hourly_profile": hourly,
@@ -435,8 +448,10 @@ def prepare_eda_analysis(project_root: Path | None = None) -> dict[str, Any]:
         raise RuntimeError("Raw DataFrame mutated during EDA")
     if sha256_file(raw_path) != raw_hash_before:
         raise RuntimeError("Raw CSV changed during EDA")
-    if len(eda_view) != len(raw) or not eda_view["raw_row_index"].is_unique:
-        raise RuntimeError("EDA lineage is incomplete")
+    if len(eda_view) != int(train_mask.sum()) or not eda_view["raw_row_index"].is_unique:
+        raise RuntimeError("EDA TRAIN-only lineage is incomplete")
+    if len(eda_view) > len(raw):
+        raise RuntimeError("EDA TRAIN-only view exceeds raw dataset")
     target_digest = hashlib.sha256(eda_view[TARGET_COLUMN].to_numpy().tobytes()).hexdigest()
     analysis["raw_dataframe_fingerprint_after"] = raw_dataframe_after
     analysis["target_value_fingerprint"] = target_digest

@@ -1,0 +1,147 @@
+{
+  "artifact_version": "ENV-v1",
+  "created_at": "2026-08-14T18:43:43.950492+00:00",
+  "discrepancies": [],
+  "phase_id": 1,
+  "phase_name": "Environment",
+  "phase_version": "PHASE-1-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Package": "ipykernel",
+          "Version": "7.3.0"
+        },
+        {
+          "Package": "jupyter",
+          "Version": "1.1.1"
+        },
+        {
+          "Package": "matplotlib",
+          "Version": "3.10.9"
+        },
+        {
+          "Package": "numpy",
+          "Version": "2.2.6"
+        },
+        {
+          "Package": "pandas",
+          "Version": "2.3.3"
+        },
+        {
+          "Package": "scikit_learn",
+          "Version": "1.7.2"
+        },
+        {
+          "Package": "torch",
+          "Version": "2.13.0"
+        }
+      ],
+      "title": "Core package versions"
+    },
+    {
+      "rows": [
+        {
+          "Check": "all_finite",
+          "Result": true
+        },
+        {
+          "Check": "autograd_ok",
+          "Result": true
+        },
+        {
+          "Check": "device_detected",
+          "Result": true
+        },
+        {
+          "Check": "gradients_finite",
+          "Result": true
+        },
+        {
+          "Check": "imports_ok",
+          "Result": true
+        },
+        {
+          "Check": "loss_finite",
+          "Result": true
+        },
+        {
+          "Check": "module_training_step_ok",
+          "Result": true
+        },
+        {
+          "Check": "seed_test_ok",
+          "Result": true
+        },
+        {
+          "Check": "status",
+          "Result": "PASS"
+        },
+        {
+          "Check": "tensor_forward_ok",
+          "Result": true
+        }
+      ],
+      "title": "Training smoke test"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/environment/environment_report.json",
+      "role": "environment",
+      "sha256": "c0fbf498e86620e1ba52e909117e61b0a309fa7ec23fe30c89bed848cdce2524"
+    },
+    {
+      "path": "artifacts/environment/smoke_test_report.json",
+      "role": "smoke_test",
+      "sha256": "03573a66b9ec7af94d86df2cd8c523fd2d20a25f0cb8ae5773bc6322eaea3b1a"
+    },
+    {
+      "path": "artifacts/environment/phase_1_signoff.json",
+      "role": "signoff",
+      "sha256": "d5ebc30357c3b2bc679339ae193c47023a1bfe124bfb6c498770c18129d19627"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Default dtype": "torch.float32",
+    "Deterministic mode": "D0",
+    "Environment": "ENV-v1",
+    "Kernel": "python3",
+    "Kernel matches interpreter": true,
+    "Python": "3.10.11",
+    "Selected device": "cpu"
+  },
+  "technical_details": {
+    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "dataset_revision": null,
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/contracts/phase_0_signoff.json": "96b2e34737e43cac59d29d847b4f123f1e28a30ca372ac1f31a2823c8959d2c3"
+    },
+    "input_paths": [
+      "artifacts/contracts/phase_0_signoff.json"
+    ],
+    "output_checksums": {
+      "artifacts/environment/environment_report.json": "c0fbf498e86620e1ba52e909117e61b0a309fa7ec23fe30c89bed848cdce2524",
+      "artifacts/environment/requirements_freeze.txt": "36b39b0eb4428aa446b55e89f975d43026b0d69f632b78369330b9c5bf905af5",
+      "artifacts/environment/smoke_test_report.json": "03573a66b9ec7af94d86df2cd8c523fd2d20a25f0cb8ae5773bc6322eaea3b1a"
+    },
+    "output_paths": [
+      "artifacts/environment/environment_report.json",
+      "artifacts/environment/requirements_freeze.txt",
+      "artifacts/environment/smoke_test_report.json"
+    ],
+    "tests": [
+      "interpreter_kernel_contract",
+      "core_imports",
+      "automatic_device_selection",
+      "tensor_forward",
+      "autograd_backward",
+      "module_optimizer_step",
+      "randomness_repeatability"
+    ]
+  },
+  "warnings": []
+}

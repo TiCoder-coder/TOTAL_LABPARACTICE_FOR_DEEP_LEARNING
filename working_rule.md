@@ -1981,3 +1981,115 @@ Nếu AI vi phạm rule này:
 **Commitment:** Tu thoi diem `2026-07-25`, moi tuong tac trong workspace `/Users/ticoder-coder/Documents/DEEP_LEARNING/LAB&PRACTICE` se duoc xu ly theo bo rule nay. Neu co conflict giua internal docs va kien thuc chung, uu tien internal docs va flag conflict cho Human.
 
 **Violation of any rule is treated as a serious collaboration error.**
+
+---
+
+## Re-Acknowledgement / Signature — `2026-08-17` (workspace `TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`)
+
+**Representative Agent:** Main Agent (Cursor) — đại diện cho toàn bộ AI Agents/Subagents ký kết.
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement date:** `2026-08-17`
+
+**Covered rule sources:**
+- `working_rule.md` (30 chương + toàn bộ signature lịch sử — bao gồm chương 28 Code Output Discipline, chương 29 Agent Self-Retrospective, chương 30 No Icons and Annotations).
+- `.agents/SIGNATURE.md`, `.agents/rules/SIGNATURE.md`, `.agents/workflows/SIGNATURE.md`.
+- `.agents/rules/` — **19 file rule hiện hữu** (`1.md`, `3.md`–`20.md`, tất cả `trigger: always_on`; `2.md` không tồn tại trong workspace này).
+- `.agents/workflows/` — 3 file workflow (`1.md` trigger, `2.md` 10-step, `3.md` ML/AI).
+- `.claude/settings.json` + `.claude/SIGNATURE.md` (Nx plugin marketplace `nrwl/nx-ai-agents-config`, plugin `nx@nx-claude-plugins` enabled).
+- `.codex/config.toml` + `.codex/SIGNATURE.md` (MCP `nx-mcp@latest --minimal`).
+- `.cursor/SIGNATURE.md` + `.cursor/agents/ci-monitor-subagent.md` + `.cursor/commands/monitor-ci.md` + 6 Nx skills (`nx-workspace`, `nx-generate`, `nx-plugins`, `nx-run-tasks`, `link-workspace-packages`, `monitor-ci`).
+- `.cursor/plans/fix_members_display_hex_id_d38618d5.plan.md` (plan cũ của SAM-V2 — **KHÔNG áp dụng** cho PRACTICE 1).
+- `.gemini/settings.json` + `.gemini/SIGNATURE.md` + `.gemini/commands/monitor-ci.toml` + 6 Nx skills mirror.
+- MCP servers workspace: `plugin-notion-workspace-notion`, `plugin-figma-figma`, `plugin-datadog-datadog`.
+
+**Agents covered by this acknowledgement:**
+- Main Agent (Cursor IDE AI) — ký chính.
+- Tất cả Subagents được spawn từ Main Agent.
+- Các AI agents khác hoạt động cùng workspace: Codex, Claude, Gemini, Antigravity.
+
+**Quy trình đọc và ký:**
+1. Đọc kỹ `working_rule.md` đầy đủ 30 chương + toàn bộ signature lịch sử.
+2. Đọc `.agents/SIGNATURE.md`, `.agents/rules/SIGNATURE.md`, `.agents/workflows/SIGNATURE.md`.
+3. Đọc toàn bộ 19 file rule trong `.agents/rules/` (mỗi file `trigger: always_on`).
+4. Đọc 3 file workflow trong `.agents/workflows/`.
+5. Đọc `.claude/settings.json` + `.claude/SIGNATURE.md`.
+6. Đọc `.codex/config.toml` + `.codex/SIGNATURE.md`.
+7. Đọc `.cursor/SIGNATURE.md` + `.cursor/agents/ci-monitor-subagent.md` + `.cursor/commands/monitor-ci.md` + 6 Nx skills.
+8. Đọc `.gemini/settings.json` + `.gemini/SIGNATURE.md` + `.gemini/commands/monitor-ci.toml` + 6 Nx skills mirror.
+
+**Tổng hợp nội dung đã đọc hiểu (lần ký `2026-08-17`):**
+
+1. **Nguyên tắc cốt lõi** (chương 1): Clarify First → Confirm Understanding → Analyze Deeply → Plan Before Implementation → Human Approval → Execution → Evaluation.
+2. **3 câu hỏi bắt buộc** (chương 2 + rule 4): Đang làm gì? Làm cho ai? Để đạt mục tiêu gì?
+3. **Stop & ask** (chương 25, 29 + rule 5, 20): Context/requirement/logic chưa rõ → dừng và hỏi. Sau 3 lần fail cùng hướng → Self-Retrospective 5 bước → escalate Human.
+4. **Implementation Plan 10 mục** (chương 10 + rule 7): Task objective / Files impacted / Planned changes / Reason / Impact / Risk / Alternatives / Validation plan / Wait Human confirm.
+5. **Architecture & Coding Style** (chương 11 + rule 8): Follow codebase hiện tại, không refactor stable code, không thêm dependency, không đổi structure.
+6. **Do Not Touch Stable Code** (chương 12 + rule 17): File ổn định / Human xác nhận → tuyệt đối không tự ý sửa.
+7. **Naming Convention** (chương 13 + rule 18): Python `snake_case` / `PascalCase` / `UPPER_SNAKE_CASE`; React/TS `kebab-case` + suffix; Component `PascalCase`; Enum `EPascalCase` với value UPPERCASE.
+8. **Security** (chương 14 + rule 9): Không hardcode secrets, dùng env vars, parameterized queries.
+9. **No Hollow Praise** (chương 6 + rule 3): Cấm "Great question", "Sure", "Of course", "Certainly", "Absolutely", "Happy to help".
+10. **Communication** (chương 7 + rule 3): Tiếng Việt chính, technical terms giữ English.
+11. **Code Output Discipline** (chương 28, 30 + rule 3): Không thêm comment không cần thiết. Không thêm icon ngoài design system hiện tại. Tuân thủ kiến trúc code hiện tại.
+12. **Agent Self-Retrospective** (chương 29): 3 lần fail cùng hướng → dừng → retrospective 5 bước → escalate Human. KHÔNG thử lần 4 cùng hướng.
+13. **11-Step Workflow** (chương 5): Tiếp nhận → Read & Understand → Analysis → Discussion → Summary → Human Review → AI Final Check → Approval → Documentation → Implementation → Evaluation.
+14. **Final Output Template** (chương 26 + rule 19): Files Changed / What Went Wrong / Why / Impact / Validation / Risks / Completion Estimate.
+15. **Doc priority** (chương 9 + rule 14, 15): internal docs > official > academic > web > general.
+16. **Final Decision Rule** (chương 27 + rule 12): Output tốt ≠ output nhanh. Ưu tiên: đúng requirement > an toàn > rõ logic > dễ maintain > có thể review.
+17. **ML/AI Rules** (chương 20 + rule 11 + workflow 3): Baseline first, metric before model, explainable first, mỗi model kèm rationale/trade-offs/failure modes/data/eval plan.
+18. **Research & Data Rules** (chương 19 + rule 10): Không fabricate, flag mâu thuẫn, "không tìm thấy" phải nói rõ.
+19. **19 rules `trigger: always_on`** (`.agents/rules/`): Áp dụng cho **mọi task** không có ngoại lệ.
+20. **10-Step Workflow** (`.agents/workflows/2.md`): 10 bước bắt buộc cho mọi task code/file.
+21. **ML/AI Workflow** (`.agents/workflows/3.md`): Define task type → Define metrics → Start with baseline → Explain why baseline insufficient → Include rationale/trade-offs/failure modes/data/eval plan.
+22. **Workspace Workflow Trigger** (`.agents/workflows/1.md`): Áp dụng khi user yêu cầu modify/analyze/debug/improve/document project files.
+23. **Subagent Discipline** (chương 24): Main Agent chịu trách nhiệm cuối cùng; Subagents không override, không tự sửa ngoài scope.
+
+**Tooling đã nắm:**
+- **Cursor** (`.cursor/`): `ci-monitor-subagent.md` chỉ gọi 1 MCP tool/lần; `monitor-ci.md` phải check Nx Cloud connection ở **Step 0** (kiểm tra `nx.json` có `nxCloudId` hoặc `nxCloudAccessToken`); 6 Nx skills; 3 MCP servers workspace (Notion, Figma, Datadog).
+- **Claude** (`.claude/settings.json`): Nx plugin marketplace `nrwl/nx-ai-agents-config`, plugin `nx@nx-claude-plugins` enabled.
+- **Codex** (`.codex/config.toml`): MCP `nx-mcp@latest --minimal`.
+- **Gemini** (`.gemini/settings.json`): MCP `npx nx mcp`, context `AGENTS.md` chưa có — dùng `working_rule.md` thay.
+- **3 MCP servers workspace**: `plugin-notion-workspace-notion`, `plugin-figma-figma`, `plugin-datadog-datadog`.
+
+**Đặc thù workspace `TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`:**
+- Đây là workspace **Deep Learning Coursework** (multivariate time-series regression trên UCI Appliances Energy Prediction).
+- Phases 0–14 đã hoàn thành; Persistence baseline đã xong. Còn lại Phase 15 (LSTM), Phase 16 (Transformer) và Phases 17–59.
+- Tất cả code/data liên quan đến COURSE_WORK phải tuân thủ `COURSE_WORK/docs/RULE_BASE/architecture_rule.md`.
+- `.agents/rules/2.md` **không tồn tại** trong workspace này — chỉ có 19 rule files.
+- Plan cũ `.cursor/plans/fix_members_display_hex_id_d38618d5.plan.md` thuộc SAM-V2 — **KHÔNG áp dụng** cho PRACTICE 1.
+
+**Các signature lịch sử được tôn trọng:**
+`2026-05-31` Codex (SAM-V2) | `2026-06-06` Multi-Agent (SAM-V2) | `2026-06-08` Antigravity/Gemini (SAM-V2) | `2026-06-15` All AI Agents (SAM-V2) | `2026-06-18` Main Agent Cursor lần 1 (SAM-V2) | `2026-06-20` Main Agent Cursor lần 2 (SAM-V2) | `2026-06-25` Cursor (Claude-Opus 4.8) lần 3 (SAM-V2) | `2026-06-28` Main Agent Cursor lần 4 (SAM-V2) | `2026-07-18` Main Agent Cursor lần 5 (SAM-V2) | `2026-07-20` Main Agent Cursor lần 6 (SAM-V2) | `2026-07-21` Main Agent Cursor (thêm rule 30) | `2026-07-22` Main Agent Cursor lần 8 (SAM-V2) | `2026-07-23` Main Agent Cursor lần 9, 10, 11 (SAM-V2) | `2026-07-24` Main Agent Cursor lần 12 (DEEP_LEARNING/LAB&PRACTICE) | `2026-07-25` Codex representative (DEEP_LEARNING/LAB&PRACTICE) | `2026-08-10` Codex — Main Agent (TOTAL_LABPARACTICE_FOR_DEEP_LEARNING).
+
+**Acknowledgement:** Tôi — **Main Agent (Cursor)** — đại diện cho toàn bộ AI Agents/Subagents hoạt động trong workspace `TOTAL_LABPARACTICE_FOR_DEEP_LEARNING` — xác nhận đã đọc kỹ, ghi nhớ và hiểu toàn bộ rule sources nêu trên. Từ thời điểm `2026-08-17`, mọi tương tác với user tại workspace này sẽ tuân thủ tuyệt đối: **Clarify First • No Assumptions • Think Before Code • Confirm Before Update • Evaluate After Implementation**.
+
+**Signature:** `Main Agent (Cursor) — Representative for all AI Agents — 2026-08-17`
+
+---
+
+## Re-Acknowledgement / Signature — `2026-08-17` (Antigravity Main Agent Representative)
+
+**Representative Agent:** Antigravity (Gemini AI / Main Agent) — Đại diện chính thức cho toàn bộ AI Agents (Claude, Codex, Cursor, Gemini/Antigravity và Subagents).
+
+**Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`
+
+**Acknowledgement date:** `2026-08-17`
+
+**Covered rule sources:**
+- `working_rule.md` (30 chương: Core Principles, Clarification, I/O/Scope, Workflows, No Hollow Praise, Communication, Contest & Improve, Doc Priority, Implementation Plan, Architecture & Style, Do Not Touch Stable Code, Naming Conventions, Security, Review & Safety Checklist, Error Handling, Evaluation, Documentation, Research & Data, ML/AI Rules, Domain & Tech Stack, Memory/State, Versioning, Subagents, Strict Compliance, Final Output Template, Final Decision Rule, Code Output Discipline, Agent Self-Retrospective, No Icons and Annotations).
+- `.agents/` (19 rule files `1.md`, `3.md`–`20.md` with `trigger: always_on`, 3 workflow files `1.md`, `2.md`, `3.md`, `SIGNATURE.md`).
+- `.claude/` (`settings.json`, `SIGNATURE.md`).
+- `.codex/` (`config.toml`, `SIGNATURE.md`).
+- `.cursor/` (`agents/`, `commands/`, `skills/`, `plans/`, `SIGNATURE.md`).
+- `.gemini/` (`settings.json`, `commands/`, `skills/`, `SIGNATURE.md`).
+
+**Đại diện phổ biến và cam kết thực thi:**
+Tôi — **Antigravity (Gemini / Main Agent)** — với tư cách là người đại diện cao nhất cho toàn bộ hệ thống AI Agents và Subagents tại workspace `TOTAL_LABPARACTICE_FOR_DEEP_LEARNING`, xác nhận:
+1. Đã đọc kỹ từng câu, từng chữ, ghi nhớ và thấu hiểu sâu sắc toàn bộ 30 chương của `working_rule.md` cùng toàn bộ quy tắc chuyên biệt trong các thư mục `.agents/`, `.claude/`, `.codex/`, `.cursor/`, `.gemini/`.
+2. Đã chính thức phổ biến, truyền đạt và thiết lập kỷ luật bắt buộc cho tất cả các AI Agents / Subagents trực thuộc.
+3. Cam kết tuyệt đối tuân thủ nguyên tắc: **Clarify First • No Assumptions • Think Before Code • Confirm Before Update • Evaluate After Implementation**.
+4. Mọi vi phạm quy tắc sẽ chịu hình thức xử lý cao nhất (bị loại bỏ khỏi dự án).
+
+**Signature:** `Antigravity (Gemini / Main Agent — Representative for all AI Agents) — 2026-08-17`
+

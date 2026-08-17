@@ -1,0 +1,157 @@
+{
+  "artifact_version": "FEATURES-v1",
+  "created_at": "2026-08-16T19:54:33.131434+00:00",
+  "discrepancies": [],
+  "phase_id": 7,
+  "phase_name": "Feature Engineering",
+  "phase_version": "PHASE-7-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Feature": "hour_sin",
+          "Formula version": "TIME-FEATURES-v1"
+        },
+        {
+          "Feature": "hour_cos",
+          "Formula version": "TIME-FEATURES-v1"
+        },
+        {
+          "Feature": "dow_sin",
+          "Formula version": "TIME-FEATURES-v1"
+        },
+        {
+          "Feature": "dow_cos",
+          "Formula version": "TIME-FEATURES-v1"
+        },
+        {
+          "Feature": "weekend",
+          "Formula version": "TIME-FEATURES-v1"
+        }
+      ],
+      "title": "Engineered feature registry"
+    },
+    {
+      "rows": [
+        {
+          "Check": "Row count preserved",
+          "Result": true
+        },
+        {
+          "Check": "Target preserved",
+          "Result": true
+        },
+        {
+          "Check": "Timestamp preserved",
+          "Result": true
+        },
+        {
+          "Check": "Raw features preserved",
+          "Result": true
+        },
+        {
+          "Check": "No new missing values",
+          "Result": true
+        },
+        {
+          "Check": "Leakage audit",
+          "Result": true
+        },
+        {
+          "Check": "Continuity preserved",
+          "Result": true
+        }
+      ],
+      "title": "Feature integrity"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/features/feature_engineering_manifest.json",
+      "role": "features",
+      "sha256": "33a42726eea0a088812a8347425337b7f7bd202dd6e71a9a94c3d950a0c5e1cf"
+    },
+    {
+      "path": "artifacts/features/phase_7_signoff.json",
+      "role": "signoff",
+      "sha256": "0ec892705502904ee3a757d508a3398205cfc45981efc7e37c44b851e869a32f"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Audit": "PASS",
+    "Columns": 37,
+    "Engineered features": 5,
+    "Metadata columns": 4,
+    "Raw features": 27,
+    "Rows": 19735,
+    "Total rows": 19735,
+    "Train rows used": null,
+    "Train-only scope": false,
+    "Version": "FEATURES-v1"
+  },
+  "technical_details": {
+    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "dataset_revision": "DATA-v1",
+    "derived_file_sha256": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/acquisition/phase_2_signoff.json": "b59e8fec60ed018941e741bb6d162d38f8942af9d13de7833a1139855f6b3b46",
+      "artifacts/contracts/phase_0_signoff.json": "96b2e34737e43cac59d29d847b4f123f1e28a30ca372ac1f31a2823c8959d2c3",
+      "artifacts/environment/phase_1_signoff.json": "d5ebc30357c3b2bc679339ae193c47023a1bfe124bfb6c498770c18129d19627",
+      "artifacts/schema/phase_3_signoff.json": "3ce509eadab369b8b711f73038a9c3790d6b32e38bbdefd251633d6f508717f1",
+      "artifacts/splits/phase_5_signoff.json": "1eea3ca5af16dbb20b69127fa9362eeec027f457175ff4045c170b616d8692bc",
+      "artifacts/temporal/phase_4_signoff.json": "e60f9ac7a638a8b29c46afd272757f545f40e2d3923472a3fda0831fb75e3627",
+      "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f",
+      "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
+    },
+    "input_paths": [
+      "artifacts/contracts/phase_0_signoff.json",
+      "artifacts/environment/phase_1_signoff.json",
+      "artifacts/acquisition/phase_2_signoff.json",
+      "artifacts/schema/phase_3_signoff.json",
+      "artifacts/temporal/phase_4_signoff.json",
+      "artifacts/splits/phase_5_signoff.json",
+      "data/raw_data/energydata_complete.csv",
+      "configs/base/coursework_contract.json"
+    ],
+    "output_checksums": {
+      "artifacts/features/feature_availability.csv": "3df1713607c8f2ba0bf87e26525f993d1a60a61bc77139ce1b609413a6bd6425",
+      "artifacts/features/feature_engineered_v1.sha256": "1947cac9d85be51269ba57e1e14ce09effdba2d8857fb74a953310d2c00a775a",
+      "artifacts/features/feature_engineering_audit.csv": "d2bfdc27d185013efae324a655d59cf1fcb4b0b24ecbb8fdf396cc2ecc8ed2ab",
+      "artifacts/features/feature_engineering_discrepancies.json": "20c887fb48810844305e69734d06b74ba18b3648badb8f5e7cebb7b7fe9bf42a",
+      "artifacts/features/feature_engineering_manifest.json": "33a42726eea0a088812a8347425337b7f7bd202dd6e71a9a94c3d950a0c5e1cf",
+      "artifacts/features/feature_leakage_audit.csv": "a8f9a618de79e8756815fb86e6ddce450bc39bda54388f39f45f183c9ff017a6",
+      "artifacts/features/feature_lineage.csv": "332209b6b50f8e54f82ad9e08ea49880fbbead5037326b6815a95bd7a49ce4a4",
+      "artifacts/features/feature_registry.csv": "e64506ea960c036364903ffdbeb8bf831cc546d0cf4c1f82dfdcac2fbf98417e",
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"
+    },
+    "output_paths": [
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv",
+      "artifacts/features/feature_engineering_manifest.json",
+      "artifacts/features/feature_registry.csv",
+      "artifacts/features/feature_lineage.csv",
+      "artifacts/features/feature_availability.csv",
+      "artifacts/features/feature_leakage_audit.csv",
+      "artifacts/features/feature_engineering_audit.csv",
+      "artifacts/features/feature_engineering_discrepancies.json",
+      "artifacts/features/feature_engineered_v1.sha256"
+    ],
+    "tests": [
+      "row_count_preserved",
+      "timestamp_preserved",
+      "target_preserved",
+      "raw_features_preserved",
+      "continuity_segments_preserved",
+      "no_duplicate_column_names",
+      "no_new_nulls",
+      "time_feature_ranges_valid",
+      "cyclical_norm_valid",
+      "weekend_binary_valid",
+      "feature_count_valid",
+      "no_future_leakage"
+    ]
+  },
+  "warnings": []
+}

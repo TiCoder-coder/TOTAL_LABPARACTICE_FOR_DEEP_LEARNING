@@ -4,7 +4,7 @@
     "absolute_pearson": 0.8,
     "purpose": "descriptive_flag_not_feature_removal"
   },
-  "created_at": "2026-08-14T19:06:31.674105+00:00",
+  "created_at": "2026-08-16T19:26:47.969238+00:00",
   "dataset_revision": "DATA-v1",
   "decision_sensitive_policy": "hypotheses_require_future_train_validation_confirmation",
   "eda_version": "EDA-v1",
@@ -62,10 +62,10 @@
     }
   ],
   "rolling_policy": "within_continuity_segment_only",
-  "row_count": 19735,
+  "row_count": 13814,
   "schema_version": "SCHEMA-v1",
-  "spike_threshold_policy": "global_quantiles_descriptive_only_final_regimes_train_derived",
-  "split_distribution_analysis_status": "DEFERRED_TO_PHASE_8",
+  "spike_threshold_policy": "train_only_quantiles_descriptive_only_final_regimes_train_derived",
+  "split_distribution_analysis_status": "DERIVED_FROM_PHASE_5",
   "tables_generated": [
     "artifacts/eda/tables/eda_numeric_summary.csv",
     "artifacts/eda/tables/target_quantiles.csv",
@@ -85,8 +85,11 @@
     "artifacts/eda/tables/eda_hypotheses.csv"
   ],
   "target": "Appliances",
-  "target_value_fingerprint": "7a96d81464ca01203a149619e197e8b448af5068d1353a116e2b386787038f12",
+  "target_value_fingerprint": "9b8a6694dbb459a9cd65a55b6a03212b5275ac949d6a3a01b9db757b97478b60",
   "temporal_version": "TEMPORAL-v1",
   "timestamp": "timestamp_parsed",
+  "total_rows": 19735,
+  "train_only_scope": true,
+  "train_rows_used": 13814,
   "warnings": []
 }

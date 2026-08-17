@@ -1,0 +1,33 @@
+{
+  "aggregation_policy": "FULL_SPLIT_CONCATENATE_THEN_COMPUTE_ONCE",
+  "mape_policy": "DISABLED_SUPPLEMENTARY_ONLY",
+  "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+  "metric_version": "METRICS-v1",
+  "numerical_dtype": "numpy.float64_cpu",
+  "prediction_clipping": "PROHIBITED",
+  "prediction_rounding_before_metric": "PROHIBITED",
+  "prediction_unit_policy": "ORIGINAL_WH_BEFORE_METRICS",
+  "primary_selection_metric": "rmse_wh",
+  "primary_selection_split": "VALIDATION",
+  "r2_policy": {
+    "constant_target": "UNDEFINED_CONSTANT_TARGET",
+    "force_finite": false,
+    "negative_values": "preserved",
+    "single_sample": "UNDEFINED_TOO_FEW_SAMPLES"
+  },
+  "required_metrics": [
+    "mae_wh",
+    "rmse_wh",
+    "r2"
+  ],
+  "residual_definition": "y_true_wh_minus_y_pred_wh",
+  "result_precision": "FULL_FLOAT64",
+  "sample_weighting": "EQUAL_WEIGHT_FULL_SPLIT",
+  "target": "Appliances",
+  "target_scaling_policy": {
+    "YS0": "identity_wh",
+    "YS1": "inverse_transform_with_frozen_train_only_scaler"
+  },
+  "target_unit": "Wh",
+  "test_firewall_policy": "FINAL_TEST_REQUIRES_MODEL_LOCK_ID"
+}

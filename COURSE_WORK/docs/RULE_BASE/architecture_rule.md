@@ -7,7 +7,7 @@ Document ID: COURSE-WORK-ARCHITECTURE-v1
 Repository scope: COURSE_WORK
 Architecture style: Source-owned processing with Human-approved direct Phase 5 EDA exception
 Scientific scope: Multivariate time-series regression
-Current implementation scope: Phase 0 through Phase 5
+Current implementation scope: Phase 0 through Phase 14
 Status: ACTIVE_HUMAN_APPROVED
 ```
 
@@ -107,6 +107,9 @@ COURSE_WORK/
 │   │   ├── source_metadata.json
 │   │   ├── variable_metadata.csv
 │   │   └── README_SOURCE.md
+│   ├── interim/
+│   │   └── uci_appliances_energy_prediction/
+│   │       └── energydata_feature_engineered_v1.csv
 │   ├── data_after_processing/
 │   └── data_after_split/
 ├── artifacts/
@@ -115,9 +118,21 @@ COURSE_WORK/
 │   ├── acquisition/
 │   ├── schema/
 │   ├── temporal/
-│   └── eda/
+│   ├── eda/
 │       ├── tables/
 │       └── figures/
+│   ├── features/
+│   ├── feature_sets/
+│   ├── splits/
+│   ├── scaling/
+│   ├── scalers/
+│   ├── windows/
+│   ├── dataloaders/
+│   ├── metrics/
+│   ├── experiments/
+│   ├── baselines/
+│   │   └── persistence/
+│   └── runs/
 ├── src/
 │   └── course_work/
 │       ├── __init__.py
@@ -131,13 +146,21 @@ COURSE_WORK/
 │       │   ├── temporal.py
 │       │   ├── eda.py
 │       │   ├── features.py
+│       │   ├── feature_sets.py
 │       │   ├── splitting.py
 │       │   ├── scaling.py
 │       │   ├── windows.py
 │       │   └── datasets.py
 │       ├── reporting/
 │       │   ├── __init__.py
-│       │   └── eda.py
+│       │   ├── eda.py
+│       │   └── phase_summary.py
+│       ├── evaluation/
+│       │   └── metrics.py
+│       ├── experiments/
+│       │   └── registry.py
+│       ├── baselines/
+│       │   └── persistence.py
 │       ├── utils/
 │       │   ├── __init__.py
 │       │   ├── artifacts.py
@@ -156,10 +179,11 @@ COURSE_WORK/
 │   └── CourseWork.ipynb
 └── docs/
     ├── RULE_BASE/
-    └── plan-doc/
+    ├── plan-doc/
+    └── save_log_in_processing/
 ```
 
-Các package và artifact ngoài Phase 0-5 chỉ là namespace được bảo lưu. Không được triển khai logic Phase 6 trở đi trong scope refactor Phase 0-5.
+Các package và artifact ngoài Phase 0-14 chỉ là namespace được bảo lưu. Không được triển khai logic Phase 15 trở đi nếu chưa có Human approval riêng.
 
 ## 6. Trách nhiệm thư mục cấp cao
 
@@ -207,7 +231,7 @@ Lưu presentation và orchestration notebook.
 
 Notebook không sở hữu canonical scientific implementation.
 
-Ngoại lệ được Human duyệt cho Phase 5:
+Ngoại lệ được Human duyệt cho Phase 6 EDA:
 
 ```text
 CourseWork.ipynb được chứa direct descriptive EDA calculation và plotting.
@@ -404,20 +428,301 @@ Chỉ nhận validated tables hoặc validated derived views từ `data/eda.py`.
 
 Không tự tính lại scientific tables theo logic khác.
 
-### 7.10. Các module Phase 6 trở đi
+### 7.9.1. `reporting/phase_summary.py`
 
-Các file sau không được sửa trong refactor Phase 0-5:
+Sở hữu presentation layer dùng chung cho Phase 0-14:
 
 ```text
-data/features.py
-data/splitting.py
-data/scaling.py
-data/windows.py
-data/datasets.py
-attention/*
+Đọc canonical machine-readable artifacts đã được materialize
+Tạo processing log đầy đủ độc lập với notebook presentation
+Áp dụng presentation allowlist riêng cho từng Phase
+Chỉ render bảng hoặc visualization trực tiếp phục vụ quyết định của Phase
+Ghi một processing log JSON atomically cho mỗi Phase dưới docs/save_log_in_processing
+Render HTML/CSS cục bộ, không dùng JavaScript hoặc external resource
+Escape mọi artifact value trước khi đưa vào HTML
+Không render warnings, discrepancies, checksum, fingerprint, source artifacts hoặc technical lineage
 ```
 
-Sự tồn tại của file rỗng không được xem là Phase đã triển khai.
+Không tính lại scientific result, không thay đổi canonical artifact và không thay thế sign-off.
+
+Notebook presentation bắt buộc tuân thủ:
+
+```text
+Header chỉ gồm Phase, artifact version và status
+Phase 1 hiển thị Environment overview và Core package versions
+Phase 2 hiển thị Dataset overview
+Phase 3 hiển thị Schema overview và Critical schema checks
+Phase 4 hiển thị Temporal coverage và Critical temporal checks
+Phase 5 chỉ hiển thị Chronological membership và Split allocation
+Phase 6 chỉ hiển thị header cùng các output EDA 5.1-5.14 đã được duyệt với TRAIN-only scope
+Phase 7 hiển thị Feature overview và Engineered feature registry với TRAIN-only scope
+Phase 8 chỉ hiển thị Feature-set registry và không hiển thị fingerprint với TRAIN-only scope
+Phase 9 chỉ hiển thị X scaler bundles và Target scaling options
+Phase 10 chỉ hiển thị Window contract và Common target population
+Phase 11 chỉ hiển thị Dataset population và Loader policy
+Phase 12 chỉ hiển thị Metric registry và Evaluation policy
+Phase 13 chỉ hiển thị Registry state và Core safeguards
+Phase 14 chỉ hiển thị Validation performance và Baseline contract
+```
+
+Phase mới phải khai báo presentation allowlist trước khi triển khai. Training phase chỉ hiển thị learning curves và metrics chính. Evaluation phase chỉ hiển thị model comparison và error plots cần thiết. Attention phase chỉ hiển thị heatmaps và diễn giải trực tiếp liên quan. Mọi technical detail vẫn phải được giữ đầy đủ trong processing log JSON.
+
+### 7.10. `data/features.py`
+
+Sở hữu toàn bộ canonical Phase 6 feature engineering:
+
+```text
+Verify signed DATA-v1, SCHEMA-v1, TEMPORAL-v1 và EDA-v1 inputs
+Build deterministic FEATURES-v1 view
+Create hour_sin, hour_cos, dow_sin, dow_cos và weekend
+Preserve raw values, target, timestamps, row lineage và continuity segments
+Create feature registry, lineage, availability và leakage audits
+Write the derived CSV, manifest, checksum, discrepancy log và Phase 6 sign-off
+```
+
+Không sở hữu:
+
+```text
+Final feature-set selection
+Chronological split
+Scaling hoặc imputation
+Manual lag hoặc rolling model features
+Window construction
+Training
+```
+
+### 7.11. `data/feature_sets.py`
+
+Sở hữu toàn bộ canonical Phase 7 feature-set variants:
+
+```text
+Verify signed FEATURES-v1 inputs và checksums
+Define immutable ordered feature components
+Build FS0/FS1/FS2 kết hợp TF0/TF1
+Validate metadata, historical-target, random-control và time-feature isolation
+Validate numeric compatibility, missingness và finite values
+Compute deterministic ordered-feature fingerprints
+Write FEATURESETS-v1 registry, lineage, audits, manifest và sign-off
+Expose defensive-copy feature-list lookup
+```
+
+Không sở hữu:
+
+```text
+Feature value transformation
+Feature-set winner selection
+Chronological split
+Scaling hoặc imputation
+Window construction
+Training
+```
+
+### 7.12. `data/splitting.py`
+
+Sở hữu toàn bộ canonical Phase 8 chronological split:
+
+```text
+Verify signed FEATURES-v1, FEATURESETS-v1 và TEMPORAL-v1 inputs
+Compute deterministic floor-based 70/15/15 boundaries
+Assign TRAIN, VALIDATION và TEST row membership
+Preserve one full master timeline for WB0 context carry-over
+Prepare WB1 strict-isolation metadata for downstream comparison
+Audit chronology, coverage, disjointness và Test firewall
+Compute per-split và global membership fingerprints
+Create Train/Validation-only descriptive diagnostics
+Create timestamp-only split timeline
+Write SPLIT-v1 manifest, artifacts và sign-off
+```
+
+Không sở hữu:
+
+```text
+Scaling hoặc imputation
+Feature-set winner selection
+Window construction
+DataLoader construction
+Training hoặc evaluation metrics
+Detailed Test distribution analysis trước Phase 47
+```
+
+### 7.13. `data/scaling.py`
+
+Sở hữu toàn bộ canonical Phase 9 Train-only scaling:
+
+```text
+Verify signed FEATURES-v1, FEATURESETS-v1 và SPLIT-v1 inputs
+Fit sáu variant-specific X StandardScaler bundles chỉ trên TRAIN rows
+Scale continuous channels và giữ cyclical/binary channels pass-through
+Fit một YS1 target scaler chỉ trên TRAIN target period
+Expose YS0 identity cùng target inverse-transform utility
+Bind scaler với feature order, feature fingerprint và split fingerprint
+Audit Train standardization, Validation transform và structural-only Test transform
+Serialize trusted local scaler artifacts, statistics, checksums, manifest và sign-off
+```
+
+Không sở hữu:
+
+```text
+Window construction
+DataLoader construction
+Feature-set hoặc target-scaling winner selection
+Model training hoặc metrics
+Detailed Test distribution inspection
+```
+
+### 7.14. `data/windows.py`
+
+Sở hữu toàn bộ canonical Phase 10 window construction:
+
+```text
+Verify signed TEMPORAL-v1, FEATURES-v1, FEATURESETS-v1, SPLIT-v1 và SCALING-v1 inputs
+Build deterministic L36, L72 và L144 native window indices cho H1
+Validate timestamp cadence, continuity segments, target exclusion và sequence direction
+Assign sample split bằng target timestamp
+Register WB0 context carry-over và WB1 strict-isolation eligibility
+Lock WINDOWPOP-v1 common target population cho controlled comparisons
+Transform frozen SCALING-v1 feature timelines và materialize deterministic probes lazily
+Preserve Test target firewall và không export target values
+Write window index, population, audits, fingerprints, manifest, README và Phase 10 sign-off
+```
+
+Không sở hữu:
+
+```text
+PyTorch Dataset hoặc DataLoader
+Model training hoặc evaluation metrics
+Lookback winner selection
+Full 3D tensor persistence
+Test target outcome analysis trước Phase 47
+```
+
+### 7.15. `data/datasets.py`
+
+Sở hữu toàn bộ canonical Phase 11 Dataset và DataLoader contract:
+
+```text
+Verify signed FEATURESETS-v1, SPLIT-v1, SCALING-v1, WINDOWS-v1 và WINDOWPOP-v1 inputs
+Build map-style SequenceWindowDataset bằng lazy slicing từ read-only float32 feature timeline
+Bind Dataset với variant, lookback, target option, window fingerprint và population fingerprint
+Expose TRAIN, VALIDATION, TEST_LOCKED và explicit Phase 47 TEST_EVALUATION target access modes
+Return batch-first CPU tensors với stable int64 sample_idx
+Build split-specific DataLoaders cho B32 và B64
+Shuffle TRAIN reproducibly và giữ VALIDATION/TEST chronological
+Use drop_last false, separate split generators và canonical worker seed utility
+Apply CUDA-only pin-memory policy và keep device transfer outside Dataset
+Audit batch shapes, dtypes, coverage, ordering, reproducibility và Test firewall
+Write registries, audits, device policy, manifest, README và Phase 11 sign-off
+```
+
+Không sở hữu:
+
+```text
+Window construction hoặc scaler fitting
+Sample population selection
+Model training hoặc metric calculation
+Batch-size winner selection
+Serialized Dataset, DataLoader hoặc full 3D tensors
+Test target evaluation trước explicit Phase 47 gate
+```
+
+### 7.16. `evaluation/metrics.py`
+
+Sở hữu toàn bộ canonical Phase 12 shared metric contract:
+
+```text
+Verify signed SCALING-v1, WINDOWS-v1, WINDOWPOP-v1 và DATALOADERS-v1 inputs
+Normalize single-output arrays có shape N hoặc N x 1 về NumPy float64
+Convert YS0 identity và inverse-transform YS1 bằng frozen Train-only target scaler
+Compute MAE Wh, RMSE Wh và R² trên full aligned split population một lần
+Preserve negative R² và explicit undefined states cho constant target hoặc N nhỏ hơn 2
+Enforce residual bằng actual trừ prediction
+Enforce sample index uniqueness, population coverage và chronological canonical order
+Aggregate epoch loss theo sample count
+Compare baseline và model chỉ khi contract, split, population, unit, horizon và sample count khớp
+Enforce FINAL_TEST mode cùng model lock id trước mọi Test metric
+Write metric contract, registry, schemas, audits, reference examples, manifest, README và Phase 12 sign-off
+```
+
+Không sở hữu:
+
+```text
+Model training hoặc model selection run
+Prediction generation
+Persistence baseline implementation
+Test prediction hoặc Test target materialization trong Phase 12
+Batch-mean RMSE hoặc batch-mean R² aggregation
+Prediction clipping hoặc rounding trước metric
+```
+
+### 7.17. `experiments/registry.py`
+
+Sở hữu toàn bộ canonical Phase 13 experiment registry contract:
+
+```text
+Verify signed contracts từ ENV-v1 đến METRICS-v1
+Canonicalize nested run config và tạo deterministic SHA-256 config fingerprint
+Validate data, model, training, reproducibility, runtime và upstream lineage fields
+Allocate unique run ID theo model family, experiment family, sequence và config hash
+Require canonical rerun reason cho duplicate config
+Enforce parent-child lineage và final-model-lock references
+Control REGISTERED, RUNNING, COMPLETED, FAILED, CANCELLED, INVALIDATED và ARCHIVED transitions
+Preserve completed config immutability và failed-run evidence
+Register project-relative artifacts với checksum và file size
+Register METRICS-v1 rows với unit, sample count và population guards
+Reject development Test targets và Test metrics
+Allow final Test chỉ với FINAL_TEST family, execution type, lock id và authorization
+Validate one-factor sweep consistency và run comparison compatibility
+Write canonical JSONL, derived CSV views, families, audits, manifest, index, README và Phase 13 sign-off
+Initialize Phase 13 production registry without fabricated runs or results
+Allow Phase 14+ owners to register real runs through public lifecycle APIs
+Require predictions and metrics before completing Persistence evaluation
+Allow task-level Persistence config với null feature, scaler, DataLoader và seed fields
+```
+
+Không sở hữu:
+
+```text
+Model training hoặc evaluation execution
+Persistence, LSTM hoặc Transformer implementation
+Winner selection
+Checkpoint, prediction hoặc actual metric generation
+Test authorization trước Phase 47
+Manual registry edits hoặc Excel source of truth
+```
+
+### 7.18. `baselines/persistence.py`
+
+Sở hữu toàn bộ canonical Phase 14 Persistence baseline:
+
+```text
+Verify signed WINDOWS-v1, WINDOWPOP-v1, DATALOADERS-v1, METRICS-v1 và EXPERIMENTS-v1 inputs
+Lock PERSISTENCE-v1 formula y_hat(t+1) = y(t)
+Use the full L144-anchored common Validation population under WB0
+Read raw Appliances values only through the final required Validation row
+Keep Test target values and Test metrics inaccessible
+Validate source-target H1 alignment, ten-minute cadence, continuity and population order
+Generate raw-Wh predictions directly from input-end target history
+Compute MAE Wh, RMSE Wh, R² and residuals through METRICS-v1
+Register and start one PERSISTENCE_BASELINE evaluation run before metric computation
+Register prediction, metric, audit and supporting artifacts before completion
+Complete the run without training, scaler, DataLoader, seed, optimizer or checkpoint
+Write manifest, summary, predictions, metrics, audits, discrepancies, README và Phase 14 sign-off
+Expose materialize_phase_14 as the only notebook orchestration API
+```
+
+Không sở hữu:
+
+```text
+Learned model implementation
+Feature-set hoặc target-scaling selection
+Training, optimizer, checkpoint hoặc hyperparameter sweep
+Test evaluation trước Phase 47
+Moving-average hoặc seasonal baseline extension
+```
+
+### 7.19. Các module Phase 15 trở đi
+
+`models/*`, `training/*` và downstream `attention/*` chưa được triển khai trong current scope. Sự tồn tại của namespace rỗng không được xem là Phase đã triển khai.
 
 ## 8. Hướng dependency
 
@@ -425,8 +730,14 @@ Sự tồn tại của file rỗng không được xem là Phase đã triển kh
 
 | Caller | Dependency được phép |
 |---|---|
-| Notebook | Public API của contracts, data, reporting và utils |
-| Reporting | Validated EDA result và artifact utility |
+| Notebook | Public API của contracts, data, evaluation, experiments, reporting và utils |
+| Reporting | Validated Phase 0-14 artifacts và artifact utility |
+| Persistence baseline | Raw Appliances prefix, WINDOWS-v1, WINDOWPOP-v1, METRICS-v1, EXPERIMENTS-v1 và artifact utility |
+| Experiment registry | Validated Phase 0-12 artifacts, shared metrics contract và artifact utility |
+| Shared metrics | Frozen target scaler, canonical window population, artifact utility và approved metric libraries |
+| Datasets | Feature view, feature-set registry, frozen scaler bundles, WINDOWPOP-v1 index và reproducibility utility |
+| Windows | Feature view, feature-set registry, split membership, frozen scaler bundles và artifact utility |
+| Scaling | Feature view, feature-set registry, split membership và artifact utility |
 | Data EDA | Temporal contract, schema contract và artifact utility |
 | Temporal | Schema contract và artifact utility |
 | Schema | Acquisition contract và artifact utility |
@@ -458,14 +769,25 @@ Nếu hai module cần import lẫn nhau, phải dừng và sửa ownership qua 
 
 | Phase | Owner chính | Owner hỗ trợ | Notebook responsibility |
 |---|---|---|---|
-| 0 | `contracts/coursework.py` | `utils/artifacts.py` | Hiển thị contract và sign-off |
-| 1 | `utils/environment.py` | `utils/reproducibility.py`, `utils/artifacts.py` | Gọi audit và hiển thị report |
-| 2 | `data/acquisition.py` | `utils/artifacts.py` | Gọi acquisition verification và hiển thị provenance |
-| 3 | `data/schema.py` | `utils/artifacts.py` | Gọi schema audit và hiển thị summary |
-| 4 | `data/temporal.py` | `utils/artifacts.py` | Gọi temporal audit và hiển thị summary |
-| 5 | `data/eda.py` | `reporting/eda.py`, `utils/artifacts.py`, Human-approved direct notebook EDA | Gọi EDA workflow, thực hiện descriptive supplement và hiển thị outputs |
+| 0 | `contracts/coursework.py` | `utils/artifacts.py`, `reporting/phase_summary.py` | Contract nội bộ, không hiển thị trong notebook |
+| 1 | `utils/environment.py` | `utils/reproducibility.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi audit và hiển thị HTML summary |
+| 2 | `data/acquisition.py` | `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi acquisition verification và hiển thị HTML summary |
+| 3 | `data/schema.py` | `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi schema audit và hiển thị HTML summary |
+| 4 | `data/temporal.py` | `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi temporal audit và hiển thị HTML summary |
+| 5 | `data/splitting.py` | `data/features.py`, `data/feature_sets.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 5 public API và hiển thị HTML summary |
+| 6 | `data/eda.py` | `reporting/eda.py`, `reporting/phase_summary.py`, `utils/artifacts.py`, Human-approved direct notebook EDA | Gọi EDA workflow với TRAIN-only scope, thực hiện descriptive supplement và hiển thị outputs |
+| 7 | `data/features.py` | `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 7 public API với TRAIN-only scope và hiển thị HTML summary |
+| 8 | `data/feature_sets.py` | `data/features.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 8 public API với TRAIN-only scope và hiển thị HTML summary |
+| 9 | `data/scaling.py` | `data/features.py`, `data/feature_sets.py`, `data/splitting.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 9 public API và hiển thị HTML summary |
+| 10 | `data/windows.py` | `data/features.py`, `data/feature_sets.py`, `data/splitting.py`, `data/scaling.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 10 public API và hiển thị minimal HTML summary |
+| 11 | `data/datasets.py` | `data/features.py`, `data/feature_sets.py`, `data/scaling.py`, `data/windows.py`, `utils/reproducibility.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 11 public API và chỉ hiển thị Dataset population cùng Loader policy |
+| 12 | `evaluation/metrics.py` | `data/scaling.py`, `data/windows.py`, `data/datasets.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 12 public API và chỉ hiển thị Metric registry cùng Evaluation policy |
+| 13 | `experiments/registry.py` | `evaluation/metrics.py`, Phase 0-12 artifacts, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 13 public API và chỉ hiển thị Registry state cùng Core safeguards |
+| 14 | `baselines/persistence.py` | `data/windows.py`, `evaluation/metrics.py`, `experiments/registry.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 14 public API và chỉ hiển thị Validation performance cùng Baseline contract |
 
-Không Phase nào ngoài direct descriptive Phase 5 exception được triển khai trong notebook cell.
+Phases 6, 7, 8 thực hiện calculation, validation và feature engineering trên TRAIN rows only. Validation và Test rows được firewall triệt để cho đến Phase 9.
+
+Không Phase nào ngoài direct descriptive Phase 6 exception được triển khai trong notebook cell.
 
 ## 10. Data lifecycle
 
@@ -520,9 +842,25 @@ upstream artifact fingerprints
 
 ### 10.3. Processed và split data
 
-`data_after_processing` và `data_after_split` không được dùng trong Phase 0-5.
+`data_after_processing` và `data_after_split` không được dùng trong Phase 0-14.
 
-Phase 6-10 mới được quyền ghi các output tương ứng sau approval riêng.
+Phase 6 chỉ được ghi derived master table đã duyệt tại `data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv`.
+
+Phase 7 không ghi data artifact mới. Nó chỉ tham chiếu một `FEATURES-v1` master table và ghi ordered registries dưới `artifacts/feature_sets`.
+
+Phase 8 không tạo ba bản sao feature data. Nó chỉ ghi row membership, boundaries và structural split artifacts dưới `artifacts/splits`.
+
+Phase 9 chỉ ghi scaler/statistics artifacts và không ghi full scaled dataset.
+
+Phase 10 chỉ ghi window indices, common target population, audits, fingerprints và sign-off dưới `artifacts/windows`. Không ghi full 3D tensors hoặc target values.
+
+Phase 11 chỉ ghi Dataset/DataLoader configuration, registries, audits, fingerprints, device policy và sign-off dưới `artifacts/dataloaders`. Không ghi Dataset object, DataLoader object, full 3D tensors hoặc Test target values.
+
+Phase 12 chỉ ghi metric contract, registry, schemas, synthetic reference examples, audits, discrepancies, README, manifest và sign-off dưới `artifacts/metrics`. Không ghi model prediction, model checkpoint, Test target hoặc Test metric.
+
+Phase 13 không ghi data artifact. Nó chỉ ghi experiment registries, family definitions, lifecycle/guard audits, discrepancies, index, README, manifest và sign-off dưới `artifacts/experiments`. Synthetic run records chỉ tồn tại trong temporary directory và không được persist vào production registry.
+
+Phase 14 không ghi derived data dưới `data`. Nó chỉ đọc bounded raw Appliances prefix, dùng Phase 10 window metadata và ghi prediction/evaluation evidence dưới `artifacts/baselines/persistence`. Production run config/status và registry views được owner Phase 13 quản lý dưới `artifacts/runs` và `artifacts/experiments`.
 
 ## 11. Configuration ownership
 
@@ -584,7 +922,7 @@ Machine-readable artifact phải được ghi atomically và reload để verify
 
 Không overwrite artifact đã sign-off.
 
-## 13. Artifact ownership Phase 0-5
+## 13. Artifact ownership Phase 0-14
 
 ```text
 artifacts/contracts
@@ -602,11 +940,44 @@ artifacts/schema
 artifacts/temporal
 -> Phase 4 temporal outputs và sign-off
 
+artifacts/splits
+-> Phase 5 membership, boundaries, fingerprints, structural/leakage audits, Train-only distribution summary, timestamp-only figure, manifest, discrepancies và sign-off
+
 artifacts/eda
--> Phase 5 tables, figures, manifest, anomalies và sign-off
+-> Phase 6 tables, figures, manifest, anomalies, Train-only scope audit và sign-off
+
+artifacts/features
+-> Phase 7 registry, lineage, availability, leakage audit, engineering audit, manifest, derived checksum, discrepancies, Train-only scope audit và sign-off
+
+artifacts/feature_sets
+-> Phase 8 components, ordered variant registries, fingerprints, lineage, semantic/leakage/order audits, manifest, discrepancies, human-readable specification, Train-only validation audit và sign-off
+
+artifacts/scaling
+-> Phase 9 scaler registry, statistics, scaling/leakage audits, Validation-only shift diagnostic, checksums, manifest, discrepancies, README và sign-off
+
+artifacts/scalers
+-> Phase 9 six X scaler bundles và one YS1 target scaler serialized bằng trusted local joblib
+
+artifacts/windows
+-> Phase 10 window index, common target population, population summary, rejected candidates, boundary/leakage/materialization audits, fingerprints, discrepancies, README, manifest và sign-off
+
+artifacts/dataloaders
+-> Phase 11 Dataset registry, DataLoader registry, sample coverage, batch, shuffle, chronology, worker, Test-firewall audits, device policy, discrepancies, README, manifest và sign-off
+
+artifacts/metrics
+-> Phase 12 metric contract, registry, prediction/comparison schemas, unit/reference/implementation/Test-firewall audits, discrepancies, README, manifest và sign-off
+
+artifacts/experiments
+-> Phase 13 canonical JSONL registry, flattened run/family/sweep/artifact/metric/failure/comparison CSV views, validation audit, discrepancies, index, README, manifest và sign-off; Phase 14 cập nhật qua public registry APIs
+
+artifacts/baselines/persistence
+-> Phase 14 manifest, baseline summary, Validation predictions, Validation metrics, audit, unit-test evidence, discrepancies, README và sign-off
+
+artifacts/runs
+-> Phase 14+ canonical run config và status do EXPERIMENTS-v1 quản lý; Phase 14 hiện có một completed PERSISTENCE_BASELINE run
 ```
 
-Không lưu checkpoint, model hoặc prediction trong các Phase 0-5 roots.
+Không lưu checkpoint hoặc learned model trong các Phase 0-14 roots. Actual Persistence Validation predictions chỉ nằm trong owner root `artifacts/baselines/persistence`; `artifacts/experiments` chỉ index và link artifact do Phase consumer sở hữu.
 
 ## 14. Notebook boundary
 
@@ -622,6 +993,8 @@ Display returned summary
 Display saved figure
 Display sign-off
 ```
+
+Chỉ được display nội dung nằm trong presentation allowlist của Phase. Không được dump JSON, warning table, discrepancy table, source artifact, checksum, fingerprint hoặc technical lineage ra notebook.
 
 ### 14.2. Nội dung bị cấm
 
@@ -652,13 +1025,26 @@ Exception-repair logic
 Notebook phải có section tuần tự:
 
 ```text
-Phase 0
 Phase 1
 Phase 2
 Phase 3
 Phase 4
 Phase 5
+Phase 6
+Phase 7
+Phase 8
+Phase 9
+Phase 10
+Phase 11
+Phase 12
+Phase 13
+Phase 14
+Phase 1-14 Boundary
 ```
+
+Trong đó Phase 5 là Chronological Split, Phase 6 là Exploratory Data Analysis với TRAIN-only scope, Phase 7 là Feature Engineering với TRAIN-only scope, Phase 8 là Feature-Set Variants với TRAIN-only scope. Validation và Test rows chỉ xuất hiện trong các phép biến đổi và đánh giá từ Phase 9 trở đi.
+
+Phase 0 vẫn là canonical prerequisite nội bộ nhưng không có heading, orchestration cell, import hoặc output trong notebook.
 
 Notebook không được dựa vào hidden kernel state.
 
@@ -742,6 +1128,15 @@ Phase 1 -> Phase 2
 Phase 2 -> Phase 3
 Phase 3 -> Phase 4
 Phase 4 -> Phase 5
+Phase 5 -> Phase 6
+Phase 6 -> Phase 7
+Phase 7 -> Phase 8
+Phase 8 -> Phase 9
+Phase 9 -> Phase 10
+Phase 10 -> Phase 11
+Phase 11 -> Phase 12
+Phase 12 -> Phase 13
+Phase 13 -> Phase 14
 Raw checksum preservation
 Artifact reload
 Notebook orchestration boundary
@@ -912,26 +1307,50 @@ Thêm Phase mới.
 
 Không sửa architecture rule trong im lặng để hợp thức hóa code đã viết sai.
 
-Human đã duyệt direct Phase 5 EDA exception qua yêu cầu dẫn đến plan `CW-PHASE-5-EDA-DIRECT-001`. Mọi mở rộng ngoại lệ sang Phase khác vẫn phải quay lại change-control gate.
+Human đã duyệt direct Phase 6 EDA exception qua yêu cầu dẫn đến plan `CW-PHASE-6-EDA-DIRECT-001`. Mọi mở rộng ngoại lệ sang Phase khác vẫn phải quay lại change-control gate.
 
 ## 25. Transition state
 
-Tại thời điểm draft này:
+Trạng thái hiện hành:
 
 ```text
-CourseWork.ipynb còn processing logic và stale execution state.
-Phase 0-5 chưa có sign-off.
-requirements.txt rỗng.
-Source modules hiện tại là scaffold rỗng.
-artifacts chưa tồn tại.
-.gitignore đang ignore nhầm src/course_work/data.
-Phase 6 chưa triển khai.
+Phase 0-14 có canonical source owner và signed artifact.
+CourseWork.ipynb giữ direct descriptive Phase 6 EDA exception đã được Human duyệt.
+Phase 0 giữ vai trò contract nội bộ và không xuất hiện trong CourseWork.ipynb.
+Phase 1-14 dùng presentation allowlist tối giản trên notebook.
+Phase 0-14 vẫn lưu processing log JSON đầy đủ, độc lập với notebook presentation.
+Phase 5 Chronological Split hiện chạy trước EDA, FE và FS, khoá chronological 70/15/15 row membership, WB0 primary metadata và Test firewall.
+Phase 6 EDA trong notebook chỉ gọi public API với TRAIN-only scope và hiển thị outputs.
+FEATURES-v1 giữ raw lineage và chỉ thêm năm deterministic calendar features trên TRAIN rows.
+Phase 7 Feature Engineering trong notebook chỉ gọi public API với TRAIN-only scope và hiển thị outputs.
+FEATURESETS-v1 khóa sáu ordered variants và fingerprints mà không sao chép data trên TRAIN rows.
+Phase 8 Feature-Set Variants trong notebook chỉ gọi public API với TRAIN-only scope và hiển thị outputs.
+Phase 9 trong notebook chỉ gọi public API và hiển thị outputs.
+SCALING-v1 khóa sáu X scaler bundles, YS0 identity, một YS1 scaler và Train-only fit protocol.
+Phase 10 trong notebook chỉ gọi public API và hiển thị outputs.
+WINDOWS-v1 khóa L36/L72/L144 H1 geometry, WB0/WB1 metadata và lazy materialization contract.
+WINDOWPOP-v1 khóa common target population cho mọi controlled comparison.
+Phase 11 trong notebook chỉ gọi public API và hiển thị Dataset population cùng Loader policy.
+DATALOADERS-v1 khóa lazy map-style Dataset, B32/B64, Train-only shuffle, full sample coverage, split-specific RNG và Test target firewall.
+Phase 12 trong notebook chỉ gọi public API và hiển thị Metric registry cùng Evaluation policy.
+METRICS-v1 khóa MAE Wh, RMSE Wh, R², full-split aggregation, original-Wh reporting, residual convention, sample-weighted epoch loss và final-Test firewall.
+Phase 13 trong notebook chỉ gọi public API và hiển thị Registry state cùng Core safeguards.
+EXPERIMENTS-v1 khóa run identity, canonical config fingerprint, complete lineage, lifecycle, artifact/metric links, sweep consistency, completed-config immutability và final-Test firewall.
+Phase 13 khởi tạo production registry với zero fabricated runs; synthetic tests không được persist.
+Phase 14 trong notebook chỉ gọi public API và hiển thị Validation performance cùng Baseline contract.
+PERSISTENCE-v1 khóa task-level last-value formula, L144-anchored Validation population, raw-Wh evaluation và Test firewall.
+EXPERIMENTS-v1 hiện quản lý một completed canonical PERSISTENCE_BASELINE run với null feature/scaler/seed fields và zero trainable parameters.
 ```
 
-Transition phải theo plan:
+Phase 9-14 được triển khai theo plan:
 
 ```text
-CW-REFACTOR-0005-001
+Phase_9_Train_only_scaling.md
+Phase_10_Window_builder.md
+Phase_11_DataLoaders.md
+Phase_12_Shared_metrics.md
+Phase_13_Experiment_registry.md
+Phase_14_Persistence_baseline.md
 ```
 
 Không được bỏ qua Phase gate trong quá trình chuyển đổi.
@@ -942,7 +1361,7 @@ Không được bỏ qua Phase gate trong quá trình chuyển đổi.
 [x] Canonical root rõ ràng.
 [x] Canonical notebook rõ ràng.
 [x] Source ownership rõ ràng.
-[x] Phase 0-5 mapping đầy đủ.
+[x] Phase 0-14 mapping đầy đủ.
 [x] Dependency direction rõ ràng.
 [x] Raw data contract rõ ràng.
 [x] Derived-view contract rõ ràng.
@@ -955,7 +1374,18 @@ Không được bỏ qua Phase gate trong quá trình chuyển đổi.
 [x] Sign-off contract rõ ràng.
 [x] Git tracking rule rõ ràng.
 [x] Change-control gate rõ ràng.
-[x] Không triển khai Phase 6.
+[x] Phase 5 Chronological Split có canonical owner, artifacts, tests và notebook orchestration boundary.
+[x] Phase 6 EDA có canonical owner, artifacts, tests, notebook orchestration boundary và TRAIN-only scope gate.
+[x] Phase 7 Feature Engineering có canonical owner, artifacts, tests, notebook orchestration boundary và TRAIN-only scope gate.
+[x] Phase 8 Feature-Set Variants có canonical owner, artifacts, tests, notebook orchestration boundary và TRAIN-only scope gate.
+[x] Phase 9 có canonical owner, artifacts, tests và notebook orchestration boundary.
+[x] Phase 10 có canonical owner, artifacts, tests và notebook orchestration boundary.
+[x] Phase 11 có canonical owner, artifacts, tests và notebook orchestration boundary.
+[x] Phase 12 có canonical owner, artifacts, tests và notebook orchestration boundary.
+[x] Phase 13 có canonical owner, artifacts, tests và notebook orchestration boundary.
+[x] Phase 14 có canonical owner, artifacts, tests và notebook orchestration boundary.
+[x] Phase 14 Persistence run đã complete với Validation-only metrics và Test firewall.
+[x] Không triển khai Phase 15.
 ```
 
 ## 27. Activation gate
@@ -982,4 +1412,17 @@ ARCHITECTURE_RULE_VALIDATED=true
 ARCHITECTURE_RULE_APPROVED=true
 SOURCE_REFACTOR_ALLOWED=true
 PHASE_0_IMPLEMENTATION_ALLOWED=true
+```
+
+## 28. Amendment log
+
+```text
+v1.0 (2026-08-17) - Initial activation
+v1.1 (2026-08-17) - Phase reorder amendment
+  - Phase 5 = Chronological Split (was EDA)
+  - Phase 6 = EDA với TRAIN-only scope (was FE)
+  - Phase 7 = Feature Engineering với TRAIN-only scope (was FS)
+  - Phase 8 = Feature-Set Variants với TRAIN-only scope (was Split)
+  - Authoritative plan: docs/plan-doc/analysis_error/phase_reorder_split_before_eda_train_only_refactor_plan.md
+  - Human approval: granted 2026-08-17
 ```

@@ -1,0 +1,219 @@
+{
+  "artifact_version": "PERSISTENCE-v1",
+  "created_at": "2026-08-16T12:30:35.102891+00:00",
+  "discrepancies": [],
+  "phase_id": 14,
+  "phase_name": "Persistence Baseline",
+  "phase_version": "PHASE-14-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Metric": "MAE",
+          "Unit": "Wh",
+          "Value": 26.16216216216216
+        },
+        {
+          "Metric": "RMSE",
+          "Unit": "Wh",
+          "Value": 66.42970273458556
+        },
+        {
+          "Metric": "R²",
+          "Unit": "Dimensionless",
+          "Value": 0.481325958122121
+        },
+        {
+          "Metric": "Validation samples",
+          "Unit": "Rows",
+          "Value": 2960
+        }
+      ],
+      "title": "Validation performance"
+    },
+    {
+      "rows": [
+        {
+          "Item": "Formula",
+          "Value": "y_hat(t+1) = y(t)"
+        },
+        {
+          "Item": "Forecast horizon",
+          "Value": "1 step / 10 minutes"
+        },
+        {
+          "Item": "Baseline scope",
+          "Value": "TASK_LEVEL"
+        },
+        {
+          "Item": "Population",
+          "Value": "WINDOWPOP-v1"
+        },
+        {
+          "Item": "Source lag",
+          "Value": "1 step / 10 minutes"
+        },
+        {
+          "Item": "Test status",
+          "Value": "LOCKED_UNTIL_PHASE_47"
+        }
+      ],
+      "title": "Baseline contract"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/baselines/persistence/persistence_manifest.json",
+      "role": "manifest",
+      "sha256": "603b6f652a0c290bec8d8fd2361507a3818d7b2f49594d55510b254cf2eadb14"
+    },
+    {
+      "path": "artifacts/baselines/persistence/persistence_baseline_summary.json",
+      "role": "summary",
+      "sha256": "14d1bb5d55ee6a6cf61ea2c4f797e85f2058363151a8e6498b224773e735a931"
+    },
+    {
+      "path": "artifacts/baselines/persistence/persistence_validation_metrics.json",
+      "role": "metrics",
+      "sha256": "b9a090506bbe7efc7a7d58d4ebda2c9faf4684eafd98e8bd710472685e832b65"
+    },
+    {
+      "path": "artifacts/baselines/persistence/persistence_discrepancies.json",
+      "role": "discrepancies",
+      "sha256": "591eb17a2c107482701bde0dd035f0f9e396dd7e661a5bcde9ce62ca08aeef33"
+    },
+    {
+      "path": "artifacts/baselines/persistence/phase_14_signoff.json",
+      "role": "signoff",
+      "sha256": "9b3417245688385c863908a3ec45c77e3964dd4366c95a9adc6237d0366b64d9"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Model": "PERSISTENCE_LAST_VALUE",
+    "Primary metric": 66.42970273458556,
+    "Run": "RUN_PS_PS_0001_AFFD3E3F",
+    "Validation samples": 2960,
+    "Version": "PERSISTENCE-v1"
+  },
+  "technical_details": {
+    "artifact_checksums": {
+      "audit": "b26f55cbe9393165dacf16ae0351e978ff2992ab86907fa719c3745f4d0144ba",
+      "discrepancies": "591eb17a2c107482701bde0dd035f0f9e396dd7e661a5bcde9ce62ca08aeef33",
+      "metrics": "b9a090506bbe7efc7a7d58d4ebda2c9faf4684eafd98e8bd710472685e832b65",
+      "predictions": "a2c4c5e7e6f3c6f8971bb2d4a9b68eb85baae0b652b0dc9a0640dc8afed160e1",
+      "readme": "91aaf84b598912898be790a989563d2d054313f819dbd0ab6e081e53e179a061",
+      "summary": "14d1bb5d55ee6a6cf61ea2c4f797e85f2058363151a8e6498b224773e735a931",
+      "unit_tests": "e09c85fd0163c9e5f587d588561729790a27928d432885313633ed3178bcc970"
+    },
+    "artifact_paths": {
+      "audit": "artifacts/baselines/persistence/persistence_audit.csv",
+      "discrepancies": "artifacts/baselines/persistence/persistence_discrepancies.json",
+      "metrics": "artifacts/baselines/persistence/persistence_validation_metrics.json",
+      "predictions": "artifacts/baselines/persistence/persistence_validation_predictions.csv",
+      "readme": "artifacts/baselines/persistence/README_PERSISTENCE.md",
+      "summary": "artifacts/baselines/persistence/persistence_baseline_summary.json",
+      "unit_tests": "artifacts/baselines/persistence/persistence_unit_tests.csv"
+    },
+    "baseline_config_fingerprint": "4491c0d043a7617f5cf07b74c75e59c62f228fb509de101acfc74010ec8c089d",
+    "config_fingerprint": null,
+    "dataset_revision": "DATA-v1",
+    "device_type": "cpu",
+    "environment_id": null,
+    "experiment_config_fingerprint": "affd3e3f37eb504893e70ce179eec0aa95d861e2e709222265b14074edb09dc6",
+    "experiment_family": "PERSISTENCE_BASELINE",
+    "feature_variant_id": null,
+    "input_checksums": {
+      "artifacts/dataloaders/phase_11_signoff.json": "db0e6760bdc7d10fbea7029443113c4743e0d1a8851f9417a68d5de73e2bb473",
+      "artifacts/experiments/phase_13_signoff.json": "6aab5ba8ec6ae6cdcf18e7479eff300f6e16317113ea4d192c28239da7a125d7",
+      "artifacts/metrics/metric_contract.json": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8",
+      "artifacts/metrics/metric_manifest.json": "68d347fcbb3f056aecc9daa1af621b22e95ec54a563a88132e390fe549a12ff4",
+      "artifacts/metrics/phase_12_signoff.json": "98f9a23d247944c7d5a8a202e64b7479982b8add290a0ed877bfc8362221557e",
+      "artifacts/windows/common_target_population.csv": "d854e826ce0da67118e33659d239362213fd6447ffe7cd3aa054c672cf690d61",
+      "artifacts/windows/phase_10_signoff.json": "d0ba9c92c50ab4ca7828c05d23d339abf82eb296805d025d73a43550323af09a",
+      "artifacts/windows/window_index.csv": "46dee43de6bc950b5cd5719d40e1c8f3680bfe91fd4001e792a40c098a087712",
+      "artifacts/windows/window_manifest.json": "9a625733dc16186124991aa8c17e07e0d906f222b6ae290ef4c8ba0a982c19e8",
+      "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
+    },
+    "input_paths": [
+      "data/raw_data/energydata_complete.csv",
+      "artifacts/windows/phase_10_signoff.json",
+      "artifacts/windows/window_manifest.json",
+      "artifacts/windows/window_index.csv",
+      "artifacts/windows/common_target_population.csv",
+      "artifacts/dataloaders/phase_11_signoff.json",
+      "artifacts/metrics/phase_12_signoff.json",
+      "artifacts/metrics/metric_manifest.json",
+      "artifacts/metrics/metric_contract.json",
+      "artifacts/experiments/phase_13_signoff.json"
+    ],
+    "metric_result_fingerprint": "90b5459ef15f2b460fbcf29995acc60b1de30a6a50d6a9f461792026094ad47f",
+    "output_checksums": {
+      "artifacts/baselines/persistence/README_PERSISTENCE.md": "91aaf84b598912898be790a989563d2d054313f819dbd0ab6e081e53e179a061",
+      "artifacts/baselines/persistence/persistence_audit.csv": "b26f55cbe9393165dacf16ae0351e978ff2992ab86907fa719c3745f4d0144ba",
+      "artifacts/baselines/persistence/persistence_baseline_summary.json": "14d1bb5d55ee6a6cf61ea2c4f797e85f2058363151a8e6498b224773e735a931",
+      "artifacts/baselines/persistence/persistence_discrepancies.json": "591eb17a2c107482701bde0dd035f0f9e396dd7e661a5bcde9ce62ca08aeef33",
+      "artifacts/baselines/persistence/persistence_manifest.json": "603b6f652a0c290bec8d8fd2361507a3818d7b2f49594d55510b254cf2eadb14",
+      "artifacts/baselines/persistence/persistence_unit_tests.csv": "e09c85fd0163c9e5f587d588561729790a27928d432885313633ed3178bcc970",
+      "artifacts/baselines/persistence/persistence_validation_metrics.json": "b9a090506bbe7efc7a7d58d4ebda2c9faf4684eafd98e8bd710472685e832b65",
+      "artifacts/baselines/persistence/persistence_validation_predictions.csv": "a2c4c5e7e6f3c6f8971bb2d4a9b68eb85baae0b652b0dc9a0640dc8afed160e1"
+    },
+    "output_paths": [
+      "artifacts/baselines/persistence/persistence_manifest.json",
+      "artifacts/baselines/persistence/persistence_baseline_summary.json",
+      "artifacts/baselines/persistence/persistence_validation_predictions.csv",
+      "artifacts/baselines/persistence/persistence_validation_metrics.json",
+      "artifacts/baselines/persistence/persistence_audit.csv",
+      "artifacts/baselines/persistence/persistence_unit_tests.csv",
+      "artifacts/baselines/persistence/persistence_discrepancies.json",
+      "artifacts/baselines/persistence/README_PERSISTENCE.md"
+    ],
+    "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+    "prediction_fingerprint": "9fa47e24545578612f46e81f4f656926be39708dc08505492a4d5099204e29a7",
+    "requires_training": false,
+    "run_id": "RUN_PS_PS_0001_AFFD3E3F",
+    "run_status": "COMPLETED",
+    "scaler_bundle_id": null,
+    "seed": null,
+    "test_access_authorized": false,
+    "test_targets_materialized": false,
+    "tests": [
+      "constant_series",
+      "increasing_series",
+      "decreasing_series",
+      "varying_series",
+      "wrong_lag_rejected",
+      "test_firewall_rejected",
+      "determinism_without_seed",
+      "lookback_invariance",
+      "feature_variant_invariance",
+      "target_scaling_invariance",
+      "batch_size_invariance",
+      "device_invariance",
+      "formula_valid",
+      "horizon_steps_valid",
+      "horizon_minutes_valid",
+      "source_before_target",
+      "source_target_delta_valid",
+      "continuity_valid",
+      "population_complete",
+      "sample_ids_unique",
+      "predictions_equal_raw_source",
+      "prediction_unit_wh",
+      "metric_version_valid",
+      "mae_independent_crosscheck",
+      "rmse_independent_crosscheck",
+      "r2_independent_crosscheck",
+      "test_firewall_valid",
+      "lookback_invariance_valid",
+      "feature_variant_invariance_valid",
+      "target_scaling_invariance_valid",
+      "batch_invariance_valid",
+      "device_invariance_valid",
+      "determinism_valid"
+    ],
+    "trainable_parameters": 0
+  },
+  "warnings": []
+}

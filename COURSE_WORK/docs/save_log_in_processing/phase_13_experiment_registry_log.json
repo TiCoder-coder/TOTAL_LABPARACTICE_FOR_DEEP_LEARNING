@@ -1,0 +1,184 @@
+{
+  "artifact_version": "EXPERIMENTS-v1",
+  "created_at": "2026-08-16T10:01:30.532189+00:00",
+  "discrepancies": [],
+  "phase_id": 13,
+  "phase_name": "Experiment Registry",
+  "phase_version": "PHASE-13-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Item": "Production runs",
+          "Value": 1
+        },
+        {
+          "Item": "Experiment families",
+          "Value": 26
+        },
+        {
+          "Item": "Registered sweeps",
+          "Value": 0
+        },
+        {
+          "Item": "Completed runs",
+          "Value": 1
+        },
+        {
+          "Item": "Failed runs",
+          "Value": 0
+        }
+      ],
+      "title": "Registry state"
+    },
+    {
+      "rows": [
+        {
+          "Safeguard": "Unique run identity",
+          "State": "Enabled"
+        },
+        {
+          "Safeguard": "Canonical config fingerprint",
+          "State": "Enabled"
+        },
+        {
+          "Safeguard": "Atomic registry writes",
+          "State": "Enabled"
+        },
+        {
+          "Safeguard": "Completed config immutability",
+          "State": "Enabled"
+        },
+        {
+          "Safeguard": "Sweep consistency guard",
+          "State": "Enabled"
+        },
+        {
+          "Safeguard": "Final Test firewall",
+          "State": "Enabled"
+        }
+      ],
+      "title": "Core safeguards"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/experiments/registry_manifest.json",
+      "role": "registry",
+      "sha256": "ba38d146240825def7a569a3e5fb023f5ff4f89220ec72dfa7f2a8b43abc5896"
+    },
+    {
+      "path": "artifacts/experiments/phase_13_signoff.json",
+      "role": "signoff",
+      "sha256": "6aab5ba8ec6ae6cdcf18e7479eff300f6e16317113ea4d192c28239da7a125d7"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Experiment families": 26,
+    "Production runs": 1,
+    "Record schema": 1,
+    "Validation": "PASS",
+    "Version": "EXPERIMENTS-v1"
+  },
+  "technical_details": {
+    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/dataloaders/dataloader_manifest.json": "f792b358e156e4cb902b32b653f8722ffafebb957c475c53dc5c20c0bcf14d5c",
+      "artifacts/eda/eda_manifest.json": "f51f9750e9370f487a9008baa1aef551eba73cb3e4a2dc4773d952ac380e2775",
+      "artifacts/environment/environment_report.json": "c0fbf498e86620e1ba52e909117e61b0a309fa7ec23fe30c89bed848cdce2524",
+      "artifacts/feature_sets/feature_set_manifest.json": "ff4fb3436b6ce6c86ccfd84027645127e84db46c07cc96101d864b3ad7939946",
+      "artifacts/features/feature_engineering_manifest.json": "bd4b6230d080bfc277810c85c9480fa10095eee8e41c5bddcd5d7fe87200fe50",
+      "artifacts/metrics/metric_contract.json": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8",
+      "artifacts/metrics/metric_manifest.json": "68d347fcbb3f056aecc9daa1af621b22e95ec54a563a88132e390fe549a12ff4",
+      "artifacts/metrics/phase_12_signoff.json": "98f9a23d247944c7d5a8a202e64b7479982b8add290a0ed877bfc8362221557e",
+      "artifacts/scaling/scaler_registry.json": "1068012809a738e30fee1fde10b7cdcbdc9a323da3d1b69e03cb4bd6188c3866",
+      "artifacts/scaling/scaling_manifest.json": "2210edd3dae324420be156877840154e9ceb0397e527a416dcf365c1a799bb28",
+      "artifacts/schema/schema_manifest.json": "050cd2a2807eccf823ff3b7fedd5aef3254c9b072cb1159cd3e7477085644a01",
+      "artifacts/splits/split_manifest.json": "5528f4346c7dc6975657748092b2053e929bb2286d1c31e029dbf0facb6a7127",
+      "artifacts/temporal/temporal_manifest.json": "85494b9a5685161b27ce6ab2edc9a678b262c40bbde26912b75ccad2339e8f7a",
+      "artifacts/windows/window_fingerprints.json": "c4ef0afcf352a119f03f5d9b86dabe6b5bf0a029afbdb9b29021debb0827468b",
+      "artifacts/windows/window_manifest.json": "9a625733dc16186124991aa8c17e07e0d906f222b6ae290ef4c8ba0a982c19e8",
+      "data/raw_data/dataset_manifest.json": "f5ce3c292d2b0aaaf6d6e7ffe65f6f34dff0a47930b1781ca265a714fd6ec3fb"
+    },
+    "input_paths": [
+      "artifacts/environment/environment_report.json",
+      "data/raw_data/dataset_manifest.json",
+      "artifacts/schema/schema_manifest.json",
+      "artifacts/temporal/temporal_manifest.json",
+      "artifacts/eda/eda_manifest.json",
+      "artifacts/features/feature_engineering_manifest.json",
+      "artifacts/feature_sets/feature_set_manifest.json",
+      "artifacts/splits/split_manifest.json",
+      "artifacts/scaling/scaling_manifest.json",
+      "artifacts/scaling/scaler_registry.json",
+      "artifacts/windows/window_manifest.json",
+      "artifacts/windows/window_fingerprints.json",
+      "artifacts/dataloaders/dataloader_manifest.json",
+      "artifacts/metrics/metric_manifest.json",
+      "artifacts/metrics/metric_contract.json",
+      "artifacts/metrics/phase_12_signoff.json"
+    ],
+    "output_checksums": {
+      "artifacts/experiments/README_EXPERIMENTS.md": "89dad56cbf018d09143611173256ddc7f107c1860e2666bc57be29305085709c",
+      "artifacts/experiments/experiment_families.csv": "f70313e270fa012af64286401b44e339c9928b0df82a1a0309efbf00cb4d0ae0"
+    },
+    "output_paths": [
+      "artifacts/experiments/experiment_registry.csv",
+      "artifacts/experiments/experiment_registry.jsonl",
+      "artifacts/experiments/experiment_families.csv",
+      "artifacts/experiments/sweep_registry.csv",
+      "artifacts/experiments/run_artifact_registry.csv",
+      "artifacts/experiments/run_metric_registry.csv",
+      "artifacts/experiments/run_failure_registry.csv",
+      "artifacts/experiments/run_comparison_audit.csv",
+      "artifacts/experiments/registry_validation_audit.csv",
+      "artifacts/experiments/registry_manifest.json",
+      "artifacts/experiments/registry_discrepancies.json",
+      "artifacts/experiments/EXPERIMENT_INDEX.md",
+      "artifacts/experiments/README_EXPERIMENTS.md"
+    ],
+    "production_registry_empty": false,
+    "registry_contract_fingerprint": "124a2edf1dc8a30845f7ffa7e0c46bf8d05a8c7ebe916b539f711e8d9dff36df",
+    "registry_fingerprint": "faedd4d69287671f50b374b21e0df1cc30b0b505d6dc2480461b05fb79ed12d2",
+    "synthetic_records_persisted": false,
+    "tests": [
+      "canonical_config_fingerprint",
+      "sweep_registration",
+      "unique_rerun_ids",
+      "duplicate_config_rerun_reason",
+      "sanity_lifecycle",
+      "invalid_status_transition",
+      "completed_config_immutability",
+      "failed_run_traceability",
+      "development_test_metric_firewall",
+      "authorized_final_test_metrics",
+      "one_factor_sweep",
+      "sweep_confounding_guard",
+      "synthetic_registry_validation"
+    ],
+    "upstream_contract_versions": {
+      "dataloader_version": "DATALOADERS-v1",
+      "dataset_fingerprint": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+      "dataset_revision": "DATA-v1",
+      "eda_version": "EDA-v1",
+      "environment_id": "ENV-v1",
+      "feature_set_version": "FEATURESETS-v1",
+      "feature_version": "FEATURES-v1",
+      "global_split_fingerprint": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
+      "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+      "metric_version": "METRICS-v1",
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "population_version": "WINDOWPOP-v1",
+      "scaling_version": "SCALING-v1",
+      "schema_version": "SCHEMA-v1",
+      "split_version": "SPLIT-v1",
+      "temporal_version": "TEMPORAL-v1",
+      "window_version": "WINDOWS-v1"
+    }
+  },
+  "warnings": []
+}

@@ -213,20 +213,20 @@ def dataframe_csv(dataframe: pd.DataFrame, index: bool = False) -> str:
 def verify_existing_signoff(root: Path, signoff_path: Path) -> dict[str, Any]:
     signoff = read_json(signoff_path)
     if signoff.get("status") != "PASS" or signoff.get("artifact_version") != "EDA-v1":
-        raise RuntimeError("Existing Phase 5 sign-off is invalid")
+        raise RuntimeError("Existing Phase 6 sign-off is invalid")
     for relative_path, expected_hash in signoff.get("output_checksums", {}).items():
         path = root / relative_path
         if not path.is_file() or sha256_file(path) != expected_hash:
-            raise RuntimeError(f"Phase 5 artifact checksum mismatch: {relative_path}")
+            raise RuntimeError(f"Phase 6 artifact checksum mismatch: {relative_path}")
     return signoff
 
 
-def materialize_phase_5(project_root: Path | None = None) -> dict[str, Any]:
+def materialize_phase_6(project_root: Path | None = None) -> dict[str, Any]:
     root = (project_root or get_project_root()).resolve()
     artifact_root = root / "artifacts/eda"
     table_root = artifact_root / "tables"
     figure_root = artifact_root / "figures"
-    signoff_path = artifact_root / "phase_5_signoff.json"
+    signoff_path = artifact_root / "phase_6_signoff.json"
     if signoff_path.exists():
         return verify_existing_signoff(root, signoff_path)
     analysis = prepare_eda_analysis(root)
@@ -269,18 +269,21 @@ def materialize_phase_5(project_root: Path | None = None) -> dict[str, Any]:
         "timestamp": "timestamp_parsed",
         "lineage_columns": ["raw_row_index", "continuity_segment_id"],
         "global_eda_scope": "descriptive_and_explanatory_only",
+        "train_only_scope": True,
+        "train_rows_used": analysis["train_rows_used"],
+        "total_rows": analysis["total_rows"],
         "decision_sensitive_policy": "hypotheses_require_future_train_validation_confirmation",
         "figures_generated": relative_figures,
         "tables_generated": relative_tables,
         "hypotheses_count": len(analysis["hypotheses"]),
         "anomalies_count": len(analysis["anomalies"]),
         "representative_windows": analysis["representative_windows"].to_dict(orient="records"),
-        "split_distribution_analysis_status": "DEFERRED_TO_PHASE_8",
+        "split_distribution_analysis_status": "DERIVED_FROM_PHASE_5",
         "correlation_threshold": {
             "absolute_pearson": 0.8,
             "purpose": "descriptive_flag_not_feature_removal",
         },
-        "spike_threshold_policy": "global_quantiles_descriptive_only_final_regimes_train_derived",
+        "spike_threshold_policy": "train_only_quantiles_descriptive_only_final_regimes_train_derived",
         "lag_policy": "segment_aware_descriptive_not_lookback_selection",
         "rolling_policy": "within_continuity_segment_only",
         "processing_actions": {
@@ -308,8 +311,8 @@ def materialize_phase_5(project_root: Path | None = None) -> dict[str, Any]:
     phase_4 = analysis["phase_4_signoff"]
     signoff = {
         "artifact_version": "EDA-v1",
-        "phase_id": 5,
-        "phase_version": "PHASE-5-v1",
+        "phase_id": 6,
+        "phase_version": "PHASE-6-v1",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "environment_id": "ENV-v1",
         "dataset_revision": "DATA-v1",
@@ -317,12 +320,14 @@ def materialize_phase_5(project_root: Path | None = None) -> dict[str, Any]:
             "artifacts/acquisition/phase_2_signoff.json",
             "artifacts/schema/phase_3_signoff.json",
             "artifacts/temporal/phase_4_signoff.json",
+            "artifacts/splits/phase_5_signoff.json",
             "data/raw_data/energydata_complete.csv",
         ],
         "input_checksums": {
             "artifacts/acquisition/phase_2_signoff.json": sha256_file(root / "artifacts/acquisition/phase_2_signoff.json"),
             "artifacts/schema/phase_3_signoff.json": sha256_file(root / "artifacts/schema/phase_3_signoff.json"),
             "artifacts/temporal/phase_4_signoff.json": sha256_file(root / "artifacts/temporal/phase_4_signoff.json"),
+            "artifacts/splits/phase_5_signoff.json": sha256_file(root / "artifacts/splits/phase_5_signoff.json"),
             "data/raw_data/energydata_complete.csv": analysis["raw_csv_sha256"],
         },
         "output_paths": output_paths,

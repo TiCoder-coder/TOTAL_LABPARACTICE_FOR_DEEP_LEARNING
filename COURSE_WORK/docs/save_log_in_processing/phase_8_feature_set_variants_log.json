@@ -1,0 +1,151 @@
+{
+  "artifact_version": "FEATURESETS-v1",
+  "created_at": "2026-08-16T19:54:54.044610+00:00",
+  "discrepancies": [],
+  "phase_id": 8,
+  "phase_name": "Feature-Set Variants",
+  "phase_version": "PHASE-8-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Baseline": false,
+          "Feature count": 25,
+          "Fingerprint": "18f004e8ed5d6366f9996fd01394d25da54a374f57198a7c5b9dfc7320f11a94",
+          "Variant": "FS0_TF0"
+        },
+        {
+          "Baseline": false,
+          "Feature count": 30,
+          "Fingerprint": "acb1330254f9e4166e6978acf751468cb8a467c90f8339b98ff72e9c6200459e",
+          "Variant": "FS0_TF1"
+        },
+        {
+          "Baseline": false,
+          "Feature count": 26,
+          "Fingerprint": "2a0cacd68ce18045d646fbae007275a536fe07bd2859aec334de1bf0ca073fe7",
+          "Variant": "FS1_TF0"
+        },
+        {
+          "Baseline": true,
+          "Feature count": 31,
+          "Fingerprint": "d71b18329bb63223681e9a3f2505bd206fd8a851151c790cd1ac16db48ae2bad",
+          "Variant": "FS1_TF1"
+        },
+        {
+          "Baseline": false,
+          "Feature count": 28,
+          "Fingerprint": "a96d6a7ba3a7f9a3629a732a5bc685be7039d35b265d25f76553da492d659cf9",
+          "Variant": "FS2_TF0"
+        },
+        {
+          "Baseline": false,
+          "Feature count": 33,
+          "Fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+          "Variant": "FS2_TF1"
+        }
+      ],
+      "title": "Feature-set registry"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/feature_sets/feature_set_manifest.json",
+      "role": "feature_sets",
+      "sha256": "76afd23fc92eb3725fe21853c33894e0ad4d5daf0c3837dea5cfe1eec8cf896f"
+    },
+    {
+      "path": "artifacts/feature_sets/phase_8_signoff.json",
+      "role": "signoff",
+      "sha256": "328b519e93ac0f9deb32f1409d4cb5a85015f50ea6631e8bf950b11b8bb18582"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "All variants valid": true,
+    "Audit": "PASS",
+    "Baseline variant": "FS1_TF1",
+    "Leakage audit": true,
+    "Order audit": true,
+    "Source features": "FEATURES-v1",
+    "Train rows used": 19735,
+    "Train-only scope": false,
+    "Variant count": 6,
+    "Version": "FEATURESETS-v1"
+  },
+  "technical_details": {
+    "component_counts": {
+      "EXOGENOUS": 25,
+      "HISTORICAL_TARGET": 1,
+      "METADATA": 4,
+      "RANDOM_CONTROLS": 2,
+      "TIME_FEATURES": 5
+    },
+    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/features/feature_availability.csv": "3df1713607c8f2ba0bf87e26525f993d1a60a61bc77139ce1b609413a6bd6425",
+      "artifacts/features/feature_engineering_manifest.json": "33a42726eea0a088812a8347425337b7f7bd202dd6e71a9a94c3d950a0c5e1cf",
+      "artifacts/features/feature_leakage_audit.csv": "a8f9a618de79e8756815fb86e6ddce450bc39bda54388f39f45f183c9ff017a6",
+      "artifacts/features/feature_lineage.csv": "332209b6b50f8e54f82ad9e08ea49880fbbead5037326b6815a95bd7a49ce4a4",
+      "artifacts/features/feature_registry.csv": "e64506ea960c036364903ffdbeb8bf831cc546d0cf4c1f82dfdcac2fbf98417e",
+      "artifacts/features/phase_7_signoff.json": "0ec892705502904ee3a757d508a3398205cfc45981efc7e37c44b851e869a32f",
+      "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f",
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"
+    },
+    "input_paths": [
+      "artifacts/features/phase_7_signoff.json",
+      "artifacts/features/feature_engineering_manifest.json",
+      "artifacts/features/feature_registry.csv",
+      "artifacts/features/feature_lineage.csv",
+      "artifacts/features/feature_availability.csv",
+      "artifacts/features/feature_leakage_audit.csv",
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv",
+      "configs/base/coursework_contract.json"
+    ],
+    "output_checksums": {
+      "artifacts/feature_sets/README_FEATURE_SETS.md": "e26bdd8e3908a87fb4464c26236a817d9250f2b2e591084970d79a5d009323dd",
+      "artifacts/feature_sets/feature_components.json": "f7ed449ba72840fb2efe6987c2daf8dd6b1b83530e59119adc58cebc348955a4",
+      "artifacts/feature_sets/feature_order_checks.csv": "7e75c39fc3188e9572be954ba886a5d9a9c243bf29e4012ea6436fcd2916c1c6",
+      "artifacts/feature_sets/feature_set_discrepancies.json": "0cbd7b245e36f63a5c4df3459ab9f77cfe732b4bc63942b3c335efd844f07669",
+      "artifacts/feature_sets/feature_set_leakage_audit.csv": "d7e2ae5a8413d17dcf301f09646702b5f217c424144db53b3fff5d525bbc950a",
+      "artifacts/feature_sets/feature_set_lineage.csv": "ac38fd21e609e0855eddc03419e659c0a4b98a1544fb2b16a84e784545b84bcc",
+      "artifacts/feature_sets/feature_set_manifest.json": "76afd23fc92eb3725fe21853c33894e0ad4d5daf0c3837dea5cfe1eec8cf896f",
+      "artifacts/feature_sets/feature_set_registry.csv": "ac0752f9d701dac0bbbf9c15022b537f1058843d0bbad6ab63f43b41698419b1",
+      "artifacts/feature_sets/feature_set_registry.json": "03885a997d33c9b9270dcc82e396c7bc02c860bcffc50a41f1514e0c59aac067",
+      "artifacts/feature_sets/feature_set_variants.csv": "b03a4e137034be0b5903c42ff58216cbca27222f296e285938a4d77c38aa1725"
+    },
+    "output_paths": [
+      "artifacts/feature_sets/feature_set_manifest.json",
+      "artifacts/feature_sets/feature_set_registry.json",
+      "artifacts/feature_sets/feature_set_registry.csv",
+      "artifacts/feature_sets/feature_set_variants.csv",
+      "artifacts/feature_sets/feature_components.json",
+      "artifacts/feature_sets/feature_set_lineage.csv",
+      "artifacts/feature_sets/feature_set_leakage_audit.csv",
+      "artifacts/feature_sets/feature_order_checks.csv",
+      "artifacts/feature_sets/feature_set_discrepancies.json",
+      "artifacts/feature_sets/README_FEATURE_SETS.md"
+    ],
+    "tests": [
+      "feature_version_and_checksum",
+      "six_variant_registry",
+      "expected_feature_counts",
+      "metadata_exclusion",
+      "historical_target_isolation",
+      "random_control_isolation",
+      "time_feature_isolation",
+      "model_eligibility",
+      "prediction_time_availability",
+      "numeric_compatibility",
+      "missing_and_non_finite_values",
+      "pairwise_component_differences",
+      "feature_order_determinism",
+      "fingerprint_determinism",
+      "matrix_probe_shape_and_semantics"
+    ]
+  },
+  "warnings": []
+}

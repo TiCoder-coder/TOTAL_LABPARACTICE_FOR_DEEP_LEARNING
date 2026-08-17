@@ -1,0 +1,184 @@
+{
+  "artifact_version": "METRICS-v1",
+  "created_at": "2026-08-16T09:35:21.629163+00:00",
+  "discrepancies": [],
+  "phase_id": 12,
+  "phase_name": "Shared Metrics",
+  "phase_version": "PHASE-12-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Direction": "Lower",
+          "Field": "mae_wh",
+          "Metric": "MAE",
+          "Role": "Required",
+          "Unit": "Wh"
+        },
+        {
+          "Direction": "Lower",
+          "Field": "rmse_wh",
+          "Metric": "RMSE",
+          "Role": "Primary selection",
+          "Unit": "Wh"
+        },
+        {
+          "Direction": "Higher",
+          "Field": "r2",
+          "Metric": "R²",
+          "Role": "Required",
+          "Unit": "Dimensionless"
+        }
+      ],
+      "title": "Metric registry"
+    },
+    {
+      "rows": [
+        {
+          "Policy": "Selection split",
+          "Value": "Validation"
+        },
+        {
+          "Policy": "Prediction scale",
+          "Value": "Original Wh"
+        },
+        {
+          "Policy": "Aggregation",
+          "Value": "Full aligned split once"
+        },
+        {
+          "Policy": "Residual",
+          "Value": "Actual minus prediction"
+        },
+        {
+          "Policy": "Test metrics in Phase 12",
+          "Value": "Not computed"
+        },
+        {
+          "Policy": "Test targets in Phase 12",
+          "Value": "Not materialized"
+        }
+      ],
+      "title": "Evaluation policy"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/metrics/metric_manifest.json",
+      "role": "metrics",
+      "sha256": "68d347fcbb3f056aecc9daa1af621b22e95ec54a563a88132e390fe549a12ff4"
+    },
+    {
+      "path": "artifacts/metrics/metric_contract.json",
+      "role": "contract",
+      "sha256": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8"
+    },
+    {
+      "path": "artifacts/metrics/phase_12_signoff.json",
+      "role": "signoff",
+      "sha256": "98f9a23d247944c7d5a8a202e64b7479982b8add290a0ed877bfc8362221557e"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Primary selection metric": "rmse_wh",
+    "Primary selection split": "VALIDATION",
+    "Target": "Appliances (Wh)",
+    "Validation samples": 2960,
+    "Version": "METRICS-v1"
+  },
+  "technical_details": {
+    "aggregation_policy": "FULL_SPLIT_CONCATENATE_THEN_COMPUTE_ONCE",
+    "common_population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/dataloaders/dataloader_manifest.json": "f792b358e156e4cb902b32b653f8722ffafebb957c475c53dc5c20c0bcf14d5c",
+      "artifacts/dataloaders/dataset_registry.csv": "77c406cba97e4938feb361dbd8d9e032e5f87242739789920e2a57cd09112751",
+      "artifacts/dataloaders/phase_11_signoff.json": "db0e6760bdc7d10fbea7029443113c4743e0d1a8851f9417a68d5de73e2bb473",
+      "artifacts/environment/environment_report.json": "c0fbf498e86620e1ba52e909117e61b0a309fa7ec23fe30c89bed848cdce2524",
+      "artifacts/scaling/phase_9_signoff.json": "0901596a3bedefa04033475699be7f03f1ba41425a24c17755970d1dda22ba8c",
+      "artifacts/scaling/scaler_registry.json": "1068012809a738e30fee1fde10b7cdcbdc9a323da3d1b69e03cb4bd6188c3866",
+      "artifacts/scaling/scaling_manifest.json": "2210edd3dae324420be156877840154e9ceb0397e527a416dcf365c1a799bb28",
+      "artifacts/windows/common_target_population.csv": "d854e826ce0da67118e33659d239362213fd6447ffe7cd3aa054c672cf690d61",
+      "artifacts/windows/phase_10_signoff.json": "d0ba9c92c50ab4ca7828c05d23d339abf82eb296805d025d73a43550323af09a",
+      "artifacts/windows/window_fingerprints.json": "c4ef0afcf352a119f03f5d9b86dabe6b5bf0a029afbdb9b29021debb0827468b",
+      "artifacts/windows/window_manifest.json": "9a625733dc16186124991aa8c17e07e0d906f222b6ae290ef4c8ba0a982c19e8",
+      "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f"
+    },
+    "input_paths": [
+      "configs/base/coursework_contract.json",
+      "artifacts/environment/environment_report.json",
+      "artifacts/scaling/scaling_manifest.json",
+      "artifacts/scaling/scaler_registry.json",
+      "artifacts/scaling/phase_9_signoff.json",
+      "artifacts/windows/window_manifest.json",
+      "artifacts/windows/window_fingerprints.json",
+      "artifacts/windows/common_target_population.csv",
+      "artifacts/windows/phase_10_signoff.json",
+      "artifacts/dataloaders/dataloader_manifest.json",
+      "artifacts/dataloaders/dataset_registry.csv",
+      "artifacts/dataloaders/phase_11_signoff.json"
+    ],
+    "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+    "output_checksums": {
+      "artifacts/metrics/README_METRICS.md": "21ee1793a26567bfe1930bff1aabbebfd02a4e1d1e5c9824f873b0fe549eb032",
+      "artifacts/metrics/metric_comparison_schema.json": "90dee420c4eb2c0d03d24dc502b751b746bbcad7dca819276d0e6a9bb619c03d",
+      "artifacts/metrics/metric_contract.json": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8",
+      "artifacts/metrics/metric_discrepancies.json": "d0895f985e0c1e08266e0deec52304c10c192b722848a2e92bb9b95ed14fa145",
+      "artifacts/metrics/metric_implementation_audit.csv": "7a593dfa0f85d6b67b53703ef37713363da1edee0c14663a06d2e9d7677bcbf5",
+      "artifacts/metrics/metric_manifest.json": "68d347fcbb3f056aecc9daa1af621b22e95ec54a563a88132e390fe549a12ff4",
+      "artifacts/metrics/metric_reference_examples.csv": "5da113cb9ace898c56807bfa4a47907ed0a70a8f6e31083aa023fdfa840a0c90",
+      "artifacts/metrics/metric_registry.csv": "80d3ff7bf3bfb7b68b16563b3c4a5f0d06b683db3241a330d1eac6f4e4090bf0",
+      "artifacts/metrics/metric_test_firewall_audit.csv": "ae00c64a1e864efe7ccd66c94c6173cd92bea388c02d4b0b6ef2f6e1b8476222",
+      "artifacts/metrics/metric_unit_tests.csv": "8fc2924659df175c601d81894b8062fd1b9feeae2672a2811c8facc05dd11e88",
+      "artifacts/metrics/prediction_bundle_schema.json": "3ff106e36dd9119fdeaa09cd7d6cd76d3c4afb7b8b16c6163742adfa21c91721"
+    },
+    "output_paths": [
+      "artifacts/metrics/metric_manifest.json",
+      "artifacts/metrics/metric_contract.json",
+      "artifacts/metrics/metric_registry.csv",
+      "artifacts/metrics/metric_unit_tests.csv",
+      "artifacts/metrics/metric_reference_examples.csv",
+      "artifacts/metrics/metric_implementation_audit.csv",
+      "artifacts/metrics/metric_test_firewall_audit.csv",
+      "artifacts/metrics/prediction_bundle_schema.json",
+      "artifacts/metrics/metric_comparison_schema.json",
+      "artifacts/metrics/metric_discrepancies.json",
+      "artifacts/metrics/README_METRICS.md"
+    ],
+    "r2_policy": {
+      "constant_target": "UNDEFINED_CONSTANT_TARGET",
+      "force_finite": false,
+      "negative_values": "preserved",
+      "single_sample": "UNDEFINED_TOO_FEW_SAMPLES"
+    },
+    "test_firewall_policy": "FINAL_TEST_REQUIRES_MODEL_LOCK_ID",
+    "tests": [
+      "upstream_versions_and_checksums",
+      "metric_contract_fingerprint",
+      "mae_hand_example",
+      "rmse_hand_example",
+      "r2_hand_example",
+      "perfect_prediction",
+      "mean_predictor_r2",
+      "negative_r2_preserved",
+      "constant_target_policy",
+      "single_sample_policy",
+      "shape_normalization",
+      "nan_inf_rejection",
+      "length_and_population_guards",
+      "ys0_identity",
+      "ys1_inverse_transform",
+      "sklearn_crosscheck",
+      "global_split_aggregation",
+      "sample_weighted_epoch_loss",
+      "residual_convention",
+      "baseline_comparison_guards",
+      "test_firewall"
+    ]
+  },
+  "warnings": []
+}
