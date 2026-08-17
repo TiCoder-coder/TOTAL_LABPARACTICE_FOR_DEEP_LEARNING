@@ -57,6 +57,8 @@ external/
 outputs/
 runs/
 total_practice/practice_1/runs/
+total_practice/practice_3/runs/
+total_practice/practice_3/runs/**/checkpoints/
 logs/
 *.pth
 *.pt
