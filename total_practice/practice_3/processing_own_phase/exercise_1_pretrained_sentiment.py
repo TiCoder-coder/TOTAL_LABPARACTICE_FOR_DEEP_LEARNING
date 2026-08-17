@@ -7,12 +7,28 @@ distilbert-base-uncased-finetuned-sst-2-english checkpoint from Hugging Face Hub
 from __future__ import annotations
 
 import json
+import logging
+import os
 from pathlib import Path
 from typing import Any
+import warnings
 
 import pandas as pd
 # pyrefly: ignore [missing-import]
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
+# pyrefly: ignore [missing-import]
+from transformers import logging as transformers_logging
+# pyrefly: ignore [missing-import]
+from huggingface_hub.utils import logging as hf_hub_logging
+
+# Suppress Hugging Face Hub unauthenticated request and telemetry warnings permanently
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+hf_hub_logging.set_verbosity_error()
+transformers_logging.set_verbosity_error()
+logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+logging.getLogger("transformers").setLevel(logging.ERROR)
+warnings.filterwarnings("ignore")
 
 from .config import RESULT_DIR
 
