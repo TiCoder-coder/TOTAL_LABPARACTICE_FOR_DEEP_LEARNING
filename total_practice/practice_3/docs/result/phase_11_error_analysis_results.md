@@ -5,8 +5,8 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cells:
-- [`Cell 25` (Code)](../../notebook_practice_3/practice_3.ipynb): Confusion matrix and confidence distribution figures.
-- [`Cell 26` (Code)](../../notebook_practice_3/practice_3.ipynb): Representative error tables for False Positives, False Negatives, and High Confidence Errors.
+- [`Cell 28` (Code)](../../notebook_practice_3/practice_3.ipynb): Confusion matrix and confidence distribution figures.
+- [`Cell 29` (Code)](../../notebook_practice_3/practice_3.ipynb): Representative error tables for False Positives, False Negatives, and High Confidence Errors.
 
 Cell output:
 Rendered figures [`final_holdout_confusion_matrix.png`](./practice_3_v2_3/figures/final_holdout_confusion_matrix.png) and [`correct_vs_incorrect_confidence.png`](./practice_3_v2_3/figures/correct_vs_incorrect_confidence.png), accompanied by 3 styled DataFrames categorizing misclassified holdout reviews.
@@ -42,8 +42,8 @@ Rendered figures [`final_holdout_confusion_matrix.png`](./practice_3_v2_3/figure
 2. **Contrast & Mixed Signals**: Reviews with contrasting clauses where the model weights earlier clauses over final conclusions.
 
 ## Evidence
-- [`final_holdout_confusion_matrix.png`](./practice_3_v2_3/figures/final_holdout_confusion_matrix.png) and [`correct_vs_incorrect_confidence.png`](./practice_3_v2_3/figures/correct_vs_incorrect_confidence.png) in Notebook [`Cell 25`](../../notebook_practice_3/practice_3.ipynb).
-- False Positive, False Negative, and High Confidence error tables rendered in Notebook [`Cell 26`](../../notebook_practice_3/practice_3.ipynb).
+- [`final_holdout_confusion_matrix.png`](./practice_3_v2_3/figures/final_holdout_confusion_matrix.png) and [`correct_vs_incorrect_confidence.png`](./practice_3_v2_3/figures/correct_vs_incorrect_confidence.png) in Notebook [`Cell 28`](../../notebook_practice_3/practice_3.ipynb).
+- False Positive, False Negative, and High Confidence error tables rendered in Notebook [`Cell 29`](../../notebook_practice_3/practice_3.ipynb).
 - Raw prediction records in [`holdout_errors.csv`](./practice_3_v2_3/holdout_errors.csv).
 
 ## Summary

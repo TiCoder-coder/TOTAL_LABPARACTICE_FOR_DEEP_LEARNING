@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 05` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 08` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled DataFrame table titled `Dataset split summary` showing sample counts and usage flags for Train, Validation, and Holdout splits.
@@ -28,7 +28,7 @@ Styled DataFrame table titled `Dataset split summary` showing sample counts and 
 | **Official HF Test (Excluded)** | 1,066 | False | False | False |
 
 ## Evidence
-- Dataset split summary table in Notebook [`Cell 05`](../../notebook_practice_3/practice_3.ipynb).
+- Dataset split summary table in Notebook [`Cell 08`](../../notebook_practice_3/practice_3.ipynb).
 - Split metadata verified in [`dataset_split_reference.json`](./practice_3_v2_3/dataset_split_reference.json).
 - Strict isolation enforced by [`dataset_protocol_v2.py`](../../processing_own_phase/dataset_protocol_v2.py) with zero cross-split overlap.
 

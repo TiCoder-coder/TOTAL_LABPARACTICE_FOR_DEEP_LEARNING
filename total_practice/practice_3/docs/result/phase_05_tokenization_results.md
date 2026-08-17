@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 09` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 12` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Raw review sample text followed by a styled DataFrame table titled `Tokenization Example` mapping Token IDs to decoded subwords.
@@ -43,7 +43,7 @@ Raw review sample text followed by a styled DataFrame table titled `Tokenization
   - `2301` $\rightarrow$ `century`
 
 ## Evidence
-- Tokenization demo table rendered in Notebook [`Cell 09`](../../notebook_practice_3/practice_3.ipynb).
+- Tokenization demo table rendered in Notebook [`Cell 12`](../../notebook_practice_3/practice_3.ipynb).
 - Tokenizer validation schema in [`tokenization_demo.json`](./practice_3_v2_3/tokenization_demo.json).
 
 ## Summary

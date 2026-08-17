@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 28` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 31` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled DataFrame table titled `Custom Inference Results` showing 9 handcrafted test sentences evaluated with predicted labels, softmax confidences, expected targets, and match indicators.
@@ -33,7 +33,7 @@ Styled DataFrame table titled `Custom Inference Results` showing 9 handcrafted t
 | **NEGATION** | *"Not exactly what I was hoping for."* | Negative | 0.9050 | Negative | True |
 
 ## Evidence
-- `Custom Inference Results` table rendered in Notebook [`Cell 28`](../../notebook_practice_3/practice_3.ipynb).
+- `Custom Inference Results` table rendered in Notebook [`Cell 31`](../../notebook_practice_3/practice_3.ipynb).
 - Inference JSON dump in [`custom_inference_results.json`](./practice_3_v2_3/custom_inference_results.json).
 
 ## Summary

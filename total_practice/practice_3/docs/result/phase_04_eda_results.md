@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 07` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 10` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled table `Rotten Tomatoes Dataset Summary` followed by the self-contained Clean Academic HTML EDA Dashboard displaying split overview, class distribution progress bars, text length statistics table, and sample review cards.
@@ -42,8 +42,8 @@ Styled table `Rotten Tomatoes Dataset Summary` followed by the self-contained Cl
 - **Positive (Class 1)**: *"the rock is destined to be the 21st century's new \" conan \" and that he's going to make a splash even greater than arnold schwarzenegger , jean-claud van damme or steven segal ."* (177 characters · 34 words)
 
 ## Evidence
-- `Rotten Tomatoes Dataset Summary` table rendered in Notebook [`Cell 07`](../../notebook_practice_3/practice_3.ipynb).
-- Clean Academic HTML EDA Dashboard rendered directly via `render_eda_dashboard()` in Notebook [`Cell 07`](../../notebook_practice_3/practice_3.ipynb).
+- `Rotten Tomatoes Dataset Summary` table rendered in Notebook [`Cell 10`](../../notebook_practice_3/practice_3.ipynb).
+- Clean Academic HTML EDA Dashboard rendered directly via `render_eda_dashboard()` in Notebook [`Cell 10`](../../notebook_practice_3/practice_3.ipynb).
 
 ## Summary
 Exploratory Data Analysis verifies a perfectly balanced binary dataset (50% Negative / 50% Positive across all splits). Text lengths average 114 characters (21 words), confirming that a max sequence length of 80 tokens comfortably encompasses all reviews.

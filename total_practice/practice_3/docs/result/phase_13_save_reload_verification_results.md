@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 30` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 33` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled DataFrame table titled `Save / Reload Evidence` confirming zero parameter differences and 100% prediction match between the original checkpoint and the reloaded exported model.
@@ -33,7 +33,7 @@ Styled DataFrame table titled `Save / Reload Evidence` confirming zero parameter
 | **Overall Verification Status** | **PASS** | PASS | PASS |
 
 ## Evidence
-- `Save / Reload Evidence` table rendered in Notebook [`Cell 30`](../../notebook_practice_3/practice_3.ipynb).
+- `Save / Reload Evidence` table rendered in Notebook [`Cell 33`](../../notebook_practice_3/practice_3.ipynb).
 - Checkpoint export manifest and SHA-256 verification in [`save_reload_verification.json`](./practice_3_v2_3/save_reload_verification.json).
 
 ## Summary
