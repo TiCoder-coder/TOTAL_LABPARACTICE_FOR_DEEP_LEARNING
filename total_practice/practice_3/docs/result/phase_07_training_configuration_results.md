@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 13` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 16` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled DataFrame table titled `Training Configuration` listing optimization hyperparameters and their operational purposes.
@@ -31,7 +31,7 @@ Styled DataFrame table titled `Training Configuration` listing optimization hype
 | **Gradient Clipping** | 1.0 | Maximum gradient norm threshold |
 
 ## Evidence
-- `Training Configuration` table in Notebook [`Cell 13`](../../notebook_practice_3/practice_3.ipynb).
+- `Training Configuration` table in Notebook [`Cell 16`](../../notebook_practice_3/practice_3.ipynb).
 - Protocol settings authorized in [`training_authorization.json`](./practice_3_v2_3/training_authorization.json).
 
 ## Summary

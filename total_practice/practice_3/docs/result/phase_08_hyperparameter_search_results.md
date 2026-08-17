@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 15` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 18` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled DataFrame table titled `Final Validation Ranking` sorting all 6 controlled hyperparameter configurations, followed by the `Validation Loss Comparison` bar chart.
@@ -35,7 +35,7 @@ Styled DataFrame table titled `Final Validation Ranking` sorting all 6 controlle
 | 6 | E2_lr_2e-5 | 2e-5 | 0.01 | 0.2 | full | 2.0 | 6.0 | 0.4396 | 0.8583 | 0.8486 | VALID |
 
 ## Evidence
-- `Final Validation Ranking` table rendered in Notebook [`Cell 15`](../../notebook_practice_3/practice_3.ipynb).
+- `Final Validation Ranking` table rendered in Notebook [`Cell 18`](../../notebook_practice_3/practice_3.ipynb).
 - Validation Loss Comparison figure [`experiment_best_val_loss_comparison.png`](./practice_3_v2_3/figures/experiment_best_val_loss_comparison.png) displayed in Cell 15.
 - Locked selection metadata in [`final_validation_winner_lock.json`](./practice_3_v2_3/final_validation_winner_lock.json).
 

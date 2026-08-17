@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 11` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 14` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled DataFrame table titled `Model Architecture Configuration` displaying structural hyperparameters loaded from the saved model configuration.
@@ -34,7 +34,7 @@ Styled DataFrame table titled `Model Architecture Configuration` displaying stru
 | **Total Parameters** | 66,955,010 | ~66.95M parameters (100% fine-tuned) |
 
 ## Evidence
-- `Model Architecture Configuration` table rendered in Notebook [`Cell 11`](../../notebook_practice_3/practice_3.ipynb).
+- `Model Architecture Configuration` table rendered in Notebook [`Cell 14`](../../notebook_practice_3/practice_3.ipynb).
 - Checkpoint configuration verified in [`final_saved_model/config.json`](./practice_3_v2_3/final_saved_model/config.json).
 
 ## Summary

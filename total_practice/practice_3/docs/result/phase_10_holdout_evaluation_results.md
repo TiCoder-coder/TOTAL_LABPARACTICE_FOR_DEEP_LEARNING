@@ -5,7 +5,7 @@ Notebook:
 [`practice_3.ipynb`](../../notebook_practice_3/practice_3.ipynb)
 
 Cell:
-[`Cell 23` (Code)](../../notebook_practice_3/practice_3.ipynb)
+[`Cell 26` (Code)](../../notebook_practice_3/practice_3.ipynb)
 
 Cell output:
 Styled DataFrame table titled `Validation vs Holdout Metrics` comparing the locked Winner E4 performance on the Validation split versus the unseen Holdout split.
@@ -33,7 +33,7 @@ Styled DataFrame table titled `Validation vs Holdout Metrics` comparing the lock
 - **Holdout Dataset Size**: 960 balanced samples (480 Negative / 480 Positive).
 
 ## Evidence
-- `Validation vs Holdout Metrics` table rendered in Notebook [`Cell 23`](../../notebook_practice_3/practice_3.ipynb).
+- `Validation vs Holdout Metrics` table rendered in Notebook [`Cell 26`](../../notebook_practice_3/practice_3.ipynb).
 - Authoritative evaluation record in [`final_holdout_metrics.json`](./practice_3_v2_3/final_holdout_metrics.json).
 - Access audit state logged in [`holdout_access_state.json`](./practice_3_v2_3/holdout_access_state.json).
 
