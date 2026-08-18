@@ -1,0 +1,10 @@
+{
+  "attention_layers_returned": "ALL_ENCODER_LAYERS",
+  "attention_shape": "B_H_L_L",
+  "average_attn_weights_in_inspection_forward": false,
+  "average_attn_weights_in_training_forward": false,
+  "implementation_version": "TRANSFORMER_IMPL-v1",
+  "is_causal": false,
+  "mask_policy": "NONE",
+  "probability_semantics": "SOFTMAX_OVER_KEYS"
+}

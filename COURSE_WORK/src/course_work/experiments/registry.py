@@ -365,12 +365,15 @@ def build_reference_run_config(project_root: Path | None = None, model_family: s
             "window_fingerprint": windows["window_index_fingerprints"]["L144_H01_WB0"],
             "dataloader_fingerprint": dataloaders["baseline_loader_fingerprints"]["VALIDATION"],
         })
+    from course_work.models.lstm_regressor import LSTM_IMPL_VERSION as LSTM_IMPL
+    from course_work.models.transformer_regressor import TRANSFORMER_IMPL_VERSION as TRANSFORMER_IMPL
+
     if model_family == "TRANSFORMER_ENCODER":
         model = {
             "model_family": model_family,
             "model_name": "Transformer Encoder Regressor",
             "model_version": "TRANSFORMER-v1",
-            "implementation_version": "TRANSFORMER-v1",
+            "implementation_version": TRANSFORMER_IMPL,
             "input_size": feature_count,
             "d_model": 64,
             "num_heads": 4,
@@ -389,7 +392,7 @@ def build_reference_run_config(project_root: Path | None = None, model_family: s
             "model_family": model_family,
             "model_name": "LSTM Regressor",
             "model_version": "LSTM-v1",
-            "implementation_version": "LSTM-v1",
+            "implementation_version": LSTM_IMPL,
             "input_size": feature_count,
             "hidden_size": 64,
             "num_layers": 2,

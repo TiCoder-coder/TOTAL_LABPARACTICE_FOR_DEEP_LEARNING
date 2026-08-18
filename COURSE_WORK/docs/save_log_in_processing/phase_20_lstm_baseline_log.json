@@ -1,0 +1,156 @@
+{
+  "artifact_version": "LSTM_BASELINE-v1",
+  "created_at": "2026-08-18T09:00:43.592198+00:00",
+  "discrepancies": [],
+  "phase_id": 20,
+  "phase_name": "LSTM Baseline Run",
+  "phase_version": "PHASE-20-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Metric": "Validation RMSE",
+          "Unit": "Wh",
+          "Value": 60.44645775867732
+        },
+        {
+          "Metric": "Validation MAE",
+          "Unit": "Wh",
+          "Value": 27.52881764524321
+        },
+        {
+          "Metric": "Validation R²",
+          "Unit": "Dimensionless",
+          "Value": 0.5705509891679768
+        },
+        {
+          "Metric": "Persistence Val RMSE",
+          "Unit": "Wh",
+          "Value": 66.42970273458556
+        },
+        {
+          "Metric": "Improvement over Persistence",
+          "Unit": "Wh",
+          "Value": "5.9832"
+        }
+      ],
+      "title": "Validation performance"
+    },
+    {
+      "rows": [
+        {
+          "Parameter": "Model family",
+          "Value": "LSTM"
+        },
+        {
+          "Parameter": "Feature variant",
+          "Value": "FS1_TF1"
+        },
+        {
+          "Parameter": "Lookback steps",
+          "Value": 144
+        },
+        {
+          "Parameter": "Forecast horizon",
+          "Value": 1
+        },
+        {
+          "Parameter": "Target scaling",
+          "Value": "YS1"
+        },
+        {
+          "Parameter": "Batch size",
+          "Value": 64
+        },
+        {
+          "Parameter": "Seed",
+          "Value": 42
+        },
+        {
+          "Parameter": "Trainable parameters",
+          "Value": 58177
+        }
+      ],
+      "title": "Run configuration"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/lstm_baseline/lstm_baseline_summary.json",
+      "role": "summary",
+      "sha256": "68cf30a54c65eb38eccb50459f4562c7db9ef9aa18cdf879ff00bd0a36633760"
+    },
+    {
+      "path": "artifacts/lstm_baseline/lstm_baseline_run_contract.json",
+      "role": "contract",
+      "sha256": "ffadc0319ef499ea1868d05cc93b621522aa24b124e799e286912d0f725beedd"
+    },
+    {
+      "path": "artifacts/lstm_baseline/phase_20_signoff.json",
+      "role": "signoff",
+      "sha256": "eb582b2ea3559c9b3ab8e19d203fd1239ac053c66f0e40b26652ba771badfd40"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Baseline version": "LSTM_BASELINE-v1",
+    "Beats Persistence": true,
+    "Best epoch": 6,
+    "Run ID": "RUN_LS_LS_0013_63C7E5ED",
+    "Stopped reason": "EARLY_STOPPING",
+    "Validation MAE (Wh)": 27.52881764524321,
+    "Validation RMSE (Wh)": 60.44645775867732,
+    "Validation R²": 0.5705509891679768
+  },
+  "technical_details": {
+    "baseline_version": "LSTM_BASELINE-v1",
+    "config_fingerprint": null,
+    "dataset_revision": "DATA-v1",
+    "device_type": "cpu",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/baselines/persistence/persistence_validation_metrics.json": "d4c4ba8017fe895892b9edf5ed795583f6917df9fe2fac04dd541003159cb846",
+      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
+      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
+      "artifacts/training_engine/phase_19_signoff.json": "c71e41331dc84d41c0ed14ca4587215099bbc809ff79e79f724a614f3c016de1"
+    },
+    "input_paths": [
+      "artifacts/training_engine/phase_19_signoff.json",
+      "artifacts/baselines/persistence/persistence_validation_metrics.json",
+      "artifacts/dataloaders/dataloader_manifest.json",
+      "artifacts/environment/environment_report.json"
+    ],
+    "output_checksums": {
+      "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md": "899c13f58f7466e1ee379d0baaa48d4837104f81ab875a7d814fa79ba01d28bd",
+      "artifacts/lstm_baseline/lstm_baseline_audit.csv": "34b7167677036b64b337f7faca60002f8123357e22d75fea5b833b5836f0115b",
+      "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "92a3d1b89397d47c61a2d25c3a6152e1158179c3afe29dcae94ea4c1fe81ac8c",
+      "artifacts/lstm_baseline/lstm_baseline_run_contract.json": "ffadc0319ef499ea1868d05cc93b621522aa24b124e799e286912d0f725beedd",
+      "artifacts/lstm_baseline/lstm_baseline_run_summary.csv": "7d79aeded12cb1188bb19964092c7ba03d454833d309af7ee38520719d15651b",
+      "artifacts/lstm_baseline/lstm_baseline_summary.json": "68cf30a54c65eb38eccb50459f4562c7db9ef9aa18cdf879ff00bd0a36633760",
+      "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv": "b8f97cb00f56a74817cd4b099f518d6c72e28f04312ca60bd0f973e3855e0198",
+      "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/checkpoints/best_checkpoint.pt": "bbaaa245a564006b03feaea821d78208e12923011966aa0e0e68ecabb8ac0faf",
+      "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/metrics/best_validation_metrics.json": "4883a726cd0c4a26f7f6134c61b8e446253616353a843cffd873ce0f1d096cba"
+    },
+    "output_paths": [
+      "artifacts/lstm_baseline/lstm_baseline_run_contract.json",
+      "artifacts/lstm_baseline/lstm_baseline_summary.json",
+      "artifacts/lstm_baseline/lstm_baseline_run_summary.csv",
+      "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv",
+      "artifacts/lstm_baseline/lstm_baseline_audit.csv",
+      "artifacts/lstm_baseline/lstm_baseline_discrepancies.json",
+      "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md",
+      "artifacts/lstm_baseline/phase_20_signoff.json",
+      "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/metrics/best_validation_metrics.json",
+      "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/checkpoints/best_checkpoint.pt"
+    ],
+    "run_id": "RUN_LS_LS_0013_63C7E5ED",
+    "tests": [
+      "official_lstm_training",
+      "registry_completion",
+      "persistence_comparison"
+    ],
+    "total_epochs_run": 16
+  },
+  "warnings": []
+}

@@ -1,6 +1,6 @@
 {
   "artifact_version": "WINDOWS-v1",
-  "created_at": "2026-08-16T07:52:50.385645+00:00",
+  "created_at": "2026-08-18T01:49:41.859471+00:00",
   "discrepancies": [],
   "phase_id": 10,
   "phase_name": "Window Builder",
@@ -33,7 +33,7 @@
     {
       "path": "artifacts/windows/window_manifest.json",
       "role": "windows",
-      "sha256": "9a625733dc16186124991aa8c17e07e0d906f222b6ae290ef4c8ba0a982c19e8"
+      "sha256": "d6e6bdafc1d4f191e995564a24d658109c27b4607ad28d6901cd6060450cc03a"
     },
     {
       "path": "artifacts/windows/window_fingerprints.json",
@@ -43,7 +43,7 @@
     {
       "path": "artifacts/windows/phase_10_signoff.json",
       "role": "signoff",
-      "sha256": "d0ba9c92c50ab4ca7828c05d23d339abf82eb296805d025d73a43550323af09a"
+      "sha256": "8ef5bb41d4d6dfddc5e269a9d795fa61cbfa8bf4f6f8cb6fb3b9e21a00697502"
     }
   ],
   "status": "PASS",
@@ -60,7 +60,7 @@
   },
   "technical_details": {
     "common_population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
-    "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+    "config_fingerprint": "",
     "dataset_revision": "DATA-v1",
     "environment_id": "ENV-v1",
     "feature_variants_share_population": true,
@@ -68,29 +68,29 @@
     "global_split_fingerprint": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
     "input_checksums": {
       "artifacts/feature_sets/feature_set_registry.json": "03885a997d33c9b9270dcc82e396c7bc02c860bcffc50a41f1514e0c59aac067",
-      "artifacts/feature_sets/phase_7_signoff.json": "628cab2a63cbd7933571639652c3d3e3b32e32de18d9bd26a2fb58d974b5c756",
-      "artifacts/features/feature_engineering_manifest.json": "bd4b6230d080bfc277810c85c9480fa10095eee8e41c5bddcd5d7fe87200fe50",
-      "artifacts/features/phase_6_signoff.json": "0c76d421d335be8101a4dd81b9e1451bb4f880bc95315624a2d75fcd169113de",
-      "artifacts/scaling/phase_9_signoff.json": "0901596a3bedefa04033475699be7f03f1ba41425a24c17755970d1dda22ba8c",
-      "artifacts/scaling/scaler_registry.json": "1068012809a738e30fee1fde10b7cdcbdc9a323da3d1b69e03cb4bd6188c3866",
-      "artifacts/scaling/scaling_manifest.json": "2210edd3dae324420be156877840154e9ceb0397e527a416dcf365c1a799bb28",
-      "artifacts/splits/phase_8_signoff.json": "5d60fbea54db88857619f6878ec58cd21f6f6f13bdbfc4296e0d2803f65574b3",
-      "artifacts/splits/split_manifest.json": "5528f4346c7dc6975657748092b2053e929bb2286d1c31e029dbf0facb6a7127",
+      "artifacts/feature_sets/phase_8_signoff.json": "a2ed3c6946cfff79b660241d4346cc3e43cd6d680b904e75abf83fec8d3b81b1",
+      "artifacts/features/feature_engineering_manifest.json": "46b2eb28139fd14a610a5ab811112faa3ad4e74be0d1a7e5318d5f3d761d4c58",
+      "artifacts/features/phase_7_signoff.json": "0b8b6cc36a5cad39f2782fae2fe810fc5a11d6c579532e7af69d69ea0984fcfa",
+      "artifacts/scaling/phase_9_signoff.json": "7f3ff92aeedc10103395876f3e2dce874524667c74a507fa9538f6448ce19312",
+      "artifacts/scaling/scaler_registry.json": "1c7b6a8bdc9d675e3d56ad87759f1bb1e8adf6ae3a0c22a5b236e9542a143fac",
+      "artifacts/scaling/scaling_manifest.json": "8341fa04e370bb20bf7736f46b2275e58cad26e895549c4d3ef235583395e4d6",
+      "artifacts/splits/phase_5_signoff.json": "24e0d177adb654dd86ffdaa0ef3b75049cd39045a9124d12722e12f8a9864223",
+      "artifacts/splits/split_manifest.json": "347f7730c2be8647f6f15b4dd356af89123d5b5beb6db06a1d8c4a3bfca3e501",
       "artifacts/splits/split_membership.csv": "d2e4f8ab2c3c99104c697ae85dc4e11a9994e6be2d3b05854458a48a52285c2e",
-      "artifacts/temporal/phase_4_signoff.json": "e60f9ac7a638a8b29c46afd272757f545f40e2d3923472a3fda0831fb75e3627",
-      "artifacts/temporal/temporal_manifest.json": "85494b9a5685161b27ce6ab2edc9a678b262c40bbde26912b75ccad2339e8f7a",
-      "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f",
-      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"
+      "artifacts/temporal/phase_4_signoff.json": "f1730cf11274cf160f4a5e0b8f7ea05ed60d19030730e2c902c7849f835e3a97",
+      "artifacts/temporal/temporal_manifest.json": "84a8f5c2de8f20ca39856defb47ae51809ce73e2c218658909a97eec93fdd046",
+      "configs/base/coursework_contract.json": "afa0ef62c05bbc0ac75d3530130af9fdd26cafa7dd08c60201201a934db21e2f",
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "2614e13716a7edea0280381758459dcad4b572759c7e80bb8078ec79dd000f6f"
     },
     "input_paths": [
       "artifacts/temporal/phase_4_signoff.json",
       "artifacts/temporal/temporal_manifest.json",
-      "artifacts/features/phase_6_signoff.json",
+      "artifacts/features/phase_7_signoff.json",
       "artifacts/features/feature_engineering_manifest.json",
       "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv",
-      "artifacts/feature_sets/phase_7_signoff.json",
+      "artifacts/feature_sets/phase_8_signoff.json",
       "artifacts/feature_sets/feature_set_registry.json",
-      "artifacts/splits/phase_8_signoff.json",
+      "artifacts/splits/phase_5_signoff.json",
       "artifacts/splits/split_manifest.json",
       "artifacts/splits/split_membership.csv",
       "artifacts/scaling/phase_9_signoff.json",
@@ -107,7 +107,7 @@
       "artifacts/windows/window_fingerprints.json": "c4ef0afcf352a119f03f5d9b86dabe6b5bf0a029afbdb9b29021debb0827468b",
       "artifacts/windows/window_index.csv": "46dee43de6bc950b5cd5719d40e1c8f3680bfe91fd4001e792a40c098a087712",
       "artifacts/windows/window_leakage_audit.csv": "15f57fefb47e7ae842b49e1e7e45b227749900907e7e9c0035d3369f6be65afe",
-      "artifacts/windows/window_manifest.json": "9a625733dc16186124991aa8c17e07e0d906f222b6ae290ef4c8ba0a982c19e8",
+      "artifacts/windows/window_manifest.json": "d6e6bdafc1d4f191e995564a24d658109c27b4607ad28d6901cd6060450cc03a",
       "artifacts/windows/window_materialization_audit.csv": "f464a4131be980d562f5254f3dc3283561cdf26f579a749ae75194ab255cc6b0",
       "artifacts/windows/window_population_summary.csv": "f4990679f5604e2267ea39c25410c72154b7cf9a9468bbd89ce247e74e90dc95"
     },

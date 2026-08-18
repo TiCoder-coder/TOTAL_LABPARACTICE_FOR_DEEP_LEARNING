@@ -1,6 +1,6 @@
 {
   "artifact_version": "PERSISTENCE-v1",
-  "created_at": "2026-08-16T12:30:35.102891+00:00",
+  "created_at": "2026-08-18T01:50:43.383701+00:00",
   "metric_result": {
     "finite_status": "PASS",
     "horizon_steps": 1,
@@ -15,7 +15,7 @@
     "r2": 0.481325958122121,
     "r2_status": "DEFINED",
     "rmse_wh": 66.42970273458556,
-    "run_id": "RUN_PS_PS_0001_AFFD3E3F",
+    "run_id": "RUN_PS_PS_0001_4C382765",
     "selection_metric_name": "rmse_wh",
     "selection_metric_value": 66.42970273458556,
     "split_id": "VALIDATION",
@@ -23,10 +23,10 @@
     "target_unit": "Wh",
     "warnings": []
   },
-  "metric_result_fingerprint": "90b5459ef15f2b460fbcf29995acc60b1de30a6a50d6a9f461792026094ad47f",
+  "metric_result_fingerprint": "a92ee543c276ae49ebe97678aa22495a010d587c98404cb478ea99035619a4d1",
   "model_id": "PERSISTENCE_LAST_VALUE",
   "prediction_fingerprint": "9fa47e24545578612f46e81f4f656926be39708dc08505492a4d5099204e29a7",
-  "run_id": "RUN_PS_PS_0001_AFFD3E3F",
+  "run_id": "RUN_PS_PS_0001_4C382765",
   "split_id": "VALIDATION",
   "test_access_authorized": false
 }

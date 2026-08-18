@@ -9,7 +9,7 @@
   "csv_size_bytes": 11979363,
   "csv_smoke_test_ok": true,
   "dataset_revision": "DATA-v1",
-  "end_time": "2026-08-14T18:51:40.729631+00:00",
+  "end_time": "2026-08-18T01:45:11.113256+00:00",
   "environment_id": "ENV-v1",
   "method": "AQ0_direct_uci",
   "notes": [
@@ -17,7 +17,7 @@
   ],
   "run_id": "AQ0-DATA-v1",
   "source": "https://archive.ics.uci.edu/static/public/374/appliances%2Benergy%2Bprediction.zip",
-  "start_time": "2026-08-14T18:51:40.728048+00:00",
+  "start_time": "2026-08-18T01:45:11.101722+00:00",
   "status": "PASS",
   "ucimlrepo_crosscheck_status": "NOT_REQUIRED_OFFICIAL_AQ0_VERIFIED"
 }

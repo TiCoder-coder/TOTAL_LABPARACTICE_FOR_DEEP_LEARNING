@@ -71,7 +71,7 @@
       "mixed_precision": false,
       "num_workers": null,
       "pin_memory": false,
-      "platform": "Darwin",
+      "platform": "Windows",
       "python_version": "3.10.11",
       "sklearn_version": "1.7.2",
       "torch_version": "2.13.0"
@@ -99,8 +99,8 @@
       "weight_decay": null
     }
   },
-  "config_fingerprint": "affd3e3f37eb504893e70ce179eec0aa95d861e2e709222265b14074edb09dc6",
+  "config_fingerprint": "4c3827654f839e5dcad26f03f70e279902852b4ea59e76d76a8a490bd5593276",
   "record_schema_version": 1,
   "registry_version": "EXPERIMENTS-v1",
-  "run_id": "RUN_PS_PS_0001_AFFD3E3F"
+  "run_id": "RUN_PS_PS_0001_4C382765"
 }

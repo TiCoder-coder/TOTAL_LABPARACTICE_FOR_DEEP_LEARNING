@@ -4,6 +4,8 @@ import unittest
 from copy import deepcopy
 from pathlib import Path
 
+from course_work.attention.verification import materialize_phase_17
+from course_work.baselines.lstm_baseline import _failure_type_for_stage, _safe_failure_message
 from course_work.experiments.registry import (
     ArtifactType,
     ExecutionType,
@@ -175,6 +177,16 @@ class ExperimentRegistryTest(unittest.TestCase):
         failed = self.registry.fail_run(run["run_id"], FailureType.NUMERICAL_ERROR.value, "TRAINING", "TEST_ONLY")
         self.assertEqual(failed["status"], RunStatus.FAILED.value)
         self.assertEqual(failed["failure"]["failure_type"], FailureType.NUMERICAL_ERROR.value)
+
+    def test_baseline_interrupt_uses_safe_failure_message(self) -> None:
+        self.assertEqual(_safe_failure_message(KeyboardInterrupt()), "KeyboardInterrupt")
+        self.assertEqual(_failure_type_for_stage("TRAIN", KeyboardInterrupt()), FailureType.INTERRUPTED.value)
+
+    def test_phase_17_manifest_includes_reference_model_version(self) -> None:
+        materialize_phase_17(self.root)
+        manifest = (self.root / "artifacts/attention_verification/attention_verification_manifest.json").read_text()
+        self.assertIn('"reference_model_version"', manifest)
+        self.assertIn('"unit_test_count"', manifest)
 
     def test_development_test_target_and_metric_are_rejected(self) -> None:
         invalid = deepcopy(self.base_config)

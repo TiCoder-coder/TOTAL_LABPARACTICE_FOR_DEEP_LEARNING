@@ -1,0 +1,30 @@
+{
+  "dropout_policy": "INTER_LAYER_ONLY_IF_NUM_LAYERS_GT_1",
+  "implementation_version": "LSTM_IMPL-v1",
+  "initialization_policy": "PYTORCH_DEFAULT",
+  "output_activation": "NONE",
+  "required_fields": [
+    "model_family",
+    "model_version",
+    "implementation_version",
+    "input_size",
+    "hidden_size",
+    "num_layers",
+    "dropout",
+    "bidirectional",
+    "batch_first",
+    "pooling",
+    "output_size",
+    "proj_size"
+  ],
+  "schema_version": "LSTM_CFG-v1",
+  "state_policy": "ZERO_INIT_PER_FORWARD_STATELESS",
+  "supported_lookbacks": [
+    36,
+    72,
+    144
+  ],
+  "supported_poolings": [
+    "LAST_STEP"
+  ]
+}

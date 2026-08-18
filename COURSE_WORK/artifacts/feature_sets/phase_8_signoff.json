@@ -2,7 +2,7 @@
   "artifact_version": "FEATURESETS-v1",
   "baseline_variant": "FS1_TF1",
   "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
-  "created_at": "2026-08-16T19:54:54.044610+00:00",
+  "created_at": "2026-08-18T01:45:38.646026+00:00",
   "dataset_revision": "DATA-v1",
   "discrepancies": [],
   "environment_id": "ENV-v1",
@@ -10,13 +10,13 @@
   "feature_version": "FEATURES-v1",
   "input_checksums": {
     "artifacts/features/feature_availability.csv": "3df1713607c8f2ba0bf87e26525f993d1a60a61bc77139ce1b609413a6bd6425",
-    "artifacts/features/feature_engineering_manifest.json": "33a42726eea0a088812a8347425337b7f7bd202dd6e71a9a94c3d950a0c5e1cf",
+    "artifacts/features/feature_engineering_manifest.json": "46b2eb28139fd14a610a5ab811112faa3ad4e74be0d1a7e5318d5f3d761d4c58",
     "artifacts/features/feature_leakage_audit.csv": "a8f9a618de79e8756815fb86e6ddce450bc39bda54388f39f45f183c9ff017a6",
     "artifacts/features/feature_lineage.csv": "332209b6b50f8e54f82ad9e08ea49880fbbead5037326b6815a95bd7a49ce4a4",
     "artifacts/features/feature_registry.csv": "e64506ea960c036364903ffdbeb8bf831cc546d0cf4c1f82dfdcac2fbf98417e",
-    "artifacts/features/phase_7_signoff.json": "0ec892705502904ee3a757d508a3398205cfc45981efc7e37c44b851e869a32f",
-    "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f",
-    "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"
+    "artifacts/features/phase_7_signoff.json": "0b8b6cc36a5cad39f2782fae2fe810fc5a11d6c579532e7af69d69ea0984fcfa",
+    "configs/base/coursework_contract.json": "afa0ef62c05bbc0ac75d3530130af9fdd26cafa7dd08c60201201a934db21e2f",
+    "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "2614e13716a7edea0280381758459dcad4b572759c7e80bb8078ec79dd000f6f"
   },
   "input_paths": [
     "artifacts/features/phase_7_signoff.json",
@@ -35,7 +35,7 @@
     "artifacts/feature_sets/feature_set_discrepancies.json": "0cbd7b245e36f63a5c4df3459ab9f77cfe732b4bc63942b3c335efd844f07669",
     "artifacts/feature_sets/feature_set_leakage_audit.csv": "d7e2ae5a8413d17dcf301f09646702b5f217c424144db53b3fff5d525bbc950a",
     "artifacts/feature_sets/feature_set_lineage.csv": "ac38fd21e609e0855eddc03419e659c0a4b98a1544fb2b16a84e784545b84bcc",
-    "artifacts/feature_sets/feature_set_manifest.json": "76afd23fc92eb3725fe21853c33894e0ad4d5daf0c3837dea5cfe1eec8cf896f",
+    "artifacts/feature_sets/feature_set_manifest.json": "6fcd07ad327b6e913c78c9f383f240caec22c75f41e39b5773acbad1ab7f5b80",
     "artifacts/feature_sets/feature_set_registry.csv": "ac0752f9d701dac0bbbf9c15022b537f1058843d0bbad6ab63f43b41698419b1",
     "artifacts/feature_sets/feature_set_registry.json": "03885a997d33c9b9270dcc82e396c7bc02c860bcffc50a41f1514e0c59aac067",
     "artifacts/feature_sets/feature_set_variants.csv": "b03a4e137034be0b5903c42ff58216cbca27222f296e285938a4d77c38aa1725"

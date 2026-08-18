@@ -1,0 +1,158 @@
+{
+  "artifact_version": "TRAINING_ENGINE-v1",
+  "created_at": "2026-08-18T08:19:23.828592+00:00",
+  "discrepancies": [],
+  "phase_id": 19,
+  "phase_name": "Baseline Training Engine",
+  "phase_version": "PHASE-19-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Component": "Optimizer",
+          "Value": "AdamW"
+        },
+        {
+          "Component": "Loss function",
+          "Value": "MSE"
+        },
+        {
+          "Component": "Selection metric",
+          "Value": "rmse_wh"
+        },
+        {
+          "Component": "Selection split",
+          "Value": "VALIDATION"
+        },
+        {
+          "Component": "Gradient clipping default",
+          "Value": true
+        },
+        {
+          "Component": "Early stopping metric",
+          "Value": "rmse_wh"
+        },
+        {
+          "Component": "Early stopping mode",
+          "Value": "MIN"
+        },
+        {
+          "Component": "Checkpoint policy",
+          "Value": "BEST_VALIDATION_RMSE_WH"
+        }
+      ],
+      "title": "Engine contract"
+    },
+    {
+      "rows": [
+        {
+          "Check": "Early stopping improvement tracking",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Early stopping patience trigger",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Model builder from run config",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Synthetic batch shape validation",
+          "Status": "PASS"
+        }
+      ],
+      "title": "Synthetic unit tests"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/training_engine/training_engine_manifest.json",
+      "role": "manifest",
+      "sha256": "e30a6097b3a11a1cbbd7ef47eabd418a50d27614dc6dcef6ff8c2e8b3fc2d896"
+    },
+    {
+      "path": "artifacts/training_engine/training_engine_contract.json",
+      "role": "contract",
+      "sha256": "64b41dd639d1a053e96107b44d5af3c883fbd3d112307a04252ec20885099e7e"
+    },
+    {
+      "path": "artifacts/training_engine/phase_19_signoff.json",
+      "role": "signoff",
+      "sha256": "c71e41331dc84d41c0ed14ca4587215099bbc809ff79e79f724a614f3c016de1"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Early stopping mode": "MIN",
+    "Engine version": "TRAINING_ENGINE-v1",
+    "Loss": "MSE",
+    "Optimizer": "AdamW",
+    "Selection metric": "rmse_wh",
+    "Selection split": "VALIDATION"
+  },
+  "technical_details": {
+    "class_name": "TrainingEngine",
+    "config_fingerprint": null,
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
+      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
+      "artifacts/forward_sanity/phase_18_signoff.json": "2826237dd94a03878837667cdb3be7d4f190d49bc80ec5e10a32cf816c6ca70e",
+      "artifacts/forward_sanity/training_engine_handoff.json": "cc22dd3d3c0069e0f7451d54157a9ddf847512ebaaa9ca150087e6133d35bd40"
+    },
+    "input_paths": [
+      "artifacts/forward_sanity/phase_18_signoff.json",
+      "artifacts/forward_sanity/training_engine_handoff.json",
+      "artifacts/dataloaders/dataloader_manifest.json",
+      "artifacts/environment/environment_report.json"
+    ],
+    "output_checksums": {
+      "artifacts/training_engine/README_TRAINING_ENGINE.md": "43dddce660b673a9bb1f1fd80eb9a7db77e0720cb7611dbbaffc7c8cb63e008d",
+      "artifacts/training_engine/checkpoint_schema.json": "13140f95da565e80b40407d0d29183d95a1eaef866fc0f3d4f5f94f3de08631c",
+      "artifacts/training_engine/early_stopping_audit.csv": "4bab060062e6017068255e6f65917860932921605726286dca88d9f4fce28533",
+      "artifacts/training_engine/training_checkpoint_audit.csv": "61e83c06fef1c30f4b90cfe368801226769e2d8fc785303e724bd1c3aae4692d",
+      "artifacts/training_engine/training_engine_contract.json": "64b41dd639d1a053e96107b44d5af3c883fbd3d112307a04252ec20885099e7e",
+      "artifacts/training_engine/training_engine_discrepancies.json": "14bc180779a368654b1d7a289a3a303a4a5113c427ae92e13ce2d2857b6d485b",
+      "artifacts/training_engine/training_engine_implementation_audit.csv": "f80618011796582bd94544829b9c6aca537c025af121127623ad89ba5bb4617d",
+      "artifacts/training_engine/training_engine_manifest.json": "e30a6097b3a11a1cbbd7ef47eabd418a50d27614dc6dcef6ff8c2e8b3fc2d896",
+      "artifacts/training_engine/training_engine_unit_tests.csv": "2d49b8f3e2fde2c0907d0d25d8ca9944c1a66e0569c9a2f2052f7a0dd7dd456f",
+      "artifacts/training_engine/training_gradient_audit.csv": "3b0ec588fa13d67a446174284f3953bc066a4446dfce6a2c4bc04bf1ef45d7b3",
+      "artifacts/training_engine/training_history_audit.csv": "b0d6ef6aa26e5c6db626a22e0e4e4e33c06c2b9fd9650f189312055a9f8f07ff",
+      "artifacts/training_engine/training_history_schema.json": "d8beea2204beae8cc8610ae7fcf7ac3ba71c02d1695d07d81e048ccb2ed91ba1",
+      "artifacts/training_engine/training_registry_audit.csv": "d92d2b78b73a4999fe322486c15da4a48b9602ac2191c678c554467f825dfc87",
+      "artifacts/training_engine/training_resume_audit.csv": "44ce2b9d82d3c5982ee430806fd3d13bc3905c5fb1e86e66759c25fd6d3a2f23",
+      "artifacts/training_engine/training_run_config_schema.json": "45d7b03be293aadf9284a59ea4d247c5e0a3186443d2095796cb587f5bc8d1c6",
+      "artifacts/training_engine/training_state_schema.json": "3b6b8c51df5fa884eea1ba5899efa1677bfa748ea06fb9b1544f2a764ead4a33"
+    },
+    "output_paths": [
+      "artifacts/training_engine/training_engine_manifest.json",
+      "artifacts/training_engine/training_engine_contract.json",
+      "artifacts/training_engine/training_run_config_schema.json",
+      "artifacts/training_engine/training_state_schema.json",
+      "artifacts/training_engine/checkpoint_schema.json",
+      "artifacts/training_engine/training_history_schema.json",
+      "artifacts/training_engine/training_engine_unit_tests.csv",
+      "artifacts/training_engine/training_engine_implementation_audit.csv",
+      "artifacts/training_engine/early_stopping_audit.csv",
+      "artifacts/training_engine/training_gradient_audit.csv",
+      "artifacts/training_engine/training_checkpoint_audit.csv",
+      "artifacts/training_engine/training_resume_audit.csv",
+      "artifacts/training_engine/training_history_audit.csv",
+      "artifacts/training_engine/training_registry_audit.csv",
+      "artifacts/training_engine/training_engine_discrepancies.json",
+      "artifacts/training_engine/README_TRAINING_ENGINE.md"
+    ],
+    "tests": [
+      "early_stopping_improve",
+      "early_stopping_trigger",
+      "model_builder_lstm",
+      "synthetic_batch_shapes"
+    ],
+    "training_engine_version": "TRAINING_ENGINE-v1",
+    "unit_test_count": 4
+  },
+  "warnings": []
+}

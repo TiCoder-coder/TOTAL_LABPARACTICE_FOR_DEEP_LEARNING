@@ -1,0 +1,161 @@
+{
+  "artifact_version": "ATTENTION_VERIFY-v1",
+  "created_at": "2026-08-18T08:12:22.022479+00:00",
+  "discrepancies": [],
+  "phase_id": 17,
+  "phase_name": "Attention-Aware Encoder Verification",
+  "phase_version": "PHASE-17-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Check": "Batch independence",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Per-layer attention extraction",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Per-head attention preservation",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Softmax row-sum = 1.0",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Non-negative weights (w >= 0)",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Finite values (no NaN / Inf)",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Prediction equivalence (standard vs inspect)",
+          "Status": "PASS"
+        }
+      ],
+      "title": "Verification tests"
+    },
+    {
+      "rows": [
+        {
+          "Policy": "Layout",
+          "Value": "B_H_L_L"
+        },
+        {
+          "Policy": "Head aggregation",
+          "Value": "EXPLICIT_AGGREGATION_ONLY"
+        },
+        {
+          "Policy": "Mask policy",
+          "Value": "NONE"
+        },
+        {
+          "Policy": "Is causal",
+          "Value": false
+        },
+        {
+          "Policy": "Inspection API",
+          "Value": "forward_with_attention"
+        },
+        {
+          "Policy": "Training API",
+          "Value": "forward"
+        }
+      ],
+      "title": "Inspection policies"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/attention_verification/attention_verification_manifest.json",
+      "role": "manifest",
+      "sha256": "759dc2640952435ff32267c80670067068964968f8ef9e9887783feae2932ed7"
+    },
+    {
+      "path": "artifacts/attention_verification/attention_verification_contract.json",
+      "role": "contract",
+      "sha256": "dc41f426d42e606bb1cefb7bb48230a55b67b90d02afd860d3732a61487d57a1"
+    },
+    {
+      "path": "artifacts/attention_verification/phase_17_signoff.json",
+      "role": "signoff",
+      "sha256": "73bc6ad9d353ce5a5a2eaeae22483954b268adc0353093a9e9655c4cb98f9948"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Attention layout": "B_H_L_L",
+    "Is causal": false,
+    "Probability semantics": "SOFTMAX_OVER_KEYS",
+    "Reference lookback": 144,
+    "Verification version": "ATTENTION_VERIFY-v1"
+  },
+  "technical_details": {
+    "config_fingerprint": null,
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "implementation_version": "TRANSFORMER_IMPL-v1",
+    "input_checksums": {
+      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
+      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
+      "artifacts/models/transformer/phase_16_signoff.json": "b852435dd3f386cccc43d34dd4ab587a5746a9759e44de01760e7b4db7fe7928"
+    },
+    "input_paths": [
+      "artifacts/models/transformer/phase_16_signoff.json",
+      "artifacts/dataloaders/dataloader_manifest.json",
+      "artifacts/environment/environment_report.json"
+    ],
+    "output_checksums": {
+      "artifacts/attention_verification/README_ATTENTION_VERIFICATION.md": "de05df8981412774004fe4058777a919c06dc718523feae5619e07dd16c25723",
+      "artifacts/attention_verification/attention_aggregation_audit.csv": "0fe94253bacabc637b505ad4ccd5e506b65537d44ce9ffe0f8515156cec08a70",
+      "artifacts/attention_verification/attention_axis_audit.csv": "3d9ac9c11872710cb74ddafc7197618b543b47d8b61609b696b16629df7916f0",
+      "artifacts/attention_verification/attention_batch_independence_audit.csv": "5c5917625876d300befdada3ea07c183c89277de16983885d64f46c46de70512",
+      "artifacts/attention_verification/attention_mask_audit.csv": "5b9acda997f7470dc647434c98c47523093cd723e01cb3f1e18735148625f87f",
+      "artifacts/attention_verification/attention_path_equivalence_audit.csv": "5893aa9e545ba3dd93d7ff38c95cd1ab2c8a78ea54f975485b18408a5a827e97",
+      "artifacts/attention_verification/attention_position_mapping.csv": "e767a47009badd4d9d4a832a5db006ec0c6d5961154ae751badcb089ba737d1b",
+      "artifacts/attention_verification/attention_probability_audit.csv": "5893aa9e545ba3dd93d7ff38c95cd1ab2c8a78ea54f975485b18408a5a827e97",
+      "artifacts/attention_verification/attention_provenance_schema.json": "41c5524c1c79dbf6a804b96c9826b277c4dae55ea02270d8a5d961eae5669575",
+      "artifacts/attention_verification/attention_serialization_schema.json": "9c0d88ce0780ddd350030d387a7dafe4ca3121a6d21c52669089a814ea8e44bc",
+      "artifacts/attention_verification/attention_shape_audit.csv": "3d9ac9c11872710cb74ddafc7197618b543b47d8b61609b696b16629df7916f0",
+      "artifacts/attention_verification/attention_verification_contract.json": "dc41f426d42e606bb1cefb7bb48230a55b67b90d02afd860d3732a61487d57a1",
+      "artifacts/attention_verification/attention_verification_discrepancies.json": "7ccb2cb73cbeb18bc7954e3c538380e28c5041b5fa88cdd54f0eab545729d38f",
+      "artifacts/attention_verification/attention_verification_manifest.json": "759dc2640952435ff32267c80670067068964968f8ef9e9887783feae2932ed7",
+      "artifacts/attention_verification/attention_verification_tests.csv": "b93f0294bd00228dd6b3fd316cbebe9a51081e5a6a2029b154c3ca0934a3daca"
+    },
+    "output_paths": [
+      "artifacts/attention_verification/attention_verification_manifest.json",
+      "artifacts/attention_verification/attention_verification_contract.json",
+      "artifacts/attention_verification/attention_shape_audit.csv",
+      "artifacts/attention_verification/attention_probability_audit.csv",
+      "artifacts/attention_verification/attention_mask_audit.csv",
+      "artifacts/attention_verification/attention_path_equivalence_audit.csv",
+      "artifacts/attention_verification/attention_axis_audit.csv",
+      "artifacts/attention_verification/attention_position_mapping.csv",
+      "artifacts/attention_verification/attention_aggregation_audit.csv",
+      "artifacts/attention_verification/attention_batch_independence_audit.csv",
+      "artifacts/attention_verification/attention_serialization_schema.json",
+      "artifacts/attention_verification/attention_provenance_schema.json",
+      "artifacts/attention_verification/attention_verification_tests.csv",
+      "artifacts/attention_verification/attention_verification_discrepancies.json",
+      "artifacts/attention_verification/README_ATTENTION_VERIFICATION.md"
+    ],
+    "reference_model_version": "TRANSFORMER-v1",
+    "tests": [
+      "batch_independence",
+      "layer_count",
+      "attention_shape",
+      "probability_row_sum",
+      "explicit_head_aggregation",
+      "last_query_mapping",
+      "forward_without_attention"
+    ],
+    "unit_test_count": 7,
+    "verification_version": "ATTENTION_VERIFY-v1"
+  },
+  "warnings": []
+}

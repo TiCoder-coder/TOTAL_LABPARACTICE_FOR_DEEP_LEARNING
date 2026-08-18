@@ -1,0 +1,186 @@
+{
+  "artifact_version": "LSTM_IMPL-v1",
+  "created_at": "2026-08-18T01:50:46.869135+00:00",
+  "discrepancies": [],
+  "phase_id": 15,
+  "phase_name": "LSTM Implementation",
+  "phase_version": "PHASE-15-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Parameter": "Input size (F)",
+          "Value": 31
+        },
+        {
+          "Parameter": "Hidden size (H)",
+          "Value": 64
+        },
+        {
+          "Parameter": "Number of layers",
+          "Value": 2
+        },
+        {
+          "Parameter": "Dropout",
+          "Value": 0.1
+        },
+        {
+          "Parameter": "Pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Parameter": "Batch first",
+          "Value": true
+        },
+        {
+          "Parameter": "Bidirectional",
+          "Value": false
+        },
+        {
+          "Parameter": "Output size",
+          "Value": 1
+        }
+      ],
+      "title": "Architecture config"
+    },
+    {
+      "rows": [
+        {
+          "Check": "Shape tests (B x L x F -> B x 1)",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Batch size invariance",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Lookback support (36, 72, 144)",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Deterministic initialization",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Dropout train vs eval semantics",
+          "Status": "PASS"
+        },
+        {
+          "Check": "Wrong shape rejection",
+          "Status": "PASS"
+        }
+      ],
+      "title": "Unit test suite"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/models/lstm/lstm_model_manifest.json",
+      "role": "manifest",
+      "sha256": "fc02031da47faf3ff316c557ebe92d800224700845b3749882b17a142dbdada5"
+    },
+    {
+      "path": "artifacts/models/lstm/lstm_config_schema.json",
+      "role": "schema",
+      "sha256": "187afe6fa919de41f0f8cb6c7bbe1f3930c015af4238af15e23983da272f6517"
+    },
+    {
+      "path": "artifacts/models/lstm/phase_15_signoff.json",
+      "role": "signoff",
+      "sha256": "ce83b34dcbe8f844e2bb108630680ced70e9cdfa196345d26594e6a95b957a54"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Dropout": 0.1,
+    "Hidden size": 64,
+    "Implementation": "LSTM_IMPL-v1",
+    "Input size": 31,
+    "Layers": 2,
+    "Model family": "LSTM",
+    "Pooling": "LAST_STEP",
+    "Trainable parameters": 58177
+  },
+  "technical_details": {
+    "config_fingerprint": null,
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "implementation_version": "LSTM_IMPL-v1",
+    "input_checksums": {
+      "artifacts/baselines/persistence/phase_14_signoff.json": "c8b25be9b60580606fbc078da75066db6ee2b94678e3543ef0aed949d8982f79",
+      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
+      "artifacts/dataloaders/phase_11_signoff.json": "9fc1ad2caef410a32f55e2e87b14c493a34658846a4269c0c92e451755dce45d",
+      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
+      "artifacts/experiments/phase_13_signoff.json": "012ac5d49ea13b775dad95fd8496626f014eb95f03232b12688dccc92efbee58",
+      "artifacts/metrics/phase_12_signoff.json": "e462664e7f497ad04e32a616ae8028346012704a062afe72ae8867d9b932aafb",
+      "artifacts/windows/phase_10_signoff.json": "8ef5bb41d4d6dfddc5e269a9d795fa61cbfa8bf4f6f8cb6fb3b9e21a00697502"
+    },
+    "input_paths": [
+      "artifacts/windows/phase_10_signoff.json",
+      "artifacts/dataloaders/phase_11_signoff.json",
+      "artifacts/metrics/phase_12_signoff.json",
+      "artifacts/experiments/phase_13_signoff.json",
+      "artifacts/baselines/persistence/phase_14_signoff.json",
+      "artifacts/dataloaders/dataloader_manifest.json",
+      "artifacts/environment/environment_report.json"
+    ],
+    "model_family": "LSTM",
+    "model_version": "LSTM-v1",
+    "output_checksums": {
+      "artifacts/models/lstm/README_LSTM.md": "dc8578cb9afd515f21c30a71841bfc00c0aa68e93dd557e69e49c013dc922872",
+      "artifacts/models/lstm/lstm_config_schema.json": "187afe6fa919de41f0f8cb6c7bbe1f3930c015af4238af15e23983da272f6517",
+      "artifacts/models/lstm/lstm_discrepancies.json": "90ed53eeb242602b4b74095ee7b7f6b9ffa1b53cb4640ecbfa02466156093b18",
+      "artifacts/models/lstm/lstm_implementation_audit.csv": "fb592daf22f32db45e310a70781ee0eb2f2ce65bf73be21a95f0801ecd2ae7dc",
+      "artifacts/models/lstm/lstm_model_manifest.json": "fc02031da47faf3ff316c557ebe92d800224700845b3749882b17a142dbdada5",
+      "artifacts/models/lstm/lstm_module_audit.csv": "d742c98daed88fa89fd4def530a23a56a67051ef91464c9720efaa88b75b59ba",
+      "artifacts/models/lstm/lstm_parameter_audit.csv": "f485d83d18a10c92aa9b83803212e5916420b5cf66297cd66264c689d5f3b14a",
+      "artifacts/models/lstm/lstm_reference_config.json": "f986f26ecc951e0109d2f223fb513d4feb30fc181d9394fc9f74b66bcd0d5a01",
+      "artifacts/models/lstm/lstm_shape_contract.json": "ea03ad847ab0cacee1cde7b595fe171c4f8b0fad174a24ed1f74ab7c621ee939",
+      "artifacts/models/lstm/lstm_unit_tests.csv": "cfe7784f7f238f886b1b287b7e527cb14dcd7224614f35adbd30cbc0b1be29a7"
+    },
+    "output_paths": [
+      "artifacts/models/lstm/lstm_model_manifest.json",
+      "artifacts/models/lstm/lstm_config_schema.json",
+      "artifacts/models/lstm/lstm_reference_config.json",
+      "artifacts/models/lstm/lstm_shape_contract.json",
+      "artifacts/models/lstm/lstm_parameter_audit.csv",
+      "artifacts/models/lstm/lstm_module_audit.csv",
+      "artifacts/models/lstm/lstm_unit_tests.csv",
+      "artifacts/models/lstm/lstm_implementation_audit.csv",
+      "artifacts/models/lstm/lstm_discrepancies.json",
+      "artifacts/models/lstm/README_LSTM.md"
+    ],
+    "source_code_fingerprint": "fb2fcb9da38896ea4e96d48ef0c44e34a94958deb27cbc7a0d7f7ab6467e2442",
+    "state_policy": "ZERO_INIT_PER_FORWARD_STATELESS",
+    "supported_lookbacks": [
+      36,
+      72,
+      144
+    ],
+    "supported_poolings": [
+      "LAST_STEP"
+    ],
+    "tests": [
+      "shape_B1_L36",
+      "shape_B4_L36",
+      "shape_B16_L36",
+      "shape_B1_L72",
+      "shape_B4_L72",
+      "shape_B16_L72",
+      "shape_B1_L144",
+      "shape_B4_L144",
+      "shape_B16_L144",
+      "reject_wrong_feature",
+      "reject_wrong_rank",
+      "deterministic_init",
+      "dropout_train_eval",
+      "bidirectional_disabled",
+      "batch_first",
+      "readout",
+      "output_activation",
+      "unit_tests"
+    ]
+  },
+  "warnings": []
+}

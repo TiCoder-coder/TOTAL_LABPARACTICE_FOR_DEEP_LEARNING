@@ -1,12 +1,12 @@
 {
   "artifact_version": "COURSEWORK-CONTRACT-v1",
   "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
-  "created_at": "2026-08-14T18:39:02.965333+00:00",
+  "created_at": "2026-08-18T01:45:06.510380+00:00",
   "dataset_revision": null,
   "discrepancies": [],
   "environment_id": null,
   "input_checksums": {
-    "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f"
+    "configs/base/coursework_contract.json": "afa0ef62c05bbc0ac75d3530130af9fdd26cafa7dd08c60201201a934db21e2f"
   },
   "input_paths": [
     "configs/base/coursework_contract.json"

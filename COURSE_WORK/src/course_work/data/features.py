@@ -18,6 +18,7 @@ from course_work.utils.artifacts import (
 
 
 FEATURE_VERSION = "FEATURES-v1"
+EDA_VERSION = "EDA-v1"
 TIME_FEATURE_VERSION = "TIME-FEATURES-v1"
 ENGINEERED_FEATURES = ["hour_sin", "hour_cos", "dow_sin", "dow_cos", "weekend"]
 METADATA_COLUMNS = ["raw_row_index", "date", "timestamp", "continuity_segment_id"]
@@ -55,6 +56,14 @@ def verify_phase_7_inputs(root: Path) -> dict[str, dict[str, Any]]:
     }
     schema_manifest = read_json(root / "artifacts/schema/schema_manifest.json")
     temporal_manifest = read_json(root / "artifacts/temporal/temporal_manifest.json")
+    eda_manifest_path = root / "artifacts/eda/eda_manifest.json"
+    if not eda_manifest_path.is_file():
+        raise FileNotFoundError("Required upstream EDA manifest is missing: artifacts/eda/eda_manifest.json")
+    eda_manifest = read_json(eda_manifest_path)
+    if eda_manifest.get("eda_version") != EDA_VERSION:
+        raise RuntimeError(
+            f"Invalid EDA version: expected {EDA_VERSION}, got {eda_manifest.get('eda_version')}"
+        )
     split_signoff = signoffs["artifacts/splits/phase_5_signoff.json"]
     raw_path = root / "data/raw_data/energydata_complete.csv"
     raw_checksum = sha256_file(raw_path)
@@ -78,6 +87,7 @@ def verify_phase_7_inputs(root: Path) -> dict[str, dict[str, Any]]:
     }
     if versions != expected:
         raise RuntimeError(f"Phase 7 input version mismatch: {versions}")
+    signoffs["artifacts/eda/eda_manifest.json"] = eda_manifest
     return signoffs
 
 
@@ -350,6 +360,7 @@ def materialize_phase_7(project_root: Path | None = None) -> dict[str, Any]:
         "dataset_revision": "DATA-v1",
         "schema_version": "SCHEMA-v1",
         "temporal_version": "TEMPORAL-v1",
+        "eda_version": upstream["artifacts/eda/eda_manifest.json"]["eda_version"],
         "split_version": "SPLIT-v1",
         "environment_id": "ENV-v1",
         "feature_engineering_scope": "FULL_DATASET_DETERMINISTIC_TRANSFORMATIONS",
@@ -404,7 +415,14 @@ def materialize_phase_7(project_root: Path | None = None) -> dict[str, Any]:
         f"{FEATURE_ARTIFACT_ROOT}/feature_engineered_v1.sha256",
     ]
     output_checksums = {relative_path: sha256_file(root / relative_path) for relative_path in output_paths}
-    input_paths = list(UPSTREAM_SIGNOFFS) + ["data/raw_data/energydata_complete.csv", "configs/base/coursework_contract.json"]
+    input_paths = (
+        list(UPSTREAM_SIGNOFFS)
+        + [
+            "artifacts/eda/eda_manifest.json",
+            "data/raw_data/energydata_complete.csv",
+            "configs/base/coursework_contract.json",
+        ]
+    )
     input_checksums = {relative_path: sha256_file(root / relative_path) for relative_path in input_paths}
     signoff = {
         "artifact_version": FEATURE_VERSION,
@@ -415,6 +433,7 @@ def materialize_phase_7(project_root: Path | None = None) -> dict[str, Any]:
         "dataset_revision": "DATA-v1",
         "schema_version": "SCHEMA-v1",
         "temporal_version": "TEMPORAL-v1",
+        "eda_version": upstream["artifacts/eda/eda_manifest.json"]["eda_version"],
         "split_version": "SPLIT-v1",
         "feature_engineering_scope": "FULL_DATASET_DETERMINISTIC_TRANSFORMATIONS",
         "train_only_scope": False,

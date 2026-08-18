@@ -1,0 +1,181 @@
+{
+  "artifact_version": "TRANSFORMER_IMPL-v1",
+  "created_at": "2026-08-18T02:11:28.548878+00:00",
+  "discrepancies": [],
+  "phase_id": 16,
+  "phase_name": "Transformer Implementation",
+  "phase_version": "PHASE-16-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Parameter": "d_model",
+          "Value": 64
+        },
+        {
+          "Parameter": "Number of heads",
+          "Value": 4
+        },
+        {
+          "Parameter": "Number of layers",
+          "Value": 2
+        },
+        {
+          "Parameter": "FFN dimension",
+          "Value": 128
+        },
+        {
+          "Parameter": "Activation",
+          "Value": "relu"
+        },
+        {
+          "Parameter": "Dropout",
+          "Value": 0.1
+        },
+        {
+          "Parameter": "Pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Parameter": "Positional encoding",
+          "Value": "SINUSOIDAL"
+        },
+        {
+          "Parameter": "Attention-aware",
+          "Value": true
+        },
+        {
+          "Parameter": "Norm order",
+          "Value": "Post-LN"
+        }
+      ],
+      "title": "Architecture config"
+    },
+    {
+      "rows": [
+        {
+          "Property": "Attention layout",
+          "Value": "[B, H, L, L]"
+        },
+        {
+          "Property": "Per-head weights",
+          "Value": "Unaveraged when extracted"
+        },
+        {
+          "Property": "Probability semantics",
+          "Value": "Softmax over key dimension"
+        },
+        {
+          "Property": "Causal mask",
+          "Value": "None (Encoder bidirectional context)"
+        },
+        {
+          "Property": "Inspection API",
+          "Value": "forward_with_attention(x)"
+        }
+      ],
+      "title": "Attention contract"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/models/transformer/transformer_model_manifest.json",
+      "role": "manifest",
+      "sha256": "89b037c39f1e4ac7148f476de9cd958d60419bbee331bcd14d837074138ceb27"
+    },
+    {
+      "path": "artifacts/models/transformer/transformer_config_schema.json",
+      "role": "schema",
+      "sha256": "8f19285b9449d722254bebc031c419b5f66f3a50c7d22c8ad30687b162bd8a2a"
+    },
+    {
+      "path": "artifacts/models/transformer/phase_16_signoff.json",
+      "role": "signoff",
+      "sha256": "b852435dd3f386cccc43d34dd4ab587a5746a9759e44de01760e7b4db7fe7928"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Activation": "relu",
+    "Dropout": 0.1,
+    "FFN": 128,
+    "Heads": 4,
+    "Implementation": "TRANSFORMER_IMPL-v1",
+    "Layers": 2,
+    "Model family": "Transformer",
+    "Pooling": "LAST_STEP",
+    "Trainable parameters": 69057,
+    "d_model": 64
+  },
+  "technical_details": {
+    "config_fingerprint": null,
+    "dataset_revision": "DATA-v1",
+    "environment_id": "ENV-v1",
+    "implementation_version": "TRANSFORMER_IMPL-v1",
+    "input_checksums": {
+      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
+      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
+      "artifacts/models/lstm/phase_15_signoff.json": "ce83b34dcbe8f844e2bb108630680ced70e9cdfa196345d26594e6a95b957a54"
+    },
+    "input_paths": [
+      "artifacts/models/lstm/phase_15_signoff.json",
+      "artifacts/dataloaders/dataloader_manifest.json",
+      "artifacts/environment/environment_report.json"
+    ],
+    "model_family": "Transformer",
+    "model_version": "TRANSFORMER-v1",
+    "output_checksums": {
+      "artifacts/models/transformer/README_TRANSFORMER.md": "42dfa23390ae3d6473e200b0e062cbbe9d88f840fab9f0e27aa17017b6ea54d2",
+      "artifacts/models/transformer/transformer_attention_contract.json": "36b565795efe339ba8a3d7aeabc2e787b32caf7030bf71b60129427a39674998",
+      "artifacts/models/transformer/transformer_config_schema.json": "8f19285b9449d722254bebc031c419b5f66f3a50c7d22c8ad30687b162bd8a2a",
+      "artifacts/models/transformer/transformer_discrepancies.json": "7553a18178dd79d3a933c9567cf663beb06c987af8296f9c9318855f1443f631",
+      "artifacts/models/transformer/transformer_implementation_audit.csv": "c88454fe480f6d0edd893425da0070d6960a21f0a308dc47e467e1ef84db7742",
+      "artifacts/models/transformer/transformer_model_manifest.json": "89b037c39f1e4ac7148f476de9cd958d60419bbee331bcd14d837074138ceb27",
+      "artifacts/models/transformer/transformer_module_audit.csv": "3e808370708b85812942f010a55196403c5fe95e2f3356617e72a45db69c87e4",
+      "artifacts/models/transformer/transformer_parameter_audit.csv": "0a3f432ab2690bc27edd5d0959aef1291a00a6b187d4924b1a8228bff3449126",
+      "artifacts/models/transformer/transformer_positional_encoding_audit.csv": "f9b2eee17d8958c564c82a8648e266994d2f85c1744e3c00b7d88f7016561aec",
+      "artifacts/models/transformer/transformer_reference_config.json": "c3c923dfaf308d5f8cdb7aa31848063134f6764628ba32ed0ccb2f19ffdd70df",
+      "artifacts/models/transformer/transformer_shape_contract.json": "8c7ca501741975ad630a2e8632f17a0190fda013074a5c3902903b7b1a96d1dc",
+      "artifacts/models/transformer/transformer_unit_tests.csv": "3534f861ab30f0b7d8f7818437025a1242a5b5c291136a8587c755a0d314535b"
+    },
+    "output_paths": [
+      "artifacts/models/transformer/transformer_model_manifest.json",
+      "artifacts/models/transformer/transformer_config_schema.json",
+      "artifacts/models/transformer/transformer_reference_config.json",
+      "artifacts/models/transformer/transformer_shape_contract.json",
+      "artifacts/models/transformer/transformer_attention_contract.json",
+      "artifacts/models/transformer/transformer_parameter_audit.csv",
+      "artifacts/models/transformer/transformer_module_audit.csv",
+      "artifacts/models/transformer/transformer_positional_encoding_audit.csv",
+      "artifacts/models/transformer/transformer_unit_tests.csv",
+      "artifacts/models/transformer/transformer_implementation_audit.csv",
+      "artifacts/models/transformer/transformer_discrepancies.json",
+      "artifacts/models/transformer/README_TRANSFORMER.md"
+    ],
+    "positional_encoding_types": [
+      "sinusoidal"
+    ],
+    "source_code_fingerprint": "b9508135825275c2074b9979739fff2bc505408716ced2ffb2601ae5c9e6cc90",
+    "supported_activations": [
+      "relu",
+      "gelu"
+    ],
+    "supported_lookbacks": [
+      36,
+      72,
+      144
+    ],
+    "tests": [
+      "forward_shape",
+      "attention_layer_count",
+      "attention_shape",
+      "attention_probability_row",
+      "prediction_shape_with_attention",
+      "attention_aware",
+      "post_norm",
+      "unit_tests"
+    ]
+  },
+  "warnings": []
+}

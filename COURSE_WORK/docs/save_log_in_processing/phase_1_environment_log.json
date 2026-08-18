@@ -1,6 +1,6 @@
 {
   "artifact_version": "ENV-v1",
-  "created_at": "2026-08-14T18:43:43.950492+00:00",
+  "created_at": "2026-08-18T01:45:09.755225+00:00",
   "discrepancies": [],
   "phase_id": 1,
   "phase_name": "Environment",
@@ -90,7 +90,7 @@
     {
       "path": "artifacts/environment/environment_report.json",
       "role": "environment",
-      "sha256": "c0fbf498e86620e1ba52e909117e61b0a309fa7ec23fe30c89bed848cdce2524"
+      "sha256": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9"
     },
     {
       "path": "artifacts/environment/smoke_test_report.json",
@@ -100,7 +100,7 @@
     {
       "path": "artifacts/environment/phase_1_signoff.json",
       "role": "signoff",
-      "sha256": "d5ebc30357c3b2bc679339ae193c47023a1bfe124bfb6c498770c18129d19627"
+      "sha256": "2ba91cf49b979f3a4b5443db915c247a41c6ce85d54b69c661b4fe3fa4c55da5"
     }
   ],
   "status": "PASS",
@@ -108,8 +108,8 @@
     "Default dtype": "torch.float32",
     "Deterministic mode": "D0",
     "Environment": "ENV-v1",
-    "Kernel": "python3",
-    "Kernel matches interpreter": true,
+    "Kernel": "coursework-venv",
+    "Kernel matches interpreter": false,
     "Python": "3.10.11",
     "Selected device": "cpu"
   },
@@ -118,14 +118,14 @@
     "dataset_revision": null,
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/contracts/phase_0_signoff.json": "96b2e34737e43cac59d29d847b4f123f1e28a30ca372ac1f31a2823c8959d2c3"
+      "artifacts/contracts/phase_0_signoff.json": "74f3c513cafe4a893d0ed6104455a1a5ef62612c0fe95fa9c59867e7dbcfef3b"
     },
     "input_paths": [
       "artifacts/contracts/phase_0_signoff.json"
     ],
     "output_checksums": {
-      "artifacts/environment/environment_report.json": "c0fbf498e86620e1ba52e909117e61b0a309fa7ec23fe30c89bed848cdce2524",
-      "artifacts/environment/requirements_freeze.txt": "36b39b0eb4428aa446b55e89f975d43026b0d69f632b78369330b9c5bf905af5",
+      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
+      "artifacts/environment/requirements_freeze.txt": "ffdf507b0ec92b65e853de33b23ad357603cec9afc481f82b0af0b6d998f3344",
       "artifacts/environment/smoke_test_report.json": "03573a66b9ec7af94d86df2cd8c523fd2d20a25f0cb8ae5773bc6322eaea3b1a"
     },
     "output_paths": [

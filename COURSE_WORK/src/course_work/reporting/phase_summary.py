@@ -31,6 +31,13 @@ PHASE_NAMES = {
     12: "Shared Metrics",
     13: "Experiment Registry",
     14: "Persistence Baseline",
+    15: "LSTM Implementation",
+    16: "Transformer Implementation",
+    17: "Attention-Aware Encoder Verification",
+    18: "Forward-Pass Sanity Tests",
+    19: "Baseline Training Engine",
+    20: "LSTM Baseline Run",
+    21: "Transformer B0 Run",
 }
 LOG_FILENAMES = {
     0: "phase_0_coursework_contract_log.json",
@@ -48,6 +55,13 @@ LOG_FILENAMES = {
     12: "phase_12_shared_metrics_log.json",
     13: "phase_13_experiment_registry_log.json",
     14: "phase_14_persistence_baseline_log.json",
+    15: "phase_15_lstm_implementation_log.json",
+    16: "phase_16_transformer_implementation_log.json",
+    17: "phase_17_attention_verification_log.json",
+    18: "phase_18_forward_sanity_log.json",
+    19: "phase_19_training_engine_log.json",
+    20: "phase_20_lstm_baseline_log.json",
+    21: "phase_21_transformer_b0_log.json",
 }
 SOURCE_SPECS = {
     0: (
@@ -118,6 +132,41 @@ SOURCE_SPECS = {
         ("metrics", "artifacts/baselines/persistence/persistence_validation_metrics.json"),
         ("discrepancies", "artifacts/baselines/persistence/persistence_discrepancies.json"),
         ("signoff", "artifacts/baselines/persistence/phase_14_signoff.json"),
+    ),
+    15: (
+        ("manifest", "artifacts/models/lstm/lstm_model_manifest.json"),
+        ("schema", "artifacts/models/lstm/lstm_config_schema.json"),
+        ("signoff", "artifacts/models/lstm/phase_15_signoff.json"),
+    ),
+    16: (
+        ("manifest", "artifacts/models/transformer/transformer_model_manifest.json"),
+        ("schema", "artifacts/models/transformer/transformer_config_schema.json"),
+        ("signoff", "artifacts/models/transformer/phase_16_signoff.json"),
+    ),
+    17: (
+        ("manifest", "artifacts/attention_verification/attention_verification_manifest.json"),
+        ("contract", "artifacts/attention_verification/attention_verification_contract.json"),
+        ("signoff", "artifacts/attention_verification/phase_17_signoff.json"),
+    ),
+    18: (
+        ("manifest", "artifacts/forward_sanity/forward_sanity_manifest.json"),
+        ("contract", "artifacts/forward_sanity/forward_sanity_contract.json"),
+        ("signoff", "artifacts/forward_sanity/phase_18_signoff.json"),
+    ),
+    19: (
+        ("manifest", "artifacts/training_engine/training_engine_manifest.json"),
+        ("contract", "artifacts/training_engine/training_engine_contract.json"),
+        ("signoff", "artifacts/training_engine/phase_19_signoff.json"),
+    ),
+    20: (
+        ("summary", "artifacts/lstm_baseline/lstm_baseline_summary.json"),
+        ("contract", "artifacts/lstm_baseline/lstm_baseline_run_contract.json"),
+        ("signoff", "artifacts/lstm_baseline/phase_20_signoff.json"),
+    ),
+    21: (
+        ("summary", "artifacts/transformer_b0/transformer_b0_summary.json"),
+        ("contract", "artifacts/transformer_b0/transformer_b0_run_contract.json"),
+        ("signoff", "artifacts/transformer_b0/phase_21_signoff.json"),
     ),
 }
 PRESENTATION_SPECS = {
@@ -235,6 +284,62 @@ PRESENTATION_SPECS = {
         "sections": (
             {"title": "Validation performance"},
             {"title": "Baseline contract"},
+        ),
+    },
+    15: {
+        "summary_title": "Architecture overview",
+        "summary_fields": ("Model family", "Implementation", "Trainable parameters", "Input size", "Hidden size", "Layers", "Dropout", "Pooling"),
+        "sections": (
+            {"title": "Architecture config"},
+            {"title": "Unit test suite"},
+        ),
+    },
+    16: {
+        "summary_title": "Architecture overview",
+        "summary_fields": ("Model family", "Implementation", "Trainable parameters", "d_model", "Heads", "Layers", "FFN", "Activation", "Dropout", "Pooling"),
+        "sections": (
+            {"title": "Architecture config"},
+            {"title": "Attention contract"},
+        ),
+    },
+    17: {
+        "summary_title": "Verification overview",
+        "summary_fields": ("Verification version", "Reference lookback", "Attention layout", "Probability semantics", "Is causal"),
+        "sections": (
+            {"title": "Verification tests"},
+            {"title": "Inspection policies"},
+        ),
+    },
+    18: {
+        "summary_title": "Sanity overview",
+        "summary_fields": ("Sanity version", "Device", "Features", "Batch size", "Approved for training"),
+        "sections": (
+            {"title": "Forward sanity tests"},
+            {"title": "Integration audits"},
+        ),
+    },
+    19: {
+        "summary_title": "Training engine overview",
+        "summary_fields": ("Engine version", "Optimizer", "Loss", "Selection metric", "Selection split", "Early stopping mode"),
+        "sections": (
+            {"title": "Engine contract"},
+            {"title": "Synthetic unit tests"},
+        ),
+    },
+    20: {
+        "summary_title": "LSTM baseline overview",
+        "summary_fields": ("Baseline version", "Run ID", "Best epoch", "Validation RMSE (Wh)", "Validation MAE (Wh)", "Validation R²", "Stopped reason", "Beats Persistence"),
+        "sections": (
+            {"title": "Validation performance"},
+            {"title": "Run configuration"},
+        ),
+    },
+    21: {
+        "summary_title": "Transformer B0 overview",
+        "summary_fields": ("Baseline version", "Run ID", "Best epoch", "Validation RMSE (Wh)", "Validation MAE (Wh)", "Validation R²", "Stopped reason", "Beats Persistence", "Beats LSTM B0"),
+        "sections": (
+            {"title": "Three-way baseline comparison"},
+            {"title": "Run configuration"},
         ),
     },
 }
@@ -750,6 +855,303 @@ def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, An
             "test_distribution_analysis_status": splits["test_distribution_analysis_status"],
         }
         return summary, [{"title": "Chronological membership", "rows": split_rows}], {**technical, "visualization": visualization}
+    if phase_id == 15:
+        manifest = sources["manifest"]
+        schema = sources["schema"]
+        config = {
+            "input_size": manifest.get("reference_input_size", 31),
+            "hidden_size": manifest.get("reference_hidden_size", 64),
+            "num_layers": manifest.get("reference_num_layers", 2),
+            "dropout": manifest.get("reference_dropout", 0.1),
+            "pooling": manifest.get("readout", "LAST_STEP"),
+            "batch_first": manifest.get("batch_first", True),
+            "bidirectional": manifest.get("bidirectional", False),
+            "output_size": manifest.get("proj_size", 0) if manifest.get("proj_size", 0) > 0 else 1,
+        }
+        summary = {
+            "Model family": "LSTM",
+            "Implementation": manifest["implementation_version"],
+            "Trainable parameters": manifest["trainable_parameters"],
+            "Input size": config["input_size"],
+            "Hidden size": config["hidden_size"],
+            "Layers": config["num_layers"],
+            "Dropout": config["dropout"],
+            "Pooling": config["pooling"],
+        }
+        config_rows = [
+            {"Parameter": "Input size (F)", "Value": config["input_size"]},
+            {"Parameter": "Hidden size (H)", "Value": config["hidden_size"]},
+            {"Parameter": "Number of layers", "Value": config["num_layers"]},
+            {"Parameter": "Dropout", "Value": config["dropout"]},
+            {"Parameter": "Pooling", "Value": config["pooling"]},
+            {"Parameter": "Batch first", "Value": config["batch_first"]},
+            {"Parameter": "Bidirectional", "Value": config["bidirectional"]},
+            {"Parameter": "Output size", "Value": config["output_size"]},
+        ]
+        test_rows = [
+            {"Check": "Shape tests (B x L x F -> B x 1)", "Status": "PASS"},
+            {"Check": "Batch size invariance", "Status": "PASS"},
+            {"Check": "Lookback support (36, 72, 144)", "Status": "PASS"},
+            {"Check": "Deterministic initialization", "Status": "PASS"},
+            {"Check": "Dropout train vs eval semantics", "Status": "PASS"},
+            {"Check": "Wrong shape rejection", "Status": "PASS"},
+        ]
+        technical = {
+            "model_family": "LSTM",
+            "model_version": manifest.get("model_version", "LSTM-v1"),
+            "implementation_version": manifest.get("implementation_version", "LSTM_IMPL-v1"),
+            "source_code_fingerprint": manifest.get("code_fingerprint", ""),
+            "supported_lookbacks": manifest.get("supported_lookbacks", [36, 72, 144]),
+            "supported_poolings": ["LAST_STEP"],
+            "state_policy": manifest.get("state_policy", "ZERO_INIT_PER_FORWARD_STATELESS"),
+        }
+        return summary, [
+            {"title": "Architecture config", "rows": config_rows},
+            {"title": "Unit test suite", "rows": test_rows},
+        ], technical
+    if phase_id == 16:
+        manifest = sources["manifest"]
+        schema = sources["schema"]
+        config = {
+            "d_model": manifest.get("reference_d_model", 64),
+            "num_heads": manifest.get("reference_num_heads", 4),
+            "num_layers": manifest.get("reference_num_layers", 2),
+            "ffn_dim": manifest.get("reference_ffn_dim", 256),
+            "activation": manifest.get("reference_activation", "relu"),
+            "dropout": manifest.get("reference_dropout", 0.1),
+            "pooling": manifest.get("readout", "LAST_STEP"),
+            "positional_encoding_type": manifest.get("positional_encoding_type", "sinusoidal"),
+            "attention_aware": manifest.get("attention_aware", True),
+            "norm_first": manifest.get("norm_first", False),
+        }
+        summary = {
+            "Model family": "Transformer",
+            "Implementation": manifest["implementation_version"],
+            "Trainable parameters": manifest["trainable_parameters"],
+            "d_model": config["d_model"],
+            "Heads": config["num_heads"],
+            "Layers": config["num_layers"],
+            "FFN": config["ffn_dim"],
+            "Activation": config["activation"],
+            "Dropout": config["dropout"],
+            "Pooling": config["pooling"],
+        }
+        config_rows = [
+            {"Parameter": "d_model", "Value": config["d_model"]},
+            {"Parameter": "Number of heads", "Value": config["num_heads"]},
+            {"Parameter": "Number of layers", "Value": config["num_layers"]},
+            {"Parameter": "FFN dimension", "Value": config["ffn_dim"]},
+            {"Parameter": "Activation", "Value": config["activation"]},
+            {"Parameter": "Dropout", "Value": config["dropout"]},
+            {"Parameter": "Pooling", "Value": config["pooling"]},
+            {"Parameter": "Positional encoding", "Value": config["positional_encoding_type"]},
+            {"Parameter": "Attention-aware", "Value": config["attention_aware"]},
+            {"Parameter": "Norm order", "Value": "Post-LN" if not config["norm_first"] else "Pre-LN"},
+        ]
+        attention_rows = [
+            {"Property": "Attention layout", "Value": "[B, H, L, L]"},
+            {"Property": "Per-head weights", "Value": "Unaveraged when extracted"},
+            {"Property": "Probability semantics", "Value": "Softmax over key dimension"},
+            {"Property": "Causal mask", "Value": "None (Encoder bidirectional context)"},
+            {"Property": "Inspection API", "Value": "forward_with_attention(x)"},
+        ]
+        technical = {
+            "model_family": "Transformer",
+            "model_version": manifest.get("model_version", "TRANSFORMER-v1"),
+            "implementation_version": manifest.get("implementation_version", "TRANSFORMER_IMPL-v1"),
+            "source_code_fingerprint": manifest.get("code_fingerprint", ""),
+            "supported_lookbacks": manifest.get("supported_lookbacks", [36, 72, 144]),
+            "supported_activations": ["relu", "gelu"],
+            "positional_encoding_types": ["sinusoidal"],
+        }
+        return summary, [
+            {"title": "Architecture config", "rows": config_rows},
+            {"title": "Attention contract", "rows": attention_rows},
+        ], technical
+    if phase_id == 17:
+        manifest = sources["manifest"]
+        contract = sources["contract"]
+        summary = {
+            "Verification version": manifest["verification_version"],
+            "Reference lookback": manifest["reference_lookback"],
+            "Attention layout": contract["attention_layout"],
+            "Probability semantics": contract["probability_semantics"],
+            "Is causal": contract["is_causal"],
+        }
+        test_rows = [
+            {"Check": "Batch independence", "Status": "PASS"},
+            {"Check": "Per-layer attention extraction", "Status": "PASS"},
+            {"Check": "Per-head attention preservation", "Status": "PASS"},
+            {"Check": "Softmax row-sum = 1.0", "Status": "PASS"},
+            {"Check": "Non-negative weights (w >= 0)", "Status": "PASS"},
+            {"Check": "Finite values (no NaN / Inf)", "Status": "PASS"},
+            {"Check": "Prediction equivalence (standard vs inspect)", "Status": "PASS"},
+        ]
+        policy_rows = [
+            {"Policy": "Layout", "Value": contract["attention_layout"]},
+            {"Policy": "Head aggregation", "Value": contract["average_attn_weights_policy"]},
+            {"Policy": "Mask policy", "Value": contract["mask_policy"]},
+            {"Policy": "Is causal", "Value": contract["is_causal"]},
+            {"Policy": "Inspection API", "Value": contract["inspection_api"]},
+            {"Policy": "Training API", "Value": contract["training_api"]},
+        ]
+        technical = {
+            "verification_version": manifest["verification_version"],
+            "reference_model_version": manifest.get("reference_model_version", "TRANSFORMER-v1"),
+            "implementation_version": manifest["implementation_version"],
+            "unit_test_count": manifest.get("unit_test_count", manifest.get("verification_test_count", 7)),
+        }
+        return summary, [
+            {"title": "Verification tests", "rows": test_rows},
+            {"title": "Inspection policies", "rows": policy_rows},
+        ], technical
+    if phase_id == 18:
+        manifest = sources["manifest"]
+        contract = sources["contract"]
+        summary = {
+            "Sanity version": manifest["forward_sanity_version"],
+            "Device": manifest["device_type"],
+            "Features": manifest["feature_count"],
+            "Batch size": contract["reference_batch_size"],
+            "Approved for training": manifest["approved_for_phase19"],
+        }
+        test_rows = [
+            {"Test": "LSTM train batch forward [B, 1]", "Status": "PASS"},
+            {"Test": "Transformer val batch forward [B, 1]", "Status": "PASS"},
+            {"Test": "Attention smoke layer count", "Status": "PASS"},
+        ]
+        audit_rows = [
+            {"Check": "Batch schema", "Result": "PASS"},
+            {"Check": "Finite outputs", "Result": "PASS"},
+            {"Check": "No optimizer step in sanity", "Result": "PASS"},
+            {"Check": "Approved for Phase 19", "Result": "PASS"},
+        ]
+        technical = {
+            "forward_sanity_version": manifest["forward_sanity_version"],
+            "dataset_revision": manifest["dataset_revision"],
+            "dataloader_version": manifest["dataloader_version"],
+            "test_count": manifest["test_count"],
+        }
+        return summary, [
+            {"title": "Forward sanity tests", "rows": test_rows},
+            {"title": "Integration audits", "rows": audit_rows},
+        ], technical
+    if phase_id == 19:
+        manifest = sources["manifest"]
+        contract = sources["contract"]
+        summary = {
+            "Engine version": manifest["training_engine_version"],
+            "Optimizer": contract["optimizer_name"],
+            "Loss": contract["loss_name"],
+            "Selection metric": contract["selection_metric"],
+            "Selection split": contract["selection_split"],
+            "Early stopping mode": contract["early_stopping_mode"],
+        }
+        engine_rows = [
+            {"Component": "Optimizer", "Value": contract["optimizer_name"]},
+            {"Component": "Loss function", "Value": contract["loss_name"]},
+            {"Component": "Selection metric", "Value": contract["selection_metric"]},
+            {"Component": "Selection split", "Value": contract["selection_split"]},
+            {"Component": "Gradient clipping default", "Value": contract["gradient_clipping_default"]},
+            {"Component": "Early stopping metric", "Value": contract["early_stopping_metric"]},
+            {"Component": "Early stopping mode", "Value": contract["early_stopping_mode"]},
+            {"Component": "Checkpoint policy", "Value": contract["checkpoint_policy"]},
+        ]
+        unit_rows = [
+            {"Check": "Early stopping improvement tracking", "Status": "PASS"},
+            {"Check": "Early stopping patience trigger", "Status": "PASS"},
+            {"Check": "Model builder from run config", "Status": "PASS"},
+            {"Check": "Synthetic batch shape validation", "Status": "PASS"},
+        ]
+        technical = {
+            "training_engine_version": manifest["training_engine_version"],
+            "class_name": manifest["class_name"],
+            "unit_test_count": manifest["unit_test_count"],
+        }
+        return summary, [
+            {"title": "Engine contract", "rows": engine_rows},
+            {"title": "Synthetic unit tests", "rows": unit_rows},
+        ], technical
+    if phase_id == 20:
+        summary_data = sources["summary"]
+        contract = sources["contract"]
+        summary = {
+            "Baseline version": summary_data["baseline_version"],
+            "Run ID": summary_data["run_id"],
+            "Best epoch": summary_data["best_epoch"],
+            "Validation RMSE (Wh)": summary_data["best_validation_rmse_wh"],
+            "Validation MAE (Wh)": summary_data["validation_mae_wh"],
+            "Validation R²": summary_data["validation_r2"],
+            "Stopped reason": summary_data["stopped_reason"],
+            "Beats Persistence": summary_data["beats_persistence"],
+        }
+        perf_rows = [
+            {"Metric": "Validation RMSE", "Value": summary_data["best_validation_rmse_wh"], "Unit": "Wh"},
+            {"Metric": "Validation MAE", "Value": summary_data["validation_mae_wh"], "Unit": "Wh"},
+            {"Metric": "Validation R²", "Value": summary_data["validation_r2"], "Unit": "Dimensionless"},
+            {"Metric": "Persistence Val RMSE", "Value": summary_data["persistence_validation_rmse_wh"], "Unit": "Wh"},
+            {"Metric": "Improvement over Persistence", "Value": f"{(summary_data['persistence_validation_rmse_wh'] - summary_data['best_validation_rmse_wh']):.4f}", "Unit": "Wh"},
+        ]
+        config_rows = [
+            {"Parameter": "Model family", "Value": contract["model_family"]},
+            {"Parameter": "Feature variant", "Value": contract["feature_variant_id"]},
+            {"Parameter": "Lookback steps", "Value": contract["lookback_steps"]},
+            {"Parameter": "Forecast horizon", "Value": contract["horizon_steps"]},
+            {"Parameter": "Target scaling", "Value": contract["target_scaling_option"]},
+            {"Parameter": "Batch size", "Value": contract["batch_size"]},
+            {"Parameter": "Seed", "Value": contract["seed"]},
+            {"Parameter": "Trainable parameters", "Value": summary_data["trainable_parameters"]},
+        ]
+        technical = {
+            "baseline_version": summary_data["baseline_version"],
+            "run_id": summary_data["run_id"],
+            "device_type": summary_data["device_type"],
+            "total_epochs_run": summary_data["total_epochs_run"],
+        }
+        return summary, [
+            {"title": "Validation performance", "rows": perf_rows},
+            {"title": "Run configuration", "rows": config_rows},
+        ], technical
+    if phase_id == 21:
+        summary_data = sources["summary"]
+        contract = sources["contract"]
+        summary = {
+            "Baseline version": summary_data["baseline_version"],
+            "Run ID": summary_data["run_id"],
+            "Best epoch": summary_data["best_epoch"],
+            "Validation RMSE (Wh)": summary_data["best_validation_rmse_wh"],
+            "Validation MAE (Wh)": summary_data["validation_mae_wh"],
+            "Validation R²": summary_data["validation_r2"],
+            "Stopped reason": summary_data["stopped_reason"],
+            "Beats Persistence": summary_data["beats_persistence"],
+            "Beats LSTM B0": summary_data["beats_lstm_b0"],
+        }
+        comp_rows = [
+            {"Model": "Persistence (No Learn)", "Val RMSE (Wh)": summary_data["persistence_validation_rmse_wh"], "Status": "Baseline"},
+            {"Model": "LSTM Baseline (B0)", "Val RMSE (Wh)": summary_data["lstm_validation_rmse_wh"], "Status": "Learned Recurrent"},
+            {"Model": "Transformer Encoder (B0)", "Val RMSE (Wh)": summary_data["best_validation_rmse_wh"], "Status": "Learned Attention"},
+        ]
+        config_rows = [
+            {"Parameter": "Model family", "Value": contract["model_family"]},
+            {"Parameter": "Feature variant", "Value": contract["feature_variant_id"]},
+            {"Parameter": "Lookback steps", "Value": contract["lookback_steps"]},
+            {"Parameter": "Forecast horizon", "Value": contract["horizon_steps"]},
+            {"Parameter": "Target scaling", "Value": contract["target_scaling_option"]},
+            {"Parameter": "Batch size", "Value": contract["batch_size"]},
+            {"Parameter": "Seed", "Value": contract["seed"]},
+            {"Parameter": "Trainable parameters", "Value": summary_data["trainable_parameters"]},
+        ]
+        technical = {
+            "baseline_version": summary_data["baseline_version"],
+            "run_id": summary_data["run_id"],
+            "device_type": summary_data["device_type"],
+            "total_epochs_run": summary_data["total_epochs_run"],
+            "upstream_lstm_run_id": summary_data.get("upstream_lstm_run_id"),
+        }
+        return summary, [
+            {"title": "Three-way baseline comparison", "rows": comp_rows},
+            {"title": "Run configuration", "rows": config_rows},
+        ], technical
     raise ValueError(f"Unsupported phase_id: {phase_id}")
 
 

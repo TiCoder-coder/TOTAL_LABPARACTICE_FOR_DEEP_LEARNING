@@ -1,0 +1,62 @@
+{
+  "artifact_version": "LSTM_BASELINE-v1",
+  "created_at": "2026-08-18T09:00:43.592198+00:00",
+  "dataloader_version": "DATALOADERS-v1",
+  "dataset_revision": "DATA-v1",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/baselines/persistence/persistence_validation_metrics.json": "d4c4ba8017fe895892b9edf5ed795583f6917df9fe2fac04dd541003159cb846",
+    "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
+    "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
+    "artifacts/training_engine/phase_19_signoff.json": "c71e41331dc84d41c0ed14ca4587215099bbc809ff79e79f724a614f3c016de1"
+  },
+  "input_paths": [
+    "artifacts/training_engine/phase_19_signoff.json",
+    "artifacts/baselines/persistence/persistence_validation_metrics.json",
+    "artifacts/dataloaders/dataloader_manifest.json",
+    "artifacts/environment/environment_report.json"
+  ],
+  "metric_version": "METRICS-v1",
+  "output_checksums": {
+    "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md": "899c13f58f7466e1ee379d0baaa48d4837104f81ab875a7d814fa79ba01d28bd",
+    "artifacts/lstm_baseline/lstm_baseline_audit.csv": "34b7167677036b64b337f7faca60002f8123357e22d75fea5b833b5836f0115b",
+    "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "92a3d1b89397d47c61a2d25c3a6152e1158179c3afe29dcae94ea4c1fe81ac8c",
+    "artifacts/lstm_baseline/lstm_baseline_run_contract.json": "ffadc0319ef499ea1868d05cc93b621522aa24b124e799e286912d0f725beedd",
+    "artifacts/lstm_baseline/lstm_baseline_run_summary.csv": "7d79aeded12cb1188bb19964092c7ba03d454833d309af7ee38520719d15651b",
+    "artifacts/lstm_baseline/lstm_baseline_summary.json": "68cf30a54c65eb38eccb50459f4562c7db9ef9aa18cdf879ff00bd0a36633760",
+    "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv": "b8f97cb00f56a74817cd4b099f518d6c72e28f04312ca60bd0f973e3855e0198",
+    "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/checkpoints/best_checkpoint.pt": "bbaaa245a564006b03feaea821d78208e12923011966aa0e0e68ecabb8ac0faf",
+    "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/metrics/best_validation_metrics.json": "4883a726cd0c4a26f7f6134c61b8e446253616353a843cffd873ce0f1d096cba"
+  },
+  "output_paths": [
+    "artifacts/lstm_baseline/lstm_baseline_run_contract.json",
+    "artifacts/lstm_baseline/lstm_baseline_summary.json",
+    "artifacts/lstm_baseline/lstm_baseline_run_summary.csv",
+    "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv",
+    "artifacts/lstm_baseline/lstm_baseline_audit.csv",
+    "artifacts/lstm_baseline/lstm_baseline_discrepancies.json",
+    "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md",
+    "artifacts/lstm_baseline/phase_20_signoff.json",
+    "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/metrics/best_validation_metrics.json",
+    "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/checkpoints/best_checkpoint.pt"
+  ],
+  "phase_id": 20,
+  "phase_version": "PHASE-20-v1",
+  "population_version": "WINDOWPOP-v1",
+  "run_id": "RUN_LS_LS_0013_63C7E5ED",
+  "scaling_version": "SCALING-v1",
+  "status": "PASS",
+  "tests": [
+    "official_lstm_training",
+    "registry_completion",
+    "persistence_comparison"
+  ],
+  "validation_metrics": {
+    "mae_wh": 27.52881764524321,
+    "r2": 0.5705509891679768,
+    "rmse_wh": 60.44645775867732
+  },
+  "warnings": [],
+  "window_version": "WINDOWS-v1"
+}

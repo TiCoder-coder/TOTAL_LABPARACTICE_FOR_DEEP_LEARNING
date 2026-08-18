@@ -1,0 +1,17 @@
+{
+  "baseline_version": "LSTM_BASELINE-v1",
+  "beats_persistence": true,
+  "best_epoch": 6,
+  "best_validation_rmse_wh": 60.44645775867732,
+  "created_at": "2026-08-18T09:00:43.592198+00:00",
+  "device_type": "cpu",
+  "experiment_family": "LSTM_BASELINE",
+  "persistence_validation_rmse_wh": 66.42970273458556,
+  "run_id": "RUN_LS_LS_0013_63C7E5ED",
+  "seed": 42,
+  "stopped_reason": "EARLY_STOPPING",
+  "total_epochs_run": 16,
+  "trainable_parameters": 58177,
+  "validation_mae_wh": 27.52881764524321,
+  "validation_r2": 0.5705509891679768
+}

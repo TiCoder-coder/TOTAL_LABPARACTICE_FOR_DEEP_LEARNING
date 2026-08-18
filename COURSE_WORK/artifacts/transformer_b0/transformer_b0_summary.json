@@ -1,0 +1,20 @@
+{
+  "baseline_version": "TRANSFORMER_B0-v1",
+  "beats_lstm_b0": false,
+  "beats_persistence": true,
+  "best_epoch": 12,
+  "best_validation_rmse_wh": 61.03075970888884,
+  "created_at": "2026-08-18T10:02:52.849223+00:00",
+  "device_type": "cpu",
+  "experiment_family": "TRANSFORMER_BASELINE",
+  "lstm_validation_rmse_wh": 60.44645775867732,
+  "persistence_validation_rmse_wh": 66.42970273458556,
+  "run_id": "RUN_TR_B0_0014_00EF3A31",
+  "seed": 42,
+  "stopped_reason": "EARLY_STOPPING",
+  "total_epochs_run": 22,
+  "trainable_parameters": 69057,
+  "upstream_lstm_run_id": "RUN_LS_LS_0013_63C7E5ED",
+  "validation_mae_wh": 29.262827265496092,
+  "validation_r2": 0.56220837676714
+}
