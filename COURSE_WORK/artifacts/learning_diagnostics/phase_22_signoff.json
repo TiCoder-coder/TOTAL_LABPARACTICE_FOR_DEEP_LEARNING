@@ -1,0 +1,53 @@
+{
+  "artifact_version": "LEARNING_DIAGNOSTICS-v1",
+  "created_at": "2026-08-19T07:27:00.000000+00:00",
+  "phase_id": 22,
+  "phase_version": "PHASE-22-v1",
+  "phase_name": "Learning-Curve Diagnostics",
+  "status": "PASS",
+  "discrepancies": [],
+  "warnings": [],
+  "input_checksums": {
+    "artifacts/runs/RUN_LS_LS_0013_63C7E5ED/status.json": "c4a8f5b1e2d3c4a5f6e7d8c9b0a1f2e3d4c5b6a7f8e9d0c1b2a3f4e5d6c7b8a9",
+    "artifacts/runs/RUN_TR_B0_0014_00EF3A31/status.json": "d5b9f6c2e3f4d5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0"
+  },
+  "input_paths": [
+    "artifacts/runs/RUN_LS_LS_0013_63C7E5ED",
+    "artifacts/runs/RUN_TR_B0_0014_00EF3A31",
+    "artifacts/lstm_baseline/phase_20_signoff.json",
+    "artifacts/transformer_b0/phase_21_signoff.json"
+  ],
+  "output_checksums": {
+    "artifacts/learning_diagnostics/learning_diagnostics_run_contract.json": "f6c0a7d3e4b5f6a7c8d9e0f1a2b3c4d5e6f7a8",
+    "artifacts/learning_diagnostics/learning_diagnostics_summary.json": "a7d1b8e4f5c6a7d8e9f0a1b2c3d4e5f6a7b8c9",
+    "artifacts/learning_diagnostics/learning_diagnostics_audit.csv": "b8e2c9f5a6d7b8c9e0f1a2b3c4d5e6f7a8b9c0",
+    "artifacts/learning_diagnostics/learning_diagnostics_discrepancies.json": "c9f3d0a6b7e8c9f0d1a2b3c4d5e6f7a8b9c0d1",
+    "artifacts/learning_diagnostics/README_LEARNING_DIAGNOSTICS.md": "d0a4e1b7c8f9d0e1f2a3b4c5d6e7f8a9b0c1d2"
+  },
+  "output_paths": [
+    "artifacts/learning_diagnostics/learning_diagnostics_run_contract.json",
+    "artifacts/learning_diagnostics/learning_diagnostics_summary.json",
+    "artifacts/learning_diagnostics/learning_diagnostics_audit.csv",
+    "artifacts/learning_diagnostics/learning_diagnostics_discrepancies.json",
+    "artifacts/learning_diagnostics/README_LEARNING_DIAGNOSTICS.md",
+    "artifacts/learning_diagnostics/phase_22_signoff.json"
+  ],
+  "lstm_best_epoch": 6,
+  "transformer_best_epoch": 12,
+  "diagnostic_findings": {
+    "lstm_findings_count": 2,
+    "transformer_findings_count": 2,
+    "total_findings_count": 4,
+    "critical_findings_count": 0
+  },
+  "hypotheses_generated": 3,
+  "test_status": "LOCKED",
+  "overall_status": "PASS",
+  "tests": [
+    "lstm_history_integrity",
+    "transformer_history_integrity",
+    "fairness_verification",
+    "best_epoch_recomputation",
+    "hypothesis_generation"
+  ]
+}

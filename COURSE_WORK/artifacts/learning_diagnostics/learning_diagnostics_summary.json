@@ -1,0 +1,40 @@
+{
+  "diagnostic_version": "LEARNING_DIAGNOSTICS-v1",
+  "phase_id": 22,
+  "created_at": "2026-08-19T07:27:00.000000+00:00",
+  "lstm_summary": {
+    "run_id": "RUN_LS_LS_0013_63C7E5ED",
+    "best_epoch": 6,
+    "best_validation_rmse_wh": 60.44645775867732,
+    "best_validation_mae_wh": 27.201605991404244,
+    "best_validation_r2": 0.5739,
+    "stopped_reason": "EARLY_STOPPING",
+    "total_epochs_run": 16
+  },
+  "transformer_summary": {
+    "run_id": "RUN_TR_B0_0014_00EF3A31",
+    "best_epoch": 12,
+    "best_validation_rmse_wh": 61.03075970888884,
+    "best_validation_mae_wh": 29.262827265496092,
+    "best_validation_r2": 0.56220837676714,
+    "stopped_reason": "EARLY_STOPPING",
+    "total_epochs_run": 22
+  },
+  "cross_model_comparison": {
+    "best_lstm_vs_transformer_rmse": "LSTM_BETTER",
+    "rmse_difference": 0.58430195020352,
+    "best_lstm_r2": 0.5739,
+    "best_transformer_r2": 0.5622
+  },
+  "diagnostic_findings": {
+    "lstm_findings": 2,
+    "transformer_findings": 2,
+    "total_findings": 4,
+    "critical_findings": 0,
+    "hypotheses_generated": 3
+  },
+  "test_status": "LOCKED",
+  "overall_status": "PASS",
+  "warnings": [],
+  "discrepancies": []
+}

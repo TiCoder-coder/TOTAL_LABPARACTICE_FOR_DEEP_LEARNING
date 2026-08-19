@@ -1,0 +1,70 @@
+{
+  "artifact_version": "SWEEP_S4_LOOKBACK-v1",
+  "created_at": "2026-08-19T07:45:00.000000+00:00",
+  "discrepancies": [],
+  "phase_id": 26,
+  "phase_name": "S4 Lookback Sweep",
+  "phase_version": "PHASE-26-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "title": "Sweep conditions",
+      "rows": [
+        {"Condition": "L36", "Steps": 36, "Hours": 6, "Status": "PENDING"},
+        {"Condition": "L72", "Steps": 72, "Hours": 12, "Status": "PENDING"},
+        {"Condition": "L144", "Steps": 144, "Hours": 24, "Status": "REUSED"}
+      ]
+    },
+    {
+      "title": "Results",
+      "rows": [
+        {"Condition": "L36", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
+        {"Condition": "L72", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
+        {"Condition": "L144", "Val RMSE (Wh)": 61.031, "Best Epoch": 12}
+      ]
+    },
+    {
+      "title": "Winner selection",
+      "rows": [
+        {"Item": "Winner", "Value": "L144"},
+        {"Item": "Val RMSE (Wh)", "Value": 61.031},
+        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
+      ]
+    },
+    {
+      "title": "Frozen factors (for Phase 27)",
+      "rows": [
+        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
+        {"Factor": "lookback_steps", "Value": 144},
+        {"Factor": "target_scaling_option", "Value": "YS1"},
+        {"Factor": "pooling", "Value": "LAST_STEP"}
+      ]
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+      "role": "signoff",
+      "sha256": "e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "sweep_id": "S4_LOOKBACK",
+    "sweep_version": "SWEEP_S4_LOOKBACK-v1",
+    "winner": "L144",
+    "winner_val_rmse": 61.03075970888884,
+    "conditions_tested": 3,
+    "new_runs": 2,
+    "reused_runs": 1
+  },
+  "technical_details": {
+    "sweep_version": "SWEEP_S4_LOOKBACK-v1",
+    "phase_id": 26,
+    "factor_tested": "lookback_steps",
+    "conditions": ["L36", "L72", "L144"],
+    "output_paths": ["artifacts/sweeps/s4_lookback/"],
+    "tests": ["sweep_design_compliance", "common_population"]
+  },
+  "warnings": []
+}

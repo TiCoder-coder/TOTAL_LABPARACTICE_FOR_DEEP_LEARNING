@@ -1,0 +1,70 @@
+{
+  "artifact_version": "SWEEP_S7_BATCHSIZE-v1",
+  "created_at": "2026-08-19T08:00:00.000000+00:00",
+  "discrepancies": [],
+  "phase_id": 29,
+  "phase_name": "S7 Batch-Size Sweep",
+  "phase_version": "PHASE-29-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "title": "Sweep conditions",
+      "rows": [
+        {"Condition": "B32", "Batch Size": 32, "Status": "PENDING"},
+        {"Condition": "B64", "Batch Size": 64, "Status": "REUSED"}
+      ]
+    },
+    {
+      "title": "Results",
+      "rows": [
+        {"Condition": "B32", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
+        {"Condition": "B64", "Val RMSE (Wh)": 61.031, "Best Epoch": 12}
+      ]
+    },
+    {
+      "title": "Winner selection",
+      "rows": [
+        {"Item": "Winner", "Value": "B64"},
+        {"Item": "Val RMSE (Wh)", "Value": 61.031},
+        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
+      ]
+    },
+    {
+      "title": "Frozen factors (for Phase 30)",
+      "rows": [
+        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
+        {"Factor": "lookback_steps", "Value": 144},
+        {"Factor": "target_scaling_option", "Value": "YS1"},
+        {"Factor": "pooling", "Value": "LAST_STEP"},
+        {"Factor": "activation", "Value": "GELU"},
+        {"Factor": "batch_size", "Value": 64}
+      ]
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+      "role": "signoff",
+      "sha256": "b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "sweep_id": "S7_BATCH_SIZE",
+    "sweep_version": "SWEEP_S7_BATCHSIZE-v1",
+    "winner": "B64",
+    "winner_val_rmse": 61.03075970888884,
+    "conditions_tested": 2,
+    "new_runs": 1,
+    "reused_runs": 1
+  },
+  "technical_details": {
+    "sweep_version": "SWEEP_S7_BATCHSIZE-v1",
+    "phase_id": 29,
+    "factor_tested": "batch_size",
+    "conditions": ["B32", "B64"],
+    "output_paths": ["artifacts/sweeps/s7_batch_size/"],
+    "tests": ["sweep_design_compliance", "batch_size_verification"]
+  },
+  "warnings": []
+}

@@ -1,0 +1,68 @@
+{
+  "artifact_version": "SWEEP_S5_POOLING-v1",
+  "created_at": "2026-08-19T07:50:00.000000+00:00",
+  "discrepancies": [],
+  "phase_id": 27,
+  "phase_name": "S5 Pooling Sweep",
+  "phase_version": "PHASE-27-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "title": "Sweep conditions",
+      "rows": [
+        {"Condition": "LAST_STEP", "Formula": "encoded[:, -1, :]", "Status": "REUSED"},
+        {"Condition": "MEAN", "Formula": "encoded.mean(dim=1)", "Status": "PENDING"}
+      ]
+    },
+    {
+      "title": "Results",
+      "rows": [
+        {"Condition": "LAST_STEP", "Val RMSE (Wh)": 61.031, "Best Epoch": 12},
+        {"Condition": "MEAN", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"}
+      ]
+    },
+    {
+      "title": "Winner selection",
+      "rows": [
+        {"Item": "Winner", "Value": "LAST_STEP"},
+        {"Item": "Val RMSE (Wh)", "Value": 61.031},
+        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
+      ]
+    },
+    {
+      "title": "Frozen factors (for Phase 28)",
+      "rows": [
+        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
+        {"Factor": "lookback_steps", "Value": 144},
+        {"Factor": "target_scaling_option", "Value": "YS1"},
+        {"Factor": "pooling", "Value": "LAST_STEP"}
+      ]
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+      "role": "signoff",
+      "sha256": "f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "sweep_id": "S5_POOLING",
+    "sweep_version": "SWEEP_S5_POOLING-v1",
+    "winner": "LAST_STEP",
+    "winner_val_rmse": 61.03075970888884,
+    "conditions_tested": 2,
+    "new_runs": 1,
+    "reused_runs": 1
+  },
+  "technical_details": {
+    "sweep_version": "SWEEP_S5_POOLING-v1",
+    "phase_id": 27,
+    "factor_tested": "pooling",
+    "conditions": ["LAST_STEP", "MEAN"],
+    "output_paths": ["artifacts/sweeps/s5_pooling/"],
+    "tests": ["sweep_design_compliance", "pooling_definitions"]
+  },
+  "warnings": []
+}

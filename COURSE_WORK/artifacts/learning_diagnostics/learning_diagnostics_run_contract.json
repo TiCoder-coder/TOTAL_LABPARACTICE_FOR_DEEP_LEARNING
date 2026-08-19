@@ -1,0 +1,44 @@
+{
+  "diagnostic_version": "LEARNING_DIAGNOSTICS-v1",
+  "phase_id": 22,
+  "phase_name": "Learning-Curve Diagnostics",
+  "phase_version": "PHASE-22-v1",
+  "source_runs": [
+    {
+      "run_id": "RUN_LS_LS_0013_63C7E5ED",
+      "model": "LSTM",
+      "role": "baseline",
+      "path": "artifacts/runs/RUN_LS_LS_0013_63C7E5ED"
+    },
+    {
+      "run_id": "RUN_TR_B0_0014_00EF3A31",
+      "model": "TRANSFORMER",
+      "role": "baseline",
+      "path": "artifacts/runs/RUN_TR_B0_0014_00EF3A31"
+    }
+  ],
+  "selection_metric": "rmse_wh",
+  "selection_split": "VALIDATION",
+  "test_access": "FORBIDDEN",
+  "diagnostic_scope": {
+    "initial_epochs": 5,
+    "tail_epochs": 5,
+    "gradient_diagnostics": true,
+    "runtime_diagnostics": true,
+    "hypothesis_generation": true
+  },
+  "hypothesis_mappings": {
+    "S1": "Feature Set",
+    "S2": "Time Features",
+    "S3": "Target Scaling",
+    "S4": "Lookback",
+    "S5": "Pooling",
+    "S6": "Activation",
+    "S7": "Batch Size",
+    "S8": "Learning Rate",
+    "S9": "Weight Decay",
+    "S10": "Dropout",
+    "S16": "Epoch Cap",
+    "S17": "Gradient Clipping"
+  }
+}

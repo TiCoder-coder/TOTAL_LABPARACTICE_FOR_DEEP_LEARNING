@@ -14,6 +14,6 @@
     "non_blocking_transfer": false,
     "pin_memory": false
   },
-  "selected_device": "cpu",
+  "selected_device": "mps",
   "status": "PASS"
 }

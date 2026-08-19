@@ -1,26 +1,26 @@
 {
-  "actual_device": "cpu",
+  "actual_device": "mps",
   "actual_pin_memory": false,
   "audit_status": "PASS",
   "baseline_batch_size": 64,
   "baseline_loader_fingerprints": {
-    "TEST": "ee7818b2c2ab52a66cbf7ff788586f41ef20a5bd3ba278ef9ad3fc17446fa480",
-    "TRAIN": "08587332f7fedcf42b3cc29ab540f2f912ede7eb8aca9f7da598eaedd3b4d01b",
-    "VALIDATION": "faa563069a0382679e155945691930f4028999adf63f0ef4a753907491dcdd14"
+    "TEST": "9ba7f10ce14baeeaa4732e415521445f6d71d0e84a580d869be07ebae7b33d1e",
+    "TRAIN": "471601b7f6352a699f84d72bfeeb7bb82b1ac52b90a3ffe0fa980a07fc0a3f08",
+    "VALIDATION": "e18ee56249c0e054862bf4bfd3cabe08f82a40959a9acd45af891c8dc0ba2808"
   },
   "baseline_lookback": 144,
   "baseline_num_workers": 0,
   "baseline_target_option": "YS1",
   "baseline_variant": "FS1_TF1",
   "batch_shape_audit_passed": true,
-  "created_at": "2026-08-18T01:50:28.187254+00:00",
+  "created_at": "2026-08-19T10:35:03.323697+00:00",
   "dataloader_config_version": "DLCFG-v1",
   "dataloader_version": "DATALOADERS-v1",
   "dataset_class": "SequenceWindowDataset",
   "dataset_fingerprints": {
-    "TEST": "0909ab905130f9b985c8135a93385f5a386206a8b1a3a6b2ac10696aa67eae17",
-    "TRAIN": "73313abae75b71d6141cc019d90e0505834bd1b0ac1f90992d9a8529e32eddf9",
-    "VALIDATION": "f2ab0be2d8ffbb6497729c6038fd3095872eba66328701f1287fb96893009961"
+    "TEST": "9fe331e361f124f86962c24ef5b88390eaa752a9d42894ffeff44d8208d18e87",
+    "TRAIN": "11927d7e320d8dfe5a41bc7fec664c49d9754ef6c9d7214cef99ceea6b6ddcc0",
+    "VALIDATION": "e61c0b189edee101791a2149b5019f6f8b3499e2eee6829fbc7a1a2f42d690f1"
   },
   "dataset_type": "map_style",
   "drop_last": false,
@@ -56,7 +56,7 @@
   "test_sample_count": 2961,
   "test_shuffle": false,
   "test_target_access_policy": "TEST_LOCKED_UNTIL_EXPLICIT_PHASE_47_AUTHORIZATION",
-  "torch_version": "2.13.0+cpu",
+  "torch_version": "2.13.0",
   "total_sample_count": 19591,
   "train_sample_count": 13670,
   "train_shuffle": true,

@@ -16,7 +16,7 @@
     "torch_random_repeatable": true
   },
   "seed_test_ok": true,
-  "selected_device": "cpu",
+  "selected_device": "mps",
   "status": "PASS",
   "tensor_forward_ok": true
 }

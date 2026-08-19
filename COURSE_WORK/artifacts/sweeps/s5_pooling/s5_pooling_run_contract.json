@@ -1,0 +1,46 @@
+{
+  "sweep_version": "SWEEP_S5_POOLING-v1",
+  "phase_id": 27,
+  "phase_name": "S5 Pooling Sweep",
+  "sweep_id": "S5_POOLING",
+  "factor_tested": "pooling",
+  "conditions": ["LAST_STEP", "MEAN"],
+  "frozen_config": {
+    "feature_variant": "FS1_TF1",
+    "lookback_steps": 144,
+    "target_scaling": "YS1"
+  },
+  "reference_run_id": "RUN_TR_B0_0014_00EF3A31",
+  "selection_metric": "rmse_wh",
+  "selection_split": "VALIDATION",
+  "test_access": "FORBIDDEN",
+  "sweep_design": {
+    "factor": "pooling",
+    "units": "categorical",
+    "num_conditions": 2,
+    "reused_runs": ["LAST_STEP"],
+    "new_runs": ["MEAN"],
+    "control_factors": [
+      "feature_variant",
+      "lookback_steps",
+      "target_scaling",
+      "batch_size",
+      "learning_rate",
+      "weight_decay",
+      "seed"
+    ]
+  },
+  "pooling_definitions": {
+    "LAST_STEP": {
+      "formula": "encoded[:, -1, :]",
+      "description": "Take the last token representation"
+    },
+    "MEAN": {
+      "formula": "encoded.mean(dim=1)",
+      "description": "Average all token representations"
+    }
+  },
+  "hypothesis": {
+    "H1": "Pooling strategy affects sequence-to-one regression performance"
+  }
+}

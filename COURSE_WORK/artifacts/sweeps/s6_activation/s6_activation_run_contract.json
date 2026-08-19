@@ -1,0 +1,53 @@
+{
+  "sweep_version": "SWEEP_S6_ACTIVATION-v1",
+  "phase_id": 28,
+  "phase_name": "S6 Activation Sweep",
+  "sweep_id": "S6_ACTIVATION",
+  "factor_tested": "activation",
+  "conditions": ["ReLU", "GELU"],
+  "frozen_config": {
+    "feature_variant": "FS1_TF1",
+    "lookback_steps": 144,
+    "target_scaling": "YS1",
+    "pooling": "LAST_STEP"
+  },
+  "reference_run_id": "RUN_TR_B0_0014_00EF3A31",
+  "selection_metric": "rmse_wh",
+  "selection_split": "VALIDATION",
+  "test_access": "FORBIDDEN",
+  "sweep_design": {
+    "factor": "activation",
+    "units": "categorical",
+    "num_conditions": 2,
+    "reused_runs": ["GELU"],
+    "new_runs": ["ReLU"],
+    "control_factors": [
+      "feature_variant",
+      "lookback_steps",
+      "target_scaling",
+      "pooling",
+      "batch_size",
+      "learning_rate",
+      "weight_decay",
+      "seed"
+    ]
+  },
+  "activation_definitions": {
+    "ReLU": {
+      "formula": "max(0, x)",
+      "description": "Rectified Linear Unit"
+    },
+    "GELU": {
+      "formula": "x * Phi(x)",
+      "description": "Gaussian Error Linear Unit"
+    }
+  },
+  "hypothesis": {
+    "H1": "Activation function affects FFN optimization and validation RMSE"
+  },
+  "notes": {
+    "activation_location": "FFN layers only",
+    "regression_head": "No activation (linear output)",
+    "same_activation": "Same activation applied to all Encoder FFN layers"
+  }
+}

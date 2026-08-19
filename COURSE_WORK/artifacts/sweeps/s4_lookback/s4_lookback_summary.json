@@ -1,0 +1,56 @@
+{
+  "sweep_version": "SWEEP_S4_LOOKBACK-v1",
+  "phase_id": 26,
+  "created_at": "2026-08-19T07:45:00.000000+00:00",
+  "winner": "L144",
+  "winner_config": "FS1_TF1_YS1_L144",
+  "winner_val_rmse_wh": 61.03075970888884,
+  "winner_val_mae_wh": 29.262827265496092,
+  "winner_val_r2": 0.56220837676714,
+  "winner_best_epoch": 12,
+  "all_metrics": {
+    "L36": {
+      "config": "FS1_TF1_YS1_L36",
+      "rmse_wh": null,
+      "mae_wh": null,
+      "r2": null,
+      "best_epoch": null,
+      "status": "PENDING",
+      "note": "36 steps = 6 hours"
+    },
+    "L72": {
+      "config": "FS1_TF1_YS1_L72",
+      "rmse_wh": null,
+      "mae_wh": null,
+      "r2": null,
+      "best_epoch": null,
+      "status": "PENDING",
+      "note": "72 steps = 12 hours"
+    },
+    "L144": {
+      "config": "FS1_TF1_YS1_L144",
+      "rmse_wh": 61.03075970888884,
+      "mae_wh": 29.262827265496092,
+      "r2": 0.56220837676714,
+      "best_epoch": 12,
+      "status": "REUSED",
+      "note": "144 steps = 24 hours"
+    }
+  },
+  "pairwise_effects": {
+    "L36_vs_L72": {"rmse_diff": null, "interpretation": "Incremental gain from 6h to 12h"},
+    "L72_vs_L144": {"rmse_diff": null, "interpretation": "Incremental gain from 12h to 24h"}
+  },
+  "diminishing_return_analysis": {
+    "status": "PENDING",
+    "L36_to_L72_gain": null,
+    "L72_to_L144_gain": null,
+    "diminishing_returns": null
+  },
+  "hypothesis_outcomes": {
+    "H1_lookback_effect": "PENDING",
+    "H2_diminishing_returns": "PENDING"
+  },
+  "warnings": [],
+  "winner_selection_rationale": "Minimum validation RMSE Wh"
+}

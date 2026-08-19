@@ -1,0 +1,44 @@
+{
+  "sweep_version": "SWEEP_S4_LOOKBACK-v1",
+  "phase_id": 26,
+  "phase_name": "S4 Lookback Sweep",
+  "sweep_id": "S4_LOOKBACK",
+  "factor_tested": "lookback_steps",
+  "conditions": ["L36", "L72", "L144"],
+  "frozen_config": {
+    "feature_variant": "FS1_TF1",
+    "target_scaling": "YS1"
+  },
+  "reference_run_id": "RUN_TR_B0_0014_00EF3A31",
+  "selection_metric": "rmse_wh",
+  "selection_split": "VALIDATION",
+  "test_access": "FORBIDDEN",
+  "sweep_design": {
+    "factor": "lookback_steps",
+    "units": "steps",
+    "num_conditions": 3,
+    "reused_runs": ["L144"],
+    "new_runs": ["L36", "L72"],
+    "control_factors": [
+      "feature_variant",
+      "target_scaling",
+      "batch_size",
+      "learning_rate",
+      "weight_decay",
+      "seed"
+    ]
+  },
+  "lookback_details": {
+    "L36": {"steps": 36, "hours": 6},
+    "L72": {"steps": 72, "hours": 12},
+    "L144": {"steps": 144, "hours": 24}
+  },
+  "hypothesis": {
+    "H1": "Lookback length affects validation RMSE",
+    "H2": "Diminishing returns from longer lookback"
+  },
+  "critical_requirements": {
+    "window_population": "WINDOWPOP-v1 common population required for all conditions",
+    "right_alignment": "Window must be right-aligned to target: [j-L, ..., j-1] -> j"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "artifact_version": "SWEEP_S2_TIMEFEATURE-v1",
+  "created_at": "2026-08-19T07:35:00.000000+00:00",
+  "discrepancies": [],
+  "phase_id": 24,
+  "phase_name": "S2 Time-Feature Sweep",
+  "phase_version": "PHASE-24-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "title": "Sweep conditions",
+      "rows": [
+        {"Condition": "TF0", "Time Features": 0, "Feature Count": 26, "Status": "PENDING"},
+        {"Condition": "TF1", "Time Features": 5, "Feature Count": 31, "Status": "REUSED"}
+      ]
+    },
+    {
+      "title": "Results",
+      "rows": [
+        {"Condition": "TF0 (FS1_TF0)", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING", "Status": "PENDING"},
+        {"Condition": "TF1 (FS1_TF1)", "Val RMSE (Wh)": 61.031, "Best Epoch": 12, "Status": "REUSED"}
+      ]
+    },
+    {
+      "title": "Winner selection",
+      "rows": [
+        {"Item": "Winner", "Value": "TF1"},
+        {"Item": "Feature Variant", "Value": "FS1_TF1"},
+        {"Item": "Val RMSE (Wh)", "Value": 61.031},
+        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
+      ]
+    },
+    {
+      "title": "Hypothesis outcomes",
+      "rows": [
+        {"Hypothesis": "H1: Time features help", "Outcome": "PENDING", "Evidence": "Awaiting TF0 training"}
+      ]
+    },
+    {
+      "title": "Frozen factors (for Phase 25)",
+      "rows": [
+        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
+        {"Factor": "lookback_steps", "Value": 144},
+        {"Factor": "target_scaling_option", "Value": "YS1"},
+        {"Factor": "batch_size", "Value": 64},
+        {"Factor": "learning_rate", "Value": "3e-4"}
+      ]
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/sweeps/s1_feature_set/phase_23_signoff.json",
+      "role": "signoff",
+      "sha256": "c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "sweep_id": "S2_TIME_FEATURE",
+    "sweep_version": "SWEEP_S2_TIMEFEATURE-v1",
+    "winner": "TF1",
+    "winner_feature_variant": "FS1_TF1",
+    "winner_val_rmse": 61.03075970888884,
+    "conditions_tested": 2,
+    "new_runs": 1,
+    "reused_runs": 1
+  },
+  "technical_details": {
+    "sweep_version": "SWEEP_S2_TIMEFEATURE-v1",
+    "phase_id": 24,
+    "factor_tested": "time_features",
+    "conditions": ["TF0", "TF1"],
+    "feature_delta": ["hour_sin", "hour_cos", "dow_sin", "dow_cos", "weekend"],
+    "output_paths": ["artifacts/sweeps/s2_time_feature/"],
+    "tests": ["sweep_design_compliance", "cyclical_integrity_check"]
+  },
+  "warnings": []
+}

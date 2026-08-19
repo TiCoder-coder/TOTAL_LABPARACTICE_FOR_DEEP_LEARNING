@@ -40,7 +40,7 @@ TRANSFORMER_MODEL_VERSION = "TRANSFORMER-v1"
 PHASE_VERSION = "PHASE-16-v1"
 ARTIFACT_ROOT = Path("artifacts/models/transformer")
 SUPPORTED_LOOKBACKS = (36, 72, 144)
-SUPPORTED_POOLINGS = ("LAST_STEP",)
+SUPPORTED_POOLINGS = ("LAST_STEP", "MEAN")
 SUPPORTED_ACTIVATIONS = ("GELU", "RELU")
 SUPPORTED_POSITIONAL_ENCODINGS = ("SINUSOIDAL",)
 IMPLEMENTATION_AUDIT_COLUMNS = ["check", "expected", "actual", "status", "details"]
@@ -148,6 +148,8 @@ class TransformerRegressor(nn.Module):
         hidden, attention_maps = self.encoder(encoded_input, return_attention=return_attention)
         if self.config.pooling == "LAST_STEP":
             pooled = hidden[:, -1, :]
+        elif self.config.pooling == "MEAN":
+            pooled = hidden.mean(dim=1)
         else:
             raise ValueError(f"Unsupported pooling: {self.config.pooling}")
         return pooled, attention_maps

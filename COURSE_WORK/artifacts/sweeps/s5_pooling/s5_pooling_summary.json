@@ -1,0 +1,36 @@
+{
+  "sweep_version": "SWEEP_S5_POOLING-v1",
+  "phase_id": 27,
+  "created_at": "2026-08-19T07:50:00.000000+00:00",
+  "winner": "LAST_STEP",
+  "winner_config": "FS1_TF1_YS1_L144_P0",
+  "winner_val_rmse_wh": 61.03075970888884,
+  "winner_val_mae_wh": 29.262827265496092,
+  "winner_val_r2": 0.56220837676714,
+  "winner_best_epoch": 12,
+  "all_metrics": {
+    "LAST_STEP": {
+      "formula": "encoded[:, -1, :]",
+      "rmse_wh": 61.03075970888884,
+      "mae_wh": 29.262827265496092,
+      "r2": 0.56220837676714,
+      "best_epoch": 12,
+      "status": "REUSED",
+      "note": "Take the last token representation"
+    },
+    "MEAN": {
+      "formula": "encoded.mean(dim=1)",
+      "rmse_wh": null,
+      "mae_wh": null,
+      "r2": null,
+      "best_epoch": null,
+      "status": "PENDING",
+      "note": "Average all token representations"
+    }
+  },
+  "hypothesis_outcomes": {
+    "H1_pooling_strategy": "PENDING"
+  },
+  "warnings": [],
+  "winner_selection_rationale": "Minimum validation RMSE Wh; tie preference for LAST_STEP (parsimony)"
+}

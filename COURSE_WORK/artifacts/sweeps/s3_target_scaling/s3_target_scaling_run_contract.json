@@ -1,0 +1,48 @@
+{
+  "sweep_version": "SWEEP_S3_TARGETSCALING-v1",
+  "phase_id": 25,
+  "phase_name": "S3 Target-Scaling Sweep",
+  "sweep_id": "S3_TARGET_SCALING",
+  "factor_tested": "target_scaling_option",
+  "conditions": ["YS0", "YS1"],
+  "frozen_feature_variant": "FS1_TF1",
+  "reference_run_id": "RUN_TR_B0_0014_00EF3A31",
+  "selection_metric": "rmse_wh",
+  "selection_split": "VALIDATION",
+  "test_access": "FORBIDDEN",
+  "sweep_design": {
+    "factor": "target_scaling_option",
+    "units": "binary",
+    "num_conditions": 2,
+    "reused_runs": ["YS1 (FS1_TF1)"],
+    "new_runs": ["YS0 (FS1_TF1)"],
+    "control_factors": [
+      "feature_variant",
+      "lookback_steps",
+      "batch_size",
+      "learning_rate",
+      "weight_decay",
+      "seed"
+    ]
+  },
+  "hypothesis": {
+    "H1": "Target scaling (StandardScaler on TRAIN) affects optimization behavior and validation RMSE"
+  },
+  "critical_note": {
+    "message": "MSE losses are NOT comparable across YS0/YS1 due to different units/scales",
+    "action": "All metrics must be computed in original Wh space after inverse transform"
+  },
+  "scaling_details": {
+    "YS0": {
+      "transform": "identity",
+      "inverse_transform": "none",
+      "units": "raw Wh"
+    },
+    "YS1": {
+      "transform": "(y - mu_train) / sigma_train",
+      "inverse_transform": "y * sigma_train + mu_train",
+      "units": "standardized",
+      "scaler_fitted_on": "TRAIN_ONLY"
+    }
+  }
+}

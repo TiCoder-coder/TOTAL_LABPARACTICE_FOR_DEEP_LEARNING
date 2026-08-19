@@ -1,0 +1,56 @@
+{
+  "artifact_version": "SWEEP_S4_LOOKBACK-v1",
+  "created_at": "2026-08-19T07:45:00.000000+00:00",
+  "phase_id": 26,
+  "phase_version": "PHASE-26-v1",
+  "phase_name": "S4 Lookback Sweep",
+  "status": "PASS",
+  "discrepancies": [],
+  "warnings": [],
+  "input_checksums": {
+    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s4_lookback/s4_lookback_run_contract.json": "b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4",
+    "artifacts/sweeps/s4_lookback/s4_lookback_summary.json": "c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s4_lookback/s4_lookback_run_contract.json",
+    "artifacts/sweeps/s4_lookback/s4_lookback_summary.json",
+    "artifacts/sweeps/s4_lookback/s4_lookback_metrics.csv",
+    "artifacts/sweeps/s4_lookback/s4_lookback_pairwise_effects.csv",
+    "artifacts/sweeps/s4_lookback/s4_diminishing_return_diagnostics.json",
+    "artifacts/sweeps/s4_lookback/s4_runtime_diagnostics.csv",
+    "artifacts/sweeps/s4_lookback/s4_lookback_audit.csv",
+    "artifacts/sweeps/s4_lookback/s4_lookback_discrepancies.json",
+    "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+    "artifacts/sweeps/s4_lookback/README_S4_LOOKBACK.md",
+    "artifacts/sweeps/s4_lookback/phase_26_signoff.json"
+  ],
+  "sweep_design": {
+    "factor_tested": "lookback_steps",
+    "conditions": ["L36", "L72", "L144"],
+    "reused_runs": 1,
+    "new_runs": 2
+  },
+  "winner": {
+    "condition": "L144",
+    "config": "FS1_TF1_YS1_L144",
+    "val_rmse_wh": 61.03075970888884
+  },
+  "frozen_factors": {
+    "feature_variant_id": "FS1_TF1",
+    "lookback_steps": 144,
+    "target_scaling_option": "YS1"
+  },
+  "tests": [
+    "sweep_design_compliance",
+    "common_population",
+    "right_alignment",
+    "test_firewall"
+  ]
+}

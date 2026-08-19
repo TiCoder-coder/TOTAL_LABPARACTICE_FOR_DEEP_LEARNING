@@ -1,4 +1,7 @@
 import math
+import os
+import signal
+import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Callable
@@ -192,10 +195,35 @@ class TrainingEngine:
         best_y_true = None
         best_y_pred = None
         stopped_reason = "MAX_EPOCHS"
+        train_start = time.time()
+
+        # Heartbeat path: external watchdog can poll this to detect hangs
+        heartbeat_path = Path(os.environ.get("SWEEP_HEARTBEAT_PATH", "/tmp/sweep_heartbeat.txt"))
+
+        def _write_heartbeat(epoch: int, stage: str) -> None:
+            try:
+                heartbeat_path.write_text(
+                    f"epoch={epoch}\nstage={stage}\ntimestamp={time.time()}\nrun_id={run_id}\n",
+                    encoding="utf-8",
+                )
+            except OSError:
+                pass  # Heartbeat is best-effort
+
+        _write_heartbeat(0, "training_started")
+
+        print(f"[TRAIN] Starting {max_epochs} epochs (run_id={run_id})", flush=True)
+        print(f"[TRAIN] Heartbeat file: {heartbeat_path}", flush=True)
+
         for epoch in range(1, max_epochs + 1):
             model.train()
             epoch_loss = 0.0
             sample_count = 0
+            batch_count = 0
+            total_batches = len(train_loader)
+            epoch_start = time.time()
+
+            _write_heartbeat(epoch, "epoch_started")
+
             for batch in train_loader:
                 x = batch["x"].to(device)
                 y = batch["y_model"].to(device)
@@ -209,7 +237,19 @@ class TrainingEngine:
                 batch_size = x.shape[0]
                 epoch_loss += float(loss.item()) * batch_size
                 sample_count += batch_size
+                batch_count += 1
+
+                # Progress logging every 50 batches
+                if batch_count % 50 == 0 or batch_count == total_batches:
+                    print(
+                        f"  [TRAIN] epoch {epoch}/{max_epochs} - batch {batch_count}/{total_batches} - loss={loss.item():.4f}",
+                        flush=True,
+                    )
+
             train_loss = epoch_loss / max(sample_count, 1)
+            print(f"  [TRAIN] epoch {epoch} - train_loss={train_loss:.4f} - evaluating...", flush=True)
+
+            _write_heartbeat(epoch, "eval_train_started")
             _, train_true, train_pred, train_metric = self._evaluate_loader(
                 model,
                 train_loader,
@@ -223,6 +263,7 @@ class TrainingEngine:
                 data["lookback_steps"],
                 data["horizon_steps"],
             )
+            _write_heartbeat(epoch, "eval_val_started")
             sample_idx, y_true, y_pred, val_metric = self._evaluate_loader(
                 model,
                 validation_loader,
@@ -236,6 +277,8 @@ class TrainingEngine:
                 data["lookback_steps"],
                 data["horizon_steps"],
             )
+            _write_heartbeat(epoch, "epoch_completed")
+
             improved = early_stop.update(epoch, val_metric.rmse_wh)
             if improved:
                 best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
@@ -243,6 +286,23 @@ class TrainingEngine:
                 best_sample_idx = sample_idx
                 best_y_true = y_true
                 best_y_pred = y_pred
+
+            epoch_seconds = time.time() - epoch_start
+            elapsed_total = time.time() - train_start
+
+            print(
+                f"  [TRAIN] epoch {epoch}/{max_epochs} - "
+                f"train_loss={train_loss:.4f} - "
+                f"train_rmse={train_metric.rmse_wh:.4f} - "
+                f"val_rmse={val_metric.rmse_wh:.4f} - "
+                f"val_mae={val_metric.mae_wh:.4f} - "
+                f"val_r2={val_metric.r2:.4f} - "
+                f"{'BEST' if improved else ''} - "
+                f"{epoch_seconds:.1f}s - "
+                f"total={elapsed_total:.1f}s",
+                flush=True,
+            )
+
             history_rows.append(
                 {
                     "epoch": epoch,
@@ -252,7 +312,7 @@ class TrainingEngine:
                     "validation_mae_wh": val_metric.mae_wh,
                     "validation_r2": val_metric.r2,
                     "learning_rate": learning_rate,
-                    "epoch_seconds": 0.0,
+                    "epoch_seconds": epoch_seconds,
                     "is_best": improved,
                 }
             )
@@ -363,3 +423,27 @@ def metric_unit_for(metric_name: str) -> str:
     if metric_name == "r2":
         return "dimensionless"
     return "Wh"
+
+
+class TrainingTimeoutError(Exception):
+    """Raised when training exceeds the configured wall-clock timeout."""
+
+
+def _timeout_handler(signum, frame):
+    raise TrainingTimeoutError("Training exceeded wall-clock timeout")
+
+
+def install_training_timeout(seconds: int) -> None:
+    """Install a SIGALRM handler that raises TrainingTimeoutError after `seconds`.
+
+    Use `disable_training_timeout()` to cancel. Only works on Unix/macOS main thread.
+    """
+    if seconds <= 0:
+        return
+    seconds = int(seconds)
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(seconds)
+
+
+def disable_training_timeout() -> None:
+    signal.alarm(0)

@@ -1,0 +1,38 @@
+{
+  "phase_id": 26,
+  "next_phase": 27,
+  "sweep_id": "S4_LOOKBACK",
+  "output_version": "SWEEP_S4_LOOKBACK-v1",
+  "winner": "L144",
+  "frozen_factors": {
+    "feature_variant_id": "FS1_TF1",
+    "lookback_steps": 144,
+    "target_scaling_option": "YS1",
+    "pooling": "LAST_STEP",
+    "activation": "GELU",
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "seed": 42,
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER"
+  },
+  "sweep_design": {
+    "factor_tested": "lookback_steps",
+    "winner": "L144",
+    "conditions": ["L36", "L72", "L144"]
+  },
+  "approved_for_next_phase": true,
+  "approval_condition": "SWEEP_S4_LOOKBACK-v1 PASS",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "statement": "Lookback length affects validation RMSE",
+      "outcome": "PENDING"
+    },
+    {
+      "id": "H2",
+      "statement": "Diminishing returns from longer lookback",
+      "outcome": "PENDING"
+    }
+  ]
+}

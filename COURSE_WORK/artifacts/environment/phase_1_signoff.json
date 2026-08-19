@@ -1,20 +1,20 @@
 {
   "artifact_version": "ENV-v1",
   "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
-  "created_at": "2026-08-18T01:45:09.755225+00:00",
+  "created_at": "2026-08-19T10:32:52.650805+00:00",
   "dataset_revision": null,
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/contracts/phase_0_signoff.json": "74f3c513cafe4a893d0ed6104455a1a5ef62612c0fe95fa9c59867e7dbcfef3b"
+    "artifacts/contracts/phase_0_signoff.json": "a4df51fa8414e77c59f0206f49e11a627d37c9a0bbe2477d641514a534793a66"
   },
   "input_paths": [
     "artifacts/contracts/phase_0_signoff.json"
   ],
   "output_checksums": {
-    "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
-    "artifacts/environment/requirements_freeze.txt": "ffdf507b0ec92b65e853de33b23ad357603cec9afc481f82b0af0b6d998f3344",
-    "artifacts/environment/smoke_test_report.json": "03573a66b9ec7af94d86df2cd8c523fd2d20a25f0cb8ae5773bc6322eaea3b1a"
+    "artifacts/environment/environment_report.json": "93933a7e0813c75c3da558c87a65ad2e2e02dfe67c813aae27d81837b014ab6e",
+    "artifacts/environment/requirements_freeze.txt": "9782e132e840a04540d44acc0c234a455420158e66713e70b91ebaace2a0c0c0",
+    "artifacts/environment/smoke_test_report.json": "90ddf8824fc4c093abdcafd9a9c328d956c42af9327d896b15740259341d63e6"
   },
   "output_paths": [
     "artifacts/environment/environment_report.json",

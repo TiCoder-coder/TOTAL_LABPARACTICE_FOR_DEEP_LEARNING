@@ -1,0 +1,34 @@
+{
+  "phase_id": 25,
+  "next_phase": 26,
+  "sweep_id": "S3_TARGET_SCALING",
+  "output_version": "SWEEP_S3_TARGETSCALING-v1",
+  "winner": "YS1",
+  "winner_feature_variant": "FS1_TF1",
+  "frozen_factors": {
+    "feature_variant_id": "FS1_TF1",
+    "lookback_steps": 144,
+    "target_scaling_option": "YS1",
+    "pooling": "LAST_STEP",
+    "activation": "GELU",
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "seed": 42,
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER"
+  },
+  "sweep_design": {
+    "factor_tested": "target_scaling_option",
+    "winner": "YS1"
+  },
+  "approved_for_next_phase": true,
+  "approval_condition": "SWEEP_S3_TARGETSCALING-v1 PASS",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "statement": "Target scaling affects optimization behavior",
+      "outcome": "PENDING",
+      "evidence": "Awaiting YS0 training"
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
   "artifact_version": "DATA-v1",
   "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
-  "created_at": "2026-08-18T01:45:11.245802+00:00",
+  "created_at": "2026-08-19T10:33:20.879047+00:00",
   "dataset_revision": "DATA-v1",
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/environment/phase_1_signoff.json": "2ba91cf49b979f3a4b5443db915c247a41c6ce85d54b69c661b4fe3fa4c55da5",
+    "artifacts/environment/phase_1_signoff.json": "781439c962b1030a33ab160a53f2d36b6738f361c5178a2e03b37ddb874f9e02",
     "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
   },
   "input_paths": [
@@ -14,10 +14,10 @@
     "data/raw_data/energydata_complete.csv"
   ],
   "output_checksums": {
-    "artifacts/acquisition/acquisition_log.json": "0b0a041aafed0ca93dcab9b64df1bb469ccdea992fb2bd61b34dfc63592c4968",
-    "data/raw_data/README_SOURCE.md": "069217e3ee5daa3251bb491ea5b6a175f2ea8db329081f2cce5f3ea7c3e85133",
+    "artifacts/acquisition/acquisition_log.json": "d244650e9426f791900aaaffe53ca778eae6cbfa0b63c2e9de5799add956eab9",
+    "data/raw_data/README_SOURCE.md": "c39a1724c3eeec28a9a029c85e981fed0d1888355defb30a03b5644e247b5ebc",
     "data/raw_data/checksums.sha256": "3dd998be0f1b9e9893042e6833907e2d309016f421325dfb6f93c0716c0d9daa",
-    "data/raw_data/dataset_manifest.json": "73a4a8541dfd19c93dec7b7f37f553b7d2d747e479a7aa807aba29623dce0627",
+    "data/raw_data/dataset_manifest.json": "d4c470cd1d9a588c3d5d57bb5189208123bef88d281f6ce403fdcc19bf6d5a7b",
     "data/raw_data/source/appliances_energy_prediction.zip": "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a",
     "data/raw_data/source_metadata.json": "9f8a133dfbfd350968fd4171267d706b2e5c3745ef13ac1c0449532e6cde8e0d",
     "data/raw_data/variable_metadata.csv": "e84c1b164bae0ff267e438681b0d9b9d8f6483e61f4dbf1c1ff771e3a2eb3bd3"
