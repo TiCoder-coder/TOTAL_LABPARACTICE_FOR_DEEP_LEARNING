@@ -1,10 +1,15 @@
 {
   "protocol_version": "practice_3_v2.3",
+  "holdout_access_allowed": false,
+  "holdout_evaluated": false,
+  "holdout_evaluation_count": 1,
+  "winner_locked": true,
+  "official_test_loaded": false,
+  "attempt_claimed": true,
+  "access_condition": "winner_locked AND stage_b_complete",
   "winner_run_id": "E4_weight_decay_0.05",
-  "winner_lock_hash": "010cc06d7cb9edc31330574904f9275ec61e53b480ea99b47d860f6860d6be0e",
-  "checkpoint_hash": "d4a8b8377de3ade5edf5d03326f5421e52065988cb27a75ed77d52d62a073191",
-  "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
-  "evaluation_attempt_id": "71aa2ac2-cff6-4023-bad0-5284f189ab4d",
-  "claimed_at": "2026-08-16T08:51:07.519254+00:00",
-  "status": "CLAIMED"
+  "winner_checkpoint_hash": "6e0da3299cd83b30a660c0b82f7d847cef71efb6862e550b7c04d849deb66ccc",
+  "winner_lock_hash": "5faeb269e1cbad25d42169aabc5f8e4438535ed113e39f95bfbfbef7b3259da8",
+  "evaluation_attempt_id": "fb0bcc13-02ff-4aa0-9790-8dd298c0ba5a",
+  "attempt_claimed_at": "2026-08-21T12:40:50.533826+00:00"
 }

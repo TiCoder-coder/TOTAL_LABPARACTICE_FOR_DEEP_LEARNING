@@ -1,28 +1,25 @@
 {
-  "protocol_version": "practice_3_v2.3",
-  "source_winner_run_id": "E4_weight_decay_0.05",
-  "source_checkpoint_hash": "d4a8b8377de3ade5edf5d03326f5421e52065988cb27a75ed77d52d62a073191",
-  "winner_lock_hash": "010cc06d7cb9edc31330574904f9275ec61e53b480ea99b47d860f6860d6be0e",
+  "source_checkpoint_hash": "6e0da3299cd83b30a660c0b82f7d847cef71efb6862e550b7c04d849deb66ccc",
   "files": [
-    {
-      "file": "model.safetensors",
-      "size": 267832560,
-      "sha256": "d4a8b8377de3ade5edf5d03326f5421e52065988cb27a75ed77d52d62a073191"
-    },
-    {
-      "file": "tokenizer_config.json",
-      "size": 351,
-      "sha256": "e1c2a61a99bda00f6c55303a210b30e2f92dcf8b555e215812e2eb583e177ffd"
-    },
     {
       "file": "config.json",
       "size": 713,
       "sha256": "d2e0f5cfd98db947a2f3097a6e9cce534c28ca88bc99aff6ac1b30a96cced0ba"
     },
     {
+      "file": "model.safetensors",
+      "size": 267832560,
+      "sha256": "6e0da3299cd83b30a660c0b82f7d847cef71efb6862e550b7c04d849deb66ccc"
+    },
+    {
       "file": "tokenizer.json",
-      "size": 711396,
-      "sha256": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66"
+      "size": 711493,
+      "sha256": "c9d5477f860f82bddd543148c2d5353ccfbd881f26121db1c3b768158c3f705b"
+    },
+    {
+      "file": "tokenizer_config.json",
+      "size": 456,
+      "sha256": "905eeeec2178c013a63d17ef07e45d5e93fbb6da7f5d6c3061286498ba375e3c"
     }
   ]
 }

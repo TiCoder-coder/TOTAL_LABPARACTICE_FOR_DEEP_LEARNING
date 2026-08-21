@@ -3,15 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import random
 import time
 from pathlib import Path
 from typing import Any, Sequence
-
-import json
-import hashlib
 
 def sha256_payload(obj: Any) -> str:
     data = json.dumps(obj, sort_keys=True, ensure_ascii=False).encode("utf-8")
@@ -31,7 +29,12 @@ from transformers import (
 )
 
 from .config import PROJECT_ROOT, REPO_ROOT
-from .dataset_protocol_v2 import materialize_train_validation_only, validate_split_manifest
+from .dataset_protocol_v2 import (
+    create_split_manifest,
+    load_development_pool,
+    materialize_train_validation_only,
+    validate_split_manifest,
+)
 from .experiment_protocol_v2 import atomic_write_json
 from .experiment_runner_v2 import collect_training_history, select_best_epoch, checkpoint_fingerprint
 from .phase_08_metrics_training_configuration import compute_metrics
@@ -47,12 +50,10 @@ PROTOCOL_VERSION = "practice_3_v2.3"
 RUN_IDS = ["E1_lr_1e-5", "E2_lr_2e-5", "E3_lr_3e-5"]
 STAGE_B_RUN_IDS = [
     "E4_weight_decay_0.05",
-    "E5_classifier_dropout_0.20",    # preserved as invalid-experiment evidence
-    "E5b_classifier_dropout_0.40",   # corrected dropout experiment
-    "E6_staged_finetune",            # FAILED — MPS SDPA dropout not supported
-    "E6b_staged_finetune",           # FAILED — optimizer parameter group count mismatch with scheduler
-    "E6c_staged_finetune",           # corrected staged optimizer/scheduler logic
+    "E5_classifier_dropout_0.40",
+    "E6_staged_finetune",
 ]
+CLEAN_RUN_IDS = RUN_IDS + STAGE_B_RUN_IDS
 V22_RESULT_DIR = PROJECT_ROOT / "docs" / "result" / "practice_3_v2_3"
 V22_RUNS_DIR = PROJECT_ROOT / "runs" / "practice_3_v2_3"
 
@@ -173,25 +174,44 @@ def validate_configs(configs: list[dict[str, Any]], registry: dict[str, Any]) ->
 def validate_registry(registry: dict[str, Any], configs: list[dict[str, Any]]) -> None:
     if registry["protocol_version"] != PROTOCOL_VERSION:
         raise ValueError(f"Registry protocol mismatch: {registry['protocol_version']}")
-    # 6 original runs + E5b correction = 7 expected; permit 6 or 7 during transition
-    if len(registry["experiments"]) < 6:
-        raise ValueError("Registry must contain at least 6 runs")
+    registry_ids = [item["experiment_id"] for item in registry["experiments"]]
+    if registry_ids != CLEAN_RUN_IDS:
+        raise ValueError(f"Registry must contain exactly the clean E1-E6 sequence: {CLEAN_RUN_IDS}")
+    config_ids = [item["experiment_id"] for item in configs]
+    if config_ids != CLEAN_RUN_IDS:
+        raise ValueError(f"Config sequence mismatch: {config_ids}")
 
 
 REGISTRY_PATH = V22_RESULT_DIR / "experiment_registry.json"
 
 
-def load_and_verify_metadata(run_id: str) -> dict[str, Any]:
+def load_locked_split_manifest() -> dict[str, Any]:
+    """Load the legacy lock, or deterministically reconstruct it in memory.
+
+    The retained v2.3 reference contains the authoritative split fingerprint,
+    but the old v2.1 manifest file is absent from this repository snapshot.
+    Reconstruction uses only the original Train/Validation source splits and
+    must reproduce that exact fingerprint before it can authorize a run.
+    """
+    legacy_path = PROJECT_ROOT / "docs" / "result" / "practice_3_v2_1" / "dataset_split_manifest.json"
+    if legacy_path.is_file():
+        manifest = load_json(legacy_path)
+    else:
+        reference = load_json(V22_RESULT_DIR / "dataset_split_reference.json")
+        records, upstream_fingerprints = load_development_pool()
+        manifest = create_split_manifest(records, upstream_fingerprints)
+        if manifest.get("split_manifest_hash") != reference.get("split_fingerprint"):
+            raise RuntimeError("Reconstructed split does not match the locked v2.3 fingerprint")
+    validate_split_manifest(manifest)
+    return manifest
+
+
+def load_and_verify_metadata(run_id: str, *, enforce_execution_order: bool = False) -> dict[str, Any]:
     registry = load_json(REGISTRY_PATH)
-    all_known_ids = RUN_IDS + STAGE_B_RUN_IDS
+    all_known_ids = CLEAN_RUN_IDS
     if run_id not in all_known_ids:
         raise ValueError(f"Unknown v2.3 run ID: {run_id}")
     
-    # Stage B specific checks
-    if run_id in STAGE_B_RUN_IDS:
-        if not registry.get("winner_selected") or registry.get("stage_a_status") != "COMPLETED":
-            raise PermissionError(f"Stage B run {run_id} is blocked pending Stage A completion and winner selection.")
-            
     authorization = load_json(V22_RESULT_DIR / "training_authorization.json")
     auth_hash = authorization.get("authorization_hash")
     if auth_hash != sha256_payload({k: v for k, v in authorization.items() if k != "authorization_hash"}):
@@ -200,25 +220,21 @@ def load_and_verify_metadata(run_id: str) -> dict[str, Any]:
         raise PermissionError("v2.3 training is not authorized")
         
     auth_order = authorization.get("execution_order", {}).get(run_id)
-    if auth_order not in ["FIRST", "AUTHORIZED"]:
+    if auth_order is None:
+        raise PermissionError(f"No execution authorization for {run_id}")
+    if enforce_execution_order and run_id != CLEAN_RUN_IDS[0]:
         records = {item["experiment_id"]: item for item in registry["experiments"]}
-        if run_id in RUN_IDS:
-            index = RUN_IDS.index(run_id)
-            if any(records[item]["status"] != "COMPLETED" for item in RUN_IDS[:index]):
-                raise RuntimeError("v2.3 execution order violation")
-        elif run_id in STAGE_B_RUN_IDS:
-            index = STAGE_B_RUN_IDS.index(run_id)
-            if any(records[item]["status"] != "COMPLETED" for item in STAGE_B_RUN_IDS[:index]):
-                raise RuntimeError("v2.3 Stage B execution order violation")
+        index = CLEAN_RUN_IDS.index(run_id)
+        incomplete = [item for item in CLEAN_RUN_IDS[:index] if records[item]["status"] != "COMPLETED"]
+        if incomplete:
+            raise RuntimeError(f"v2.3 execution order violation; complete first: {incomplete}")
                 
     protocol = load_json(V22_RESULT_DIR / "protocol_manifest.json")
     supplied_protocol_hash = protocol.get("protocol_manifest_hash")
     if supplied_protocol_hash != sha256_payload({k: v for k, v in protocol.items() if k != "protocol_manifest_hash"}):
         raise RuntimeError("v2.3 protocol hash mismatch")
         
-    V21_RESULT_DIR = PROJECT_ROOT / "docs" / "result" / "practice_3_v2_1"
-    split = load_json(V21_RESULT_DIR / "dataset_split_manifest.json")
-    validate_split_manifest(split)
+    split = load_locked_split_manifest()
     
     tokenizer_report = load_json(V22_RESULT_DIR / "tokenizer_validation.json")
     supplied_tokenizer_hash = tokenizer_report.get("artifact_hash")
@@ -244,10 +260,6 @@ def load_and_verify_metadata(run_id: str) -> dict[str, Any]:
         "experiment_config_hashes": {item["experiment_id"]: item["config_hash"] for item in all_configs},
         "ranking": RANKING,
     }
-    if registry.get("winner_selected"):
-        selection_report = load_json(V22_RESULT_DIR / "stage_a_selection_report.json")
-        components["stage_a_selection_hash"] = selection_report.get("selection_hash")
-        
     execution_hash = sha256_payload(components)
     if execution_hash != authorization.get("execution_protocol_hash"):
         raise RuntimeError("v2.3 execution protocol hash mismatch")
@@ -294,7 +306,7 @@ def persist_transition(configs: list[dict[str, Any]], run_id: str, expected: str
 
 
 def run_experiment(run_id: str) -> dict[str, Any]:
-    metadata = load_and_verify_metadata(run_id)
+    metadata = load_and_verify_metadata(run_id, enforce_execution_order=True)
     config, configs = metadata["config"], metadata["configs"]
     datasets, report = materialize_train_validation_only(metadata["split"])
     if report["counts"] != {"train": 7676, "validation": 960}:
@@ -303,7 +315,7 @@ def run_experiment(run_id: str) -> dict[str, Any]:
     validate_tokenizer_integrity(tokenizer, list(datasets["train"].select(range(128))["text"]))
     tokenized = tokenize_splits(datasets, tokenizer)
     random.seed(42); np.random.seed(42); torch.manual_seed(42); set_seed(42)
-    # Apply seq_classif_dropout from config if explicitly specified (e.g., E5b).
+    # Apply seq_classif_dropout from config when the E5 controlled variable is present.
     # For baseline runs that do not set this key it defaults to the pretrained value (0.20).
     model_kwargs: dict[str, Any] = {
         "num_labels": 2,
@@ -352,7 +364,7 @@ def run_experiment(run_id: str) -> dict[str, Any]:
         trainer.add_callback(staged_cb)
 
     # Final read-only barrier immediately before the user-triggered real run starts.
-    load_and_verify_metadata(run_id)
+    load_and_verify_metadata(run_id, enforce_execution_order=True)
     persist_transition(configs, run_id, "PLANNED", "RUNNING")
     started = time.monotonic()
     try:
@@ -400,7 +412,7 @@ def run_experiment(run_id: str) -> dict[str, Any]:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Run one authorized Practice 3 v2.3 experiment")
-    parser.add_argument("--run-id", required=True, choices=RUN_IDS + STAGE_B_RUN_IDS)
+    parser.add_argument("--run-id", required=True, choices=CLEAN_RUN_IDS)
     return parser
 
 

@@ -217,7 +217,7 @@ def run():
         print("\n==================================================")
         print("LIVE TRAINING DEMONSTRATION COMPLETE")
         print(f"Final Demo Val F1: {final_v_f1:.4f}  Accuracy: {final_v_acc:.4f}")
-        print("These metrics are DEMO only. NOT part of official E1-E6c ranking.")
+        print("These metrics are DEMO only. NOT part of the official clean E1-E6 ranking.")
         print("==================================================")
 
     except Exception as e:

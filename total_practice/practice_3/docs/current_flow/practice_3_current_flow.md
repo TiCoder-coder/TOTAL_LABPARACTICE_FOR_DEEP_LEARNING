@@ -62,16 +62,16 @@ This document describes the final, authoritative execution flow of Practice 3 v2
 ## 9. Hyperparameter Search
 - **WHAT**: Execute multiple fine-tuning runs in stages to optimize generalization.
 - **PROCESS**:
-  - **Stage A**: Baseline sweeps (E1: 1e-5, E2: 2e-5, E3: 3e-5). E1 proved most stable.
-  - **Stage B**: Regularization tweaks based on E1 (E4: weight_decay=0.05, E5b: dropout=0.40, E6c: staged fine-tuning).
+  - **Stage A**: Baseline sweeps (E1: 1e-5, E2: 2e-5, E3: 3e-5).
+  - **Stage B**: Controlled follow-ups (E4: weight_decay=0.05, E5: dropout=0.40, E6: staged fine-tuning).
 - **DECISION**: Controlled experiments vary exactly one condition at a time against the baseline. 
-- *(Note: E5, E6, and E6b were excluded due to setup/platform bugs and were replaced by valid iterations).*
+- **STATUS**: All six clean experiment records are `PLANNED`; no new ranking exists yet.
 
 ## 10. Validation Ranking & Learning Curves
 - **WHAT**: Select the best model checkpoint based strictly on Validation set metrics.
-- **PROCESS**: Rank all valid runs (E1, E2, E3, E4, E5b, E6c) by their minimum Validation Loss.
+- **PROCESS**: After training, rank E1, E2, E3, E4, E5, and E6 by their minimum Validation Loss.
 - **WHY**: While Accuracy measures classification correctness, Cross-Entropy Loss measures confidence and probability density, providing a superior signal for early stopping and model selection.
-- **OUTPUT**: `E4_weight_decay_0.05` achieves the lowest Validation Loss (0.4153).
+- **OUTPUT**: Pending clean-sequence training.
 
 ## 11. Winner Lock
 - **WHAT**: Secure the final model checkpoint.

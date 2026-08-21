@@ -1,11 +1,11 @@
 {
   "protocol_version": "practice_3_v2.3",
   "winner_run_id": "E4_weight_decay_0.05",
-  "winner_lock_hash": "010cc06d7cb9edc31330574904f9275ec61e53b480ea99b47d860f6860d6be0e",
-  "created_at": "2026-08-16T08:51:16.719284+00:00",
+  "checkpoint_hash": "6e0da3299cd83b30a660c0b82f7d847cef71efb6862e550b7c04d849deb66ccc",
+  "evaluation_attempt_id": "fb0bcc13-02ff-4aa0-9790-8dd298c0ba5a",
   "files": {
-    "holdout_predictions.csv": "dd55b716a02421714b9004c9bf63c7c645a1f5fd26c08b0277c49072e98bfada",
-    "final_holdout_metrics.json": "825bab30657791da2f86d63d84989f799783515852164b4102919457bcd78b5e",
-    "validation_vs_holdout_comparison.json": "aedd137119fdf2d4c77d86b4f7caf59fb5f3fcb1e71bdafc1a1ea2f562793184"
+    "holdout_predictions.csv": "f654a15f2f3da207aa602d1f4cea78ed64910f8af6744fcf8aaa90678932876f",
+    "final_holdout_metrics.json": "57997997aabe968b839660c8189f3b6d4ce24b4d6c4b910557d161e23daee29b",
+    "validation_vs_holdout_comparison.json": "8319cd6ced78d52bad6048f578ab08be4654782c4fe1e81493dcfe4af924cbef"
   }
 }

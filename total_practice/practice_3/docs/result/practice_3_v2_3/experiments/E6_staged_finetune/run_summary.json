@@ -1,0 +1,23 @@
+{
+  "best_checkpoint": "runs/practice_3_v2_3/E6_staged_finetune/checkpoints/checkpoint-1440",
+  "best_epoch": 3.0,
+  "best_val_accuracy": 0.865625,
+  "best_val_f1": 0.8646379853095488,
+  "best_val_loss": 0.4184853136539459,
+  "best_val_precision": 0.8710359408033826,
+  "best_val_recall": 0.8583333333333333,
+  "checkpoint_hash": "988ff5aa29ebd67b15550a0830f6e6a25ec9db24038b2e8e706c9074f36ef656",
+  "checkpoint_weight_file": "model.safetensors",
+  "config_hash": "c4ab6b38ae252341c93b68e214cabc21800d2f02b42b8512ce5b322cd90ac2be",
+  "execution_protocol_hash": "151890db8f8006b16845d20498b64b7dcf87e23751c8b999aa404756d505407a",
+  "holdout_accessed": false,
+  "learning_rate": 1e-05,
+  "official_test_loaded": false,
+  "protocol_version": "practice_3_v2.3",
+  "run_id": "E6_staged_finetune",
+  "runtime_seconds": 410.6442,
+  "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
+  "status": "COMPLETED",
+  "stopped_epoch": 7.0,
+  "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E6_staged_finetune"
+}

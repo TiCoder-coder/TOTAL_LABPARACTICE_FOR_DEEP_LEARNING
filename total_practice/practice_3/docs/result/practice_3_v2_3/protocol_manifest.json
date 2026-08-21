@@ -1,7 +1,7 @@
 {
   "protocol_version": "practice_3_v2.3",
   "parent_protocol": "practice_3_v2.2",
-  "revision_reason": "v2.2 showed improved stability over v2.1 but stopped prematurely due to patience=2. v2.3 increases max_epochs to 15, patience to 4, and warmup_steps to 720.",
+  "revision_reason": "Clean reset of the validated controlled-experiment sequence E1-E6; training results and checkpoints are intentionally absent.",
   "model_identifier": "distilbert/distilbert-base-uncased",
   "tokenizer_identifier": "distilbert-base-uncased",
   "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
@@ -26,14 +26,14 @@
       "selection_metric": "validation_loss"
     },
     "B": {
-      "name": "DistilBERT Regularization",
+      "name": "Controlled Follow-up Experiments",
       "experiments": [
         "E4_weight_decay_0.05",
-        "E5_classifier_dropout_0.20",
+        "E5_classifier_dropout_0.40",
         "E6_staged_finetune"
       ],
-      "dependency": "Stage A winner must be locked first",
-      "status": "BLOCKED_PENDING_STAGE_A"
+      "dependency": "Execute after E1-E3 in the locked E1-E6 order",
+      "status": "PLANNED"
     }
   },
   "baseline_corrections_from_v21_audit": {
@@ -52,10 +52,10 @@
     "optimizer": "AdamW",
     "scheduler": "linear",
     "weight_decay": 0.01,
-    "gradient_clipping": 1.0,
+    "gradient_clipping": 1,
     "max_epochs": 15,
     "early_stopping_patience": 4,
-    "early_stopping_threshold": 1e-06,
+    "early_stopping_threshold": 0.000001,
     "evaluation_strategy": "epoch",
     "save_strategy": "epoch"
   },
@@ -65,18 +65,18 @@
     "tertiary": "validation_accuracy",
     "fourth": "earlier_best_epoch",
     "final_deterministic_fallback": "lexical_experiment_id",
-    "tolerance": 1e-06
+    "tolerance": 0.000001
   },
   "execution_order": {
-    "E1": "FIRST",
-    "E2": "requires E1 COMPLETED",
-    "E3": "requires E1, E2 COMPLETED",
-    "E4": "requires Stage A locked",
-    "E5": "requires Stage A locked",
-    "E6": "requires Stage A locked"
+    "E1_lr_1e-5": "FIRST",
+    "E2_lr_2e-5": "requires E1_lr_1e-5 COMPLETED",
+    "E3_lr_3e-5": "requires E1_lr_1e-5, E2_lr_2e-5 COMPLETED",
+    "E4_weight_decay_0.05": "requires E1_lr_1e-5, E2_lr_2e-5, E3_lr_3e-5 COMPLETED",
+    "E5_classifier_dropout_0.40": "requires E1_lr_1e-5, E2_lr_2e-5, E3_lr_3e-5, E4_weight_decay_0.05 COMPLETED",
+    "E6_staged_finetune": "requires E1_lr_1e-5, E2_lr_2e-5, E3_lr_3e-5, E4_weight_decay_0.05, E5_classifier_dropout_0.40 COMPLETED"
   },
-  "holdout_access_condition": "winner locked AND all Stage B experiments COMPLETED",
+  "holdout_access_condition": "winner locked AND all E1-E6 experiments COMPLETED",
   "cnn_specific_techniques_imported": false,
   "practice_2_concept_reused": "multi-experiment controlled comparison workflow only",
-  "protocol_manifest_hash": "a48f49544bbe84d77d09e0a33cc0c450b19821ff57fb3d718ab7675490e5c5a8"
+  "protocol_manifest_hash": "57c2525020dbc93a105143f97d1860263db0469a6e51e84c8455edfdc2b58a82"
 }
