@@ -1,6 +1,6 @@
 {
   "artifact_version": "ATTENTION_VERIFY-v1",
-  "created_at": "2026-08-18T08:12:22.022479+00:00",
+  "created_at": "2026-08-21T13:36:10.867175+00:00",
   "discrepancies": [],
   "phase_id": 17,
   "phase_name": "Attention-Aware Encoder Verification",
@@ -74,7 +74,7 @@
     {
       "path": "artifacts/attention_verification/attention_verification_manifest.json",
       "role": "manifest",
-      "sha256": "759dc2640952435ff32267c80670067068964968f8ef9e9887783feae2932ed7"
+      "sha256": "9e50dbfb18e028174c7e8e7061aca8e8066d5e4ea34c4d994d0aa0322a109e72"
     },
     {
       "path": "artifacts/attention_verification/attention_verification_contract.json",
@@ -84,7 +84,7 @@
     {
       "path": "artifacts/attention_verification/phase_17_signoff.json",
       "role": "signoff",
-      "sha256": "73bc6ad9d353ce5a5a2eaeae22483954b268adc0353093a9e9655c4cb98f9948"
+      "sha256": "9b4e97d200ddf3d20961a15cc228e43dbc7b5c2b0c7afa31f786aaff5c7b75a1"
     }
   ],
   "status": "PASS",
@@ -101,9 +101,9 @@
     "environment_id": "ENV-v1",
     "implementation_version": "TRANSFORMER_IMPL-v1",
     "input_checksums": {
-      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
-      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
-      "artifacts/models/transformer/phase_16_signoff.json": "b852435dd3f386cccc43d34dd4ab587a5746a9759e44de01760e7b4db7fe7928"
+      "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
+      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+      "artifacts/models/transformer/phase_16_signoff.json": "a0d4e022015b62dae9e8f302e6a96a913a5468b110f346026c0d26d820b2000f"
     },
     "input_paths": [
       "artifacts/models/transformer/phase_16_signoff.json",
@@ -124,7 +124,7 @@
       "artifacts/attention_verification/attention_shape_audit.csv": "3d9ac9c11872710cb74ddafc7197618b543b47d8b61609b696b16629df7916f0",
       "artifacts/attention_verification/attention_verification_contract.json": "dc41f426d42e606bb1cefb7bb48230a55b67b90d02afd860d3732a61487d57a1",
       "artifacts/attention_verification/attention_verification_discrepancies.json": "7ccb2cb73cbeb18bc7954e3c538380e28c5041b5fa88cdd54f0eab545729d38f",
-      "artifacts/attention_verification/attention_verification_manifest.json": "759dc2640952435ff32267c80670067068964968f8ef9e9887783feae2932ed7",
+      "artifacts/attention_verification/attention_verification_manifest.json": "9e50dbfb18e028174c7e8e7061aca8e8066d5e4ea34c4d994d0aa0322a109e72",
       "artifacts/attention_verification/attention_verification_tests.csv": "b93f0294bd00228dd6b3fd316cbebe9a51081e5a6a2029b154c3ca0934a3daca"
     },
     "output_paths": [
@@ -157,5 +157,6 @@
     "unit_test_count": 7,
     "verification_version": "ATTENTION_VERIFY-v1"
   },
+  "timestamp": "2026-08-21T13:36:10.867175+00:00",
   "warnings": []
 }

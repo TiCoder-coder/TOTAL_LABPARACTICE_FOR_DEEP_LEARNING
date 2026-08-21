@@ -1,6 +1,6 @@
 {
   "artifact_version": "EXPERIMENTS-v1",
-  "created_at": "2026-08-18T01:50:30.971217+00:00",
+  "created_at": "2026-08-21T09:04:29.498797+00:00",
   "discrepancies": [],
   "phase_id": 13,
   "phase_name": "Experiment Registry",
@@ -11,7 +11,7 @@
       "rows": [
         {
           "Item": "Production runs",
-          "Value": 13
+          "Value": 12
         },
         {
           "Item": "Experiment families",
@@ -23,7 +23,7 @@
         },
         {
           "Item": "Completed runs",
-          "Value": 5
+          "Value": 10
         },
         {
           "Item": "Failed runs",
@@ -66,18 +66,18 @@
     {
       "path": "artifacts/experiments/registry_manifest.json",
       "role": "registry",
-      "sha256": "93dfe51d8497e1e4ad8134bd0a420ac6018966953fccb1ab834df7657cc20c6d"
+      "sha256": "e2798321d491b8289d0e42a7b1a7778d031edd7fb69ddec81b60d17d1e92abfe"
     },
     {
       "path": "artifacts/experiments/phase_13_signoff.json",
       "role": "signoff",
-      "sha256": "012ac5d49ea13b775dad95fd8496626f014eb95f03232b12688dccc92efbee58"
+      "sha256": "61d8f983e9066eb54c038ae0c3fdddf511fd8899bcc4f8a4eafcc8fe548ffa91"
     }
   ],
   "status": "PASS",
   "summary": {
     "Experiment families": 26,
-    "Production runs": 13,
+    "Production runs": 12,
     "Record schema": 1,
     "Validation": "PASS",
     "Version": "EXPERIMENTS-v1"
@@ -87,22 +87,22 @@
     "dataset_revision": "DATA-v1",
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
-      "artifacts/eda/eda_manifest.json": "8948e327cc589b924aab40fa26856652dd5dc6eb3a9838fc18e250b5fd8076b8",
-      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
-      "artifacts/feature_sets/feature_set_manifest.json": "6fcd07ad327b6e913c78c9f383f240caec22c75f41e39b5773acbad1ab7f5b80",
-      "artifacts/features/feature_engineering_manifest.json": "46b2eb28139fd14a610a5ab811112faa3ad4e74be0d1a7e5318d5f3d761d4c58",
+      "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
+      "artifacts/eda/eda_manifest.json": "abef6dabdca7ce6eeeda1cd6ec77e37eddd66d3feebec726985a747447ce2498",
+      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+      "artifacts/feature_sets/feature_set_manifest.json": "239b9142032a9ed02ab389075ded5c5dd1b4dbffa5f4abe2312168a45120d5d1",
+      "artifacts/features/feature_engineering_manifest.json": "e2f22ab4de9a8c3d1ac187ae8a2908c9fd548ecace3a7901f5a4bd99057be842",
       "artifacts/metrics/metric_contract.json": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8",
-      "artifacts/metrics/metric_manifest.json": "8acab72f72c1367d91c106065119f2bf902ce8e67ef0ef843bf64a951399272f",
-      "artifacts/metrics/phase_12_signoff.json": "e462664e7f497ad04e32a616ae8028346012704a062afe72ae8867d9b932aafb",
-      "artifacts/scaling/scaler_registry.json": "1c7b6a8bdc9d675e3d56ad87759f1bb1e8adf6ae3a0c22a5b236e9542a143fac",
-      "artifacts/scaling/scaling_manifest.json": "8341fa04e370bb20bf7736f46b2275e58cad26e895549c4d3ef235583395e4d6",
-      "artifacts/schema/schema_manifest.json": "b2790645fe5910a46eb6e60d738f7b36fe7bbb1ae09545a898fb4e368b42fb17",
-      "artifacts/splits/split_manifest.json": "347f7730c2be8647f6f15b4dd356af89123d5b5beb6db06a1d8c4a3bfca3e501",
-      "artifacts/temporal/temporal_manifest.json": "84a8f5c2de8f20ca39856defb47ae51809ce73e2c218658909a97eec93fdd046",
+      "artifacts/metrics/metric_manifest.json": "dee2183887266553165652f266f5255f8fff68a793447d254d7e1edbc5b7af58",
+      "artifacts/metrics/phase_12_signoff.json": "08dee71be6db46b0b95837f0ea2976e86adf0bbf8b2b7aa8ede7a6db87d74fcc",
+      "artifacts/scaling/scaler_registry.json": "1068012809a738e30fee1fde10b7cdcbdc9a323da3d1b69e03cb4bd6188c3866",
+      "artifacts/scaling/scaling_manifest.json": "30432641d34d0c12667dc6e4e941b4f8aed7386ac60edfcbef6d047bf5ad1694",
+      "artifacts/schema/schema_manifest.json": "c6701eb9ed48cf30c6a6c8ab2a1d438e4b729ee0f4084ab611e102d7e7242cb2",
+      "artifacts/splits/split_manifest.json": "cdf1995f5e63bc32b862e02654a70fba60b8126f2dfc9d4d2f177048328e6107",
+      "artifacts/temporal/temporal_manifest.json": "fe423a921811c6582bca4eb93af9555d75876ee8a3dbf92e4733fbba3eaf0183",
       "artifacts/windows/window_fingerprints.json": "c4ef0afcf352a119f03f5d9b86dabe6b5bf0a029afbdb9b29021debb0827468b",
-      "artifacts/windows/window_manifest.json": "d6e6bdafc1d4f191e995564a24d658109c27b4607ad28d6901cd6060450cc03a",
-      "data/raw_data/dataset_manifest.json": "73a4a8541dfd19c93dec7b7f37f553b7d2d747e479a7aa807aba29623dce0627"
+      "artifacts/windows/window_manifest.json": "88ba16b5e792ceabfdbc50dcdff83db54750b91743e4bb01f889ae8f5da0164d",
+      "data/raw_data/dataset_manifest.json": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300"
     },
     "input_paths": [
       "artifacts/environment/environment_report.json",
@@ -143,7 +143,7 @@
     ],
     "production_registry_empty": false,
     "registry_contract_fingerprint": "124a2edf1dc8a30845f7ffa7e0c46bf8d05a8c7ebe916b539f711e8d9dff36df",
-    "registry_fingerprint": "d913aaf53c834741d1bd350b590177214b1bab0c127510b1a21eb513bfddb43c",
+    "registry_fingerprint": "c883d492a2cfd8edcbb5c8a08fec4a25fc64c1fc5c85dc7fedd020fca3ce3558",
     "synthetic_records_persisted": false,
     "tests": [
       "canonical_config_fingerprint",
@@ -180,5 +180,6 @@
       "window_version": "WINDOWS-v1"
     }
   },
+  "timestamp": "2026-08-21T09:04:29.498797+00:00",
   "warnings": []
 }

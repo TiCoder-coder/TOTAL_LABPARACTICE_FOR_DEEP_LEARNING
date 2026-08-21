@@ -1,57 +1,51 @@
 {
-  "artifact_version": "SWEEP_S1_FEATURESET-v1",
-  "created_at": "2026-08-19T07:30:00.000000+00:00",
-  "phase_id": 23,
-  "phase_version": "PHASE-23-v1",
-  "phase_name": "S1 Feature-Set Sweep",
-  "status": "PASS",
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S1",
+  "created_at": "2026-08-21T15:48:18.517862+00:00",
+  "dataset_revision": null,
   "discrepancies": [],
-  "warnings": [],
+  "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/learning_diagnostics/phase_22_signoff.json": "e8a9f0b1c2d3e4f5a6b7c8d9e0f1a2b3c4",
-    "artifacts/transformer_b0/phase_21_signoff.json": "f9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5"
+    "artifacts/sweeps/s1_feature_set/results.csv": "d00ecc39c7b26f73f9a8c1f7af3a8e43345606ddce9a5059bc8ca811a39093cd"
   },
   "input_paths": [
-    "artifacts/learning_diagnostics/phase_22_signoff.json",
-    "artifacts/transformer_b0/phase_21_signoff.json"
+    "artifacts/sweeps/s1_feature_set/results.csv"
   ],
   "output_checksums": {
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_run_contract.json": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6",
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_summary.json": "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7",
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_metrics.csv": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8",
-    "artifacts/sweeps/s1_feature_set/s1_reference_update.json": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9"
+    "artifacts/sweeps/s1_feature_set/results.csv": "d00ecc39c7b26f73f9a8c1f7af3a8e43345606ddce9a5059bc8ca811a39093cd",
+    "artifacts/sweeps/s1_feature_set/sweep_manifest.json": "fc65339378476add781b6ee874c9095b6b1aeb217902c015aa1acf929a5428a6"
   },
   "output_paths": [
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_run_contract.json",
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_summary.json",
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_metrics.csv",
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_pairwise_effects.csv",
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_audit.csv",
-    "artifacts/sweeps/s1_feature_set/s1_feature_set_discrepancies.json",
-    "artifacts/sweeps/s1_feature_set/s1_reference_update.json",
-    "artifacts/sweeps/s1_feature_set/README_S1_FEATURE_SET.md",
-    "artifacts/sweeps/s1_feature_set/phase_23_signoff.json"
+    "artifacts/sweeps/s1_feature_set/sweep_manifest.json",
+    "artifacts/sweeps/s1_feature_set/results.csv"
   ],
-  "sweep_design": {
-    "factor_tested": "feature_variant_id",
-    "conditions": ["FS0_TF1", "FS1_TF1", "FS2_TF1"],
-    "reused_runs": 1,
-    "new_runs": 2
-  },
-  "winner": {
-    "condition": "FS1_TF1",
-    "run_id": "RUN_TR_B0_0014_00EF3A31",
-    "val_rmse_wh": 61.03075970888884
-  },
-  "frozen_factors": {
-    "feature_variant_id": "FS1_TF1",
-    "lookback_steps": 144,
-    "target_scaling_option": "YS1"
+  "phase_id": 23,
+  "phase_version": "PHASE-23-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 14,
+      "condition": "FS2_TF1",
+      "feature_variant_id": "FS2_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_S01_0006_FS2TF1",
+      "sweep_id": "S1_FEATURE_SET",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.55,
+      "val_r2": 0.572,
+      "val_rmse": 60.45
+    },
+    "sweep_code": "S1",
+    "sweep_name": "S1 Feature-Set Sweep",
+    "variant_count": 6
   },
   "tests": [
-    "sweep_design_compliance",
-    "reference_run_verification",
-    "control_factor_consistency",
-    "test_firewall"
-  ]
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
 }

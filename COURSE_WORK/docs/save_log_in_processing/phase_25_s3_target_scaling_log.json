@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP_S3_TARGETSCALING-v1",
-  "created_at": "2026-08-19T07:40:00.000000+00:00",
+  "artifact_version": "SWEEP-v1",
+  "created_at": "2026-08-21T15:48:18.520410+00:00",
   "discrepancies": [],
   "phase_id": 25,
   "phase_name": "S3 Target-Scaling Sweep",
@@ -8,60 +8,132 @@
   "presentation_version": "PHASE-PRESENTATION-v2",
   "sections": [
     {
-      "title": "Sweep conditions",
       "rows": [
-        {"Condition": "YS0", "Transform": "identity", "Units": "raw Wh", "Status": "PENDING"},
-        {"Condition": "YS1", "Transform": "(y-mu)/sigma", "Units": "standardized", "Status": "REUSED"}
-      ]
-    },
-    {
-      "title": "Results",
-      "rows": [
-        {"Condition": "YS0", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING", "Loss Space": "raw Wh"},
-        {"Condition": "YS1", "Val RMSE (Wh)": 61.031, "Best Epoch": 12, "Loss Space": "standardized"}
-      ]
-    },
-    {
-      "title": "Winner selection",
-      "rows": [
-        {"Item": "Winner", "Value": "YS1"},
-        {"Item": "Val RMSE (Wh)", "Value": 61.031},
-        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
-      ]
-    },
-    {
-      "title": "Frozen factors (for Phase 26)",
-      "rows": [
-        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
-        {"Factor": "lookback_steps", "Value": 144},
-        {"Factor": "target_scaling_option", "Value": "YS1"}
-      ]
+        {
+          "Field": "activation",
+          "Value": "GELU"
+        },
+        {
+          "Field": "batch_size",
+          "Value": 32
+        },
+        {
+          "Field": "best_epoch",
+          "Value": 13
+        },
+        {
+          "Field": "condition",
+          "Value": "YS1"
+        },
+        {
+          "Field": "feature_variant_id",
+          "Value": "FS1_TF1"
+        },
+        {
+          "Field": "learning_rate",
+          "Value": 0.0003
+        },
+        {
+          "Field": "lookback_steps",
+          "Value": 144
+        },
+        {
+          "Field": "pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Field": "run_id",
+          "Value": "RUN_TR_B0_0010_1CEB611E"
+        },
+        {
+          "Field": "sweep_id",
+          "Value": "S3_TARGET_SCALING"
+        },
+        {
+          "Field": "target_scaling_option",
+          "Value": "YS1"
+        },
+        {
+          "Field": "val_mae",
+          "Value": 28.72
+        },
+        {
+          "Field": "val_r2",
+          "Value": 0.566
+        },
+        {
+          "Field": "val_rmse",
+          "Value": 60.76
+        }
+      ],
+      "title": "Best variant details"
     }
   ],
   "source_artifacts": [
     {
-      "path": "artifacts/sweeps/s2_time_feature/phase_24_signoff.json",
+      "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+      "role": "manifest",
+      "sha256": "baa99b5fd83b7f5729f03afc6f3b90924f7459d646cd375ddc6f5a790b74e4ed"
+    },
+    {
+      "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+      "role": "results",
+      "sha256": "9737521d627db6fcdfa0a9fb13d0addde0d19c367416a3a01a2667879d546700"
+    },
+    {
+      "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
       "role": "signoff",
-      "sha256": "d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0"
+      "sha256": "e43359516f7a9a41df28773d04c3738d664f8c0caa011a363b75fcba836e7bf0"
     }
   ],
   "status": "PASS",
   "summary": {
-    "sweep_id": "S3_TARGET_SCALING",
-    "sweep_version": "SWEEP_S3_TARGETSCALING-v1",
-    "winner": "YS1",
-    "winner_val_rmse": 61.03075970888884,
-    "conditions_tested": 2,
-    "new_runs": 1,
-    "reused_runs": 1
+    "Best variant": "N/A",
+    "Sweep code": "S3",
+    "Sweep name": "S3 Target-Scaling Sweep",
+    "Variant count": 3
   },
   "technical_details": {
-    "sweep_version": "SWEEP_S3_TARGETSCALING-v1",
-    "phase_id": 25,
-    "factor_tested": "target_scaling_option",
-    "conditions": ["YS0", "YS1"],
-    "output_paths": ["artifacts/sweeps/s3_target_scaling/"],
-    "tests": ["sweep_design_compliance", "wh_space_metrics"]
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "YS1",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S3_TARGET_SCALING",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "config_fingerprint": "S3",
+    "dataset_revision": null,
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/sweeps/s3_target_scaling/results.csv": "9737521d627db6fcdfa0a9fb13d0addde0d19c367416a3a01a2667879d546700"
+    },
+    "input_paths": [
+      "artifacts/sweeps/s3_target_scaling/results.csv"
+    ],
+    "output_checksums": {
+      "artifacts/sweeps/s3_target_scaling/results.csv": "9737521d627db6fcdfa0a9fb13d0addde0d19c367416a3a01a2667879d546700",
+      "artifacts/sweeps/s3_target_scaling/sweep_manifest.json": "baa99b5fd83b7f5729f03afc6f3b90924f7459d646cd375ddc6f5a790b74e4ed"
+    },
+    "output_paths": [
+      "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+      "artifacts/sweeps/s3_target_scaling/results.csv"
+    ],
+    "sweep_code": "S3",
+    "tests": [
+      "results_csv_load",
+      "best_variant_recorded"
+    ],
+    "variant_count": 3
   },
+  "timestamp": "2026-08-21T15:48:18.520410+00:00",
   "warnings": []
 }

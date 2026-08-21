@@ -1,6 +1,6 @@
 {
   "artifact_version": "SCHEMA-v1",
-  "created_at": "2026-08-18T01:45:12.755911+00:00",
+  "created_at": "2026-08-20T16:15:29.321998+00:00",
   "discrepancies": [
     "SD-001"
   ],
@@ -51,12 +51,12 @@
     {
       "path": "artifacts/schema/schema_manifest.json",
       "role": "schema",
-      "sha256": "b2790645fe5910a46eb6e60d738f7b36fe7bbb1ae09545a898fb4e368b42fb17"
+      "sha256": "c6701eb9ed48cf30c6a6c8ab2a1d438e4b729ee0f4084ab611e102d7e7242cb2"
     },
     {
       "path": "artifacts/schema/phase_3_signoff.json",
       "role": "signoff",
-      "sha256": "d94eb5eaa2e1a16147cc1454b9501bc23dfa56b7ee01c35f87fb603bebb758ce"
+      "sha256": "6262bc590e801c7c8db1d9b6ef98e716171ec87545be536b759b87ae81bbc380"
     }
   ],
   "status": "PASS_WITH_WARNING",
@@ -74,7 +74,7 @@
     "dataset_revision": "DATA-v1",
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/acquisition/phase_2_signoff.json": "706126dbeddf3d68f8661b8a9a6dffb3fd7464f6830a366c91b4c841f92efb77",
+      "artifacts/acquisition/phase_2_signoff.json": "18eb34d3037be9b9b946a90233e66601e61c3d700a9237e37899f36a714dd556",
       "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
     },
     "input_paths": [
@@ -85,7 +85,7 @@
       "artifacts/schema/schema_comparison.csv": "093a767b0967d2a003f31229dfcb3ce62890801c22a0c0bd5faa1000b0f2c548",
       "artifacts/schema/schema_discrepancies.json": "80f7f886a57c11be48df34be8003b2a0388d2ca5fd222a6b372f13003676bc35",
       "artifacts/schema/schema_fingerprint.txt": "7e5022d05814329704c15c47511c11439bda5b47ed404c1890b4d19f3ad13f02",
-      "artifacts/schema/schema_manifest.json": "b2790645fe5910a46eb6e60d738f7b36fe7bbb1ae09545a898fb4e368b42fb17",
+      "artifacts/schema/schema_manifest.json": "c6701eb9ed48cf30c6a6c8ab2a1d438e4b729ee0f4084ab611e102d7e7242cb2",
       "artifacts/schema/schema_summary.csv": "777bfb5cdc411524891218e4d147297f21d0de936fad84bcb6c092602b065cae",
       "artifacts/schema/variable_dictionary.csv": "e0c59d94a304e9ddd1cf3b7743233f1360716de310e1121e79a3bea748e2b2c3"
     },
@@ -110,6 +110,7 @@
       "raw_dataframe_immutability"
     ]
   },
+  "timestamp": "2026-08-20T16:15:29.321998+00:00",
   "warnings": [
     "SD-001"
   ]

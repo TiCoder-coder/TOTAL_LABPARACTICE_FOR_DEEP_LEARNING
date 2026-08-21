@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP_S7_BATCHSIZE-v1",
-  "created_at": "2026-08-19T08:00:00.000000+00:00",
+  "artifact_version": "SWEEP-v1",
+  "created_at": "2026-08-21T14:42:03.647836+00:00",
   "discrepancies": [],
   "phase_id": 29,
   "phase_name": "S7 Batch-Size Sweep",
@@ -8,63 +8,132 @@
   "presentation_version": "PHASE-PRESENTATION-v2",
   "sections": [
     {
-      "title": "Sweep conditions",
       "rows": [
-        {"Condition": "B32", "Batch Size": 32, "Status": "PENDING"},
-        {"Condition": "B64", "Batch Size": 64, "Status": "REUSED"}
-      ]
-    },
-    {
-      "title": "Results",
-      "rows": [
-        {"Condition": "B32", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
-        {"Condition": "B64", "Val RMSE (Wh)": 61.031, "Best Epoch": 12}
-      ]
-    },
-    {
-      "title": "Winner selection",
-      "rows": [
-        {"Item": "Winner", "Value": "B64"},
-        {"Item": "Val RMSE (Wh)", "Value": 61.031},
-        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
-      ]
-    },
-    {
-      "title": "Frozen factors (for Phase 30)",
-      "rows": [
-        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
-        {"Factor": "lookback_steps", "Value": 144},
-        {"Factor": "target_scaling_option", "Value": "YS1"},
-        {"Factor": "pooling", "Value": "LAST_STEP"},
-        {"Factor": "activation", "Value": "GELU"},
-        {"Factor": "batch_size", "Value": 64}
-      ]
+        {
+          "Field": "activation",
+          "Value": "GELU"
+        },
+        {
+          "Field": "batch_size",
+          "Value": 32
+        },
+        {
+          "Field": "best_epoch",
+          "Value": 12
+        },
+        {
+          "Field": "condition",
+          "Value": "B32"
+        },
+        {
+          "Field": "feature_variant_id",
+          "Value": "FS1_TF1"
+        },
+        {
+          "Field": "learning_rate",
+          "Value": 0.0003
+        },
+        {
+          "Field": "lookback_steps",
+          "Value": 144
+        },
+        {
+          "Field": "pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Field": "run_id",
+          "Value": "RUN_TR_S07_0006_3181A7D4"
+        },
+        {
+          "Field": "sweep_id",
+          "Value": "S7_BATCH_SIZE"
+        },
+        {
+          "Field": "target_scaling_option",
+          "Value": "YS1"
+        },
+        {
+          "Field": "val_mae",
+          "Value": 28.088147377359057
+        },
+        {
+          "Field": "val_r2",
+          "Value": 0.5719984804011866
+        },
+        {
+          "Field": "val_rmse",
+          "Value": 60.34450203428645
+        }
+      ],
+      "title": "Best variant details"
     }
   ],
   "source_artifacts": [
     {
-      "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+      "path": "artifacts/sweeps/s7_batch_size/sweep_manifest.json",
+      "role": "manifest",
+      "sha256": "92719e7b97da5765d32ea114c8c9e6984671ce0d7e7772a7f044c47643099993"
+    },
+    {
+      "path": "artifacts/sweeps/s7_batch_size/results.csv",
+      "role": "results",
+      "sha256": "eb3b696fe353b46bc45f85384655a85ac967f5a3c0fd1a77bff4e9c5caa32ced"
+    },
+    {
+      "path": "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
       "role": "signoff",
-      "sha256": "b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4"
+      "sha256": "e51a89bd6f8e2adfc70fba8e6110e3f71d24127a619c532dc99b69067c749670"
     }
   ],
   "status": "PASS",
   "summary": {
-    "sweep_id": "S7_BATCH_SIZE",
-    "sweep_version": "SWEEP_S7_BATCHSIZE-v1",
-    "winner": "B64",
-    "winner_val_rmse": 61.03075970888884,
-    "conditions_tested": 2,
-    "new_runs": 1,
-    "reused_runs": 1
+    "Best variant": "N/A",
+    "Sweep code": "S7",
+    "Sweep name": "S7 Batch-Size Sweep",
+    "Variant count": 1
   },
   "technical_details": {
-    "sweep_version": "SWEEP_S7_BATCHSIZE-v1",
-    "phase_id": 29,
-    "factor_tested": "batch_size",
-    "conditions": ["B32", "B64"],
-    "output_paths": ["artifacts/sweeps/s7_batch_size/"],
-    "tests": ["sweep_design_compliance", "batch_size_verification"]
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 12,
+      "condition": "B32",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_S07_0006_3181A7D4",
+      "sweep_id": "S7_BATCH_SIZE",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.088147377359057,
+      "val_r2": 0.5719984804011866,
+      "val_rmse": 60.34450203428645
+    },
+    "config_fingerprint": "S7",
+    "dataset_revision": null,
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/sweeps/s7_batch_size/results.csv": "09674859f07e8b8f09bf7a990ac3f4762a912ea130ea195d841e89a10506e782"
+    },
+    "input_paths": [
+      "artifacts/sweeps/s7_batch_size/results.csv"
+    ],
+    "output_checksums": {
+      "artifacts/sweeps/s7_batch_size/results.csv": "09674859f07e8b8f09bf7a990ac3f4762a912ea130ea195d841e89a10506e782",
+      "artifacts/sweeps/s7_batch_size/sweep_manifest.json": "92719e7b97da5765d32ea114c8c9e6984671ce0d7e7772a7f044c47643099993"
+    },
+    "output_paths": [
+      "artifacts/sweeps/s7_batch_size/sweep_manifest.json",
+      "artifacts/sweeps/s7_batch_size/results.csv"
+    ],
+    "sweep_code": "S7",
+    "tests": [
+      "results_csv_load",
+      "best_variant_recorded"
+    ],
+    "variant_count": 1
   },
+  "timestamp": "2026-08-21T14:42:03.647836+00:00",
   "warnings": []
 }

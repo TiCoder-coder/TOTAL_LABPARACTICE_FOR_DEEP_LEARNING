@@ -1,15 +1,15 @@
 {
   "approved_for_phase19": true,
   "artifact_version": "FORWARD_SANITY-v1",
-  "created_at": "2026-08-18T08:19:04.069895+00:00",
+  "created_at": "2026-08-21T13:40:35.421864+00:00",
   "dataset_revision": "DATA-v1",
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/attention_verification/phase_17_signoff.json": "73bc6ad9d353ce5a5a2eaeae22483954b268adc0353093a9e9655c4cb98f9948",
-    "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
-    "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
-    "artifacts/models/transformer/phase_16_signoff.json": "b852435dd3f386cccc43d34dd4ab587a5746a9759e44de01760e7b4db7fe7928"
+    "artifacts/attention_verification/phase_17_signoff.json": "9b4e97d200ddf3d20961a15cc228e43dbc7b5c2b0c7afa31f786aaff5c7b75a1",
+    "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
+    "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+    "artifacts/models/transformer/phase_16_signoff.json": "a0d4e022015b62dae9e8f302e6a96a913a5468b110f346026c0d26d820b2000f"
   },
   "input_paths": [
     "artifacts/models/transformer/phase_16_signoff.json",
@@ -22,17 +22,17 @@
     "artifacts/forward_sanity/forward_attention_smoke_audit.csv": "c8cbbbc2f7252d5a20f58897794661bec0f068e6808fe55fc752755a477d2595",
     "artifacts/forward_sanity/forward_batch_audit.csv": "394d64e9c2fa7c30e6c21d1c6583b94eeba69a35d006cada7dabf5d21c78c35d",
     "artifacts/forward_sanity/forward_batch_independence_audit.csv": "7d2f97f5ac413ab6f9d272f8442f9abd4edbbf1a4fe939000a452f8992799cc8",
-    "artifacts/forward_sanity/forward_device_audit.csv": "b72be4afa17435e93e3b7a927501a5e9fffc520e9bcb247ffa26b8f7ed4555fb",
+    "artifacts/forward_sanity/forward_device_audit.csv": "f7759711344b8db4597960249e5570a34948b184ab0571cfb779fdc65a87ef8d",
     "artifacts/forward_sanity/forward_mode_audit.csv": "eda40ee995976e73b0a0ea82a56827c749aec615a0ee1d5942ca9f902705c7ae",
     "artifacts/forward_sanity/forward_parameter_mutation_audit.csv": "e0011ebcb0cb26bf4aa7ca494332f887806fc6f78d87b052c066a9192852465f",
     "artifacts/forward_sanity/forward_sanity_contract.json": "bbd1109c6f2557a690ed3dc2791bf99ce14f3632a4d7c3005fdc460eba7f32d6",
     "artifacts/forward_sanity/forward_sanity_discrepancies.json": "5db79f88afd10b1b52311a7ab1a42c20d04dfc448f360eb9cda904e203940760",
-    "artifacts/forward_sanity/forward_sanity_manifest.json": "09470dfea1f73ad05f3331a69090ed30de6871369e33ee7f35aca1c9570b874d",
+    "artifacts/forward_sanity/forward_sanity_manifest.json": "0eb830e7dcb8d22dedaabafb9c2ec5cb1bfe792b6590e617ed23b308f551b9dc",
     "artifacts/forward_sanity/forward_sanity_sample_ids.csv": "d869f66c5908153864069b2c3ba54762f082b0f90b41dea0c7036be3b969d36e",
     "artifacts/forward_sanity/forward_sanity_tests.csv": "1be807a9d3852514ab829308ef742f97ee1312e13f8ccb5c83ac35146178d110",
     "artifacts/forward_sanity/forward_scaling_audit.csv": "71980e4459a776f06ca75a87b027159971b401dc50deaa5c53b2b44c8a0791b0",
     "artifacts/forward_sanity/model_forward_audit.csv": "ae4ed9343624d1aefa659ae99de4f6d5d7882e2ecbb9773cc7ae6b1e76c0eeda",
-    "artifacts/forward_sanity/training_engine_handoff.json": "cc22dd3d3c0069e0f7451d54157a9ddf847512ebaaa9ca150087e6133d35bd40"
+    "artifacts/forward_sanity/training_engine_handoff.json": "4fc7891bfa935a61c69cd7f6f35854b62cdf006d26892e2f0953258ad25bd45d"
   },
   "output_paths": [
     "artifacts/forward_sanity/forward_sanity_manifest.json",

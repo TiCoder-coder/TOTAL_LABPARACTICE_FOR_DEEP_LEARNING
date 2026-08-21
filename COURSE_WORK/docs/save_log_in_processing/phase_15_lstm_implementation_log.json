@@ -1,6 +1,6 @@
 {
   "artifact_version": "LSTM_IMPL-v1",
-  "created_at": "2026-08-18T01:50:46.869135+00:00",
+  "created_at": "2026-08-21T13:30:31.330043+00:00",
   "discrepancies": [],
   "phase_id": 15,
   "phase_name": "LSTM Implementation",
@@ -78,7 +78,7 @@
     {
       "path": "artifacts/models/lstm/lstm_model_manifest.json",
       "role": "manifest",
-      "sha256": "fc02031da47faf3ff316c557ebe92d800224700845b3749882b17a142dbdada5"
+      "sha256": "af677e0478e379c3666f71b63d39ef5134b6925acce05e9732580b9209fdd9f3"
     },
     {
       "path": "artifacts/models/lstm/lstm_config_schema.json",
@@ -88,7 +88,7 @@
     {
       "path": "artifacts/models/lstm/phase_15_signoff.json",
       "role": "signoff",
-      "sha256": "ce83b34dcbe8f844e2bb108630680ced70e9cdfa196345d26594e6a95b957a54"
+      "sha256": "ba5c3c910d0b6778ced9f9407bd0892a7637160162552a304ef4fecfd587cbd7"
     }
   ],
   "status": "PASS",
@@ -108,13 +108,13 @@
     "environment_id": "ENV-v1",
     "implementation_version": "LSTM_IMPL-v1",
     "input_checksums": {
-      "artifacts/baselines/persistence/phase_14_signoff.json": "c8b25be9b60580606fbc078da75066db6ee2b94678e3543ef0aed949d8982f79",
-      "artifacts/dataloaders/dataloader_manifest.json": "86e83f5139f3b0a216610b612e7d7eea3522c554c3915769bf45ac82c3ad96c9",
-      "artifacts/dataloaders/phase_11_signoff.json": "9fc1ad2caef410a32f55e2e87b14c493a34658846a4269c0c92e451755dce45d",
-      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
-      "artifacts/experiments/phase_13_signoff.json": "012ac5d49ea13b775dad95fd8496626f014eb95f03232b12688dccc92efbee58",
-      "artifacts/metrics/phase_12_signoff.json": "e462664e7f497ad04e32a616ae8028346012704a062afe72ae8867d9b932aafb",
-      "artifacts/windows/phase_10_signoff.json": "8ef5bb41d4d6dfddc5e269a9d795fa61cbfa8bf4f6f8cb6fb3b9e21a00697502"
+      "artifacts/baselines/persistence/phase_14_signoff.json": "e2dd40c437a3d7c3831ee2c5457015c98c0a7c8191850224f47bcce06140cee6",
+      "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
+      "artifacts/dataloaders/phase_11_signoff.json": "e43e1ddda073f3f6b870ed0275ff05836344b1b3d2efa71e91324368fab3214a",
+      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+      "artifacts/experiments/phase_13_signoff.json": "61d8f983e9066eb54c038ae0c3fdddf511fd8899bcc4f8a4eafcc8fe548ffa91",
+      "artifacts/metrics/phase_12_signoff.json": "08dee71be6db46b0b95837f0ea2976e86adf0bbf8b2b7aa8ede7a6db87d74fcc",
+      "artifacts/windows/phase_10_signoff.json": "a2e80853ceb853d126e03efe6694f8e4e7bbb69cfe1cbb0c85d4f3996500e4c4"
     },
     "input_paths": [
       "artifacts/windows/phase_10_signoff.json",
@@ -132,7 +132,7 @@
       "artifacts/models/lstm/lstm_config_schema.json": "187afe6fa919de41f0f8cb6c7bbe1f3930c015af4238af15e23983da272f6517",
       "artifacts/models/lstm/lstm_discrepancies.json": "90ed53eeb242602b4b74095ee7b7f6b9ffa1b53cb4640ecbfa02466156093b18",
       "artifacts/models/lstm/lstm_implementation_audit.csv": "fb592daf22f32db45e310a70781ee0eb2f2ce65bf73be21a95f0801ecd2ae7dc",
-      "artifacts/models/lstm/lstm_model_manifest.json": "fc02031da47faf3ff316c557ebe92d800224700845b3749882b17a142dbdada5",
+      "artifacts/models/lstm/lstm_model_manifest.json": "af677e0478e379c3666f71b63d39ef5134b6925acce05e9732580b9209fdd9f3",
       "artifacts/models/lstm/lstm_module_audit.csv": "d742c98daed88fa89fd4def530a23a56a67051ef91464c9720efaa88b75b59ba",
       "artifacts/models/lstm/lstm_parameter_audit.csv": "f485d83d18a10c92aa9b83803212e5916420b5cf66297cd66264c689d5f3b14a",
       "artifacts/models/lstm/lstm_reference_config.json": "f986f26ecc951e0109d2f223fb513d4feb30fc181d9394fc9f74b66bcd0d5a01",
@@ -151,7 +151,7 @@
       "artifacts/models/lstm/lstm_discrepancies.json",
       "artifacts/models/lstm/README_LSTM.md"
     ],
-    "source_code_fingerprint": "fb2fcb9da38896ea4e96d48ef0c44e34a94958deb27cbc7a0d7f7ab6467e2442",
+    "source_code_fingerprint": "c16936d5201a8d852888a50c5a320103710ac5041f1bb56d0e71150186c9a865",
     "state_policy": "ZERO_INIT_PER_FORWARD_STATELESS",
     "supported_lookbacks": [
       36,
@@ -182,5 +182,6 @@
       "unit_tests"
     ]
   },
+  "timestamp": "2026-08-21T13:30:31.330043+00:00",
   "warnings": []
 }

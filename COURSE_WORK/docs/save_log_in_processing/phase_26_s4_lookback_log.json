@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP_S4_LOOKBACK-v1",
-  "created_at": "2026-08-19T07:45:00.000000+00:00",
+  "artifact_version": "SWEEP-v1",
+  "created_at": "2026-08-21T15:48:18.521661+00:00",
   "discrepancies": [],
   "phase_id": 26,
   "phase_name": "S4 Lookback Sweep",
@@ -8,63 +8,132 @@
   "presentation_version": "PHASE-PRESENTATION-v2",
   "sections": [
     {
-      "title": "Sweep conditions",
       "rows": [
-        {"Condition": "L36", "Steps": 36, "Hours": 6, "Status": "PENDING"},
-        {"Condition": "L72", "Steps": 72, "Hours": 12, "Status": "PENDING"},
-        {"Condition": "L144", "Steps": 144, "Hours": 24, "Status": "REUSED"}
-      ]
-    },
-    {
-      "title": "Results",
-      "rows": [
-        {"Condition": "L36", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
-        {"Condition": "L72", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
-        {"Condition": "L144", "Val RMSE (Wh)": 61.031, "Best Epoch": 12}
-      ]
-    },
-    {
-      "title": "Winner selection",
-      "rows": [
-        {"Item": "Winner", "Value": "L144"},
-        {"Item": "Val RMSE (Wh)", "Value": 61.031},
-        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
-      ]
-    },
-    {
-      "title": "Frozen factors (for Phase 27)",
-      "rows": [
-        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
-        {"Factor": "lookback_steps", "Value": 144},
-        {"Factor": "target_scaling_option", "Value": "YS1"},
-        {"Factor": "pooling", "Value": "LAST_STEP"}
-      ]
+        {
+          "Field": "activation",
+          "Value": "GELU"
+        },
+        {
+          "Field": "batch_size",
+          "Value": 32
+        },
+        {
+          "Field": "best_epoch",
+          "Value": 13
+        },
+        {
+          "Field": "condition",
+          "Value": "L144"
+        },
+        {
+          "Field": "feature_variant_id",
+          "Value": "FS1_TF1"
+        },
+        {
+          "Field": "learning_rate",
+          "Value": 0.0003
+        },
+        {
+          "Field": "lookback_steps",
+          "Value": 144
+        },
+        {
+          "Field": "pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Field": "run_id",
+          "Value": "RUN_TR_B0_0010_1CEB611E"
+        },
+        {
+          "Field": "sweep_id",
+          "Value": "S4_LOOKBACK"
+        },
+        {
+          "Field": "target_scaling_option",
+          "Value": "YS1"
+        },
+        {
+          "Field": "val_mae",
+          "Value": 28.72
+        },
+        {
+          "Field": "val_r2",
+          "Value": 0.566
+        },
+        {
+          "Field": "val_rmse",
+          "Value": 60.76
+        }
+      ],
+      "title": "Best variant details"
     }
   ],
   "source_artifacts": [
     {
-      "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+      "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+      "role": "manifest",
+      "sha256": "5b37500a8c2ac1286ada9f76e9dc8fa1c9be4e2e2d75069f34ac57269df4bd6b"
+    },
+    {
+      "path": "artifacts/sweeps/s4_lookback/results.csv",
+      "role": "results",
+      "sha256": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7"
+    },
+    {
+      "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
       "role": "signoff",
-      "sha256": "e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2"
+      "sha256": "796a5a0e345762710036b15c0ad215a82bb136a22eaf5ac1f3cfdfd9f88442ae"
     }
   ],
   "status": "PASS",
   "summary": {
-    "sweep_id": "S4_LOOKBACK",
-    "sweep_version": "SWEEP_S4_LOOKBACK-v1",
-    "winner": "L144",
-    "winner_val_rmse": 61.03075970888884,
-    "conditions_tested": 3,
-    "new_runs": 2,
-    "reused_runs": 1
+    "Best variant": "N/A",
+    "Sweep code": "S4",
+    "Sweep name": "S4 Lookback Sweep",
+    "Variant count": 5
   },
   "technical_details": {
-    "sweep_version": "SWEEP_S4_LOOKBACK-v1",
-    "phase_id": 26,
-    "factor_tested": "lookback_steps",
-    "conditions": ["L36", "L72", "L144"],
-    "output_paths": ["artifacts/sweeps/s4_lookback/"],
-    "tests": ["sweep_design_compliance", "common_population"]
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "L144",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S4_LOOKBACK",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "config_fingerprint": "S4",
+    "dataset_revision": null,
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/sweeps/s4_lookback/results.csv": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7"
+    },
+    "input_paths": [
+      "artifacts/sweeps/s4_lookback/results.csv"
+    ],
+    "output_checksums": {
+      "artifacts/sweeps/s4_lookback/results.csv": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7",
+      "artifacts/sweeps/s4_lookback/sweep_manifest.json": "5b37500a8c2ac1286ada9f76e9dc8fa1c9be4e2e2d75069f34ac57269df4bd6b"
+    },
+    "output_paths": [
+      "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+      "artifacts/sweeps/s4_lookback/results.csv"
+    ],
+    "sweep_code": "S4",
+    "tests": [
+      "results_csv_load",
+      "best_variant_recorded"
+    ],
+    "variant_count": 5
   },
+  "timestamp": "2026-08-21T15:48:18.521661+00:00",
   "warnings": []
 }

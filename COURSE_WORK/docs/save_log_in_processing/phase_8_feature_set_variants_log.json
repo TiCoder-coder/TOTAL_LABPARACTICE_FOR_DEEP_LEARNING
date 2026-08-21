@@ -1,6 +1,6 @@
 {
   "artifact_version": "FEATURESETS-v1",
-  "created_at": "2026-08-18T01:45:38.646026+00:00",
+  "created_at": "2026-08-20T16:15:37.498059+00:00",
   "discrepancies": [],
   "phase_id": 8,
   "phase_name": "Feature-Set Variants",
@@ -53,12 +53,12 @@
     {
       "path": "artifacts/feature_sets/feature_set_manifest.json",
       "role": "feature_sets",
-      "sha256": "6fcd07ad327b6e913c78c9f383f240caec22c75f41e39b5773acbad1ab7f5b80"
+      "sha256": "239b9142032a9ed02ab389075ded5c5dd1b4dbffa5f4abe2312168a45120d5d1"
     },
     {
       "path": "artifacts/feature_sets/phase_8_signoff.json",
       "role": "signoff",
-      "sha256": "a2ed3c6946cfff79b660241d4346cc3e43cd6d680b904e75abf83fec8d3b81b1"
+      "sha256": "a429cae4b97c2fa99ccc309bcebb32af8b0d17bb9a982cc15c20791123c1d37d"
     }
   ],
   "status": "PASS",
@@ -87,13 +87,13 @@
     "environment_id": "ENV-v1",
     "input_checksums": {
       "artifacts/features/feature_availability.csv": "3df1713607c8f2ba0bf87e26525f993d1a60a61bc77139ce1b609413a6bd6425",
-      "artifacts/features/feature_engineering_manifest.json": "46b2eb28139fd14a610a5ab811112faa3ad4e74be0d1a7e5318d5f3d761d4c58",
+      "artifacts/features/feature_engineering_manifest.json": "e2f22ab4de9a8c3d1ac187ae8a2908c9fd548ecace3a7901f5a4bd99057be842",
       "artifacts/features/feature_leakage_audit.csv": "a8f9a618de79e8756815fb86e6ddce450bc39bda54388f39f45f183c9ff017a6",
       "artifacts/features/feature_lineage.csv": "332209b6b50f8e54f82ad9e08ea49880fbbead5037326b6815a95bd7a49ce4a4",
       "artifacts/features/feature_registry.csv": "e64506ea960c036364903ffdbeb8bf831cc546d0cf4c1f82dfdcac2fbf98417e",
-      "artifacts/features/phase_7_signoff.json": "0b8b6cc36a5cad39f2782fae2fe810fc5a11d6c579532e7af69d69ea0984fcfa",
-      "configs/base/coursework_contract.json": "afa0ef62c05bbc0ac75d3530130af9fdd26cafa7dd08c60201201a934db21e2f",
-      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "2614e13716a7edea0280381758459dcad4b572759c7e80bb8078ec79dd000f6f"
+      "artifacts/features/phase_7_signoff.json": "a543b80b3b1997909529e95c3ae043a9a3f4c85c6deafbb1963edd0dc71627f7",
+      "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f",
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"
     },
     "input_paths": [
       "artifacts/features/phase_7_signoff.json",
@@ -112,7 +112,7 @@
       "artifacts/feature_sets/feature_set_discrepancies.json": "0cbd7b245e36f63a5c4df3459ab9f77cfe732b4bc63942b3c335efd844f07669",
       "artifacts/feature_sets/feature_set_leakage_audit.csv": "d7e2ae5a8413d17dcf301f09646702b5f217c424144db53b3fff5d525bbc950a",
       "artifacts/feature_sets/feature_set_lineage.csv": "ac38fd21e609e0855eddc03419e659c0a4b98a1544fb2b16a84e784545b84bcc",
-      "artifacts/feature_sets/feature_set_manifest.json": "6fcd07ad327b6e913c78c9f383f240caec22c75f41e39b5773acbad1ab7f5b80",
+      "artifacts/feature_sets/feature_set_manifest.json": "239b9142032a9ed02ab389075ded5c5dd1b4dbffa5f4abe2312168a45120d5d1",
       "artifacts/feature_sets/feature_set_registry.csv": "ac0752f9d701dac0bbbf9c15022b537f1058843d0bbad6ab63f43b41698419b1",
       "artifacts/feature_sets/feature_set_registry.json": "03885a997d33c9b9270dcc82e396c7bc02c860bcffc50a41f1514e0c59aac067",
       "artifacts/feature_sets/feature_set_variants.csv": "b03a4e137034be0b5903c42ff58216cbca27222f296e285938a4d77c38aa1725"
@@ -147,5 +147,6 @@
       "matrix_probe_shape_and_semantics"
     ]
   },
+  "timestamp": "2026-08-20T16:15:37.498059+00:00",
   "warnings": []
 }

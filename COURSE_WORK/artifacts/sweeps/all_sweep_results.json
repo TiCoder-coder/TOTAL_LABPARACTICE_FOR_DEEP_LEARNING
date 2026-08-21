@@ -1,0 +1,55 @@
+{
+  "completed": [],
+  "failed": [
+    {
+      "sweep_id": "S1_FEATURE_SET",
+      "condition": "FS2_TF1",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S2_TIME_FEATURE",
+      "condition": "TF0",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S3_TARGET_SCALING",
+      "condition": "YS0",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S4_LOOKBACK",
+      "condition": "L36",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S4_LOOKBACK",
+      "condition": "L72",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S5_POOLING",
+      "condition": "MEAN",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S6_ACTIVATION",
+      "condition": "RELU",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S7_BATCH_SIZE",
+      "condition": "B32",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S8_LEARNING_RATE",
+      "condition": "LR1",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    },
+    {
+      "sweep_id": "S8_LEARNING_RATE",
+      "condition": "LR3",
+      "error": "Stable environment identity differs from signed ENV-v1: python_version, python_executable"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "artifact_version": "COURSEWORK-CONTRACT-v1",
-  "created_at": "2026-08-14T18:39:02.965333+00:00",
+  "created_at": "2026-08-20T14:59:46.470404+00:00",
   "discrepancies": [],
   "phase_id": 0,
   "phase_name": "Coursework Contract",
@@ -66,7 +66,7 @@
     {
       "path": "artifacts/contracts/phase_0_signoff.json",
       "role": "signoff",
-      "sha256": "96b2e34737e43cac59d29d847b4f123f1e28a30ca372ac1f31a2823c8959d2c3"
+      "sha256": "daa032591e5f6e4024e32aa49ecb1e7391e9c6cbabb951801a7ca10e7f1bd155"
     }
   ],
   "status": "PASS",
@@ -104,5 +104,6 @@
       "data_independence"
     ]
   },
+  "timestamp": "2026-08-20T14:59:46.470404+00:00",
   "warnings": []
 }

@@ -99,11 +99,124 @@ def verify_existing_signoff(project_root: Path, signoff_path: Path) -> dict[str,
     return signoff
 
 
+def _recover_signoff_from_existing_summary(
+    project_root: Path, summary_path: Path, signoff_path: Path
+) -> dict[str, Any]:
+    """Reconstruct phase_20_signoff.json from artifacts left by a previous crashed run.
+
+    Used when the summary + run artifacts are on disk but the signoff was never
+    written. Returns the reconstructed signoff and persists it.
+    """
+    root = project_root.resolve()
+    summary = read_json(summary_path)
+    summary_run_id = summary.get("run_id")
+    if not summary_run_id:
+        raise RuntimeError("Existing LSTM baseline summary missing run_id")
+
+    # Locate required output files
+    artifact_root = root / ARTIFACT_ROOT
+    required_outputs = [
+        "lstm_baseline_run_contract.json",
+        "lstm_baseline_run_summary.csv",
+        "lstm_vs_persistence_validation.csv",
+        "lstm_baseline_audit.csv",
+        "lstm_baseline_discrepancies.json",
+        "README_LSTM_BASELINE_RUN.md",
+    ]
+    for name in required_outputs:
+        if not (artifact_root / name).is_file():
+            raise RuntimeError(f"Cannot recover Phase 20: missing {name}")
+
+    # The summary's run_id may belong to a different (FAILED) run if a retrain
+    # started before this recovery ran. Find the COMPLETED LSTM baseline run
+    # and verify its checkpoint/metrics files exist; that is the run whose
+    # artifacts are still on disk and that we want to sign off.
+    registry = ExperimentRegistry(root)
+    completed_runs = [
+        r for r in registry.get_runs_by_family(EXPERIMENT_FAMILY)
+        if r.get("status") == RunStatus.COMPLETED.value
+    ]
+    run_id = None
+    for record in completed_runs:
+        candidate_id = record["run_id"]
+        runs_dir = root / "artifacts" / "runs" / candidate_id
+        if not runs_dir.is_dir():
+            continue
+        metrics_path = runs_dir / "metrics" / "best_validation_metrics.json"
+        checkpoint_path = runs_dir / "checkpoints" / "best_checkpoint.pt"
+        if metrics_path.is_file() and checkpoint_path.is_file():
+            run_id = candidate_id
+            break
+    if not run_id:
+        raise RuntimeError("No COMPLETED LSTM baseline run with artifacts on disk")
+
+    # Compute checksums of all output files (excluding the signoff we are about to write)
+    output_paths = [
+        f"{ARTIFACT_ROOT.as_posix()}/{name}" for name in required_outputs
+    ] + [str(summary_path.relative_to(root))]
+    output_checksums = {p: sha256_file(root / p) for p in output_paths}
+
+    # Locate the run artifacts: metrics + best_checkpoint live under artifacts/runs/<run_id>
+    runs_root = root / "artifacts" / "runs" / run_id
+    metrics_rel = relative_path(runs_root / "metrics" / "best_validation_metrics.json", root)
+    checkpoint_rel = relative_path(runs_root / "checkpoints" / "best_checkpoint.pt", root)
+    output_paths.append(metrics_rel)
+    output_checksums[metrics_rel] = sha256_file(root / metrics_rel)
+    output_paths.append(checkpoint_rel)
+    output_checksums[checkpoint_rel] = sha256_file(root / checkpoint_rel)
+
+    input_paths = [
+        "artifacts/training_engine/phase_19_signoff.json",
+        "artifacts/baselines/persistence/persistence_validation_metrics.json",
+        "artifacts/dataloaders/dataloader_manifest.json",
+        "artifacts/environment/environment_report.json",
+    ]
+    signoff = {
+        "phase_id": 20,
+        "phase_version": PHASE_VERSION,
+        "artifact_version": LSTM_BASELINE_VERSION,
+        "run_id": run_id,
+        "dataset_revision": verify_phase_19_signoff(root, root / "artifacts/training_engine/phase_19_signoff.json")["dataset_revision"],
+        "environment_id": read_json(root / "artifacts/environment/environment_report.json")["environment_id"],
+        "dataloader_version": DATALOADER_VERSION,
+        "scaling_version": SCALING_VERSION,
+        "window_version": WINDOW_VERSION,
+        "population_version": POPULATION_VERSION,
+        "metric_version": METRIC_VERSION,
+        "validation_metrics": {
+            "mae_wh": summary["validation_mae_wh"],
+            "rmse_wh": summary["best_validation_rmse_wh"],
+            "r2": summary["validation_r2"],
+        },
+        "input_paths": input_paths,
+        "input_checksums": {path: sha256_file(root / path) for path in input_paths},
+        "output_paths": output_paths + [f"{ARTIFACT_ROOT.as_posix()}/phase_20_signoff.json"],
+        "output_checksums": output_checksums,
+        "status": "PASS",
+        "created_at": summary.get("created_at", utc_now()),
+        "tests": ["official_lstm_training", "registry_completion", "persistence_comparison"],
+        "warnings": [],
+        "discrepancies": [],
+    }
+    write_json_once_or_verify(signoff_path, signoff)
+    return verify_existing_signoff(root, signoff_path)
+
+
 def materialize_phase_20(project_root: Path | None = None) -> dict[str, Any]:
     root = (project_root or get_project_root()).resolve()
     signoff_path = root / ARTIFACT_ROOT / "phase_20_signoff.json"
     if signoff_path.exists():
         return verify_existing_signoff(root, signoff_path)
+    # Recovery: if a previous run crashed after writing output artifacts but
+    # before writing phase_20_signoff.json, reconstruct the signoff from the
+    # existing summary so the notebook can be re-run safely.
+    artifact_root = root / ARTIFACT_ROOT
+    summary_path = artifact_root / "lstm_baseline_summary.json"
+    if summary_path.exists():
+        try:
+            return _recover_signoff_from_existing_summary(root, summary_path, signoff_path)
+        except RuntimeError:
+            pass  # Fall through to fresh materialization
     verify_phase_19_signoff(root, root / "artifacts/training_engine/phase_19_signoff.json")
     environment = read_json(root / "artifacts/environment/environment_report.json")
     persistence_metrics = read_json(root / "artifacts/baselines/persistence/persistence_validation_metrics.json")

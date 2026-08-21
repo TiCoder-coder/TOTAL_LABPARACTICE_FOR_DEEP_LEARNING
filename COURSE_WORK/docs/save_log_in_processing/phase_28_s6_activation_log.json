@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP_S6_ACTIVATION-v1",
-  "created_at": "2026-08-19T07:55:00.000000+00:00",
+  "artifact_version": "SWEEP-v1",
+  "created_at": "2026-08-21T15:48:18.524065+00:00",
   "discrepancies": [],
   "phase_id": 28,
   "phase_name": "S6 Activation Sweep",
@@ -8,62 +8,132 @@
   "presentation_version": "PHASE-PRESENTATION-v2",
   "sections": [
     {
-      "title": "Sweep conditions",
       "rows": [
-        {"Condition": "ReLU", "Formula": "max(0, x)", "Status": "PENDING"},
-        {"Condition": "GELU", "Formula": "x * Phi(x)", "Status": "REUSED"}
-      ]
-    },
-    {
-      "title": "Results",
-      "rows": [
-        {"Condition": "ReLU", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
-        {"Condition": "GELU", "Val RMSE (Wh)": 61.031, "Best Epoch": 12}
-      ]
-    },
-    {
-      "title": "Winner selection",
-      "rows": [
-        {"Item": "Winner", "Value": "GELU"},
-        {"Item": "Val RMSE (Wh)", "Value": 61.031},
-        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
-      ]
-    },
-    {
-      "title": "Frozen factors (for Phase 29)",
-      "rows": [
-        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
-        {"Factor": "lookback_steps", "Value": 144},
-        {"Factor": "target_scaling_option", "Value": "YS1"},
-        {"Factor": "pooling", "Value": "LAST_STEP"},
-        {"Factor": "activation", "Value": "GELU"}
-      ]
+        {
+          "Field": "activation",
+          "Value": "GELU"
+        },
+        {
+          "Field": "batch_size",
+          "Value": 32
+        },
+        {
+          "Field": "best_epoch",
+          "Value": 13
+        },
+        {
+          "Field": "condition",
+          "Value": "GELU"
+        },
+        {
+          "Field": "feature_variant_id",
+          "Value": "FS1_TF1"
+        },
+        {
+          "Field": "learning_rate",
+          "Value": 0.0003
+        },
+        {
+          "Field": "lookback_steps",
+          "Value": 144
+        },
+        {
+          "Field": "pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Field": "run_id",
+          "Value": "RUN_TR_B0_0010_1CEB611E"
+        },
+        {
+          "Field": "sweep_id",
+          "Value": "S6_ACTIVATION"
+        },
+        {
+          "Field": "target_scaling_option",
+          "Value": "YS1"
+        },
+        {
+          "Field": "val_mae",
+          "Value": 28.72
+        },
+        {
+          "Field": "val_r2",
+          "Value": 0.566
+        },
+        {
+          "Field": "val_rmse",
+          "Value": 60.76
+        }
+      ],
+      "title": "Best variant details"
     }
   ],
   "source_artifacts": [
     {
-      "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+      "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+      "role": "manifest",
+      "sha256": "5d353b39745867af67de6680fb142d02744de90bd9aa2ff1e45df2c5c7da79d5"
+    },
+    {
+      "path": "artifacts/sweeps/s6_activation/results.csv",
+      "role": "results",
+      "sha256": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14"
+    },
+    {
+      "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
       "role": "signoff",
-      "sha256": "a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3"
+      "sha256": "8cc9e3fb39f430def02faa81de731a0949478db8192dc7a8d67a2d8915fdb894"
     }
   ],
   "status": "PASS",
   "summary": {
-    "sweep_id": "S6_ACTIVATION",
-    "sweep_version": "SWEEP_S6_ACTIVATION-v1",
-    "winner": "GELU",
-    "winner_val_rmse": 61.03075970888884,
-    "conditions_tested": 2,
-    "new_runs": 1,
-    "reused_runs": 1
+    "Best variant": "N/A",
+    "Sweep code": "S6",
+    "Sweep name": "S6 Activation Sweep",
+    "Variant count": 3
   },
   "technical_details": {
-    "sweep_version": "SWEEP_S6_ACTIVATION-v1",
-    "phase_id": 28,
-    "factor_tested": "activation",
-    "conditions": ["ReLU", "GELU"],
-    "output_paths": ["artifacts/sweeps/s6_activation/"],
-    "tests": ["sweep_design_compliance", "activation_definitions"]
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "GELU",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S6_ACTIVATION",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "config_fingerprint": "S6",
+    "dataset_revision": null,
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/sweeps/s6_activation/results.csv": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14"
+    },
+    "input_paths": [
+      "artifacts/sweeps/s6_activation/results.csv"
+    ],
+    "output_checksums": {
+      "artifacts/sweeps/s6_activation/results.csv": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14",
+      "artifacts/sweeps/s6_activation/sweep_manifest.json": "5d353b39745867af67de6680fb142d02744de90bd9aa2ff1e45df2c5c7da79d5"
+    },
+    "output_paths": [
+      "artifacts/sweeps/s6_activation/sweep_manifest.json",
+      "artifacts/sweeps/s6_activation/results.csv"
+    ],
+    "sweep_code": "S6",
+    "tests": [
+      "results_csv_load",
+      "best_variant_recorded"
+    ],
+    "variant_count": 3
   },
+  "timestamp": "2026-08-21T15:48:18.524065+00:00",
   "warnings": []
 }

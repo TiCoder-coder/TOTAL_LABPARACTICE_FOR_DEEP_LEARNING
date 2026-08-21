@@ -1,58 +1,51 @@
 {
-  "artifact_version": "SWEEP_S8_LEARNINGRATE-v1",
-  "created_at": "2026-08-19T08:05:00.000000+00:00",
-  "phase_id": 30,
-  "phase_version": "PHASE-30-v1",
-  "phase_name": "S8 Learning-Rate Sweep",
-  "status": "PASS",
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S8",
+  "created_at": "2026-08-21T15:48:18.525615+00:00",
+  "dataset_revision": null,
   "discrepancies": [],
-  "warnings": [],
+  "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/sweeps/s7_batch_size/phase_29_signoff.json": "c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6"
+    "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8"
   },
   "input_paths": [
-    "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
-    "artifacts/sweeps/s7_batch_size/s7_reference_update.json"
+    "artifacts/sweeps/s8_learning_rate/results.csv"
   ],
   "output_checksums": {
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_run_contract.json": "c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1",
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_summary.json": "d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
+    "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8",
+    "artifacts/sweeps/s8_learning_rate/sweep_manifest.json": "c31b058ba7b9a7bc92ba86c5ae00800c3def32dd6e7bacd4b1bdc939f26d618c"
   },
   "output_paths": [
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_run_contract.json",
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_summary.json",
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_metrics.csv",
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_pairwise.csv",
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_audit.csv",
-    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_discrepancies.json",
-    "artifacts/sweeps/s8_learning_rate/s8_reference_update.json",
-    "artifacts/sweeps/s8_learning_rate/README_S8_LEARNING_RATE.md",
-    "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json"
+    "artifacts/sweeps/s8_learning_rate/sweep_manifest.json",
+    "artifacts/sweeps/s8_learning_rate/results.csv"
   ],
-  "sweep_design": {
-    "factor_tested": "learning_rate",
-    "conditions": ["LR1", "LR2", "LR3"],
-    "reused_runs": 1,
-    "new_runs": 2
-  },
-  "winner": {
-    "condition": "LR2",
-    "learning_rate": 0.0003,
-    "val_rmse_wh": 61.03075970888884
-  },
-  "frozen_factors": {
-    "feature_variant_id": "FS1_TF1",
-    "lookback_steps": 144,
-    "target_scaling_option": "YS1",
-    "pooling": "LAST_STEP",
-    "activation": "GELU",
-    "batch_size": 64,
-    "learning_rate": 0.0003
+  "phase_id": 30,
+  "phase_version": "PHASE-30-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "LR3",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.001,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S8_LEARNING_RATE",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "sweep_code": "S8",
+    "sweep_name": "S8 Learning-Rate Sweep",
+    "variant_count": 4
   },
   "tests": [
-    "sweep_design_compliance",
-    "learning_rate_values",
-    "constant_lr_check",
-    "test_firewall"
-  ]
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
 }

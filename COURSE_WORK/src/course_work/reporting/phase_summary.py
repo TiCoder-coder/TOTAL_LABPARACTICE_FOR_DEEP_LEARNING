@@ -38,6 +38,15 @@ PHASE_NAMES = {
     19: "Baseline Training Engine",
     20: "LSTM Baseline Run",
     21: "Transformer B0 Run",
+    22: "Learning-Curve Diagnostics",
+    23: "S1 Feature-Set Sweep",
+    24: "S2 Time-Feature Sweep",
+    25: "S3 Target-Scaling Sweep",
+    26: "S4 Lookback Sweep",
+    27: "S5 Pooling Sweep",
+    28: "S6 Activation Sweep",
+    29: "S7 Batch-Size Sweep",
+    30: "S8 Learning-Rate Sweep",
 }
 LOG_FILENAMES = {
     0: "phase_0_coursework_contract_log.json",
@@ -62,6 +71,15 @@ LOG_FILENAMES = {
     19: "phase_19_training_engine_log.json",
     20: "phase_20_lstm_baseline_log.json",
     21: "phase_21_transformer_b0_log.json",
+    22: "phase_22_learning_diagnostics_log.json",
+    23: "phase_23_s1_feature_set_log.json",
+    24: "phase_24_s2_time_feature_log.json",
+    25: "phase_25_s3_target_scaling_log.json",
+    26: "phase_26_s4_lookback_log.json",
+    27: "phase_27_s5_pooling_log.json",
+    28: "phase_28_s6_activation_log.json",
+    29: "phase_29_s7_batch_size_log.json",
+    30: "phase_30_s8_learning_rate_log.json",
 }
 SOURCE_SPECS = {
     0: (
@@ -167,6 +185,51 @@ SOURCE_SPECS = {
         ("summary", "artifacts/transformer_b0/transformer_b0_summary.json"),
         ("contract", "artifacts/transformer_b0/transformer_b0_run_contract.json"),
         ("signoff", "artifacts/transformer_b0/phase_21_signoff.json"),
+    ),
+    22: (
+        ("manifest", "artifacts/learning_diagnostics/learning_diagnostics_manifest.json"),
+        ("summary", "artifacts/learning_diagnostics/learning_diagnostics_summary.csv"),
+        ("signoff", "artifacts/learning_diagnostics/phase_22_signoff.json"),
+    ),
+    23: (
+        ("manifest", "artifacts/sweeps/s1_feature_set/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s1_feature_set/results.csv"),
+        ("signoff", "artifacts/sweeps/s1_feature_set/phase_23_signoff.json"),
+    ),
+    24: (
+        ("manifest", "artifacts/sweeps/s2_time_feature/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s2_time_feature/results.csv"),
+        ("signoff", "artifacts/sweeps/s2_time_feature/phase_24_signoff.json"),
+    ),
+    25: (
+        ("manifest", "artifacts/sweeps/s3_target_scaling/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s3_target_scaling/results.csv"),
+        ("signoff", "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json"),
+    ),
+    26: (
+        ("manifest", "artifacts/sweeps/s4_lookback/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s4_lookback/results.csv"),
+        ("signoff", "artifacts/sweeps/s4_lookback/phase_26_signoff.json"),
+    ),
+    27: (
+        ("manifest", "artifacts/sweeps/s5_pooling/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s5_pooling/results.csv"),
+        ("signoff", "artifacts/sweeps/s5_pooling/phase_27_signoff.json"),
+    ),
+    28: (
+        ("manifest", "artifacts/sweeps/s6_activation/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s6_activation/results.csv"),
+        ("signoff", "artifacts/sweeps/s6_activation/phase_28_signoff.json"),
+    ),
+    29: (
+        ("manifest", "artifacts/sweeps/s7_batch_size/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s7_batch_size/results.csv"),
+        ("signoff", "artifacts/sweeps/s7_batch_size/phase_29_signoff.json"),
+    ),
+    30: (
+        ("manifest", "artifacts/sweeps/s8_learning_rate/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/s8_learning_rate/results.csv"),
+        ("signoff", "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json"),
     ),
 }
 PRESENTATION_SPECS = {
@@ -342,16 +405,86 @@ PRESENTATION_SPECS = {
             {"title": "Run configuration"},
         ),
     },
+    22: {
+        "summary_title": "Learning-curve diagnostics overview",
+        "summary_fields": ("Models analyzed", "Total findings", "LSTM findings", "Transformer findings"),
+        "sections": (
+            {"title": "Diagnostic findings"},
+        ),
+    },
+    23: {
+        "summary_title": "S1 Feature-Set Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
+    24: {
+        "summary_title": "S2 Time-Feature Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
+    25: {
+        "summary_title": "S3 Target-Scaling Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
+    26: {
+        "summary_title": "S4 Lookback Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
+    27: {
+        "summary_title": "S5 Pooling Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
+    28: {
+        "summary_title": "S6 Activation Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
+    29: {
+        "summary_title": "S7 Batch-Size Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
+    30: {
+        "summary_title": "S8 Learning-Rate Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": (
+            {"title": "Best variant details"},
+        ),
+    },
 }
 
 
 def _load_sources(project_root: Path, phase_id: int) -> dict[str, Any]:
     if phase_id not in SOURCE_SPECS:
         raise ValueError(f"Unsupported phase_id: {phase_id}")
-    return {
-        role: read_json(project_root / relative_path)
-        for role, relative_path in SOURCE_SPECS[phase_id]
-    }
+    sources: dict[str, Any] = {}
+    for role, relative_path in SOURCE_SPECS[phase_id]:
+        absolute = project_root / relative_path
+        if relative_path.endswith(".csv"):
+            import csv
+            with absolute.open("r", encoding="utf-8", newline="") as handle:
+                reader = csv.DictReader(handle)
+                sources[role] = [dict(row) for row in reader]
+        else:
+            sources[role] = read_json(absolute)
+    return sources
 
 
 def _deduplicate(values: list[Any]) -> list[Any]:
@@ -1152,6 +1285,61 @@ def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, An
             {"title": "Three-way baseline comparison", "rows": comp_rows},
             {"title": "Run configuration", "rows": config_rows},
         ], technical
+    if phase_id == 22:
+        manifest = sources["manifest"]
+        summary_data = sources["summary"]
+        lstm_count = sum(1 for row in summary_data if row.get("model") == "lstm_b0")
+        transformer_count = sum(1 for row in summary_data if row.get("model") == "transformer_b0")
+        summary = {
+            "Models analyzed": ", ".join(sorted(manifest["models"])) if manifest.get("models") else "N/A",
+            "Total findings": manifest["finding_count"],
+            "LSTM findings": lstm_count,
+            "Transformer findings": transformer_count,
+        }
+        sections = [{
+            "title": "Diagnostic findings",
+            "rows": [
+                {
+                    "Finding ID": row["finding_id"],
+                    "Model": row["model"],
+                    "Code": row["diagnostic_code"],
+                    "Severity": row["severity"],
+                    "Confidence": row["confidence"],
+                    "Action": row["action_type"],
+                    "Title": row["title"],
+                }
+                for row in summary_data
+            ],
+        }]
+        technical = {
+            "finding_count": manifest["finding_count"],
+            "models": manifest["models"],
+        }
+        return summary, sections, technical
+    if 23 <= phase_id <= 30:
+        manifest = sources["manifest"]
+        summary = {
+            "Sweep code": manifest["sweep_code"],
+            "Sweep name": manifest["sweep_name"],
+            "Variant count": manifest["row_count"],
+            "Best variant": (
+                manifest["best_variant"].get("variant", "N/A") if manifest["best_variant"] else "N/A"
+            ),
+        }
+        best_row = manifest["best_variant"] if manifest["best_variant"] else {}
+        sections = [{
+            "title": "Best variant details",
+            "rows": [
+                {"Field": key, "Value": value}
+                for key, value in best_row.items()
+            ],
+        }]
+        technical = {
+            "sweep_code": manifest["sweep_code"],
+            "variant_count": manifest["row_count"],
+            "best_variant": best_row,
+        }
+        return summary, sections, technical
     raise ValueError(f"Unsupported phase_id: {phase_id}")
 
 
@@ -1180,6 +1368,7 @@ def build_phase_processing_log(phase_id: int, project_root: Path) -> dict[str, A
         "artifact_version": signoff.get("artifact_version"),
         "status": signoff["status"],
         "created_at": signoff["created_at"],
+        "timestamp": signoff["created_at"],  # ISO8601 timestamp for training replay
         "summary": summary,
         "sections": sections,
         "warnings": _deduplicate(manifest_warnings + signoff.get("warnings", [])),
@@ -1400,3 +1589,174 @@ def render_phase_summary(phase_id: int, project_root: Path) -> HTML:
     log = build_phase_processing_log(phase_id, project_root)
     save_phase_processing_log(log, project_root)
     return render_phase_log(log)
+
+
+# ---------------------------------------------------------------------------
+# Batch log visualization (all phases at once)
+# ---------------------------------------------------------------------------
+
+
+def _sortable_table_html(df_rows: list[dict[str, Any]]) -> str:
+    if not df_rows:
+        return '<p class="cw-empty">No log files found.</p>'
+
+    columns = ["phase", "phase_name", "timestamp", "status"]
+    optional = ["artifact_version", "path"]
+    present = [c for c in columns + optional if any(c in row for row in df_rows)]
+    visible = present[:8]
+
+    header = "".join(f'<th>{c}</th>' for c in visible)
+    body_rows = []
+    for row in df_rows:
+        cells = "".join(f'<td>{_render_value(row.get(c))}</td>' for c in visible)
+        status = str(row.get("status", "")).lower()
+        tr_class = "cw-row-pass" if status == "pass" else "cw-row-fail"
+        body_rows.append(f'<tr class="{tr_class}" data-phase="{row.get("phase","")}">{cells}</tr>')
+
+    table = (
+        f'<table class="cw-log-table" id="cw-log-table">'
+        f'<thead><tr>{header}</tr></thead>'
+        f'<tbody>{"".join(body_rows)}</tbody></table>'
+    )
+    return table
+
+
+def render_all_logs_summary(project_root: Path) -> HTML:
+    rows = []
+    for phase_id in sorted(LOG_FILENAMES.keys()):
+        path = Path(project_root).resolve() / LOG_ROOT / LOG_FILENAMES[phase_id]
+        if not path.exists():
+            continue
+        try:
+            data = read_json(path)
+        except Exception:
+            continue
+        rows.append({
+            "phase": data.get("phase_id"),
+            "phase_name": data.get("phase_name", ""),
+            "timestamp": data.get("timestamp") or data.get("created_at", ""),
+            "status": data.get("status", ""),
+            "artifact_version": data.get("artifact_version") or data.get("phase_version", ""),
+            "path": path.name,
+        })
+
+    table_html = _sortable_table_html(rows)
+
+    n_pass = sum(1 for r in rows if str(r.get("status", "")).lower() == "pass")
+    n_fail = sum(1 for r in rows if str(r.get("status", "")).lower() != "pass")
+
+    style_template = """
+<style>
+.cw-logs-view{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;margin:14px 0 24px}
+.cw-logs-header{padding:20px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border:1px solid #dbe3ee;border-radius:14px 14px 0 0;border-bottom:none}
+.cw-logs-header h3{font-size:18px;margin:0 0 4px;color:#172033}
+.cw-logs-stats{display:flex;gap:16px;font-size:13px;color:#5d6b82}
+.cw-logs-stats span{font-weight:600}
+.cw-logs-body{border:1px solid #dbe3ee;border-radius:0 0 14px 14px;background:#fff;overflow:hidden}
+.cw-logs-controls{padding:12px 18px;border-bottom:1px solid #e5eaf1;display:flex;gap:12px;align-items:center}
+.cw-logs-controls input{padding:7px 12px;border:1px solid #d0d7e0;border-radius:7px;font-size:13px;width:260px;outline:none}
+.cw-logs-controls input:focus{border-color:#2463a6;box-shadow:0 0 0 3px rgba(36,99,166,.1)}
+.cw-logs-scroll{max-height:520px;overflow:auto}
+.cw-log-table{width:100%;border-collapse:collapse;font-size:13px}
+.cw-log-table thead th{position:sticky;top:0;z-index:3;background:#253b63;color:#fff;font-weight:650;text-align:left;padding:11px 14px;border-right:1px solid rgba(255,255,255,.1);white-space:nowrap;cursor:pointer;user-select:none}
+.cw-log-table thead th:hover{background:#344f7a}
+.cw-log-table thead th::after{content:' ⇅';opacity:.4;font-size:10px}
+.cw-log-table tbody tr{border-bottom:1px solid #edf1f5;cursor:pointer}
+.cw-log-table tbody tr:hover{background:#eaf2ff}
+.cw-log-table tbody tr:last-child{border-bottom:none}
+.cw-log-table td{padding:10px 14px;vertical-align:middle;color:#293548}
+.cw-log-table td:first-child{font-weight:700;color:#253b63}
+.cw-row-pass td:first-child{color:#11613d}
+.cw-row-fail td:first-child{color:#8f2430}
+.cw-detail-panel{display:none;padding:16px 22px;background:#f8fafc;border-top:1px solid #e5eaf1;font-size:12.5px;color:#334155}
+.cw-detail-panel.open{display:block}
+.cw-detail-panel pre{background:#1e2a3a;color:#e2e8f0;padding:12px 14px;border-radius:8px;overflow:auto;max-height:300px;margin:8px 0 0;font-size:12px;line-height:1.5}
+.cw-empty{margin:0;padding:20px;color:#64748b;font-size:13px}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var table=document.getElementById('cw-log-table');
+  if(!table)return;
+  // Search filter
+  var searchInput=document.getElementById('cw-log-search');
+  if(searchInput){
+    searchInput.addEventListener('input',function(){
+      var q=this.value.toLowerCase();
+      table.querySelectorAll('tbody tr').forEach(function(tr){
+        tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none';
+      });
+    });
+  }
+  // Sort on header click
+  table.querySelectorAll('thead th').forEach(function(th,colIdx){
+    th.addEventListener('click',function(){
+      var asc=th.dataset.dir!=='asc';
+      table.querySelectorAll('thead th').forEach(function(h){h.dataset.dir='';h.classList.remove('cw-sort-asc','cw-sort-desc');});
+      th.dataset.dir=asc?'asc':'desc';
+      th.classList.add(asc?'cw-sort-asc':'cw-sort-desc');
+      var rows=Array.from(table.querySelectorAll('tbody tr'));
+      rows.sort(function(a,b){
+        var av=a.cells[colIdx]?a.cells[colIdx].textContent.trim():'';
+        var bv=b.cells[colIdx]?b.cells[colIdx].textContent.trim():'';
+        var an=parseFloat(av),bn=parseFloat(bv);
+        if(!isNaN(an)&&!isNaN(bn))return asc?an-bn:bn-an;
+        return asc?av.localeCompare(bv):bv.localeCompare(av);
+      });
+      rows.forEach(function(r){table.tBodies[0].appendChild(r);});
+    });
+  });
+  // Toggle detail panel on row click
+  table.querySelectorAll('tbody tr').forEach(function(tr){
+    tr.addEventListener('click',function(){
+      var panel=tr.nextElementSibling;
+      if(!panel||!panel.classList.contains('cw-detail-panel')){
+        var div=document.createElement('tr');
+        div.innerHTML='<td colspan="99"><div class="cw-detail-panel">loading...</div></td>';
+        tr.parentNode.insertBefore(div.firstChild,tr.nextSibling);
+        panel=tr.nextElementSibling;
+      }
+      panel.classList.toggle('open');
+      if(panel.classList.contains('open')&&!panel.dataset.loaded){
+        var phase=tr.dataset.phase;
+        panel.dataset.loaded='1';
+        var match=Array.from(table.querySelectorAll('tbody tr')).indexOf(tr);
+        var logRows=window.__cw_log_rows||[];
+        var data=logRows[match];
+        if(data){
+          panel.innerHTML='<div class="cw-detail-panel open"><pre>'+JSON.stringify(data,null,2)+'</pre></div>';
+        }
+      }
+    });
+  });
+  window.__cw_log_rows=arguments[0];
+}.bind(null,__CW_LOG_ROWS__));
+</script>
+"""
+    style = style_template.replace("__CW_LOG_ROWS__", json.dumps(rows))
+
+    controls = '<div class="cw-logs-controls"><input id="cw-log-search" type="text" placeholder="Filter phases, names, status..."></div>'
+    return HTML(
+        f'<div class="cw-logs-view">'
+        f'<div class="cw-logs-header"><h3>Phase Processing Logs</h3>'
+        f'<div class="cw-logs-stats"><span>{len(rows)} phases</span>'
+        f' <span style="color:#11613d">&#10003; {n_pass} PASS</span>'
+        f' <span style="color:#8f2430">&#10007; {n_fail} FAIL</span></div></div>'
+        f'<div class="cw-logs-body">{controls}<div class="cw-logs-scroll">{table_html}</div></div>'
+        f'{style}</div>'
+    )
+
+
+def load_and_render_all_logs(project_root: Path) -> HTML:
+    """Convenience: build log dicts, save to disk, and return interactive HTML."""
+    rows_data = []
+    for phase_id in sorted(LOG_FILENAMES.keys()):
+        path = Path(project_root).resolve() / LOG_ROOT / LOG_FILENAMES[phase_id]
+        if not path.exists():
+            continue
+        try:
+            data = read_json(path)
+        except Exception:
+            continue
+        rows_data.append(data)
+        save_phase_processing_log(data, project_root)
+    return render_all_logs_summary(project_root)

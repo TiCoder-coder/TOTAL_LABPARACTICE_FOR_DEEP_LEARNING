@@ -1,52 +1,51 @@
 {
-  "artifact_version": "SWEEP_S5_POOLING-v1",
-  "created_at": "2026-08-19T07:50:00.000000+00:00",
-  "phase_id": 27,
-  "phase_version": "PHASE-27-v1",
-  "phase_name": "S5 Pooling Sweep",
-  "status": "PASS",
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S5",
+  "created_at": "2026-08-21T15:48:18.522793+00:00",
+  "dataset_revision": null,
   "discrepancies": [],
-  "warnings": [],
+  "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/sweeps/s4_lookback/phase_26_signoff.json": "f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3"
+    "artifacts/sweeps/s5_pooling/results.csv": "370f9df1bcf522e60e054afa4196ca6892a47d894669545a29cdfdb96f7b2949"
   },
   "input_paths": [
-    "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
-    "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+    "artifacts/sweeps/s5_pooling/results.csv"
   ],
   "output_checksums": {
-    "artifacts/sweeps/s5_pooling/s5_pooling_run_contract.json": "d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6",
-    "artifacts/sweeps/s5_pooling/s5_pooling_summary.json": "e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7"
+    "artifacts/sweeps/s5_pooling/results.csv": "370f9df1bcf522e60e054afa4196ca6892a47d894669545a29cdfdb96f7b2949",
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json": "bc161724aaf903d0a9ff84abc4399370ba909c94e9010212cdc24be4735e493e"
   },
   "output_paths": [
-    "artifacts/sweeps/s5_pooling/s5_pooling_run_contract.json",
-    "artifacts/sweeps/s5_pooling/s5_pooling_summary.json",
-    "artifacts/sweeps/s5_pooling/s5_pooling_metrics.csv",
-    "artifacts/sweeps/s5_pooling/s5_pooling_audit.csv",
-    "artifacts/sweeps/s5_pooling/s5_pooling_discrepancies.json",
-    "artifacts/sweeps/s5_pooling/s5_reference_update.json",
-    "artifacts/sweeps/s5_pooling/README_S5_POOLING.md",
-    "artifacts/sweeps/s5_pooling/phase_27_signoff.json"
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+    "artifacts/sweeps/s5_pooling/results.csv"
   ],
-  "sweep_design": {
-    "factor_tested": "pooling",
-    "conditions": ["LAST_STEP", "MEAN"],
-    "reused_runs": 1,
-    "new_runs": 1
-  },
-  "winner": {
-    "condition": "LAST_STEP",
-    "val_rmse_wh": 61.03075970888884
-  },
-  "frozen_factors": {
-    "feature_variant_id": "FS1_TF1",
-    "lookback_steps": 144,
-    "target_scaling_option": "YS1",
-    "pooling": "LAST_STEP"
+  "phase_id": 27,
+  "phase_version": "PHASE-27-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "LAST_STEP",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S5_POOLING",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "sweep_code": "S5",
+    "sweep_name": "S5 Pooling Sweep",
+    "variant_count": 3
   },
   "tests": [
-    "sweep_design_compliance",
-    "pooling_definitions",
-    "test_firewall"
-  ]
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
 }

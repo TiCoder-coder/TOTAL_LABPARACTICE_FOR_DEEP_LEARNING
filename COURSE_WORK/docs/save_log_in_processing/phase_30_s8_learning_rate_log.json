@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP_S8_LEARNINGRATE-v1",
-  "created_at": "2026-08-19T08:05:00.000000+00:00",
+  "artifact_version": "SWEEP-v1",
+  "created_at": "2026-08-21T15:48:18.525615+00:00",
   "discrepancies": [],
   "phase_id": 30,
   "phase_name": "S8 Learning-Rate Sweep",
@@ -8,70 +8,132 @@
   "presentation_version": "PHASE-PRESENTATION-v2",
   "sections": [
     {
-      "title": "Sweep conditions",
       "rows": [
-        {"Condition": "LR1", "Learning Rate": "1e-4", "Status": "PENDING"},
-        {"Condition": "LR2", "Learning Rate": "3e-4", "Status": "REUSED"},
-        {"Condition": "LR3", "Learning Rate": "1e-3", "Status": "PENDING"}
-      ]
-    },
-    {
-      "title": "Results",
-      "rows": [
-        {"Condition": "LR1", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"},
-        {"Condition": "LR2", "Val RMSE (Wh)": 61.031, "Best Epoch": 12},
-        {"Condition": "LR3", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING"}
-      ]
-    },
-    {
-      "title": "Winner selection",
-      "rows": [
-        {"Item": "Winner", "Value": "LR2"},
-        {"Item": "Learning Rate", "Value": "3e-4"},
-        {"Item": "Val RMSE (Wh)", "Value": 61.031},
-        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
-      ]
-    },
-    {
-      "title": "Final config (S1-S8)",
-      "rows": [
-        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
-        {"Factor": "lookback_steps", "Value": 144},
-        {"Factor": "target_scaling_option", "Value": "YS1"},
-        {"Factor": "pooling", "Value": "LAST_STEP"},
-        {"Factor": "activation", "Value": "GELU"},
-        {"Factor": "batch_size", "Value": 64},
-        {"Factor": "learning_rate", "Value": "3e-4"},
-        {"Factor": "weight_decay", "Value": "1e-4"},
-        {"Factor": "seed", "Value": 42}
-      ]
+        {
+          "Field": "activation",
+          "Value": "GELU"
+        },
+        {
+          "Field": "batch_size",
+          "Value": 32
+        },
+        {
+          "Field": "best_epoch",
+          "Value": 13
+        },
+        {
+          "Field": "condition",
+          "Value": "LR3"
+        },
+        {
+          "Field": "feature_variant_id",
+          "Value": "FS1_TF1"
+        },
+        {
+          "Field": "learning_rate",
+          "Value": 0.001
+        },
+        {
+          "Field": "lookback_steps",
+          "Value": 144
+        },
+        {
+          "Field": "pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Field": "run_id",
+          "Value": "RUN_TR_B0_0010_1CEB611E"
+        },
+        {
+          "Field": "sweep_id",
+          "Value": "S8_LEARNING_RATE"
+        },
+        {
+          "Field": "target_scaling_option",
+          "Value": "YS1"
+        },
+        {
+          "Field": "val_mae",
+          "Value": 28.72
+        },
+        {
+          "Field": "val_r2",
+          "Value": 0.566
+        },
+        {
+          "Field": "val_rmse",
+          "Value": 60.76
+        }
+      ],
+      "title": "Best variant details"
     }
   ],
   "source_artifacts": [
     {
-      "path": "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
+      "path": "artifacts/sweeps/s8_learning_rate/sweep_manifest.json",
+      "role": "manifest",
+      "sha256": "c31b058ba7b9a7bc92ba86c5ae00800c3def32dd6e7bacd4b1bdc939f26d618c"
+    },
+    {
+      "path": "artifacts/sweeps/s8_learning_rate/results.csv",
+      "role": "results",
+      "sha256": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8"
+    },
+    {
+      "path": "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json",
       "role": "signoff",
-      "sha256": "c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5"
+      "sha256": "64287efd509cdc0e42b672e8ad364332352b0d63c432ddf3486da29f9fdb0329"
     }
   ],
   "status": "PASS",
   "summary": {
-    "sweep_id": "S8_LEARNING_RATE",
-    "sweep_version": "SWEEP_S8_LEARNINGRATE-v1",
-    "winner": "LR2",
-    "winner_learning_rate": "3e-4",
-    "winner_val_rmse": 61.03075970888884,
-    "conditions_tested": 3,
-    "new_runs": 2,
-    "reused_runs": 1
+    "Best variant": "N/A",
+    "Sweep code": "S8",
+    "Sweep name": "S8 Learning-Rate Sweep",
+    "Variant count": 4
   },
   "technical_details": {
-    "sweep_version": "SWEEP_S8_LEARNINGRATE-v1",
-    "phase_id": 30,
-    "factor_tested": "learning_rate",
-    "conditions": ["LR1", "LR2", "LR3"],
-    "output_paths": ["artifacts/sweeps/s8_learning_rate/"],
-    "tests": ["sweep_design_compliance", "learning_rate_values", "constant_lr_check"]
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "LR3",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.001,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S8_LEARNING_RATE",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "config_fingerprint": "S8",
+    "dataset_revision": null,
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8"
+    },
+    "input_paths": [
+      "artifacts/sweeps/s8_learning_rate/results.csv"
+    ],
+    "output_checksums": {
+      "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8",
+      "artifacts/sweeps/s8_learning_rate/sweep_manifest.json": "c31b058ba7b9a7bc92ba86c5ae00800c3def32dd6e7bacd4b1bdc939f26d618c"
+    },
+    "output_paths": [
+      "artifacts/sweeps/s8_learning_rate/sweep_manifest.json",
+      "artifacts/sweeps/s8_learning_rate/results.csv"
+    ],
+    "sweep_code": "S8",
+    "tests": [
+      "results_csv_load",
+      "best_variant_recorded"
+    ],
+    "variant_count": 4
   },
+  "timestamp": "2026-08-21T15:48:18.525615+00:00",
   "warnings": []
 }

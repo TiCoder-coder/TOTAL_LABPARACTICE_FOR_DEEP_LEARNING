@@ -259,6 +259,19 @@ def materialize_phase_1(project_root: Path | None = None) -> dict[str, Any]:
     smoke = device_smoke_test()
     if smoke["status"] != "PASS":
         raise RuntimeError("Environment smoke test failed")
+    # GPU enforcement: training on CPU is prohibitively slow
+    cuda_available = torch.cuda.is_available()
+    mps_available = torch.backends.mps.is_built() and torch.backends.mps.is_available()
+    if not cuda_available and not mps_available:
+        raise RuntimeError(
+            "No GPU detected (no CUDA/MPS available). "
+            "Training on CPU is prohibitively slow. "
+            "Please ensure PyTorch with CUDA or MPS support is installed, "
+            "or set the appropriate environment (e.g., activate a GPU-enabled venv)."
+        )
+    device_type = "cuda" if cuda_available else "mps"
+    device_name = torch.cuda.get_device_name(0) if cuda_available else "Apple Silicon MPS"
+    print(f"[ENV] GPU detected: {device_type} | {device_name}", flush=True)
     freeze = dependency_freeze()
     if environment_path.exists():
         environment_report = read_json(environment_path)

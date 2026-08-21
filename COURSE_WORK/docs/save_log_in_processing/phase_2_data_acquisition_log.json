@@ -1,6 +1,6 @@
 {
   "artifact_version": "DATA-v1",
-  "created_at": "2026-08-18T01:45:11.245802+00:00",
+  "created_at": "2026-08-20T16:15:28.917343+00:00",
   "discrepancies": [],
   "phase_id": 2,
   "phase_name": "Data Acquisition",
@@ -37,12 +37,12 @@
     {
       "path": "data/raw_data/dataset_manifest.json",
       "role": "dataset",
-      "sha256": "73a4a8541dfd19c93dec7b7f37f553b7d2d747e479a7aa807aba29623dce0627"
+      "sha256": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300"
     },
     {
       "path": "artifacts/acquisition/phase_2_signoff.json",
       "role": "signoff",
-      "sha256": "706126dbeddf3d68f8661b8a9a6dffb3fd7464f6830a366c91b4c841f92efb77"
+      "sha256": "18eb34d3037be9b9b946a90233e66601e61c3d700a9237e37899f36a714dd556"
     }
   ],
   "status": "PASS",
@@ -63,7 +63,7 @@
     "dataset_revision": "DATA-v1",
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/environment/phase_1_signoff.json": "2ba91cf49b979f3a4b5443db915c247a41c6ce85d54b69c661b4fe3fa4c55da5",
+      "artifacts/environment/phase_1_signoff.json": "f909c62d3b280c7d8f3c14479fa0366bb87cc97d61c9843e069c76085282546f",
       "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
     },
     "input_paths": [
@@ -71,10 +71,10 @@
       "data/raw_data/energydata_complete.csv"
     ],
     "output_checksums": {
-      "artifacts/acquisition/acquisition_log.json": "0b0a041aafed0ca93dcab9b64df1bb469ccdea992fb2bd61b34dfc63592c4968",
-      "data/raw_data/README_SOURCE.md": "069217e3ee5daa3251bb491ea5b6a175f2ea8db329081f2cce5f3ea7c3e85133",
+      "artifacts/acquisition/acquisition_log.json": "010695e4487fbd39ea466cdd73bafc2bbd0c6b964f2f688d361076154c5186e7",
+      "data/raw_data/README_SOURCE.md": "83866357c3fbc9ca0b301516aa330f50a9f0b7310023ecb7cbbaa114af89f015",
       "data/raw_data/checksums.sha256": "3dd998be0f1b9e9893042e6833907e2d309016f421325dfb6f93c0716c0d9daa",
-      "data/raw_data/dataset_manifest.json": "73a4a8541dfd19c93dec7b7f37f553b7d2d747e479a7aa807aba29623dce0627",
+      "data/raw_data/dataset_manifest.json": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300",
       "data/raw_data/source/appliances_energy_prediction.zip": "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a",
       "data/raw_data/source_metadata.json": "9f8a133dfbfd350968fd4171267d706b2e5c3745ef13ac1c0449532e6cde8e0d",
       "data/raw_data/variable_metadata.csv": "e84c1b164bae0ff267e438681b0d9b9d8f6483e61f4dbf1c1ff771e3a2eb3bd3"
@@ -98,5 +98,6 @@
       "raw_immutability"
     ]
   },
+  "timestamp": "2026-08-20T16:15:28.917343+00:00",
   "warnings": []
 }

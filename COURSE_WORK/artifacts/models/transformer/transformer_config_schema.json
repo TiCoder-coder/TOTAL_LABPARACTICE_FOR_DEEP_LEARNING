@@ -34,6 +34,7 @@
     144
   ],
   "supported_poolings": [
-    "LAST_STEP"
+    "LAST_STEP",
+    "MEAN"
   ]
 }

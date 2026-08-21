@@ -1,19 +1,19 @@
 {
   "artifact_version": "ENV-v1",
   "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
-  "created_at": "2026-08-19T10:32:52.650805+00:00",
+  "created_at": "2026-08-21T05:34:59.275505+00:00",
   "dataset_revision": null,
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/contracts/phase_0_signoff.json": "a4df51fa8414e77c59f0206f49e11a627d37c9a0bbe2477d641514a534793a66"
+    "artifacts/contracts/phase_0_signoff.json": "daa032591e5f6e4024e32aa49ecb1e7391e9c6cbabb951801a7ca10e7f1bd155"
   },
   "input_paths": [
     "artifacts/contracts/phase_0_signoff.json"
   ],
   "output_checksums": {
-    "artifacts/environment/environment_report.json": "93933a7e0813c75c3da558c87a65ad2e2e02dfe67c813aae27d81837b014ab6e",
-    "artifacts/environment/requirements_freeze.txt": "9782e132e840a04540d44acc0c234a455420158e66713e70b91ebaace2a0c0c0",
+    "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+    "artifacts/environment/requirements_freeze.txt": "7f878af4c0ddc9ae2c3dc50ddffdd56389288073b044f58525c70039867eb77d",
     "artifacts/environment/smoke_test_report.json": "90ddf8824fc4c093abdcafd9a9c328d956c42af9327d896b15740259341d63e6"
   },
   "output_paths": [

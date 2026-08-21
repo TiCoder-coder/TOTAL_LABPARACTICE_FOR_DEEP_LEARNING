@@ -1,7 +1,0 @@
-{
-  "diminishing_return_analysis": "PENDING",
-  "L36_to_L72_gain_rmse": null,
-  "L72_to_L144_gain_rmse": null,
-  "gain_ratio": null,
-  "interpretation": "Analysis pending after L36 and L72 training completes"
-}

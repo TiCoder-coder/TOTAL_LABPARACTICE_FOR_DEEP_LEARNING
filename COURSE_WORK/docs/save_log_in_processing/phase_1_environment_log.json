@@ -1,6 +1,6 @@
 {
   "artifact_version": "ENV-v1",
-  "created_at": "2026-08-18T01:45:09.755225+00:00",
+  "created_at": "2026-08-21T05:34:59.275505+00:00",
   "discrepancies": [],
   "phase_id": 1,
   "phase_name": "Environment",
@@ -90,17 +90,17 @@
     {
       "path": "artifacts/environment/environment_report.json",
       "role": "environment",
-      "sha256": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9"
+      "sha256": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54"
     },
     {
       "path": "artifacts/environment/smoke_test_report.json",
       "role": "smoke_test",
-      "sha256": "03573a66b9ec7af94d86df2cd8c523fd2d20a25f0cb8ae5773bc6322eaea3b1a"
+      "sha256": "90ddf8824fc4c093abdcafd9a9c328d956c42af9327d896b15740259341d63e6"
     },
     {
       "path": "artifacts/environment/phase_1_signoff.json",
       "role": "signoff",
-      "sha256": "2ba91cf49b979f3a4b5443db915c247a41c6ce85d54b69c661b4fe3fa4c55da5"
+      "sha256": "9eda4c9ce15121afd3534326b50fcea3ffe7ab7654faa49f80ba7753f6a358c0"
     }
   ],
   "status": "PASS",
@@ -109,24 +109,24 @@
     "Deterministic mode": "D0",
     "Environment": "ENV-v1",
     "Kernel": "coursework-venv",
-    "Kernel matches interpreter": false,
-    "Python": "3.10.11",
-    "Selected device": "cpu"
+    "Kernel matches interpreter": true,
+    "Python": "3.10.21",
+    "Selected device": "mps"
   },
   "technical_details": {
     "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
     "dataset_revision": null,
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/contracts/phase_0_signoff.json": "74f3c513cafe4a893d0ed6104455a1a5ef62612c0fe95fa9c59867e7dbcfef3b"
+      "artifacts/contracts/phase_0_signoff.json": "daa032591e5f6e4024e32aa49ecb1e7391e9c6cbabb951801a7ca10e7f1bd155"
     },
     "input_paths": [
       "artifacts/contracts/phase_0_signoff.json"
     ],
     "output_checksums": {
-      "artifacts/environment/environment_report.json": "ea21bd52b3fc842a892d158884571b6a153c808191c55f448fceed25a411d6f9",
-      "artifacts/environment/requirements_freeze.txt": "ffdf507b0ec92b65e853de33b23ad357603cec9afc481f82b0af0b6d998f3344",
-      "artifacts/environment/smoke_test_report.json": "03573a66b9ec7af94d86df2cd8c523fd2d20a25f0cb8ae5773bc6322eaea3b1a"
+      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+      "artifacts/environment/requirements_freeze.txt": "7f878af4c0ddc9ae2c3dc50ddffdd56389288073b044f58525c70039867eb77d",
+      "artifacts/environment/smoke_test_report.json": "90ddf8824fc4c093abdcafd9a9c328d956c42af9327d896b15740259341d63e6"
     },
     "output_paths": [
       "artifacts/environment/environment_report.json",
@@ -143,5 +143,6 @@
       "randomness_repeatability"
     ]
   },
+  "timestamp": "2026-08-21T05:34:59.275505+00:00",
   "warnings": []
 }

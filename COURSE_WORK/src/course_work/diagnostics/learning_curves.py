@@ -214,6 +214,9 @@ class LearningCurveDiagnostics:
     """Main class for Phase 22 Learning-Curve Diagnostics."""
 
     DIAGNOSTIC_VERSION = "LEARNING_DIAGNOSTICS-v1"
+    # Legacy hard-coded IDs kept for backward compatibility with tests/fixtures.
+    # New code should pass ``lstm_run_id`` / ``transformer_run_id`` explicitly
+    # or let ``__init__`` auto-discover from the registry.
     LSTM_RUN_ID = "RUN_LS_LS_0013_63C7E5ED"
     TRANSFORMER_RUN_ID = "RUN_TR_B0_0014_00EF3A31"
 
@@ -239,10 +242,120 @@ class LearningCurveDiagnostics:
         "boundary_protocol": "S19",
     }
 
-    def __init__(self, artifacts_dir: Path) -> None:
+    @staticmethod
+    def _discover_run_id(registry: Any, family_id: str) -> str | None:
+        """Return the most-recently-completed run_id for ``family_id`` or ``None``.
+
+        Two-tier lookup:
+        1. Registry: ``registry.get_runs_by_family(family_id)`` — preferred
+           for runs that were registered after EXPERIMENT_FAMILIES was defined.
+        2. Filesystem: scan ``artifacts/runs/<id>/status.json`` for completed
+           runs whose ``model_family`` matches the family's model, then
+           filter by an inference rule on the run_id prefix. This catches
+           orphan runs from earlier (pre-registry) sessions whose config /
+           artifacts are still on disk and signed off.
+
+        Returns ``None`` if neither tier finds a match.
+        """
+        # Tier 1: registry lookup
+        if registry is not None:
+            try:
+                records = registry.get_runs_by_family(family_id)
+                completed = [r for r in records if r.get("status") == "COMPLETED"]
+                if completed:
+                    def _started(rec: dict[str, Any]) -> str:
+                        return (
+                            rec.get("started_at")
+                            or rec.get("created_at")
+                            or rec.get("registered_at")
+                            or ""
+                        )
+                    completed.sort(key=_started, reverse=True)
+                    return completed[0]["run_id"]
+            except Exception:
+                pass
+
+        # Tier 2: filesystem scan. We map family_id -> (model_family, run_id_prefix).
+        family_model_map = {
+            "LSTM_BASELINE": ("LSTM", "RUN_LS_"),
+            "TRANSFORMER_BASELINE": ("TRANSFORMER_ENCODER", "RUN_TR_"),
+        }
+        if family_id not in family_model_map:
+            return None
+        target_model, prefix = family_model_map[family_id]
+
+        try:
+            registry_root = Path(registry.run_root) if registry is not None else None
+        except Exception:
+            registry_root = None
+        if registry_root is None:
+            return None
+        candidates: list[tuple[str, str]] = []
+        for run_dir in registry_root.iterdir():
+            if not run_dir.is_dir() or not run_dir.name.startswith(prefix):
+                continue
+            status_path = run_dir / "status.json"
+            config_path = run_dir / "config.json"
+            if not (status_path.exists() and config_path.exists()):
+                continue
+            try:
+                status = json.loads(status_path.read_text(encoding="utf-8"))
+                config = json.loads(config_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            if status.get("status") != "COMPLETED":
+                continue
+            cfg = config.get("config", config)
+            model_family = cfg.get("model", {}).get("model_family")
+            if model_family != target_model:
+                continue
+            started = (
+                status.get("started_at")
+                or status.get("created_at")
+                or status.get("registered_at")
+                or ""
+            )
+            candidates.append((started, run_dir.name))
+        if not candidates:
+            return None
+        candidates.sort(key=lambda x: x[0], reverse=True)
+        return candidates[0][1]
+
+    def __init__(
+        self,
+        artifacts_dir: Path,
+        *,
+        lstm_run_id: str | None = None,
+        transformer_run_id: str | None = None,
+        registry: Any | None = None,
+    ) -> None:
         self.artifacts_dir = Path(artifacts_dir)
-        self.lstm_run_dir = self.artifacts_dir / "runs" / self.LSTM_RUN_ID
-        self.transformer_run_dir = self.artifacts_dir / "runs" / self.TRANSFORMER_RUN_ID
+        # Resolve run IDs from explicit args → registry discovery → legacy
+        # hard-coded fallback. This keeps the heavy Phase 19/20/21 materials
+        # deterministic when callers pin a specific run, but lets Phase 22
+        # find the latest completed run automatically.
+        if registry is None:
+            try:
+                from course_work.experiments.registry import ExperimentRegistry  # noqa: PLC0415
+                # The registry expects the project root (a directory containing
+                # ``artifacts/``), not the artifacts directory itself. The
+                # ``artifacts_dir`` kwarg here is the directory that contains
+                # ``runs/``, so its parent is the project root.
+                project_root = self.artifacts_dir.parent if self.artifacts_dir.name == "artifacts" else self.artifacts_dir
+                registry = ExperimentRegistry(project_root)
+            except Exception:
+                registry = None
+        self._registry = registry
+        resolved_lstm = lstm_run_id or self._discover_run_id(registry, "LSTM_BASELINE") or self.LSTM_RUN_ID
+        resolved_transformer = (
+            transformer_run_id
+            or self._discover_run_id(registry, "TRANSFORMER_BASELINE")
+            or self.TRANSFORMER_RUN_ID
+        )
+        self.lstm_run_id = resolved_lstm
+        self.transformer_run_id = resolved_transformer
+        self.lstm_run_dir = self.artifacts_dir / "runs" / self.lstm_run_id
+        self.transformer_run_dir = self.artifacts_dir / "runs" / self.transformer_run_id
         self.output_dir = self.artifacts_dir / "learning_diagnostics"
         self.output_dir.mkdir(parents=True, exist_ok=True)
 

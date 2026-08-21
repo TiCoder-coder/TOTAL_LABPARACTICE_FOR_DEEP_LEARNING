@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP_S1_FEATURESET-v1",
-  "created_at": "2026-08-19T07:30:00.000000+00:00",
+  "artifact_version": "SWEEP-v1",
+  "created_at": "2026-08-21T15:48:18.517862+00:00",
   "discrepancies": [],
   "phase_id": 23,
   "phase_name": "S1 Feature-Set Sweep",
@@ -8,82 +8,132 @@
   "presentation_version": "PHASE-PRESENTATION-v2",
   "sections": [
     {
-      "title": "Sweep conditions",
       "rows": [
-        {"Condition": "FS0_TF1", "Features": "Exogenous only", "Feature Count": 30, "Status": "PENDING"},
-        {"Condition": "FS1_TF1", "Features": "Exogenous + Historical target", "Feature Count": 31, "Status": "REUSED"},
-        {"Condition": "FS2_TF1", "Features": "Exogenous + Historical + Random controls", "Feature Count": 33, "Status": "PENDING"}
-      ]
-    },
-    {
-      "title": "Results",
-      "rows": [
-        {"Condition": "FS0_TF1", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING", "Status": "PENDING"},
-        {"Condition": "FS1_TF1", "Val RMSE (Wh)": 61.031, "Best Epoch": 12, "Status": "REUSED"},
-        {"Condition": "FS2_TF1", "Val RMSE (Wh)": "PENDING", "Best Epoch": "PENDING", "Status": "PENDING"}
-      ]
-    },
-    {
-      "title": "Winner selection",
-      "rows": [
-        {"Item": "Winner", "Value": "FS1_TF1"},
-        {"Item": "Run ID", "Value": "RUN_TR_B0_0014_00EF3A31"},
-        {"Item": "Val RMSE (Wh)", "Value": 61.031},
-        {"Item": "Selection metric", "Value": "Validation RMSE Wh (min)"}
-      ]
-    },
-    {
-      "title": "Hypothesis outcomes",
-      "rows": [
-        {"Hypothesis": "H1: Historical target helps", "Outcome": "SUPPORTED", "Evidence": "FS1_TF1 beats FS0_TF1"},
-        {"Hypothesis": "H2: Random controls help", "Outcome": "PENDING", "Evidence": "Awaiting FS2_TF1 training"}
-      ]
-    },
-    {
-      "title": "Frozen factors (for Phase 24)",
-      "rows": [
-        {"Factor": "feature_variant_id", "Value": "FS1_TF1"},
-        {"Factor": "lookback_steps", "Value": 144},
-        {"Factor": "target_scaling_option", "Value": "YS1"},
-        {"Factor": "batch_size", "Value": 64},
-        {"Factor": "learning_rate", "Value": "3e-4"}
-      ]
+        {
+          "Field": "activation",
+          "Value": "GELU"
+        },
+        {
+          "Field": "batch_size",
+          "Value": 32
+        },
+        {
+          "Field": "best_epoch",
+          "Value": 14
+        },
+        {
+          "Field": "condition",
+          "Value": "FS2_TF1"
+        },
+        {
+          "Field": "feature_variant_id",
+          "Value": "FS2_TF1"
+        },
+        {
+          "Field": "learning_rate",
+          "Value": 0.0003
+        },
+        {
+          "Field": "lookback_steps",
+          "Value": 144
+        },
+        {
+          "Field": "pooling",
+          "Value": "LAST_STEP"
+        },
+        {
+          "Field": "run_id",
+          "Value": "RUN_TR_S01_0006_FS2TF1"
+        },
+        {
+          "Field": "sweep_id",
+          "Value": "S1_FEATURE_SET"
+        },
+        {
+          "Field": "target_scaling_option",
+          "Value": "YS1"
+        },
+        {
+          "Field": "val_mae",
+          "Value": 28.55
+        },
+        {
+          "Field": "val_r2",
+          "Value": 0.572
+        },
+        {
+          "Field": "val_rmse",
+          "Value": 60.45
+        }
+      ],
+      "title": "Best variant details"
     }
   ],
   "source_artifacts": [
     {
-      "path": "artifacts/learning_diagnostics/phase_22_signoff.json",
-      "role": "signoff",
-      "sha256": "e8a9f0b1c2d3e4f5a6b7c8d9e0f1a2b3c4"
+      "path": "artifacts/sweeps/s1_feature_set/sweep_manifest.json",
+      "role": "manifest",
+      "sha256": "fc65339378476add781b6ee874c9095b6b1aeb217902c015aa1acf929a5428a6"
     },
     {
-      "path": "artifacts/transformer_b0/phase_21_signoff.json",
+      "path": "artifacts/sweeps/s1_feature_set/results.csv",
+      "role": "results",
+      "sha256": "d00ecc39c7b26f73f9a8c1f7af3a8e43345606ddce9a5059bc8ca811a39093cd"
+    },
+    {
+      "path": "artifacts/sweeps/s1_feature_set/phase_23_signoff.json",
       "role": "signoff",
-      "sha256": "f9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5"
+      "sha256": "8cf82f28c76d8c15e513bb31947d44fd339deb495927fb232287a490e90f09f2"
     }
   ],
   "status": "PASS",
   "summary": {
-    "sweep_id": "S1_FEATURE_SET",
-    "sweep_version": "SWEEP_S1_FEATURESET-v1",
-    "winner": "FS1_TF1",
-    "winner_run_id": "RUN_TR_B0_0014_00EF3A31",
-    "winner_val_rmse": 61.03075970888884,
-    "conditions_tested": 3,
-    "new_runs": 2,
-    "reused_runs": 1
+    "Best variant": "N/A",
+    "Sweep code": "S1",
+    "Sweep name": "S1 Feature-Set Sweep",
+    "Variant count": 6
   },
   "technical_details": {
-    "sweep_version": "SWEEP_S1_FEATURESET-v1",
-    "phase_id": 23,
-    "factor_tested": "feature_variant_id",
-    "conditions": ["FS0_TF1", "FS1_TF1", "FS2_TF1"],
-    "new_runs": ["FS0_TF1", "FS2_TF1"],
-    "reused_runs": ["FS1_TF1"],
-    "output_paths": [
-      "artifacts/sweeps/s1_feature_set/"
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 14,
+      "condition": "FS2_TF1",
+      "feature_variant_id": "FS2_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_S01_0006_FS2TF1",
+      "sweep_id": "S1_FEATURE_SET",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.55,
+      "val_r2": 0.572,
+      "val_rmse": 60.45
+    },
+    "config_fingerprint": "S1",
+    "dataset_revision": null,
+    "environment_id": "ENV-v1",
+    "input_checksums": {
+      "artifacts/sweeps/s1_feature_set/results.csv": "d00ecc39c7b26f73f9a8c1f7af3a8e43345606ddce9a5059bc8ca811a39093cd"
+    },
+    "input_paths": [
+      "artifacts/sweeps/s1_feature_set/results.csv"
     ],
-    "tests": ["sweep_design_compliance", "reference_run_verification"]
+    "output_checksums": {
+      "artifacts/sweeps/s1_feature_set/results.csv": "d00ecc39c7b26f73f9a8c1f7af3a8e43345606ddce9a5059bc8ca811a39093cd",
+      "artifacts/sweeps/s1_feature_set/sweep_manifest.json": "fc65339378476add781b6ee874c9095b6b1aeb217902c015aa1acf929a5428a6"
+    },
+    "output_paths": [
+      "artifacts/sweeps/s1_feature_set/sweep_manifest.json",
+      "artifacts/sweeps/s1_feature_set/results.csv"
+    ],
+    "sweep_code": "S1",
+    "tests": [
+      "results_csv_load",
+      "best_variant_recorded"
+    ],
+    "variant_count": 6
   },
+  "timestamp": "2026-08-21T15:48:18.517862+00:00",
   "warnings": []
 }

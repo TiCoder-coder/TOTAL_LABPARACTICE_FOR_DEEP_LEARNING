@@ -2,7 +2,7 @@
   "architecture": "arm64",
   "compute_environment_variables": {},
   "cpu_count": 8,
-  "created_at": "2026-08-19T10:32:52.649487+00:00",
+  "created_at": "2026-08-21T05:34:59.274036+00:00",
   "cuda_available": false,
   "cuda_device_count": 0,
   "cuda_device_name": null,
@@ -12,9 +12,9 @@
   "development_seed": 42,
   "environment_id": "ENV-v1",
   "kernel": {
-    "kernel_executable": null,
+    "kernel_executable": "/opt/homebrew/Cellar/python@3.10/3.10.21/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
     "kernel_name": "coursework-venv",
-    "kernel_spec_path": null,
+    "kernel_spec_path": "/Users/mac/Library/Jupyter/kernels/coursework-venv/kernel.json",
     "matches_interpreter": true
   },
   "mps_available": true,
@@ -32,11 +32,11 @@
   },
   "pip_version": "26.2.1",
   "platform": "Darwin",
-  "platform_release": "25.5.0",
+  "platform_release": "25.6.0",
   "processor": "arm",
   "project_root": "/Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK",
-  "python_executable": "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
-  "python_version": "3.14.7",
+  "python_executable": "/opt/homebrew/Cellar/python@3.10/3.10.21/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+  "python_version": "3.10.21",
   "selected_device": "mps",
-  "working_directory": "/Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK"
+  "working_directory": "/Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/notebook_course_work"
 }

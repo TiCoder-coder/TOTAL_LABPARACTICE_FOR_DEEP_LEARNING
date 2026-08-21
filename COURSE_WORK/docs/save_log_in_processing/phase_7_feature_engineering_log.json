@@ -1,6 +1,6 @@
 {
   "artifact_version": "FEATURES-v1",
-  "created_at": "2026-08-18T01:45:38.087499+00:00",
+  "created_at": "2026-08-20T16:15:37.344843+00:00",
   "discrepancies": [],
   "phase_id": 7,
   "phase_name": "Feature Engineering",
@@ -70,12 +70,12 @@
     {
       "path": "artifacts/features/feature_engineering_manifest.json",
       "role": "features",
-      "sha256": "46b2eb28139fd14a610a5ab811112faa3ad4e74be0d1a7e5318d5f3d761d4c58"
+      "sha256": "e2f22ab4de9a8c3d1ac187ae8a2908c9fd548ecace3a7901f5a4bd99057be842"
     },
     {
       "path": "artifacts/features/phase_7_signoff.json",
       "role": "signoff",
-      "sha256": "0b8b6cc36a5cad39f2782fae2fe810fc5a11d6c579532e7af69d69ea0984fcfa"
+      "sha256": "a543b80b3b1997909529e95c3ae043a9a3f4c85c6deafbb1963edd0dc71627f7"
     }
   ],
   "status": "PASS",
@@ -94,17 +94,17 @@
   "technical_details": {
     "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
     "dataset_revision": "DATA-v1",
-    "derived_file_sha256": "2614e13716a7edea0280381758459dcad4b572759c7e80bb8078ec79dd000f6f",
+    "derived_file_sha256": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6",
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/acquisition/phase_2_signoff.json": "706126dbeddf3d68f8661b8a9a6dffb3fd7464f6830a366c91b4c841f92efb77",
-      "artifacts/contracts/phase_0_signoff.json": "74f3c513cafe4a893d0ed6104455a1a5ef62612c0fe95fa9c59867e7dbcfef3b",
-      "artifacts/eda/eda_manifest.json": "8948e327cc589b924aab40fa26856652dd5dc6eb3a9838fc18e250b5fd8076b8",
-      "artifacts/environment/phase_1_signoff.json": "2ba91cf49b979f3a4b5443db915c247a41c6ce85d54b69c661b4fe3fa4c55da5",
-      "artifacts/schema/phase_3_signoff.json": "d94eb5eaa2e1a16147cc1454b9501bc23dfa56b7ee01c35f87fb603bebb758ce",
-      "artifacts/splits/phase_5_signoff.json": "24e0d177adb654dd86ffdaa0ef3b75049cd39045a9124d12722e12f8a9864223",
-      "artifacts/temporal/phase_4_signoff.json": "f1730cf11274cf160f4a5e0b8f7ea05ed60d19030730e2c902c7849f835e3a97",
-      "configs/base/coursework_contract.json": "afa0ef62c05bbc0ac75d3530130af9fdd26cafa7dd08c60201201a934db21e2f",
+      "artifacts/acquisition/phase_2_signoff.json": "18eb34d3037be9b9b946a90233e66601e61c3d700a9237e37899f36a714dd556",
+      "artifacts/contracts/phase_0_signoff.json": "daa032591e5f6e4024e32aa49ecb1e7391e9c6cbabb951801a7ca10e7f1bd155",
+      "artifacts/eda/eda_manifest.json": "abef6dabdca7ce6eeeda1cd6ec77e37eddd66d3feebec726985a747447ce2498",
+      "artifacts/environment/phase_1_signoff.json": "f909c62d3b280c7d8f3c14479fa0366bb87cc97d61c9843e069c76085282546f",
+      "artifacts/schema/phase_3_signoff.json": "6262bc590e801c7c8db1d9b6ef98e716171ec87545be536b759b87ae81bbc380",
+      "artifacts/splits/phase_5_signoff.json": "7bf4bce8d904a29feaafa0af938abe40f4d4bddc1a0689013c0e1e3a7a0d1b0d",
+      "artifacts/temporal/phase_4_signoff.json": "e6bd0aeda71fe56bbe270c352d087f7512136803489da2a789e6c8c205b1b125",
+      "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f",
       "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
     },
     "input_paths": [
@@ -120,14 +120,14 @@
     ],
     "output_checksums": {
       "artifacts/features/feature_availability.csv": "3df1713607c8f2ba0bf87e26525f993d1a60a61bc77139ce1b609413a6bd6425",
-      "artifacts/features/feature_engineered_v1.sha256": "a1e61b5cb1526ba5ada0ef8ce74696527d6d8931887a12b2800e599214ce6f46",
+      "artifacts/features/feature_engineered_v1.sha256": "1947cac9d85be51269ba57e1e14ce09effdba2d8857fb74a953310d2c00a775a",
       "artifacts/features/feature_engineering_audit.csv": "d2bfdc27d185013efae324a655d59cf1fcb4b0b24ecbb8fdf396cc2ecc8ed2ab",
       "artifacts/features/feature_engineering_discrepancies.json": "20c887fb48810844305e69734d06b74ba18b3648badb8f5e7cebb7b7fe9bf42a",
-      "artifacts/features/feature_engineering_manifest.json": "46b2eb28139fd14a610a5ab811112faa3ad4e74be0d1a7e5318d5f3d761d4c58",
+      "artifacts/features/feature_engineering_manifest.json": "e2f22ab4de9a8c3d1ac187ae8a2908c9fd548ecace3a7901f5a4bd99057be842",
       "artifacts/features/feature_leakage_audit.csv": "a8f9a618de79e8756815fb86e6ddce450bc39bda54388f39f45f183c9ff017a6",
       "artifacts/features/feature_lineage.csv": "332209b6b50f8e54f82ad9e08ea49880fbbead5037326b6815a95bd7a49ce4a4",
       "artifacts/features/feature_registry.csv": "e64506ea960c036364903ffdbeb8bf831cc546d0cf4c1f82dfdcac2fbf98417e",
-      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "2614e13716a7edea0280381758459dcad4b572759c7e80bb8078ec79dd000f6f"
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"
     },
     "output_paths": [
       "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv",
@@ -155,5 +155,6 @@
       "no_future_leakage"
     ]
   },
+  "timestamp": "2026-08-20T16:15:37.344843+00:00",
   "warnings": []
 }
