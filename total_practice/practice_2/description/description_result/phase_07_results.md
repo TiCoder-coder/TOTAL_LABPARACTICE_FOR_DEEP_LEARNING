@@ -14,3 +14,7 @@ history. They do not train.
 The four-panel [training dashboard](../../reports/winner_training_log_dashboard.png)
 is embedded directly in the notebook. Source evidence is the winner
 [`metrics.jsonl`](../../runs/E2_resnet18_partial_2b5b94de/metrics.jsonl).
+
+The same saved history is also copied into the presentation-only
+[`visualization_data.json`](../../outputs/visualization_data.json). This does
+not replace or modify the original JSONL source.

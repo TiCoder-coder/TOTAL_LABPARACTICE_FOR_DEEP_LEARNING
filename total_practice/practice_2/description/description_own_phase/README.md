@@ -12,7 +12,7 @@ This directory documents the 12 phases of [`practice_2_presentation.ipynb`](../.
 8. [Phase 8 — Validation-only Hyperparameter Search](phase_08_controlled_experiments.md)
 9. [Phase 9 — Model Selection and Checkpoint Verification](phase_09_selection_verification.md)
 10. [Phase 10 — Final Test Evaluation](phase_10_final_evaluation.md)
-11. [Phase 11 — Error Analysis and Visualization](phase_11_error_analysis.md)
+11. [Phase 11 — Integrated Results Dashboard and Error Analysis](phase_11_error_analysis.md)
 12. [Phase 12 — Reproducibility, Limitations, and Conclusion](phase_12_reproducibility_conclusion.md)
 
 Related documents:

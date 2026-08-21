@@ -1,15 +1,24 @@
-# Phase 11 — Error Analysis and Visualization
+# Phase 11 — Integrated Results Dashboard and Error Analysis
 
 ## Notebook location
 
 - Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
 - Main cells: **Cells 24–28**
 - Source: [final_evaluate.py](../../processing_own_phase/final_evaluate.py)
+- Aggregator: [visualization_data.py](../../processing_own_phase/visualization_data.py)
+- Renderer: [training_dashboard.py](../../processing_own_phase/training_dashboard.py)
 - Full mapping: [Cell–Output Map](../description_result/README.md)
 
 ## 1. Objective
 
 Final metrics describe how well the model performs; error analysis explains **where and how it fails**. This phase is descriptive and must not be used to reselect the current model after Test has been opened. Insights can guide a future experiment, but that new experiment must return to Validation-only development.
+
+The first Phase 11 code cell creates
+[`outputs/visualization_data.json`](../../outputs/visualization_data.json) from
+the saved official artifacts and renders
+[`practice_2_training_dashboard.html`](../../reports/practice_2_training_dashboard.html).
+The renderer reads only this aggregate JSON. Original files in `runs/` remain
+unchanged and retain source-of-truth status.
 
 ## 2. Confusion analysis
 
@@ -105,6 +114,8 @@ Because Test has already been opened for final reporting, repeatedly modifying t
 
 The notebook already includes:
 
+- one integrated artifact-only HTML dashboard for run overview, curves,
+  learning rates, ranking, checkpoints, Final Test metrics, and error analysis;
 - class-distribution and sample-image grids;
 - learning curves and learning-rate history;
 - controlled experiment comparison;

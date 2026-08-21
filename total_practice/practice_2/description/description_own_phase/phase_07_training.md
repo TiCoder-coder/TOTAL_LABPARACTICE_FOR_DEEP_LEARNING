@@ -2,9 +2,12 @@
 
 ## Current notebook contract
 
-The presentation notebook does not retrain. It reads the completed winner log
-from [`metrics.jsonl`](../../runs/E2_resnet18_partial_2b5b94de/metrics.jsonl)
-and displays the stored training evidence.
+The presentation notebook does not retrain. The original completed winner log
+remains [`metrics.jsonl`](../../runs/E2_resnet18_partial_2b5b94de/metrics.jsonl).
+For the integrated Phase 11 dashboard, the visualization-only aggregation step
+copies its presentation fields into
+[`visualization_data.json`](../../outputs/visualization_data.json); the HTML
+renderer reads that single aggregate rather than traversing `runs/`.
 
 The approved training configuration uses an ImageNet-pretrained ResNet18,
 `partial_finetune`, AdamW, label-smoothed Cross Entropy, differential learning
@@ -35,6 +38,11 @@ shows the same four-panel evidence as a directly embedded image:
 The panels show loss, accuracy, macro F1/generalization gap, and differential
 learning rates. The minimum-loss epoch, maximum-accuracy epoch, and final epoch
 are marked explicitly.
+
+The newer interactive-style HTML report is
+[`practice_2_training_dashboard.html`](../../reports/practice_2_training_dashboard.html).
+Its source is the aggregate JSON above. The JSONL log, run summary, manifest,
+log file, and checkpoints stay unchanged as source-of-truth records.
 
 ## Checkpoint policy
 

@@ -1,6 +1,6 @@
 # Practice 2 Results by Phase
 
-This index follows the current 30-cell
+This index follows the current 31-cell
 [`practice_2_presentation.ipynb`](../../notebooks/practice_2_presentation.ipynb).
 Cell positions are 1-based; execution counts shown by Jupyter may differ.
 
@@ -16,8 +16,8 @@ Cell positions are 1-based; execution counts shown by Jupyter may differ.
 | 8 — Hyperparameters | 16–17 | Three LR pairs and three heads | [Phase 8](phase_08_results.md) |
 | 9 — Selection | 18–21 | Loss-selected SHA256 lock and PASS | [Phase 9](phase_09_results.md) |
 | 10 — Final Test | 22–23 | 94.06% accuracy; per-class and ROC/PR | [Phase 10](phase_10_results.md) |
-| 11 — Error Analysis | 24–28 | Confidence, confusion and galleries | [Phase 11](phase_11_results.md) |
-| 12 — Conclusion | 29–30 | Reproducible locked result | [Phase 12](phase_12_results.md) |
+| 11 — Dashboard & Error Analysis | 24–29 | Single-file HTML dashboard, confidence, confusion and galleries | [Phase 11](phase_11_results.md) |
+| 12 — Conclusion | 30–31 | Reproducible locked result | [Phase 12](phase_12_results.md) |
 
 ## Current canonical artifacts
 
@@ -26,6 +26,8 @@ Cell positions are 1-based; execution counts shown by Jupyter may differ.
 - [summary](../../outputs/summary.json)
 - [Final Test receipt](../../outputs/final_test_receipt_a906600b717f.json)
 - [training dashboard](../../reports/winner_training_log_dashboard.png)
+- [aggregated visualization data](../../outputs/visualization_data.json)
+- [integrated HTML dashboard](../../reports/practice_2_training_dashboard.html)
 - [ROC/PR dashboard](../../reports/roc_pr_curves_notebook.png)
 
 Older E1/E2 files are baseline history, not the current final selection.

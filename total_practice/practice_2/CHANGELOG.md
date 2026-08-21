@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Visualization aggregation]
+- Added `processing_own_phase/visualization_data.py` to aggregate the official
+  saved run, ranking, checkpoint, and Final Test artifacts without modifying
+  their source files.
+- Added `outputs/visualization_data.json` as the single machine-readable input
+  for notebook dashboard presentation.
+- Updated `training_dashboard.py` so HTML rendering reads only the aggregate
+  JSON and writes `reports/practice_2_training_dashboard.html`.
+- Integrated the dashboard at Phase 11 of the presentation notebook and added
+  visualization-only tests.
+
 ## [Phase 10] - Documentation, Portfolio & Final Release
 - Fully rewrote `README.md` with a professional overview, Markdown formatting, and Mermaid architecture diagrams.
 - Created `CHANGELOG.md` to document the 10-phase evolution of the project.

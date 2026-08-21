@@ -49,7 +49,9 @@ Reload with original criterion; verify Validation loss and accuracy
         ↓
 After PASS: evaluate official Test exactly once and write SHA256 receipt
         ↓
-Read stored metrics, per-class report, ROC/PR and visual artifacts in notebook
+Aggregate saved records into `outputs/visualization_data.json`
+        ↓
+Render the Phase 11 HTML dashboard from that single JSON file in the notebook
 ```
 
 Test does not participate in preprocessing, training, Early Stopping,
@@ -107,6 +109,14 @@ SHA256 and reload deltas. Phase 10 presents:
 - directly embedded [ROC/PR curves](reports/roc_pr_curves_notebook.png);
 - confusion matrices and prediction evidence.
 
+Phase 11 also builds
+[`visualization_data.json`](outputs/visualization_data.json) with
+[`visualization_data.py`](processing_own_phase/visualization_data.py), then
+[`training_dashboard.py`](processing_own_phase/training_dashboard.py) renders
+the self-contained [HTML dashboard](reports/practice_2_training_dashboard.html)
+from that one file. Aggregation reads but never moves, deletes, or rewrites the
+source records under `runs/`.
+
 Most recent notebook verification: 13/13 code cells executed, zero errors.
 Most recent test-suite verification: **51 passed**; the three warnings are
 PyTorch JIT deprecation warnings.
@@ -120,6 +130,8 @@ PyTorch JIT deprecation warnings.
 - [winner epoch log](runs/E2_resnet18_partial_2b5b94de/metrics.jsonl)
 - [checkpoint manifest](runs/E2_resnet18_partial_2b5b94de/checkpoint_manifest.json)
 - [training dashboard](reports/winner_training_log_dashboard.png)
+- [aggregated visualization data](outputs/visualization_data.json)
+- [artifact-only HTML dashboard](reports/practice_2_training_dashboard.html)
 
 ### Final evaluation
 

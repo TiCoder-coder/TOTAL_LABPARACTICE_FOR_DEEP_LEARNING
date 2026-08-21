@@ -18,6 +18,11 @@ The current run is reproducible from these records:
 - [per-class report](../../outputs/classification_report.csv);
 - [prediction probabilities](../../outputs/predictions.csv).
 
+For presentation, these sources are aggregated without mutation into
+[`visualization_data.json`](../../outputs/visualization_data.json). The
+[HTML dashboard](../../reports/practice_2_training_dashboard.html) reads only
+that file; the original run artifacts remain independently auditable.
+
 The checkpoint SHA256 is
 `a906600b717f94aa4cf40ca8504f1b82f6618b80cc6bf9b1a7a63813cfd3223b`.
 SHA256 detects changed bytes; it is not an independently issued signature.
@@ -47,6 +52,7 @@ locked checkpoint.
 ## Presentation visuals
 
 - [winner training dashboard](../../reports/winner_training_log_dashboard.png)
+- [integrated artifact-only HTML dashboard](../../reports/practice_2_training_dashboard.html)
 - [ROC and PR curves](../../reports/roc_pr_curves_notebook.png)
 - [raw confusion matrix](../../reports/confusion_matrix_raw.png)
 - [normalized confusion matrix](../../reports/confusion_matrix_normalized.png)

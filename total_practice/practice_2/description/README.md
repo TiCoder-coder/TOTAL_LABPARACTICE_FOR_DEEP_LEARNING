@@ -20,6 +20,11 @@ Values come from [locked selection](../outputs/hyperparameter_selection_locked.j
 [summary](../outputs/summary.json), and
 [ROC/PR summary](../outputs/roc_pr_summary.json).
 
+For notebook reporting, the visualization layer aggregates the relevant saved
+fields into one [visualization data file](../outputs/visualization_data.json).
+The [HTML dashboard](../reports/practice_2_training_dashboard.html) renders
+from that file only; original records under `runs/` are preserved unchanged.
+
 ## Documentation map
 
 - [Project requirements](project_requirements.md)
