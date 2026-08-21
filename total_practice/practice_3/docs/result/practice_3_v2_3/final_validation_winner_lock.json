@@ -4,7 +4,7 @@
   "winner_config": {
     "learning_rate": 1e-05,
     "weight_decay": 0.05,
-    "seq_classif_dropout": 0.2,
+    "seq_classif_dropout": null,
     "fine_tuning_strategy": "full",
     "max_epochs": 15,
     "early_stopping_patience": 4,
@@ -13,35 +13,31 @@
     "gradient_clipping": 1.0
   },
   "best_epoch": 2.0,
-  "best_val_loss": 0.41533583402633667,
+  "best_val_loss": 0.41560396552085876,
   "best_val_accuracy": 0.8677083333333333,
   "best_val_f1": 0.8678459937565036,
   "checkpoint_path": "runs/practice_3_v2_3/E4_weight_decay_0.05/checkpoints/checkpoint-960",
-  "checkpoint_hash": "d4a8b8377de3ade5edf5d03326f5421e52065988cb27a75ed77d52d62a073191",
+  "checkpoint_hash": "6e0da3299cd83b30a660c0b82f7d847cef71efb6862e550b7c04d849deb66ccc",
   "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
-  "selection_metric": "eval_loss",
+  "selection_metric": "validation_loss",
+  "ranking_tolerance": 1e-06,
   "ranking_policy": [
-    "lowest val_loss",
-    "highest val_f1",
-    "highest val_accuracy",
-    "earliest best_epoch",
-    "lexical id"
+    "lowest validation_loss",
+    "higher validation_f1 within tolerance",
+    "higher validation_accuracy within tolerance",
+    "earlier best_epoch",
+    "lexical experiment_id"
   ],
-  "valid_runs": [
+  "validation_ranking": [
     "E4_weight_decay_0.05",
     "E1_lr_1e-5",
-    "E5b_classifier_dropout_0.40",
-    "E6c_staged_finetune",
+    "E5_classifier_dropout_0.40",
+    "E6_staged_finetune",
     "E3_lr_3e-5",
     "E2_lr_2e-5"
   ],
-  "excluded_runs": [
-    "E5_classifier_dropout_0.20",
-    "E6_staged_finetune",
-    "E6b_staged_finetune"
-  ],
-  "holdout_accessed": true,
+  "holdout_accessed": false,
   "official_test_loaded": false,
-  "locked_at": "2026-08-16T07:46:12.285305+00:00",
-  "lock_hash": "010cc06d7cb9edc31330574904f9275ec61e53b480ea99b47d860f6860d6be0e"
+  "locked_at": "2026-08-21T12:40:29.729283+00:00",
+  "lock_hash": "5faeb269e1cbad25d42169aabc5f8e4438535ed113e39f95bfbfbef7b3259da8"
 }

@@ -3,18 +3,15 @@
   "training_authorized": true,
   "execution_order": {
     "E1_lr_1e-5": "FIRST",
-    "E2_lr_2e-5": "requires E1 COMPLETED",
-    "E3_lr_3e-5": "requires E1, E2 COMPLETED",
-    "E4_weight_decay_0.05": "AUTHORIZED",
-    "E5_classifier_dropout_0.20": "AUTHORIZED",
-    "E6_staged_finetune": "AUTHORIZED",
-    "E5b_classifier_dropout_0.40": "AUTHORIZED",
-    "E6b_staged_finetune": "AUTHORIZED",
-    "E6c_staged_finetune": "AUTHORIZED"
+    "E2_lr_2e-5": "requires E1_lr_1e-5 COMPLETED",
+    "E3_lr_3e-5": "requires E1_lr_1e-5, E2_lr_2e-5 COMPLETED",
+    "E4_weight_decay_0.05": "requires E1_lr_1e-5, E2_lr_2e-5, E3_lr_3e-5 COMPLETED",
+    "E5_classifier_dropout_0.40": "requires E1_lr_1e-5, E2_lr_2e-5, E3_lr_3e-5, E4_weight_decay_0.05 COMPLETED",
+    "E6_staged_finetune": "requires E1_lr_1e-5, E2_lr_2e-5, E3_lr_3e-5, E4_weight_decay_0.05, E5_classifier_dropout_0.40 COMPLETED"
   },
-  "first_authorized_experiment": "E6c_staged_finetune",
+  "first_authorized_experiment": "E1_lr_1e-5",
   "execution_components": {
-    "protocol_manifest_hash": "a48f49544bbe84d77d09e0a33cc0c450b19821ff57fb3d718ab7675490e5c5a8",
+    "protocol_manifest_hash": "57c2525020dbc93a105143f97d1860263db0469a6e51e84c8455edfdc2b58a82",
     "dataset_split_manifest_hash": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
     "tokenizer_validation_hash": "251a483a153eae212aa94327fdc5a65288a455f2fd826fc148220ef006aa2717",
     "experiment_config_hashes": {
@@ -22,11 +19,8 @@
       "E2_lr_2e-5": "f231c4c87bca25e96128ec4dbd33c1968f56b89ca81e296b0c096c459c273f61",
       "E3_lr_3e-5": "2904b5f96bfdc555a0189af08fd0bcefde0cae0401778d13a965273be292e40f",
       "E4_weight_decay_0.05": "05f00d0e26e0a6f70d493e6fb7d85748bcffebc84db7dba3e93c5ab9c2a838c7",
-      "E5_classifier_dropout_0.20": "330ab151d2972fc9d790b0640c3c8b92b13da4a6c234ffd5b426d875ef6c5a2a",
-      "E6_staged_finetune": "ebe44efcc2416774a4b480bfd07e5136fe93e7940ade224253cbba8bc7f7256f",
-      "E5b_classifier_dropout_0.40": "31e0f28c463de1be4897fcded8176228944e2b668474cf5faf1fcc60d0999a35",
-      "E6b_staged_finetune": "84eb897dacdace934847cbbedf383c9bfbefa64941eeabe53af59d441628d664",
-      "E6c_staged_finetune": "c3598a852c4f0d3afd2defbf5c55987d8aa0aa2772ebdc0f26bd639e381ad834"
+      "E5_classifier_dropout_0.40": "944cb5efc8f57a9fc1fa1a939753ecc0aae1980ee6f4f7597fbc029c991df46c",
+      "E6_staged_finetune": "c4ab6b38ae252341c93b68e214cabc21800d2f02b42b8512ce5b322cd90ac2be"
     },
     "ranking": {
       "primary": "validation_loss",
@@ -34,11 +28,10 @@
       "tertiary": "validation_accuracy",
       "fourth": "earlier_best_epoch",
       "final_deterministic_fallback": "lexical_experiment_id",
-      "tolerance": 1e-06
-    },
-    "stage_a_selection_hash": "c9335781ab2673e2ba082b3134521f88256b3b95e160b417d16fa8b0b4d290c8"
+      "tolerance": 0.000001
+    }
   },
-  "execution_protocol_hash": "fb5e93abde66a482a7ac0542dfe49a8dd46670332e1cce02a1663b7d909a1535",
+  "execution_protocol_hash": "151890db8f8006b16845d20498b64b7dcf87e23751c8b999aa404756d505407a",
   "holdout_status": "SEALED",
   "holdout_evaluation_count": 0,
   "official_test_loaded": false,
@@ -52,5 +45,5 @@
   "validation_count": 960,
   "zero_training_validation": "PASS",
   "staged_finetune_config_validation": "PASS",
-  "authorization_hash": "b36bf49085410a8ddbecc13874dd954a12dcf28f8728654779febf1cc2c1e047"
+  "authorization_hash": "ce2a59085ad5159ca6ee15ec4825bc28996ece7050b9a6e8770117336fd335a9"
 }

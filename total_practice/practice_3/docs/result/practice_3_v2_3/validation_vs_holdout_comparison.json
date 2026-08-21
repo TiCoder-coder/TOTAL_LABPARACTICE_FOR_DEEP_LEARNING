@@ -1,11 +1,11 @@
 {
-  "validation_loss": 0.41533583402633667,
-  "holdout_loss": 0.35357752442359924,
-  "loss_difference": -0.06175830960273743,
+  "validation_loss": 0.41560396552085876,
+  "holdout_loss": 0.353685200214386,
+  "loss_difference": -0.06191876530647278,
   "validation_accuracy": 0.8677083333333333,
-  "holdout_accuracy": 0.853125,
-  "accuracy_gap": 0.014583333333333282,
+  "holdout_accuracy": 0.8541666666666666,
+  "accuracy_gap": 0.013541666666666674,
   "validation_f1": 0.8678459937565036,
-  "holdout_f1": 0.8511087645195353,
-  "f1_gap": 0.0167372292369683
+  "holdout_f1": 0.8523206751054853,
+  "f1_gap": 0.01552531865101836
 }

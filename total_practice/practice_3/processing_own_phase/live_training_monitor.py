@@ -1,5 +1,4 @@
 import json
-import time
 from pathlib import Path
 import matplotlib.pyplot as plt
 from IPython.display import display, Markdown
@@ -10,9 +9,6 @@ DEMO_DIR = PRACTICE3_ROOT / "runs" / "live_terminal_demo"
 METRICS_FILE = DEMO_DIR / "metrics.jsonl"
 STATUS_FILE = DEMO_DIR / "status.json"
 SUMMARY_FILE = DEMO_DIR / "final_summary.json"
-
-POLL_INTERVAL = 1.0
-
 
 def _read_status():
     if not STATUS_FILE.exists():
@@ -117,86 +113,19 @@ def _draw_dashboard(axs, train_steps, train_loss, lr_steps, lr_vals,
     plt.tight_layout()
 
 
-def monitor_live_training(poll_interval: float = POLL_INTERVAL, timeout: float = 3600.0):
-    """
-    Notebook-only live monitor.
-    NEVER loads model / dataset / trains.
-    Reads metrics.jsonl + status.json, updates 2x2 dashboard in-place.
-    Works whether monitor starts before or after terminal training.
-    """
-    print(f"Watching metrics : {METRICS_FILE}")
-    print(f"Watching status  : {STATUS_FILE}")
-    print(f"metrics.jsonl exists: {METRICS_FILE.exists()}")
-    print(f"status.json exists  : {STATUS_FILE.exists()}")
-
+def monitor_live_training():
+    """Render one saved-state snapshot and return immediately."""
+    st = _read_status()
+    values = _read_metrics()
+    train_steps, train_loss, lr_steps, lr_vals, val_steps, val_loss, val_acc, val_f1 = values
+    if st.get("status") != "RUNNING":
+        display(Markdown("**No active training session.**"))
+    else:
+        display(Markdown(_build_status_md(st, train_loss, val_loss, val_acc, val_f1, lr_vals)))
     fig, axs = plt.subplots(2, 2, figsize=(14, 9))
-    fig.suptitle("LIVE TRAINING DEMONSTRATION ONLY — NOT USED FOR OFFICIAL EVALUATION",
+    fig.suptitle("SAVED TRAINING SNAPSHOT — NOT USED FOR OFFICIAL EVALUATION",
                  fontsize=9, color="gray")
-    plt.tight_layout()
-
-    display_handle = display(fig, display_id=True)
-    status_handle = display(Markdown("⏳ **Initializing monitor...**"), display_id=True)
-
-    start_wait = time.time()
-    previous_line_count = -1
-
-    try:
-        while True:
-            st = _read_status()
-            current_status = st.get("status", "WAITING")
-
-            # Read ALL available metrics now
-            train_steps, train_loss, lr_steps, lr_vals, val_steps, val_loss, val_acc, val_f1 = _read_metrics()
-            current_line_count = len(train_steps) + len(val_steps)
-
-            # True WAITING: no metrics file yet
-            if current_status == "WAITING" and not METRICS_FILE.exists():
-                if time.time() - start_wait > timeout:
-                    status_handle.update(Markdown("⏰ **Timed out waiting for terminal training.**"))
-                    break
-                time.sleep(poll_interval)
-                status_handle.update(Markdown(
-                    f"⏳ **WAITING FOR TERMINAL TRAINING TO START...** "
-                    f"*(elapsed: {int(time.time()-start_wait)}s)*  \n"
-                    f"Open a new terminal and run:  \n"
-                    f"```\n"
-                    f".venv/bin/python -m total_practice.practice_3.processing_own_phase.live_terminal_training\n"
-                    f"```"
-                ))
-                continue
-
-            # Redraw only when new data arrived
-            if current_line_count != previous_line_count:
-                previous_line_count = current_line_count
-                _draw_dashboard(axs, train_steps, train_loss, lr_steps, lr_vals,
-                                val_steps, val_loss, val_acc, val_f1)
-                display_handle.update(fig)
-
-            md = _build_status_md(st, train_loss, val_loss, val_acc, val_f1, lr_vals)
-            status_handle.update(Markdown(md))
-
-            if current_status == "COMPLETED":
-                f1_str  = f"{val_f1[-1]:.4f}"  if val_f1  else "–"
-                acc_str = f"{val_acc[-1]:.4f}" if val_acc else "–"
-                status_handle.update(Markdown(
-                    "✅ **LIVE TERMINAL TRAINING COMPLETE**  \n"
-                    f"Final F1: **{f1_str}**  Accuracy: **{acc_str}**  \n"
-                    "*These are DEMO metrics only. They do NOT affect official E4 ranking.*"
-                ))
-                break
-
-            if current_status == "FAILED":
-                err = st.get("error", "Unknown error")
-                status_handle.update(Markdown(
-                    f"🔴 **TRAINING PROCESS FAILED**  \n`{err}`  \n"
-                    "*Check the terminal for details.*"
-                ))
-                break
-
-            time.sleep(poll_interval)
-
-    except KeyboardInterrupt:
-        status_handle.update(Markdown("⏹ **Monitoring stopped by user.**"))
-
-    finally:
-        plt.close(fig)
+    _draw_dashboard(axs, *values)
+    display(fig)
+    plt.close(fig)
+    return {"status": st, "metric_records": len(train_steps) + len(val_steps)}

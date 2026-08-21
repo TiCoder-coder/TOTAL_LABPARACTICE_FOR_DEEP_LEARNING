@@ -1,6 +1,5 @@
 {
   "protocol_version": "practice_3_v2.3",
-  "experiment_id": "E6_staged_finetune",
   "stage": "B",
   "model": "distilbert/distilbert-base-uncased",
   "tokenizer": "distilbert-base-uncased",
@@ -28,13 +27,11 @@
   "greater_is_better": false,
   "max_epochs": 15,
   "early_stopping_patience": 4,
-  "early_stopping_threshold": 1e-06,
-  "ranking_tolerance": 1e-06,
+  "early_stopping_threshold": 0.000001,
+  "ranking_tolerance": 0.000001,
   "fine_tuning_strategy": "staged",
-  "learning_rate": 1e-05,
   "dataset_fingerprint": "08fad26ecaa3a68a90257f1f3c330eb5fb060c8d3f3e9c2c705b3c30fccb3621",
   "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
-  "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E6_staged_finetune",
   "library_versions": {
     "python": "3.11.14",
     "torch": "2.13.0",
@@ -43,8 +40,13 @@
     "accelerate": "1.14.0",
     "tokenizers": "0.22.2"
   },
+  "experiment_id": "E6_staged_finetune",
+  "learning_rate": 0.00001,
+  "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E6_staged_finetune",
   "controlled_variable": "fine_tuning_strategy",
   "best_lr_dependency": "STAGE_A_WINNER",
   "status": "PLANNED",
-  "config_hash": "ebe44efcc2416774a4b480bfd07e5136fe93e7940ade224253cbba8bc7f7256f"
+  "attn_implementation": "eager",
+  "reset_identity_note": "Clean-sequence identity; effective configuration preserved from the validated corrected predecessor.",
+  "config_hash": "c4ab6b38ae252341c93b68e214cabc21800d2f02b42b8512ce5b322cd90ac2be"
 }

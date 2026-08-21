@@ -1,6 +1,5 @@
 {
   "protocol_version": "practice_3_v2.3",
-  "experiment_id": "E2_lr_2e-5",
   "stage": "A",
   "model": "distilbert/distilbert-base-uncased",
   "tokenizer": "distilbert-base-uncased",
@@ -28,14 +27,12 @@
   "greater_is_better": false,
   "max_epochs": 15,
   "early_stopping_patience": 4,
-  "early_stopping_threshold": 1e-06,
-  "ranking_tolerance": 1e-06,
+  "early_stopping_threshold": 0.000001,
+  "ranking_tolerance": 0.000001,
   "fine_tuning_strategy": "full",
   "classifier_dropout": null,
-  "learning_rate": 2e-05,
   "dataset_fingerprint": "08fad26ecaa3a68a90257f1f3c330eb5fb060c8d3f3e9c2c705b3c30fccb3621",
   "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
-  "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E2_lr_2e-5",
   "library_versions": {
     "python": "3.11.14",
     "torch": "2.13.0",
@@ -44,6 +41,9 @@
     "accelerate": "1.14.0",
     "tokenizers": "0.22.2"
   },
+  "experiment_id": "E2_lr_2e-5",
+  "learning_rate": 0.00002,
+  "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E2_lr_2e-5",
   "controlled_variable": "learning_rate",
   "best_lr_dependency": null,
   "config_hash": "f231c4c87bca25e96128ec4dbd33c1968f56b89ca81e296b0c096c459c273f61"

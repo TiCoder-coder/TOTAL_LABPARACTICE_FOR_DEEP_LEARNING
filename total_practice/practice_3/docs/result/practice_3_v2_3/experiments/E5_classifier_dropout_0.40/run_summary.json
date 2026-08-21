@@ -1,0 +1,23 @@
+{
+  "best_checkpoint": "runs/practice_3_v2_3/E5_classifier_dropout_0.40/checkpoints/checkpoint-960",
+  "best_epoch": 2.0,
+  "best_val_accuracy": 0.8666666666666667,
+  "best_val_f1": 0.8666666666666667,
+  "best_val_loss": 0.4162771999835968,
+  "best_val_precision": 0.8666666666666667,
+  "best_val_recall": 0.8666666666666667,
+  "checkpoint_hash": "a8087db3307a8beda79466043509995f114c752d5b974cad989aa6311427594f",
+  "checkpoint_weight_file": "model.safetensors",
+  "config_hash": "944cb5efc8f57a9fc1fa1a939753ecc0aae1980ee6f4f7597fbc029c991df46c",
+  "execution_protocol_hash": "151890db8f8006b16845d20498b64b7dcf87e23751c8b999aa404756d505407a",
+  "holdout_accessed": false,
+  "learning_rate": 1e-05,
+  "official_test_loaded": false,
+  "protocol_version": "practice_3_v2.3",
+  "run_id": "E5_classifier_dropout_0.40",
+  "runtime_seconds": 420.8347,
+  "split_fingerprint": "4d22ccf19a61c37bad6138fcc12d40102603407fcfbc6e19a3f5e634803cbb13",
+  "status": "COMPLETED",
+  "stopped_epoch": 6.0,
+  "tensorboard_log_dir": "total_practice/practice_3/runs/practice_3_v2_3/E5_classifier_dropout_0.40"
+}
