@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP-v1",
-  "created_at": "2026-08-21T15:48:18.522793+00:00",
+  "artifact_version": "SWEEP_S5-v1",
+  "created_at": "2026-08-22T15:35:33.264905+00:00",
   "discrepancies": [],
   "phase_id": 27,
   "phase_name": "S5 Pooling Sweep",
@@ -10,60 +10,100 @@
     {
       "rows": [
         {
-          "Field": "activation",
+          "Field": "activation_id",
           "Value": "GELU"
         },
         {
-          "Field": "batch_size",
-          "Value": 32
+          "Field": "batch_id",
+          "Value": "B64"
         },
         {
-          "Field": "best_epoch",
-          "Value": 13
+          "Field": "condition_id",
+          "Value": "LAST_STEP"
         },
         {
-          "Field": "condition",
+          "Field": "config_fingerprint",
+          "Value": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f"
+        },
+        {
+          "Field": "d_model",
+          "Value": 64
+        },
+        {
+          "Field": "d_model_id",
+          "Value": "D64"
+        },
+        {
+          "Field": "dropout",
+          "Value": 0.1
+        },
+        {
+          "Field": "factor_value",
           "Value": "LAST_STEP"
         },
         {
           "Field": "feature_variant_id",
-          "Value": "FS1_TF1"
+          "Value": "FS2_TF1"
+        },
+        {
+          "Field": "ffn_dim",
+          "Value": 128
         },
         {
           "Field": "learning_rate",
           "Value": 0.0003
         },
         {
-          "Field": "lookback_steps",
-          "Value": 144
+          "Field": "lookback_id",
+          "Value": "L36"
         },
         {
-          "Field": "pooling",
+          "Field": "metric_version",
+          "Value": "METRICS-v1"
+        },
+        {
+          "Field": "num_heads",
+          "Value": 4
+        },
+        {
+          "Field": "num_layers",
+          "Value": 2
+        },
+        {
+          "Field": "pooling_id",
           "Value": "LAST_STEP"
         },
         {
+          "Field": "population_fingerprint",
+          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
+        },
+        {
+          "Field": "reused_reference",
+          "Value": true
+        },
+        {
           "Field": "run_id",
-          "Value": "RUN_TR_B0_0010_1CEB611E"
+          "Value": "RUN_TR_S04_0008_133EF4E3"
         },
         {
-          "Field": "sweep_id",
-          "Value": "S5_POOLING"
-        },
-        {
-          "Field": "target_scaling_option",
+          "Field": "target_scaling_id",
           "Value": "YS1"
         },
         {
-          "Field": "val_mae",
-          "Value": 28.72
+          "Field": "validation_mae_wh",
+          "Value": 27.41859357267982
         },
         {
-          "Field": "val_r2",
-          "Value": 0.566
+          "Field": "validation_r2",
+          "Value": 0.5904020802432752
         },
         {
-          "Field": "val_rmse",
-          "Value": 60.76
+          "Field": "validation_rmse_wh",
+          "Value": 59.03287348979047
+        },
+        {
+          "Field": "weight_decay",
+          "Value": 0.0001
         }
       ],
       "title": "Best variant details"
@@ -73,17 +113,17 @@
     {
       "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
       "role": "manifest",
-      "sha256": "bc161724aaf903d0a9ff84abc4399370ba909c94e9010212cdc24be4735e493e"
+      "sha256": "9ae60c7b993525992753aa073a8c5fd473044f69d97f9813ce1750915f5a13be"
     },
     {
       "path": "artifacts/sweeps/s5_pooling/results.csv",
       "role": "results",
-      "sha256": "370f9df1bcf522e60e054afa4196ca6892a47d894669545a29cdfdb96f7b2949"
+      "sha256": "2b1389775490c22357bde8d0626bdbb2ffd7cc18971f0ad86a47941819e71509"
     },
     {
       "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
       "role": "signoff",
-      "sha256": "5b065584ac0005f0cdc4d72ce6c6c9263c3852a4ae11e4d004c91f3a68f971f3"
+      "sha256": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916"
     }
   ],
   "status": "PASS",
@@ -91,49 +131,75 @@
     "Best variant": "N/A",
     "Sweep code": "S5",
     "Sweep name": "S5 Pooling Sweep",
-    "Variant count": 3
+    "Variant count": 2
   },
   "technical_details": {
     "best_variant": {
-      "activation": "GELU",
-      "batch_size": 32,
-      "best_epoch": 13,
-      "condition": "LAST_STEP",
-      "feature_variant_id": "FS1_TF1",
+      "activation_id": "GELU",
+      "batch_id": "B64",
+      "condition_id": "LAST_STEP",
+      "config_fingerprint": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f",
+      "d_model": 64,
+      "d_model_id": "D64",
+      "dropout": 0.1,
+      "factor_value": "LAST_STEP",
+      "feature_variant_id": "FS2_TF1",
+      "ffn_dim": 128,
       "learning_rate": 0.0003,
-      "lookback_steps": 144,
-      "pooling": "LAST_STEP",
-      "run_id": "RUN_TR_B0_0010_1CEB611E",
-      "sweep_id": "S5_POOLING",
-      "target_scaling_option": "YS1",
-      "val_mae": 28.72,
-      "val_r2": 0.566,
-      "val_rmse": 60.76
+      "lookback_id": "L36",
+      "metric_version": "METRICS-v1",
+      "num_heads": 4,
+      "num_layers": 2,
+      "pooling_id": "LAST_STEP",
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "reused_reference": true,
+      "run_id": "RUN_TR_S04_0008_133EF4E3",
+      "target_scaling_id": "YS1",
+      "validation_mae_wh": 27.41859357267982,
+      "validation_r2": 0.5904020802432752,
+      "validation_rmse_wh": 59.03287348979047,
+      "weight_decay": 0.0001
     },
-    "config_fingerprint": "S5",
+    "config_fingerprint": null,
     "dataset_revision": null,
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/sweeps/s5_pooling/results.csv": "370f9df1bcf522e60e054afa4196ca6892a47d894669545a29cdfdb96f7b2949"
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+      "artifacts/runs/RUN_TR_S05_0010_F74DE9FC/config.json": "27ef4610a83a441261fa80a24d4cbfc3a2bc00f2b7719e572e8dc4d1e1eadf1c",
+      "artifacts/sweeps/s4_lookback/phase_26_signoff.json": "ab3bd8eb42a8cf88d630a61e72c7780cd9b82ac0a79d7d7ce9e436c81b440c7f",
+      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "ddf6be31344bc20105d82695d9390239a9658c55fc36bbf5a6fadf6c0b0efb83",
+      "artifacts/sweeps/s4_lookback/s4_reference_update.json": "623cf2c363f478a625f56753f0037c3f905641a483f58a1b845279218c4652ac"
     },
     "input_paths": [
-      "artifacts/sweeps/s5_pooling/results.csv"
+      "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+      "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+      "artifacts/runs/RUN_TR_S05_0010_F74DE9FC/config.json"
     ],
     "output_checksums": {
-      "artifacts/sweeps/s5_pooling/results.csv": "370f9df1bcf522e60e054afa4196ca6892a47d894669545a29cdfdb96f7b2949",
-      "artifacts/sweeps/s5_pooling/sweep_manifest.json": "bc161724aaf903d0a9ff84abc4399370ba909c94e9010212cdc24be4735e493e"
+      "artifacts/sweeps/s5_pooling/results.csv": "2b1389775490c22357bde8d0626bdbb2ffd7cc18971f0ad86a47941819e71509",
+      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+      "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d",
+      "artifacts/sweeps/s5_pooling/sweep_manifest.json": "9ae60c7b993525992753aa073a8c5fd473044f69d97f9813ce1750915f5a13be"
     },
     "output_paths": [
+      "artifacts/sweeps/s5_pooling/results.csv",
       "artifacts/sweeps/s5_pooling/sweep_manifest.json",
-      "artifacts/sweeps/s5_pooling/results.csv"
+      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+      "artifacts/sweeps/s5_pooling/s5_reference_update.json"
     ],
     "sweep_code": "S5",
     "tests": [
-      "results_csv_load",
-      "best_variant_recorded"
+      "condition_completeness",
+      "registry_evidence_integrity",
+      "validation_only_selection",
+      "exact_tie_rule",
+      "winner_config_match",
+      "test_firewall"
     ],
-    "variant_count": 3
+    "variant_count": 2
   },
-  "timestamp": "2026-08-21T15:48:18.522793+00:00",
+  "timestamp": "2026-08-22T15:35:33.264905+00:00",
   "warnings": []
 }

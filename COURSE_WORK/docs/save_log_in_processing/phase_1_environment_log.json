@@ -1,6 +1,6 @@
 {
   "artifact_version": "ENV-v1",
-  "created_at": "2026-08-21T05:34:59.275505+00:00",
+  "created_at": "2026-08-22T09:29:59.852261+00:00",
   "discrepancies": [],
   "phase_id": 1,
   "phase_name": "Environment",
@@ -90,7 +90,7 @@
     {
       "path": "artifacts/environment/environment_report.json",
       "role": "environment",
-      "sha256": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54"
+      "sha256": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5"
     },
     {
       "path": "artifacts/environment/smoke_test_report.json",
@@ -100,7 +100,7 @@
     {
       "path": "artifacts/environment/phase_1_signoff.json",
       "role": "signoff",
-      "sha256": "9eda4c9ce15121afd3534326b50fcea3ffe7ab7654faa49f80ba7753f6a358c0"
+      "sha256": "418b631a832b5c88238c4215707db2aa4674f88f4c2d5d9c65fc1c7bd748ee68"
     }
   ],
   "status": "PASS",
@@ -108,9 +108,9 @@
     "Default dtype": "torch.float32",
     "Deterministic mode": "D0",
     "Environment": "ENV-v1",
-    "Kernel": "coursework-venv",
+    "Kernel": "python3",
     "Kernel matches interpreter": true,
-    "Python": "3.10.21",
+    "Python": "3.10.11",
     "Selected device": "mps"
   },
   "technical_details": {
@@ -124,8 +124,8 @@
       "artifacts/contracts/phase_0_signoff.json"
     ],
     "output_checksums": {
-      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
-      "artifacts/environment/requirements_freeze.txt": "7f878af4c0ddc9ae2c3dc50ddffdd56389288073b044f58525c70039867eb77d",
+      "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
+      "artifacts/environment/requirements_freeze.txt": "36b39b0eb4428aa446b55e89f975d43026b0d69f632b78369330b9c5bf905af5",
       "artifacts/environment/smoke_test_report.json": "90ddf8824fc4c093abdcafd9a9c328d956c42af9327d896b15740259341d63e6"
     },
     "output_paths": [
@@ -135,14 +135,12 @@
     ],
     "tests": [
       "interpreter_kernel_contract",
-      "core_imports",
-      "automatic_device_selection",
-      "tensor_forward",
-      "autograd_backward",
-      "module_optimizer_step",
-      "randomness_repeatability"
+      "automatic_accelerator_selection",
+      "device_smoke_test",
+      "dependency_freeze",
+      "historical_environment_preservation"
     ]
   },
-  "timestamp": "2026-08-21T05:34:59.275505+00:00",
+  "timestamp": "2026-08-22T09:29:59.852261+00:00",
   "warnings": []
 }

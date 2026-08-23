@@ -1,4 +1,5 @@
 import csv
+import json
 import unittest
 from pathlib import Path
 
@@ -237,9 +238,20 @@ class PhaseChainTest(unittest.TestCase):
             families = list(csv.DictReader(stream))
         with (self.root / "artifacts/experiments/registry_validation_audit.csv").open(newline="", encoding="utf-8") as stream:
             audits = list(csv.DictReader(stream))
+        registry_records = [
+            json.loads(line)
+            for line in (self.root / "artifacts/experiments/experiment_registry.jsonl").read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        run_ids = [record["run_id"] for record in registry_records]
+        persistence_records = [
+            record
+            for record in registry_records
+            if record["experiment_family"] == "PERSISTENCE_BASELINE"
+        ]
         self.assertEqual(manifest["experiment_registry_version"], EXPERIMENT_VERSION)
-        self.assertEqual(manifest["run_count"], 1)
-        self.assertEqual(manifest["completed_count"], 1)
+        self.assertEqual(manifest["run_count"], len(registry_records))
+        self.assertEqual(manifest["completed_count"], sum(record["status"] == "COMPLETED" for record in registry_records))
         self.assertEqual(manifest["active_count"], 0)
         self.assertEqual(manifest["failed_count"], 0)
         self.assertEqual(manifest["family_count"], 26)
@@ -252,6 +264,10 @@ class PhaseChainTest(unittest.TestCase):
         self.assertEqual(len(families), 26)
         self.assertTrue(audits)
         self.assertTrue(all(row["status"] == "PASS" for row in audits))
+        self.assertEqual(len(run_ids), len(set(run_ids)))
+        self.assertEqual(len(persistence_records), 1)
+        self.assertEqual(persistence_records[0]["run_id"], "RUN_PS_PS_0001_AFFD3E3F")
+        self.assertEqual(persistence_records[0]["status"], "COMPLETED")
         self.assertGreater((self.root / "artifacts/experiments/experiment_registry.jsonl").stat().st_size, 0)
         self.assertTrue((self.root / "artifacts/runs/RUN_PS_PS_0001_AFFD3E3F").is_dir())
         self.assertEqual(signoff["production_run_count"], 0)
@@ -291,11 +307,11 @@ class PhaseChainTest(unittest.TestCase):
         self.assertAlmostEqual(metrics["metric_result"]["r2"], 0.481325958122121)
         self.assertEqual(len(predictions), 2960)
         self.assertEqual({row["run_id"] for row in predictions}, {signoff["run_id"]})
-        self.assertEqual(len(runs), 1)
-        self.assertEqual(runs[0]["run_id"], signoff["run_id"])
-        self.assertEqual(runs[0]["experiment_family"], "PERSISTENCE_BASELINE")
-        self.assertEqual(runs[0]["execution_type"], "EVALUATION")
-        self.assertEqual(runs[0]["status"], "COMPLETED")
+        persistence_runs = [row for row in runs if row["experiment_family"] == "PERSISTENCE_BASELINE"]
+        self.assertEqual(len(persistence_runs), 1)
+        self.assertEqual(persistence_runs[0]["run_id"], signoff["run_id"])
+        self.assertEqual(persistence_runs[0]["execution_type"], "EVALUATION")
+        self.assertEqual(persistence_runs[0]["status"], "COMPLETED")
 
 
 if __name__ == "__main__":

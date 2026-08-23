@@ -1,51 +1,52 @@
 {
-  "artifact_version": "SWEEP-v1",
-  "config_fingerprint": "S8",
-  "created_at": "2026-08-21T15:48:18.525615+00:00",
-  "dataset_revision": null,
+  "approved_for_phase31": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s8_learning_rate/_history/phase_30/20260822T160907715324Z/sweep_manifest.json",
+    "artifacts/sweeps/s8_learning_rate/_history/phase_30/20260822T160907715324Z/phase_30_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S8-v1",
+  "created_at": "2026-08-22T16:09:07.715151+00:00",
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8"
+    "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json": "193cc6883ca3bbdb9c5cd32b8668af66b23c8c7a2247f4a31afda8436086a7c3",
+    "artifacts/runs/RUN_TR_S08_0013_CE1D6C9C/config.json": "3785da6ec56a51aeda94defdb05214f7555fdadfeb4344d13e0421ff749fb28e",
+    "artifacts/runs/RUN_TR_S08_0014_9DA0EBE6/config.json": "427f9ced52553e95ab4da5ebe02a67098762e50dba4716e0cc3b238de014842b",
+    "artifacts/sweeps/s7_batch_size/phase_29_signoff.json": "ad90624ad71c14729496ea329020cdcfb3751d03f1c87ff969521efb805ae038",
+    "artifacts/sweeps/s7_batch_size/s7_batch_winner.json": "e3b9311e9836dd267f6c250b58c99e37de7370686cb7c354ed4998677a37a1d1",
+    "artifacts/sweeps/s7_batch_size/s7_reference_update.json": "d2a2b3628a6967b711541d1000125f85115ef615a398fa901dd18db1322cda77"
   },
   "input_paths": [
-    "artifacts/sweeps/s8_learning_rate/results.csv"
+    "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
+    "artifacts/sweeps/s7_batch_size/s7_batch_winner.json",
+    "artifacts/sweeps/s7_batch_size/s7_reference_update.json",
+    "artifacts/runs/RUN_TR_S08_0013_CE1D6C9C/config.json",
+    "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json",
+    "artifacts/runs/RUN_TR_S08_0014_9DA0EBE6/config.json"
   ],
   "output_checksums": {
-    "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8",
-    "artifacts/sweeps/s8_learning_rate/sweep_manifest.json": "c31b058ba7b9a7bc92ba86c5ae00800c3def32dd6e7bacd4b1bdc939f26d618c"
+    "artifacts/sweeps/s8_learning_rate/results.csv": "85b2f31f8ddb689251a9098801fa2d22650f8f98bde32f6375ef6a798d730db9",
+    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_winner.json": "6274ccf8b4d8fd96d414b8d8184373b862d500d0fe98e1c9342050c238ecd869",
+    "artifacts/sweeps/s8_learning_rate/s8_reference_update.json": "f26b47fe95ff120770838d83aabaf469a44e1905c2cfa49dcaf3574f0a97b249",
+    "artifacts/sweeps/s8_learning_rate/sweep_manifest.json": "19324fa00bbbf2d7b4e00765174b06068b96517bd895e41681df0620357d99d1"
   },
   "output_paths": [
+    "artifacts/sweeps/s8_learning_rate/results.csv",
     "artifacts/sweeps/s8_learning_rate/sweep_manifest.json",
-    "artifacts/sweeps/s8_learning_rate/results.csv"
+    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_winner.json",
+    "artifacts/sweeps/s8_learning_rate/s8_reference_update.json"
   ],
   "phase_id": 30,
   "phase_version": "PHASE-30-v1",
   "status": "PASS",
-  "summary": {
-    "best_variant": {
-      "activation": "GELU",
-      "batch_size": 32,
-      "best_epoch": 13,
-      "condition": "LR3",
-      "feature_variant_id": "FS1_TF1",
-      "learning_rate": 0.001,
-      "lookback_steps": 144,
-      "pooling": "LAST_STEP",
-      "run_id": "RUN_TR_B0_0010_1CEB611E",
-      "sweep_id": "S8_LEARNING_RATE",
-      "target_scaling_option": "YS1",
-      "val_mae": 28.72,
-      "val_r2": 0.566,
-      "val_rmse": 60.76
-    },
-    "sweep_code": "S8",
-    "sweep_name": "S8 Learning-Rate Sweep",
-    "variant_count": 4
-  },
+  "test_status": "FORBIDDEN",
   "tests": [
-    "results_csv_load",
-    "best_variant_recorded"
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
   ],
   "warnings": []
 }

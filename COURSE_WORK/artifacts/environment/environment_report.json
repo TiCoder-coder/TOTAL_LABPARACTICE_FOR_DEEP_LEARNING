@@ -1,8 +1,8 @@
 {
   "architecture": "arm64",
   "compute_environment_variables": {},
-  "cpu_count": 8,
-  "created_at": "2026-08-21T05:34:59.274036+00:00",
+  "cpu_count": 10,
+  "created_at": "2026-08-22T09:29:59.851603+00:00",
   "cuda_available": false,
   "cuda_device_count": 0,
   "cuda_device_name": null,
@@ -11,10 +11,17 @@
   "deterministic_mode": "D0",
   "development_seed": 42,
   "environment_id": "ENV-v1",
+  "environment_revision_id": "ENV-R-20260822T092959850966Z",
+  "historical_environment_paths": [
+    "artifacts/environment/_history/20260822T092959850966Z/environment_report.json",
+    "artifacts/environment/_history/20260822T092959850966Z/requirements_freeze.txt",
+    "artifacts/environment/_history/20260822T092959850966Z/smoke_test_report.json",
+    "artifacts/environment/_history/20260822T092959850966Z/phase_1_signoff.json"
+  ],
   "kernel": {
-    "kernel_executable": "/opt/homebrew/Cellar/python@3.10/3.10.21/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
-    "kernel_name": "coursework-venv",
-    "kernel_spec_path": "/Users/mac/Library/Jupyter/kernels/coursework-venv/kernel.json",
+    "kernel_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+    "kernel_name": "python3",
+    "kernel_spec_path": "/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/venv/share/jupyter/kernels/python3/kernel.json",
     "matches_interpreter": true
   },
   "mps_available": true,
@@ -34,9 +41,9 @@
   "platform": "Darwin",
   "platform_release": "25.6.0",
   "processor": "arm",
-  "project_root": "/Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK",
-  "python_executable": "/opt/homebrew/Cellar/python@3.10/3.10.21/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
-  "python_version": "3.10.21",
+  "project_root": "/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK",
+  "python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+  "python_version": "3.10.11",
   "selected_device": "mps",
-  "working_directory": "/Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/notebook_course_work"
+  "working_directory": "/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK"
 }

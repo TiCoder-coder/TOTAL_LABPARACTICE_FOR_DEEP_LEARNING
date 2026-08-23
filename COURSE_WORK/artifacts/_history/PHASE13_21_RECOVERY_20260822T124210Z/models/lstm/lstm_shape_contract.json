@@ -1,0 +1,13 @@
+{
+  "batch_first": true,
+  "canonical_dtype": "float32",
+  "implementation_version": "LSTM_IMPL-v1",
+  "input_layout": "B_L_F",
+  "output_layout": "B_1",
+  "stateless_across_windows": true,
+  "supported_lookbacks": [
+    36,
+    72,
+    144
+  ]
+}

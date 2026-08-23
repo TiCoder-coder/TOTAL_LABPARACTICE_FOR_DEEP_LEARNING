@@ -1,0 +1,64 @@
+{
+  "artifact_directories": {
+    "artifacts/environment": {
+      "combined_sha256": "2dc470a61dc7390eb64b3ffeab516c69ca200bf2925484bce71fe7cec94af768",
+      "file_count": 4
+    },
+    "artifacts/experiments": {
+      "combined_sha256": "c42c278bf69b0554fedf9669041755640153f5fb4f0ef6c6d2f0308cc7f26616",
+      "file_count": 14
+    },
+    "artifacts/learning_diagnostics": {
+      "combined_sha256": "0a26b4060af302b26c5dd4ab77d734de7ac2f8990d04c6153f6ac0183a28ab1f",
+      "file_count": 2
+    },
+    "artifacts/runs": {
+      "combined_sha256": "537e4a38954855aad410cb10223b457339f1b0e2f1ab2ef58b4b3893a73d9054",
+      "file_count": 41
+    },
+    "artifacts/sweeps/s1_feature_set": {
+      "combined_sha256": "489c8a4910758e1f9862255c1739b6dbf764f18577731636d21cea140262887f",
+      "file_count": 2
+    },
+    "artifacts/sweeps/s2_time_features": {
+      "combined_sha256": "MISSING",
+      "file_count": 0
+    },
+    "artifacts/sweeps/s3_target_scaling": {
+      "combined_sha256": "1ed1b202ba1c9567200b38ac221c80ed6284d62d5db1f5e717173520137ca975",
+      "file_count": 2
+    },
+    "artifacts/sweeps/s4_lookback": {
+      "combined_sha256": "ec8fda1b2fc24d6ad3f149575e3a30047f072cb6a58da9ece63b1927d5b69e64",
+      "file_count": 2
+    },
+    "artifacts/sweeps/s5_pooling": {
+      "combined_sha256": "cc89ed524cf1a15c1cc95d561615ec4f2c8c8b0390d10bd01beddb3b1e5f34df",
+      "file_count": 2
+    },
+    "artifacts/sweeps/s6_activation": {
+      "combined_sha256": "8d167cdb29285ede1a0b6dedb9df4f15d3bc9e5eeed1fda12adde3abd2bb72fc",
+      "file_count": 2
+    },
+    "artifacts/sweeps/s7_batch_size": {
+      "combined_sha256": "11e9541a51f53cac7393a81b2b4b11aa72aafe41356cf6cfbb84b63f3218d417",
+      "file_count": 3
+    },
+    "artifacts/sweeps/s8_learning_rate": {
+      "combined_sha256": "8c36c7b0443cf37f84e551290b7fabe59800268821842980a56e66e7050b0d24",
+      "file_count": 2
+    }
+  },
+  "notebook": {
+    "cell_count": 96,
+    "output_count": 85,
+    "path": "notebook_course_work/CourseWork.ipynb",
+    "sha256": "8dd18ff4352d51eb3288c510eda83838cdd1ad72cf10bd70788fef4b53609936"
+  },
+  "processing_log_directory_before_baseline": {
+    "combined_sha256": "ab531bf780f6e2b9f885be14676e563bc0a0486bbe2ead00e8d0d224edf2e148",
+    "file_count": 35
+  },
+  "purpose": "Phase 30 dependency recovery preservation baseline",
+  "scope": "Read-only scientific evidence and notebook output preservation"
+}

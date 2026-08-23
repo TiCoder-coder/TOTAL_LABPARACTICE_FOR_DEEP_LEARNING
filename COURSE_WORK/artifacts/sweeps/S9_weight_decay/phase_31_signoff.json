@@ -1,0 +1,49 @@
+{
+  "approved_for_phase32": true,
+  "archived_stale_paths": [],
+  "artifact_version": "SWEEP_S9-v1",
+  "created_at": "2026-08-22T16:41:36.048207+00:00",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json": "193cc6883ca3bbdb9c5cd32b8668af66b23c8c7a2247f4a31afda8436086a7c3",
+    "artifacts/runs/RUN_TR_S09_0015_BFC544BF/config.json": "c17ff8ab1699e8399520fb1e3382e9970a136107062dc4a48bbf1fafa1501391",
+    "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json": "d8bcd4ae977a15a6658c5ff969f8ca1eb46c84b03cbaeb02f14a03d000921cd4",
+    "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json": "6fa5b844bbddc5c1ee18e2d2705b15c653df074359f7675e2909a1c15f0d932f",
+    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_winner.json": "6274ccf8b4d8fd96d414b8d8184373b862d500d0fe98e1c9342050c238ecd869",
+    "artifacts/sweeps/s8_learning_rate/s8_reference_update.json": "f26b47fe95ff120770838d83aabaf469a44e1905c2cfa49dcaf3574f0a97b249"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json",
+    "artifacts/sweeps/s8_learning_rate/s8_learning_rate_winner.json",
+    "artifacts/sweeps/s8_learning_rate/s8_reference_update.json",
+    "artifacts/runs/RUN_TR_S09_0015_BFC544BF/config.json",
+    "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json",
+    "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/S9_weight_decay/s9_reference_update.json": "657062a93f74cdb4a37d9591ef2e2f85179c98e5a5ad8e73d3d09d1f1b8f680e",
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_metrics.csv": "8af6348b79530db6a7ebd9191dbc900016dfe27c63702ccb3300f3df0b924993",
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_sweep_manifest.json": "4da7a924e5c03c38ad40ecee48e0a1d170a0bef6f76fb373f27495d17ca7fb56",
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_winner.json": "1943fbd7647c625797a84605b26fd8c2683fd1252ce7762db5a2ccdedc6c9123"
+  },
+  "output_paths": [
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_metrics.csv",
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_sweep_manifest.json",
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_winner.json",
+    "artifacts/sweeps/S9_weight_decay/s9_reference_update.json"
+  ],
+  "phase_id": 31,
+  "phase_version": "PHASE-31-v1",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": []
+}

@@ -1,6 +1,6 @@
 {
   "artifact_version": "LSTM_BASELINE-v1",
-  "created_at": "2026-08-21T14:03:09.655728+00:00",
+  "created_at": "2026-08-22T12:58:32.740879+00:00",
   "discrepancies": [],
   "phase_id": 20,
   "phase_name": "LSTM Baseline Run",
@@ -12,17 +12,17 @@
         {
           "Metric": "Validation RMSE",
           "Unit": "Wh",
-          "Value": 60.22335322681946
+          "Value": 60.44645635182108
         },
         {
           "Metric": "Validation MAE",
           "Unit": "Wh",
-          "Value": 27.851502501380704
+          "Value": 27.528815886181007
         },
         {
           "Metric": "Validation R²",
           "Unit": "Dimensionless",
-          "Value": 0.5737152838390215
+          "Value": 0.5705510091583297
         },
         {
           "Metric": "Persistence Val RMSE",
@@ -32,7 +32,7 @@
         {
           "Metric": "Improvement over Persistence",
           "Unit": "Wh",
-          "Value": "6.2063"
+          "Value": "5.9832"
         }
       ],
       "title": "Validation performance"
@@ -79,7 +79,7 @@
     {
       "path": "artifacts/lstm_baseline/lstm_baseline_summary.json",
       "role": "summary",
-      "sha256": "2d5b55cfc312155f1ce453b3aec82f4925efa3fdc02060a79ece37cda7d0c56c"
+      "sha256": "e542d93e9f725dfdd79dc7408aff280336dcdff72845b63c79fee0c4f89bcd5f"
     },
     {
       "path": "artifacts/lstm_baseline/lstm_baseline_run_contract.json",
@@ -89,7 +89,7 @@
     {
       "path": "artifacts/lstm_baseline/phase_20_signoff.json",
       "role": "signoff",
-      "sha256": "bdac4bba9f2e11623d92cce54d7cb13542a5eb38eb9fc9c5750f775c1d6c3ddd"
+      "sha256": "58da9a7185acadd147535b5849bb16ee8e60fe420befca7aef5c18597a3a1f90"
     }
   ],
   "status": "PASS",
@@ -97,23 +97,23 @@
     "Baseline version": "LSTM_BASELINE-v1",
     "Beats Persistence": true,
     "Best epoch": 6,
-    "Run ID": "RUN_LS_LS_0004_D26C1EC5",
+    "Run ID": "RUN_LS_LS_0002_22A25637",
     "Stopped reason": "EARLY_STOPPING",
-    "Validation MAE (Wh)": 27.851502501380704,
-    "Validation RMSE (Wh)": 60.22335322681946,
-    "Validation R²": 0.5737152838390215
+    "Validation MAE (Wh)": 27.528815886181007,
+    "Validation RMSE (Wh)": 60.44645635182108,
+    "Validation R²": 0.5705510091583297
   },
   "technical_details": {
     "baseline_version": "LSTM_BASELINE-v1",
     "config_fingerprint": null,
     "dataset_revision": "DATA-v1",
-    "device_type": "mps",
+    "device_type": "cpu",
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/baselines/persistence/persistence_validation_metrics.json": "7b716c80c1ce9a2e92e8457b9de7679adb5e7ad9c5dfc1cad6e99b735cc591b9",
+      "artifacts/baselines/persistence/persistence_validation_metrics.json": "970637688fdf94da94fc44f2087f1f020379cdb83e783853039bcc7d25d078ca",
       "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
-      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
-      "artifacts/training_engine/phase_19_signoff.json": "046a6f6a242aab2775c2bfe15bc3901cf10d6f93d58c5f183b7433fa214e003a"
+      "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
+      "artifacts/training_engine/phase_19_signoff.json": "3645bcb46d86504b6214efd2f9d1b2e50c66365428163f7586a3f79eed643620"
     },
     "input_paths": [
       "artifacts/training_engine/phase_19_signoff.json",
@@ -123,28 +123,28 @@
     ],
     "output_checksums": {
       "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md": "899c13f58f7466e1ee379d0baaa48d4837104f81ab875a7d814fa79ba01d28bd",
-      "artifacts/lstm_baseline/lstm_baseline_audit.csv": "4a0a0b18de2de824ffa75860ccee3562c7d939cc457951a0f8a98727afec1170",
-      "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "df4267992b6dbd9cf05f3bf26e71acaeb6b67eddaf81c64f65b05ff522c5ed5a",
+      "artifacts/lstm_baseline/lstm_baseline_audit.csv": "376dd9a5fdb5613082b4b418c47717174043b6c0690245facde08f7a246866af",
+      "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "92a3d1b89397d47c61a2d25c3a6152e1158179c3afe29dcae94ea4c1fe81ac8c",
       "artifacts/lstm_baseline/lstm_baseline_run_contract.json": "ffadc0319ef499ea1868d05cc93b621522aa24b124e799e286912d0f725beedd",
-      "artifacts/lstm_baseline/lstm_baseline_run_summary.csv": "4953db2aa62e72411aaa003ed8ef8c4bdee3e876454edaefb95bde58c5cd34c4",
-      "artifacts/lstm_baseline/lstm_baseline_summary.json": "2d5b55cfc312155f1ce453b3aec82f4925efa3fdc02060a79ece37cda7d0c56c",
-      "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv": "b03b86a716634a4734c26139bcadaae4ab0073c98ffe5f01097d1026355e9bfd",
-      "artifacts/runs/RUN_LS_LS_0004_D26C1EC5/checkpoints/best_checkpoint.pt": "d529176c8c627bd046944a1e72ff598c5249dceb030722b09448dd2b18d0bda9",
-      "artifacts/runs/RUN_LS_LS_0004_D26C1EC5/metrics/best_validation_metrics.json": "975135519d6b542f75fa24aa75af160e28c201c004df72b21e1722f7ab63ddbc"
+      "artifacts/lstm_baseline/lstm_baseline_run_summary.csv": "709c977fb826ae2d13567b5232c2eacf321f889322fac51c43711e74c0679ba6",
+      "artifacts/lstm_baseline/lstm_baseline_summary.json": "e542d93e9f725dfdd79dc7408aff280336dcdff72845b63c79fee0c4f89bcd5f",
+      "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv": "b0010026c8f716eed35da15ebb1965e5bb7e3fe0fa5d616eef0e7600caa6478e",
+      "artifacts/runs/RUN_LS_LS_0002_22A25637/checkpoints/best_checkpoint.pt": "765dfb535441ab7cfaaf38d25e9a2fc970d65a7ad013034393fbcf3259ffe3f1",
+      "artifacts/runs/RUN_LS_LS_0002_22A25637/metrics/best_validation_metrics.json": "cf9457874fc96f2e8a3fd2bb029dbb654889f4e2fce6ff63fe90e36323a6c3c7"
     },
     "output_paths": [
       "artifacts/lstm_baseline/lstm_baseline_run_contract.json",
+      "artifacts/lstm_baseline/lstm_baseline_summary.json",
       "artifacts/lstm_baseline/lstm_baseline_run_summary.csv",
       "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv",
       "artifacts/lstm_baseline/lstm_baseline_audit.csv",
       "artifacts/lstm_baseline/lstm_baseline_discrepancies.json",
       "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md",
-      "artifacts/lstm_baseline/lstm_baseline_summary.json",
-      "artifacts/runs/RUN_LS_LS_0004_D26C1EC5/metrics/best_validation_metrics.json",
-      "artifacts/runs/RUN_LS_LS_0004_D26C1EC5/checkpoints/best_checkpoint.pt",
-      "artifacts/lstm_baseline/phase_20_signoff.json"
+      "artifacts/lstm_baseline/phase_20_signoff.json",
+      "artifacts/runs/RUN_LS_LS_0002_22A25637/metrics/best_validation_metrics.json",
+      "artifacts/runs/RUN_LS_LS_0002_22A25637/checkpoints/best_checkpoint.pt"
     ],
-    "run_id": "RUN_LS_LS_0004_D26C1EC5",
+    "run_id": "RUN_LS_LS_0002_22A25637",
     "tests": [
       "official_lstm_training",
       "registry_completion",
@@ -152,6 +152,6 @@
     ],
     "total_epochs_run": 16
   },
-  "timestamp": "2026-08-21T14:03:09.655728+00:00",
+  "timestamp": "2026-08-22T12:58:32.740879+00:00",
   "warnings": []
 }

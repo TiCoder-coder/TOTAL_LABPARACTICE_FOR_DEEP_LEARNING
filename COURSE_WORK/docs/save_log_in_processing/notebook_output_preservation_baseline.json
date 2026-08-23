@@ -1,0 +1,1150 @@
+{
+  "artifact_version": "NOTEBOOK-OUTPUT-PRESERVATION-v1",
+  "notebook_path": "notebook_course_work/CourseWork.ipynb",
+  "notebook_sha256": "7fc9b8c2b840d90f058a521b32f4cd77219ac97bf84b427cfa6d274f1bddfc01",
+  "cell_count": 94,
+  "code_cell_count": 47,
+  "executed_code_cell_count": 47,
+  "widget_output_count": 1,
+  "widget_outputs": [
+    {
+      "cell_index": 93,
+      "output_index": 3,
+      "model_id": "c3e7900f8da74042a7238652c6733eb0",
+      "version_major": 2,
+      "version_minor": 0
+    }
+  ],
+  "cells": [
+    {
+      "cell_index": 0,
+      "cell_id": "coursework-title",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 1,
+      "cell_id": "define-problem",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 2,
+      "cell_id": "0caba13e",
+      "cell_type": "code",
+      "execution_count": 1,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 3,
+      "cell_id": "public-api-imports",
+      "cell_type": "code",
+      "execution_count": 2,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 4,
+      "cell_id": "phase-1-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 5,
+      "cell_id": "phase-1-orchestration",
+      "cell_type": "code",
+      "execution_count": 3,
+      "output_count": 2,
+      "output_mime_types": [
+        [],
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 6,
+      "cell_id": "phase-2-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 7,
+      "cell_id": "phase-2-orchestration",
+      "cell_type": "code",
+      "execution_count": 4,
+      "output_count": 2,
+      "output_mime_types": [
+        [],
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 8,
+      "cell_id": "phase-3-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 9,
+      "cell_id": "phase-3-orchestration",
+      "cell_type": "code",
+      "execution_count": 5,
+      "output_count": 2,
+      "output_mime_types": [
+        [],
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 10,
+      "cell_id": "phase-4-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 11,
+      "cell_id": "phase-4-orchestration",
+      "cell_type": "code",
+      "execution_count": 6,
+      "output_count": 2,
+      "output_mime_types": [
+        [],
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 12,
+      "cell_id": "phase-5-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 13,
+      "cell_id": "phase-5-orchestration",
+      "cell_type": "code",
+      "execution_count": 7,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 14,
+      "cell_id": "phase-6-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 15,
+      "cell_id": "phase-6-setup",
+      "cell_type": "code",
+      "execution_count": 8,
+      "output_count": 2,
+      "output_mime_types": [
+        [],
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 16,
+      "cell_id": "phase-5-data-overview-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 17,
+      "cell_id": "phase-6-data-overview",
+      "cell_type": "code",
+      "execution_count": 9,
+      "output_count": 2,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 18,
+      "cell_id": "phase-5-missingness-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 19,
+      "cell_id": "phase-6-missingness",
+      "cell_type": "code",
+      "execution_count": 10,
+      "output_count": 3,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 20,
+      "cell_id": "phase-5-calendar-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 21,
+      "cell_id": "phase-6-calendar",
+      "cell_type": "code",
+      "execution_count": 11,
+      "output_count": 5,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 22,
+      "cell_id": "phase-5-target-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 23,
+      "cell_id": "phase-6-target",
+      "cell_type": "code",
+      "execution_count": 12,
+      "output_count": 7,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 24,
+      "cell_id": "phase-5-temporal-target-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 25,
+      "cell_id": "phase-6-temporal-target",
+      "cell_type": "code",
+      "execution_count": 13,
+      "output_count": 2,
+      "output_mime_types": [
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 26,
+      "cell_id": "phase-5-calendar-pattern-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 27,
+      "cell_id": "phase-6-calendar-patterns",
+      "cell_type": "code",
+      "execution_count": 14,
+      "output_count": 7,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 28,
+      "cell_id": "phase-5-feature-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 29,
+      "cell_id": "phase-6-feature-distributions",
+      "cell_type": "code",
+      "execution_count": 15,
+      "output_count": 3,
+      "output_mime_types": [
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 30,
+      "cell_id": "phase-5-correlation-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 31,
+      "cell_id": "phase-6-correlation",
+      "cell_type": "code",
+      "execution_count": 16,
+      "output_count": 4,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 32,
+      "cell_id": "phase-5-cross-correlation-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 33,
+      "cell_id": "phase-6-cross-correlation",
+      "cell_type": "code",
+      "execution_count": 17,
+      "output_count": 2,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 34,
+      "cell_id": "phase-5-conditional-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 35,
+      "cell_id": "phase-6-conditional-boxplots",
+      "cell_type": "code",
+      "execution_count": 18,
+      "output_count": 2,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 36,
+      "cell_id": "phase-5-outlier-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 37,
+      "cell_id": "phase-6-outlier-counts",
+      "cell_type": "code",
+      "execution_count": 19,
+      "output_count": 2,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 38,
+      "cell_id": "phase-5-smoothing-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 39,
+      "cell_id": "phase-6-smoothing-demo",
+      "cell_type": "code",
+      "execution_count": 20,
+      "output_count": 2,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 40,
+      "cell_id": "phase-5-time-series-diagnostics-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 41,
+      "cell_id": "phase-6-time-series-diagnostics",
+      "cell_type": "code",
+      "execution_count": 21,
+      "output_count": 5,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ],
+        [
+          "image/png",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 42,
+      "cell_id": "phase-5-findings-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 43,
+      "cell_id": "phase-6-findings",
+      "cell_type": "code",
+      "execution_count": 22,
+      "output_count": 2,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 44,
+      "cell_id": "phase-7-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 45,
+      "cell_id": "phase-7-orchestration",
+      "cell_type": "code",
+      "execution_count": 23,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 46,
+      "cell_id": "phase-8-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 47,
+      "cell_id": "phase-8-orchestration",
+      "cell_type": "code",
+      "execution_count": 24,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 48,
+      "cell_id": "phase-9-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 49,
+      "cell_id": "phase-9-orchestration",
+      "cell_type": "code",
+      "execution_count": 25,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 50,
+      "cell_id": "phase-10-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 51,
+      "cell_id": "phase-10-orchestration",
+      "cell_type": "code",
+      "execution_count": 26,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 52,
+      "cell_id": "phase-11-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 53,
+      "cell_id": "phase-11-orchestration",
+      "cell_type": "code",
+      "execution_count": 27,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 54,
+      "cell_id": "phase-12-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 55,
+      "cell_id": "phase-12-orchestration",
+      "cell_type": "code",
+      "execution_count": 28,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 56,
+      "cell_id": "phase-13-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 57,
+      "cell_id": "phase-13-orchestration",
+      "cell_type": "code",
+      "execution_count": 29,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 58,
+      "cell_id": "phase-14-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 59,
+      "cell_id": "phase-14-orchestration",
+      "cell_type": "code",
+      "execution_count": 30,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 60,
+      "cell_id": "1d1eebe5",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 61,
+      "cell_id": "499bc911",
+      "cell_type": "code",
+      "execution_count": 31,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 62,
+      "cell_id": "d91e6b47",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 63,
+      "cell_id": "518fca61",
+      "cell_type": "code",
+      "execution_count": 32,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 64,
+      "cell_id": "8906dc9f",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 65,
+      "cell_id": "efc7f487",
+      "cell_type": "code",
+      "execution_count": 33,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 66,
+      "cell_id": "6dee6a62",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 67,
+      "cell_id": "d60e1951",
+      "cell_type": "code",
+      "execution_count": 34,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 68,
+      "cell_id": "a5fd715f",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 69,
+      "cell_id": "2acc38f9",
+      "cell_type": "code",
+      "execution_count": 35,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 70,
+      "cell_id": "11dc2d67",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 71,
+      "cell_id": "2eb13c9c",
+      "cell_type": "code",
+      "execution_count": 36,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 72,
+      "cell_id": "328a4c95",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 73,
+      "cell_id": "03db9e36",
+      "cell_type": "code",
+      "execution_count": 37,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 74,
+      "cell_id": "410cc5e0",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 75,
+      "cell_id": "cd4716af",
+      "cell_type": "code",
+      "execution_count": 38,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 76,
+      "cell_id": "08a52851",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 77,
+      "cell_id": "0881cfe3",
+      "cell_type": "code",
+      "execution_count": 39,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 78,
+      "cell_id": "35e8f752",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 79,
+      "cell_id": "9b2d6e88",
+      "cell_type": "code",
+      "execution_count": 40,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 80,
+      "cell_id": "1a1d6b45",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 81,
+      "cell_id": "51bc5965",
+      "cell_type": "code",
+      "execution_count": 41,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 82,
+      "cell_id": "2ef1b3d9",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 83,
+      "cell_id": "585b390d",
+      "cell_type": "code",
+      "execution_count": 42,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 84,
+      "cell_id": "2b25f489",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 85,
+      "cell_id": "86f4ac0c",
+      "cell_type": "code",
+      "execution_count": 43,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 86,
+      "cell_id": "b020e51d",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 87,
+      "cell_id": "b70c9707",
+      "cell_type": "code",
+      "execution_count": 44,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 88,
+      "cell_id": "aa9fb435",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 89,
+      "cell_id": "eb4f1b80",
+      "cell_type": "code",
+      "execution_count": 45,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 90,
+      "cell_id": "4a8618de",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 91,
+      "cell_id": "3fe4478c",
+      "cell_type": "code",
+      "execution_count": 46,
+      "output_count": 1,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ]
+      ]
+    },
+    {
+      "cell_index": 92,
+      "cell_id": "all-logs-heading",
+      "cell_type": "markdown",
+      "execution_count": null,
+      "output_count": 0,
+      "output_mime_types": []
+    },
+    {
+      "cell_index": 93,
+      "cell_id": "all-logs-display",
+      "cell_type": "code",
+      "execution_count": 50,
+      "output_count": 4,
+      "output_mime_types": [
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "text/html",
+          "text/plain"
+        ],
+        [
+          "application/vnd.jupyter.widget-view+json",
+          "text/plain"
+        ]
+      ]
+    }
+  ]
+}

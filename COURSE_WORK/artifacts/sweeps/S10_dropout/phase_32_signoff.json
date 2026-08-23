@@ -1,0 +1,49 @@
+{
+  "approved_for_phase33": true,
+  "archived_stale_paths": [],
+  "artifact_version": "SWEEP_S10-v1",
+  "created_at": "2026-08-22T16:57:18.143773+00:00",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json": "d8bcd4ae977a15a6658c5ff969f8ca1eb46c84b03cbaeb02f14a03d000921cd4",
+    "artifacts/runs/RUN_TR_S10_0017_0823DC0C/config.json": "f5233fab2eccdf7bb48d50ed63ea0b5beb6fcd1e82f636a80ac4292d0450e548",
+    "artifacts/runs/RUN_TR_S10_0018_EE28F211/config.json": "58496a03e7e89a0a555c618537b2595bb778655b969195f6fa825300dbde8769",
+    "artifacts/sweeps/S9_weight_decay/phase_31_signoff.json": "dbc0a4524bfb3216a039f0cdba50593f6675d2229d88e407dee1ae45dd7c5688",
+    "artifacts/sweeps/S9_weight_decay/s9_reference_update.json": "657062a93f74cdb4a37d9591ef2e2f85179c98e5a5ad8e73d3d09d1f1b8f680e",
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_winner.json": "1943fbd7647c625797a84605b26fd8c2683fd1252ce7762db5a2ccdedc6c9123"
+  },
+  "input_paths": [
+    "artifacts/sweeps/S9_weight_decay/phase_31_signoff.json",
+    "artifacts/sweeps/S9_weight_decay/s9_weight_decay_winner.json",
+    "artifacts/sweeps/S9_weight_decay/s9_reference_update.json",
+    "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json",
+    "artifacts/runs/RUN_TR_S10_0017_0823DC0C/config.json",
+    "artifacts/runs/RUN_TR_S10_0018_EE28F211/config.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/S10_dropout/s10_dropout_metrics.csv": "e482fae9eab24752b06ea97304f39a72cb5ab4405eefb719ae6261bc5f3b2302",
+    "artifacts/sweeps/S10_dropout/s10_dropout_sweep_manifest.json": "e19639c33c2b26636b16a2a4747e9078df3c3b5bcfd20f32ebe578a75b692ffd",
+    "artifacts/sweeps/S10_dropout/s10_dropout_winner.json": "e788a47d1b00a1d7f10c86c14656fd50cb8f969276ebf73137a9f3f8ee832da5",
+    "artifacts/sweeps/S10_dropout/s10_reference_update.json": "8efc483d6e0b5701129010d8f00e14e914df97c893b9610a773159993feb619e"
+  },
+  "output_paths": [
+    "artifacts/sweeps/S10_dropout/s10_dropout_metrics.csv",
+    "artifacts/sweeps/S10_dropout/s10_dropout_sweep_manifest.json",
+    "artifacts/sweeps/S10_dropout/s10_dropout_winner.json",
+    "artifacts/sweeps/S10_dropout/s10_reference_update.json"
+  ],
+  "phase_id": 32,
+  "phase_version": "PHASE-32-v1",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": []
+}

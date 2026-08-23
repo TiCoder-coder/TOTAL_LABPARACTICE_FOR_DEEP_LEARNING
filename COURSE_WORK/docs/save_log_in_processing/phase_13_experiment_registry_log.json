@@ -1,6 +1,6 @@
 {
   "artifact_version": "EXPERIMENTS-v1",
-  "created_at": "2026-08-21T09:04:29.498797+00:00",
+  "created_at": "2026-08-22T12:48:49.265564+00:00",
   "discrepancies": [],
   "phase_id": 13,
   "phase_name": "Experiment Registry",
@@ -11,7 +11,7 @@
       "rows": [
         {
           "Item": "Production runs",
-          "Value": 12
+          "Value": 19
         },
         {
           "Item": "Experiment families",
@@ -23,11 +23,11 @@
         },
         {
           "Item": "Completed runs",
-          "Value": 10
+          "Value": 19
         },
         {
           "Item": "Failed runs",
-          "Value": 2
+          "Value": 0
         }
       ],
       "title": "Registry state"
@@ -66,18 +66,18 @@
     {
       "path": "artifacts/experiments/registry_manifest.json",
       "role": "registry",
-      "sha256": "e2798321d491b8289d0e42a7b1a7778d031edd7fb69ddec81b60d17d1e92abfe"
+      "sha256": "fe892d51f26d21a03811fb769040aa47c0b363c74117da053b5f0a48c6d62ca6"
     },
     {
       "path": "artifacts/experiments/phase_13_signoff.json",
       "role": "signoff",
-      "sha256": "61d8f983e9066eb54c038ae0c3fdddf511fd8899bcc4f8a4eafcc8fe548ffa91"
+      "sha256": "71b5174d57c4d37ad0af8d4fea987dddacfc492df3d803df6d18fa98e6848655"
     }
   ],
   "status": "PASS",
   "summary": {
     "Experiment families": 26,
-    "Production runs": 12,
+    "Production runs": 19,
     "Record schema": 1,
     "Validation": "PASS",
     "Version": "EXPERIMENTS-v1"
@@ -89,7 +89,7 @@
     "input_checksums": {
       "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
       "artifacts/eda/eda_manifest.json": "abef6dabdca7ce6eeeda1cd6ec77e37eddd66d3feebec726985a747447ce2498",
-      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+      "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
       "artifacts/feature_sets/feature_set_manifest.json": "239b9142032a9ed02ab389075ded5c5dd1b4dbffa5f4abe2312168a45120d5d1",
       "artifacts/features/feature_engineering_manifest.json": "e2f22ab4de9a8c3d1ac187ae8a2908c9fd548ecace3a7901f5a4bd99057be842",
       "artifacts/metrics/metric_contract.json": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8",
@@ -102,7 +102,7 @@
       "artifacts/temporal/temporal_manifest.json": "fe423a921811c6582bca4eb93af9555d75876ee8a3dbf92e4733fbba3eaf0183",
       "artifacts/windows/window_fingerprints.json": "c4ef0afcf352a119f03f5d9b86dabe6b5bf0a029afbdb9b29021debb0827468b",
       "artifacts/windows/window_manifest.json": "88ba16b5e792ceabfdbc50dcdff83db54750b91743e4bb01f889ae8f5da0164d",
-      "data/raw_data/dataset_manifest.json": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300"
+      "data/raw_data/dataset_manifest.json": "f5ce3c292d2b0aaaf6d6e7ffe65f6f34dff0a47930b1781ca265a714fd6ec3fb"
     },
     "input_paths": [
       "artifacts/environment/environment_report.json",
@@ -143,7 +143,7 @@
     ],
     "production_registry_empty": false,
     "registry_contract_fingerprint": "124a2edf1dc8a30845f7ffa7e0c46bf8d05a8c7ebe916b539f711e8d9dff36df",
-    "registry_fingerprint": "c883d492a2cfd8edcbb5c8a08fec4a25fc64c1fc5c85dc7fedd020fca3ce3558",
+    "registry_fingerprint": "edc9cb57c98f9fe0af6e3de96c44efec4809ae8a34595f3451c59bfd94676e70",
     "synthetic_records_persisted": false,
     "tests": [
       "canonical_config_fingerprint",
@@ -180,6 +180,6 @@
       "window_version": "WINDOWS-v1"
     }
   },
-  "timestamp": "2026-08-21T09:04:29.498797+00:00",
+  "timestamp": "2026-08-22T12:48:49.265564+00:00",
   "warnings": []
 }

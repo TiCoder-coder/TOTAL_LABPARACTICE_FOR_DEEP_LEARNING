@@ -1,0 +1,167 @@
+{
+  "artifact_version": "PHASE-33-UPSTREAM-RECOVERY-PRESERVATION-v1",
+  "canonical_roots": [
+    {
+      "exists": true,
+      "file_count": 5,
+      "path": "artifacts/lstm_baseline",
+      "tree_sha256": "c6856821aa2797b82c1db30d7b31308aa3116ea8ce83858fe2342a0c70bd0c96"
+    },
+    {
+      "exists": true,
+      "file_count": 5,
+      "path": "artifacts/transformer_b0",
+      "tree_sha256": "d7e1cef503232b3048e17a448497761fef8723ceab6fd3c201a4ebe93701815d"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/learning_diagnostics",
+      "tree_sha256": "b4b3157c2474c6d33efd7f023ee2c69f1eaa58d37ffea1b557879a9da62a6c56"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/sweeps/s1_feature_set",
+      "tree_sha256": "5240bf8f8a2442eb50f8f45c7fc2c115efa26d26f97ae56c1476ff1532343ff8"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/sweeps/s2_time_feature",
+      "tree_sha256": "7181df91aad03a262e49cf989cb47bfbed7293d1cef55bd3b86a0e7c200585f6"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/sweeps/s3_target_scaling",
+      "tree_sha256": "c7d18e7a3309af66d1e2afda888e0348f43767213d5dab9eed625e962618a95e"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/sweeps/s4_lookback",
+      "tree_sha256": "022583e3fc01d995d893acddf26bc7be0618770cb6ea6c03cb8c0d23f4f2bdbf"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/sweeps/s5_pooling",
+      "tree_sha256": "72721e6c7d7e432728b0dd997baa1e12528efae56ab7d17f2ff850249d99e195"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/sweeps/s6_activation",
+      "tree_sha256": "4e9eb79d1639860ee9ddfbc597289dcf1f82cde64fb80be272dc6e768089a6b5"
+    },
+    {
+      "exists": true,
+      "file_count": 3,
+      "path": "artifacts/sweeps/s7_batch_size",
+      "tree_sha256": "6552477cfbac114b5c5a8ea713b1ee3117ee69b9d2d4d520f08a0a4ad48e49f2"
+    },
+    {
+      "exists": true,
+      "file_count": 2,
+      "path": "artifacts/sweeps/s8_learning_rate",
+      "tree_sha256": "f290d6bcf81f3ba1847059c76c11c524a743a1b96fa7fba08e087d13a586bb5f"
+    },
+    {
+      "exists": false,
+      "file_count": 0,
+      "path": "artifacts/sweeps/S9_weight_decay",
+      "tree_sha256": null
+    },
+    {
+      "exists": false,
+      "file_count": 0,
+      "path": "artifacts/sweeps/S10_dropout",
+      "tree_sha256": null
+    }
+  ],
+  "created_for": "CW-PHASE-33-UPSTREAM-RECOVERY-BEFORE-IMPLEMENTATION-v1",
+  "environment_signoff": {
+    "exists": true,
+    "path": "artifacts/environment/phase_1_signoff.json",
+    "sha256": "418b631a832b5c88238c4215707db2aa4674f88f4c2d5d9c65fc1c7bd748ee68"
+  },
+  "experiment_registry": {
+    "exists": true,
+    "path": "artifacts/experiments/experiment_registry.jsonl",
+    "sha256": "b617d9b8003abb7bd7c1e7de53bc2135602dcfd395d65766a2078d39b77470a4"
+  },
+  "notebook_cell_count": 98,
+  "notebook_cell_ids_sha256": "aee647310e5593b6d019c1cf096a82c0a9f63d0744664fdbd050da333a5ddc2f",
+  "notebook_execution_counts_sha256": "46fa085e0f87e5d9d4d604a2661294ffd00ae34054d21f75b8d575bb15289601",
+  "notebook_outputs_sha256": "94cfd8ac1a2ca4249b54eefee80f3c248d9dbc3e751ff248b7f72c248e8e8866",
+  "notebook_path": "notebook_course_work/CourseWork.ipynb",
+  "notebook_sha256": "40be9f7e0f8c85f83c80aeeb4d208a37307cba12ffc627d68895238e761f9555",
+  "notebook_sources_sha256": "1cc1c0ab90b7ac9bc7eb6d05e3ce3689b9e9eeccad69bf3bb26b668be967214f",
+  "processing_logs": [
+    {
+      "path": "docs/save_log_in_processing/phase_20_lstm_baseline_log.json",
+      "sha256": "c3cad4815627135013294c58229718647d9d3351cac32fc8e2b3207292b10182"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_21_transformer_b0_log.json",
+      "sha256": "5c3cf59161f437d23ec218a502565e910526663a846759c56394cf7ae25c1e65"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_22_learning_diagnostics_log.json",
+      "sha256": "3e86706a175ca9245f7690a0a8b7c721e107b49e42da81ef20f7d6fada5be6aa"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_23_s1_feature_set_log.json",
+      "sha256": "8d06cc5ca9c742f7df89df118004d25c04092b131a6f084a7c9a24d4a1e22909"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_24_s2_time_feature_log.json",
+      "sha256": "55deb5243db547b967f3e4523c1b4bfbdd1b4d24329fabb4f389013f3e640b00"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_25_s3_target_scaling_log.json",
+      "sha256": "43201979aa8b25fa756057da0ce3010771cc386fdce22056371890e9b2393970"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_26_s4_lookback_log.json",
+      "sha256": "1f95fdf55a76c782eedcc27cc791d95969402203ae9f846ce48c4e8d88453fd6"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_27_s5_pooling_log.json",
+      "sha256": "0472ed40dad158664b9b10901711cb1c6c14a74f2ff83ee64ba4f624d442cf92"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_28_s6_activation_log.json",
+      "sha256": "b68448cbdbfb36b7d3c0c603605bc43d1cbef2ac97c394e6a494fbfd9c639d9e"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_29_s7_batch_size_log.json",
+      "sha256": "a761e81486fbe84671881c75fd026590f48fb4d10cabd8f661e3ed6959a7667d"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_30_recovery_baseline.json",
+      "sha256": "f409cca256f20b5ea284eb61f28fbff43151bc1b0324e8635d146df811a9313b"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_30_s8_learning_rate_log.json",
+      "sha256": "c998f6958f9359e73a57253f156120fd8cee16dfd152f4e4104c5fe2a9ba8cc5"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_31_notebook_preservation_baseline.json",
+      "sha256": "e1f440c47f75d5d17efa11416689a69a6b574a7dc5ee8713e810f327418202f7"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_31_s9_weight_decay_log.json",
+      "sha256": "208a82844aef222dd75d14082174a43c53c3cf8ff1ed4b44f2dcf026e186ea7e"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_32_notebook_preservation_baseline.json",
+      "sha256": "312ab1f3b1663985e12a38e5282cc6ad651cf33ea3d5725ca530d6d425a0fd64"
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_32_s10_dropout_log.json",
+      "sha256": "866d0b59584aa83a7a2f36eeed911b8afc6f291736123fa027ff7a71d7aadea3"
+    }
+  ]
+}

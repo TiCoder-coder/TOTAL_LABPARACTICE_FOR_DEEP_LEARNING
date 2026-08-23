@@ -1,51 +1,50 @@
 {
-  "artifact_version": "SWEEP-v1",
-  "config_fingerprint": "S6",
-  "created_at": "2026-08-21T15:48:18.524065+00:00",
-  "dataset_revision": null,
+  "approved_for_phase29": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S6-v1",
+  "created_at": "2026-08-22T15:39:01.167241+00:00",
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/sweeps/s6_activation/results.csv": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14"
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+    "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
   },
   "input_paths": [
-    "artifacts/sweeps/s6_activation/results.csv"
+    "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
   ],
   "output_checksums": {
-    "artifacts/sweeps/s6_activation/results.csv": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14",
-    "artifacts/sweeps/s6_activation/sweep_manifest.json": "5d353b39745867af67de6680fb142d02744de90bd9aa2ff1e45df2c5c7da79d5"
+    "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d",
+    "artifacts/sweeps/s6_activation/sweep_manifest.json": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
   },
   "output_paths": [
+    "artifacts/sweeps/s6_activation/results.csv",
     "artifacts/sweeps/s6_activation/sweep_manifest.json",
-    "artifacts/sweeps/s6_activation/results.csv"
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json"
   ],
   "phase_id": 28,
   "phase_version": "PHASE-28-v1",
   "status": "PASS",
-  "summary": {
-    "best_variant": {
-      "activation": "GELU",
-      "batch_size": 32,
-      "best_epoch": 13,
-      "condition": "GELU",
-      "feature_variant_id": "FS1_TF1",
-      "learning_rate": 0.0003,
-      "lookback_steps": 144,
-      "pooling": "LAST_STEP",
-      "run_id": "RUN_TR_B0_0010_1CEB611E",
-      "sweep_id": "S6_ACTIVATION",
-      "target_scaling_option": "YS1",
-      "val_mae": 28.72,
-      "val_r2": 0.566,
-      "val_rmse": 60.76
-    },
-    "sweep_code": "S6",
-    "sweep_name": "S6 Activation Sweep",
-    "variant_count": 3
-  },
+  "test_status": "FORBIDDEN",
   "tests": [
-    "results_csv_load",
-    "best_variant_recorded"
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
   ],
   "warnings": []
 }

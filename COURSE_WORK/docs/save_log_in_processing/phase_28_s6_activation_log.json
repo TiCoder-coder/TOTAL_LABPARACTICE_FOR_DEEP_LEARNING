@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP-v1",
-  "created_at": "2026-08-21T15:48:18.524065+00:00",
+  "artifact_version": "SWEEP_S6-v1",
+  "created_at": "2026-08-22T15:39:01.167241+00:00",
   "discrepancies": [],
   "phase_id": 28,
   "phase_name": "S6 Activation Sweep",
@@ -10,60 +10,100 @@
     {
       "rows": [
         {
-          "Field": "activation",
+          "Field": "activation_id",
           "Value": "GELU"
         },
         {
-          "Field": "batch_size",
-          "Value": 32
+          "Field": "batch_id",
+          "Value": "B64"
         },
         {
-          "Field": "best_epoch",
-          "Value": 13
+          "Field": "condition_id",
+          "Value": "GELU"
         },
         {
-          "Field": "condition",
+          "Field": "config_fingerprint",
+          "Value": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f"
+        },
+        {
+          "Field": "d_model",
+          "Value": 64
+        },
+        {
+          "Field": "d_model_id",
+          "Value": "D64"
+        },
+        {
+          "Field": "dropout",
+          "Value": 0.1
+        },
+        {
+          "Field": "factor_value",
           "Value": "GELU"
         },
         {
           "Field": "feature_variant_id",
-          "Value": "FS1_TF1"
+          "Value": "FS2_TF1"
+        },
+        {
+          "Field": "ffn_dim",
+          "Value": 128
         },
         {
           "Field": "learning_rate",
           "Value": 0.0003
         },
         {
-          "Field": "lookback_steps",
-          "Value": 144
+          "Field": "lookback_id",
+          "Value": "L36"
         },
         {
-          "Field": "pooling",
+          "Field": "metric_version",
+          "Value": "METRICS-v1"
+        },
+        {
+          "Field": "num_heads",
+          "Value": 4
+        },
+        {
+          "Field": "num_layers",
+          "Value": 2
+        },
+        {
+          "Field": "pooling_id",
           "Value": "LAST_STEP"
         },
         {
+          "Field": "population_fingerprint",
+          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
+        },
+        {
+          "Field": "reused_reference",
+          "Value": true
+        },
+        {
           "Field": "run_id",
-          "Value": "RUN_TR_B0_0010_1CEB611E"
+          "Value": "RUN_TR_S04_0008_133EF4E3"
         },
         {
-          "Field": "sweep_id",
-          "Value": "S6_ACTIVATION"
-        },
-        {
-          "Field": "target_scaling_option",
+          "Field": "target_scaling_id",
           "Value": "YS1"
         },
         {
-          "Field": "val_mae",
-          "Value": 28.72
+          "Field": "validation_mae_wh",
+          "Value": 27.41859357267982
         },
         {
-          "Field": "val_r2",
-          "Value": 0.566
+          "Field": "validation_r2",
+          "Value": 0.5904020802432752
         },
         {
-          "Field": "val_rmse",
-          "Value": 60.76
+          "Field": "validation_rmse_wh",
+          "Value": 59.03287348979047
+        },
+        {
+          "Field": "weight_decay",
+          "Value": 0.0001
         }
       ],
       "title": "Best variant details"
@@ -73,17 +113,17 @@
     {
       "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
       "role": "manifest",
-      "sha256": "5d353b39745867af67de6680fb142d02744de90bd9aa2ff1e45df2c5c7da79d5"
+      "sha256": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
     },
     {
       "path": "artifacts/sweeps/s6_activation/results.csv",
       "role": "results",
-      "sha256": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14"
+      "sha256": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec"
     },
     {
       "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
       "role": "signoff",
-      "sha256": "8cc9e3fb39f430def02faa81de731a0949478db8192dc7a8d67a2d8915fdb894"
+      "sha256": "0ec21076b945c54a216d5998ea33e38fcbd348f0593d86806687878890c8ed9b"
     }
   ],
   "status": "PASS",
@@ -91,49 +131,75 @@
     "Best variant": "N/A",
     "Sweep code": "S6",
     "Sweep name": "S6 Activation Sweep",
-    "Variant count": 3
+    "Variant count": 2
   },
   "technical_details": {
     "best_variant": {
-      "activation": "GELU",
-      "batch_size": 32,
-      "best_epoch": 13,
-      "condition": "GELU",
-      "feature_variant_id": "FS1_TF1",
+      "activation_id": "GELU",
+      "batch_id": "B64",
+      "condition_id": "GELU",
+      "config_fingerprint": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f",
+      "d_model": 64,
+      "d_model_id": "D64",
+      "dropout": 0.1,
+      "factor_value": "GELU",
+      "feature_variant_id": "FS2_TF1",
+      "ffn_dim": 128,
       "learning_rate": 0.0003,
-      "lookback_steps": 144,
-      "pooling": "LAST_STEP",
-      "run_id": "RUN_TR_B0_0010_1CEB611E",
-      "sweep_id": "S6_ACTIVATION",
-      "target_scaling_option": "YS1",
-      "val_mae": 28.72,
-      "val_r2": 0.566,
-      "val_rmse": 60.76
+      "lookback_id": "L36",
+      "metric_version": "METRICS-v1",
+      "num_heads": 4,
+      "num_layers": 2,
+      "pooling_id": "LAST_STEP",
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "reused_reference": true,
+      "run_id": "RUN_TR_S04_0008_133EF4E3",
+      "target_scaling_id": "YS1",
+      "validation_mae_wh": 27.41859357267982,
+      "validation_r2": 0.5904020802432752,
+      "validation_rmse_wh": 59.03287348979047,
+      "weight_decay": 0.0001
     },
-    "config_fingerprint": "S6",
+    "config_fingerprint": null,
     "dataset_revision": null,
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/sweeps/s6_activation/results.csv": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14"
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+      "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+      "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+      "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
     },
     "input_paths": [
-      "artifacts/sweeps/s6_activation/results.csv"
+      "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+      "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+      "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
     ],
     "output_checksums": {
-      "artifacts/sweeps/s6_activation/results.csv": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14",
-      "artifacts/sweeps/s6_activation/sweep_manifest.json": "5d353b39745867af67de6680fb142d02744de90bd9aa2ff1e45df2c5c7da79d5"
+      "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+      "artifacts/sweeps/s6_activation/s6_activation_winner.json": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
+      "artifacts/sweeps/s6_activation/s6_reference_update.json": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d",
+      "artifacts/sweeps/s6_activation/sweep_manifest.json": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
     },
     "output_paths": [
+      "artifacts/sweeps/s6_activation/results.csv",
       "artifacts/sweeps/s6_activation/sweep_manifest.json",
-      "artifacts/sweeps/s6_activation/results.csv"
+      "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+      "artifacts/sweeps/s6_activation/s6_reference_update.json"
     ],
     "sweep_code": "S6",
     "tests": [
-      "results_csv_load",
-      "best_variant_recorded"
+      "condition_completeness",
+      "registry_evidence_integrity",
+      "validation_only_selection",
+      "exact_tie_rule",
+      "winner_config_match",
+      "test_firewall"
     ],
-    "variant_count": 3
+    "variant_count": 2
   },
-  "timestamp": "2026-08-21T15:48:18.524065+00:00",
+  "timestamp": "2026-08-22T15:39:01.167241+00:00",
   "warnings": []
 }

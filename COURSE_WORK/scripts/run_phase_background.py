@@ -2,7 +2,7 @@
 
 Handles three runner kinds:
 - ``phase <N>``       — single-shot baseline phases (20=LSTM, 21=Transformer B0, 22=Learning Diagnostics)
-- ``sweep``           — sweep chain (Phase 23-30) via run_all_pending.py
+- ``sweep``           — sweep chain (Phase 23-32) via run_all_pending.py
 - ``condition <S> <C>`` — single sweep condition (used internally by run_all_pending.py and for debugging)
 
 All runners are spawned with ``start_new_session=True`` so the process group
@@ -204,11 +204,26 @@ def cmd_phase(args: argparse.Namespace) -> int:
 
 def cmd_sweep(args: argparse.Namespace) -> int:
     child_argv = list(SWEEP_CHILD)
+    if args.phase_id is not None:
+        child_argv.extend(["--phase-id", str(args.phase_id)])
+    if args.target_phase is not None:
+        child_argv.extend(["--target-phase", str(args.target_phase)])
+    if args.with_dependencies:
+        child_argv.append("--with-dependencies")
+    if args.audit_only:
+        child_argv.append("--audit-only")
+    if args.recover_environment:
+        child_argv.append("--recover-environment")
     if args.dry_run:
+        child_argv.append("--dry-run")
         print("Dry-run: would execute:", shlex.join(child_argv))
         return 0
-    log_prefix = "sweep_background"
-    _spawn_detached(child_argv, log_prefix, "sweep", "all_pending")
+    if args.foreground or args.audit_only:
+        return _run_foreground(child_argv)
+    selected_phase = args.target_phase or args.phase_id
+    runner_key = "all_pending" if selected_phase is None else f"phase={selected_phase:02d}"
+    log_prefix = "sweep_background" if selected_phase is None else f"phase_{selected_phase:02d}_resume"
+    _spawn_detached(child_argv, log_prefix, "sweep", runner_key)
     return 0
 
 
@@ -292,9 +307,16 @@ def build_parser() -> argparse.ArgumentParser:
                          help="Run in this process instead of spawning a detached child.")
     p_phase.set_defaults(func=cmd_phase)
 
-    p_sweep = sub.add_parser("sweep", help="Run all 13 pending sweep conditions (Phase 23-30).")
+    p_sweep = sub.add_parser("sweep", help="Run pending sweep conditions (Phase 23-34).")
     p_sweep.add_argument("--dry-run", action="store_true",
                          help="Print what would run without spawning.")
+    p_sweep.add_argument("--phase-id", type=int, choices=tuple(range(23, 35)),
+                         help="Resolve and run only missing conditions for one sweep Phase.")
+    p_sweep.add_argument("--target-phase", type=int, choices=tuple(range(23, 35)))
+    p_sweep.add_argument("--with-dependencies", action="store_true")
+    p_sweep.add_argument("--audit-only", action="store_true")
+    p_sweep.add_argument("--foreground", action="store_true")
+    p_sweep.add_argument("--recover-environment", action="store_true")
     p_sweep.set_defaults(func=cmd_sweep)
 
     p_cond = sub.add_parser("condition", help="Run one sweep condition (debug; production uses 'sweep').")

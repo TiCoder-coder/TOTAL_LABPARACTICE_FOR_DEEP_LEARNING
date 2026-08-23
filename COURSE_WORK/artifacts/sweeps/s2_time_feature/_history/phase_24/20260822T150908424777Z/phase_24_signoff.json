@@ -1,0 +1,51 @@
+{
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S2",
+  "created_at": "2026-08-21T15:48:18.519280+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/sweeps/s2_time_feature/results.csv": "3aba931e51a9d57c706fe36f9f8769ab4ea80230062bf8ee51c703e6cb5b53e5"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s2_time_feature/results.csv"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s2_time_feature/results.csv": "3aba931e51a9d57c706fe36f9f8769ab4ea80230062bf8ee51c703e6cb5b53e5",
+    "artifacts/sweeps/s2_time_feature/sweep_manifest.json": "45098169795ee1ff8eb38f60723ed523dee7a14ba645679d747102521a207010"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s2_time_feature/sweep_manifest.json",
+    "artifacts/sweeps/s2_time_feature/results.csv"
+  ],
+  "phase_id": 24,
+  "phase_version": "PHASE-24-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "TF1",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S2_TIME_FEATURE",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "sweep_code": "S2",
+    "sweep_name": "S2 Time-Feature Sweep",
+    "variant_count": 2
+  },
+  "tests": [
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
+}

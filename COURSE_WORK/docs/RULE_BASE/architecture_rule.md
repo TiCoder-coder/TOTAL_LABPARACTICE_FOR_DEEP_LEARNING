@@ -7,7 +7,7 @@ Document ID: COURSE-WORK-ARCHITECTURE-v1
 Repository scope: COURSE_WORK
 Architecture style: Source-owned processing with Human-approved direct Phase 5 EDA exception
 Scientific scope: Multivariate time-series regression
-Current implementation scope: Phase 0 through Phase 14
+Current implementation scope: Phase 0 through Phase 34
 Status: ACTIVE_HUMAN_APPROVED
 ```
 
@@ -155,12 +155,39 @@ COURSE_WORK/
 │       │   ├── __init__.py
 │       │   ├── eda.py
 │       │   └── phase_summary.py
+│       ├── models/
+│       │   ├── __init__.py
+│       │   ├── lstm_regressor.py
+│       │   ├── transformer_regressor.py
+│       │   ├── transformer_encoder_layer.py
+│       │   └── positional_encoding.py
+│       ├── training/
+│       │   ├── __init__.py
+│       │   ├── engine.py
+│       │   └── engine_materialize.py
+│       ├── sanity/
+│       │   ├── __init__.py
+│       │   └── forward_sanity.py
+│       ├── diagnostics/
+│       │   ├── __init__.py
+│       │   ├── learning_curves.py
+│       │   └── learning_diagnostics.py
+│       ├── sweeps/
+│       │   ├── d_model.py
+│       │   ├── dropout.py
+│       │   ├── heads.py
+│       │   ├── sweep_results.py
+│       │   └── weight_decay.py
 │       ├── evaluation/
 │       │   └── metrics.py
 │       ├── experiments/
-│       │   └── registry.py
+│       │   ├── registry.py
+│       │   ├── phase_execution.py
+│       │   └── sweep_recovery.py
 │       ├── baselines/
-│       │   └── persistence.py
+│       │   ├── persistence.py
+│       │   ├── lstm_baseline.py
+│       │   └── transformer_b0.py
 │       ├── utils/
 │       │   ├── __init__.py
 │       │   ├── artifacts.py
@@ -170,7 +197,9 @@ COURSE_WORK/
 │           ├── extraction.py
 │           ├── heatmaps.py
 │           ├── last_query.py
-│           └── head_comparison.py
+│           ├── head_comparison.py
+│           ├── mapping.py
+│           └── verification.py
 ├── tests/
 │   ├── contracts/
 │   ├── unit/
@@ -183,7 +212,7 @@ COURSE_WORK/
     └── save_log_in_processing/
 ```
 
-Các package và artifact ngoài Phase 0-14 chỉ là namespace được bảo lưu. Không được triển khai logic Phase 15 trở đi nếu chưa có Human approval riêng.
+Các package và artifact ngoài Phase 0-34 chỉ là namespace được bảo lưu. Không được triển khai logic Phase 35 trở đi nếu chưa có Human approval riêng.
 
 ## 6. Trách nhiệm thư mục cấp cao
 
@@ -430,7 +459,7 @@ Không tự tính lại scientific tables theo logic khác.
 
 ### 7.9.1. `reporting/phase_summary.py`
 
-Sở hữu presentation layer dùng chung cho Phase 0-14:
+Sở hữu presentation layer dùng chung cho Phase 0-33:
 
 ```text
 Đọc canonical machine-readable artifacts đã được materialize
@@ -464,6 +493,16 @@ Phase 12 chỉ hiển thị Metric registry và Evaluation policy
 Phase 13 chỉ hiển thị Registry state và Core safeguards
 Phase 14 chỉ hiển thị Validation performance và Baseline contract
 ```
+
+Phase 15 hiển thị model contract và tensor-interface verification.
+Phase 16 hiển thị Transformer contract và tensor-interface verification.
+Phase 17 hiển thị attention verification contract và kiểm tra attention weights.
+Phase 18 hiển thị forward-sanity matrix và kết quả kiểm tra hữu hạn.
+Phase 19 hiển thị training-engine contract và smoke-test result.
+Phase 20 hiển thị LSTM Validation metrics và learning curves.
+Phase 21 hiển thị Transformer B0 Validation metrics và learning curves.
+Phase 22 hiển thị diagnostic findings và learning-curve figures.
+Phase 23-33 hiển thị phase state, resolved action, prerequisite state, expected conditions, verified conditions, missing conditions và bảng Validation comparison đã xác minh.
 
 Phase mới phải khai báo presentation allowlist trước khi triển khai. Training phase chỉ hiển thị learning curves và metrics chính. Evaluation phase chỉ hiển thị model comparison và error plots cần thiết. Attention phase chỉ hiển thị heatmaps và diễn giải trực tiếp liên quan. Mọi technical detail vẫn phải được giữ đầy đủ trong processing log JSON.
 
@@ -720,9 +759,94 @@ Test evaluation trước Phase 47
 Moving-average hoặc seasonal baseline extension
 ```
 
-### 7.19. Các module Phase 15 trở đi
+### 7.19. `models/lstm_regressor.py`
 
-`models/*`, `training/*` và downstream `attention/*` chưa được triển khai trong current scope. Sự tồn tại của namespace rỗng không được xem là Phase đã triển khai.
+Sở hữu Phase 15 LSTM implementation contract, model construction, interface audit và signed implementation artifact.
+
+### 7.20. `models/transformer_regressor.py`
+
+Sở hữu Phase 16 Transformer implementation contract, positional encoding integration, encoder construction, regression interface audit và signed implementation artifact.
+
+### 7.21. `attention/verification.py`
+
+Sở hữu Phase 17 attention-aware encoder verification, attention tensor contract, masking verification và signed verification artifact.
+
+### 7.22. `sanity/forward_sanity.py`
+
+Sở hữu Phase 18 forward-pass sanity matrix cho LSTM và Transformer, shape, dtype, finite-value, backward compatibility và signed sanity artifact.
+
+### 7.23. `training/engine.py` và `training/engine_materialize.py`
+
+Sở hữu Phase 19 training engine, epoch aggregation, Validation-only monitoring, checkpoint contract, early stopping, reproducibility handoff và signed engine artifact.
+
+### 7.24. `baselines/lstm_baseline.py`
+
+Sở hữu Phase 20 canonical LSTM baseline run, run-registry lifecycle, Validation metrics, checkpoint lineage, learning history và signed baseline artifact.
+
+### 7.25. `baselines/transformer_b0.py`
+
+Sở hữu Phase 21 canonical Transformer B0 run, run-registry lifecycle, Validation metrics, checkpoint lineage, learning history và signed baseline artifact.
+
+### 7.26. `diagnostics/learning_diagnostics.py` và `diagnostics/learning_curves.py`
+
+Sở hữu Phase 22 learning-curve diagnostics, validated training-history comparison, diagnostic findings, saved figures và signed diagnostics artifact.
+
+### 7.27. `sweeps/sweep_results.py`
+
+Sở hữu validation contract dùng chung cho Phase 23-34 sweep results, condition completeness, Validation-only winner selection, manifest, winner handoff, reference update và signed sweep artifacts.
+
+Không được tái sử dụng sign-off nếu output path thiếu, checksum sai, condition thiếu hoặc run configuration không khớp condition.
+
+### 7.28. `experiments/phase_execution.py`
+
+Sở hữu selective phase inspection và resume orchestration:
+
+```text
+Phase dependency registry
+Expected condition registry
+Canonical evidence inspection
+State classification
+Smallest-safe-action resolution
+Missing-only dispatch
+Derived processing-log refresh
+Notebook-ready persistent presentation payload
+```
+
+Module này không sở hữu training logic, scientific metric calculation hoặc HTML rendering. Module không được gọi materializer của Phase trước chỉ để kiểm tra Phase được chọn.
+
+### 7.29. `sweeps/weight_decay.py`
+
+Sở hữu Phase 31 S9 weight-decay contract, Phase 30 handoff preflight, WD0/WD1/WD2 mapping, frozen AdamW parameter-group policy boundary, WD1 exact-reference reuse gate, Phase 31 condition preparation và Test firewall.
+
+Module không được hard-code S8 winner, không được xem processing log là canonical evidence, không được thêm explicit L2 loss, không được đổi optimizer group topology và không được chạy condition khi Phase 30 gate không hợp lệ.
+
+### 7.30. `experiments/sweep_recovery.py`
+
+Sở hữu read-only recovery audit từ Phase 22 tới target Phase, current-runtime identity inspection, earliest-invalid-dependency resolution, minimal execution-set calculation và dependency-aware recovery proposal.
+
+Module không sở hữu training, winner selection, artifact finalization, HTML rendering hoặc scientific metric calculation. Audit mode không được ghi scientific artifact, thay đổi notebook output hoặc xem processing log là scientific evidence.
+
+### 7.31. `sweeps/dropout.py`
+
+Sở hữu Phase 32 S10 dropout contract, Phase 31 handoff preflight, DR01/DR02/DR03 mapping, frozen dropout-site scope, DR01 exact-reference reuse gate, DR02/DR03 fresh-run preparation, train/eval dropout semantics và Test firewall.
+
+Module không được hard-code S9 winner, không được xem processing log là canonical evidence, không được thêm dropout site mới, không được thay đổi capacity hoặc optimizer contract và không được chạy condition khi Phase 31 gate không hợp lệ.
+
+### 7.32. `sweeps/d_model.py`
+
+Sở hữu Phase 33 S11 d_model contract, Phase 32 handoff preflight, D32/D64 mapping, H4/N2/F128 frozen-capacity boundary, D64 exact-reference reuse gate, D32 fresh-run preparation, model-geometry audit, capacity-efficiency context và Test firewall.
+
+Module không được hard-code S10 winner, không được xem processing log là canonical evidence, không được bù thay đổi d_model bằng cách thay đổi head count, layer count hoặc FFN dimension và không được chạy condition khi Phase 32 gate không hợp lệ.
+
+### 7.33. `sweeps/heads.py`
+
+Sở hữu Phase 34 S12 head-count contract, Phase 33 handoff preflight, H2/H4 mapping, dynamic selected `d_model`, head-dimension và divisibility audit, parameter-schema equality, H4 exact-reference reuse gate, H2 fresh-run preparation, attention API sanity và Test firewall.
+
+Module không được hard-code S11 winner, không được xem processing log là canonical evidence, không được thay `d_model`, layer count hoặc FFN dimension để bù head geometry, không được warm-start H2 từ H4 và không được chạy condition khi Phase 33 gate không hợp lệ.
+
+### 7.34. Các module Phase 35 trở đi
+
+Phase 35 trở đi nằm ngoài current implementation scope. Không được triển khai nếu chưa có Phase detail, pre-process plan và Human approval riêng.
 
 ## 8. Hướng dependency
 
@@ -731,7 +855,19 @@ Moving-average hoặc seasonal baseline extension
 | Caller | Dependency được phép |
 |---|---|
 | Notebook | Public API của contracts, data, evaluation, experiments, reporting và utils |
-| Reporting | Validated Phase 0-14 artifacts và artifact utility |
+| Selective phase execution | Approved Phase detail, experiment registry, canonical run artifacts, phase manifests, sign-offs, checksums và artifact utility |
+| Sweep recovery audit | Signed environment evidence, current runtime identity, Phase 22 canonical evidence, selective phase inspection và approved Phase 23-34 registries |
+| Sweep results | Approved condition registry, experiment registry, Validation metrics, upstream reference update và artifact utility |
+| Learning diagnostics | Phase 20-21 training histories, Validation metrics và artifact utility |
+| LSTM và Transformer baselines | Phase 15-19 contracts, Dataset/DataLoader, shared metrics, experiment registry, training engine và artifact utility |
+| Training engine | Dataset/DataLoader public API, model interfaces, shared metrics, reproducibility và artifact utility |
+| Forward sanity | Model public interfaces, attention verification và artifact utility |
+| Attention verification | Transformer encoder layer, attention mapping và artifact utility |
+| Model implementations | Frozen feature dimensions, model contract config và artifact utility |
+| Reporting | Validated Phase 0-33 artifacts, validated phase-state payload và artifact utility |
+| Weight-decay sweep | Validated Phase 30 winner, reference update, sign-off, experiment registry, frozen training contract, selective execution gate và artifact utility |
+| Dropout sweep | Validated Phase 31 winner, reference update, sign-off, experiment registry, frozen Transformer and training contracts, selective execution gate và artifact utility |
+| d_model sweep | Validated Phase 32 winner, reference update, sign-off, experiment registry, frozen Transformer and training contracts, selective execution gate và artifact utility |
 | Persistence baseline | Raw Appliances prefix, WINDOWS-v1, WINDOWPOP-v1, METRICS-v1, EXPERIMENTS-v1 và artifact utility |
 | Experiment registry | Validated Phase 0-12 artifacts, shared metrics contract và artifact utility |
 | Shared metrics | Frozen target scaler, canonical window population, artifact utility và approved metric libraries |
@@ -756,9 +892,12 @@ schema -> temporal
 temporal -> EDA
 reporting -> notebook
 data -> notebook
-Phase trước -> Phase sau
+Phase trước -> Phase sau, ngoại trừ explicit validation dependency được architecture phê duyệt
 raw data -> generated artifact
 Test result -> Phase 0-45 selection decision
+Selective phase execution -> prerequisite materializer
+Reporting -> training engine
+Processing log -> canonical scientific decision
 ```
 
 Không circular import.
@@ -784,10 +923,30 @@ Nếu hai module cần import lẫn nhau, phải dừng và sửa ownership qua 
 | 12 | `evaluation/metrics.py` | `data/scaling.py`, `data/windows.py`, `data/datasets.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 12 public API và chỉ hiển thị Metric registry cùng Evaluation policy |
 | 13 | `experiments/registry.py` | `evaluation/metrics.py`, Phase 0-12 artifacts, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 13 public API và chỉ hiển thị Registry state cùng Core safeguards |
 | 14 | `baselines/persistence.py` | `data/windows.py`, `evaluation/metrics.py`, `experiments/registry.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 14 public API và chỉ hiển thị Validation performance cùng Baseline contract |
+| 15 | `models/lstm_regressor.py` | `data/datasets.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 15 public API và hiển thị implementation contract |
+| 16 | `models/transformer_regressor.py` | `models/positional_encoding.py`, `models/transformer_encoder_layer.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 16 public API và hiển thị implementation contract |
+| 17 | `attention/verification.py` | `attention/mapping.py`, `models/transformer_encoder_layer.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 17 public API và hiển thị attention verification |
+| 18 | `sanity/forward_sanity.py` | Phase 15-17 public model contracts, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 18 public API và hiển thị forward sanity matrix |
+| 19 | `training/engine.py`, `training/engine_materialize.py` | `data/datasets.py`, `evaluation/metrics.py`, `experiments/registry.py`, `utils/reproducibility.py`, `utils/artifacts.py`, `reporting/phase_summary.py` | Gọi Phase 19 public API và hiển thị engine contract |
+| 20 | `baselines/lstm_baseline.py` | Phase 15, 18, 19 contracts, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi Phase 20 public API và hiển thị Validation metrics cùng learning curves |
+| 21 | `baselines/transformer_b0.py` | Phase 16-19 contracts, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi Phase 21 public API và hiển thị Validation metrics cùng learning curves |
+| 22 | `diagnostics/learning_diagnostics.py` | `diagnostics/learning_curves.py`, Phase 20-21 artifacts, `reporting/phase_summary.py` | Gọi Phase 22 public API và hiển thị diagnostic findings cùng saved figures |
+| 23 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi selective Phase 23 public API và hiển thị verified S1 comparison |
+| 24 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, Phase 23 reference, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi selective Phase 24 public API và hiển thị verified S2 comparison |
+| 25 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, Phase 24 reference, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi selective Phase 25 public API và hiển thị verified S3 comparison |
+| 26 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, Phase 25 reference, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi selective Phase 26 public API và hiển thị verified S4 comparison |
+| 27 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, Phase 26 reference, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi selective Phase 27 public API và hiển thị verified S5 comparison |
+| 28 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, Phase 27 reference, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi selective Phase 28 public API và hiển thị verified S6 comparison |
+| 29 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, Phase 28 reference, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi selective Phase 29 public API và hiển thị verified S7 comparison |
+| 30 | `sweeps/sweep_results.py` | `experiments/phase_execution.py`, Phase 29 reference, `experiments/registry.py`, `reporting/phase_summary.py` | Gọi một selective Phase 30 public API độc lập và hiển thị verified S8 comparison hoặc block reason |
+| 31 | `sweeps/weight_decay.py` | `experiments/phase_execution.py`, Phase 30 winner/reference/sign-off, `experiments/registry.py`, frozen Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 31 public API độc lập và hiển thị verified WD0/WD1/WD2 comparison hoặc canonical block reason |
+| 32 | `sweeps/dropout.py` | `experiments/phase_execution.py`, Phase 31 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 32 public API độc lập và hiển thị verified DR01/DR02/DR03 comparison hoặc canonical block reason |
+| 33 | `sweeps/d_model.py` | `experiments/phase_execution.py`, Phase 32 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 33 public API độc lập và hiển thị verified D32/D64 comparison hoặc canonical block reason |
+| 34 | `sweeps/heads.py` | `experiments/phase_execution.py`, Phase 33 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 34 public API độc lập và hiển thị verified H2/H4 comparison hoặc canonical block reason |
 
 Phases 6, 7, 8 thực hiện calculation, validation và feature engineering trên TRAIN rows only. Validation và Test rows được firewall triệt để cho đến Phase 9.
 
-Không Phase nào ngoài direct descriptive Phase 6 exception được triển khai trong notebook cell.
+Không Phase nào ngoài direct descriptive Phase 6 exception được triển khai processing logic trong notebook cell.
 
 ## 10. Data lifecycle
 
@@ -842,7 +1001,7 @@ upstream artifact fingerprints
 
 ### 10.3. Processed và split data
 
-`data_after_processing` và `data_after_split` không được dùng trong Phase 0-14.
+`data_after_processing` và `data_after_split` không được dùng làm nguồn khoa học ngoài contract đã được Phase 0-33 phê duyệt.
 
 Phase 6 chỉ được ghi derived master table đã duyệt tại `data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv`.
 
@@ -922,7 +1081,7 @@ Machine-readable artifact phải được ghi atomically và reload để verify
 
 Không overwrite artifact đã sign-off.
 
-## 13. Artifact ownership Phase 0-14
+## 13. Artifact ownership Phase 0-33
 
 ```text
 artifacts/contracts
@@ -975,9 +1134,36 @@ artifacts/baselines/persistence
 
 artifacts/runs
 -> Phase 14+ canonical run config và status do EXPERIMENTS-v1 quản lý; Phase 14 hiện có một completed PERSISTENCE_BASELINE run
+
+artifacts/models/lstm
+-> Phase 15 LSTM implementation contract, audits, manifest và sign-off
+
+artifacts/models/transformer
+-> Phase 16 Transformer implementation contract, audits, manifest và sign-off
+
+artifacts/attention_verification
+-> Phase 17 attention tensor verification, audits, manifest và sign-off
+
+artifacts/forward_sanity
+-> Phase 18 forward-pass sanity matrix, audits, manifest và sign-off
+
+artifacts/training_engine
+-> Phase 19 training-engine contract, smoke tests, manifest và sign-off
+
+artifacts/lstm_baseline
+-> Phase 20 LSTM baseline Validation run summary, history, metrics, checkpoint lineage và sign-off
+
+artifacts/transformer_b0
+-> Phase 21 Transformer B0 Validation run summary, history, metrics, checkpoint lineage và sign-off
+
+artifacts/learning_diagnostics
+-> Phase 22 diagnostic summary, findings, saved figures, manifest và sign-off
+
+artifacts/sweeps
+-> Phase 23-34 condition results, condition lineage, manifests, winners, reference updates, revisions và sign-offs; Phase 31 S9 outputs nằm dưới artifacts/sweeps/S9_weight_decay, Phase 32 S10 outputs nằm dưới artifacts/sweeps/S10_dropout, Phase 33 S11 outputs nằm dưới artifacts/sweeps/S11_d_model và Phase 34 S12 outputs nằm dưới artifacts/sweeps/S12_heads
 ```
 
-Không lưu checkpoint hoặc learned model trong các Phase 0-14 roots. Actual Persistence Validation predictions chỉ nằm trong owner root `artifacts/baselines/persistence`; `artifacts/experiments` chỉ index và link artifact do Phase consumer sở hữu.
+Không lưu checkpoint hoặc learned model trong các Phase 0-14 roots. Checkpoint Phase 20 trở đi phải nằm trong owner run root và được EXPERIMENTS-v1 index bằng checksum. Actual Persistence Validation predictions chỉ nằm trong owner root `artifacts/baselines/persistence`; `artifacts/experiments` chỉ index và link artifact do Phase consumer sở hữu.
 
 ## 14. Notebook boundary
 
@@ -992,6 +1178,8 @@ Call a Phase public API
 Display returned summary
 Display saved figure
 Display sign-off
+Call a selective phase execution public API after kernel restart
+Display a persistent widget-free HTML phase state
 ```
 
 Chỉ được display nội dung nằm trong presentation allowlist của Phase. Không được dump JSON, warning table, discrepancy table, source artifact, checksum, fingerprint hoặc technical lineage ra notebook.
@@ -1018,6 +1206,10 @@ Plot-construction implementation
 Artifact serialization
 Path-discovery logic
 Exception-repair logic
+Transient widget state
+Direct sweep CSV loading
+Condition completeness logic
+Training-process dispatch logic
 ```
 
 ### 14.3. Cell order
@@ -1039,7 +1231,25 @@ Phase 11
 Phase 12
 Phase 13
 Phase 14
-Phase 1-14 Boundary
+Phase 15
+Phase 16
+Phase 17
+Phase 18
+Phase 19
+Phase 20
+Phase 21
+Phase 22
+Phase 23
+Phase 24
+Phase 25
+Phase 26
+Phase 27
+Phase 28
+Phase 29
+Phase 30
+Phase 31
+Phase 32
+Phase 1-32 Boundary
 ```
 
 Trong đó Phase 5 là Chronological Split, Phase 6 là Exploratory Data Analysis với TRAIN-only scope, Phase 7 là Feature Engineering với TRAIN-only scope, Phase 8 là Feature-Set Variants với TRAIN-only scope. Validation và Test rows chỉ xuất hiện trong các phép biến đổi và đánh giá từ Phase 9 trở đi.
@@ -1048,7 +1258,65 @@ Phase 0 vẫn là canonical prerequisite nội bộ nhưng không có heading, o
 
 Notebook không được dựa vào hidden kernel state.
 
-Mỗi code cell phải chạy được sau restart kernel theo đúng thứ tự.
+Mỗi code cell phải chạy được sau restart kernel theo đúng thứ tự. Phase 23-33 orchestration cell phải chạy độc lập sau restart kernel bằng một public API call, không phụ thuộc hidden state từ cell trước và không gọi materializer của Phase trước.
+
+### 14.4. Selective phase state
+
+Selective execution phải phân loại Phase thành đúng một trạng thái:
+
+```text
+VALID_REUSABLE
+LOG_MISSING
+LOG_STALE
+DERIVED_ARTIFACT_MISSING
+CONDITION_INCOMPLETE
+SIGNOFF_INVALID
+UPSTREAM_INVALID
+ENVIRONMENT_INVALID
+RUNNING
+FAILED
+```
+
+Trạng thái được xác định từ canonical evidence, không được xác định chỉ từ processing log hoặc notebook output.
+
+### 14.5. Selective phase action
+
+Action được phép:
+
+```text
+RENDER_ONLY
+REBUILD_LOG_ONLY
+REBUILD_DERIVED_ONLY
+EXECUTE_MISSING_ONLY
+WAIT_FOR_RUNNING_PROCESS
+BLOCK
+```
+
+Dispatcher phải chọn action nhỏ nhất đủ an toàn. `EXECUTE_MISSING_ONLY` chỉ được phép khi upstream, environment, condition registry và run lineage đều hợp lệ.
+
+### 14.6. Evidence authority
+
+Thứ tự authority:
+
+```text
+Approved Phase detail và architecture
+Approved config
+Experiment registry run config và status
+Run artifacts và checksums
+Phase manifest và sign-off
+Processing log và source checksums
+Notebook stored output
+```
+
+Processing log dưới `docs/save_log_in_processing` là derived presentation record. Processing log không được tự mình chứng minh scientific completion.
+
+### 14.7. Signed artifact revision
+
+Artifact đã sign-off không được overwrite để che giấu invalid historical state. Correction phải tạo revision mới và active-revision pointer. Processing log có thể được tái tạo từ active validated revision.
+
+### 14.8. Notebook output preservation
+
+Trước khi sửa output notebook phải ghi checksum, cell ID, execution count, output count và MIME type. Không được global clear output. Chỉ output thuộc cell được refactor hoặc cell được người dùng chủ động chạy lại mới được thay đổi.
 
 ## 15. EDA boundary
 
@@ -1137,9 +1405,29 @@ Phase 10 -> Phase 11
 Phase 11 -> Phase 12
 Phase 12 -> Phase 13
 Phase 13 -> Phase 14
+Phase 14 -> Phase 15
+Phase 15 -> Phase 16
+Phase 16 -> Phase 17
+Phase 17 -> Phase 18
+Phase 18 -> Phase 19
+Phase 19 -> Phase 20
+Phase 20 -> Phase 21
+Phase 21 -> Phase 22
+Phase 22 -> Phase 23
+Phase 23 -> Phase 24
+Phase 24 -> Phase 25
+Phase 25 -> Phase 26
+Phase 26 -> Phase 27
+Phase 27 -> Phase 28
+Phase 28 -> Phase 29
+Phase 29 -> Phase 30
 Raw checksum preservation
 Artifact reload
 Notebook orchestration boundary
+Selective phase state resolution
+Missing-only condition resolution
+Persistent widget-free notebook output
+Notebook output preservation
 ```
 
 ## 17. Phase gate
@@ -1153,6 +1441,8 @@ Input checksum khớp.
 Input schema hợp lệ.
 Không có unresolved critical discrepancy.
 Pre-process plan đã được duyệt.
+Expected condition coverage và run lineage hợp lệ khi Phase là sweep.
+Signed environment hợp lệ trước mọi scientific execution.
 ```
 
 Nếu một điều kiện không đạt:
@@ -1314,11 +1604,11 @@ Human đã duyệt direct Phase 6 EDA exception qua yêu cầu dẫn đến plan
 Trạng thái hiện hành:
 
 ```text
-Phase 0-14 có canonical source owner và signed artifact.
+Phase 0-33 có canonical source owner.
 CourseWork.ipynb giữ direct descriptive Phase 6 EDA exception đã được Human duyệt.
 Phase 0 giữ vai trò contract nội bộ và không xuất hiện trong CourseWork.ipynb.
-Phase 1-14 dùng presentation allowlist tối giản trên notebook.
-Phase 0-14 vẫn lưu processing log JSON đầy đủ, độc lập với notebook presentation.
+Phase 1-33 dùng presentation allowlist tối giản trên notebook.
+Phase 0-33 vẫn lưu processing log JSON đầy đủ, độc lập với notebook presentation.
 Phase 5 Chronological Split hiện chạy trước EDA, FE và FS, khoá chronological 70/15/15 row membership, WB0 primary metadata và Test firewall.
 Phase 6 EDA trong notebook chỉ gọi public API với TRAIN-only scope và hiển thị outputs.
 FEATURES-v1 giữ raw lineage và chỉ thêm năm deterministic calendar features trên TRAIN rows.
@@ -1340,9 +1630,26 @@ Phase 13 khởi tạo production registry với zero fabricated runs; synthetic 
 Phase 14 trong notebook chỉ gọi public API và hiển thị Validation performance cùng Baseline contract.
 PERSISTENCE-v1 khóa task-level last-value formula, L144-anchored Validation population, raw-Wh evaluation và Test firewall.
 EXPERIMENTS-v1 hiện quản lý một completed canonical PERSISTENCE_BASELINE run với null feature/scaler/seed fields và zero trainable parameters.
+Phase 15-19 khóa model, attention, forward-sanity và training-engine contracts.
+Phase 20-21 sở hữu canonical learned-model baseline runs và Validation-only histories.
+Phase 22 sở hữu learning-curve diagnostics.
+Phase 23-34 sở hữu tuần tự các controlled sweeps S1-S12.
+Selective phase execution kiểm tra canonical evidence và không tự chạy upstream Phase.
+Processing log là derived record và không đủ để xác nhận completion.
+Phase 29, Phase 30, Phase 31, Phase 32, Phase 33 và Phase 34 hiện phải qua selective validation trước khi được phép reuse hoặc scientific recovery.
+Phase 31 sở hữu S9 weight-decay sweep, dùng WD0=0, WD1=1e-4, WD2=1e-3 và chỉ được scientific execution sau khi Phase 30 canonical handoff hợp lệ.
+Phase 32 sở hữu S10 dropout sweep, dùng DR01=0.1, DR02=0.2, DR03=0.3 và chỉ được scientific execution sau khi Phase 31 canonical handoff hợp lệ.
+Phase 33 sở hữu S11 d_model sweep, dùng D32=32, D64=64, giữ H4/N2/F128 cố định, tái sử dụng D64 reference và chỉ chạy mới D32 sau khi Phase 32 canonical handoff hợp lệ.
+Phase 34 sở hữu S12 head sweep, dùng H2=2 và H4=4, giữ selected d_model/N2/F128 cố định, tái sử dụng H4 exact reference và chỉ chạy mới H2 sau khi Phase 33 canonical handoff hợp lệ.
+Phase 30 recovery phải bắt đầu bằng read-only audit, xác định earliest invalid Phase, thực thi tuần tự từ dependency đó và dừng ngay khi một Phase không đạt canonical verification.
+Môi trường lịch sử phải được bảo toàn; runtime identity mới không được âm thầm ghi đè signed environment evidence.
+Canonical finalizer Phase 23-34 chỉ được đọc verified registry evidence, áp dụng Validation-only selection và tạo kết quả khi toàn bộ registered conditions hợp lệ.
+Dependency-aware terminal runner không được chạy lại notebook, không được tái huấn luyện condition có complete exact-match evidence và không được vượt qua Test firewall.
+`--audit-only` và `--dry-run` phải giữ nguyên scientific artifacts; `--recover-environment` chỉ được tạo revision mới sau khi kernel, CUDA/MPS, smoke test và dependency freeze đều hợp lệ.
+Notebook output phải dùng persistent HTML và không phụ thuộc widget model state.
 ```
 
-Phase 9-14 được triển khai theo plan:
+Phase 9-34 được triển khai theo các Phase detail tương ứng:
 
 ```text
 Phase_9_Train_only_scaling.md
@@ -1351,6 +1658,23 @@ Phase_11_DataLoaders.md
 Phase_12_Shared_metrics.md
 Phase_13_Experiment_registry.md
 Phase_14_Persistence_baseline.md
+Phase_15_LSTM_implementation.md
+Phase_16_Transformer_implementation.md
+Phase_17_Attention-aware_encoder_verification.md
+Phase_18_Forward-pass_sanity_tests.md
+Phase_19_Baseline_training_engine.md
+Phase_20_LSTM_baseline_run.md
+Phase_21_Transformer_B0_run.md
+Phase_22_Learning-curve_diagnostics.md
+Phase_23_S1_Feature-set_sweep.md
+Phase_24_S2_Time-feature_sweep.md
+Phase_25_S3_Target-scaling_sweep.md
+Phase_26_S4_Lookback_sweep.md
+Phase_27_S5_Pooling_sweep.md
+Phase_28_S6_Activation_sweep.md
+Phase_29_S7_Batch_sweep.md
+Phase_30_S8_Learning-rate_sweep.md
+Phase_31_S9_Weight-decay_sweep.md
 ```
 
 Không được bỏ qua Phase gate trong quá trình chuyển đổi.
@@ -1361,7 +1685,7 @@ Không được bỏ qua Phase gate trong quá trình chuyển đổi.
 [x] Canonical root rõ ràng.
 [x] Canonical notebook rõ ràng.
 [x] Source ownership rõ ràng.
-[x] Phase 0-14 mapping đầy đủ.
+[x] Phase 0-33 mapping đầy đủ.
 [x] Dependency direction rõ ràng.
 [x] Raw data contract rõ ràng.
 [x] Derived-view contract rõ ràng.
@@ -1385,7 +1709,16 @@ Không được bỏ qua Phase gate trong quá trình chuyển đổi.
 [x] Phase 13 có canonical owner, artifacts, tests và notebook orchestration boundary.
 [x] Phase 14 có canonical owner, artifacts, tests và notebook orchestration boundary.
 [x] Phase 14 Persistence run đã complete với Validation-only metrics và Test firewall.
-[x] Không triển khai Phase 15.
+[x] Phase 15-22 có canonical source owner và artifact root.
+[x] Phase 23-34 có sweep owner, prerequisite chain và Validation-only selection boundary.
+[x] Selective phase state và action model đã được quy định.
+[x] Processing log không được dùng làm canonical scientific evidence.
+[x] Notebook output preservation và widget-free presentation đã được quy định.
+[x] Phase 31 có S9-specific owner, selective gate, notebook boundary và Validation-only selection contract.
+[x] Phase 32 có S10-specific owner, selective gate, notebook boundary và Validation-only selection contract.
+[x] Phase 33 có S11-specific owner, selective gate, terminal-owned execution, presentation boundary và Validation-only selection contract.
+[x] Phase 34 có S12-specific owner, selective gate, terminal-owned execution, presentation boundary và Validation-only selection contract.
+[x] Không triển khai Phase 35.
 ```
 
 ## 27. Activation gate
@@ -1412,6 +1745,12 @@ ARCHITECTURE_RULE_VALIDATED=true
 ARCHITECTURE_RULE_APPROVED=true
 SOURCE_REFACTOR_ALLOWED=true
 PHASE_0_IMPLEMENTATION_ALLOWED=true
+PHASE_15_TO_30_ARCHITECTURE_APPROVED=true
+SELECTIVE_PHASE_REFACTOR_ALLOWED=true
+PHASE_31_ARCHITECTURE_APPROVED=true
+PHASE_30_DEPENDENCY_RECOVERY_APPROVED=true
+PHASE_32_ARCHITECTURE_APPROVED=true
+PHASE_33_ARCHITECTURE_APPROVED=true
 ```
 
 ## 28. Amendment log
@@ -1425,4 +1764,43 @@ v1.1 (2026-08-17) - Phase reorder amendment
   - Phase 8 = Feature-Set Variants với TRAIN-only scope (was Split)
   - Authoritative plan: docs/plan-doc/analysis_error/phase_reorder_split_before_eda_train_only_refactor_plan.md
   - Human approval: granted 2026-08-17
+v1.2 (2026-08-22) - Phase 15-30 and selective resume amendment
+  - Extended canonical ownership and notebook boundary through Phase 30
+  - Added selective state, action, evidence authority and artifact revision contracts
+  - Added persistent widget-free presentation and output-preservation contracts
+  - Authoritative plan: docs/plan-doc/plan_before_process/refactor_notebook_selective_phase_resume_plan.md
+  - Human approval: granted 2026-08-22
+v1.3 (2026-08-22) - Phase 31 S9 weight-decay amendment
+  - Extended canonical ownership and notebook boundary through Phase 31
+  - Added S9-specific owner, Phase 30 handoff gate and WD0/WD1/WD2 contract
+  - Kept processing logs derived and scientific execution conditional on canonical Phase 30 evidence
+  - Authoritative plan: docs/plan-doc/plan_before_process/phase_31_s9_weight_decay_selective_execution_plan.md
+  - Human approval: granted 2026-08-22
+v1.4 (2026-08-22) - Phase 30 dependency recovery amendment
+  - Added read-only Phase 22-30 recovery inspection ownership
+  - Added environment reconciliation boundary and minimal execution-set contract
+  - Added verified canonical finalization and dependency-aware terminal execution rules
+  - Preserved notebook outputs, historical environment evidence and Test firewall
+  - Authoritative plan: docs/plan-doc/plan_before_process/refactor_and_rerun_phase_30_dependency_recovery_plan.md
+  - Human approval: granted 2026-08-22
+v1.5 (2026-08-22) - Phase 32 S10 dropout amendment
+  - Extended canonical ownership and notebook boundary through Phase 32
+  - Added S10 dropout owner, Phase 31 handoff gate and DR01/DR02/DR03 contract
+  - Preserved terminal-owned execution, derived processing logs, static HTML and Test firewall
+  - Authoritative plan: docs/plan-doc/plan_before_process/phase_32_s10_dropout_selective_execution_plan.md
+  - Human approval: granted 2026-08-22
+v1.6 (2026-08-23) - Phase 33 S11 d_model amendment
+  - Extended canonical ownership and selective presentation boundary through Phase 33
+  - Added S11 d_model owner, Phase 32 handoff gate and D32/D64 contract
+  - Froze H4/N2/F128, reused D64 exact reference and limited fresh training to D32
+  - Preserved terminal-owned execution, derived processing logs, static HTML and Test firewall
+  - Authoritative plan: docs/plan-doc/plan_before_process/phase_33_s11_d_model_selective_execution_plan.md
+  - Human approval: granted 2026-08-23
+v1.7 (2026-08-23) - Phase 34 S12 head amendment
+  - Extended canonical ownership and selective presentation boundary through Phase 34
+  - Added S12 head owner, Phase 33 handoff gate and H2/H4 contract
+  - Froze selected d_model/N2/F128, reused H4 exact reference and limited fresh training to H2
+  - Preserved terminal-owned execution, derived processing logs, static HTML and Test firewall
+  - Authoritative plan: docs/plan-doc/plan_before_process/phase_34_s12_head_sweep_selective_terminal_execution_plan.md
+  - Human approval: granted 2026-08-23
 ```

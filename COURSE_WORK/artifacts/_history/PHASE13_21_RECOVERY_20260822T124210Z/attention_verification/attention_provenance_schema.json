@@ -1,0 +1,9 @@
+{
+  "required_fields": [
+    "layer_index",
+    "num_heads",
+    "lookback",
+    "query_position"
+  ],
+  "schema_version": "ATTN_PROV-v1"
+}

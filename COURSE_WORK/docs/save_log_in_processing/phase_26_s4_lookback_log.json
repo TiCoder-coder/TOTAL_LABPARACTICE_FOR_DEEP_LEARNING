@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP-v1",
-  "created_at": "2026-08-21T15:48:18.521661+00:00",
+  "artifact_version": "SWEEP_S4-v1",
+  "created_at": "2026-08-22T15:30:48.515664+00:00",
   "discrepancies": [],
   "phase_id": 26,
   "phase_name": "S4 Lookback Sweep",
@@ -10,60 +10,100 @@
     {
       "rows": [
         {
-          "Field": "activation",
+          "Field": "activation_id",
           "Value": "GELU"
         },
         {
-          "Field": "batch_size",
-          "Value": 32
+          "Field": "batch_id",
+          "Value": "B64"
         },
         {
-          "Field": "best_epoch",
-          "Value": 13
+          "Field": "condition_id",
+          "Value": "L36"
         },
         {
-          "Field": "condition",
-          "Value": "L144"
+          "Field": "config_fingerprint",
+          "Value": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f"
+        },
+        {
+          "Field": "d_model",
+          "Value": 64
+        },
+        {
+          "Field": "d_model_id",
+          "Value": "D64"
+        },
+        {
+          "Field": "dropout",
+          "Value": 0.1
+        },
+        {
+          "Field": "factor_value",
+          "Value": 36
         },
         {
           "Field": "feature_variant_id",
-          "Value": "FS1_TF1"
+          "Value": "FS2_TF1"
+        },
+        {
+          "Field": "ffn_dim",
+          "Value": 128
         },
         {
           "Field": "learning_rate",
           "Value": 0.0003
         },
         {
-          "Field": "lookback_steps",
-          "Value": 144
+          "Field": "lookback_id",
+          "Value": "L36"
         },
         {
-          "Field": "pooling",
+          "Field": "metric_version",
+          "Value": "METRICS-v1"
+        },
+        {
+          "Field": "num_heads",
+          "Value": 4
+        },
+        {
+          "Field": "num_layers",
+          "Value": 2
+        },
+        {
+          "Field": "pooling_id",
           "Value": "LAST_STEP"
         },
         {
+          "Field": "population_fingerprint",
+          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
+        },
+        {
+          "Field": "reused_reference",
+          "Value": false
+        },
+        {
           "Field": "run_id",
-          "Value": "RUN_TR_B0_0010_1CEB611E"
+          "Value": "RUN_TR_S04_0008_133EF4E3"
         },
         {
-          "Field": "sweep_id",
-          "Value": "S4_LOOKBACK"
-        },
-        {
-          "Field": "target_scaling_option",
+          "Field": "target_scaling_id",
           "Value": "YS1"
         },
         {
-          "Field": "val_mae",
-          "Value": 28.72
+          "Field": "validation_mae_wh",
+          "Value": 27.41859357267982
         },
         {
-          "Field": "val_r2",
-          "Value": 0.566
+          "Field": "validation_r2",
+          "Value": 0.5904020802432752
         },
         {
-          "Field": "val_rmse",
-          "Value": 60.76
+          "Field": "validation_rmse_wh",
+          "Value": 59.03287348979047
+        },
+        {
+          "Field": "weight_decay",
+          "Value": 0.0001
         }
       ],
       "title": "Best variant details"
@@ -73,17 +113,17 @@
     {
       "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
       "role": "manifest",
-      "sha256": "5b37500a8c2ac1286ada9f76e9dc8fa1c9be4e2e2d75069f34ac57269df4bd6b"
+      "sha256": "46a5ceeb18d6f7ed08b69a6cff6a293088bb7e0bb2c3789d217dae4a5ac84c17"
     },
     {
       "path": "artifacts/sweeps/s4_lookback/results.csv",
       "role": "results",
-      "sha256": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7"
+      "sha256": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0"
     },
     {
       "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
       "role": "signoff",
-      "sha256": "796a5a0e345762710036b15c0ad215a82bb136a22eaf5ac1f3cfdfd9f88442ae"
+      "sha256": "ab3bd8eb42a8cf88d630a61e72c7780cd9b82ac0a79d7d7ce9e436c81b440c7f"
     }
   ],
   "status": "PASS",
@@ -91,49 +131,77 @@
     "Best variant": "N/A",
     "Sweep code": "S4",
     "Sweep name": "S4 Lookback Sweep",
-    "Variant count": 5
+    "Variant count": 3
   },
   "technical_details": {
     "best_variant": {
-      "activation": "GELU",
-      "batch_size": 32,
-      "best_epoch": 13,
-      "condition": "L144",
-      "feature_variant_id": "FS1_TF1",
+      "activation_id": "GELU",
+      "batch_id": "B64",
+      "condition_id": "L36",
+      "config_fingerprint": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f",
+      "d_model": 64,
+      "d_model_id": "D64",
+      "dropout": 0.1,
+      "factor_value": 36,
+      "feature_variant_id": "FS2_TF1",
+      "ffn_dim": 128,
       "learning_rate": 0.0003,
-      "lookback_steps": 144,
-      "pooling": "LAST_STEP",
-      "run_id": "RUN_TR_B0_0010_1CEB611E",
-      "sweep_id": "S4_LOOKBACK",
-      "target_scaling_option": "YS1",
-      "val_mae": 28.72,
-      "val_r2": 0.566,
-      "val_rmse": 60.76
+      "lookback_id": "L36",
+      "metric_version": "METRICS-v1",
+      "num_heads": 4,
+      "num_layers": 2,
+      "pooling_id": "LAST_STEP",
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "reused_reference": false,
+      "run_id": "RUN_TR_S04_0008_133EF4E3",
+      "target_scaling_id": "YS1",
+      "validation_mae_wh": 27.41859357267982,
+      "validation_r2": 0.5904020802432752,
+      "validation_rmse_wh": 59.03287348979047,
+      "weight_decay": 0.0001
     },
-    "config_fingerprint": "S4",
+    "config_fingerprint": null,
     "dataset_revision": null,
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/sweeps/s4_lookback/results.csv": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7"
+      "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+      "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+      "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
     },
     "input_paths": [
-      "artifacts/sweeps/s4_lookback/results.csv"
+      "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+      "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+      "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
     ],
     "output_checksums": {
-      "artifacts/sweeps/s4_lookback/results.csv": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7",
-      "artifacts/sweeps/s4_lookback/sweep_manifest.json": "5b37500a8c2ac1286ada9f76e9dc8fa1c9be4e2e2d75069f34ac57269df4bd6b"
+      "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "ddf6be31344bc20105d82695d9390239a9658c55fc36bbf5a6fadf6c0b0efb83",
+      "artifacts/sweeps/s4_lookback/s4_reference_update.json": "623cf2c363f478a625f56753f0037c3f905641a483f58a1b845279218c4652ac",
+      "artifacts/sweeps/s4_lookback/sweep_manifest.json": "46a5ceeb18d6f7ed08b69a6cff6a293088bb7e0bb2c3789d217dae4a5ac84c17"
     },
     "output_paths": [
+      "artifacts/sweeps/s4_lookback/results.csv",
       "artifacts/sweeps/s4_lookback/sweep_manifest.json",
-      "artifacts/sweeps/s4_lookback/results.csv"
+      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+      "artifacts/sweeps/s4_lookback/s4_reference_update.json"
     ],
     "sweep_code": "S4",
     "tests": [
-      "results_csv_load",
-      "best_variant_recorded"
+      "condition_completeness",
+      "registry_evidence_integrity",
+      "validation_only_selection",
+      "exact_tie_rule",
+      "winner_config_match",
+      "test_firewall"
     ],
-    "variant_count": 5
+    "variant_count": 3
   },
-  "timestamp": "2026-08-21T15:48:18.521661+00:00",
+  "timestamp": "2026-08-22T15:30:48.515664+00:00",
   "warnings": []
 }

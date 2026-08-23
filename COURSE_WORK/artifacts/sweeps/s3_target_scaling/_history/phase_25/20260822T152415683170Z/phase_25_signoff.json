@@ -1,0 +1,51 @@
+{
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S3",
+  "created_at": "2026-08-21T15:48:18.520410+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/sweeps/s3_target_scaling/results.csv": "9737521d627db6fcdfa0a9fb13d0addde0d19c367416a3a01a2667879d546700"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s3_target_scaling/results.csv"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s3_target_scaling/results.csv": "9737521d627db6fcdfa0a9fb13d0addde0d19c367416a3a01a2667879d546700",
+    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json": "baa99b5fd83b7f5729f03afc6f3b90924f7459d646cd375ddc6f5a790b74e4ed"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+    "artifacts/sweeps/s3_target_scaling/results.csv"
+  ],
+  "phase_id": 25,
+  "phase_version": "PHASE-25-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "YS1",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S3_TARGET_SCALING",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "sweep_code": "S3",
+    "sweep_name": "S3 Target-Scaling Sweep",
+    "variant_count": 3
+  },
+  "tests": [
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
+}

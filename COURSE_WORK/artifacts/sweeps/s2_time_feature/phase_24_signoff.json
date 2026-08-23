@@ -1,51 +1,50 @@
 {
-  "artifact_version": "SWEEP-v1",
-  "config_fingerprint": "S2",
-  "created_at": "2026-08-21T15:48:18.519280+00:00",
-  "dataset_revision": null,
+  "approved_for_phase25": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s2_time_feature/_history/phase_24/20260822T150908424777Z/sweep_manifest.json",
+    "artifacts/sweeps/s2_time_feature/_history/phase_24/20260822T150908424777Z/phase_24_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S2-v1",
+  "created_at": "2026-08-22T15:09:08.424698+00:00",
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "input_checksums": {
-    "artifacts/sweeps/s2_time_feature/results.csv": "3aba931e51a9d57c706fe36f9f8769ab4ea80230062bf8ee51c703e6cb5b53e5"
+    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+    "artifacts/runs/RUN_TR_S02_0006_90040362/config.json": "8aec904627a0ae95c6da78e4bb5d7f53733fff45bc659ebc71b8deaddb0874a1",
+    "artifacts/sweeps/s1_feature_set/phase_23_signoff.json": "2bb91cd1a31c94537255f17fbc81c3c6b3f20debef7e6344dbf1ed46baa5399a",
+    "artifacts/sweeps/s1_feature_set/s1_feature_set_winner.json": "22424a34693a12b2eb396014d66eb9df9428aa3310905a6ce7271f6c7ed50127",
+    "artifacts/sweeps/s1_feature_set/s1_reference_update.json": "759aba863f9eb22442e1e71e80356b2ed3a7550e17608b74f2cddf263dd2de4c"
   },
   "input_paths": [
-    "artifacts/sweeps/s2_time_feature/results.csv"
+    "artifacts/sweeps/s1_feature_set/phase_23_signoff.json",
+    "artifacts/sweeps/s1_feature_set/s1_feature_set_winner.json",
+    "artifacts/sweeps/s1_feature_set/s1_reference_update.json",
+    "artifacts/runs/RUN_TR_S02_0006_90040362/config.json",
+    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
   ],
   "output_checksums": {
-    "artifacts/sweeps/s2_time_feature/results.csv": "3aba931e51a9d57c706fe36f9f8769ab4ea80230062bf8ee51c703e6cb5b53e5",
-    "artifacts/sweeps/s2_time_feature/sweep_manifest.json": "45098169795ee1ff8eb38f60723ed523dee7a14ba645679d747102521a207010"
+    "artifacts/sweeps/s2_time_feature/results.csv": "331884f9d111826d8d223b9a02eb028f678c683614c92a1a4ae89df14fa06403",
+    "artifacts/sweeps/s2_time_feature/s2_reference_update.json": "37a00e97d2e0617e324d6df167ef5cb856e3dc70fa85550610a0de90778d89d8",
+    "artifacts/sweeps/s2_time_feature/s2_time_feature_winner.json": "c723b93c2e6dce8a6375106057bfe8a7f1f8ac7dedb36df0411de1f86eab8201",
+    "artifacts/sweeps/s2_time_feature/sweep_manifest.json": "b87e50f6c1a968051ccb407587dee6ce39a6f96490554431f9ebbb301e96e1af"
   },
   "output_paths": [
+    "artifacts/sweeps/s2_time_feature/results.csv",
     "artifacts/sweeps/s2_time_feature/sweep_manifest.json",
-    "artifacts/sweeps/s2_time_feature/results.csv"
+    "artifacts/sweeps/s2_time_feature/s2_time_feature_winner.json",
+    "artifacts/sweeps/s2_time_feature/s2_reference_update.json"
   ],
   "phase_id": 24,
   "phase_version": "PHASE-24-v1",
   "status": "PASS",
-  "summary": {
-    "best_variant": {
-      "activation": "GELU",
-      "batch_size": 32,
-      "best_epoch": 13,
-      "condition": "TF1",
-      "feature_variant_id": "FS1_TF1",
-      "learning_rate": 0.0003,
-      "lookback_steps": 144,
-      "pooling": "LAST_STEP",
-      "run_id": "RUN_TR_B0_0010_1CEB611E",
-      "sweep_id": "S2_TIME_FEATURE",
-      "target_scaling_option": "YS1",
-      "val_mae": 28.72,
-      "val_r2": 0.566,
-      "val_rmse": 60.76
-    },
-    "sweep_code": "S2",
-    "sweep_name": "S2 Time-Feature Sweep",
-    "variant_count": 2
-  },
+  "test_status": "FORBIDDEN",
   "tests": [
-    "results_csv_load",
-    "best_variant_recorded"
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
   ],
   "warnings": []
 }

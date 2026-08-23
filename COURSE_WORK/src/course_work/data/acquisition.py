@@ -3,12 +3,14 @@ import hashlib
 import os
 import shutil
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any
 from zipfile import BadZipFile, ZipFile
 
 from course_work.utils.artifacts import (
+    atomic_write_bytes,
+    canonical_json_bytes,
     csv_text,
     get_project_root,
     read_json,
@@ -143,6 +145,127 @@ def verify_existing_signoff(root: Path, signoff_path: Path) -> dict[str, Any]:
         if not path.is_file() or sha256_file(path) != expected_hash:
             raise RuntimeError(f"Phase 2 artifact checksum mismatch: {relative_path}")
     return signoff
+
+
+def _phase_2_readme_bytes(acquired_utc: datetime, archive_hash: str, csv_hash: str) -> bytes:
+    value = (
+        "# Appliances Energy Prediction Source\n\n"
+        "Dataset: Appliances Energy Prediction\n\n"
+        "UCI ID: 374\n\n"
+        "DOI: 10.24432/C5VC8G\n\n"
+        f"Source: {DATASET_METADATA['dataset_page']}\n\n"
+        "License: CC BY 4.0\n\n"
+        f"Acquired at UTC: {acquired_utc.isoformat()}\n\n"
+        "Acquisition method: AQ0 direct UCI archive\n\n"
+        "Dataset revision: DATA-v1\n\n"
+        f"Archive SHA-256: {archive_hash}\n\n"
+        f"CSV SHA-256: {csv_hash}\n\n"
+        "Canonical raw files must not be modified in place.\n\n"
+        "Citation: Candanedo, L. (2017). Appliances Energy Prediction [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5VC8G.\n"
+    )
+    return value.encode("utf-8")
+
+
+def _phase_2_manifest_candidate(
+    acquired_utc: datetime,
+    acquired_local: datetime,
+    acquisition_log: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        **DATASET_METADATA,
+        "local_archive_path": acquisition_log["archive_path"],
+        "local_csv_path": acquisition_log["csv_path"],
+        "archive_size_bytes": acquisition_log["archive_size_bytes"],
+        "csv_size_bytes": acquisition_log["csv_size_bytes"],
+        "archive_sha256": acquisition_log["archive_sha256"],
+        "csv_sha256": acquisition_log["csv_sha256"],
+        "acquired_at_utc": acquired_utc.isoformat(),
+        "acquired_at_local": acquired_local.isoformat(),
+        "timezone": str(acquired_local.tzinfo),
+        "environment_id": "ENV-v1",
+        "archive_integrity_ok": acquisition_log["archive_integrity_ok"],
+        "archive_paths_safe": acquisition_log["archive_paths_safe"],
+        "csv_smoke_test_ok": acquisition_log["csv_smoke_test_ok"],
+        "ucimlrepo_crosscheck_status": acquisition_log["ucimlrepo_crosscheck_status"],
+        "raw_csv_reused_after_checksum_match": True,
+    }
+
+
+def resolve_signed_phase_2_metadata(project_root: Path | None = None) -> dict[str, bytes]:
+    root = (project_root or get_project_root()).resolve()
+    signoff = read_json(root / "artifacts/acquisition/phase_2_signoff.json")
+    acquisition_log = read_json(root / "artifacts/acquisition/acquisition_log.json")
+    acquired_utc = datetime.fromisoformat(acquisition_log["start_time"])
+    completed_utc = datetime.fromisoformat(acquisition_log["end_time"])
+    duration_microseconds = int((completed_utc - acquired_utc).total_seconds() * 1_000_000)
+    if duration_microseconds < 0 or duration_microseconds > 5_000_000:
+        raise RuntimeError("Phase 2 acquisition timestamp interval is invalid")
+    readme_bytes = _phase_2_readme_bytes(
+        acquired_utc,
+        acquisition_log["archive_sha256"],
+        acquisition_log["csv_sha256"],
+    )
+    expected_readme = signoff["output_checksums"]["data/raw_data/README_SOURCE.md"]
+    if hashlib.sha256(readme_bytes).hexdigest() != expected_readme:
+        raise RuntimeError("Phase 2 README cannot be reconstructed from signed provenance")
+    local_timezone = timezone(timedelta(hours=7), name="+07")
+    expected_manifest = signoff["output_checksums"]["data/raw_data/dataset_manifest.json"]
+    manifest_bytes = None
+    for offset in range(duration_microseconds + 1):
+        acquired_local = (acquired_utc + timedelta(microseconds=offset)).astimezone(local_timezone)
+        candidate_bytes = canonical_json_bytes(
+            _phase_2_manifest_candidate(acquired_utc, acquired_local, acquisition_log)
+        )
+        if hashlib.sha256(candidate_bytes).hexdigest() == expected_manifest:
+            manifest_bytes = candidate_bytes
+            break
+    if manifest_bytes is None:
+        raise RuntimeError("Phase 2 manifest cannot be reconstructed from signed provenance")
+    return {
+        "data/raw_data/README_SOURCE.md": readme_bytes,
+        "data/raw_data/dataset_manifest.json": manifest_bytes,
+    }
+
+
+def recover_phase_2_metadata_revision(project_root: Path | None = None) -> dict[str, Any]:
+    root = (project_root or get_project_root()).resolve()
+    signoff_path = root / "artifacts/acquisition/phase_2_signoff.json"
+    signoff = read_json(signoff_path)
+    recovered = resolve_signed_phase_2_metadata(root)
+    protected_csv = root / "data/raw_data/energydata_complete.csv"
+    protected_archive = root / "data/raw_data/source/appliances_energy_prediction.zip"
+    expected_csv = signoff["input_checksums"]["data/raw_data/energydata_complete.csv"]
+    expected_archive = signoff["output_checksums"]["data/raw_data/source/appliances_energy_prediction.zip"]
+    if sha256_file(protected_csv) != expected_csv or sha256_file(protected_archive) != expected_archive:
+        raise RuntimeError("Phase 2 protected data checksum is invalid")
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    history_root = root / "artifacts/acquisition/_history" / stamp
+    history_root.mkdir(parents=True, exist_ok=False)
+    before = {}
+    for relative_path, value in recovered.items():
+        path = root / relative_path
+        before[relative_path] = sha256_file(path)
+        shutil.copy2(path, history_root / path.name)
+        atomic_write_bytes(path, value)
+    recovery_manifest = {
+        "artifact_version": "PHASE2-METADATA-RECOVERY-v1",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "before_checksums": before,
+        "after_checksums": {
+            relative_path: sha256_file(root / relative_path)
+            for relative_path in recovered
+        },
+        "signed_output_checksums": {
+            relative_path: signoff["output_checksums"][relative_path]
+            for relative_path in recovered
+        },
+        "protected_csv_checksum": sha256_file(protected_csv),
+        "protected_archive_checksum": sha256_file(protected_archive),
+        "status": "PASS",
+    }
+    atomic_write_bytes(history_root / "recovery_manifest.json", canonical_json_bytes(recovery_manifest))
+    verify_existing_signoff(root, signoff_path)
+    return recovery_manifest
 
 
 def materialize_phase_2(project_root: Path | None = None) -> dict[str, Any]:

@@ -1,0 +1,12 @@
+{
+  "artifact_version": "PHASE-32-NOTEBOOK-PRESERVATION-v1",
+  "notebook_path": "notebook_course_work/CourseWork.ipynb",
+  "notebook_sha256": "8dd18ff4352d51eb3288c510eda83838cdd1ad72cf10bd70788fef4b53609936",
+  "cell_count": 96,
+  "cell_ids_sha256": "6428c631a6f114518a2eb4f28f0f3c8bc8d7a23d5b311e0532514e56a963b09b",
+  "sources_sha256": "66acbd81772becb9eef53a9ec385fe83c8a35a61adc26a7501847007bf007ed4",
+  "outputs_sha256": "dc377596b8ac1d3ed3728043fe9be61d97cf26a20cf705d6686fdf0d3269dc82",
+  "execution_counts_sha256": "8f56d04429c649e993249f0b80966563e591f5f260dd5df0db1c2ee298808527",
+  "experiment_registry_sha256": "b617d9b8003abb7bd7c1e7de53bc2135602dcfd395d65766a2078d39b77470a4",
+  "phase_31_log_sha256": "208a82844aef222dd75d14082174a43c53c3cf8ff1ed4b44f2dcf026e186ea7e"
+}

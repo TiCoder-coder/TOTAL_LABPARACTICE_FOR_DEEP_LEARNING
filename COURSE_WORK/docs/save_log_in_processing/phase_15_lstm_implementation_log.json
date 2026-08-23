@@ -1,6 +1,6 @@
 {
   "artifact_version": "LSTM_IMPL-v1",
-  "created_at": "2026-08-21T13:30:31.330043+00:00",
+  "created_at": "2026-08-22T12:49:53.188247+00:00",
   "discrepancies": [],
   "phase_id": 15,
   "phase_name": "LSTM Implementation",
@@ -78,7 +78,7 @@
     {
       "path": "artifacts/models/lstm/lstm_model_manifest.json",
       "role": "manifest",
-      "sha256": "af677e0478e379c3666f71b63d39ef5134b6925acce05e9732580b9209fdd9f3"
+      "sha256": "31896b189f0e6471382e31a60b9ecd7d461223054ee74c5c924f6de0d024b414"
     },
     {
       "path": "artifacts/models/lstm/lstm_config_schema.json",
@@ -88,7 +88,7 @@
     {
       "path": "artifacts/models/lstm/phase_15_signoff.json",
       "role": "signoff",
-      "sha256": "ba5c3c910d0b6778ced9f9407bd0892a7637160162552a304ef4fecfd587cbd7"
+      "sha256": "ab835c551e82fab3d6cc4bb2f5a42c7f3607088808ea12dca47cef7a45e76dec"
     }
   ],
   "status": "PASS",
@@ -108,11 +108,11 @@
     "environment_id": "ENV-v1",
     "implementation_version": "LSTM_IMPL-v1",
     "input_checksums": {
-      "artifacts/baselines/persistence/phase_14_signoff.json": "e2dd40c437a3d7c3831ee2c5457015c98c0a7c8191850224f47bcce06140cee6",
+      "artifacts/baselines/persistence/phase_14_signoff.json": "c20864f51bc0b4136bd24f98523c195b2fb16467d0fa2a4050af59117e266651",
       "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
       "artifacts/dataloaders/phase_11_signoff.json": "e43e1ddda073f3f6b870ed0275ff05836344b1b3d2efa71e91324368fab3214a",
-      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
-      "artifacts/experiments/phase_13_signoff.json": "61d8f983e9066eb54c038ae0c3fdddf511fd8899bcc4f8a4eafcc8fe548ffa91",
+      "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
+      "artifacts/experiments/phase_13_signoff.json": "71b5174d57c4d37ad0af8d4fea987dddacfc492df3d803df6d18fa98e6848655",
       "artifacts/metrics/phase_12_signoff.json": "08dee71be6db46b0b95837f0ea2976e86adf0bbf8b2b7aa8ede7a6db87d74fcc",
       "artifacts/windows/phase_10_signoff.json": "a2e80853ceb853d126e03efe6694f8e4e7bbb69cfe1cbb0c85d4f3996500e4c4"
     },
@@ -132,7 +132,7 @@
       "artifacts/models/lstm/lstm_config_schema.json": "187afe6fa919de41f0f8cb6c7bbe1f3930c015af4238af15e23983da272f6517",
       "artifacts/models/lstm/lstm_discrepancies.json": "90ed53eeb242602b4b74095ee7b7f6b9ffa1b53cb4640ecbfa02466156093b18",
       "artifacts/models/lstm/lstm_implementation_audit.csv": "fb592daf22f32db45e310a70781ee0eb2f2ce65bf73be21a95f0801ecd2ae7dc",
-      "artifacts/models/lstm/lstm_model_manifest.json": "af677e0478e379c3666f71b63d39ef5134b6925acce05e9732580b9209fdd9f3",
+      "artifacts/models/lstm/lstm_model_manifest.json": "31896b189f0e6471382e31a60b9ecd7d461223054ee74c5c924f6de0d024b414",
       "artifacts/models/lstm/lstm_module_audit.csv": "d742c98daed88fa89fd4def530a23a56a67051ef91464c9720efaa88b75b59ba",
       "artifacts/models/lstm/lstm_parameter_audit.csv": "f485d83d18a10c92aa9b83803212e5916420b5cf66297cd66264c689d5f3b14a",
       "artifacts/models/lstm/lstm_reference_config.json": "f986f26ecc951e0109d2f223fb513d4feb30fc181d9394fc9f74b66bcd0d5a01",
@@ -182,6 +182,6 @@
       "unit_tests"
     ]
   },
-  "timestamp": "2026-08-21T13:30:31.330043+00:00",
+  "timestamp": "2026-08-22T12:49:53.188247+00:00",
   "warnings": []
 }

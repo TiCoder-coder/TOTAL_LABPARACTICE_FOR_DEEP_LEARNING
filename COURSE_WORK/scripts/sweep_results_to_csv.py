@@ -28,6 +28,10 @@ SWEEP_DIRS = {
     "s6_activation": "S6_ACTIVATION",
     "s7_batch_size": "S7_BATCH_SIZE",
     "s8_learning_rate": "S8_LEARNING_RATE",
+    "S9_weight_decay": "S9_WEIGHT_DECAY",
+    "S10_dropout": "S10_DROPOUT",
+    "S11_d_model": "S11_D_MODEL",
+    "S12_heads": "S12_HEADS",
 }
 
 # Columns expected by ``sweep_results._materialize_sweep`` (the reader just
@@ -47,6 +51,10 @@ CSV_COLUMNS = [
     "activation",
     "batch_size",
     "learning_rate",
+    "weight_decay",
+    "dropout",
+    "d_model",
+    "num_heads",
 ]
 
 
@@ -75,11 +83,17 @@ def jsonl_to_rows(jsonl_path: Path) -> list[dict[str, object]]:
             "activation": cfg.get("activation"),
             "batch_size": cfg.get("batch_size"),
             "learning_rate": cfg.get("learning_rate"),
+            "weight_decay": cfg.get("weight_decay"),
+            "dropout": cfg.get("dropout"),
+            "d_model": cfg.get("d_model"),
+            "num_heads": cfg.get("num_heads"),
         })
     return rows
 
 
 def write_csv(rows: list[dict[str, object]], csv_path: Path) -> None:
+    if not rows:
+        raise ValueError(f"Cannot create sweep results without verified rows: {csv_path}")
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     with csv_path.open("w", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=CSV_COLUMNS)
@@ -90,7 +104,16 @@ def write_csv(rows: list[dict[str, object]], csv_path: Path) -> None:
 def convert_one(sweep_dir_name: str) -> tuple[Path, int]:
     sweep_dir = ROOT / "artifacts" / "sweeps" / sweep_dir_name
     jsonl_path = sweep_dir / "live_sweep_results.jsonl"
-    csv_path = sweep_dir / "results.csv"
+    canonical_filenames = {
+        "S9_weight_decay": "s9_weight_decay_metrics.csv",
+        "S10_dropout": "s10_dropout_metrics.csv",
+        "S11_d_model": "s11_d_model_metrics.csv",
+        "S12_heads": "s12_head_metrics.csv",
+    }
+    csv_filename = canonical_filenames.get(sweep_dir_name, "results.csv")
+    csv_path = sweep_dir / csv_filename
+    if not jsonl_path.is_file():
+        raise FileNotFoundError(f"Sweep source results are missing: {jsonl_path}")
     rows = jsonl_to_rows(jsonl_path)
     write_csv(rows, csv_path)
     return csv_path, len(rows)

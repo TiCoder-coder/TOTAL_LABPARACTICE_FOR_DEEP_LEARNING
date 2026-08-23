@@ -1,6 +1,6 @@
 {
   "artifact_version": "TRAINING_ENGINE-v1",
-  "created_at": "2026-08-21T13:42:05.805596+00:00",
+  "created_at": "2026-08-22T12:51:56.002995+00:00",
   "discrepancies": [],
   "phase_id": 19,
   "phase_name": "Baseline Training Engine",
@@ -70,7 +70,7 @@
     {
       "path": "artifacts/training_engine/training_engine_manifest.json",
       "role": "manifest",
-      "sha256": "b14948ee5b854b254e5dd2bf179622cda72f94c5748398733ead089a342ba016"
+      "sha256": "3b7dd28089362ccf5fade16807c014a81d1878da893ba48ec38514075eba69ca"
     },
     {
       "path": "artifacts/training_engine/training_engine_contract.json",
@@ -80,7 +80,7 @@
     {
       "path": "artifacts/training_engine/phase_19_signoff.json",
       "role": "signoff",
-      "sha256": "046a6f6a242aab2775c2bfe15bc3901cf10d6f93d58c5f183b7433fa214e003a"
+      "sha256": "3645bcb46d86504b6214efd2f9d1b2e50c66365428163f7586a3f79eed643620"
     }
   ],
   "status": "PASS",
@@ -99,9 +99,9 @@
     "environment_id": "ENV-v1",
     "input_checksums": {
       "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
-      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
-      "artifacts/forward_sanity/phase_18_signoff.json": "2997d31b9c51118f7f368110778d54d321bc629e5e79c143bcdd8cf9153218ab",
-      "artifacts/forward_sanity/training_engine_handoff.json": "4fc7891bfa935a61c69cd7f6f35854b62cdf006d26892e2f0953258ad25bd45d"
+      "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
+      "artifacts/forward_sanity/phase_18_signoff.json": "35d0537f56717607de4d32acbbb9709e45c53eb82f825b2d3dc5a3e838fd0f84",
+      "artifacts/forward_sanity/training_engine_handoff.json": "3c001e97df393a147a814a7b74382662b53eadfeaff14d3ee52fd22920be5071"
     },
     "input_paths": [
       "artifacts/forward_sanity/phase_18_signoff.json",
@@ -117,7 +117,7 @@
       "artifacts/training_engine/training_engine_contract.json": "64b41dd639d1a053e96107b44d5af3c883fbd3d112307a04252ec20885099e7e",
       "artifacts/training_engine/training_engine_discrepancies.json": "14bc180779a368654b1d7a289a3a303a4a5113c427ae92e13ce2d2857b6d485b",
       "artifacts/training_engine/training_engine_implementation_audit.csv": "f80618011796582bd94544829b9c6aca537c025af121127623ad89ba5bb4617d",
-      "artifacts/training_engine/training_engine_manifest.json": "b14948ee5b854b254e5dd2bf179622cda72f94c5748398733ead089a342ba016",
+      "artifacts/training_engine/training_engine_manifest.json": "3b7dd28089362ccf5fade16807c014a81d1878da893ba48ec38514075eba69ca",
       "artifacts/training_engine/training_engine_unit_tests.csv": "2d49b8f3e2fde2c0907d0d25d8ca9944c1a66e0569c9a2f2052f7a0dd7dd456f",
       "artifacts/training_engine/training_gradient_audit.csv": "3b0ec588fa13d67a446174284f3953bc066a4446dfce6a2c4bc04bf1ef45d7b3",
       "artifacts/training_engine/training_history_audit.csv": "b0d6ef6aa26e5c6db626a22e0e4e4e33c06c2b9fd9650f189312055a9f8f07ff",
@@ -154,6 +154,6 @@
     "training_engine_version": "TRAINING_ENGINE-v1",
     "unit_test_count": 4
   },
-  "timestamp": "2026-08-21T13:42:05.805596+00:00",
+  "timestamp": "2026-08-22T12:51:56.002995+00:00",
   "warnings": []
 }

@@ -1,6 +1,6 @@
 {
-  "artifact_version": "SWEEP-v1",
-  "created_at": "2026-08-21T14:42:03.647836+00:00",
+  "artifact_version": "SWEEP_S7-v1",
+  "created_at": "2026-08-22T15:44:30.814416+00:00",
   "discrepancies": [],
   "phase_id": 29,
   "phase_name": "S7 Batch-Size Sweep",
@@ -10,60 +10,100 @@
     {
       "rows": [
         {
-          "Field": "activation",
+          "Field": "activation_id",
           "Value": "GELU"
         },
         {
-          "Field": "batch_size",
-          "Value": 32
-        },
-        {
-          "Field": "best_epoch",
-          "Value": 12
-        },
-        {
-          "Field": "condition",
+          "Field": "batch_id",
           "Value": "B32"
         },
         {
+          "Field": "condition_id",
+          "Value": "B32"
+        },
+        {
+          "Field": "config_fingerprint",
+          "Value": "d99b2b4f95493b85ca46d30b3596f8c00ad7488f9dc4a801453cff18df52c9ab"
+        },
+        {
+          "Field": "d_model",
+          "Value": 64
+        },
+        {
+          "Field": "d_model_id",
+          "Value": "D64"
+        },
+        {
+          "Field": "dropout",
+          "Value": 0.1
+        },
+        {
+          "Field": "factor_value",
+          "Value": 32
+        },
+        {
           "Field": "feature_variant_id",
-          "Value": "FS1_TF1"
+          "Value": "FS2_TF1"
+        },
+        {
+          "Field": "ffn_dim",
+          "Value": 128
         },
         {
           "Field": "learning_rate",
           "Value": 0.0003
         },
         {
-          "Field": "lookback_steps",
-          "Value": 144
+          "Field": "lookback_id",
+          "Value": "L36"
         },
         {
-          "Field": "pooling",
+          "Field": "metric_version",
+          "Value": "METRICS-v1"
+        },
+        {
+          "Field": "num_heads",
+          "Value": 4
+        },
+        {
+          "Field": "num_layers",
+          "Value": 2
+        },
+        {
+          "Field": "pooling_id",
           "Value": "LAST_STEP"
         },
         {
+          "Field": "population_fingerprint",
+          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
+        },
+        {
+          "Field": "reused_reference",
+          "Value": false
+        },
+        {
           "Field": "run_id",
-          "Value": "RUN_TR_S07_0006_3181A7D4"
+          "Value": "RUN_TR_S07_0012_D99B2B4F"
         },
         {
-          "Field": "sweep_id",
-          "Value": "S7_BATCH_SIZE"
-        },
-        {
-          "Field": "target_scaling_option",
+          "Field": "target_scaling_id",
           "Value": "YS1"
         },
         {
-          "Field": "val_mae",
-          "Value": 28.088147377359057
+          "Field": "validation_mae_wh",
+          "Value": 27.594695588664802
         },
         {
-          "Field": "val_r2",
-          "Value": 0.5719984804011866
+          "Field": "validation_r2",
+          "Value": 0.6034647134455036
         },
         {
-          "Field": "val_rmse",
-          "Value": 60.34450203428645
+          "Field": "validation_rmse_wh",
+          "Value": 58.08392719011551
+        },
+        {
+          "Field": "weight_decay",
+          "Value": 0.0001
         }
       ],
       "title": "Best variant details"
@@ -73,17 +113,17 @@
     {
       "path": "artifacts/sweeps/s7_batch_size/sweep_manifest.json",
       "role": "manifest",
-      "sha256": "92719e7b97da5765d32ea114c8c9e6984671ce0d7e7772a7f044c47643099993"
+      "sha256": "03d3e7b1758a19a3a2508bb6060356c8ab22b3fb7e4a70824300d578ba887c8b"
     },
     {
       "path": "artifacts/sweeps/s7_batch_size/results.csv",
       "role": "results",
-      "sha256": "eb3b696fe353b46bc45f85384655a85ac967f5a3c0fd1a77bff4e9c5caa32ced"
+      "sha256": "294a563bfd5c2eac0b0576a9ee8e9e0e415649b92d4a93b99e8fa93f8707839e"
     },
     {
       "path": "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
       "role": "signoff",
-      "sha256": "e51a89bd6f8e2adfc70fba8e6110e3f71d24127a619c532dc99b69067c749670"
+      "sha256": "ad90624ad71c14729496ea329020cdcfb3751d03f1c87ff969521efb805ae038"
     }
   ],
   "status": "PASS",
@@ -91,49 +131,75 @@
     "Best variant": "N/A",
     "Sweep code": "S7",
     "Sweep name": "S7 Batch-Size Sweep",
-    "Variant count": 1
+    "Variant count": 2
   },
   "technical_details": {
     "best_variant": {
-      "activation": "GELU",
-      "batch_size": 32,
-      "best_epoch": 12,
-      "condition": "B32",
-      "feature_variant_id": "FS1_TF1",
+      "activation_id": "GELU",
+      "batch_id": "B32",
+      "condition_id": "B32",
+      "config_fingerprint": "d99b2b4f95493b85ca46d30b3596f8c00ad7488f9dc4a801453cff18df52c9ab",
+      "d_model": 64,
+      "d_model_id": "D64",
+      "dropout": 0.1,
+      "factor_value": 32,
+      "feature_variant_id": "FS2_TF1",
+      "ffn_dim": 128,
       "learning_rate": 0.0003,
-      "lookback_steps": 144,
-      "pooling": "LAST_STEP",
-      "run_id": "RUN_TR_S07_0006_3181A7D4",
-      "sweep_id": "S7_BATCH_SIZE",
-      "target_scaling_option": "YS1",
-      "val_mae": 28.088147377359057,
-      "val_r2": 0.5719984804011866,
-      "val_rmse": 60.34450203428645
+      "lookback_id": "L36",
+      "metric_version": "METRICS-v1",
+      "num_heads": 4,
+      "num_layers": 2,
+      "pooling_id": "LAST_STEP",
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "reused_reference": false,
+      "run_id": "RUN_TR_S07_0012_D99B2B4F",
+      "target_scaling_id": "YS1",
+      "validation_mae_wh": 27.594695588664802,
+      "validation_r2": 0.6034647134455036,
+      "validation_rmse_wh": 58.08392719011551,
+      "weight_decay": 0.0001
     },
-    "config_fingerprint": "S7",
+    "config_fingerprint": null,
     "dataset_revision": null,
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/sweeps/s7_batch_size/results.csv": "09674859f07e8b8f09bf7a990ac3f4762a912ea130ea195d841e89a10506e782"
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+      "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json": "193cc6883ca3bbdb9c5cd32b8668af66b23c8c7a2247f4a31afda8436086a7c3",
+      "artifacts/sweeps/s6_activation/phase_28_signoff.json": "0ec21076b945c54a216d5998ea33e38fcbd348f0593d86806687878890c8ed9b",
+      "artifacts/sweeps/s6_activation/s6_activation_winner.json": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
+      "artifacts/sweeps/s6_activation/s6_reference_update.json": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d"
     },
     "input_paths": [
-      "artifacts/sweeps/s7_batch_size/results.csv"
+      "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+      "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+      "artifacts/sweeps/s6_activation/s6_reference_update.json",
+      "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json",
+      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
     ],
     "output_checksums": {
-      "artifacts/sweeps/s7_batch_size/results.csv": "09674859f07e8b8f09bf7a990ac3f4762a912ea130ea195d841e89a10506e782",
-      "artifacts/sweeps/s7_batch_size/sweep_manifest.json": "92719e7b97da5765d32ea114c8c9e6984671ce0d7e7772a7f044c47643099993"
+      "artifacts/sweeps/s7_batch_size/results.csv": "294a563bfd5c2eac0b0576a9ee8e9e0e415649b92d4a93b99e8fa93f8707839e",
+      "artifacts/sweeps/s7_batch_size/s7_batch_winner.json": "e3b9311e9836dd267f6c250b58c99e37de7370686cb7c354ed4998677a37a1d1",
+      "artifacts/sweeps/s7_batch_size/s7_reference_update.json": "d2a2b3628a6967b711541d1000125f85115ef615a398fa901dd18db1322cda77",
+      "artifacts/sweeps/s7_batch_size/sweep_manifest.json": "03d3e7b1758a19a3a2508bb6060356c8ab22b3fb7e4a70824300d578ba887c8b"
     },
     "output_paths": [
+      "artifacts/sweeps/s7_batch_size/results.csv",
       "artifacts/sweeps/s7_batch_size/sweep_manifest.json",
-      "artifacts/sweeps/s7_batch_size/results.csv"
+      "artifacts/sweeps/s7_batch_size/s7_batch_winner.json",
+      "artifacts/sweeps/s7_batch_size/s7_reference_update.json"
     ],
     "sweep_code": "S7",
     "tests": [
-      "results_csv_load",
-      "best_variant_recorded"
+      "condition_completeness",
+      "registry_evidence_integrity",
+      "validation_only_selection",
+      "exact_tie_rule",
+      "winner_config_match",
+      "test_firewall"
     ],
-    "variant_count": 1
+    "variant_count": 2
   },
-  "timestamp": "2026-08-21T14:42:03.647836+00:00",
+  "timestamp": "2026-08-22T15:44:30.814416+00:00",
   "warnings": []
 }

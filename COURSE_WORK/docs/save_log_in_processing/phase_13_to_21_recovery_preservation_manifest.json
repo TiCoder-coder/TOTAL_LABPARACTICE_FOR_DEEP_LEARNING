@@ -1,0 +1,80 @@
+{
+  "artifact_version": "PHASE-13-21-RECOVERY-PRESERVATION-v1",
+  "created_at_utc": "2026-08-22T12:42:10Z",
+  "notebook": {
+    "path": "notebook_course_work/CourseWork.ipynb",
+    "sha256": "40be9f7e0f8c85f83c80aeeb4d208a37307cba12ffc627d68895238e761f9555",
+    "size_bytes": 2933593
+  },
+  "parent_plan_id": "CW-PHASE-13-21-REVISIONED-CANONICAL-RECOVERY-v1",
+  "recovery_revision_id": "PHASE13_21_RECOVERY_20260822T124210Z",
+  "roots": [
+    {
+      "file_count": 14,
+      "path": "artifacts/experiments",
+      "total_size_bytes": 97184,
+      "tree_sha256": "0b42fcbe52a40ace692c7c0eecb9f66b9e2f285073515ac64ab423554336d778"
+    },
+    {
+      "file_count": 41,
+      "path": "artifacts/runs",
+      "total_size_bytes": 73864,
+      "tree_sha256": "4e5fb0b3bcde7441c5d3fb364a8ee450ccb07c3e334c6ca241ca6714fe621d19"
+    },
+    {
+      "file_count": 9,
+      "path": "artifacts/baselines/persistence",
+      "total_size_bytes": 410675,
+      "tree_sha256": "c9349e22d16555aaa5e71c1dd884243ab00cac8f21131499f414da924b7c3822"
+    },
+    {
+      "file_count": 7,
+      "path": "artifacts/models/lstm",
+      "total_size_bytes": 6797,
+      "tree_sha256": "1bafc2e7ffa8d7117c735df0564d7b0343f46a9214571b267ee6a6c08a478412"
+    },
+    {
+      "file_count": 8,
+      "path": "artifacts/models/transformer",
+      "total_size_bytes": 7389,
+      "tree_sha256": "ae825dfcc9945ad48c0f7914b30b4f2f875cde969c02b51d5df51abbc523e137"
+    },
+    {
+      "file_count": 7,
+      "path": "artifacts/attention_verification",
+      "total_size_bytes": 5796,
+      "tree_sha256": "4d86b18900ae08323780a673f4d33eb87fdb0ce36a4bbb96b9b031ae0c4a1fdb"
+    },
+    {
+      "file_count": 6,
+      "path": "artifacts/forward_sanity",
+      "total_size_bytes": 5768,
+      "tree_sha256": "2ae59a5be5825e8ada3f876970c57bb473cf3101df8b58b7cf4b0d2912ea64a5"
+    },
+    {
+      "file_count": 9,
+      "path": "artifacts/training_engine",
+      "total_size_bytes": 5489,
+      "tree_sha256": "4c12c6f860c8af1be1aa741133889415108f2b6972ddf9b650123534f787e894"
+    },
+    {
+      "file_count": 5,
+      "path": "artifacts/lstm_baseline",
+      "total_size_bytes": 4482,
+      "tree_sha256": "5971fa4b69db8a6bbfd619b6327982925d8353f2d3d23b42d96e24ccbdbdd53b"
+    },
+    {
+      "file_count": 5,
+      "path": "artifacts/transformer_b0",
+      "total_size_bytes": 5373,
+      "tree_sha256": "f29654b6a0ead4c6fe535ee0db3abe6a7fb21b43850b3dfde1e8080f36c240aa"
+    },
+    {
+      "file_count": 8,
+      "path": "artifacts/environment",
+      "total_size_bytes": 11935,
+      "tree_sha256": "53e4dc7faabf5e45bed05086fb9e38c73f99b4ca9fa37a50872534abde22ae74"
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,51 @@
+{
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S4",
+  "created_at": "2026-08-21T15:48:18.521661+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/sweeps/s4_lookback/results.csv": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s4_lookback/results.csv"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s4_lookback/results.csv": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7",
+    "artifacts/sweeps/s4_lookback/sweep_manifest.json": "5b37500a8c2ac1286ada9f76e9dc8fa1c9be4e2e2d75069f34ac57269df4bd6b"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+    "artifacts/sweeps/s4_lookback/results.csv"
+  ],
+  "phase_id": 26,
+  "phase_version": "PHASE-26-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "L144",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S4_LOOKBACK",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "sweep_code": "S4",
+    "sweep_name": "S4 Lookback Sweep",
+    "variant_count": 5
+  },
+  "tests": [
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
+}

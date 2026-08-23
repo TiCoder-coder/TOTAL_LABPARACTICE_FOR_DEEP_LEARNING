@@ -45,9 +45,11 @@ def launch_phase(phase_id: int, *, foreground: bool = False) -> subprocess.Compl
     return _run(argv)
 
 
-def launch_sweep(*, dry_run: bool = False) -> subprocess.CompletedProcess[str]:
-    """Spawn the sweep chain (Phase 23-30) in a detached process group."""
+def launch_sweep(*, phase_id: int | None = None, dry_run: bool = False) -> subprocess.CompletedProcess[str]:
+    """Spawn the sweep chain (Phase 23-32) in a detached process group."""
     argv = ["sweep"]
+    if phase_id is not None:
+        argv.extend(["--phase-id", str(phase_id)])
     if dry_run:
         argv.append("--dry-run")
     return _run(argv)

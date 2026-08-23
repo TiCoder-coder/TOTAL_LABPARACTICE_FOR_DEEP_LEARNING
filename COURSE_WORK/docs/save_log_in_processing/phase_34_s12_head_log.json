@@ -1,0 +1,1524 @@
+{
+  "artifact_version": "SELECTIVE-RESUME-v1",
+  "created_at": "2026-08-23T10:09:17.405629+00:00",
+  "discrepancies": [
+    "SCIENTIFIC_EXECUTION_NOT_AUTHORIZED"
+  ],
+  "phase_id": 34,
+  "phase_name": "S12 Head Sweep",
+  "phase_version": "PHASE-34-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Required artifact": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+          "Validation": "PASS"
+        },
+        {
+          "Required artifact": "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+          "Validation": "PASS"
+        },
+        {
+          "Required artifact": "artifacts/sweeps/S11_d_model/s11_reference_update.json",
+          "Validation": "PASS"
+        }
+      ],
+      "title": "Prerequisite validation"
+    },
+    {
+      "rows": [
+        {
+          "Field": "Swept factor",
+          "Value": "num_heads"
+        },
+        {
+          "Field": "Reference condition",
+          "Value": "H4 = 4"
+        },
+        {
+          "Field": "New condition",
+          "Value": "H2 = 2"
+        },
+        {
+          "Field": "Frozen d_model",
+          "Value": 64
+        },
+        {
+          "Field": "Selection metric",
+          "Value": "Validation RMSE Wh"
+        },
+        {
+          "Field": "Exact tie rule",
+          "Value": "H2"
+        },
+        {
+          "Field": "Parameter count",
+          "Value": "Unchanged across H2 and H4"
+        },
+        {
+          "Field": "Test access",
+          "Value": "FORBIDDEN"
+        }
+      ],
+      "title": "S12 frozen contract"
+    },
+    {
+      "rows": [
+        {
+          "Attention shape": [
+            [
+              2,
+              2,
+              36,
+              36
+            ],
+            [
+              2,
+              2,
+              36,
+              36
+            ]
+          ],
+          "Audit": "PASS",
+          "Condition": "H2",
+          "Head dimension": 32,
+          "Heads": 2,
+          "Trainable parameters": 69185
+        },
+        {
+          "Attention shape": [
+            [
+              2,
+              4,
+              36,
+              36
+            ],
+            [
+              2,
+              4,
+              36,
+              36
+            ]
+          ],
+          "Audit": "PASS",
+          "Condition": "H4",
+          "Head dimension": 16,
+          "Heads": 4,
+          "Trainable parameters": 69185
+        }
+      ],
+      "title": "Head geometry"
+    },
+    {
+      "rows": [
+        {
+          "Condition": "H2",
+          "Evidence": "MISSING",
+          "Run ID": null,
+          "Validation RMSE Wh": null,
+          "Value": 2
+        },
+        {
+          "Condition": "H4",
+          "Evidence": "VERIFIED",
+          "Run ID": "RUN_TR_S09_0016_AE0FB819",
+          "Validation RMSE Wh": 58.08190056355405,
+          "Value": 4
+        }
+      ],
+      "title": "Condition evidence"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+      "role": "phase_33_handoff",
+      "sha256": "f8caf290991f8a26fe1f899a0490a8727d2d8096172dc612b55571741fa7e76e"
+    },
+    {
+      "path": "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+      "role": "phase_33_handoff",
+      "sha256": "0882ffd94a9867b11979559addc4ef20e4d485cc97eae724b88ea1c66608b780"
+    },
+    {
+      "path": "artifacts/sweeps/S11_d_model/s11_reference_update.json",
+      "role": "phase_33_handoff",
+      "sha256": "f8bd5da635a68529641ffde503047b277907358639b08c3156eff04a7f1e6dd4"
+    }
+  ],
+  "status": "BLOCKED",
+  "summary": {
+    "Effective action": "BLOCK",
+    "Execution authorized": false,
+    "Resolved action": "EXECUTE_MISSING_ONLY",
+    "S11 reference run": "RUN_TR_S09_0016_AE0FB819",
+    "Selected d_model": 64,
+    "State": "CONDITION_INCOMPLETE",
+    "Test access": "FORBIDDEN"
+  },
+  "technical_details": {
+    "effective_action": "BLOCK",
+    "execution_authorized": false,
+    "inspection": {
+      "action": "EXECUTE_MISSING_ONLY",
+      "artifact_root": "artifacts/sweeps/S12_heads",
+      "artifacts": {
+        "records": [
+          {
+            "path": "artifacts/sweeps/S12_heads/s12_head_sweep_manifest.json",
+            "status": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/S12_heads/s12_head_metrics.csv",
+            "status": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/S12_heads/s12_head_winner.json",
+            "status": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/S12_heads/s12_reference_update.json",
+            "status": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/S12_heads/phase_34_signoff.json",
+            "status": "MISSING"
+          }
+        ],
+        "valid": false
+      },
+      "conditions": {
+        "complete": false,
+        "expected_conditions": [
+          "H2",
+          "H4"
+        ],
+        "failed_conditions": [],
+        "invalid_conditions": [],
+        "missing_conditions": [
+          "H2"
+        ],
+        "reference_condition": "H4",
+        "reference_run_id": "RUN_TR_S09_0016_AE0FB819",
+        "registry_issues": [],
+        "running_conditions": [],
+        "verified_conditions": [
+          {
+            "condition_id": "H4",
+            "factor_value": 4,
+            "mae_wh": 27.595002038670813,
+            "r2": 0.6034923842647237,
+            "reused_reference": true,
+            "rmse_wh": 58.08190056355405,
+            "run_id": "RUN_TR_S09_0016_AE0FB819"
+          }
+        ]
+      },
+      "phase_id": 34,
+      "phase_name": "S12 Head Sweep",
+      "prerequisites": {
+        "records": [
+          {
+            "path": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/S11_d_model/s11_reference_update.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": true
+      },
+      "processing_log": {
+        "issues": [],
+        "path": "docs/save_log_in_processing/phase_34_s12_head_log.json",
+        "status": "MISSING",
+        "valid": false
+      },
+      "signoff": {
+        "issues": [],
+        "path": "artifacts/sweeps/S12_heads/phase_34_signoff.json",
+        "status": "MISSING",
+        "valid": false
+      },
+      "state": "CONDITION_INCOMPLETE"
+    },
+    "phase_31_preflight": null,
+    "phase_32_preflight": null,
+    "phase_33_preflight": null,
+    "phase_34_preflight": {
+      "conditions": [
+        {
+          "condition_id": "H2",
+          "execution_mode": "TRAIN_NEW",
+          "num_heads": 2
+        },
+        {
+          "condition_id": "H4",
+          "execution_mode": "REUSE_REFERENCE",
+          "num_heads": 4
+        }
+      ],
+      "decision": {
+        "effective_action": "BLOCK",
+        "execution_authorized": false,
+        "inspection": {
+          "action": "EXECUTE_MISSING_ONLY",
+          "artifact_root": "artifacts/sweeps/S12_heads",
+          "artifacts": {
+            "records": [
+              {
+                "path": "artifacts/sweeps/S12_heads/s12_head_sweep_manifest.json",
+                "status": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/S12_heads/s12_head_metrics.csv",
+                "status": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/S12_heads/s12_head_winner.json",
+                "status": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/S12_heads/s12_reference_update.json",
+                "status": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/S12_heads/phase_34_signoff.json",
+                "status": "MISSING"
+              }
+            ],
+            "valid": false
+          },
+          "conditions": {
+            "complete": false,
+            "expected_conditions": [
+              "H2",
+              "H4"
+            ],
+            "failed_conditions": [],
+            "invalid_conditions": [],
+            "missing_conditions": [
+              "H2"
+            ],
+            "reference_condition": "H4",
+            "reference_run_id": "RUN_TR_S09_0016_AE0FB819",
+            "registry_issues": [],
+            "running_conditions": [],
+            "verified_conditions": [
+              {
+                "condition_id": "H4",
+                "factor_value": 4,
+                "mae_wh": 27.595002038670813,
+                "r2": 0.6034923842647237,
+                "reused_reference": true,
+                "rmse_wh": 58.08190056355405,
+                "run_id": "RUN_TR_S09_0016_AE0FB819"
+              }
+            ]
+          },
+          "phase_id": 34,
+          "phase_name": "S12 Head Sweep",
+          "prerequisites": {
+            "records": [
+              {
+                "path": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+                "status": "PASS"
+              },
+              {
+                "path": "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+                "status": "PASS"
+              },
+              {
+                "path": "artifacts/sweeps/S11_d_model/s11_reference_update.json",
+                "status": "PASS"
+              }
+            ],
+            "valid": true
+          },
+          "processing_log": {
+            "issues": [],
+            "path": "docs/save_log_in_processing/phase_34_s12_head_log.json",
+            "status": "MISSING",
+            "valid": false
+          },
+          "signoff": {
+            "issues": [],
+            "path": "artifacts/sweeps/S12_heads/phase_34_signoff.json",
+            "status": "MISSING",
+            "valid": false
+          },
+          "state": "CONDITION_INCOMPLETE"
+        },
+        "phase_id": 34,
+        "readiness": {
+          "environment": {
+            "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+            "current_python_version": "3.10.11",
+            "issues": [],
+            "valid": true
+          },
+          "prerequisites": {
+            "records": [
+              {
+                "path": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+                "status": "PASS"
+              },
+              {
+                "path": "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+                "status": "PASS"
+              },
+              {
+                "path": "artifacts/sweeps/S11_d_model/s11_reference_update.json",
+                "status": "PASS"
+              }
+            ],
+            "valid": true
+          },
+          "ready": true,
+          "state": "VALID_REUSABLE"
+        },
+        "reasons": [
+          "SCIENTIFIC_EXECUTION_NOT_AUTHORIZED"
+        ],
+        "resolved_action": "EXECUTE_MISSING_ONLY",
+        "state": "CONDITION_INCOMPLETE"
+      },
+      "handoff": {
+        "dropout_scope": {
+          "expected_probability": 0.1,
+          "head_dropout_present": false,
+          "input_dropout_present": false,
+          "pooling_dropout_present": false,
+          "probability_matches": true,
+          "scope_fingerprint": "7a3d19e3b38d98af9a27a593646e9b21986ff484f9785033e3c55710c7068203",
+          "scope_version": "DROPOUT-SCOPE-v1",
+          "site_count": 8,
+          "sites": [
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 0,
+              "module_path": "encoder.layers.0.self_attn",
+              "module_type": "MultiheadAttention",
+              "parameter_count": 0,
+              "semantic_location": "ATTENTION_WEIGHT",
+              "site_id": "D1"
+            },
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 0,
+              "module_path": "encoder.layers.0.dropout_attn_residual",
+              "module_type": "Dropout",
+              "parameter_count": 0,
+              "semantic_location": "ATTENTION_RESIDUAL",
+              "site_id": "D2"
+            },
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 0,
+              "module_path": "encoder.layers.0.dropout_ff_hidden",
+              "module_type": "Dropout",
+              "parameter_count": 0,
+              "semantic_location": "FFN_HIDDEN",
+              "site_id": "D3"
+            },
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 0,
+              "module_path": "encoder.layers.0.dropout_ff_residual",
+              "module_type": "Dropout",
+              "parameter_count": 0,
+              "semantic_location": "FFN_RESIDUAL",
+              "site_id": "D4"
+            },
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 1,
+              "module_path": "encoder.layers.1.self_attn",
+              "module_type": "MultiheadAttention",
+              "parameter_count": 0,
+              "semantic_location": "ATTENTION_WEIGHT",
+              "site_id": "D5"
+            },
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 1,
+              "module_path": "encoder.layers.1.dropout_attn_residual",
+              "module_type": "Dropout",
+              "parameter_count": 0,
+              "semantic_location": "ATTENTION_RESIDUAL",
+              "site_id": "D6"
+            },
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 1,
+              "module_path": "encoder.layers.1.dropout_ff_hidden",
+              "module_type": "Dropout",
+              "parameter_count": 0,
+              "semantic_location": "FFN_HIDDEN",
+              "site_id": "D7"
+            },
+            {
+              "controlled_by_global_dropout": true,
+              "dropout_probability": 0.1,
+              "layer_index": 1,
+              "module_path": "encoder.layers.1.dropout_ff_residual",
+              "module_type": "Dropout",
+              "parameter_count": 0,
+              "semantic_location": "FFN_RESIDUAL",
+              "site_id": "D8"
+            }
+          ],
+          "status": "PASS"
+        },
+        "frozen_configuration": {
+          "activation_id": "GELU",
+          "batch_id": "B32",
+          "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+          "d_model": 64,
+          "dropout": 0.1,
+          "feature_variant_id": "FS2_TF1",
+          "ffn_dim": 128,
+          "gradient_accumulation": 1,
+          "gradient_clip_norm": 1.0,
+          "learning_rate": 0.0003,
+          "lookback_id": "L36",
+          "loss": "MSE",
+          "max_epochs": 50,
+          "min_delta": 0,
+          "num_heads": 4,
+          "num_layers": 2,
+          "optimizer": "AdamW",
+          "patience": 10,
+          "pooling_id": "LAST_STEP",
+          "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+          "revin_enabled": false,
+          "scheduler": "NONE",
+          "seed": 42,
+          "source_config_fingerprint": "ae0fb819cd0ecca797892a5f6e2f9758c7809c01f5ab92daaeca21a880d5a6ba",
+          "source_config_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json",
+          "target_scaling_id": "YS1",
+          "test_access": "FORBIDDEN",
+          "warmup": "NONE",
+          "weight_decay": 0.001
+        },
+        "geometry_comparison": {
+          "candidates": [
+            {
+              "attention_finite": true,
+              "attention_nonnegative": true,
+              "attention_row_sums": true,
+              "attention_shapes": [
+                [
+                  2,
+                  2,
+                  36,
+                  36
+                ],
+                [
+                  2,
+                  2,
+                  36,
+                  36
+                ]
+              ],
+              "condition_id": "H2",
+              "d_model": 64,
+              "divisible_by_heads": true,
+              "ffn_dim": 128,
+              "geometry_fingerprint": "71f7be59631f68d940fff100cb551954629b3217953cc56594b65f4acf8a8e3f",
+              "geometry_version": "HEAD-GEOMETRY-v1",
+              "gradients_finite": true,
+              "head_dim": 32,
+              "initial_state_fingerprint": "5c0a59cbd9a5f0c515a32b88f26d231b7c798bfd44e648762f473d04c480bd6a",
+              "num_heads": 2,
+              "num_layers": 2,
+              "output_shape": [
+                2,
+                1
+              ],
+              "parameter_count": 69185,
+              "parameter_schema": {
+                "encoder.layers.0.linear1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128
+                  ]
+                },
+                "encoder.layers.0.linear1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128,
+                    64
+                  ]
+                },
+                "encoder.layers.0.linear2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.linear2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    128
+                  ]
+                },
+                "encoder.layers.0.norm1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.norm1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.norm2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.norm2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.self_attn.in_proj_bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192
+                  ]
+                },
+                "encoder.layers.0.self_attn.in_proj_weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192,
+                    64
+                  ]
+                },
+                "encoder.layers.0.self_attn.out_proj.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.self_attn.out_proj.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    64
+                  ]
+                },
+                "encoder.layers.1.linear1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128
+                  ]
+                },
+                "encoder.layers.1.linear1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128,
+                    64
+                  ]
+                },
+                "encoder.layers.1.linear2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.linear2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    128
+                  ]
+                },
+                "encoder.layers.1.norm1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.norm1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.norm2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.norm2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.self_attn.in_proj_bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192
+                  ]
+                },
+                "encoder.layers.1.self_attn.in_proj_weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192,
+                    64
+                  ]
+                },
+                "encoder.layers.1.self_attn.out_proj.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.self_attn.out_proj.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    64
+                  ]
+                },
+                "head.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    1
+                  ]
+                },
+                "head.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    1,
+                    64
+                  ]
+                },
+                "input_projection.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "input_projection.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    33
+                  ]
+                }
+              },
+              "prediction_paths_equal": true,
+              "state_shapes": {
+                "encoder.layers.0.linear1.bias": [
+                  128
+                ],
+                "encoder.layers.0.linear1.weight": [
+                  128,
+                  64
+                ],
+                "encoder.layers.0.linear2.bias": [
+                  64
+                ],
+                "encoder.layers.0.linear2.weight": [
+                  64,
+                  128
+                ],
+                "encoder.layers.0.norm1.bias": [
+                  64
+                ],
+                "encoder.layers.0.norm1.weight": [
+                  64
+                ],
+                "encoder.layers.0.norm2.bias": [
+                  64
+                ],
+                "encoder.layers.0.norm2.weight": [
+                  64
+                ],
+                "encoder.layers.0.self_attn.in_proj_bias": [
+                  192
+                ],
+                "encoder.layers.0.self_attn.in_proj_weight": [
+                  192,
+                  64
+                ],
+                "encoder.layers.0.self_attn.out_proj.bias": [
+                  64
+                ],
+                "encoder.layers.0.self_attn.out_proj.weight": [
+                  64,
+                  64
+                ],
+                "encoder.layers.1.linear1.bias": [
+                  128
+                ],
+                "encoder.layers.1.linear1.weight": [
+                  128,
+                  64
+                ],
+                "encoder.layers.1.linear2.bias": [
+                  64
+                ],
+                "encoder.layers.1.linear2.weight": [
+                  64,
+                  128
+                ],
+                "encoder.layers.1.norm1.bias": [
+                  64
+                ],
+                "encoder.layers.1.norm1.weight": [
+                  64
+                ],
+                "encoder.layers.1.norm2.bias": [
+                  64
+                ],
+                "encoder.layers.1.norm2.weight": [
+                  64
+                ],
+                "encoder.layers.1.self_attn.in_proj_bias": [
+                  192
+                ],
+                "encoder.layers.1.self_attn.in_proj_weight": [
+                  192,
+                  64
+                ],
+                "encoder.layers.1.self_attn.out_proj.bias": [
+                  64
+                ],
+                "encoder.layers.1.self_attn.out_proj.weight": [
+                  64,
+                  64
+                ],
+                "head.bias": [
+                  1
+                ],
+                "head.weight": [
+                  1,
+                  64
+                ],
+                "input_projection.bias": [
+                  64
+                ],
+                "input_projection.weight": [
+                  64,
+                  33
+                ],
+                "positional_encoding.pe": [
+                  1,
+                  5000,
+                  64
+                ]
+              },
+              "status": "PASS",
+              "trainable_parameter_count": 69185
+            },
+            {
+              "attention_finite": true,
+              "attention_nonnegative": true,
+              "attention_row_sums": true,
+              "attention_shapes": [
+                [
+                  2,
+                  4,
+                  36,
+                  36
+                ],
+                [
+                  2,
+                  4,
+                  36,
+                  36
+                ]
+              ],
+              "condition_id": "H4",
+              "d_model": 64,
+              "divisible_by_heads": true,
+              "ffn_dim": 128,
+              "geometry_fingerprint": "c2db91d1ffb449fc1ebb8c16f358e4fbc0ae1a604a4d5046eee231b163d58761",
+              "geometry_version": "HEAD-GEOMETRY-v1",
+              "gradients_finite": true,
+              "head_dim": 16,
+              "initial_state_fingerprint": "5c0a59cbd9a5f0c515a32b88f26d231b7c798bfd44e648762f473d04c480bd6a",
+              "num_heads": 4,
+              "num_layers": 2,
+              "output_shape": [
+                2,
+                1
+              ],
+              "parameter_count": 69185,
+              "parameter_schema": {
+                "encoder.layers.0.linear1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128
+                  ]
+                },
+                "encoder.layers.0.linear1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128,
+                    64
+                  ]
+                },
+                "encoder.layers.0.linear2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.linear2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    128
+                  ]
+                },
+                "encoder.layers.0.norm1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.norm1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.norm2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.norm2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.self_attn.in_proj_bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192
+                  ]
+                },
+                "encoder.layers.0.self_attn.in_proj_weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192,
+                    64
+                  ]
+                },
+                "encoder.layers.0.self_attn.out_proj.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.0.self_attn.out_proj.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    64
+                  ]
+                },
+                "encoder.layers.1.linear1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128
+                  ]
+                },
+                "encoder.layers.1.linear1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    128,
+                    64
+                  ]
+                },
+                "encoder.layers.1.linear2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.linear2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    128
+                  ]
+                },
+                "encoder.layers.1.norm1.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.norm1.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.norm2.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.norm2.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.self_attn.in_proj_bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192
+                  ]
+                },
+                "encoder.layers.1.self_attn.in_proj_weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    192,
+                    64
+                  ]
+                },
+                "encoder.layers.1.self_attn.out_proj.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "encoder.layers.1.self_attn.out_proj.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    64
+                  ]
+                },
+                "head.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    1
+                  ]
+                },
+                "head.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    1,
+                    64
+                  ]
+                },
+                "input_projection.bias": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64
+                  ]
+                },
+                "input_projection.weight": {
+                  "dtype": "torch.float32",
+                  "requires_grad": true,
+                  "shape": [
+                    64,
+                    33
+                  ]
+                }
+              },
+              "prediction_paths_equal": true,
+              "state_shapes": {
+                "encoder.layers.0.linear1.bias": [
+                  128
+                ],
+                "encoder.layers.0.linear1.weight": [
+                  128,
+                  64
+                ],
+                "encoder.layers.0.linear2.bias": [
+                  64
+                ],
+                "encoder.layers.0.linear2.weight": [
+                  64,
+                  128
+                ],
+                "encoder.layers.0.norm1.bias": [
+                  64
+                ],
+                "encoder.layers.0.norm1.weight": [
+                  64
+                ],
+                "encoder.layers.0.norm2.bias": [
+                  64
+                ],
+                "encoder.layers.0.norm2.weight": [
+                  64
+                ],
+                "encoder.layers.0.self_attn.in_proj_bias": [
+                  192
+                ],
+                "encoder.layers.0.self_attn.in_proj_weight": [
+                  192,
+                  64
+                ],
+                "encoder.layers.0.self_attn.out_proj.bias": [
+                  64
+                ],
+                "encoder.layers.0.self_attn.out_proj.weight": [
+                  64,
+                  64
+                ],
+                "encoder.layers.1.linear1.bias": [
+                  128
+                ],
+                "encoder.layers.1.linear1.weight": [
+                  128,
+                  64
+                ],
+                "encoder.layers.1.linear2.bias": [
+                  64
+                ],
+                "encoder.layers.1.linear2.weight": [
+                  64,
+                  128
+                ],
+                "encoder.layers.1.norm1.bias": [
+                  64
+                ],
+                "encoder.layers.1.norm1.weight": [
+                  64
+                ],
+                "encoder.layers.1.norm2.bias": [
+                  64
+                ],
+                "encoder.layers.1.norm2.weight": [
+                  64
+                ],
+                "encoder.layers.1.self_attn.in_proj_bias": [
+                  192
+                ],
+                "encoder.layers.1.self_attn.in_proj_weight": [
+                  192,
+                  64
+                ],
+                "encoder.layers.1.self_attn.out_proj.bias": [
+                  64
+                ],
+                "encoder.layers.1.self_attn.out_proj.weight": [
+                  64,
+                  64
+                ],
+                "head.bias": [
+                  1
+                ],
+                "head.weight": [
+                  1,
+                  64
+                ],
+                "input_projection.bias": [
+                  64
+                ],
+                "input_projection.weight": [
+                  64,
+                  33
+                ],
+                "positional_encoding.pe": [
+                  1,
+                  5000,
+                  64
+                ]
+              },
+              "status": "PASS",
+              "trainable_parameter_count": 69185
+            }
+          ],
+          "comparison_version": "HEAD-COMPARISON-v1",
+          "config_delta": [
+            "num_heads"
+          ],
+          "external_output_contract_equal": true,
+          "initial_state_equal": true,
+          "parameter_count_equal": true,
+          "parameter_schema_equal": true,
+          "state_shapes_equal": true,
+          "status": "PASS",
+          "trainable_parameter_count_equal": true
+        },
+        "issues": [],
+        "processing_log_observation": {
+          "authoritative": false,
+          "available": true,
+          "path": "docs/save_log_in_processing/phase_33_s11_d_model_log.json",
+          "status": "VALID_REUSABLE"
+        },
+        "reference_evidence": {
+          "metrics": {
+            "mae_wh": 27.595002038670813,
+            "r2": 0.6034923842647237,
+            "rmse_wh": 58.08190056355405
+          },
+          "record": {
+            "artifacts": [
+              {
+                "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json",
+                "artifact_type": "CONFIG",
+                "created_at": "2026-08-22T16:35:06.866726+00:00",
+                "file_size_bytes": 3995,
+                "required": true,
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "sha256": "d8bcd4ae977a15a6658c5ff969f8ca1eb46c84b03cbaeb02f14a03d000921cd4",
+                "status": "PASS"
+              },
+              {
+                "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/status.json",
+                "artifact_type": "STATUS",
+                "created_at": "2026-08-22T16:35:06.866726+00:00",
+                "file_size_bytes": 444,
+                "required": true,
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "sha256": "1b51f349ed680a8de00fcf931322e273b6d905088fb5db062790b17abd68c376",
+                "status": "PASS"
+              },
+              {
+                "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/training.log",
+                "artifact_type": "TRAIN_LOG",
+                "created_at": "2026-08-22T16:41:35.983248+00:00",
+                "file_size_bytes": 44,
+                "required": true,
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "sha256": "f709354699e8fb103b226fbae64ac2d2611fd80854ae1342246e86c94415d5d7",
+                "status": "PASS"
+              },
+              {
+                "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/checkpoints/best_checkpoint.pt",
+                "artifact_type": "BEST_CHECKPOINT",
+                "created_at": "2026-08-22T16:41:35.989687+00:00",
+                "file_size_bytes": 1568356,
+                "required": true,
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "sha256": "3ccf735488336340275a4dccf040fcd17b98a4fa4746d3e665cf14f97428d75d",
+                "status": "PASS"
+              },
+              {
+                "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/metrics/best_validation_metrics.json",
+                "artifact_type": "METRICS",
+                "created_at": "2026-08-22T16:41:35.994882+00:00",
+                "file_size_bytes": 799,
+                "required": true,
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "sha256": "2120573c95273770bfa64bf0d365f4f337fe7b478fc8fd67d2eb3f19845cd95d",
+                "status": "PASS"
+              },
+              {
+                "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/predictions/best_validation_predictions.csv",
+                "artifact_type": "PREDICTIONS",
+                "created_at": "2026-08-22T16:41:36.000042+00:00",
+                "file_size_bytes": 217717,
+                "required": false,
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "sha256": "9bb212edb469f8fac02cf9179a401fec04d27487131a1e17a5e14179b94a5a4e",
+                "status": "PASS"
+              }
+            ],
+            "best_epoch": 15,
+            "best_validation_rmse_wh": 58.08190056355405,
+            "candidate_id": null,
+            "comparisons": [],
+            "completed_at": "2026-08-22T16:41:36.020161+00:00",
+            "config": {
+              "data": {
+                "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+                "feature_count": 33,
+                "feature_variant_id": "FS2_TF1",
+                "horizon_steps": 1,
+                "lookback_steps": 36,
+                "sampling_interval_minutes": 10,
+                "target_access_mode": "VALIDATION",
+                "target_scaling_option": "YS1",
+                "test_sample_count": 2961,
+                "train_sample_count": 13670,
+                "validation_sample_count": 2960
+              },
+              "lineage": {
+                "dataloader_fingerprint": "48dff0f10ac2165443f3e2ab60f93d3d1ce9149b70c985fbbe31f4059eb4cf7e",
+                "dataloader_version": "DATALOADERS-v1",
+                "dataset_fingerprint": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+                "dataset_revision": "DATA-v1",
+                "eda_version": "EDA-v1",
+                "environment_id": "ENV-v1",
+                "feature_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+                "feature_set_version": "FEATURESETS-v1",
+                "feature_version": "FEATURES-v1",
+                "global_split_fingerprint": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
+                "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+                "metric_version": "METRICS-v1",
+                "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+                "population_version": "WINDOWPOP-v1",
+                "scaler_bundle_checksum": "4e7c96d5accc2917855ed669b33d2666b3aa07f6b83b40097a9690c6a5f5e334",
+                "scaler_bundle_id": "XSCALER__FS2_TF1",
+                "scaling_version": "SCALING-v1",
+                "schema_version": "SCHEMA-v1",
+                "split_version": "SPLIT-v1",
+                "target_scaler_bundle_id": "YSCALER__YS1",
+                "target_scaler_checksum": "b3326a79da81b092460ef8d4a140a101b21f2433ff30c36971d626d2a2491697",
+                "temporal_version": "TEMPORAL-v1",
+                "window_fingerprint": "d4fc515a7f75f108a484e0d10cdf5259370af6181b6b5b88cdb1cdf501fa6bca",
+                "window_version": "WINDOWS-v1"
+              },
+              "model": {
+                "activation": "GELU",
+                "attention_aware": true,
+                "d_model": 64,
+                "dropout": 0.1,
+                "ffn_dim": 128,
+                "implementation_version": "TRANSFORMER_IMPL-v1",
+                "input_size": 33,
+                "model_family": "TRANSFORMER_ENCODER",
+                "model_name": "Transformer Encoder Regressor",
+                "model_version": "TRANSFORMER-v1",
+                "norm_first": false,
+                "num_heads": 4,
+                "num_layers": 2,
+                "output_size": 1,
+                "pooling": "LAST_STEP",
+                "positional_encoding_type": "SINUSOIDAL"
+              },
+              "reproducibility": {
+                "cudnn_benchmark": false,
+                "cudnn_deterministic": true,
+                "dataloader_seed": 42,
+                "deterministic_mode": "D0",
+                "global_seed": 42,
+                "seed": 42,
+                "torch_deterministic_algorithms": true,
+                "worker_seed_policy": "torch_initial_seed_mod_2_32_numpy_python"
+              },
+              "runtime": {
+                "device_name": "mps",
+                "device_type": "mps",
+                "dtype": "float32",
+                "mixed_precision": false,
+                "num_workers": 0,
+                "pin_memory": false,
+                "platform": "Darwin",
+                "python_version": "3.10.11",
+                "sklearn_version": "1.7.2",
+                "torch_version": "2.13.0"
+              },
+              "training": {
+                "batch_size": 32,
+                "early_stopping_enabled": true,
+                "early_stopping_metric": "rmse_wh",
+                "early_stopping_mode": "MIN",
+                "early_stopping_patience": 10,
+                "enabled": true,
+                "gradient_clip_max_norm": 1.0,
+                "gradient_clipping_enabled": true,
+                "huber_delta": null,
+                "learning_rate": 0.0003,
+                "loss_name": "MSE",
+                "max_epochs": 50,
+                "optimizer_name": "AdamW",
+                "revin_affine": null,
+                "revin_enabled": false,
+                "revin_eps": null,
+                "revin_target_channels": null,
+                "scheduler_config": null,
+                "scheduler_name": null,
+                "weight_decay": 0.001
+              }
+            },
+            "config_fingerprint": "ae0fb819cd0ecca797892a5f6e2f9758c7809c01f5ab92daaeca21a880d5a6ba",
+            "created_at": "2026-08-22T16:35:06.866726+00:00",
+            "execution_type": "TRAINING",
+            "experiment_family": "S9_WEIGHT_DECAY",
+            "failure": null,
+            "final_model_lock_id": null,
+            "invalidation": null,
+            "metrics": [
+              {
+                "epoch_or_checkpoint": "epoch_15",
+                "metric_name": "mae_wh",
+                "metric_unit": "Wh",
+                "metric_value": 27.595002038670813,
+                "metric_version": "METRICS-v1",
+                "n_samples": 2960,
+                "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "split_id": "VALIDATION",
+                "status": "PASS"
+              },
+              {
+                "epoch_or_checkpoint": "epoch_15",
+                "metric_name": "rmse_wh",
+                "metric_unit": "Wh",
+                "metric_value": 58.08190056355405,
+                "metric_version": "METRICS-v1",
+                "n_samples": 2960,
+                "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "split_id": "VALIDATION",
+                "status": "PASS"
+              },
+              {
+                "epoch_or_checkpoint": "epoch_15",
+                "metric_name": "r2",
+                "metric_unit": "dimensionless",
+                "metric_value": 0.6034923842647237,
+                "metric_version": "METRICS-v1",
+                "n_samples": 2960,
+                "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+                "run_id": "RUN_TR_S09_0016_AE0FB819",
+                "split_id": "VALIDATION",
+                "status": "PASS"
+              }
+            ],
+            "notes": null,
+            "parent_run_id": null,
+            "record_schema_version": 1,
+            "registered_at": "2026-08-22T16:35:06.866726+00:00",
+            "registry_version": "EXPERIMENTS-v1",
+            "rerun_reason": "MANUAL_RERUN",
+            "resume_count": 0,
+            "run_id": "RUN_TR_S09_0016_AE0FB819",
+            "started_at": "2026-08-22T16:35:06.877740+00:00",
+            "status": "COMPLETED",
+            "sweep_id": null,
+            "sweep_stage": "S09",
+            "test_access_authorized": false,
+            "updated_at": "2026-08-22T16:41:36.020161+00:00"
+          }
+        },
+        "selected_d_model": 64,
+        "source_paths": [
+          "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+          "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+          "artifacts/sweeps/S11_d_model/s11_reference_update.json"
+        ],
+        "valid": true,
+        "winner_run_id": "RUN_TR_S09_0016_AE0FB819"
+      },
+      "phase_id": 34,
+      "phase_version": "PHASE-34-v1",
+      "ready": true,
+      "reference_condition_id": "H4",
+      "selected_d_model": 64,
+      "sweep_id": "S12_HEADS",
+      "sweep_version": "SWEEP_S12_HEADS-v1",
+      "test_access": "FORBIDDEN"
+    },
+    "phase_id": 34,
+    "readiness": {
+      "environment": {
+        "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+        "current_python_version": "3.10.11",
+        "issues": [],
+        "valid": true
+      },
+      "prerequisites": {
+        "records": [
+          {
+            "path": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/S11_d_model/s11_reference_update.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": true
+      },
+      "ready": true,
+      "state": "VALID_REUSABLE"
+    },
+    "reasons": [
+      "SCIENTIFIC_EXECUTION_NOT_AUTHORIZED"
+    ],
+    "resolved_action": "EXECUTE_MISSING_ONLY",
+    "state": "CONDITION_INCOMPLETE"
+  },
+  "warnings": []
+}

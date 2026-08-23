@@ -1,6 +1,6 @@
 {
   "artifact_version": "TRANSFORMER_IMPL-v1",
-  "created_at": "2026-08-21T13:33:08.437996+00:00",
+  "created_at": "2026-08-22T12:50:19.711213+00:00",
   "discrepancies": [],
   "phase_id": 16,
   "phase_name": "Transformer Implementation",
@@ -82,7 +82,7 @@
     {
       "path": "artifacts/models/transformer/transformer_model_manifest.json",
       "role": "manifest",
-      "sha256": "37ed019b8d4d4686393b270c709923d247c30ed44e310e1b74defbe964582b6f"
+      "sha256": "979b499f9fe9db57be14e43d07326e59aafd59b5c456b131ba6ba75aca18033e"
     },
     {
       "path": "artifacts/models/transformer/transformer_config_schema.json",
@@ -92,7 +92,7 @@
     {
       "path": "artifacts/models/transformer/phase_16_signoff.json",
       "role": "signoff",
-      "sha256": "a0d4e022015b62dae9e8f302e6a96a913a5468b110f346026c0d26d820b2000f"
+      "sha256": "25dd8bf11f2eb63bbbceff21aba71795115ccf7862962baafa1d48677773a539"
     }
   ],
   "status": "PASS",
@@ -115,8 +115,8 @@
     "implementation_version": "TRANSFORMER_IMPL-v1",
     "input_checksums": {
       "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
-      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
-      "artifacts/models/lstm/phase_15_signoff.json": "ba5c3c910d0b6778ced9f9407bd0892a7637160162552a304ef4fecfd587cbd7"
+      "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
+      "artifacts/models/lstm/phase_15_signoff.json": "ab835c551e82fab3d6cc4bb2f5a42c7f3607088808ea12dca47cef7a45e76dec"
     },
     "input_paths": [
       "artifacts/models/lstm/phase_15_signoff.json",
@@ -131,7 +131,7 @@
       "artifacts/models/transformer/transformer_config_schema.json": "a42f24488594acd0d29ff760e613f232aaa5e3f11c035a77ca620b5f10c68c14",
       "artifacts/models/transformer/transformer_discrepancies.json": "7553a18178dd79d3a933c9567cf663beb06c987af8296f9c9318855f1443f631",
       "artifacts/models/transformer/transformer_implementation_audit.csv": "c88454fe480f6d0edd893425da0070d6960a21f0a308dc47e467e1ef84db7742",
-      "artifacts/models/transformer/transformer_model_manifest.json": "37ed019b8d4d4686393b270c709923d247c30ed44e310e1b74defbe964582b6f",
+      "artifacts/models/transformer/transformer_model_manifest.json": "979b499f9fe9db57be14e43d07326e59aafd59b5c456b131ba6ba75aca18033e",
       "artifacts/models/transformer/transformer_module_audit.csv": "3e808370708b85812942f010a55196403c5fe95e2f3356617e72a45db69c87e4",
       "artifacts/models/transformer/transformer_parameter_audit.csv": "0a3f432ab2690bc27edd5d0959aef1291a00a6b187d4924b1a8228bff3449126",
       "artifacts/models/transformer/transformer_positional_encoding_audit.csv": "f9b2eee17d8958c564c82a8648e266994d2f85c1744e3c00b7d88f7016561aec",
@@ -177,6 +177,6 @@
       "unit_tests"
     ]
   },
-  "timestamp": "2026-08-21T13:33:08.437996+00:00",
+  "timestamp": "2026-08-22T12:50:19.711213+00:00",
   "warnings": []
 }

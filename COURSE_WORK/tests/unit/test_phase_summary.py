@@ -1,4 +1,6 @@
 import json
+import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -8,8 +10,10 @@ from course_work.reporting.phase_summary import (
     LOG_FILENAMES,
     PRESENTATION_SPECS,
     PRESENTATION_VERSION,
+    build_phase_33_transformer_configuration,
     build_phase_processing_log,
     render_dataframe_table,
+    render_phase_33_transformer_configuration,
     render_phase_log,
     render_phase_summary,
 )
@@ -70,7 +74,7 @@ class PhaseSummaryTest(unittest.TestCase):
         self.assertNotIn("<td>FAIL</td>", rendered)
 
     def test_minimal_presentation_policy_is_complete(self) -> None:
-        self.assertEqual(set(PRESENTATION_SPECS), set(range(15)))
+        self.assertEqual(set(PRESENTATION_SPECS), set(range(31)))
         forbidden = (
             "Warnings and discrepancies",
             "Technical details",
@@ -167,7 +171,7 @@ class PhaseSummaryTest(unittest.TestCase):
 
     def test_invalid_phase_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
-            build_phase_processing_log(15, self.root)
+            build_phase_processing_log(31, self.root)
 
     def test_dataframe_renderer_is_safe_scrollable_and_non_mutating(self) -> None:
         frame = pd.DataFrame({"value": [1.23456, 2.34567], "label": ["safe", "<script>unsafe</script>"]})
@@ -194,6 +198,63 @@ class PhaseSummaryTest(unittest.TestCase):
             render_dataframe_table(frame, "Title", "Subtitle", max_height=0)
         with self.assertRaises(ValueError):
             render_dataframe_table(frame, "Title", "Subtitle", precision=-1)
+
+    def test_phase_33_transformer_configuration_uses_canonical_artifacts(self) -> None:
+        view = build_phase_33_transformer_configuration(self.root)
+        self.assertEqual(view["status"], "PASS")
+        self.assertEqual(view["current_reference_run_id"], "RUN_TR_S09_0016_AE0FB819")
+        self.assertEqual(view["validation_rmse_wh"], 58.08190056355405)
+        self.assertEqual(view["validation_mae_wh"], 27.595002038670813)
+        self.assertEqual(view["validation_r2"], 0.6034923842647237)
+        self.assertEqual(len(view["configuration_rows"]), 19)
+        rows = {row["Component"]: row for row in view["configuration_rows"]}
+        self.assertEqual(rows["Feature set"]["Current value"], "FS2_TF1, 33 features")
+        self.assertEqual(rows["Target scaling"]["Current value"], "YS1, Train-only StandardScaler")
+        self.assertEqual(rows["Lookback"]["Current value"], "L36, 6 hours")
+        self.assertEqual(rows["d_model"]["Current value"], 64)
+        self.assertEqual(rows["Boundary protocol"]["Current value"], "WB0_CONTEXT_CARRY_OVER")
+
+    def test_phase_33_transformer_configuration_rejects_artifact_mismatch(self) -> None:
+        relative_paths = (
+            Path("artifacts/sweeps/S11_d_model/phase_33_signoff.json"),
+            Path("artifacts/sweeps/S11_d_model/s11_d_model_winner.json"),
+            Path("artifacts/sweeps/S11_d_model/s11_reference_update.json"),
+            Path("artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json"),
+            Path("artifacts/feature_sets/feature_set_registry.json"),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for relative_path in relative_paths:
+                destination = root / relative_path
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(self.root / relative_path, destination)
+            winner_path = root / "artifacts/sweeps/S11_d_model/s11_d_model_winner.json"
+            winner = json.loads(winner_path.read_text(encoding="utf-8"))
+            winner["winner_rmse_wh"] = 60.0
+            winner_path.write_text(json.dumps(winner), encoding="utf-8")
+            with self.assertRaisesRegex(RuntimeError, "Validation RMSE values disagree"):
+                build_phase_33_transformer_configuration(root)
+
+    def test_phase_33_transformer_configuration_renders_static_html(self) -> None:
+        rendered = render_phase_33_transformer_configuration(self.root).data
+        required_values = (
+            "Transformer Configuration after Phase 33",
+            "RUN_TR_S09_0016_AE0FB819",
+            "58.08190056355405 Wh",
+            "27.595002038670813 Wh",
+            "0.603492",
+            "FS2_TF1, 33 features",
+            "YS1, Train-only StandardScaler",
+            "L36, 6 hours",
+            "Current configuration",
+            "Canonical lineage",
+        )
+        self.assertTrue(all(value in rendered for value in required_values))
+        self.assertNotIn("<script", rendered.lower())
+        self.assertNotIn("jupyter.widget", rendered.lower())
+        self.assertNotIn("checksum", rendered.lower())
+        self.assertNotIn("fingerprint", rendered.lower())
+        self.assertEqual(rendered.count("<tbody>"), 2)
 
 
 if __name__ == "__main__":

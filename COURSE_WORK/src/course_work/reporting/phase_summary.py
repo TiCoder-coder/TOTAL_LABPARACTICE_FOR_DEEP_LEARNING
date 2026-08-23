@@ -1,13 +1,20 @@
 import json
+from datetime import datetime, timezone
 from html import escape
 from pathlib import Path
 from typing import Any
 
 from IPython.display import HTML
 
+from course_work.experiments.phase_execution import get_sweep_phase_spec, inspect_phase_state, plan_phase_resume
+from course_work.sweeps.dropout import build_phase_32_preflight
+from course_work.sweeps.d_model import build_phase_33_preflight
+from course_work.sweeps.heads import build_phase_34_preflight
+from course_work.sweeps.weight_decay import build_phase_31_preflight
 from course_work.utils.artifacts import (
     atomic_write_bytes,
     canonical_json_bytes,
+    get_project_root,
     read_json,
     sha256_file,
 )
@@ -47,6 +54,10 @@ PHASE_NAMES = {
     28: "S6 Activation Sweep",
     29: "S7 Batch-Size Sweep",
     30: "S8 Learning-Rate Sweep",
+    31: "S9 Weight-Decay Sweep",
+    32: "S10 Dropout Sweep",
+    33: "S11 d_model Sweep",
+    34: "S12 Head Sweep",
 }
 LOG_FILENAMES = {
     0: "phase_0_coursework_contract_log.json",
@@ -80,6 +91,10 @@ LOG_FILENAMES = {
     28: "phase_28_s6_activation_log.json",
     29: "phase_29_s7_batch_size_log.json",
     30: "phase_30_s8_learning_rate_log.json",
+    31: "phase_31_s9_weight_decay_log.json",
+    32: "phase_32_s10_dropout_log.json",
+    33: "phase_33_s11_d_model_log.json",
+    34: "phase_34_s12_head_log.json",
 }
 SOURCE_SPECS = {
     0: (
@@ -1441,6 +1456,213 @@ def _render_table(title: str, rows: list[dict[str, Any]]) -> str:
     return f'<section class="cw-section"><h4>{escape(title)}</h4><div class="cw-table-wrap"><table class="{table_class}" data-layout="{layout}" data-column-count="{len(columns)}"><thead><tr>{header}</tr></thead><tbody>{body}</tbody></table></div></section>'
 
 
+def _require_phase_33_configuration(condition: bool, message: str) -> None:
+    if not condition:
+        raise RuntimeError(f"Phase 33 configuration consistency check failed: {message}")
+
+
+def build_phase_33_transformer_configuration(project_root: Path) -> dict[str, Any]:
+    root = Path(project_root).resolve()
+    signoff = read_json(root / "artifacts/sweeps/S11_d_model/phase_33_signoff.json")
+    winner = read_json(root / "artifacts/sweeps/S11_d_model/s11_d_model_winner.json")
+    reference = read_json(root / "artifacts/sweeps/S11_d_model/s11_reference_update.json")
+    reference_run_id = reference["current_reference_run_id"]
+    run_record = read_json(root / "artifacts/runs" / reference_run_id / "config.json")
+    feature_registry = read_json(root / "artifacts/feature_sets/feature_set_registry.json")
+    config = run_record["config"]
+    data_config = config["data"]
+    model_config = config["model"]
+    training_config = config["training"]
+    feature_variant_id = data_config["feature_variant_id"]
+    feature_definition = feature_registry["variants"][feature_variant_id]
+    run_ids = {
+        signoff["winner_run_id"],
+        winner["winner_run_id"],
+        reference["winner_run_id"],
+        reference_run_id,
+        run_record["run_id"],
+    }
+    d_model_values = {
+        int(signoff["winner_d_model"]),
+        int(winner["winner_d_model"]),
+        int(winner["d_model"]),
+        int(reference["selected_d_model"]),
+        int(reference["d_model"]),
+        int(model_config["d_model"]),
+    }
+    rmse_values = {
+        float(signoff["winner_rmse_wh"]),
+        float(winner["winner_rmse_wh"]),
+        float(reference["winner_rmse_wh"]),
+    }
+    _require_phase_33_configuration(signoff["status"] == "PASS", "sign-off status is not PASS")
+    _require_phase_33_configuration(signoff["overall_status"] == "PASS", "overall status is not PASS")
+    _require_phase_33_configuration(bool(signoff["approved_for_phase34"]), "Phase 34 is not approved")
+    _require_phase_33_configuration(winner["status"] == "PASS", "winner status is not PASS")
+    _require_phase_33_configuration(len(run_ids) == 1, "current reference run IDs disagree")
+    _require_phase_33_configuration(len(d_model_values) == 1, "selected d_model values disagree")
+    _require_phase_33_configuration(len(rmse_values) == 1, "Validation RMSE values disagree")
+    _require_phase_33_configuration(
+        run_record["config_fingerprint"] == winner["winner_config_fingerprint"] == reference["winner_config_fingerprint"],
+        "current reference config fingerprints disagree",
+    )
+    _require_phase_33_configuration(
+        feature_definition["feature_count"] == data_config["feature_count"] == model_config["input_size"],
+        "feature counts disagree",
+    )
+    _require_phase_33_configuration(
+        feature_registry["feature_set_version"] == config["lineage"]["feature_set_version"],
+        "feature-set versions disagree",
+    )
+    _require_phase_33_configuration(
+        signoff["test_status"] == winner["test_status"] == reference["test_status"] == "FORBIDDEN",
+        "Test firewall is not preserved",
+    )
+    lookback_minutes = int(data_config["lookback_steps"]) * int(data_config["sampling_interval_minutes"])
+    target_scaling_id = data_config["target_scaling_option"]
+    target_scaling_value = (
+        "YS1, Train-only StandardScaler"
+        if target_scaling_id == "YS1"
+        else target_scaling_id
+    )
+    revin_value = "Disabled" if not training_config["revin_enabled"] else "Enabled"
+    configuration_rows = [
+        {"Component": "Feature set", "Current value": f'{feature_variant_id}, {data_config["feature_count"]} features', "Decision source": "Phase 23-24", "State": "Selected"},
+        {"Component": "Target scaling", "Current value": target_scaling_value, "Decision source": "Phase 25", "State": "Selected"},
+        {"Component": "Lookback", "Current value": f'L{data_config["lookback_steps"]}, {lookback_minutes // 60} hours', "Decision source": "Phase 26", "State": "Selected"},
+        {"Component": "Pooling", "Current value": model_config["pooling"], "Decision source": "Phase 27", "State": "Selected"},
+        {"Component": "Activation", "Current value": model_config["activation"], "Decision source": "Phase 28", "State": "Selected"},
+        {"Component": "Batch size", "Current value": training_config["batch_size"], "Decision source": "Phase 29", "State": "Selected"},
+        {"Component": "Learning rate", "Current value": training_config["learning_rate"], "Decision source": "Phase 30", "State": "Selected"},
+        {"Component": "AdamW weight decay", "Current value": training_config["weight_decay"], "Decision source": "Phase 31", "State": "Selected"},
+        {"Component": "Dropout", "Current value": model_config["dropout"], "Decision source": "Phase 32", "State": "Selected"},
+        {"Component": "d_model", "Current value": model_config["d_model"], "Decision source": "Phase 33", "State": "Selected"},
+        {"Component": "Heads", "Current value": model_config["num_heads"], "Decision source": "Frozen at Phase 33", "State": "Not swept"},
+        {"Component": "Layers", "Current value": model_config["num_layers"], "Decision source": "Frozen at Phase 33", "State": "Not swept"},
+        {"Component": "FFN width", "Current value": model_config["ffn_dim"], "Decision source": "Frozen at Phase 33", "State": "Not swept"},
+        {"Component": "Loss", "Current value": training_config["loss_name"], "Decision source": "Frozen at Phase 33", "State": "Not swept"},
+        {"Component": "Max epochs", "Current value": training_config["max_epochs"], "Decision source": "Frozen at Phase 33", "State": "Not swept"},
+        {"Component": "Early-stopping patience", "Current value": training_config["early_stopping_patience"], "Decision source": "Training contract", "State": "Fixed"},
+        {"Component": "Gradient clipping", "Current value": training_config["gradient_clip_max_norm"], "Decision source": "Frozen at Phase 33", "State": "Not swept"},
+        {"Component": "RevIN", "Current value": revin_value, "Decision source": "Frozen at Phase 33", "State": "Not swept"},
+        {"Component": "Boundary protocol", "Current value": data_config["boundary_protocol"], "Decision source": "Frozen at Phase 33", "State": "Not checked by S19"},
+    ]
+    lineage_rows = [
+        {"Field": "Phase 33 artifact version", "Value": signoff["artifact_version"]},
+        {"Field": "Winner condition", "Value": winner["winner_d_model_id"]},
+        {"Field": "Selection metric", "Value": winner["selection_metric"]},
+        {"Field": "Current reference run", "Value": reference_run_id},
+        {"Field": "Validation RMSE", "Value": winner["winner_rmse_wh"], "Unit": "Wh"},
+        {"Field": "Validation MAE", "Value": winner["winner_mae_wh"], "Unit": "Wh"},
+        {"Field": "Validation R²", "Value": winner["winner_r2"], "Unit": "Dimensionless"},
+        {"Field": "Trainable parameters", "Value": winner["winner_trainable_parameters"], "Unit": "Parameters"},
+        {"Field": "Test access", "Value": signoff["test_status"]},
+    ]
+    return {
+        "phase_id": 33,
+        "phase_name": PHASE_NAMES[33],
+        "status": signoff["status"],
+        "artifact_version": signoff["artifact_version"],
+        "approved_for_phase34": signoff["approved_for_phase34"],
+        "current_reference_run_id": reference_run_id,
+        "validation_rmse_wh": winner["winner_rmse_wh"],
+        "validation_mae_wh": winner["winner_mae_wh"],
+        "validation_r2": winner["winner_r2"],
+        "configuration_rows": configuration_rows,
+        "lineage_rows": lineage_rows,
+    }
+
+
+def render_phase_33_transformer_configuration(project_root: Path | None = None) -> HTML:
+    view = build_phase_33_transformer_configuration(Path(project_root or get_project_root()))
+    status = escape(str(view["status"]))
+    status_class = status.lower().replace("_", "-")
+    metric_cards = [
+        ("Current reference", view["current_reference_run_id"]),
+        ("Validation RMSE", f'{view["validation_rmse_wh"]} Wh'),
+        ("Validation MAE", f'{view["validation_mae_wh"]} Wh'),
+        ("Validation R²", view["validation_r2"]),
+    ]
+    metrics_html = "".join(
+        f'<div class="cw-config-metric"><span>{escape(label)}</span><strong>{_render_value(value)}</strong></div>'
+        for label, value in metric_cards
+    )
+    configuration_body = "".join(
+        "<tr>"
+        f'<td>{_render_value(row["Component"])}</td>'
+        f'<td>{_render_value(row["Current value"])}</td>'
+        f'<td>{_render_value(row["Decision source"])}</td>'
+        f'<td>{_render_value(row["State"])}</td>'
+        "</tr>"
+        for row in view["configuration_rows"]
+    )
+    lineage_body = "".join(
+        "<tr>"
+        f'<td>{_render_value(row["Field"])}</td>'
+        f'<td>{_render_value(row["Value"])}</td>'
+        f'<td>{_render_value(row.get("Unit"))}</td>'
+        "</tr>"
+        for row in view["lineage_rows"]
+    )
+    style = """
+<style>
+.cw-transformer-config{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:16px;background:#fff;box-shadow:0 10px 28px rgba(31,45,61,.09);margin:14px 0 24px;overflow:hidden}
+.cw-transformer-config *{box-sizing:border-box}
+.cw-config-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:22px 24px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
+.cw-config-header h3{font-size:22px;line-height:1.3;margin:0 0 6px;color:#172033}
+.cw-config-meta{font-size:13px;color:#5d6b82}
+.cw-config-status{border:1px solid #a9dec1;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;letter-spacing:.03em;white-space:nowrap;color:#11613d;background:#e8f7ef}
+.cw-config-status:not(.pass){border-color:#e2b2b8;background:#fcecef;color:#8b2430}
+.cw-config-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:18px 24px;background:#fbfcff;border-bottom:1px solid #e5eaf1}
+.cw-config-metric{display:flex;flex-direction:column;gap:5px;min-width:0;padding:12px 14px;border:1px solid #e1e7f0;border-radius:10px;background:#fff}
+.cw-config-metric span{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.04em}
+.cw-config-metric strong{font-size:14px;color:#24324a;font-weight:700;overflow-wrap:anywhere}
+.cw-config-content{padding:4px 24px 24px}
+.cw-config-section{margin-top:20px}
+.cw-config-section h4{font-size:15px;margin:0 0 9px;color:#334155}
+.cw-config-table-wrap{overflow-x:auto;border:1px solid #e2e8f0;border-radius:10px}
+.cw-config-table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:13px;background:#fff}
+.cw-config-table th{background:#f5f7fb;color:#475569;text-align:left;font-weight:650;padding:11px 13px;border-bottom:1px solid #dfe6ef;white-space:nowrap}
+.cw-config-table td{text-align:left;padding:10px 13px;border-bottom:1px solid #edf1f5;vertical-align:top;line-height:1.45;overflow-wrap:anywhere}
+.cw-config-table tbody tr:nth-child(even){background:#fafbfd}
+.cw-config-table tbody tr:last-child td{border-bottom:0}
+.cw-config-main th:nth-child(1),.cw-config-main td:nth-child(1){width:22%}
+.cw-config-main th:nth-child(2),.cw-config-main td:nth-child(2){width:28%}
+.cw-config-main th:nth-child(3),.cw-config-main td:nth-child(3){width:27%}
+.cw-config-main th:nth-child(4),.cw-config-main td:nth-child(4){width:23%}
+.cw-config-lineage th:nth-child(1),.cw-config-lineage td:nth-child(1){width:30%}
+.cw-config-lineage th:nth-child(2),.cw-config-lineage td:nth-child(2){width:50%}
+.cw-config-lineage th:nth-child(3),.cw-config-lineage td:nth-child(3){width:20%}
+@media (max-width:900px){.cw-config-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-config-table{min-width:720px}}
+@media (max-width:620px){.cw-config-header{flex-direction:column;padding:18px}.cw-config-metrics{grid-template-columns:1fr;padding:14px 18px}.cw-config-content{padding-left:18px;padding-right:18px}}
+</style>
+"""
+    header = (
+        '<header class="cw-config-header">'
+        '<div><h3>Transformer Configuration after Phase 33</h3>'
+        f'<div class="cw-config-meta">{escape(str(view["artifact_version"]))} | Approved next phase: Phase 34</div></div>'
+        f'<span class="cw-config-status {escape(status_class)}">{status}</span>'
+        "</header>"
+    )
+    configuration_table = (
+        '<section class="cw-config-section"><h4>Current configuration</h4>'
+        '<div class="cw-config-table-wrap"><table class="cw-config-table cw-config-main">'
+        '<thead><tr><th>Component</th><th>Current value</th><th>Decision source</th><th>State</th></tr></thead>'
+        f'<tbody>{configuration_body}</tbody></table></div></section>'
+    )
+    lineage_table = (
+        '<section class="cw-config-section"><h4>Canonical lineage</h4>'
+        '<div class="cw-config-table-wrap"><table class="cw-config-table cw-config-lineage">'
+        '<thead><tr><th>Field</th><th>Value</th><th>Unit</th></tr></thead>'
+        f'<tbody>{lineage_body}</tbody></table></div></section>'
+    )
+    return HTML(
+        f'{style}<article class="cw-transformer-config">{header}'
+        f'<div class="cw-config-metrics">{metrics_html}</div>'
+        f'<div class="cw-config-content">{configuration_table}{lineage_table}</div></article>'
+    )
+
+
 def _render_split_bar(technical_details: dict[str, Any]) -> str:
     visualization = technical_details.get("visualization")
     if not visualization or visualization.get("type") != "split_ratio_bar":
@@ -1591,6 +1813,370 @@ def render_phase_summary(phase_id: int, project_root: Path) -> HTML:
     return render_phase_log(log)
 
 
+def _selective_condition_rows(decision: dict[str, Any]) -> list[dict[str, Any]]:
+    inspection = decision["inspection"]
+    conditions = inspection["conditions"]
+    verified = {item["condition_id"]: item for item in conditions["verified_conditions"]}
+    invalid = {item["condition_id"]: item for item in conditions["invalid_conditions"]}
+    running = {item["condition_id"]: item for item in conditions["running_conditions"]}
+    failed = {item["condition_id"]: item for item in conditions["failed_conditions"]}
+    values = dict(get_sweep_phase_spec(int(decision["phase_id"])).condition_values)
+    rows = []
+    for condition_id in conditions["expected_conditions"]:
+        if condition_id in verified:
+            item = verified[condition_id]
+            status = "VERIFIED"
+            run_id = item["run_id"]
+            rmse_wh = item["rmse_wh"]
+        elif condition_id in running:
+            item = running[condition_id]
+            status = "RUNNING"
+            run_id = item["run_id"]
+            rmse_wh = None
+        elif condition_id in failed:
+            item = failed[condition_id]
+            status = "FAILED"
+            run_id = item["run_id"]
+            rmse_wh = None
+        elif condition_id in invalid:
+            item = invalid[condition_id]
+            status = "INVALID"
+            run_id = item.get("run_id")
+            rmse_wh = None
+        else:
+            status = "MISSING"
+            run_id = None
+            rmse_wh = None
+        rows.append({"Condition": condition_id, "Value": values[condition_id], "Evidence": status, "Run ID": run_id, "Validation RMSE Wh": rmse_wh})
+    return rows
+
+
+def _selective_prerequisite_rows(decision: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        {"Required artifact": item["path"], "Validation": item["status"]}
+        for item in decision["inspection"]["prerequisites"]["records"]
+    ]
+
+
+def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: bool = False) -> dict[str, Any]:
+    root = Path(project_root).resolve()
+    decision = plan_phase_resume(phase_id, root, allow_execution=allow_execution)
+    phase_31_preflight = build_phase_31_preflight(root) if phase_id == 31 else None
+    phase_32_preflight = build_phase_32_preflight(root) if phase_id == 32 else None
+    phase_33_preflight = build_phase_33_preflight(root) if phase_id == 33 else None
+    phase_34_preflight = build_phase_34_preflight(root) if phase_id == 34 else None
+    phase_preflight = phase_31_preflight or phase_32_preflight or phase_33_preflight or phase_34_preflight
+    preflight_reasons = []
+    if phase_preflight is not None:
+        preflight_reasons = [
+            f"{issue['path']}: {issue['reason']}"
+            for issue in phase_preflight["handoff"]["issues"]
+        ]
+    reasons = list(dict.fromkeys([*decision["reasons"], *preflight_reasons]))
+    blocked = decision["effective_action"] == "BLOCK" or (
+        phase_preflight is not None and not phase_preflight["handoff"]["valid"]
+    )
+    signoff = decision["inspection"]["signoff"]
+    canonical_status = signoff.get("record", {}).get("status") if signoff.get("valid") else None
+    status = "BLOCKED" if blocked else canonical_status or decision["inspection"]["state"]
+    summary = {
+        "State": decision["state"],
+        "Resolved action": decision["resolved_action"],
+        "Effective action": "BLOCK" if blocked else decision["effective_action"],
+        "Execution authorized": decision["execution_authorized"],
+    }
+    sections = [{"title": "Prerequisite validation", "rows": _selective_prerequisite_rows(decision)}]
+    source_artifacts = []
+    if phase_31_preflight is not None:
+        handoff = phase_31_preflight["handoff"]
+        summary["Selected learning rate"] = handoff["selected_learning_rate"]
+        summary["S8 reference run"] = handoff["winner_run_id"]
+        summary["Test access"] = phase_31_preflight["test_access"]
+        sections.append(
+            {
+                "title": "S9 frozen contract",
+                "rows": [
+                    {"Field": "Swept factor", "Value": "weight_decay"},
+                    {"Field": "Optimizer", "Value": "AdamW"},
+                    {"Field": "Reference condition", "Value": "WD1 = 0.0001"},
+                    {"Field": "New conditions", "Value": "WD0 = 0.0; WD2 = 0.001"},
+                    {"Field": "Selection metric", "Value": "Validation RMSE Wh"},
+                    {"Field": "Exact tie rule", "Value": "Lower weight decay"},
+                    {"Field": "Explicit L2 loss", "Value": "Disabled"},
+                    {"Field": "Test access", "Value": phase_31_preflight["test_access"]},
+                ],
+            }
+        )
+        for relative_path in handoff["source_paths"]:
+            path = root / relative_path
+            if path.is_file():
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "phase_30_handoff",
+                        "sha256": sha256_file(path),
+                    }
+                )
+    if phase_32_preflight is not None:
+        handoff = phase_32_preflight["handoff"]
+        summary["Selected weight decay"] = handoff["selected_weight_decay"]
+        summary["S9 reference run"] = handoff["winner_run_id"]
+        summary["Test access"] = phase_32_preflight["test_access"]
+        sections.append(
+            {
+                "title": "S10 frozen contract",
+                "rows": [
+                    {"Field": "Swept factor", "Value": "dropout"},
+                    {"Field": "Scope", "Value": "All Transformer encoder dropout sites"},
+                    {"Field": "Reference condition", "Value": "DR01 = 0.1"},
+                    {"Field": "New conditions", "Value": "DR02 = 0.2; DR03 = 0.3"},
+                    {"Field": "Selection metric", "Value": "Validation RMSE Wh"},
+                    {"Field": "Exact tie rule", "Value": "Lower dropout"},
+                    {"Field": "MC Dropout", "Value": "Disabled"},
+                    {"Field": "Test access", "Value": phase_32_preflight["test_access"]},
+                ],
+            }
+        )
+        for relative_path in handoff["source_paths"]:
+            path = root / relative_path
+            if path.is_file():
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "phase_31_handoff",
+                        "sha256": sha256_file(path),
+                    }
+                )
+    if phase_33_preflight is not None:
+        handoff = phase_33_preflight["handoff"]
+        summary["Selected dropout"] = handoff["selected_dropout"]
+        summary["S10 reference run"] = handoff["winner_run_id"]
+        summary["Test access"] = phase_33_preflight["test_access"]
+        sections.append(
+            {
+                "title": "S11 frozen contract",
+                "rows": [
+                    {"Field": "Swept factor", "Value": "d_model"},
+                    {"Field": "Reference condition", "Value": "D64 = 64"},
+                    {"Field": "New condition", "Value": "D32 = 32"},
+                    {"Field": "Frozen heads", "Value": "H4"},
+                    {"Field": "Frozen layers", "Value": "N2"},
+                    {"Field": "Frozen FFN width", "Value": "F128"},
+                    {"Field": "Selection metric", "Value": "Validation RMSE Wh"},
+                    {"Field": "Exact tie rule", "Value": "D32"},
+                    {"Field": "Test access", "Value": phase_33_preflight["test_access"]},
+                ],
+            }
+        )
+        capacity = handoff.get("capacity_comparison")
+        if isinstance(capacity, dict):
+            sections.append(
+                {
+                    "title": "Capacity context",
+                    "rows": [
+                        {
+                            "Condition": item["condition_id"],
+                            "d_model": item["d_model"],
+                            "Head dimension": item["head_dim"],
+                            "FFN ratio": item["ffn_ratio"],
+                            "Trainable parameters": item["trainable_parameter_count"],
+                        }
+                        for item in capacity["candidates"]
+                    ],
+                }
+            )
+        for relative_path in handoff["source_paths"]:
+            path = root / relative_path
+            if path.is_file():
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "phase_32_handoff",
+                        "sha256": sha256_file(path),
+                    }
+                )
+    if phase_34_preflight is not None:
+        handoff = phase_34_preflight["handoff"]
+        summary["Selected d_model"] = handoff["selected_d_model"]
+        summary["S11 reference run"] = handoff["winner_run_id"]
+        summary["Test access"] = phase_34_preflight["test_access"]
+        geometry = handoff.get("geometry_comparison")
+        geometry_by_id = {
+            item["condition_id"]: item
+            for item in geometry.get("candidates", [])
+        } if isinstance(geometry, dict) else {}
+        h2 = geometry_by_id.get("H2", {})
+        h4 = geometry_by_id.get("H4", {})
+        sections.append(
+            {
+                "title": "S12 frozen contract",
+                "rows": [
+                    {"Field": "Swept factor", "Value": "num_heads"},
+                    {"Field": "Reference condition", "Value": "H4 = 4"},
+                    {"Field": "New condition", "Value": "H2 = 2"},
+                    {"Field": "Frozen d_model", "Value": handoff["selected_d_model"]},
+                    {"Field": "Selection metric", "Value": "Validation RMSE Wh"},
+                    {"Field": "Exact tie rule", "Value": "H2"},
+                    {"Field": "Parameter count", "Value": "Unchanged across H2 and H4"},
+                    {"Field": "Test access", "Value": phase_34_preflight["test_access"]},
+                ],
+            }
+        )
+        sections.append(
+            {
+                "title": "Head geometry",
+                "rows": [
+                    {
+                        "Condition": condition_id,
+                        "Heads": item.get("num_heads"),
+                        "Head dimension": item.get("head_dim"),
+                        "Attention shape": item.get("attention_shapes"),
+                        "Trainable parameters": item.get("trainable_parameter_count"),
+                        "Audit": item.get("status"),
+                    }
+                    for condition_id, item in (("H2", h2), ("H4", h4))
+                ],
+            }
+        )
+        if signoff.get("valid"):
+            signoff_record = signoff["record"]
+            winner_path = root / decision["inspection"]["artifacts"]["records"][2]["path"]
+            reference_path = root / decision["inspection"]["artifacts"]["records"][3]["path"]
+            winner_record = read_json(winner_path)
+            reference_record = read_json(reference_path)
+            sections.append(
+                {
+                    "title": "Phase 34 result",
+                    "rows": [
+                        {"Field": "Winner", "Value": winner_record["winner_head_id"]},
+                        {"Field": "Selected heads", "Value": winner_record["winner_num_heads"]},
+                        {"Field": "Selected head dimension", "Value": winner_record["winner_head_dim"]},
+                        {"Field": "Winner run", "Value": winner_record["winner_run_id"]},
+                        {"Field": "Validation RMSE", "Value": winner_record["winner_rmse_wh"], "Unit": "Wh"},
+                        {"Field": "Validation MAE", "Value": winner_record["winner_mae_wh"], "Unit": "Wh"},
+                        {"Field": "Validation R²", "Value": winner_record["winner_r2"], "Unit": "Dimensionless"},
+                    ],
+                }
+            )
+            sections.append(
+                {
+                    "title": "Phase 35 handoff",
+                    "rows": [
+                        {"Field": "Approved", "Value": reference_record["approved_for_phase35"]},
+                        {"Field": "Current reference run", "Value": reference_record["current_reference_run_id"]},
+                        {"Field": "Selected head condition", "Value": reference_record["selected_head_id"]},
+                        {"Field": "Selected heads", "Value": reference_record["selected_num_heads"]},
+                        {"Field": "Overall status", "Value": signoff_record["overall_status"]},
+                        {"Field": "Test access", "Value": signoff_record["test_status"]},
+                    ],
+                }
+            )
+        for relative_path in handoff["source_paths"]:
+            path = root / relative_path
+            if path.is_file():
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "phase_33_handoff",
+                        "sha256": sha256_file(path),
+                    }
+                )
+    sections.append({"title": "Condition evidence", "rows": _selective_condition_rows(decision)})
+    return {
+        "presentation_version": PRESENTATION_VERSION,
+        "phase_id": phase_id,
+        "phase_name": decision["inspection"]["phase_name"],
+        "phase_version": f"PHASE-{phase_id}-v1",
+        "artifact_version": "SELECTIVE-RESUME-v1",
+        "status": status,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "summary": summary,
+        "sections": sections,
+        "warnings": [],
+        "discrepancies": reasons,
+        "source_artifacts": source_artifacts,
+        "technical_details": {
+            **decision,
+            "phase_31_preflight": phase_31_preflight,
+            "phase_32_preflight": phase_32_preflight,
+            "phase_33_preflight": phase_33_preflight,
+            "phase_34_preflight": phase_34_preflight,
+        },
+    }
+
+
+def save_phase_resume_log(log: dict[str, Any], project_root: Path) -> Path:
+    phase_id = int(log["phase_id"])
+    if phase_id not in range(23, 35):
+        raise ValueError(f"Selective resume log supports Phase 23-34, received Phase {phase_id}")
+    path = Path(project_root).resolve() / LOG_ROOT / LOG_FILENAMES[phase_id]
+    atomic_write_bytes(path, canonical_json_bytes(log))
+    if read_json(path) != log:
+        raise RuntimeError(f"Selective phase log reload failed: {path}")
+    return path
+
+
+def materialize_phase_resume_log(
+    phase_id: int,
+    project_root: Path,
+    allow_execution: bool = False,
+) -> tuple[dict[str, Any], Path]:
+    root = Path(project_root).resolve()
+    log = build_phase_resume_log(phase_id, root, allow_execution=allow_execution)
+    path = save_phase_resume_log(log, root)
+    if log["status"] in {"LOG_MISSING", "LOG_STALE"}:
+        log = build_phase_resume_log(phase_id, root, allow_execution=allow_execution)
+        path = save_phase_resume_log(log, root)
+    return log, path
+
+
+def render_phase_resume_log(log: dict[str, Any]) -> HTML:
+    status = str(log["status"])
+    status_class = "pass" if status in {"PASS", "VALID_REUSABLE"} else "blocked"
+    summary_rows = [{"Field": field, "Value": value} for field, value in log["summary"].items()]
+    sections = _render_table("Execution decision", summary_rows)
+    sections += "".join(_render_table(section["title"], section["rows"]) for section in log["sections"])
+    reasons = log.get("discrepancies", [])
+    reason_html = ""
+    if reasons:
+        values = "".join(f"<li>{escape(str(reason))}</li>" for reason in reasons)
+        reason_html = f'<section class="cw-resume-reasons"><h4>Block reason</h4><ul>{values}</ul></section>'
+    style = """
+<style>
+.cw-phase-resume{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:15px;background:#fff;box-shadow:0 9px 26px rgba(31,45,61,.08);margin:14px 0 24px;overflow:hidden}
+.cw-phase-resume *{box-sizing:border-box}
+.cw-resume-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:20px 22px;background:linear-gradient(135deg,#f5f8fd,#edf3fb);border-bottom:1px solid #d9e2ef}
+.cw-resume-header h3{font-size:20px;line-height:1.3;margin:0 0 5px;color:#172033}
+.cw-resume-meta{font-size:13px;color:#5d6b82}
+.cw-resume-status{border:1px solid transparent;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.cw-resume-status.pass{border-color:#a9dec1;background:#e8f7ef;color:#11613d}
+.cw-resume-status.blocked{border-color:#e2b2b8;background:#fcecef;color:#8b2430}
+.cw-resume-content{padding:2px 22px 22px}
+.cw-phase-resume .cw-section{margin-top:20px}
+.cw-phase-resume .cw-section h4,.cw-resume-reasons h4{font-size:14px;margin:0 0 9px;color:#334155}
+.cw-phase-resume .cw-table-wrap{overflow-x:auto;border:1px solid #e2e8f0;border-radius:9px}
+.cw-phase-resume .cw-phase-table{border-collapse:collapse;width:100%;table-layout:auto;font-size:13px;background:#fff}
+.cw-phase-resume .cw-phase-table th{background:#f7f9fc;color:#475569;text-align:left;font-weight:650;padding:10px 12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+.cw-phase-resume .cw-phase-table td{text-align:left;padding:10px 12px;border-bottom:1px solid #edf1f5;vertical-align:top;line-height:1.45;overflow-wrap:anywhere}
+.cw-phase-resume .cw-phase-table-compact th:not(:last-child),.cw-phase-resume .cw-phase-table-compact td:not(:last-child){width:1%;white-space:nowrap}
+.cw-phase-resume .cw-phase-table tbody tr:last-child td{border-bottom:0}
+.cw-phase-resume .cw-phase-table tbody tr:nth-child(even){background:#fbfcfe}
+.cw-resume-reasons{margin-top:20px;padding:14px 16px;border:1px solid #efc5ca;border-radius:9px;background:#fff6f7;color:#7f2630}
+.cw-resume-reasons ul{margin:0;padding-left:20px}
+.cw-resume-reasons li{margin:3px 0}
+@media (max-width:720px){.cw-resume-header{flex-direction:column}.cw-resume-content{padding-left:12px;padding-right:12px}.cw-phase-resume .cw-phase-table-compact th:not(:last-child),.cw-phase-resume .cw-phase-table-compact td:not(:last-child){width:auto;white-space:normal}}
+</style>
+"""
+    header = f'<header class="cw-resume-header"><div><h3>Phase {int(log["phase_id"])} - {escape(str(log["phase_name"]))}</h3><div class="cw-resume-meta">{escape(str(log["artifact_version"]))}</div></div><span class="cw-resume-status {status_class}">{escape(status)}</span></header>'
+    return HTML(f'{style}<article class="cw-phase-resume">{header}<div class="cw-resume-content">{sections}{reason_html}</div></article>')
+
+
+def render_phase_resume(phase_id: int, project_root: Path | None = None, allow_execution: bool = False) -> HTML:
+    root = Path(project_root or get_project_root()).resolve()
+    log, _ = materialize_phase_resume_log(phase_id, root, allow_execution=allow_execution)
+    return render_phase_resume_log(log)
+
+
 # ---------------------------------------------------------------------------
 # Batch log visualization (all phases at once)
 # ---------------------------------------------------------------------------
@@ -1621,127 +2207,63 @@ def _sortable_table_html(df_rows: list[dict[str, Any]]) -> str:
     return table
 
 
-def render_all_logs_summary(project_root: Path) -> HTML:
+def render_all_logs_summary(project_root: Path | None = None) -> HTML:
+    root = Path(project_root or get_project_root()).resolve()
     rows = []
-    for phase_id in sorted(LOG_FILENAMES.keys()):
-        path = Path(project_root).resolve() / LOG_ROOT / LOG_FILENAMES[phase_id]
-        if not path.exists():
+    for phase_id in sorted(LOG_FILENAMES):
+        path = root / LOG_ROOT / LOG_FILENAMES[phase_id]
+        if not path.is_file():
             continue
         try:
             data = read_json(path)
-        except Exception:
+        except (OSError, ValueError, TypeError):
             continue
+        status = data.get("status", "")
+        if status == "VALID_REUSABLE" and phase_id >= 23:
+            inspection = inspect_phase_state(phase_id, root)
+            if inspection["signoff"]["valid"]:
+                status = inspection["signoff"]["record"]["status"]
         rows.append({
             "phase": data.get("phase_id"),
             "phase_name": data.get("phase_name", ""),
             "timestamp": data.get("timestamp") or data.get("created_at", ""),
-            "status": data.get("status", ""),
+            "status": status,
             "artifact_version": data.get("artifact_version") or data.get("phase_version", ""),
             "path": path.name,
         })
 
     table_html = _sortable_table_html(rows)
-
-    n_pass = sum(1 for r in rows if str(r.get("status", "")).lower() == "pass")
-    n_fail = sum(1 for r in rows if str(r.get("status", "")).lower() != "pass")
-
-    style_template = """
+    n_pass = sum(1 for row in rows if str(row.get("status", "")).lower() == "pass")
+    n_attention = len(rows) - n_pass
+    style = """
 <style>
 .cw-logs-view{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;margin:14px 0 24px}
 .cw-logs-header{padding:20px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border:1px solid #dbe3ee;border-radius:14px 14px 0 0;border-bottom:none}
-.cw-logs-header h3{font-size:18px;margin:0 0 4px;color:#172033}
-.cw-logs-stats{display:flex;gap:16px;font-size:13px;color:#5d6b82}
-.cw-logs-stats span{font-weight:600}
+.cw-logs-header h3{font-size:18px;margin:0 0 5px;color:#172033}
+.cw-logs-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:#5d6b82}
+.cw-logs-stats span{font-weight:650}
 .cw-logs-body{border:1px solid #dbe3ee;border-radius:0 0 14px 14px;background:#fff;overflow:hidden}
-.cw-logs-controls{padding:12px 18px;border-bottom:1px solid #e5eaf1;display:flex;gap:12px;align-items:center}
-.cw-logs-controls input{padding:7px 12px;border:1px solid #d0d7e0;border-radius:7px;font-size:13px;width:260px;outline:none}
-.cw-logs-controls input:focus{border-color:#2463a6;box-shadow:0 0 0 3px rgba(36,99,166,.1)}
 .cw-logs-scroll{max-height:520px;overflow:auto}
 .cw-log-table{width:100%;border-collapse:collapse;font-size:13px}
-.cw-log-table thead th{position:sticky;top:0;z-index:3;background:#253b63;color:#fff;font-weight:650;text-align:left;padding:11px 14px;border-right:1px solid rgba(255,255,255,.1);white-space:nowrap;cursor:pointer;user-select:none}
-.cw-log-table thead th:hover{background:#344f7a}
-.cw-log-table thead th::after{content:' ⇅';opacity:.4;font-size:10px}
-.cw-log-table tbody tr{border-bottom:1px solid #edf1f5;cursor:pointer}
+.cw-log-table thead th{position:sticky;top:0;z-index:3;background:#253b63;color:#fff;font-weight:650;text-align:left;padding:11px 14px;border-right:1px solid rgba(255,255,255,.1);white-space:nowrap}
+.cw-log-table tbody tr{border-bottom:1px solid #edf1f5}
 .cw-log-table tbody tr:hover{background:#eaf2ff}
 .cw-log-table tbody tr:last-child{border-bottom:none}
 .cw-log-table td{padding:10px 14px;vertical-align:middle;color:#293548}
 .cw-log-table td:first-child{font-weight:700;color:#253b63}
 .cw-row-pass td:first-child{color:#11613d}
 .cw-row-fail td:first-child{color:#8f2430}
-.cw-detail-panel{display:none;padding:16px 22px;background:#f8fafc;border-top:1px solid #e5eaf1;font-size:12.5px;color:#334155}
-.cw-detail-panel.open{display:block}
-.cw-detail-panel pre{background:#1e2a3a;color:#e2e8f0;padding:12px 14px;border-radius:8px;overflow:auto;max-height:300px;margin:8px 0 0;font-size:12px;line-height:1.5}
 .cw-empty{margin:0;padding:20px;color:#64748b;font-size:13px}
+@media (max-width:720px){.cw-logs-header{padding:16px}.cw-log-table{font-size:12px}.cw-log-table th,.cw-log-table td{padding:9px 10px}}
 </style>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  var table=document.getElementById('cw-log-table');
-  if(!table)return;
-  // Search filter
-  var searchInput=document.getElementById('cw-log-search');
-  if(searchInput){
-    searchInput.addEventListener('input',function(){
-      var q=this.value.toLowerCase();
-      table.querySelectorAll('tbody tr').forEach(function(tr){
-        tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none';
-      });
-    });
-  }
-  // Sort on header click
-  table.querySelectorAll('thead th').forEach(function(th,colIdx){
-    th.addEventListener('click',function(){
-      var asc=th.dataset.dir!=='asc';
-      table.querySelectorAll('thead th').forEach(function(h){h.dataset.dir='';h.classList.remove('cw-sort-asc','cw-sort-desc');});
-      th.dataset.dir=asc?'asc':'desc';
-      th.classList.add(asc?'cw-sort-asc':'cw-sort-desc');
-      var rows=Array.from(table.querySelectorAll('tbody tr'));
-      rows.sort(function(a,b){
-        var av=a.cells[colIdx]?a.cells[colIdx].textContent.trim():'';
-        var bv=b.cells[colIdx]?b.cells[colIdx].textContent.trim():'';
-        var an=parseFloat(av),bn=parseFloat(bv);
-        if(!isNaN(an)&&!isNaN(bn))return asc?an-bn:bn-an;
-        return asc?av.localeCompare(bv):bv.localeCompare(av);
-      });
-      rows.forEach(function(r){table.tBodies[0].appendChild(r);});
-    });
-  });
-  // Toggle detail panel on row click
-  table.querySelectorAll('tbody tr').forEach(function(tr){
-    tr.addEventListener('click',function(){
-      var panel=tr.nextElementSibling;
-      if(!panel||!panel.classList.contains('cw-detail-panel')){
-        var div=document.createElement('tr');
-        div.innerHTML='<td colspan="99"><div class="cw-detail-panel">loading...</div></td>';
-        tr.parentNode.insertBefore(div.firstChild,tr.nextSibling);
-        panel=tr.nextElementSibling;
-      }
-      panel.classList.toggle('open');
-      if(panel.classList.contains('open')&&!panel.dataset.loaded){
-        var phase=tr.dataset.phase;
-        panel.dataset.loaded='1';
-        var match=Array.from(table.querySelectorAll('tbody tr')).indexOf(tr);
-        var logRows=window.__cw_log_rows||[];
-        var data=logRows[match];
-        if(data){
-          panel.innerHTML='<div class="cw-detail-panel open"><pre>'+JSON.stringify(data,null,2)+'</pre></div>';
-        }
-      }
-    });
-  });
-  window.__cw_log_rows=arguments[0];
-}.bind(null,__CW_LOG_ROWS__));
-</script>
 """
-    style = style_template.replace("__CW_LOG_ROWS__", json.dumps(rows))
-
-    controls = '<div class="cw-logs-controls"><input id="cw-log-search" type="text" placeholder="Filter phases, names, status..."></div>'
     return HTML(
         f'<div class="cw-logs-view">'
         f'<div class="cw-logs-header"><h3>Phase Processing Logs</h3>'
         f'<div class="cw-logs-stats"><span>{len(rows)} phases</span>'
-        f' <span style="color:#11613d">&#10003; {n_pass} PASS</span>'
-        f' <span style="color:#8f2430">&#10007; {n_fail} FAIL</span></div></div>'
-        f'<div class="cw-logs-body">{controls}<div class="cw-logs-scroll">{table_html}</div></div>'
+        f'<span style="color:#11613d">PASS: {n_pass}</span>'
+        f'<span style="color:#8f2430">Needs attention: {n_attention}</span></div></div>'
+        f'<div class="cw-logs-body"><div class="cw-logs-scroll">{table_html}</div></div>'
         f'{style}</div>'
     )
 

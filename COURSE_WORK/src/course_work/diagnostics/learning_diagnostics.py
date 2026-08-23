@@ -36,6 +36,32 @@ DIAGNOSTIC_SUMMARY_COLUMNS = [
 ]
 
 
+def validate_phase_22_signoff(project_root: Path | None = None) -> dict[str, Any]:
+    root = (project_root or get_project_root()).resolve()
+    signoff_path = root / PHASE_22_ARTIFACT_ROOT / "phase_22_signoff.json"
+    if not signoff_path.is_file():
+        return {"valid": False, "issues": [{"path": str(signoff_path.relative_to(root)), "reason": "MISSING"}], "record": None}
+    signoff = read_json(signoff_path)
+    issues = []
+    if signoff.get("status") != "PASS":
+        issues.append({"path": str(signoff_path.relative_to(root)), "reason": "SIGNOFF_NOT_PASS"})
+    output_paths = signoff.get("output_paths")
+    output_checksums = signoff.get("output_checksums")
+    if not isinstance(output_paths, list) or not isinstance(output_checksums, dict):
+        issues.append({"path": str(signoff_path.relative_to(root)), "reason": "INVALID_OUTPUT_DECLARATION"})
+    else:
+        for relative_path in output_paths:
+            path = root / relative_path
+            if not path.is_file():
+                issues.append({"path": relative_path, "reason": "MISSING"})
+            elif output_checksums.get(relative_path) != sha256_file(path):
+                issues.append({"path": relative_path, "reason": "CHECKSUM_MISMATCH"})
+    summary_relative = str(PHASE_22_ARTIFACT_ROOT / "learning_diagnostics_summary.csv")
+    if not (root / summary_relative).is_file() and {"path": summary_relative, "reason": "MISSING"} not in issues:
+        issues.append({"path": summary_relative, "reason": "MISSING"})
+    return {"valid": not issues, "issues": issues, "record": signoff}
+
+
 def materialize_phase_22(project_root: Path | None = None) -> dict[str, Any]:
     """Materialize Phase 22 learning-curve diagnostics."""
 
@@ -54,11 +80,11 @@ def materialize_phase_22(project_root: Path | None = None) -> dict[str, Any]:
     # artifacts and return it unchanged. This matches the pattern used by every
     # other phase and lets the notebook be re-run safely.
     if signoff_path.exists():
-        existing = read_json(signoff_path)
-        if existing.get("status") == "PASS":
-            return existing
+        validation = validate_phase_22_signoff(root)
+        if validation["valid"]:
+            return validation["record"]
         raise RuntimeError(
-            "Existing Phase 22 sign-off is not PASS — refusing to overwrite"
+            f"Existing Phase 22 sign-off is not reusable: {validation['issues']}"
         )
 
     analyzer = LearningCurveDiagnostics(artifacts_dir=runs_root)
@@ -146,3 +172,51 @@ def materialize_phase_22(project_root: Path | None = None) -> dict[str, Any]:
         raise RuntimeError("Existing Phase 22 sign-off does not match current artifacts")
     write_json_once_or_verify(signoff_path, signoff)
     return signoff
+
+
+def recover_phase_22(project_root: Path | None = None) -> dict[str, Any]:
+    root = (project_root or get_project_root()).resolve()
+    validation = validate_phase_22_signoff(root)
+    if validation["valid"]:
+        return validation["record"]
+    for relative_path in (
+        "artifacts/lstm_baseline/phase_20_signoff.json",
+        "artifacts/transformer_b0/phase_21_signoff.json",
+    ):
+        source_path = root / relative_path
+        if not source_path.is_file():
+            raise RuntimeError(f"Phase 22 source sign-off is missing: {relative_path}")
+        source = read_json(source_path)
+        source_issues = []
+        if source.get("status") not in {"PASS", "PASS_WITH_WARNING"}:
+            source_issues.append({"path": relative_path, "reason": "SIGNOFF_NOT_PASS"})
+        for output_path, expected in source.get("output_checksums", {}).items():
+            candidate = root / output_path
+            if not candidate.is_file():
+                source_issues.append({"path": output_path, "reason": "MISSING"})
+            elif sha256_file(candidate) != expected:
+                source_issues.append({"path": output_path, "reason": "CHECKSUM_MISMATCH"})
+        if source_issues:
+            raise RuntimeError(f"Phase 22 source evidence is invalid: {source_issues}")
+    analyzer = LearningCurveDiagnostics(artifacts_dir=root / "artifacts")
+    load_status = analyzer.load_source_data()
+    if load_status.get("status") != "READY":
+        raise RuntimeError(f"Phase 22 source histories are incomplete: {load_status}")
+    artifact_root = root / PHASE_22_ARTIFACT_ROOT
+    targets = (
+        artifact_root / "learning_diagnostics_manifest.json",
+        artifact_root / "learning_diagnostics_summary.csv",
+        artifact_root / "phase_22_signoff.json",
+    )
+    existing = [path for path in targets if path.exists()]
+    if existing:
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+        history_root = artifact_root / "_history" / stamp
+        history_root.mkdir(parents=True, exist_ok=False)
+        for source in existing:
+            source.replace(history_root / source.name)
+    result = materialize_phase_22(root)
+    verified = validate_phase_22_signoff(root)
+    if not verified["valid"]:
+        raise RuntimeError(f"Recovered Phase 22 failed verification: {verified['issues']}")
+    return result

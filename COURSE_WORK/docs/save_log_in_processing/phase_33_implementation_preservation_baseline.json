@@ -1,0 +1,48 @@
+{
+  "artifact_version": "PHASE33-IMPLEMENTATION-PRESERVATION-v1",
+  "created_at": "2026-08-22T16:59:36.429139+00:00",
+  "phase_id": 33,
+  "notebook_mutation_authorized": false,
+  "files": [
+    {
+      "path": "artifacts/sweeps/S10_dropout/s10_dropout_metrics.csv",
+      "sha256": "e482fae9eab24752b06ea97304f39a72cb5ab4405eefb719ae6261bc5f3b2302",
+      "size_bytes": 602
+    },
+    {
+      "path": "artifacts/sweeps/S10_dropout/s10_dropout_sweep_manifest.json",
+      "sha256": "e19639c33c2b26636b16a2a4747e9078df3c3b5bcfd20f32ebe578a75b692ffd",
+      "size_bytes": 1506
+    },
+    {
+      "path": "artifacts/sweeps/S10_dropout/s10_dropout_winner.json",
+      "sha256": "e788a47d1b00a1d7f10c86c14656fd50cb8f969276ebf73137a9f3f8ee832da5",
+      "size_bytes": 1703
+    },
+    {
+      "path": "artifacts/sweeps/S10_dropout/s10_reference_update.json",
+      "sha256": "8efc483d6e0b5701129010d8f00e14e914df97c893b9610a773159993feb619e",
+      "size_bytes": 1301
+    },
+    {
+      "path": "artifacts/sweeps/S10_dropout/phase_32_signoff.json",
+      "sha256": "bf36b8316fdd5eacc89dfd05311619be510b1438e831d11fa80b9a79edcdfeb4",
+      "size_bytes": 2539
+    },
+    {
+      "path": "docs/save_log_in_processing/phase_32_s10_dropout_log.json",
+      "sha256": "72ff5e50629adcc5f13922940cf06f529a61137949450467b55e502e3dc99a34",
+      "size_bytes": 146009
+    },
+    {
+      "path": "artifacts/experiments/experiment_registry.jsonl",
+      "sha256": "867eb66bddcbd249b91d293b3231db16f5f9e78d47f52ec8257cf1279787b217",
+      "size_bytes": 123040
+    },
+    {
+      "path": "notebook_course_work/CourseWork.ipynb",
+      "sha256": "40be9f7e0f8c85f83c80aeeb4d208a37307cba12ffc627d68895238e761f9555",
+      "size_bytes": 2933593
+    }
+  ]
+}
