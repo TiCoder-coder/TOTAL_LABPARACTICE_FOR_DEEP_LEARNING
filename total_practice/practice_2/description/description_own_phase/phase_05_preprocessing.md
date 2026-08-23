@@ -3,7 +3,7 @@
 ## Notebook location
 
 - Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
-- Main cells: **Cells 10–11**
+- Main cells: **Cells 33–34**
 - Source: [data.py](../../processing_own_phase/data.py)
 - Full mapping: [Cell–Output Map](../description_result/README.md)
 
@@ -73,9 +73,9 @@ The implementation creates independent CIFAR-10 objects for Train and Validation
 - the Validation transform cannot overwrite Train augmentation;
 - sample membership remains independent from transform behavior.
 
-## 7. Cell 11 table and assertions
+## 7. Cell 34 table and assertions
 
-Cell 11 reports:
+Cell 34 reports:
 
 - split name;
 - dataset size;
@@ -95,7 +95,7 @@ See [test_data.py](../../tests/test_data.py).
 
 ## 8. Visual output
 
-Transform inspection is displayed directly in Cell 11 and is not stored as a separate canonical PNG. Visual inspection is a sanity check; the primary leakage evidence is code order, disjoint indices, dataset-object identity, and automated tests.
+Transform inspection is displayed directly in Cell 34 and is not stored as a separate canonical PNG. Visual inspection is a sanity check; the primary leakage evidence is code order, disjoint indices, dataset-object identity, and automated tests.
 
 ## 9. Residual risks
 

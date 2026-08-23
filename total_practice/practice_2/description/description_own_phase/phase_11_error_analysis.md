@@ -3,7 +3,7 @@
 ## Notebook location
 
 - Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
-- Main cells: **Cells 24–28**
+- Main cells: **Cells 47–52**
 - Source: [final_evaluate.py](../../processing_own_phase/final_evaluate.py)
 - Aggregator: [visualization_data.py](../../processing_own_phase/visualization_data.py)
 - Renderer: [training_dashboard.py](../../processing_own_phase/training_dashboard.py)

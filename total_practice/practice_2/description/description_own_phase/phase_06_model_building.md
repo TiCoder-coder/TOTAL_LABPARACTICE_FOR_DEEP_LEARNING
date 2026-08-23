@@ -3,7 +3,7 @@
 ## Notebook location
 
 - Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
-- Main cells: **Cells 12–13**
+- Main cells: **Cells 35–36**
 - Source: [model.py](../../processing_own_phase/model.py)
 - Full mapping: [Cell–Output Map](../description_result/README.md)
 

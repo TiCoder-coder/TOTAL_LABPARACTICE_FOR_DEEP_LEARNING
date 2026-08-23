@@ -3,11 +3,11 @@
 ## Notebook location
 
 - Notebook: [practice_2_presentation.ipynb](../../notebooks/practice_2_presentation.ipynb)
-- Main cells: **Cells 7–9**
-- Visualization helper: [visualize.py](../../processing_own_phase/visualize.py)
+- Main cells: **Cells 7–32**
+- EDA implementation: [eda.py](../../processing_own_phase/eda.py)
 - Full mapping: [Cell–Output Map](../description_result/README.md)
 
-## 1. EDA objective
+## EDA Objective
 
 EDA follows the same presentation sequence as Practice 1, adapted to RGB CIFAR-10 and limited to checks needed before modeling:
 
@@ -18,13 +18,31 @@ EDA follows the same presentation sequence as Practice 1, adapted to RGB CIFAR-1
 - audit constant images, exact duplicates, and conflicting labels;
 - view representative images from each class;
 - inspect class-average images and brightness extremes;
-- visualize a deterministic, class-balanced PCA/t-SNE sample;
+- compare per-class brightness and contrast with boxplots;
+- inspect deterministic RGB spatial-feature correlation;
+- visualize raw PCA in three dimensions and cumulative explained variance;
+- interpret the first three RGB principal-component images;
+- visualize standardized PCA/t-SNE on a class-balanced Train sample;
+- review brightness and contrast extremes;
 - recognize low resolution, complex backgrounds, and within-class variation;
 - visually verify that displayed tensors and transformations preserve meaningful content.
 
 Pixel-level EDA reads only the 45,000-image Train subset. Validation and Test pixels are not inspected. The official Test class distribution may be shown as a fixed dataset-integrity property, but Test examples, errors, and probabilities are excluded from this phase.
 
-## 2. Raw-data contract
+The notebook delegates the implementation to two reusable functions:
+
+```python
+analyze_cifar10_training_subset(...)
+render_practice1_style_cifar10_eda(...)
+```
+
+The first function receives the raw official training pool plus the already
+fixed Train indices and computes a deterministic analysis contract. The second
+function renders figures only from that contract. Neither function imports the
+training runner, reads Validation/Test pixels, fits the classifier, or changes
+the preprocessing pipeline.
+
+## Dataset Boundary and EDA Contract
 
 Cell 8 reads raw CIFAR-10 arrays through the Train subset indices and asserts:
 
@@ -35,7 +53,7 @@ Cell 8 reads raw CIFAR-10 arrays through the Train subset indices and asserts:
 - all ten classes present;
 - Train and Validation indices are disjoint.
 
-## 3. Class distribution
+## Exact Class Distribution
 
 The class-distribution table reports counts for Train, Validation, and Test. Because Train and Validation are created through a seeded random split, their per-class counts are near, but not guaranteed to be exactly, 90% and 10% of each class.
 
@@ -54,7 +72,7 @@ Artifact:
 
 Conclusion: class weighting or resampling is not required solely because of imbalance.
 
-## 4. RGB intensity, brightness, and contrast
+## RGB Pixel-Intensity Distribution and Quantiles
 
 The Train-only channel statistics are:
 
@@ -64,13 +82,25 @@ The Train-only channel statistics are:
 | Green | 0.482333 | 0.243509 |
 | Blue | 0.446679 | 0.261581 |
 
-The combined visualization uses a seeded 5,000-image sample for RGB histograms and 2,000 of those images for the brightness/contrast scatter. This preserves deterministic presentation without materializing an unnecessarily large plot.
+The visualization uses a seeded 5,000-image sample for RGB histograms and
+reports exact Train-only channel quantiles. This preserves deterministic
+presentation without materializing an unnecessarily large plot.
 
 Artifact:
 
 - [eda_rgb_brightness_contrast.png](../../reports/eda_rgb_brightness_contrast.png)
 
-## 5. Data-quality and duplicate audit
+## Image Brightness and Contrast by Class
+
+Image brightness and contrast are summarized for every class from Train pixels
+only. The per-class boxplots show distribution overlap and possible visual
+difficulty without being used as a classifier or model-selection signal.
+
+Artifact:
+
+- [eda_per_class_brightness_contrast.png](../../reports/eda_per_class_brightness_contrast.png)
+
+## Data Quality and Exact-Duplicate Audit
 
 The 45,000-image Train subset contains:
 
@@ -81,7 +111,58 @@ The 45,000-image Train subset contains:
 
 Exact duplicates are detected from the raw image bytes. This audit does not use augmented or resized tensors, so random transforms cannot create false duplicate evidence.
 
-## 6. Sample-image grids, class means, and extremes
+## RGB Spatial-Feature Correlation
+
+The correlation view uses 100 deterministic RGB spatial/channel features. It
+shows repeated low-level color and spatial structure while avoiding the claim
+that raw feature correlation measures semantic class separation.
+
+Artifact:
+
+- [eda_rgb_feature_correlation.png](../../reports/eda_rgb_feature_correlation.png)
+
+## Raw PCA in Three Dimensions
+
+Raw RGB PCA projects a deterministic, class-balanced Train sample onto the
+first three principal components. Class overlap is descriptive evidence that
+raw pixels do not linearly separate CIFAR-10 semantics.
+
+Artifact:
+
+- [eda_pca_3d.png](../../reports/eda_pca_3d.png)
+
+## PCA Explained Variance
+
+The cumulative explained-variance curve shows how much raw-pixel variation is
+retained as additional principal components are included.
+
+Artifact:
+
+- [eda_pca_explained_variance.png](../../reports/eda_pca_explained_variance.png)
+
+## RGB Principal-Component Images
+
+The first three PCA directions are reshaped into RGB images so their spatial
+and channel structure can be interpreted visually.
+
+Artifact:
+
+- [eda_rgb_principal_components.png](../../reports/eda_rgb_principal_components.png)
+
+## Standardized PCA and t-SNE
+
+The projection uses exactly 100 Train images from each class, selected with
+seed 42. Images are downsampled to `16 × 16`, standardized, reduced to 50
+dimensions with randomized PCA, and then embedded in two dimensions with
+t-SNE.
+
+Artifact:
+
+- [eda_standardized_pca_tsne.png](../../reports/eda_standardized_pca_tsne.png)
+
+The projection remains descriptive and is not used as a model-selection score.
+
+## Representative Samples and Class Means
 
 The notebook displays CIFAR-10 examples to show that:
 
@@ -94,22 +175,20 @@ Artifacts:
 
 - [data_samples.png](../../reports/data_samples.png)
 - [class_examples.png](../../reports/class_examples.png)
-- [eda_class_mean_images.png](../../reports/eda_class_mean_images.png)
-- [eda_brightness_extremes.png](../../reports/eda_brightness_extremes.png)
+- [eda_representative_samples.png](../../reports/eda_representative_samples.png)
 
 These are **input or sample grids**, which are different from the prediction grid in Phase 11. Input grids describe the dataset before modeling; prediction grids describe model behavior after final evaluation.
 
-## 7. PCA and t-SNE projection
+## Statistical Extremes
 
-The projection uses exactly 100 Train images from each class, selected with seed 42. Images are downsampled to `16 × 16`, standardized, reduced to 50 dimensions with randomized PCA, and then embedded in two dimensions with t-SNE.
+The darkest, brightest, lowest-contrast, and highest-contrast Train examples
+make the tails of the image-statistics distributions concrete.
 
 Artifact:
 
-- [eda_pca_tsne.png](../../reports/eda_pca_tsne.png)
+- [eda_brightness_contrast_extremes.png](../../reports/eda_brightness_contrast_extremes.png)
 
-PCA/t-SNE overlap is descriptive evidence that raw pixels do not linearly separate CIFAR-10 semantics. It is not used as a model-selection score.
-
-## 8. Transform inspection
+## Transform Inspection
 
 When before/after examples are displayed, the purpose is to verify that:
 
@@ -120,7 +199,7 @@ When before/after examples are displayed, the purpose is to verify that:
 
 The transform inspection is displayed directly in the notebook and is not stored as a separate canonical PNG. Leakage prevention is established by code order, object identity, and tests rather than by a visualization alone.
 
-## 9. Technical observations
+## Technical Observations
 
 1. CIFAR-10 is balanced, so both Accuracy and Macro F1 are appropriate.
 2. Low resolution makes fine-grained animal discrimination difficult.
@@ -130,7 +209,7 @@ The transform inspection is displayed directly in the notebook and is not stored
 
 These observations motivate preprocessing and evaluation choices but do not authorize Test-based hyperparameter tuning.
 
-## 10. What EDA does not prove
+## What EDA Does Not Prove
 
 - Class balance does not prove that the model performs well.
 - Dataset statistics do not replace model-evaluation metrics.
@@ -139,10 +218,18 @@ These observations motivate preprocessing and evaluation choices but do not auth
 
 Model quality is established later through multi-epoch Validation histories and final Test artifacts.
 
-## 11. Suggested presentation script
+## EDA Conclusions
+
+The EDA establishes a balanced, valid, duplicate-free Train subset with strong
+low-level variation and substantial class overlap in raw-pixel projections.
+Those observations motivate deterministic evaluation transforms, mild Train
+augmentation, and transfer learning; they do not select a model or reveal
+official Test performance.
+
+## Suggested Presentation Script
 
 > EDA uses only the 45,000 Train images for pixel-level analysis. It confirms the raw RGB contract, balanced classes, healthy labels, and no exact duplicates. Channel intensity, brightness, class means, and PCA/t-SNE show substantial visual overlap at 32-by-32 resolution. These findings motivate augmentation and transfer learning, while Validation remains the only source for model selection.
 
-## 12. Transition to the next phase
+## Transition to the Next Phase
 
 [Phase 5](phase_05_preprocessing.md) documents the exact Train and evaluation transforms and the evidence that preprocessing does not leak information across splits.
