@@ -7,7 +7,7 @@ Document ID: COURSE-WORK-ARCHITECTURE-v1
 Repository scope: COURSE_WORK
 Architecture style: Source-owned processing with Human-approved direct Phase 5 EDA exception
 Scientific scope: Multivariate time-series regression
-Current implementation scope: Phase 0 through Phase 34
+Current implementation scope: Phase 0 through Phase 37 preparation
 Status: ACTIVE_HUMAN_APPROVED
 ```
 
@@ -212,7 +212,7 @@ COURSE_WORK/
     └── save_log_in_processing/
 ```
 
-Các package và artifact ngoài Phase 0-34 chỉ là namespace được bảo lưu. Không được triển khai logic Phase 35 trở đi nếu chưa có Human approval riêng.
+Các package và artifact ngoài Phase 0-37 chỉ là namespace được bảo lưu. Không được triển khai logic Phase 38 trở đi nếu chưa có Human approval riêng.
 
 ## 6. Trách nhiệm thư mục cấp cao
 
@@ -275,6 +275,33 @@ Ngoại lệ không áp dụng cho split, scaling, windowing, training hoặc ev
 ### 6.7. `docs`
 
 Lưu rules, issue synthesis, pre-process plans, Phase details, execution records và report đã được xác minh.
+
+#### 6.7.1. Log routing — mandatory
+
+Raw terminal và training execution logs bắt buộc lưu dưới:
+
+```text
+artifacts/sweeps/logs/
+```
+
+Các file này dùng extension `.log` và tên mô tả phải chứa Phase cùng run ID khi đã biết, ví dụ:
+
+```text
+artifacts/sweeps/logs/phase_34_h2_RUN_TR_S12_0020_DE823D66_terminal.log
+```
+
+Machine-readable Phase, process và recovery logs bắt buộc lưu dưới:
+
+```text
+docs/save_log_in_processing/
+```
+
+Các processing log này dùng extension `.json`.
+
+```text
+Không được đặt file .log trong docs/save_log_in_processing/.
+Không được trộn raw terminal output với machine-readable JSON processing logs.
+```
 
 ### 6.8. `pyproject.toml`
 
@@ -844,9 +871,27 @@ Sở hữu Phase 34 S12 head-count contract, Phase 33 handoff preflight, H2/H4 m
 
 Module không được hard-code S11 winner, không được xem processing log là canonical evidence, không được thay `d_model`, layer count hoặc FFN dimension để bù head geometry, không được warm-start H2 từ H4 và không được chạy condition khi Phase 33 gate không hợp lệ.
 
-### 7.34. Các module Phase 35 trở đi
+### 7.34. `sweeps/layers.py`
 
-Phase 35 trở đi nằm ngoài current implementation scope. Không được triển khai nếu chưa có Phase detail, pre-process plan và Human approval riêng.
+Sở hữu Phase 35 S13 layer-count contract, Phase 34 handoff preflight, N1/N2 mapping, depth-only topology audit, independent-layer audit, N2 exact-reference reuse gate, N1 fresh-run preparation và Test firewall.
+
+Module không được hard-code winner ngoài canonical Phase 34 handoff, không được xem processing log là canonical evidence, không được thay `d_model`, `num_heads`, FFN width hoặc optimizer contract để bù layer count, không được warm-start/truncate N1 từ N2 và không được chạy N1 khi Phase 34 gate không hợp lệ.
+
+### 7.35. `sweeps/ffn.py`
+
+Sở hữu Phase 36 S14 FFN-width contract, Phase 35 handoff preflight, F64/F128/F256 mapping, dynamic selected `d_model`, `num_heads`, `head_dim` và `num_layers`, FFN-only shape/parameter audit, F128 exact-reference reuse gate, F64/F256 fresh-run preparation, optimizer/attention sanity và Test firewall.
+
+Module không được hard-code Phase 35 winner ngoài canonical handoff, không được xem processing log là canonical evidence, không được thay D/H/N hoặc bất kỳ frozen factor nào để bù FFN width, không được warm-start/slice/pad F64 hoặc F256 từ F128 và không được chạy condition khi Phase 35 gate không hợp lệ.
+
+### 7.36. `sweeps/loss.py` và `training/losses.py`
+
+Sở hữu Phase 37 S15 loss contract, Phase 36 handoff preflight, L0/L1 mapping, dynamic target model-space delta audit, MSE exact-reference reuse gate, Huber fresh-run preparation, criterion construction, broadcast safety, architecture/parameter invariance, gradient-clipping instrumentation support, Huber regime diagnostics và Test firewall.
+
+Các module không được hard-code Phase 36 winner ngoài canonical handoff, không được xem processing log là canonical evidence, không được tune Huber delta, thay optimizer/data/model/budget, dùng raw criterion để chọn winner, retrain MSE hoặc chạy Huber khi Phase 36 gate không hợp lệ.
+
+### 7.37. Các module Phase 38 trở đi
+
+Phase 38 trở đi nằm ngoài current implementation scope. Không được triển khai nếu chưa có Phase detail, pre-process plan và Human approval riêng.
 
 ## 8. Hướng dependency
 
@@ -856,7 +901,7 @@ Phase 35 trở đi nằm ngoài current implementation scope. Không được tr
 |---|---|
 | Notebook | Public API của contracts, data, evaluation, experiments, reporting và utils |
 | Selective phase execution | Approved Phase detail, experiment registry, canonical run artifacts, phase manifests, sign-offs, checksums và artifact utility |
-| Sweep recovery audit | Signed environment evidence, current runtime identity, Phase 22 canonical evidence, selective phase inspection và approved Phase 23-34 registries |
+| Sweep recovery audit | Signed environment evidence, current runtime identity, Phase 22 canonical evidence, selective phase inspection và approved Phase 23-35 registries |
 | Sweep results | Approved condition registry, experiment registry, Validation metrics, upstream reference update và artifact utility |
 | Learning diagnostics | Phase 20-21 training histories, Validation metrics và artifact utility |
 | LSTM và Transformer baselines | Phase 15-19 contracts, Dataset/DataLoader, shared metrics, experiment registry, training engine và artifact utility |
@@ -943,6 +988,9 @@ Nếu hai module cần import lẫn nhau, phải dừng và sửa ownership qua 
 | 32 | `sweeps/dropout.py` | `experiments/phase_execution.py`, Phase 31 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 32 public API độc lập và hiển thị verified DR01/DR02/DR03 comparison hoặc canonical block reason |
 | 33 | `sweeps/d_model.py` | `experiments/phase_execution.py`, Phase 32 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 33 public API độc lập và hiển thị verified D32/D64 comparison hoặc canonical block reason |
 | 34 | `sweeps/heads.py` | `experiments/phase_execution.py`, Phase 33 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 34 public API độc lập và hiển thị verified H2/H4 comparison hoặc canonical block reason |
+| 35 | `sweeps/layers.py` | `experiments/phase_execution.py`, Phase 34 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 35 public API độc lập và hiển thị N1/N2 preparation/comparison hoặc canonical block reason |
+| 36 | `sweeps/ffn.py` | `experiments/phase_execution.py`, Phase 35 winner/reference/sign-off, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 36 public API độc lập và hiển thị F64/F128/F256 preparation/comparison hoặc canonical block reason |
+| 37 | `sweeps/loss.py`, `training/losses.py` | `experiments/phase_execution.py`, Phase 36 winner/reference/sign-off, validated target scaler, `experiments/registry.py`, frozen Transformer và Training Engine, `reporting/phase_summary.py` | Gọi một selective Phase 37 public API độc lập và hiển thị L0/L1 preparation/comparison hoặc canonical block reason; không train trong notebook |
 
 Phases 6, 7, 8 thực hiện calculation, validation và feature engineering trên TRAIN rows only. Validation và Test rows được firewall triệt để cho đến Phase 9.
 
@@ -1633,23 +1681,26 @@ EXPERIMENTS-v1 hiện quản lý một completed canonical PERSISTENCE_BASELINE 
 Phase 15-19 khóa model, attention, forward-sanity và training-engine contracts.
 Phase 20-21 sở hữu canonical learned-model baseline runs và Validation-only histories.
 Phase 22 sở hữu learning-curve diagnostics.
-Phase 23-34 sở hữu tuần tự các controlled sweeps S1-S12.
+Phase 23-37 sở hữu tuần tự các controlled sweeps S1-S15.
 Selective phase execution kiểm tra canonical evidence và không tự chạy upstream Phase.
 Processing log là derived record và không đủ để xác nhận completion.
-Phase 29, Phase 30, Phase 31, Phase 32, Phase 33 và Phase 34 hiện phải qua selective validation trước khi được phép reuse hoặc scientific recovery.
+Phase 29, Phase 30, Phase 31, Phase 32, Phase 33, Phase 34, Phase 35, Phase 36 và Phase 37 hiện phải qua selective validation trước khi được phép reuse hoặc scientific recovery.
 Phase 31 sở hữu S9 weight-decay sweep, dùng WD0=0, WD1=1e-4, WD2=1e-3 và chỉ được scientific execution sau khi Phase 30 canonical handoff hợp lệ.
 Phase 32 sở hữu S10 dropout sweep, dùng DR01=0.1, DR02=0.2, DR03=0.3 và chỉ được scientific execution sau khi Phase 31 canonical handoff hợp lệ.
 Phase 33 sở hữu S11 d_model sweep, dùng D32=32, D64=64, giữ H4/N2/F128 cố định, tái sử dụng D64 reference và chỉ chạy mới D32 sau khi Phase 32 canonical handoff hợp lệ.
 Phase 34 sở hữu S12 head sweep, dùng H2=2 và H4=4, giữ selected d_model/N2/F128 cố định, tái sử dụng H4 exact reference và chỉ chạy mới H2 sau khi Phase 33 canonical handoff hợp lệ.
+Phase 35 sở hữu S13 layer sweep, dùng N1=1 và N2=2, giữ selected d_model/H4/F128 cố định, tái sử dụng N2 exact Phase 34 winner và chỉ chạy mới N1 seed42 sau khi Phase 34 canonical handoff hợp lệ.
+Phase 36 sở hữu S14 FFN sweep, dùng F64/F128/F256, tái sử dụng F128 reference và chỉ chạy mới F64/F256 seed42 sau khi Phase 35 canonical handoff hợp lệ.
+Phase 37 sở hữu S15 loss sweep, dùng L0=MSE exact reference và L1=Huber(delta=1.0 model-space), giữ toàn bộ Phase 36 winner configuration cố định, chỉ chạy mới L1 seed42 sau khi Phase 36 canonical handoff hợp lệ và giữ Test FORBIDDEN.
 Phase 30 recovery phải bắt đầu bằng read-only audit, xác định earliest invalid Phase, thực thi tuần tự từ dependency đó và dừng ngay khi một Phase không đạt canonical verification.
 Môi trường lịch sử phải được bảo toàn; runtime identity mới không được âm thầm ghi đè signed environment evidence.
-Canonical finalizer Phase 23-34 chỉ được đọc verified registry evidence, áp dụng Validation-only selection và tạo kết quả khi toàn bộ registered conditions hợp lệ.
+Canonical finalizer Phase 23-37 chỉ được đọc verified registry evidence, áp dụng Validation-only selection và tạo kết quả khi toàn bộ registered conditions hợp lệ. Phase 37 phải dùng full-precision Validation RMSE Wh, exact tie ưu tiên MSE và bảo toàn inherited warning trong winner, handoff và sign-off.
 Dependency-aware terminal runner không được chạy lại notebook, không được tái huấn luyện condition có complete exact-match evidence và không được vượt qua Test firewall.
 `--audit-only` và `--dry-run` phải giữ nguyên scientific artifacts; `--recover-environment` chỉ được tạo revision mới sau khi kernel, CUDA/MPS, smoke test và dependency freeze đều hợp lệ.
 Notebook output phải dùng persistent HTML và không phụ thuộc widget model state.
 ```
 
-Phase 9-34 được triển khai theo các Phase detail tương ứng:
+Phase 9-35 được triển khai theo các Phase detail tương ứng:
 
 ```text
 Phase_9_Train_only_scaling.md
@@ -1685,7 +1736,7 @@ Không được bỏ qua Phase gate trong quá trình chuyển đổi.
 [x] Canonical root rõ ràng.
 [x] Canonical notebook rõ ràng.
 [x] Source ownership rõ ràng.
-[x] Phase 0-33 mapping đầy đủ.
+[x] Phase 0-37 mapping đầy đủ.
 [x] Dependency direction rõ ràng.
 [x] Raw data contract rõ ràng.
 [x] Derived-view contract rõ ràng.
@@ -1718,7 +1769,11 @@ Không được bỏ qua Phase gate trong quá trình chuyển đổi.
 [x] Phase 32 có S10-specific owner, selective gate, notebook boundary và Validation-only selection contract.
 [x] Phase 33 có S11-specific owner, selective gate, terminal-owned execution, presentation boundary và Validation-only selection contract.
 [x] Phase 34 có S12-specific owner, selective gate, terminal-owned execution, presentation boundary và Validation-only selection contract.
-[x] Không triển khai Phase 35.
+[x] Phase 35 có S13-specific owner, selective gate, terminal-owned execution preparation, presentation boundary và Validation-only selection contract.
+[x] Phase 35 canonical finalizer, N1/N2 evidence audit, Phase 36 handoff và inherited-warning propagation đã được triển khai.
+[x] Phase 36 canonical finalizer, F64/F128/F256 evidence audit, Phase 37 handoff và inherited-warning propagation đã được triển khai.
+[x] Phase 37 có S15-specific owner, selective gate, terminal-owned Huber preparation, presentation boundary, criterion provenance, loss invariance và Test firewall.
+[x] Không triển khai Phase 38.
 ```
 
 ## 27. Activation gate
@@ -1803,4 +1858,18 @@ v1.7 (2026-08-23) - Phase 34 S12 head amendment
   - Preserved terminal-owned execution, derived processing logs, static HTML and Test firewall
   - Authoritative plan: docs/plan-doc/plan_before_process/phase_34_s12_head_sweep_selective_terminal_execution_plan.md
   - Human approval: granted 2026-08-23
+v1.8 (2026-08-24) - Phase 35 S13 layer preparation amendment
+  - Extended canonical ownership and selective presentation boundary through Phase 35 preparation
+  - Added S13 layer owner, Phase 34 handoff gate and N1/N2 contract
+  - Froze selected d_model/H4/F128, reused N2 exact reference and limited fresh training to N1
+  - Preserved terminal-owned execution, JSON processing logs, raw terminal-log routing and Test firewall
+  - Authoritative plan: docs/plan-doc/plan_before_process/phase_35_s13_layer_sweep_preparation_plan.md
+  - Human approval: granted 2026-08-24
+v1.9 (2026-08-24) - Phase 37 S15 loss preparation amendment
+  - Extended canonical ownership and selective presentation boundary through Phase 37 preparation
+  - Added S15 loss owner, Phase 36 handoff gate, exact L0 MSE reuse and one future fresh L1 Huber(delta=1.0 model-space) run
+  - Added separate criterion provenance, architecture/parameter invariance, gradient-clipping instrumentation support, Huber regime diagnostics and Test firewall
+  - Preserved terminal-owned execution, JSON processing logs, raw terminal-log routing and prohibited Phase 38 execution
+  - Authoritative plan: docs/plan-doc/plan_before_process/phase_37_s15_loss_sweep_preparation_plan.md
+  - Human approval: granted 2026-08-24
 ```

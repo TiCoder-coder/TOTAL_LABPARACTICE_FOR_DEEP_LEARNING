@@ -33,6 +33,15 @@ PHASE_33_WINNER_PATH = PHASE_33_ROOT / "s11_d_model_winner.json"
 PHASE_33_REFERENCE_PATH = PHASE_33_ROOT / "s11_reference_update.json"
 PHASE_33_LOG_PATH = Path("docs/save_log_in_processing/phase_33_s11_d_model_log.json")
 REGISTRY_PATH = Path("artifacts/experiments/experiment_registry.jsonl")
+HISTORICAL_REFERENCE_MODE = "HISTORICAL_REFERENCE_WITH_INCOMPLETE_ARTIFACT_RETENTION"
+HISTORICAL_REFERENCE_STATUS = "PASS_WITH_WARNING"
+HISTORICAL_REFERENCE_WARNING = "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+H4_MISSING_ARTIFACT_SUFFIXES = {
+    "checkpoints/best_checkpoint.pt": "3ccf735488336340275a4dccf040fcd17b98a4fa4746d3e665cf14f97428d75d",
+    "training_history.csv": "635e00dfcd032c3664c5e031b13f38d94caa3f73c4c6bf142eb0d6883d9eb43b",
+    "training.log": "f709354699e8fb103b226fbae64ac2d2611fd80854ae1342246e86c94415d5d7",
+    "predictions/best_validation_predictions.csv": "9bb212edb469f8fac02cf9179a401fec04d27487131a1e17a5e14179b94a5a4e",
+}
 
 
 @dataclass(frozen=True)
@@ -312,6 +321,9 @@ def _validate_reference_run(
     run_id: str,
     config_fingerprint: str | None,
     population_fingerprint: str | None,
+    signoff: dict[str, Any],
+    winner: dict[str, Any],
+    reference: dict[str, Any],
     issues: list[dict[str, str]],
 ) -> dict[str, Any] | None:
     record, error = _load_registry_record(root, run_id)
@@ -324,7 +336,11 @@ def _validate_reference_run(
         _add_issue(issues, run_id, "TEST_FIREWALL_NOT_CONFIRMED")
     if record.get("config_fingerprint") != config_fingerprint:
         _add_issue(issues, run_id, "CONFIG_FINGERPRINT_MISMATCH")
-    required_types = {"CONFIG", "STATUS", "BEST_CHECKPOINT", "METRICS"}
+    expected_missing_artifacts = {
+        f"artifacts/runs/{run_id}/{suffix}": checksum
+        for suffix, checksum in H4_MISSING_ARTIFACT_SUFFIXES.items()
+    }
+    required_types = {"CONFIG", "STATUS", "METRICS"}
     present_types = {
         item.get("artifact_type")
         for item in record.get("artifacts", [])
@@ -342,7 +358,8 @@ def _validate_reference_run(
             continue
         path = root / relative_path
         if not path.is_file():
-            _add_issue(issues, relative_path, "MISSING")
+            if relative_path not in expected_missing_artifacts:
+                _add_issue(issues, relative_path, "MISSING")
         elif sha256_file(path) != expected:
             _add_issue(issues, relative_path, "CHECKSUM_MISMATCH")
     metrics = {}
@@ -358,12 +375,19 @@ def _validate_reference_run(
     if set(metrics) != {"rmse_wh", "mae_wh", "r2"}:
         _add_issue(issues, run_id, "VALIDATION_METRICS_INCOMPLETE")
     run_root = root / "artifacts/runs" / run_id
-    for required_path in (
-        run_root / "training_history.csv",
-        run_root / "predictions/best_validation_predictions.csv",
-    ):
-        if not required_path.is_file():
-            _add_issue(issues, required_path.relative_to(root), "MISSING")
+    missing_artifacts = []
+    for relative_path, expected_sha256 in expected_missing_artifacts.items():
+        path = root / relative_path
+        if path.is_file():
+            _add_issue(issues, relative_path, "EXPECTED_MISSING_ARTIFACT_PRESENT")
+        else:
+            missing_artifacts.append(
+                {
+                    "artifact_path": relative_path,
+                    "expected_sha256": expected_sha256,
+                    "retention_status": "MISSING_UNRECOVERABLE",
+                }
+            )
     unexpected_test_artifacts = [
         path.relative_to(root).as_posix()
         for path in run_root.rglob("*")
@@ -371,7 +395,79 @@ def _validate_reference_run(
     ]
     if unexpected_test_artifacts:
         _add_issue(issues, run_id, "TEST_ARTIFACT_DETECTED")
-    return {"record": record, "metrics": metrics}
+    status_payload, status_error = _load_object(root, Path("artifacts/runs") / run_id / "status.json")
+    metrics_payload, metrics_error = _load_object(
+        root,
+        Path("artifacts/runs") / run_id / "metrics/best_validation_metrics.json",
+    )
+    config_payload, config_error = _load_object(root, Path("artifacts/runs") / run_id / "config.json")
+    for path, error_value in (
+        (Path("artifacts/runs") / run_id / "status.json", status_error),
+        (Path("artifacts/runs") / run_id / "metrics/best_validation_metrics.json", metrics_error),
+        (Path("artifacts/runs") / run_id / "config.json", config_error),
+    ):
+        if error_value is not None:
+            _add_issue(issues, path, error_value)
+    status_payload = status_payload or {}
+    metrics_payload = metrics_payload or {}
+    config_payload = config_payload or {}
+    metric_result = metrics_payload.get("metric_result") if metrics_payload is not None else None
+    if not isinstance(metric_result, dict):
+        _add_issue(issues, run_id, "BEST_VALIDATION_METRICS_INVALID")
+        metric_result = {}
+    config = config_payload.get("config") if config_payload is not None else None
+    if not isinstance(config, dict):
+        _add_issue(issues, run_id, "CONFIG_MISSING")
+        config = {}
+    model = config.get("model") if isinstance(config.get("model"), dict) else {}
+    lineage = config.get("lineage") if isinstance(config.get("lineage"), dict) else {}
+    data = config.get("data") if isinstance(config.get("data"), dict) else {}
+    registry_epochs = {
+        metric.get("epoch_or_checkpoint")
+        for metric in record.get("metrics", [])
+        if metric.get("split_id") == "VALIDATION"
+    }
+    registry_metric_versions = {
+        metric.get("metric_version")
+        for metric in record.get("metrics", [])
+        if metric.get("split_id") == "VALIDATION"
+    }
+    registry_populations = {
+        metric.get("population_fingerprint")
+        for metric in record.get("metrics", [])
+        if metric.get("split_id") == "VALIDATION"
+    }
+    best_epoch = status_payload.get("best_epoch") if status_payload is not None else None
+    expected_epoch_token = f"epoch_{best_epoch}"
+    checks = (
+        (record.get("run_id") == status_payload.get("run_id") == metric_result.get("run_id") == run_id, "RUN_ID_EVIDENCE_MISMATCH"),
+        (config_payload.get("run_id") == run_id and config_payload.get("config_fingerprint") == config_fingerprint, "CONFIG_IDENTITY_MISMATCH"),
+        (record.get("config") == config, "REGISTRY_CONFIG_MISMATCH"),
+        (model.get("d_model") == winner.get("winner_d_model") == reference.get("selected_d_model") == signoff.get("winner_d_model"), "DMODEL_EVIDENCE_MISMATCH"),
+        (model.get("num_heads") == winner.get("num_heads") == reference.get("current_num_heads") == 4, "HEAD_COUNT_EVIDENCE_MISMATCH"),
+        (model.get("num_layers") == winner.get("num_layers") == reference.get("num_layers") == 2, "LAYER_COUNT_EVIDENCE_MISMATCH"),
+        (model.get("ffn_dim") == winner.get("ffn_dim") == reference.get("ffn_dim") == 128, "FFN_DIM_EVIDENCE_MISMATCH"),
+        (lineage.get("population_fingerprint") == population_fingerprint == metric_result.get("population_fingerprint") == signoff.get("population_fingerprint") and registry_populations == {population_fingerprint}, "POPULATION_EVIDENCE_MISMATCH"),
+        (lineage.get("metric_version") == winner.get("metric_version") == metric_result.get("metric_version") == signoff.get("metric_version") and registry_metric_versions == {winner.get("metric_version")}, "METRIC_VERSION_EVIDENCE_MISMATCH"),
+        (record.get("best_epoch") == best_epoch and registry_epochs == {expected_epoch_token}, "BEST_EPOCH_EVIDENCE_MISMATCH"),
+        (metrics.get("rmse_wh") == metric_result.get("rmse_wh") == winner.get("winner_rmse_wh") == reference.get("winner_rmse_wh") == signoff.get("winner_rmse_wh") == status_payload.get("best_validation_rmse_wh"), "RMSE_EVIDENCE_MISMATCH"),
+        (metrics.get("mae_wh") == metric_result.get("mae_wh") == winner.get("winner_mae_wh"), "MAE_EVIDENCE_MISMATCH"),
+        (metrics.get("r2") == metric_result.get("r2") == winner.get("winner_r2"), "R2_EVIDENCE_MISMATCH"),
+        (data.get("target_access_mode") == "VALIDATION" and metric_result.get("split_id") == "VALIDATION", "VALIDATION_ONLY_EVIDENCE_MISMATCH"),
+        (record.get("test_access_authorized") is False and _test_is_locked(winner.get("test_status")) and _test_is_locked(reference.get("test_status")) and _test_is_locked(signoff.get("test_status")), "TEST_FIREWALL_NOT_CONFIRMED"),
+    )
+    for passed, reason in checks:
+        if not passed:
+            _add_issue(issues, run_id, reason)
+    return {
+        "record": record,
+        "metrics": metrics,
+        "best_epoch": best_epoch,
+        "evidence_mode": HISTORICAL_REFERENCE_MODE,
+        "evidence_status": HISTORICAL_REFERENCE_STATUS,
+        "warnings": [HISTORICAL_REFERENCE_WARNING],
+        "missing_artifacts": missing_artifacts,
+    }
 
 
 def inspect_phase_33_handoff(project_root: Path | None = None) -> dict[str, Any]:
@@ -531,6 +627,9 @@ def inspect_phase_33_handoff(project_root: Path | None = None) -> dict[str, Any]
                     winner_run_id,
                     source_config_fingerprint,
                     winner.get("population_fingerprint"),
+                    signoff or {},
+                    winner,
+                    reference,
                     issues,
                 )
 
@@ -582,6 +681,8 @@ def inspect_phase_33_handoff(project_root: Path | None = None) -> dict[str, Any]
         "geometry_comparison": geometry_comparison,
         "dropout_scope": dropout_scope,
         "reference_evidence": reference_evidence,
+        "warnings": reference_evidence.get("warnings", []) if reference_evidence is not None else [],
+        "status": HISTORICAL_REFERENCE_STATUS if not issues else "BLOCKED",
         "processing_log_observation": {
             "path": str(PHASE_33_LOG_PATH),
             "available": processing_log_error is None,

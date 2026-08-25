@@ -162,7 +162,7 @@ def test_resolve_phase_action() -> None:
 
 
 def test_get_sweep_phase_spec_rejects_unsupported_phase() -> None:
-    with pytest.raises(ValueError, match="Phase 23-34"):
+    with pytest.raises(ValueError, match="Phase 23-37"):
         get_sweep_phase_spec(22)
 
 
@@ -208,6 +208,39 @@ def test_phase_34_spec_matches_head_contract() -> None:
     assert spec.reference_condition == "H4"
     assert str(spec.manifest_path) == "artifacts/sweeps/S12_heads/s12_head_sweep_manifest.json"
     assert str(spec.results_path) == "artifacts/sweeps/S12_heads/s12_head_metrics.csv"
+
+
+def test_phase_35_spec_matches_layer_contract() -> None:
+    spec = get_sweep_phase_spec(35)
+    assert spec.phase_name == "S13 Layer Sweep"
+    assert spec.family_id == "S13_LAYERS"
+    assert spec.condition_path == ("model", "num_layers")
+    assert spec.condition_values == (("N1", 1), ("N2", 2))
+    assert spec.reference_condition == "N2"
+    assert str(spec.manifest_path) == "artifacts/sweeps/S13_layers/s13_layer_sweep_manifest.json"
+    assert str(spec.results_path) == "artifacts/sweeps/S13_layers/s13_layer_metrics.csv"
+
+
+def test_phase_36_spec_matches_ffn_contract() -> None:
+    spec = get_sweep_phase_spec(36)
+    assert spec.phase_name == "S14 FFN Sweep"
+    assert spec.family_id == "S14_FFN"
+    assert spec.condition_path == ("model", "ffn_dim")
+    assert spec.condition_values == (("F64", 64), ("F128", 128), ("F256", 256))
+    assert spec.reference_condition == "F128"
+    assert str(spec.manifest_path) == "artifacts/sweeps/S14_ffn/s14_ffn_sweep_manifest.json"
+    assert str(spec.results_path) == "artifacts/sweeps/S14_ffn/s14_ffn_metrics.csv"
+
+
+def test_phase_37_spec_matches_loss_contract() -> None:
+    spec = get_sweep_phase_spec(37)
+    assert spec.phase_name == "S15 Loss Sweep"
+    assert spec.family_id == "S15_LOSS"
+    assert spec.condition_path == ("training", "loss_name")
+    assert spec.condition_values == (("L0", "MSE"), ("L1", "HUBER"))
+    assert spec.reference_condition == "L0"
+    assert str(spec.manifest_path) == "artifacts/sweeps/S15_loss/s15_loss_sweep_manifest.json"
+    assert str(spec.results_path) == "artifacts/sweeps/S15_loss/s15_loss_metrics.csv"
 
 
 def test_phase_24_condition_values_follow_phase_23_winner(tmp_path: Path) -> None:

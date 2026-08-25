@@ -1,0 +1,22 @@
+{
+  "empirical_comparison_performed": true,
+  "parameter_delta": 56,
+  "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "revin_channel_count": 28,
+  "rmse_margin_wh": 4.590158280559173,
+  "rn0_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "rn1_run_id": "RUN_TR_S18_0031_A711A9B8",
+  "runner_up_revin_id": "RN1",
+  "runner_up_rmse_wh": 62.28695816170348,
+  "selection_basis": "EMPIRICAL_COMPARISON_RMSE_HIGHER_RN0_RETAINED",
+  "selection_metric": "validation_rmse_wh",
+  "status": "PASS",
+  "sweep_id": "S18_REVIN",
+  "test_status": "FORBIDDEN",
+  "tie_rule": "RN0_ON_EXACT_RMSE_TIE",
+  "winner_mae_wh": 27.029547974302105,
+  "winner_r2": 0.6087328858180434,
+  "winner_revin_id": "RN0",
+  "winner_rmse_wh": 57.69679988114431,
+  "winner_run_id": "RUN_TR_S14_0023_A711A9B8"
+}

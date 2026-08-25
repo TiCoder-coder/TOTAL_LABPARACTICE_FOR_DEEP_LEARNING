@@ -1,0 +1,16 @@
+{
+  "accuracy_efficiency_tradeoff": true,
+  "accuracy_metric": "VALIDATION_RMSE_WH",
+  "context_only": true,
+  "cost_metrics": [
+    "trainable_parameters",
+    "checkpoint_bytes",
+    "runtime"
+  ],
+  "n1_dominates": false,
+  "n2_dominates": false,
+  "official_winner": "N2",
+  "relationship": "N2_ACCURACY_GAIN_WITH_COST",
+  "status": "PASS_WITH_WARNING",
+  "tie_rule_used": false
+}

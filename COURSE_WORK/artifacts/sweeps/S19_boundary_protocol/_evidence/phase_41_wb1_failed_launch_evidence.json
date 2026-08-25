@@ -1,0 +1,63 @@
+{
+  "evidence_type": "FAILED_LAUNCH_EVIDENCE",
+  "phase_id": 41,
+  "phase_name": "S19 Boundary Protocol Check",
+  "sweep_id": "S19_BOUNDARY_PROTOCOL",
+  "condition_id": "WB1",
+  "recorded_at": "2026-08-25T03:00:00+00:00",
+  "command": "scripts/run_single_condition.py S19_BOUNDARY_PROTOCOL WB1",
+  "observed_config": {
+    "feature_variant_id": "FS2_TF1",
+    "lookback_steps": 36,
+    "target_scaling_option": "YS1",
+    "pooling": "LAST_STEP",
+    "activation": "GELU",
+    "batch_size": 32,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.001,
+    "dropout": 0.1,
+    "d_model": 64,
+    "num_heads": 4,
+    "num_layers": 2,
+    "ffn_dim": 256,
+    "loss_name": "MSE",
+    "huber_delta": null
+  },
+  "missing_fields_in_observed_config": [
+    "max_epochs",
+    "patience",
+    "min_delta",
+    "gradient_clipping_enabled",
+    "gradient_clip_max_norm",
+    "seed"
+  ],
+  "expected_canonical_values": {
+    "max_epochs": 50,
+    "patience": 10,
+    "min_delta": 0.0001,
+    "gradient_clipping_enabled": true,
+    "gradient_clip_max_norm": 1.0,
+    "seed": 42
+  },
+  "failure": {
+    "error_type": "ValueError",
+    "message": "max_epochs must be positive",
+    "source_module": "registry",
+    "source_function": "validate_run_config",
+    "validation_function": "_validate_positive"
+  },
+  "no_scientific_training_started": true,
+  "no_run_id_created": true,
+  "root_cause": {
+    "file": "COURSE_WORK/scripts/run_single_condition.py",
+    "function": "run_condition",
+    "line_range": "302-329",
+    "issue": "S19_BOUNDARY_PROTOCOL was not handled in the phase-specific config-building block that propagates frozen training budget fields (max_epochs, patience, min_delta, gradient_clip_enabled, gradient_clip_max_norm, seed) into the base dict. The _prepared_condition_base() function extracts only 14 fields, excluding the 6 training budget fields. For S9-S15, these are populated from source_run config. For S16-S18, they are handled by phase-specific blocks. S19 had no such block, so training budget fields were None/omitted, causing config['training']['max_epochs'] = None which triggered registry validation failure."
+  },
+  "fix": {
+    "file": "COURSE_WORK/scripts/run_single_condition.py",
+    "description": "Added S19_BOUNDARY_PROTOCOL handling block after S18_REVIN block to inherit max_epochs, patience, min_delta, gradient_clipping_enabled, gradient_clip_max_norm, and seed from the Phase 40 frozen configuration."
+  },
+  "test_access": "FORBIDDEN",
+  "status": "ROOT_CAUSE_IDENTIFIED_AND_FIXED"
+}

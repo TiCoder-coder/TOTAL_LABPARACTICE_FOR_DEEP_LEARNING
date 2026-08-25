@@ -1,0 +1,19 @@
+{
+  "approved_for_phase36": true,
+  "artifact_version": "S13-LAYER-SUMMARY-v1",
+  "created_at": "2026-08-24T05:57:47.380488+00:00",
+  "n1_strict_load_verification": "PASS",
+  "phase": 35,
+  "rmse_delta_n1_minus_n2": 1.7007286776587662,
+  "runner_up_condition_id": "N1",
+  "runner_up_rmse_wh": 59.78262924121282,
+  "status": "PASS_WITH_WARNING",
+  "test_status": "FORBIDDEN",
+  "warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ],
+  "winner_condition_id": "N2",
+  "winner_num_layers": 2,
+  "winner_rmse_wh": 58.08190056355405,
+  "winner_run_id": "RUN_TR_S09_0016_AE0FB819"
+}

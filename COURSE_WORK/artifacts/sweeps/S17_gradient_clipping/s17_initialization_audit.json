@@ -1,0 +1,8 @@
+{
+  "cudnn_benchmark": false,
+  "cudnn_deterministic": true,
+  "deterministic_mode": "D0",
+  "seed": 42,
+  "status": "PASS",
+  "torch_deterministic_algorithms": true
+}

@@ -49,6 +49,7 @@ def create_handoff(root: Path) -> None:
         "num_layers": 2,
         "ffn_dim": 128,
         "population_fingerprint": population,
+        "metric_version": "METRICS-v1",
         "winner_run_id": run_id,
         "winner_config_fingerprint": fingerprint,
         "test_status": "FORBIDDEN",
@@ -61,6 +62,9 @@ def create_handoff(root: Path) -> None:
             **shared,
             "status": "PASS",
             "winner_d_model": 64,
+            "winner_rmse_wh": 58.0,
+            "winner_mae_wh": 27.0,
+            "winner_r2": 0.6,
         },
     )
     write_json(
@@ -71,6 +75,7 @@ def create_handoff(root: Path) -> None:
             "selected_d_model": 64,
             "current_num_heads": 4,
             "current_head_dim": 16,
+            "winner_rmse_wh": 58.0,
         },
     )
     source_config = {
@@ -79,6 +84,7 @@ def create_handoff(root: Path) -> None:
             "target_scaling_option": "YS1",
             "lookback_steps": 36,
             "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+            "target_access_mode": "VALIDATION",
         },
         "model": model_config(),
         "training": {
@@ -95,26 +101,34 @@ def create_handoff(root: Path) -> None:
             "scheduler_name": None,
         },
         "reproducibility": {"seed": 42},
-        "lineage": {"population_fingerprint": population},
+        "lineage": {"population_fingerprint": population, "metric_version": "METRICS-v1"},
     }
     run_root = root / "artifacts/runs" / run_id
     config_path = run_root / "config.json"
     status_path = run_root / "status.json"
-    checkpoint_path = run_root / "checkpoints/best_checkpoint.pt"
     metrics_path = run_root / "metrics/best_validation_metrics.json"
     write_json(config_path, {"run_id": run_id, "config_fingerprint": fingerprint, "config": source_config})
-    write_json(status_path, {"run_id": run_id, "status": "COMPLETED"})
-    checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
-    checkpoint_path.write_bytes(b"checkpoint")
-    write_json(metrics_path, {"run_id": run_id, "rmse_wh": 58.0})
-    (run_root / "training_history.csv").write_text("epoch,rmse_wh\n1,58.0\n", encoding="utf-8")
-    prediction_path = run_root / "predictions/best_validation_predictions.csv"
-    prediction_path.parent.mkdir(parents=True, exist_ok=True)
-    prediction_path.write_text("sample_idx,y_true_wh,y_pred_wh\n0,1,1\n", encoding="utf-8")
+    write_json(
+        status_path,
+        {"run_id": run_id, "status": "COMPLETED", "best_epoch": 15, "best_validation_rmse_wh": 58.0},
+    )
+    write_json(
+        metrics_path,
+        {
+            "metric_result": {
+                "run_id": run_id,
+                "rmse_wh": 58.0,
+                "mae_wh": 27.0,
+                "r2": 0.6,
+                "population_fingerprint": population,
+                "metric_version": "METRICS-v1",
+                "split_id": "VALIDATION",
+            }
+        },
+    )
     artifact_specs = (
         (config_path, "CONFIG"),
         (status_path, "STATUS"),
-        (checkpoint_path, "BEST_CHECKPOINT"),
         (metrics_path, "METRICS"),
     )
     artifacts = [
@@ -126,6 +140,28 @@ def create_handoff(root: Path) -> None:
         }
         for path, artifact_type in artifact_specs
     ]
+    artifacts.extend(
+        [
+            {
+                "artifact_path": f"artifacts/runs/{run_id}/training.log",
+                "artifact_type": "TRAIN_LOG",
+                "required": True,
+                "sha256": "f709354699e8fb103b226fbae64ac2d2611fd80854ae1342246e86c94415d5d7",
+            },
+            {
+                "artifact_path": f"artifacts/runs/{run_id}/checkpoints/best_checkpoint.pt",
+                "artifact_type": "BEST_CHECKPOINT",
+                "required": True,
+                "sha256": "3ccf735488336340275a4dccf040fcd17b98a4fa4746d3e665cf14f97428d75d",
+            },
+            {
+                "artifact_path": f"artifacts/runs/{run_id}/predictions/best_validation_predictions.csv",
+                "artifact_type": "PREDICTIONS",
+                "required": False,
+                "sha256": "9bb212edb469f8fac02cf9179a401fec04d27487131a1e17a5e14179b94a5a4e",
+            },
+        ]
+    )
     metrics = [
         {
             "metric_name": name,
@@ -133,6 +169,8 @@ def create_handoff(root: Path) -> None:
             "split_id": "VALIDATION",
             "status": "PASS",
             "population_fingerprint": population,
+            "metric_version": "METRICS-v1",
+            "epoch_or_checkpoint": "epoch_15",
         }
         for name, value in (("rmse_wh", 58.0), ("mae_wh", 27.0), ("r2", 0.6))
     ]
@@ -144,7 +182,9 @@ def create_handoff(root: Path) -> None:
                 "run_id": run_id,
                 "status": "COMPLETED",
                 "config_fingerprint": fingerprint,
+                "config": source_config,
                 "test_access_authorized": False,
+                "best_epoch": 15,
                 "artifacts": artifacts,
                 "metrics": metrics,
             }
@@ -159,6 +199,11 @@ def create_handoff(root: Path) -> None:
             "status": "PASS",
             "approved_for_phase34": True,
             "test_status": "FORBIDDEN",
+            "winner_run_id": run_id,
+            "winner_d_model": 64,
+            "winner_rmse_wh": 58.0,
+            "population_fingerprint": population,
+            "metric_version": "METRICS-v1",
             "output_paths": output_paths,
             "output_checksums": {path: sha256_file(root / path) for path in output_paths},
         },
@@ -201,6 +246,9 @@ def test_phase_33_handoff_resolves_dynamic_d_model_and_reference(tmp_path: Path)
     assert result["frozen_configuration"]["num_heads"] == 4
     assert result["geometry_comparison"]["status"] == "PASS"
     assert result["reference_evidence"]["metrics"]["rmse_wh"] == 58.0
+    assert result["reference_evidence"]["evidence_status"] == "PASS_WITH_WARNING"
+    assert result["reference_evidence"]["evidence_mode"] == "HISTORICAL_REFERENCE_WITH_INCOMPLETE_ARTIFACT_RETENTION"
+    assert len(result["reference_evidence"]["missing_artifacts"]) == 4
     assert result["processing_log_observation"]["authoritative"] is False
 
 

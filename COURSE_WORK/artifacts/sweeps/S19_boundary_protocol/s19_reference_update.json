@@ -1,0 +1,31 @@
+{
+  "approved_for_phase42": true,
+  "common_population_findings": {
+    "common_test_count_metadata": 2925,
+    "common_test_fingerprint": "49c2abff485062812c41e648b3a718c58ed73b34da1594c81a2526bf468ce887",
+    "common_val_count": 2924,
+    "common_val_fingerprint": "9e8c8407cda30c86d73735659107f3461dfabb19401c7c754e1cfbbc0ce8269e"
+  },
+  "coverage_findings": {
+    "test_removed_rate_pct_metadata": 1.21580547112462,
+    "validation_removed_rate_pct": 1.2162162162162162
+  },
+  "phase_id": 41,
+  "primary_protocol": "WB0",
+  "primary_reference_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "protocol_amendment_required": false,
+  "selected_revin_enabled": false,
+  "selected_revin_id": "RN0",
+  "sensitivity_protocol": "WB1",
+  "sensitivity_status": "COMPLETED",
+  "sensitivity_winner": "TIE",
+  "sensitivity_winner_metric": "rmse_wh",
+  "sensitivity_winner_population": "common_validation",
+  "wb0_reference_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "wb1_run_id": "RUN_TR_S19_0034_CF8C1FE8",
+  "wb0_native_val_rmse": 57.69679988114431,
+  "wb0_common_val_rmse": 56.87018043709572,
+  "wb1_common_val_rmse": 56.87018043709572,
+  "difference_on_common": 0.0,
+  "phase41_completed_at": "2026-08-25T05:42:00+00:00"
+}

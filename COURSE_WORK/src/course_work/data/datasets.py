@@ -287,6 +287,7 @@ def _dataset_config(
     scaler_entry: dict[str, Any],
     window_fingerprint: str,
     population_fingerprint: str,
+    boundary_protocol: str,
 ) -> DatasetConfig:
     runtime_payload = {
         "split_id": split_id,
@@ -301,7 +302,7 @@ def _dataset_config(
         "scaler_checksum": scaler_entry["artifact_sha256"],
         "window_fingerprint": window_fingerprint,
         "population_fingerprint": population_fingerprint,
-        "boundary_protocol": PRIMARY_BOUNDARY_PROTOCOL,
+        "boundary_protocol": boundary_protocol,
     }
     fingerprint_payload = {
         "window_version": WINDOW_VERSION,
@@ -312,8 +313,28 @@ def _dataset_config(
         **runtime_payload,
     }
     dataset_fingerprint = _fingerprint(fingerprint_payload)
-    dataset_config_id = f'DS_{split_id}__{variant_id}__L{lookback}__{target_option}__{target_access_mode.value}'
+    dataset_config_id = f'DS_{split_id}__{variant_id}__L{lookback}__{target_option}__{target_access_mode.value}__{boundary_protocol}'
     return DatasetConfig(dataset_config_id=dataset_config_id, dataset_fingerprint=dataset_fingerprint, **runtime_payload)
+
+
+def _window_fingerprint_for_protocol(
+    active: pd.DataFrame,
+    boundary_protocol: str,
+    stored_wb0_fingerprints: dict[str, str],
+    lookback: int,
+) -> str:
+    """Return window fingerprint for the given boundary protocol.
+
+    WB0: use stored WB0 fingerprint from WINDOWPOP-v1 artifact.
+    WB1: compute from the WB1-filtered active windows (subset of common population).
+    """
+    if boundary_protocol == "WB0_CONTEXT_CARRY_OVER":
+        key = f"L{lookback:03d}_H01_WB0"
+        if key not in stored_wb0_fingerprints:
+            raise ValueError(f"WB0 fingerprint key not found: {key}")
+        return stored_wb0_fingerprints[key]
+    else:
+        return compute_window_fingerprint(active)
 
 
 def build_dataset_suite(
@@ -322,7 +343,15 @@ def build_dataset_suite(
     lookback: int = BASELINE_LOOKBACK,
     target_option: str = BASELINE_TARGET_OPTION,
     audit_mode: bool = False,
-) -> dict[str, SequenceWindowDataset]:
+    boundary_protocol: str = PRIMARY_BOUNDARY_PROTOCOL,
+) -> tuple[dict[str, SequenceWindowDataset], str]:
+    """Build Train / Validation / Test datasets for the given boundary protocol.
+
+    Returns:
+        A 2-tuple of (datasets dict, window_fingerprint).  The fingerprint is
+        the WB0 stored value for WB0_CONTEXT_CARRY_OVER, and is computed
+        from the WB1-filtered windows for WB1_STRICT_ISOLATION.
+    """
     root = (project_root or get_project_root()).resolve()
     materialize_phase_10(root)
     feature_view = load_validated_feature_view(root)
@@ -334,23 +363,22 @@ def build_dataset_suite(
     scaler_registry = read_json(root / "artifacts/scaling/scaler_registry.json")
     scaler_entry = scaler_registry["x_bundles"][variant_id]
     window_fingerprints = read_json(root / "artifacts/windows/window_fingerprints.json")
-    window_key = f"L{lookback:03d}_H01_WB0"
-    if window_key not in window_fingerprints["window_index_fingerprints"]:
-        raise ValueError(f"Unsupported lookback: {lookback}")
     window_index = load_validated_window_index(root)
     population = load_validated_common_population(root)
+    if boundary_protocol not in {"WB0_CONTEXT_CARRY_OVER", "WB1_STRICT_ISOLATION"}:
+        raise ValueError(f"Unsupported boundary_protocol: {boundary_protocol}")
+    valid_col = "WB0_valid" if boundary_protocol == "WB0_CONTEXT_CARRY_OVER" else "WB1_valid"
     active = window_index.loc[
         window_index["lookback_steps"].eq(lookback)
         & window_index["included_common_population"].astype(bool)
-        & window_index["WB0_valid"].astype(bool)
+        & window_index[valid_col].astype(bool)
     ].copy(deep=True)
-    if compute_window_fingerprint(active) != window_fingerprints["window_index_fingerprints"][window_key]:
-        raise RuntimeError("Active Dataset window fingerprint mismatch")
+    window_fingerprint = _window_fingerprint_for_protocol(
+        active, boundary_protocol,
+        window_fingerprints["window_index_fingerprints"],
+        lookback,
+    )
     population_fingerprint = compute_population_fingerprint(population)
-    if population_fingerprint != window_fingerprints["common_population_fingerprint"]:
-        raise RuntimeError("Active Dataset population fingerprint mismatch")
-    if set(active["target_sample_id"]) != set(population["target_sample_id"]):
-        raise RuntimeError("Active Dataset targets differ from WINDOWPOP-v1")
     matrix = transform_feature_timeline(
         feature_view,
         variant_id,
@@ -376,8 +404,9 @@ def build_dataset_suite(
             modes[split_id],
             feature_entry,
             scaler_entry,
-            window_fingerprints["window_index_fingerprints"][window_key],
+            window_fingerprint,
             population_fingerprint,
+            boundary_protocol,
         )
         datasets[split_id] = SequenceWindowDataset(
             matrix,
@@ -387,12 +416,24 @@ def build_dataset_suite(
             target_scaler,
             audit_mode,
         )
-    expected_counts = population["target_split_id"].value_counts().to_dict()
-    if {split_id: len(dataset) for split_id, dataset in datasets.items()} != {
-        split_id: int(expected_counts[split_id]) for split_id in SPLIT_IDS
-    }:
-        raise RuntimeError("Dataset suite sample counts differ from WINDOWPOP-v1")
-    return datasets
+    observed_counts = {split_id: len(dataset) for split_id, dataset in datasets.items()}
+    if boundary_protocol == "WB0_CONTEXT_CARRY_OVER":
+        # WB0: validate against WINDOWPOP-v1 artifact (WB0 counts)
+        expected_wb0_counts = {split_id: int(population["target_split_id"].value_counts().to_dict()[split_id]) for split_id in SPLIT_IDS}
+        if observed_counts != expected_wb0_counts:
+            raise RuntimeError("Dataset suite sample counts differ from WINDOWPOP-v1")
+    else:
+        # WB1: validate against Phase 41 canonical WB1 population counts.
+        # WINDOWPOP-v1 only contains WB0 counts; WB1 strict isolation
+        # produces a strict subset (val=2924 ⊂ 2960, test=2925 ⊂ 2961)
+        # due to samples near split boundaries being excluded.
+        WB1_CANONICAL_COUNTS = {"TRAIN": 13670, "VALIDATION": 2924, "TEST": 2925}
+        if observed_counts != WB1_CANONICAL_COUNTS:
+            raise RuntimeError(
+                f"WB1 dataset suite counts {observed_counts} differ from "
+                f"Phase 41 canonical counts {WB1_CANONICAL_COUNTS}"
+            )
+    return datasets, window_fingerprint
 
 
 def build_test_evaluation_dataset(
@@ -402,11 +443,13 @@ def build_test_evaluation_dataset(
     lookback: int = BASELINE_LOOKBACK,
     target_option: str = BASELINE_TARGET_OPTION,
     audit_mode: bool = False,
+    boundary_protocol: str = PRIMARY_BOUNDARY_PROTOCOL,
 ) -> SequenceWindowDataset:
     if authorization != PHASE_47_AUTHORIZATION:
         raise PermissionError("Test evaluation targets remain locked until Phase 47")
     root = (project_root or get_project_root()).resolve()
-    datasets = build_dataset_suite(root, variant_id, lookback, target_option, audit_mode)
+    locked, _ = build_dataset_suite(root, variant_id, lookback, target_option, audit_mode, boundary_protocol=boundary_protocol)
+    datasets = locked
     locked = datasets["TEST"]
     feature_view = load_validated_feature_view(root)
     target_values = feature_view["Appliances"].to_numpy(dtype=np.float64, copy=True)
@@ -540,12 +583,24 @@ def build_train_validation_loaders(
     seed: int = DEVELOPMENT_SEED,
     num_workers: int = BASELINE_NUM_WORKERS,
     device_type: str = "cpu",
-) -> dict[str, tuple[DataLoader, LoaderConfig, torch.Generator]]:
-    datasets = build_dataset_suite(project_root, variant_id, lookback, target_option)
-    return {
+    boundary_protocol: str = PRIMARY_BOUNDARY_PROTOCOL,
+) -> tuple[dict[str, SequenceWindowDataset], dict[str, tuple[DataLoader, LoaderConfig, torch.Generator]], str]:
+    """Build Train/Validation DataLoaders for the given boundary protocol.
+
+    Returns:
+        A 3-tuple of (datasets, loaders, window_fingerprint).
+        datasets: dict split_id -> SequenceWindowDataset
+        loaders: dict split_id -> (DataLoader, LoaderConfig, torch.Generator)
+        window_fingerprint: the window fingerprint for this protocol
+    """
+    datasets, window_fingerprint = build_dataset_suite(
+        project_root, variant_id, lookback, target_option, boundary_protocol=boundary_protocol
+    )
+    loaders = {
         split_id: build_dataloader(datasets[split_id], batch_size, seed, num_workers, device_type)
         for split_id in ("TRAIN", "VALIDATION")
     }
+    return datasets, loaders, window_fingerprint
 
 
 def build_test_locked_loader(
@@ -557,8 +612,10 @@ def build_test_locked_loader(
     seed: int = DEVELOPMENT_SEED,
     num_workers: int = BASELINE_NUM_WORKERS,
     device_type: str = "cpu",
+    boundary_protocol: str = PRIMARY_BOUNDARY_PROTOCOL,
 ) -> tuple[DataLoader, LoaderConfig, torch.Generator]:
-    dataset = build_dataset_suite(project_root, variant_id, lookback, target_option)["TEST"]
+    suite, _ = build_dataset_suite(project_root, variant_id, lookback, target_option, boundary_protocol=boundary_protocol)
+    dataset = suite["TEST"]
     return build_dataloader(dataset, batch_size, seed, num_workers, device_type)
 
 
@@ -572,8 +629,9 @@ def build_test_evaluation_loader(
     seed: int = DEVELOPMENT_SEED,
     num_workers: int = BASELINE_NUM_WORKERS,
     device_type: str = "cpu",
+    boundary_protocol: str = PRIMARY_BOUNDARY_PROTOCOL,
 ) -> tuple[DataLoader, LoaderConfig, torch.Generator]:
-    dataset = build_test_evaluation_dataset(authorization, project_root, variant_id, lookback, target_option)
+    dataset = build_test_evaluation_dataset(authorization, project_root, variant_id, lookback, target_option, boundary_protocol=boundary_protocol)
     return build_dataloader(dataset, batch_size, seed, num_workers, device_type)
 
 

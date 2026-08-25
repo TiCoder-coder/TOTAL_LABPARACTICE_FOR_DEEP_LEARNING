@@ -207,14 +207,16 @@ def expected_sample_indices(
     split_id: str,
     lookback_steps: int = 144,
     project_root: Path | None = None,
+    boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
 ) -> np.ndarray:
     root = (project_root or get_project_root()).resolve()
     frame = load_validated_window_index(root)
+    valid_col = "WB0_valid" if boundary_protocol == "WB0_CONTEXT_CARRY_OVER" else "WB1_valid"
     mask = (
         frame["lookback_steps"].eq(lookback_steps)
         & frame["target_split_id"].eq(split_id.upper())
         & frame["included_common_population"].astype(bool)
-        & frame["WB0_valid"].astype(bool)
+        & frame[valid_col].astype(bool)
     )
     selected = frame.index[mask].to_numpy(dtype=np.int64, copy=True)
     if selected.size == 0:
@@ -388,6 +390,7 @@ def compute_regression_metrics(
     target_scaling_option: str = "YS0",
     model_lock_id: str | None = None,
     project_root: Path | None = None,
+    boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
 ) -> MetricResult:
     context = EvaluationContext(split_id.upper(), evaluation_mode, run_id, model_id, model_lock_id)
     validate_evaluation_access(context)
@@ -403,7 +406,7 @@ def compute_regression_metrics(
         lookback_steps=lookback_steps,
         horizon_steps=horizon_steps,
     )
-    expected = expected_sample_indices(split_id, lookback_steps, project_root) if expected_sample_idx is None else expected_sample_idx
+    expected = expected_sample_indices(split_id, lookback_steps, project_root, boundary_protocol) if expected_sample_idx is None else expected_sample_idx
     aligned = align_prediction_bundle_to_expected_population(bundle, expected)
     mae = compute_mae_wh(aligned.y_true_wh, aligned.y_pred_wh)
     rmse = compute_rmse_wh(aligned.y_true_wh, aligned.y_pred_wh)

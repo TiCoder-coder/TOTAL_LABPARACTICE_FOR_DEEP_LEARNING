@@ -1,0 +1,22 @@
+{
+  "all_finite": true,
+  "autograd_ok": true,
+  "default_dtype": "torch.float32",
+  "device_detected": true,
+  "gradients_finite": true,
+  "imports_ok": true,
+  "loss_finite": true,
+  "module_training_step_ok": true,
+  "randomness": {
+    "numpy_generator_repeatable": true,
+    "numpy_random_repeatable": true,
+    "python_random_repeatable": true,
+    "seed": 42,
+    "status": "PASS",
+    "torch_random_repeatable": true
+  },
+  "seed_test_ok": true,
+  "selected_device": "mps",
+  "status": "PASS",
+  "tensor_forward_ok": true
+}

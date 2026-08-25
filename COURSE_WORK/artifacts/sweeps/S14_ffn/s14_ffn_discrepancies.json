@@ -1,0 +1,25 @@
+{
+  "artifact_version": "S14-FFN-DISCREPANCIES-v1",
+  "discrepancies": [],
+  "optional_omissions": [
+    "s14_shared_prefix_initialization_audit.csv",
+    "s14_generalization_diagnostics.csv",
+    "figures/S14_10_generalization_gap_optional.png",
+    "peak-memory fields"
+  ],
+  "strict_best_verification": {
+    "F256": {
+      "recomputed_rmse_wh": 57.696800621054415,
+      "status": "PASS",
+      "stored_rmse_wh": 57.69679988114431
+    },
+    "F64": {
+      "recomputed_rmse_wh": 58.3980307848205,
+      "status": "PASS",
+      "stored_rmse_wh": 58.39803077736952
+    }
+  },
+  "warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ]
+}

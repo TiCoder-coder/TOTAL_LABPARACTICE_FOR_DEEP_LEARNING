@@ -1,0 +1,10 @@
+# Heavy checkpoint binaries only
+**/checkpoints/
+**/*.pt
+**/*.pth
+**/*.ckpt
+**/*.safetensors
+
+**/__pycache__/
+**/.pytest_cache/
+**/.ipynb_checkpoints/

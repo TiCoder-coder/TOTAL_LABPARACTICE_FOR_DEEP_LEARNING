@@ -161,6 +161,69 @@ def test_render_phase_34_writes_only_derived_log(tmp_path: Path) -> None:
     assert log["technical_details"]["phase_34_preflight"]["ready"] is False
 
 
+def test_phase_35_log_contains_static_s13_contract_and_exact_block_reasons(tmp_path: Path) -> None:
+    log = build_phase_resume_log(35, tmp_path)
+    html = render_phase_resume_log(log).data
+    assert log["status"] == "BLOCKED"
+    assert log["summary"]["Test access"] == "FORBIDDEN"
+    assert "S13 frozen contract" in html
+    assert "N1 = 1" in html
+    assert "s12_head_winner.json: MISSING" in html
+    assert "jupyter.widget" not in html
+    assert "<script" not in html.lower()
+
+
+def test_render_phase_35_writes_only_derived_log(tmp_path: Path) -> None:
+    render_phase_resume(35, tmp_path)
+    paths = sorted(path.relative_to(tmp_path) for path in tmp_path.rglob("*") if path.is_file())
+    assert paths == [Path("docs/save_log_in_processing/phase_35_s13_layer_log.json")]
+    log = read_json(tmp_path / paths[0])
+    assert log["phase_id"] == 35
+    assert log["technical_details"]["phase_35_preflight"]["ready"] is False
+
+
+def test_phase_36_log_contains_static_s14_contract_and_exact_block_reasons(tmp_path: Path) -> None:
+    log = build_phase_resume_log(36, tmp_path)
+    html = render_phase_resume_log(log).data
+    assert log["status"] == "BLOCKED"
+    assert log["summary"]["Test access"] == "FORBIDDEN"
+    assert "S14 frozen contract" in html
+    assert "F64" in html
+    assert "s13_layer_winner.json: MISSING" in html
+    assert "jupyter.widget" not in html
+    assert "<script" not in html.lower()
+
+
+def test_render_phase_36_writes_only_derived_log(tmp_path: Path) -> None:
+    render_phase_resume(36, tmp_path)
+    paths = sorted(path.relative_to(tmp_path) for path in tmp_path.rglob("*") if path.is_file())
+    assert paths == [Path("docs/save_log_in_processing/phase_36_s14_ffn_log.json")]
+    log = read_json(tmp_path / paths[0])
+    assert log["phase_id"] == 36
+    assert log["technical_details"]["phase_36_preflight"]["ready"] is False
+
+
+def test_phase_37_log_contains_static_s15_contract_and_exact_block_reasons(tmp_path: Path) -> None:
+    log = build_phase_resume_log(37, tmp_path)
+    html = render_phase_resume_log(log).data
+    assert log["status"] == "BLOCKED"
+    assert log["summary"]["Test access"] == "FORBIDDEN"
+    assert "S15 frozen loss contract" in html
+    assert "HuberLoss(delta=1.0, reduction=mean)" in html
+    assert "phase_36_signoff.json: MISSING" in html
+    assert "jupyter.widget" not in html
+    assert "<script" not in html.lower()
+
+
+def test_render_phase_37_writes_only_derived_log(tmp_path: Path) -> None:
+    render_phase_resume(37, tmp_path)
+    paths = sorted(path.relative_to(tmp_path) for path in tmp_path.rglob("*") if path.is_file())
+    assert paths == [Path("docs/save_log_in_processing/phase_37_s15_loss_log.json")]
+    log = read_json(tmp_path / paths[0])
+    assert log["phase_id"] == 37
+    assert log["technical_details"]["phase_37_preflight"]["ready"] is False
+
+
 def test_materialize_phase_resume_log_rebuilds_stale_state_once(tmp_path: Path, monkeypatch) -> None:
     logs = iter(
         [

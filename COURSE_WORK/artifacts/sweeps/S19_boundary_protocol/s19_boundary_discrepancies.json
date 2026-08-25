@@ -1,0 +1,61 @@
+{
+  "discrepancies": [],
+  "phase_id": 41,
+  "sweep_id": "S19_BOUNDARY_PROTOCOL",
+  "warnings": [
+    "WB1_SCIENTIFIC_TRAINING=COMPLETED_VIA_RECOVERY"
+  ],
+  "run_classifications": {
+    "RUN_TR_S19_0030_A711A9B8": {
+      "status": "NOT_FOUND",
+      "classification": "NOT_APPLICABLE"
+    },
+    "RUN_TR_S19_0031_A711A9B8": {
+      "status": "NOT_FOUND",
+      "classification": "NOT_APPLICABLE"
+    },
+    "RUN_TR_S19_0032_A711A9B8": {
+      "status": "COMPLETED",
+      "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+      "validation_sample_count": 2960,
+      "best_epoch": 12,
+      "validation_rmse_wh": 57.69679988114431,
+      "classification": "WB0_CARRY_OVER_NOT_CANONICAL_REFERENCE",
+      "note": "WB0 boundary protocol (2960 val samples). This run carries forward the canonical S14 reference config fingerprint (a711a9b8) for the S19 WB0 condition. It is VALID but NOT the canonical WB0 reference. The canonical WB0 reference for Phase 41 is RUN_TR_S14_0023_A711A9B8 which was already COMPLETED and used as reference in Phase 36-41."
+    },
+    "RUN_TR_S19_0033_CF8C1FE8": {
+      "status": "FAILED",
+      "boundary_protocol": "WB1_STRICT_ISOLATION",
+      "best_epoch": null,
+      "classification": "FAILED_INVALID_DEAD_END",
+      "failure_reason": "WB1 metric registration failure (ValueError: Metric sample count mismatch)",
+      "note": "FAILED before metric registration. Did not influence WB1 sensitivity evidence. Recovered separately."
+    },
+    "RUN_TR_S19_0034_CF8C1FE8": {
+      "status": "COMPLETED",
+      "boundary_protocol": "WB1_STRICT_ISOLATION",
+      "validation_sample_count": 2924,
+      "best_epoch": 12,
+      "validation_rmse_wh": 56.87018043709572,
+      "classification": "WB1_VALID_SCIENTIFIC_EVIDENCE",
+      "note": "Primary WB1 evidence for Phase 41. WB1 training completed successfully and was recovered from registry metric mismatch. All scientific artifacts (checkpoint, history, metrics, predictions) verified."
+    }
+  },
+  "canonical_references": {
+    "WB0": {
+      "run_id": "RUN_TR_S14_0023_A711A9B8",
+      "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+      "validation_sample_count": 2960,
+      "validation_rmse_wh": 57.69679988114431,
+      "note": "Canonical WB0 reference established at Phase 36 and preserved through Phases 37-41."
+    },
+    "WB1": {
+      "run_id": "RUN_TR_S19_0034_CF8C1FE8",
+      "boundary_protocol": "WB1_STRICT_ISOLATION",
+      "validation_sample_count": 2924,
+      "validation_rmse_wh": 56.87018043709572,
+      "common_population_rmse_wh": 56.87018043709572,
+      "note": "WB1 sensitivity evidence. On common 2924-population, WB0 and WB1 RMSE are identical (56.87018043709572). Winner on common pop: TIE."
+    }
+  }
+}

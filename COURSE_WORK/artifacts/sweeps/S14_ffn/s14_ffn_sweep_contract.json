@@ -1,0 +1,44 @@
+{
+  "F128_execution": "REUSE_REFERENCE",
+  "F256_execution": "FRESH_SEED42_TRAIN_NEW",
+  "F64_execution": "FRESH_SEED42_TRAIN_NEW",
+  "artifact_version": "S14-FFN-CONTRACT-v1",
+  "conditions": {
+    "F128": 128,
+    "F256": 256,
+    "F64": 64
+  },
+  "created_at": "2026-08-24T07:00:55.322873+00:00",
+  "fixed_architecture": {
+    "activation": "GELU",
+    "d_model": 64,
+    "dropout": 0.1,
+    "head_dim": 16,
+    "norm_policy": "POST_NORM",
+    "num_heads": 4,
+    "num_layers": 2,
+    "pe_policy": "SINUSOIDAL_ONCE",
+    "pooling": "LAST_STEP"
+  },
+  "prohibited": [
+    "mixed_layer_width",
+    "gated_ffn",
+    "extra_ffn_layer",
+    "ffn_specific_lr",
+    "ffn_specific_weight_decay",
+    "dropout_compensation",
+    "warm_start",
+    "weight_slicing",
+    "weight_padding",
+    "optimizer_state_reuse",
+    "Test"
+  ],
+  "selection_direction": "MIN",
+  "selection_metric": "VALIDATION_RMSE_WH",
+  "status": "PASS_WITH_WARNING",
+  "sweep_id": "S14_FFN",
+  "sweep_version": "SWEEP_S14_FFN-v1",
+  "swept_field": "model.ffn_dim",
+  "test_access": "FORBIDDEN",
+  "tie_rule": "SMALLEST_FFN_ON_EXACT_RMSE_TIE"
+}

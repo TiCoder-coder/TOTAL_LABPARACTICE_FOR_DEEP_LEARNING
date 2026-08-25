@@ -11,7 +11,7 @@
       "rows": [
         {
           "Item": "Production runs",
-          "Value": 19
+          "Value": 29
         },
         {
           "Item": "Experiment families",
@@ -23,7 +23,7 @@
         },
         {
           "Item": "Completed runs",
-          "Value": 19
+          "Value": 26
         },
         {
           "Item": "Failed runs",
@@ -66,7 +66,7 @@
     {
       "path": "artifacts/experiments/registry_manifest.json",
       "role": "registry",
-      "sha256": "fe892d51f26d21a03811fb769040aa47c0b363c74117da053b5f0a48c6d62ca6"
+      "sha256": "2f4b47de1243603de6b32f9c9b7d69c986626deb62a45a9b97d4eb75f460fdac"
     },
     {
       "path": "artifacts/experiments/phase_13_signoff.json",
@@ -77,7 +77,7 @@
   "status": "PASS",
   "summary": {
     "Experiment families": 26,
-    "Production runs": 19,
+    "Production runs": 29,
     "Record schema": 1,
     "Validation": "PASS",
     "Version": "EXPERIMENTS-v1"
@@ -143,7 +143,7 @@
     ],
     "production_registry_empty": false,
     "registry_contract_fingerprint": "124a2edf1dc8a30845f7ffa7e0c46bf8d05a8c7ebe916b539f711e8d9dff36df",
-    "registry_fingerprint": "edc9cb57c98f9fe0af6e3de96c44efec4809ae8a34595f3451c59bfd94676e70",
+    "registry_fingerprint": "e9328f18d0b3c700c3f0dadcb7b45d846662a8ee58eceff7c6ab3ce9df47d860",
     "synthetic_records_persisted": false,
     "tests": [
       "canonical_config_fingerprint",

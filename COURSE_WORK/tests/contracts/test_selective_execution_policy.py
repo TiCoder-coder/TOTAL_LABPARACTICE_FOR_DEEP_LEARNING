@@ -181,7 +181,13 @@ def test_notebook_selective_cells_are_static_orchestration_only() -> None:
     assert cell_ids.index("phase-33-config-heading") < cell_ids.index("phase-33-config-display")
     assert cell_ids.index("phase-33-config-display") < cell_ids.index("phase-34-heading")
     assert cell_ids.index("phase-34-heading") < cell_ids.index("phase-34-resume")
-    assert cell_ids.index("phase-34-resume") < cell_ids.index("all-logs-heading")
+    assert cell_ids.index("phase-34-resume") < cell_ids.index("phase-35-heading")
+    assert cell_ids.index("phase-35-heading") < cell_ids.index("phase-35-resume")
+    assert cell_ids.index("phase-35-resume") < cell_ids.index("phase-36-heading")
+    assert cell_ids.index("phase-36-heading") < cell_ids.index("phase-36-resume")
+    assert cell_ids.index("phase-36-resume") < cell_ids.index("phase-37-heading")
+    assert cell_ids.index("phase-37-heading") < cell_ids.index("phase-37-resume")
+    assert cell_ids.index("phase-37-resume") < cell_ids.index("all-logs-heading")
     phase_cells = {
         22: "cd4716af",
         23: "0881cfe3",
@@ -195,6 +201,9 @@ def test_notebook_selective_cells_are_static_orchestration_only() -> None:
         31: "phase-31-resume",
         32: "phase-32-resume",
         34: "phase-34-resume",
+        35: "phase-35-resume",
+        36: "phase-36-resume",
+        37: "phase-37-resume",
     }
     assert "".join(cells[phase_cells[22]]["source"]) == (
         "from course_work.reporting.phase_summary import render_phase_summary\n"
@@ -208,6 +217,18 @@ def test_notebook_selective_cells_are_static_orchestration_only() -> None:
     assert "".join(cells[phase_cells[34]]["source"]) == (
         "from course_work.reporting.phase_summary import render_phase_resume\n"
         "render_phase_resume(34)\n"
+    )
+    assert "".join(cells[phase_cells[35]]["source"]) == (
+        "from course_work.reporting.phase_summary import render_phase_resume\n"
+        "render_phase_resume(35)\n"
+    )
+    assert "".join(cells[phase_cells[36]]["source"]) == (
+        "from course_work.reporting.phase_summary import render_phase_resume\n"
+        "render_phase_resume(36)\n"
+    )
+    assert "".join(cells[phase_cells[37]]["source"]) == (
+        "from course_work.reporting.phase_summary import render_phase_resume\n"
+        "render_phase_resume(37)\n"
     )
     assert len(phase_cell["outputs"]) == 1
     assert len(configuration_cell["outputs"]) == 1
@@ -241,6 +262,12 @@ def test_notebook_non_target_outputs_match_preservation_baseline() -> None:
         "phase-33-config-display",
         "phase-34-heading",
         "phase-34-resume",
+        "phase-35-heading",
+        "phase-35-resume",
+        "phase-36-heading",
+        "phase-36-resume",
+        "phase-37-heading",
+        "phase-37-resume",
         "all-logs-display",
         "a375b9ca",
     }

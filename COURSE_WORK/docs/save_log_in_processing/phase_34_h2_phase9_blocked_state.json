@@ -1,0 +1,38 @@
+{
+  "created_at": "2026-08-23T18:44:51.541122+00:00",
+  "phase_id": 34,
+  "updated_at": "2026-08-24",
+  "status": "READY_FOR_H2",
+  "stage": "PREFLIGHT_COMPLETE",
+  "h2_training_started": false,
+  "phase_9_recovery": {
+    "status": "PASS",
+    "declared_output_count": 17,
+    "exact_checksum_count": 17,
+    "exact_reconstructed_artifacts": [
+      "artifacts/scaling/scaling_audit.csv",
+      "artifacts/scaling/scaling_leakage_audit.csv",
+      "artifacts/scaling/train_validation_scaled_feature_summary.csv",
+      "artifacts/scaling/x_scaler_statistics.csv",
+      "artifacts/scaling/y_scaler_statistics.csv"
+    ],
+    "scalers_refit": false,
+    "target_scaling_option": "YS1",
+    "train_rows_used": 13814,
+    "validation_rows_used_for_descriptive_summary": 2960,
+    "test_rows_accessed": 0,
+    "phase_9_signoff_modified": false
+  },
+  "target_scaler_status": "PASS",
+  "load_upstream_context_status": "PASS",
+  "phase_34_preflight_status": "PASS",
+  "blocker": null,
+  "passed_before_block": [
+    "Phase 12 verification",
+    "load_upstream_context",
+    "feature_count resolution",
+    "MPS selection"
+  ],
+  "test_access": "FORBIDDEN",
+  "next_action": "HUMAN_RUN_H2"
+}

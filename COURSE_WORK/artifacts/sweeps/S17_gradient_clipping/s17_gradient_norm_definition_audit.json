@@ -1,0 +1,7 @@
+{
+  "global_l2_norm": true,
+  "mutating": false,
+  "order": "after_backward_before_optimizer_step",
+  "per_parameter": false,
+  "status": "PASS"
+}

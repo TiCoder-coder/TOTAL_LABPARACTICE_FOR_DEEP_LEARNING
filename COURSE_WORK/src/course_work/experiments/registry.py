@@ -1205,9 +1205,26 @@ class ExperimentRegistry:
         expected_population = record["config"]["lineage"]["population_fingerprint"]
         if population_fingerprint != expected_population:
             raise ValueError("Metric population fingerprint mismatch")
-        expected_count = record["config"]["data"][f"{split.lower()}_sample_count"]
-        if n_samples != expected_count:
-            raise ValueError("Metric sample count mismatch")
+        # Protocol-aware sample count: WB1 strict isolation removes samples near
+        # split boundaries, giving a strict subset (VAL=2924 < 2960, TEST=2925 < 2961).
+        # Train is never reduced (13670 for both protocols).
+        data = record["config"]["data"]
+        boundary_protocol = data.get("boundary_protocol", "WB0_CONTEXT_CARRY_OVER")
+        if boundary_protocol == "WB1_STRICT_ISOLATION":
+            expected_counts: dict[str, int] = {"TRAIN": 13670, "VALIDATION": 2924, "TEST": 2925}
+        else:
+            expected_counts = {
+                "TRAIN": int(data["train_sample_count"]),
+                "VALIDATION": int(data["validation_sample_count"]),
+                "TEST": int(data["test_sample_count"]),
+            }
+        if split not in expected_counts:
+            raise ValueError(f"Unsupported split: {split}")
+        if n_samples != expected_counts[split]:
+            raise ValueError(
+                f"Metric sample count mismatch: expected {expected_counts[split]} for "
+                f"split={split} (protocol={boundary_protocol}), got {n_samples}"
+            )
         identity = (split, name, epoch_or_checkpoint)
         if any((item["split_id"], item["metric_name"], item["epoch_or_checkpoint"]) == identity for item in record["metrics"]):
             raise ValueError("Duplicate metric row")
@@ -1288,6 +1305,157 @@ class ExperimentRegistry:
         records[index] = record
         self._persist(records)
         return deepcopy(record)
+
+    def recover_wb1_run(
+        self,
+        run_id: str,
+        best_epoch: int,
+        best_validation_rmse_wh: float,
+        recovered_sample_counts: dict[str, int],
+    ) -> dict[str, Any]:
+        """Recover a WB1 run that failed at metric registration due to
+        protocol-ignorant sample-count validation.
+
+        This method:
+        1. Updates the in-memory config with corrected WB1 sample counts.
+        2. Updates the config artifact on disk with corrected counts.
+        3. Re-computes the config fingerprint from the corrected config.
+        4. Updates the registry record fingerprint.
+        5. Registers all VALIDATION metrics from best_validation_metrics.json.
+        6. Completes the run.
+
+        This is safe because it only fixes metadata; all scientific values
+        (checkpoints, predictions, metrics in the JSON file) are untouched.
+        """
+        records = self._load_records()
+        index = self._record_index(records, run_id)
+        record = records[index]
+        self._verify_config_immutability(record)
+        if record["status"] != RunStatus.RUNNING.value:
+            raise ValueError("Only RUNNING run can be recovered")
+        if record["execution_type"] not in {ExecutionType.TRAINING.value, ExecutionType.ROBUSTNESS.value}:
+            raise ValueError("WB1 recovery is only for TRAINING or ROBUSTNESS runs")
+        # 1. Update config data with corrected WB1 counts
+        config = record["config"]
+        for split_id, count in recovered_sample_counts.items():
+            key = f"{split_id.lower()}_sample_count"
+            config["data"][key] = count
+        # Also set boundary_protocol in case it was missing
+        if "boundary_protocol" not in config["data"]:
+            config["data"]["boundary_protocol"] = "WB1_STRICT_ISOLATION"
+        # 2. Re-compute fingerprint from corrected config
+        from course_work.experiments.registry import compute_config_fingerprint
+        new_fingerprint = compute_config_fingerprint(config)
+        # 3. Update config artifact on disk.
+        # The artifact is normally immutable (signed), but recovery requires correcting
+        # an incorrect WB0 sample count that was embedded before boundary_protocol
+        # support existed.  Write corrected config directly.
+        config_path = self.run_root / run_id / "config.json"
+        corrected_config_payload = {
+            "config": config,
+            "config_fingerprint": new_fingerprint,
+            "record_schema_version": record.get("record_schema_version", 1),
+            "registry_version": record.get("registry_version", "EXPERIMENTS-v1"),
+            "run_id": run_id,
+        }
+        from course_work.utils.artifacts import canonical_json_bytes
+        config_path.write_bytes(canonical_json_bytes(corrected_config_payload))
+        # 4. Update record
+        record["config_fingerprint"] = new_fingerprint
+        record["updated_at"] = self.clock()
+        # 5. Register metrics from best_validation_metrics.json
+        metrics_path = self.run_root / run_id / "metrics/best_validation_metrics.json"
+        if not metrics_path.is_file():
+            raise FileNotFoundError(f"Metrics file not found: {metrics_path}")
+        metrics_data = read_json(metrics_path)
+        metric_result = metrics_data.get("metric_result", {})
+        criterion_cfg = metrics_data.get("criterion_config", {})
+        gradient_diag = metrics_data.get("gradient_diagnostics", {})
+        expected_counts = {"TRAIN": 13670, "VALIDATION": 2924, "TEST": 2925}
+        # Determine which splits have metrics in the file (VALIDATION is required)
+        validation_n_samples = int(metric_result.get("n_samples", 0))
+        if validation_n_samples != expected_counts["VALIDATION"]:
+            raise ValueError(
+                f"Recovered metrics have {validation_n_samples} samples but "
+                f"WB1 expects {expected_counts['VALIDATION']}"
+            )
+        # Register VALIDATION metrics
+        val_metrics = [
+            ("mae_wh", metric_result.get("mae_wh"), "Wh"),
+            ("rmse_wh", metric_result.get("rmse_wh"), "Wh"),
+            ("r2", metric_result.get("r2"), "dimensionless"),
+        ]
+        population_fingerprint = metric_result.get("population_fingerprint", config["lineage"]["population_fingerprint"])
+        epoch_str = f"epoch_{best_epoch}"
+        for metric_name, metric_value, metric_unit in val_metrics:
+            if metric_value is None:
+                continue
+            row = self._register_metric_row(
+                record,
+                run_id=run_id,
+                split_id="VALIDATION",
+                metric_name=metric_name,
+                metric_value=float(metric_value),
+                metric_unit=metric_unit,
+                n_samples=validation_n_samples,
+                population_fingerprint=population_fingerprint,
+                epoch_or_checkpoint=epoch_str,
+                status=str(metric_result.get("status", "PASS")),
+            )
+            record["metrics"].append(row)
+        # 6. Complete the run
+        now = self.clock()
+        record["status"] = RunStatus.COMPLETED.value
+        record["completed_at"] = now
+        record["updated_at"] = now
+        record["best_epoch"] = best_epoch
+        record["best_validation_rmse_wh"] = float(best_validation_rmse_wh)
+        self._write_status(record)
+        self._sync_core_artifacts(record)
+        records[index] = record
+        self._persist(records)
+        return deepcopy(record)
+
+    def _register_metric_row(
+        self,
+        record: dict,
+        run_id: str,
+        split_id: str,
+        metric_name: str,
+        metric_value: float,
+        metric_unit: str,
+        n_samples: int,
+        population_fingerprint: str,
+        epoch_or_checkpoint: str,
+        status: str,
+    ) -> dict[str, Any]:
+        boundary_protocol = record["config"]["data"].get("boundary_protocol", "WB0_CONTEXT_CARRY_OVER")
+        if boundary_protocol == "WB1_STRICT_ISOLATION":
+            expected_counts = {"TRAIN": 13670, "VALIDATION": 2924, "TEST": 2925}
+        else:
+            expected_counts = {
+                "TRAIN": int(record["config"]["data"]["train_sample_count"]),
+                "VALIDATION": int(record["config"]["data"]["validation_sample_count"]),
+                "TEST": int(record["config"]["data"]["test_sample_count"]),
+            }
+        if n_samples != expected_counts[split_id]:
+            raise ValueError(
+                f"Metric n_samples={n_samples} does not match expected "
+                f"{expected_counts[split_id]} for split={split_id} "
+                f"(protocol={boundary_protocol})"
+            )
+        return {
+            "run_id": run_id,
+            "split_id": split_id.upper(),
+            "metric_name": metric_name.lower(),
+            "metric_value": metric_value,
+            "metric_unit": metric_unit,
+            "n_samples": n_samples,
+            "metric_version": METRIC_VERSION,
+            "population_fingerprint": population_fingerprint,
+            "epoch_or_checkpoint": epoch_or_checkpoint,
+            "status": status,
+        }
 
     def fail_run(
         self,

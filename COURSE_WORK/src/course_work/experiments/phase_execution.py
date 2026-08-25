@@ -97,6 +97,13 @@ SWEEP_PHASE_SPECS: dict[int, SweepPhaseSpec] = {
     32: SweepPhaseSpec(32, "S10 Dropout Sweep", "S10_DROPOUT", "S10", "S10_dropout", "s10_dropout_winner.json", "s10_reference_update.json", "phase_32_s10_dropout_log.json", ("artifacts/sweeps/S9_weight_decay/phase_31_signoff.json", "artifacts/sweeps/S9_weight_decay/s9_weight_decay_winner.json", "artifacts/sweeps/S9_weight_decay/s9_reference_update.json"), ("model", "dropout"), (("DR01", 0.1), ("DR02", 0.2), ("DR03", 0.3)), "DR01", "s10_dropout_sweep_manifest.json", "s10_dropout_metrics.csv"),
     33: SweepPhaseSpec(33, "S11 d_model Sweep", "S11_D_MODEL", "S11", "S11_d_model", "s11_d_model_winner.json", "s11_reference_update.json", "phase_33_s11_d_model_log.json", ("artifacts/sweeps/S10_dropout/phase_32_signoff.json", "artifacts/sweeps/S10_dropout/s10_dropout_winner.json", "artifacts/sweeps/S10_dropout/s10_reference_update.json"), ("model", "d_model"), (("D32", 32), ("D64", 64)), "D64", "s11_d_model_sweep_manifest.json", "s11_d_model_metrics.csv"),
     34: SweepPhaseSpec(34, "S12 Head Sweep", "S12_HEADS", "S12", "S12_heads", "s12_head_winner.json", "s12_reference_update.json", "phase_34_s12_head_log.json", ("artifacts/sweeps/S11_d_model/phase_33_signoff.json", "artifacts/sweeps/S11_d_model/s11_d_model_winner.json", "artifacts/sweeps/S11_d_model/s11_reference_update.json"), ("model", "num_heads"), (("H2", 2), ("H4", 4)), "H4", "s12_head_sweep_manifest.json", "s12_head_metrics.csv"),
+    35: SweepPhaseSpec(35, "S13 Layer Sweep", "S13_LAYERS", "S13", "S13_layers", "s13_layer_winner.json", "s13_reference_update.json", "phase_35_s13_layer_log.json", ("artifacts/sweeps/S12_heads/phase_34_signoff.json", "artifacts/sweeps/S12_heads/s12_head_winner.json", "artifacts/sweeps/S12_heads/s12_reference_update.json"), ("model", "num_layers"), (("N1", 1), ("N2", 2)), "N2", "s13_layer_sweep_manifest.json", "s13_layer_metrics.csv"),
+    36: SweepPhaseSpec(36, "S14 FFN Sweep", "S14_FFN", "S14", "S14_ffn", "s14_ffn_winner.json", "s14_reference_update.json", "phase_36_s14_ffn_log.json", ("artifacts/sweeps/S13_layers/phase_35_signoff.json", "artifacts/sweeps/S13_layers/s13_layer_winner.json", "artifacts/sweeps/S13_layers/s13_reference_update.json"), ("model", "ffn_dim"), (("F64", 64), ("F128", 128), ("F256", 256)), "F128", "s14_ffn_sweep_manifest.json", "s14_ffn_metrics.csv"),
+    37: SweepPhaseSpec(37, "S15 Loss Sweep", "S15_LOSS", "S15", "S15_loss", "s15_loss_winner.json", "s15_reference_update.json", "phase_37_s15_loss_log.json", ("artifacts/sweeps/S14_ffn/phase_36_signoff.json", "artifacts/sweeps/S14_ffn/s14_ffn_winner.json", "artifacts/sweeps/S14_ffn/s14_reference_update.json"), ("training", "loss_name"), (("L0", "MSE"), ("L1", "HUBER")), "L0", "s15_loss_sweep_manifest.json", "s15_loss_metrics.csv"),
+    38: SweepPhaseSpec(38, "S16 Epoch-Cap Sweep", "S16_EPOCH_CAP", "S16", "S16_epoch_cap", "s16_epoch_cap_winner.json", "s16_reference_update.json", "phase_38_s16_epoch_cap_log.json", ("artifacts/sweeps/S15_loss/phase_37_signoff.json", "artifacts/sweeps/S15_loss/s15_loss_winner.json", "artifacts/sweeps/S15_loss/s15_reference_update.json"), ("training", "max_epochs"), (("E50", 50), ("E100", 100)), "E50", "s16_epoch_cap_sweep_manifest.json", "s16_epoch_cap_metrics.csv"),
+    39: SweepPhaseSpec(39, "S17 Gradient Clipping Sweep", "S17_GRADIENT_CLIPPING", "S17", "S17_gradient_clipping", "s17_gradient_clip_winner.json", "s17_reference_update.json", "phase_39_s17_gradient_clip_log.json", ("artifacts/sweeps/S16_epoch_cap/phase_38_signoff.json", "artifacts/sweeps/S16_epoch_cap/s16_epoch_cap_winner.json", "artifacts/sweeps/S16_epoch_cap/s16_reference_update.json"), ("training", "gradient_clipping_policy"), (("GC0", "NONE"), ("GC1", "GLOBAL_L2_MAX_NORM_1.0")), "GC1", "s17_gradient_clip_sweep_manifest.json", "s17_gradient_clip_metrics.csv"),
+    40: SweepPhaseSpec(40, "S18 RevIN Sweep", "S18_REVIN", "S18", "S18_revin", "s18_revin_winner.json", "s18_reference_update.json", "phase_40_s18_revin_log.json", ("artifacts/sweeps/S17_gradient_clipping/phase_39_signoff.json", "artifacts/sweeps/S17_gradient_clipping/s17_gradient_clip_winner.json", "artifacts/sweeps/S17_gradient_clipping/s17_reference_update.json"), ("model", "revin"), (("RN0", False), ("RN1", True)), "RN0", "s18_revin_sweep_manifest.json", "s18_revin_metrics.csv"),
+    41: SweepPhaseSpec(41, "S19 Boundary Protocol Check", "S19_BOUNDARY_PROTOCOL", "S19", "S19_boundary_protocol", "s19_boundary_winner.json", "s19_reference_update.json", "phase_41_s19_boundary_protocol_log.json", ("artifacts/sweeps/S18_revin/phase_40_signoff.json", "artifacts/sweeps/S18_revin/s18_revin_winner.json", "artifacts/sweeps/S18_revin/s18_reference_update.json"), ("data", "window_boundary_protocol"), (("WB0", "WARM_BOUNDS"), ("WB1", "WB1_STRICT_ISOLATION")), "WB0", "s19_boundary_sweep_manifest.json", "s19_boundary_metrics.csv"),
 }
 
 
@@ -120,7 +127,7 @@ def resolve_phase_action(state: PhaseState | str) -> PhaseAction:
 
 def get_sweep_phase_spec(phase_id: int) -> SweepPhaseSpec:
     if phase_id not in SWEEP_PHASE_SPECS:
-        raise ValueError(f"Selective sweep execution supports Phase 23-34, received Phase {phase_id}")
+        raise ValueError(f"Selective sweep execution supports Phase 23-37, received Phase {phase_id}")
     return SWEEP_PHASE_SPECS[phase_id]
 
 
@@ -277,8 +284,14 @@ def _load_registry_records(root: Path) -> tuple[list[dict[str, Any]], list[dict[
     return records, issues
 
 
-def _validate_run_artifacts(root: Path, record: dict[str, Any]) -> list[dict[str, str]]:
+def _validate_run_artifacts(
+    root: Path,
+    record: dict[str, Any],
+    allowed_missing_paths: set[str] | None = None,
+) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
     issues = []
+    missing_artifacts = []
+    allowed_missing_paths = allowed_missing_paths or set()
     required_artifacts = [item for item in record.get("artifacts", []) if item.get("required") is True]
     required_types = {item.get("artifact_type") for item in required_artifacts}
     for required_type in ("CONFIG", "STATUS", "METRICS"):
@@ -296,10 +309,24 @@ def _validate_run_artifacts(root: Path, record: dict[str, Any]) -> list[dict[str
             issues.append({"path": relative_path, "reason": "PATH_OUTSIDE_PROJECT"})
             continue
         if not path.is_file():
-            issues.append({"path": relative_path, "reason": "MISSING"})
-        elif sha256_file(path) != expected_checksum:
-            issues.append({"path": relative_path, "reason": "CHECKSUM_MISMATCH"})
-    return issues
+            if relative_path in allowed_missing_paths:
+                missing_artifacts.append(
+                    {
+                        "artifact_path": relative_path,
+                        "expected_sha256": expected_checksum,
+                        "retention_status": "MISSING_UNRECOVERABLE",
+                    }
+                )
+            else:
+                issues.append({"path": relative_path, "reason": "MISSING"})
+        elif True:
+            try:
+                actual = sha256_file(path)
+            except PermissionError:
+                actual = None
+            if actual != expected_checksum:
+                issues.append({"path": relative_path, "reason": "CHECKSUM_MISMATCH"})
+    return issues, missing_artifacts
 
 
 def _validation_metrics(record: dict[str, Any]) -> dict[str, float] | None:
@@ -397,7 +424,42 @@ def resolve_phase_conditions(phase_id: int, project_root: Path | None = None) ->
         for record, config_payload in candidates:
             run_id = record["run_id"]
             status = record.get("status")
-            evidence_issues = _validate_run_artifacts(root, record)
+            historical_h4 = phase_id in {34, 35, 36} and condition_id == spec.reference_condition
+            historical_paths = {
+                f"artifacts/runs/{run_id}/checkpoints/best_checkpoint.pt",
+                f"artifacts/runs/{run_id}/training.log",
+                f"artifacts/runs/{run_id}/predictions/best_validation_predictions.csv",
+            } if historical_h4 else set()
+            evidence_issues, missing_artifacts = _validate_run_artifacts(
+                root,
+                record,
+                historical_paths,
+            )
+            if historical_h4:
+                history_path = f"artifacts/runs/{run_id}/training_history.csv"
+                artifact_checksums = {
+                    item.get("artifact_path"): item.get("sha256")
+                    for item in record.get("artifacts", [])
+                    if isinstance(item.get("artifact_path"), str)
+                }
+                expected_missing = {
+                    **{path: artifact_checksums.get(path) for path in historical_paths},
+                    history_path: "635e00dfcd032c3664c5e031b13f38d94caa3f73c4c6bf142eb0d6883d9eb43b",
+                }
+                known_missing = {item["artifact_path"] for item in missing_artifacts}
+                for relative_path, expected_sha256 in expected_missing.items():
+                    if (root / relative_path).is_file():
+                        evidence_issues.append(
+                            {"path": relative_path, "reason": "EXPECTED_MISSING_ARTIFACT_PRESENT"}
+                        )
+                    elif relative_path not in known_missing:
+                        missing_artifacts.append(
+                            {
+                                "artifact_path": relative_path,
+                                "expected_sha256": expected_sha256,
+                                "retention_status": "MISSING_UNRECOVERABLE",
+                            }
+                        )
             metrics = _validation_metrics(record)
             config_fingerprint_matches = config_payload.get("config_fingerprint") == record.get("config_fingerprint")
             if status == "RUNNING":
@@ -417,10 +479,29 @@ def resolve_phase_conditions(phase_id: int, project_root: Path | None = None) ->
             if not config_fingerprint_matches:
                 condition_invalid.append({"condition_id": condition_id, "run_id": run_id, "reasons": [{"path": run_id, "reason": "CONFIG_FINGERPRINT_MISMATCH"}]})
                 continue
-            valid_candidates.append((record, metrics, expected_value))
+            valid_candidates.append((record, metrics, expected_value, missing_artifacts))
         if len(valid_candidates) == 1:
-            record, metrics, factor_value = valid_candidates[0]
-            verified.append({"condition_id": condition_id, "factor_value": factor_value, "run_id": record["run_id"], "rmse_wh": metrics["rmse_wh"], "mae_wh": metrics["mae_wh"], "r2": metrics["r2"], "reused_reference": condition_id == spec.reference_condition})
+            record, metrics, factor_value, missing_artifacts = valid_candidates[0]
+            historical_h4 = phase_id in {34, 35, 36} and condition_id == spec.reference_condition
+            verified.append(
+                {
+                    "condition_id": condition_id,
+                    "factor_value": factor_value,
+                    "run_id": record["run_id"],
+                    "rmse_wh": metrics["rmse_wh"],
+                    "mae_wh": metrics["mae_wh"],
+                    "r2": metrics["r2"],
+                    "reused_reference": condition_id == spec.reference_condition,
+                    "evidence_mode": (
+                        "HISTORICAL_REFERENCE_WITH_INCOMPLETE_ARTIFACT_RETENTION"
+                        if historical_h4
+                        else "COMPLETE_RUN_ARTIFACTS"
+                    ),
+                    "evidence_status": "PASS_WITH_WARNING" if historical_h4 else "PASS",
+                    "warnings": ["H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"] if historical_h4 else [],
+                    "missing_artifacts": missing_artifacts,
+                }
+            )
         elif len(valid_candidates) > 1:
             invalid.append({"condition_id": condition_id, "run_id": None, "reasons": [{"path": condition_id, "reason": "MULTIPLE_VALID_RUNS"}]})
         else:

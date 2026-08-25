@@ -1,0 +1,9 @@
+{
+  "early_stopped": true,
+  "early_stopping": true,
+  "gc0_best_epoch": 12,
+  "gc0_epochs_executed": 22,
+  "max_epochs": 50,
+  "min_delta": 0,
+  "patience": 10
+}

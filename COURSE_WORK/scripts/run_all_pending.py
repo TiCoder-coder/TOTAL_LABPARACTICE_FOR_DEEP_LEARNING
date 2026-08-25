@@ -33,6 +33,9 @@ PHASE_SWEEP_IDS = {
     32: "S10_DROPOUT",
     33: "S11_D_MODEL",
     34: "S12_HEADS",
+    35: "S13_LAYERS",
+    36: "S14_FFN",
+    37: "S15_LOSS",
 }
 
 
@@ -96,6 +99,25 @@ def run_pending(
         "blocked": [],
     }
     if audit_only or dry_run:
+        return result
+    if target_phase in {35, 36, 37}:
+        condition_text = (
+            "N1"
+            if target_phase == 35
+            else "F64 and F256 separately"
+            if target_phase == 36
+            else "L1 only"
+        )
+        sweep_id = PHASE_SWEEP_IDS[target_phase]
+        result["blocked"].append(
+            {
+                "phase_id": target_phase,
+                "state": "MANUAL_SINGLE_CONDITION_REQUIRED",
+                "reasons": [
+                    f"Use scripts/run_single_condition.py {sweep_id} {condition_text} only after separate Human training authorization"
+                ],
+            }
+        )
         return result
     if target_phase <= 30 and with_dependencies:
         phase_22 = inspect_phase_22_recovery(ROOT)

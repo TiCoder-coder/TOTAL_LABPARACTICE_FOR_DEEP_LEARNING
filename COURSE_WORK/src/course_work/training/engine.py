@@ -20,6 +20,11 @@ from course_work.evaluation.metrics import (
 from course_work.experiments.registry import ArtifactType, ExperimentRegistry
 from course_work.models.lstm_regressor import LSTMRegressor
 from course_work.models.transformer_regressor import TransformerRegressor
+from course_work.training.losses import (
+    build_training_criterion,
+    criterion_config,
+    validate_criterion_inputs,
+)
 from course_work.utils.artifacts import atomic_write_bytes, canonical_json_bytes, csv_text
 
 
@@ -48,6 +53,7 @@ class TrainingResult:
     best_sample_idx: np.ndarray
     best_y_true_wh: np.ndarray
     best_y_pred_wh: np.ndarray
+    gradient_diagnostics: dict[str, Any]
 
 
 def build_model_from_run_config(config: dict[str, Any]) -> nn.Module:
@@ -122,6 +128,7 @@ class TrainingEngine:
         population_fingerprint: str,
         lookback_steps: int,
         horizon_steps: int,
+        boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, Any]:
         model.eval()
         sample_indices: list[int] = []
@@ -154,6 +161,7 @@ class TrainingEngine:
             lookback_steps=lookback_steps,
             horizon_steps=horizon_steps,
             target_scaling_option=target_option,
+            boundary_protocol=boundary_protocol,
         )
         return (
             np.asarray(sample_indices, dtype=np.int64),
@@ -171,6 +179,7 @@ class TrainingEngine:
         device: torch.device,
         target_scaler_bundle: dict[str, Any] | None,
         population_fingerprint: str,
+        boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
     ) -> TrainingResult:
         record = self.registry.get_run(run_id)
         config = record["config"]
@@ -182,11 +191,11 @@ class TrainingEngine:
         learning_rate = float(training["learning_rate"])
         weight_decay = float(training["weight_decay"])
         clip_enabled = bool(training["gradient_clipping_enabled"])
-        clip_norm = float(training["gradient_clip_max_norm"])
+        clip_norm = float(training["gradient_clip_max_norm"]) if training["gradient_clip_max_norm"] is not None else 0.0
         patience = int(training["early_stopping_patience"])
         model = model.to(device)
         optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
-        loss_fn = nn.MSELoss()
+        loss_fn = build_training_criterion(training)
         early_stop = EarlyStopping(patience=patience, mode="MIN")
         history_rows: list[dict[str, Any]] = []
         best_state: dict[str, torch.Tensor] | None = None
@@ -196,6 +205,10 @@ class TrainingEngine:
         best_y_pred = None
         stopped_reason = "MAX_EPOCHS"
         train_start = time.time()
+        preclip_gradient_norms: list[float] = []
+        clipped_batches = 0
+        total_gradient_batches = 0
+        nonfinite_gradient_events = 0
 
         # Heartbeat path: external watchdog can poll this to detect hangs
         heartbeat_path = Path(os.environ.get("SWEEP_HEARTBEAT_PATH", "/tmp/sweep_heartbeat.txt"))
@@ -229,10 +242,48 @@ class TrainingEngine:
                 y = batch["y_model"].to(device)
                 optimizer.zero_grad(set_to_none=True)
                 predictions = model(x)
+                validate_criterion_inputs(predictions, y)
                 loss = loss_fn(predictions, y)
                 loss.backward()
+
+                # Phase 39: Non-finite gradient guard
+                # Check BEFORE any clipping for both GC0 and GC1
+                has_nonfinite = False
+                for p in model.parameters():
+                    if p.grad is not None:
+                        if not p.grad.isfinite().all():
+                            has_nonfinite = True
+                            break
+                if has_nonfinite:
+                    nonfinite_gradient_events += 1
+                    raise ValueError(
+                        f"Non-finite gradient detected at epoch {epoch}, batch {batch_count}. "
+                        "Training terminated before optimizer step."
+                    )
+
+                # Compute pre-clip gradient norm (L2, non-mutating)
+                # This is done BEFORE any clipping for both GC0 and GC1
+                total_norm = 0.0
+                for p in model.parameters():
+                    if p.grad is not None:
+                        param_norm = p.grad.data.norm(2)  # L2 norm per parameter
+                        total_norm += param_norm.item() ** 2
+                total_norm = total_norm ** 0.5
+
+                norm_value = float(total_norm)
+                preclip_gradient_norms.append(norm_value)
+                total_gradient_batches += 1
+
                 if clip_enabled:
-                    torch.nn.utils.clip_grad_norm_(model.parameters(), clip_norm)
+                    # GC1: clip gradients if norm exceeds threshold
+                    clipped_norm = torch.nn.utils.clip_grad_norm_(
+                        model.parameters(),
+                        clip_norm,
+                        error_if_nonfinite=False,  # Already checked above
+                    )
+                    if norm_value > clip_norm:
+                        clipped_batches += 1
+
                 optimizer.step()
                 batch_size = x.shape[0]
                 epoch_loss += float(loss.item()) * batch_size
@@ -262,6 +313,7 @@ class TrainingEngine:
                 population_fingerprint,
                 data["lookback_steps"],
                 data["horizon_steps"],
+                boundary_protocol,
             )
             _write_heartbeat(epoch, "eval_val_started")
             sample_idx, y_true, y_pred, val_metric = self._evaluate_loader(
@@ -276,6 +328,7 @@ class TrainingEngine:
                 population_fingerprint,
                 data["lookback_steps"],
                 data["horizon_steps"],
+                boundary_protocol,
             )
             _write_heartbeat(epoch, "epoch_completed")
 
@@ -334,6 +387,22 @@ class TrainingEngine:
             best_sample_idx=best_sample_idx if best_sample_idx is not None else np.array([], dtype=np.int64),
             best_y_true_wh=best_y_true if best_y_true is not None else np.array([], dtype=np.float64),
             best_y_pred_wh=best_y_pred if best_y_pred is not None else np.array([], dtype=np.float64),
+            gradient_diagnostics={
+                "mean_preclip_global_grad_norm": (
+                    float(np.mean(preclip_gradient_norms)) if preclip_gradient_norms else None
+                ),
+                "max_preclip_global_grad_norm": (
+                    float(np.max(preclip_gradient_norms)) if preclip_gradient_norms else None
+                ),
+                "clipped_batches": clipped_batches,
+                "total_batches": total_gradient_batches,
+                "clipping_fraction": (
+                    clipped_batches / total_gradient_batches if total_gradient_batches else 0.0
+                ),
+                "nonfinite_grad_events": nonfinite_gradient_events,
+                "clip_max_norm": clip_norm if clip_enabled else None,
+                "clip_order": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_CLIP_OPTIMIZER_STEP",
+            },
         )
 
     def persist_run_artifacts(
@@ -356,6 +425,7 @@ class TrainingEngine:
             "checkpoint_metadata": model.checkpoint_metadata() if hasattr(model, "checkpoint_metadata") else {},
             "best_epoch": result.best_epoch,
             "best_validation_rmse_wh": result.best_validation_rmse_wh,
+            "criterion_config": criterion_config(self.registry.get_run(run_id)["config"]["training"]),
         }
         torch.save(payload, best_path)
         torch.save(payload, last_path)
@@ -366,7 +436,18 @@ class TrainingEngine:
         metrics_dir = run_directory / "metrics"
         metrics_dir.mkdir(parents=True, exist_ok=True)
         metrics_path = metrics_dir / "best_validation_metrics.json"
-        atomic_write_bytes(metrics_path, canonical_json_bytes({"metric_result": asdict(result.metric_result)}))
+        atomic_write_bytes(
+            metrics_path,
+            canonical_json_bytes(
+                {
+                    "metric_result": asdict(result.metric_result),
+                    "criterion_config": criterion_config(
+                        self.registry.get_run(run_id)["config"]["training"]
+                    ),
+                    "gradient_diagnostics": result.gradient_diagnostics,
+                }
+            ),
+        )
         predictions_dir = run_directory / "predictions"
         predictions_dir.mkdir(parents=True, exist_ok=True)
         predictions_path = predictions_dir / "best_validation_predictions.csv"

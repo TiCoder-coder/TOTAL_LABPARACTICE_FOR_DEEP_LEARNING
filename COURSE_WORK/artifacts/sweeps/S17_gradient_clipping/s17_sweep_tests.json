@@ -1,0 +1,9 @@
+{
+  "audit_only": "PASS",
+  "dry_run": "PASS",
+  "focused_tests": "47 passed",
+  "registry_health": "PASS",
+  "strict_best_gc0": "PASS",
+  "test_access_authorized": false,
+  "test_status": "FORBIDDEN"
+}

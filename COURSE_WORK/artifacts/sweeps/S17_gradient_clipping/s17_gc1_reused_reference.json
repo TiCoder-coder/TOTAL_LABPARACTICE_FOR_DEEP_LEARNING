@@ -1,0 +1,7 @@
+{
+  "best_epoch": 12,
+  "phase_origin": "Phase 36",
+  "run_id": "RUN_TR_S14_0023_A711A9B8",
+  "sweep_id": "S14_FFN",
+  "validation_rmse_wh": 57.69679988114431
+}

@@ -1,0 +1,48 @@
+{
+  "run_id": "RUN_TR_S19_0034_CF8C1FE8",
+  "condition": "WB1",
+  "phase": 41,
+  "sweep_id": "S19_BOUNDARY_PROTOCOL",
+  "boundary_protocol": "WB1_STRICT_ISOLATION",
+  "status": "COMPLETED",
+  "created_at": "2026-08-25T05:14:27.705945+00:00",
+  "completed_at": "2026-08-25T05:35:00+00:00",
+  "recovery_date": "2026-08-25T05:35:00+00:00",
+  "recovery_reason": "Metric registration failed with ValueError: Metric sample count mismatch (WB0 count=2960 vs WB1 actual=2924). Fixed by: (1) protocol-aware register_metric in registry.py, (2) WB1 sample count injection in run_single_condition.py, (3) recover_wb1_run corrected config and re-registered metrics.",
+  "best_epoch": 12,
+  "early_stopping_reason": "patience_exhausted",
+  "max_epochs": 50,
+  "patience": 10,
+  "native_population": {
+    "train": 13670,
+    "validation": 2924,
+    "test": 2925
+  },
+  "common_population": {
+    "validation": 2924,
+    "test_metadata": 2925
+  },
+  "metrics": {
+    "rmse_wh": 56.87018043709572,
+    "mae_wh": 26.612104664565965,
+    "r2": 0.6024044417311543,
+    "r2_status": "DEFINED",
+    "n_samples": 2924,
+    "finite_status": "PASS",
+    "split_id": "VALIDATION",
+    "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198"
+  },
+  "artifacts": {
+    "config": "artifacts/runs/RUN_TR_S19_0034_CF8C1FE8/config.json",
+    "status": "artifacts/runs/RUN_TR_S19_0034_CF8C1FE8/status.json",
+    "training_log": "artifacts/runs/RUN_TR_S19_0034_CF8C1FE8/training.log",
+    "training_history": "artifacts/runs/RUN_TR_S19_0034_CF8C1FE8/training_history.csv",
+    "best_checkpoint": "artifacts/runs/RUN_TR_S19_0034_CF8C1FE8/checkpoints/best_checkpoint.pt",
+    "metrics": "artifacts/runs/RUN_TR_S19_0034_CF8C1FE8/metrics/best_validation_metrics.json",
+    "predictions": "artifacts/runs/RUN_TR_S19_0034_CF8C1FE8/predictions/best_validation_predictions.csv"
+  },
+  "test_access": "FORBIDDEN",
+  "test_accessed": false,
+  "scientific_training_executed": true,
+  "retraining_required": false
+}

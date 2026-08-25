@@ -1,0 +1,18 @@
+{
+  "created_at": "2026-08-24T15:08:46.458847+00:00",
+  "discrepancies": [],
+  "empirical_comparison": {
+    "performed": true,
+    "rmse_margin_wh": -4.590158280559173,
+    "rmse_r2_consistent": true,
+    "rn0_rmse_wh": 57.69679988114431,
+    "rn1_rmse_wh": 62.28695816170348,
+    "status": "PASS",
+    "winner_revin_id": "RN0",
+    "winner_run_id": "RUN_TR_S14_0023_A711A9B8"
+  },
+  "inherited_warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ],
+  "updated_at": "2026-08-24T15:09:06.660648+00:00"
+}

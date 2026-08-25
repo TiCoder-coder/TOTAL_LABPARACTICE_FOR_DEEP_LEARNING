@@ -1,0 +1,43 @@
+{
+  "created_at": "2026-08-23T18:23:34.033401+00:00",
+  "phase_id": 34,
+  "updated_at": "2026-08-24",
+  "status": "READY_FOR_H2",
+  "stage": "PREFLIGHT_COMPLETE",
+  "h2_training_started": false,
+  "phase_12_recovery": {
+    "status": "PASS",
+    "declared_output_count": 11,
+    "exact_checksum_count": 11,
+    "exact_reconstructed_artifacts": [
+      "artifacts/metrics/metric_implementation_audit.csv",
+      "artifacts/metrics/metric_reference_examples.csv",
+      "artifacts/metrics/metric_registry.csv",
+      "artifacts/metrics/metric_test_firewall_audit.csv",
+      "artifacts/metrics/metric_unit_tests.csv"
+    ],
+    "signoff_modified": false
+  },
+  "dataset_manifest_recovery": {
+    "status": "PASS",
+    "recovery_mode": "EXACT_RECONSTRUCTION",
+    "path": "data/raw_data/dataset_manifest.json",
+    "sha256": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300",
+    "phase_2_signoff_modified": false
+  },
+  "raw_dataset_recovery": {
+    "status": "PASS",
+    "source": "ORIGINAL_SOURCE",
+    "source_url": "https://archive.ics.uci.edu/static/public/374/appliances%2Benergy%2Bprediction.zip",
+    "archive_sha256": "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a",
+    "path": "data/raw_data/energydata_complete.csv",
+    "sha256": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+    "dataset_revision": "DATA-v1"
+  },
+  "load_upstream_context_status": "PASS",
+  "phase_34_preflight_status": "PASS",
+  "blocker": null,
+  "h4_reference_status": "PASS_WITH_WARNING",
+  "test_access": "FORBIDDEN",
+  "next_action": "HUMAN_RUN_H2"
+}

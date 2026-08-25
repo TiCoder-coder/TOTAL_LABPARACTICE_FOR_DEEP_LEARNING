@@ -1,0 +1,6 @@
+{
+  "gc0_epochs_to_best": 12,
+  "gc0_total_epochs": 22,
+  "gc1_epochs_to_best": 12,
+  "gc1_total_epochs": 22
+}

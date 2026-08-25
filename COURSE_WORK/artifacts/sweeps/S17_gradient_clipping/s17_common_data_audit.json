@@ -1,0 +1,9 @@
+{
+  "feature_variant_id": "FS2_TF1",
+  "gc0_match_gc1": true,
+  "lookback_steps": 36,
+  "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "scaler_bundle_id": "XSCALER__FS2_TF1",
+  "status": "PASS",
+  "target_scaling_option": "YS1"
+}

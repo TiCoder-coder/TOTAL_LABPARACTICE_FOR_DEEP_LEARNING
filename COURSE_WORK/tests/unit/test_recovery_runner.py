@@ -26,6 +26,7 @@ def test_selected_phases_respects_dependency_mode() -> None:
     assert run_all_pending.selected_phases(31, True) == (31,)
     assert run_all_pending.selected_phases(32, True) == (32,)
     assert run_all_pending.selected_phases(33, True) == (33,)
+    assert run_all_pending.selected_phases(36, True) == (36,)
 
 
 def test_audit_only_does_not_dispatch_or_write(tmp_path: Path, monkeypatch) -> None:

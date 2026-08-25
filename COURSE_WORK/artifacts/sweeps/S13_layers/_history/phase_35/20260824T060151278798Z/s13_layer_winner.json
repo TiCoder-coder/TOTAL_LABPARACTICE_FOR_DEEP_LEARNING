@@ -1,0 +1,78 @@
+{
+  "activation_id": "GELU",
+  "artifact_version": "SWEEP_S13-WINNER-v1",
+  "batch_id": "B32",
+  "created_at": "2026-08-24T05:57:47.380488+00:00",
+  "d_model": 64,
+  "dropout": 0.1,
+  "dropout_probability": 0.1,
+  "exact_tie_applied": false,
+  "feature_variant_id": "FS2_TF1",
+  "ffn_dim": 128,
+  "inherited_warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ],
+  "layer_parameter_delta_n2_minus_n1": 33472,
+  "learning_rate": 0.0003,
+  "lookback_id": "L36",
+  "metric_version": "METRICS-v1",
+  "n2_historical_reference_mode": "HISTORICAL_REFERENCE_WITH_INCOMPLETE_ARTIFACT_RETENTION",
+  "n2_missing_artifacts": [
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/training.log",
+      "expected_sha256": "f709354699e8fb103b226fbae64ac2d2611fd80854ae1342246e86c94415d5d7",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    },
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/checkpoints/best_checkpoint.pt",
+      "expected_sha256": "3ccf735488336340275a4dccf040fcd17b98a4fa4746d3e665cf14f97428d75d",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    },
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/predictions/best_validation_predictions.csv",
+      "expected_sha256": "9bb212edb469f8fac02cf9179a401fec04d27487131a1e17a5e14179b94a5a4e",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    },
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/training_history.csv",
+      "expected_sha256": "635e00dfcd032c3664c5e031b13f38d94caa3f73c4c6bf142eb0d6883d9eb43b",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    }
+  ],
+  "num_heads": 4,
+  "num_layers": 2,
+  "parameter_difference": 33472,
+  "parameter_difference_pct": 93.72497409906757,
+  "phase_id": 35,
+  "pooling_id": "LAST_STEP",
+  "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "rmse_margin_pct": 2.8448542649347406,
+  "rmse_margin_wh": 1.7007286776587662,
+  "runner_up_condition_id": "N1",
+  "runner_up_layer_id": "N1",
+  "runner_up_num_layers": 1,
+  "runner_up_rmse_wh": 59.78262924121282,
+  "runner_up_run_id": "RUN_TR_S13_0021_9CA63891",
+  "runner_up_trainable_parameters": 35713,
+  "selected_d_model": 64,
+  "selected_head_dim": 16,
+  "selected_num_heads": 4,
+  "selection_direction": "MIN",
+  "selection_metric": "VALIDATION_RMSE_WH",
+  "status": "PASS_WITH_WARNING",
+  "sweep_id": "S13_LAYERS",
+  "sweep_version": "SWEEP_S13_LAYERS-v1",
+  "target_scaling_id": "YS1",
+  "test_status": "FORBIDDEN",
+  "tie_rule": "N1_ON_EXACT_RMSE_TIE",
+  "weight_decay": 0.001,
+  "winner_config_fingerprint": "ae0fb819cd0ecca797892a5f6e2f9758c7809c01f5ab92daaeca21a880d5a6ba",
+  "winner_layer_id": "N2",
+  "winner_mae_wh": 27.595002038670813,
+  "winner_num_layers": 2,
+  "winner_optimizer_config_fingerprint": "388ec31e6959b60d5d13667a4ef30d6f9f66efe96819b7b3ff91c227e0630800",
+  "winner_r2": 0.6034923842647237,
+  "winner_rmse_wh": 58.08190056355405,
+  "winner_run_id": "RUN_TR_S09_0016_AE0FB819",
+  "winner_trainable_parameters": 69185
+}

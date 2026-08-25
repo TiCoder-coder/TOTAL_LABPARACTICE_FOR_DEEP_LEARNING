@@ -1,0 +1,9 @@
+{
+  "phase_40_ready": true,
+  "selected_gradient_clipping_policy": "GLOBAL_L2_MAX_NORM_1.0",
+  "sweep_id": "S17_GRADIENT_CLIPPING",
+  "tie_rule_applied": false,
+  "winner_condition": "GC1",
+  "winner_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "winner_validation_rmse_wh": 57.69679988114431
+}

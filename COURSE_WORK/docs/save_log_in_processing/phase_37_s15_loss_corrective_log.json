@@ -1,0 +1,69 @@
+{
+  "phase_id": 37,
+  "phase_version": "PHASE-37-v1",
+  "sweep_id": "S15_LOSS",
+  "sweep_version": "SWEEP_S15_LOSS-v1",
+  "status": "CORRECTIVE_COMPLETED",
+  "corrective_timestamp": "2026-08-24T08:45:00Z",
+  "corrective_type": "DEVICE_CONSISTENT_STRICT_BEST_VERIFICATION",
+  "corrective_defects": [
+    {
+      "defect": "MPS tensor cannot convert to numpy directly",
+      "fix": "Added .cpu().numpy() for prediction and target tensors",
+      "line": "line 795-803"
+    }
+  ],
+  "root_cause": {
+    "description": "Verification used hardcoded CPU instead of recorded MPS device",
+    "original_evaluation_device": "mps",
+    "original_verification_device": "cpu",
+    "delta_rmse_before_fix": 5.746e-07,
+    "tolerance": 1e-9,
+    "status": "CONFIRMED"
+  },
+  "real_mps_verification": {
+    "status": "PASS",
+    "stored_rmse_wh": 58.680985170839044,
+    "recomputed_rmse_wh": 58.680985170839044,
+    "rmse_delta": 0.0,
+    "stored_mae_wh": 26.97820227679493,
+    "recomputed_mae_wh": 26.97820227679493,
+    "stored_r2": 0.5952706605937734,
+    "recomputed_r2": 0.5952706605937734
+  },
+  "corrective_action": {
+    "file": "src/course_work/sweeps/loss.py",
+    "function": "verify_phase_37_huber_best",
+    "changes": [
+      "Added device detection from config['runtime']['device_type']",
+      "Added MPS availability check with RuntimeError if unavailable",
+      "Added CUDA availability check with RuntimeError if unavailable",
+      "Added model.to(verification_device) to move model to recorded device",
+      "Added batch tensors to verification_device for consistent inference",
+      "Added .cpu().numpy() conversion for MPS tensors before inverse_transform"
+    ]
+  },
+  "verification_status": {
+    "mps_available_on_platform": true,
+    "verification_passed": true,
+    "test_results": {
+      "device_consistent_tests": "21/21 PASSED",
+      "syntax_check": "PASS",
+      "import_check": "PASS"
+    }
+  },
+  "scientific_invariants_preserved": [
+    "MSE reference run: RUN_TR_S14_0023_A711A9B8",
+    "Huber run: RUN_TR_S15_0024_9420CDD7",
+    "Huber best epoch: 12",
+    "Stored Huber RMSE: 58.680985170839044",
+    "Stored Huber MAE: 26.97820227679493",
+    "Stored Huber R2: 0.5952706605937734",
+    "Tolerance: 1e-9",
+    "Test access: FORBIDDEN"
+  ],
+  "test_access": "FORBIDDEN",
+  "training_executed": false,
+  "phase_37_finalized": true,
+  "phase_38_approved": true
+}

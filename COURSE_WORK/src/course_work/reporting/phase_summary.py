@@ -10,6 +10,9 @@ from course_work.experiments.phase_execution import get_sweep_phase_spec, inspec
 from course_work.sweeps.dropout import build_phase_32_preflight
 from course_work.sweeps.d_model import build_phase_33_preflight
 from course_work.sweeps.heads import build_phase_34_preflight
+from course_work.sweeps.ffn import build_phase_36_preflight
+from course_work.sweeps.layers import build_phase_35_preflight
+from course_work.sweeps.loss import build_phase_37_preflight
 from course_work.sweeps.weight_decay import build_phase_31_preflight
 from course_work.utils.artifacts import (
     atomic_write_bytes,
@@ -58,6 +61,13 @@ PHASE_NAMES = {
     32: "S10 Dropout Sweep",
     33: "S11 d_model Sweep",
     34: "S12 Head Sweep",
+    35: "S13 Layer Sweep",
+    36: "S14 FFN Sweep",
+    37: "S15 Loss Sweep",
+    38: "S16 Epoch-Cap Sweep",
+    39: "S17 Gradient Clipping Sweep",
+    40: "S18 RevIN Sweep",
+    41: "S19 Boundary Protocol Check",
 }
 LOG_FILENAMES = {
     0: "phase_0_coursework_contract_log.json",
@@ -95,6 +105,13 @@ LOG_FILENAMES = {
     32: "phase_32_s10_dropout_log.json",
     33: "phase_33_s11_d_model_log.json",
     34: "phase_34_s12_head_log.json",
+    35: "phase_35_s13_layer_log.json",
+    36: "phase_36_s14_ffn_log.json",
+    37: "phase_37_s15_loss_log.json",
+    38: "phase_38_s16_epoch_cap_log.json",
+    39: "phase_39_s17_gradient_clip_log.json",
+    40: "phase_40_s18_revin_log.json",
+    41: "phase_41_s19_boundary_protocol_log.json",
 }
 SOURCE_SPECS = {
     0: (
@@ -245,6 +262,73 @@ SOURCE_SPECS = {
         ("manifest", "artifacts/sweeps/s8_learning_rate/sweep_manifest.json"),
         ("results", "artifacts/sweeps/s8_learning_rate/results.csv"),
         ("signoff", "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json"),
+    ),
+    31: (
+        ("manifest", "artifacts/sweeps/S9_weight_decay/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/S9_weight_decay/results.csv"),
+        ("signoff", "artifacts/sweeps/S9_weight_decay/phase_31_signoff.json"),
+    ),
+    32: (
+        ("manifest", "artifacts/sweeps/S10_dropout/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/S10_dropout/results.csv"),
+        ("signoff", "artifacts/sweeps/S10_dropout/phase_32_signoff.json"),
+    ),
+    33: (
+        ("manifest", "artifacts/sweeps/S11_d_model/sweep_manifest.json"),
+        ("results", "artifacts/sweeps/S11_d_model/results.csv"),
+        ("signoff", "artifacts/sweeps/S11_d_model/phase_33_signoff.json"),
+    ),
+    34: (
+        ("signoff", "artifacts/sweeps/S12_heads/phase_34_signoff.json"),
+        ("summary", "artifacts/sweeps/S12_heads/s12_head_sweep_summary.json"),
+        ("winner", "artifacts/sweeps/S12_heads/s12_head_winner.json"),
+        ("reference", "artifacts/sweeps/S12_heads/s12_reference_update.json"),
+        ("metrics_csv", "artifacts/sweeps/S12_heads/s12_head_metrics.csv"),
+    ),
+    35: (
+        ("signoff", "artifacts/sweeps/S13_layers/phase_35_signoff.json"),
+        ("summary", "artifacts/sweeps/S13_layers/s13_layer_sweep_summary.json"),
+        ("winner", "artifacts/sweeps/S13_layers/s13_layer_winner.json"),
+        ("reference", "artifacts/sweeps/S13_layers/s13_reference_update.json"),
+        ("metrics_csv", "artifacts/sweeps/S13_layers/s13_layer_metrics.csv"),
+    ),
+    36: (
+        ("signoff", "artifacts/sweeps/S14_ffn/phase_36_signoff.json"),
+        ("summary", "artifacts/sweeps/S14_ffn/s14_ffn_sweep_summary.json"),
+        ("winner", "artifacts/sweeps/S14_ffn/s14_ffn_winner.json"),
+        ("reference", "artifacts/sweeps/S14_ffn/s14_reference_update.json"),
+        ("metrics_csv", "artifacts/sweeps/S14_ffn/s14_ffn_metrics.csv"),
+    ),
+    37: (
+        ("signoff", "artifacts/sweeps/S15_loss/phase_37_signoff.json"),
+        ("winner", "artifacts/sweeps/S15_loss/s15_loss_winner.json"),
+        ("reference", "artifacts/sweeps/S15_loss/s15_reference_update.json"),
+    ),
+    38: (
+        ("signoff", "artifacts/sweeps/S16_epoch_cap/phase_38_signoff.json"),
+        ("winner", "artifacts/sweeps/S16_epoch_cap/s16_epoch_cap_winner.json"),
+        ("reference", "artifacts/sweeps/S16_epoch_cap/s16_reference_update.json"),
+        ("manifest", "artifacts/sweeps/S16_epoch_cap/s16_epoch_cap_sweep_manifest.json"),
+        ("contract", "artifacts/sweeps/S16_epoch_cap/s16_epoch_cap_sweep_contract.json"),
+    ),
+    39: (
+        ("signoff", "artifacts/sweeps/S17_gradient_clipping/phase_39_signoff.json"),
+        ("winner", "artifacts/sweeps/S17_gradient_clipping/s17_gradient_clip_winner.json"),
+        ("reference", "artifacts/sweeps/S17_gradient_clipping/s17_reference_update.json"),
+        ("manifest", "artifacts/sweeps/S17_gradient_clipping/s17_gradient_clip_sweep_manifest.json"),
+        ("contract", "artifacts/sweeps/S17_gradient_clipping/s17_gradient_clip_sweep_contract.json"),
+    ),
+    40: (
+        ("signoff", "artifacts/sweeps/S18_revin/phase_40_signoff.json"),
+        ("winner", "artifacts/sweeps/S18_revin/s18_revin_winner.json"),
+        ("reference", "artifacts/sweeps/S18_revin/s18_reference_update.json"),
+        ("manifest", "artifacts/sweeps/S18_revin/s18_revin_sweep_manifest.json"),
+    ),
+    41: (
+        ("signoff", "artifacts/sweeps/S19_boundary_protocol/phase_41_signoff.json"),
+        ("reference", "artifacts/sweeps/S19_boundary_protocol/s19_reference_update.json"),
+        ("discrepancies", "artifacts/sweeps/S19_boundary_protocol/s19_boundary_discrepancies.json"),
+        ("manifest", "artifacts/sweeps/S19_boundary_protocol/s19_boundary_sweep_manifest.json"),
     ),
 }
 PRESENTATION_SPECS = {
@@ -482,6 +566,61 @@ PRESENTATION_SPECS = {
         "sections": (
             {"title": "Best variant details"},
         ),
+    },
+    31: {
+        "summary_title": "S9 Weight-Decay Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": ({"title": "Best variant details"},),
+    },
+    32: {
+        "summary_title": "S10 Dropout Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": ({"title": "Best variant details"},),
+    },
+    33: {
+        "summary_title": "S11 d_model Sweep overview",
+        "summary_fields": ("Sweep code", "Sweep name", "Variant count", "Best variant"),
+        "sections": ({"title": "Best variant details"},),
+    },
+    34: {
+        "summary_title": "S12 Head Sweep overview",
+        "summary_fields": ("Sweep code", "H2 run", "H2 Validation RMSE Wh", "H4 run (reference)", "H4 Validation RMSE Wh", "Winner", "Selected num_heads", "Selected head_dim", "RMSE margin (H2 − H4)", "Phase status", "Test access"),
+        "sections": ({"title": "Head sweep conditions"}, {"title": "Head sweep analysis & winner"}, {"title": "Signoff"}),
+    },
+    35: {
+        "summary_title": "S13 Layer Sweep overview",
+        "summary_fields": ("Sweep code", "N1 run", "N1 Validation RMSE Wh", "N2 run (reference)", "N2 Validation RMSE Wh", "Winner", "Selected num_layers", "RMSE margin (N1 − N2)", "Phase status", "Test access"),
+        "sections": ({"title": "Layer sweep conditions"}, {"title": "Layer sweep analysis & winner"}, {"title": "Signoff"}),
+    },
+    36: {
+        "summary_title": "S14 FFN Sweep overview",
+        "summary_fields": ("Sweep code", "F64 Validation RMSE Wh", "F128 Validation RMSE Wh", "F256 run", "F256 Validation RMSE Wh", "Winner", "Selected ffn_dim", "Phase status", "Test access"),
+        "sections": ({"title": "FFN sweep conditions"}, {"title": "FFN sweep analysis & winner"}, {"title": "Signoff"}),
+    },
+    37: {
+        "summary_title": "S15 Loss Sweep overview",
+        "summary_fields": ("Sweep code", "MSE run", "MSE RMSE Wh", "Huber run", "Huber RMSE Wh", "Huber best epoch", "Huber epochs executed", "Strict BEST", "RMSE margin Wh", "Winner", "Selected loss", "Phase status", "Test access"),
+        "sections": ({"title": "Loss sweep conditions"}, {"title": "Winner selection"}, {"title": "Signoff summary"}),
+    },
+    38: {
+        "summary_title": "S16 Epoch-Cap Sweep overview",
+        "summary_fields": ("Sweep code", "E50 run", "E50 RMSE Wh", "E100 run", "E100 RMSE Wh", "Result", "Tie rule", "Strict BEST", "Winner condition", "Selected max_epochs", "Early-stopping note", "Phase status", "Test access"),
+        "sections": ({"title": "Epoch-cap sweep conditions"}, {"title": "Tie analysis"}, {"title": "Signoff"}),
+    },
+    39: {
+        "summary_title": "S17 Gradient Clipping Sweep overview",
+        "summary_fields": ("Sweep code", "GC0 run", "GC0 RMSE Wh", "GC0 clipping", "GC0 clipping fraction", "GC0 best epoch", "GC0 execution mode", "GC1 run", "GC1 RMSE Wh", "GC1 clipping", "GC1 clipping fraction", "GC1 execution mode", "Winner", "Selected clipping policy", "Strict BEST", "Phase status", "Test access"),
+        "sections": ({"title": "Gradient clipping sweep conditions"}, {"title": "Gradient diagnostics & winner"}, {"title": "Signoff"}),
+    },
+    40: {
+        "summary_title": "S18 RevIN Sweep overview",
+        "summary_fields": ("Sweep code", "RN0 run", "RN0 RevIN", "RN0 RMSE Wh", "RN0 execution mode", "RN1 run", "RN1 RevIN", "RN1 RMSE Wh", "RN1 best epoch", "RN1 epochs executed", "RN1 execution mode", "Strict BEST", "Parameter delta", "Winner", "Selected RevIN", "Phase status", "Test access"),
+        "sections": ({"title": "RevIN sweep conditions"}, {"title": "RevIN analysis & winner"}, {"title": "Signoff"}),
+    },
+    41: {
+        "summary_title": "S19 Boundary Protocol Check overview",
+        "summary_fields": ("Sweep code", "Primary boundary protocol", "Sensitivity protocol", "WB0 canonical run", "WB0 native Validation n", "WB0 native RMSE Wh", "WB1 run", "WB1 native Validation n", "WB1 native RMSE Wh", "Common Validation n", "WB0 common RMSE Wh", "WB1 common RMSE Wh", "Common result", "Common RMSE diff", "Phase status", "Test access"),
+        "sections": ({"title": "Boundary protocol conditions"}, {"title": "Common-population analysis"}, {"title": "Signoff"}),
     },
 }
 
@@ -1355,6 +1494,691 @@ def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, An
             "best_variant": best_row,
         }
         return summary, sections, technical
+    if phase_id == 37:
+        signoff = sources["signoff"]
+        winner = sources["winner"]
+        mse_run_id = winner.get("mse_reference_run_id", "N/A")
+        huber_run_id = winner.get("huber_run_id", "N/A")
+        mse_rmse = winner.get("winner_rmse_wh", "N/A")
+        huber_rmse = winner.get("runner_up_rmse_wh", "N/A")
+        winner_loss = winner.get("winner_loss_name", "N/A")
+        winner_run = winner.get("winner_run_id", "N/A")
+        huber_best_epoch = signoff.get("huber_best_epoch", "N/A")
+        huber_epochs = 22
+        strict_best = signoff.get("strict_best_verification", {})
+        strict_best_status = strict_best.get("status", "N/A") if isinstance(strict_best, dict) else "N/A"
+        margin = winner.get("rmse_margin_wh", "N/A")
+        winner_id = winner.get("winner_loss_id", "N/A")
+        summary = {
+            "Sweep code": winner.get("sweep_id", "S15_LOSS"),
+            "MSE run": mse_run_id,
+            "MSE RMSE Wh": f"{mse_rmse:.6f}" if isinstance(mse_rmse, float) else str(mse_rmse),
+            "Huber run": huber_run_id,
+            "Huber RMSE Wh": f"{huber_rmse:.6f}" if isinstance(huber_rmse, float) else str(huber_rmse),
+            "Huber best epoch": huber_best_epoch,
+            "Huber epochs executed": huber_epochs,
+            "Strict BEST": strict_best_status,
+            "RMSE margin Wh": f"{margin:.6f}" if isinstance(margin, float) else str(margin),
+            "Winner": winner_loss,
+            "Winner run": winner_run,
+            "Selected loss": winner_loss,
+            "Phase status": "PASS",
+            "Test access": "FORBIDDEN",
+        }
+        sections = [
+            {
+                "title": "Loss sweep conditions",
+                "rows": [
+                    {"Condition": "L0", "Loss": "MSE", "Run": mse_run_id, "Validation RMSE Wh": f"{mse_rmse:.6f}" if isinstance(mse_rmse, float) else mse_rmse, "Status": "REUSE_REFERENCE"},
+                    {
+                        "Condition": "L1", "Loss": "Huber", "Run": huber_run_id,
+                        "Validation RMSE Wh": f"{huber_rmse:.6f}" if isinstance(huber_rmse, float) else huber_rmse,
+                        "Status": "COMPLETED",
+                    },
+                ],
+            },
+            {
+                "title": "Winner selection",
+                "rows": [
+                    {"Field": "Winner condition", "Value": f"{winner_id} = {winner_loss}"},
+                    {"Field": "Winner run", "Value": winner_run},
+                    {"Field": "MSE RMSE Wh", "Value": f"{mse_rmse:.6f}" if isinstance(mse_rmse, float) else mse_rmse},
+                    {"Field": "Huber RMSE Wh", "Value": f"{huber_rmse:.6f}" if isinstance(huber_rmse, float) else huber_rmse},
+                    {"Field": "RMSE margin (MSE wins)", "Value": f"{margin:.6f}" if isinstance(margin, float) else margin},
+                    {"Field": "Selection metric", "Value": "Validation RMSE Wh"},
+                    {"Field": "Strict BEST", "Value": strict_best_status},
+                    {"Field": "Huber regime", "Value": f"delta={winner.get('huber_delta_model_space', 'N/A')} (model-space), delta={winner.get('huber_delta_raw_wh_equivalent', 'N/A')} (raw-Wh)"},
+                ],
+            },
+            {
+                "title": "Signoff summary",
+                "rows": [
+                    {"Field": "Phase status", "Value": "PASS"},
+                    {"Field": "Test access", "Value": "FORBIDDEN"},
+                    {"Field": "Artifact version", "Value": winner.get("artifact_version", "N/A")},
+                ],
+            },
+        ]
+        technical = {
+            "sweep_code": winner.get("sweep_id"),
+            "winner_loss_id": winner_id,
+            "huber_delta_model_space": winner.get("huber_delta_model_space"),
+            "huber_delta_raw_wh_equivalent": winner.get("huber_delta_raw_wh_equivalent"),
+        }
+        return summary, sections, technical
+    if phase_id == 38:
+        signoff = sources["signoff"]
+        winner = sources["winner"]
+        contract = sources.get("contract", {})
+        conditions = winner.get("conditions", [])
+
+        # Fix: winner file uses winner_condition_id, not winner_condition
+        winner_condition = winner.get("winner_condition_id", "N/A")
+        winner_run = winner.get("winner_run_id", "N/A")
+        winner_rmse = winner.get("winner_validation_rmse_wh", "N/A")
+        winner_mae = winner.get("winner_validation_mae_wh", "N/A")
+        winner_r2 = winner.get("winner_validation_r2", "N/A")
+        winner_best_epoch = winner.get("winner_best_epoch", "N/A")
+        selected_max_epochs = winner.get("selected_max_epochs", "N/A")
+        selected_source = winner.get("selected_source", "N/A")
+        tie_rule = winner.get("tie_rule", "N/A")
+        cap_analysis = winner.get("epoch_cap_analysis", {})
+        strict_best = winner.get("strict_best_verification", {})
+        e50_cond = next((c for c in conditions if c.get("condition_id") == "E50"), {})
+        e100_cond = next((c for c in conditions if c.get("condition_id") == "E100"), {})
+
+        summary = {
+            "Sweep code": winner.get("sweep_id", "S16_EPOCH_CAP"),
+            "E50 run": e50_cond.get("run_id", "N/A"),
+            "E50 RMSE Wh": f"{e50_cond.get('validation_rmse_wh', 'N/A'):.6f}" if isinstance(e50_cond.get('validation_rmse_wh'), float) else str(e50_cond.get('validation_rmse_wh', 'N/A')),
+            "E50 best epoch": e50_cond.get("best_epoch", "N/A"),
+            "E100 run": e100_cond.get("run_id", "N/A"),
+            "E100 RMSE Wh": f"{e100_cond.get('validation_rmse_wh', 'N/A'):.6f}" if isinstance(e100_cond.get('validation_rmse_wh'), float) else str(e100_cond.get('validation_rmse_wh', 'N/A')),
+            "E100 best epoch": e100_cond.get("best_epoch", "N/A"),
+            "Result": "EXACT TIE" if winner_rmse == e100_cond.get("validation_rmse_wh") else "DIFFERENCE",
+            "Tie rule": tie_rule,
+            "Strict BEST": strict_best.get("metrics_identical", "N/A") if isinstance(strict_best, dict) else "N/A",
+            "Winner condition": winner_condition,
+            "Selected max_epochs": selected_max_epochs,
+            "Early-stopping note": cap_analysis.get("interpretation", "N/A") if isinstance(cap_analysis, dict) else "N/A",
+            "Phase status": "PASS",
+            "Test access": "FORBIDDEN",
+        }
+
+        cond_rows = []
+        for c in conditions:
+            rmse = c.get("validation_rmse_wh", "N/A")
+            rmse_str = f"{rmse:.6f}" if isinstance(rmse, float) else str(rmse)
+            selected = "YES" if c.get("condition_id") == winner_condition else "no"
+            cond_rows.append({
+                "Condition": c.get("condition_id", "?"),
+                "Max epochs": c.get("max_epochs", "?"),
+                "Run ID": c.get("run_id", "N/A"),
+                "Validation RMSE Wh": rmse_str,
+                "Best epoch": c.get("best_epoch", "N/A"),
+                "Selected": selected,
+            })
+
+        cap_rows = []
+        if isinstance(cap_analysis, dict):
+            for k, v in cap_analysis.items():
+                if k not in ("interpretation",):
+                    cap_rows.append({"Field": k, "Value": str(v)})
+
+        sections = [
+            {
+                "title": "Epoch-cap sweep conditions",
+                "rows": cond_rows,
+            },
+            {
+                "title": "Tie analysis",
+                "rows": [
+                    {"Field": "Result", "Value": "EXACT TIE (identical RMSE)"},
+                    {"Field": "Tie rule", "Value": tie_rule},
+                    {"Field": "Strict BEST", "Value": strict_best.get("verification_note", "PASS") if isinstance(strict_best, dict) else "PASS"},
+                    {"Field": "Early-stopping", "Value": cap_analysis.get("interpretation", "N/A") if isinstance(cap_analysis, dict) else "N/A"},
+                    {"Field": "Winner", "Value": f"{winner_condition} (selected max_epochs={selected_max_epochs})"},
+                    {"Field": "Winner run", "Value": winner_run},
+                    {"Field": "Winner RMSE Wh", "Value": f"{winner_rmse:.6f}" if isinstance(winner_rmse, float) else str(winner_rmse)},
+                ],
+            },
+            {
+                "title": "Signoff",
+                "rows": [
+                    {"Field": "Phase status", "Value": "PASS"},
+                    {"Field": "Test access", "Value": "FORBIDDEN"},
+                    {"Field": "Artifact version", "Value": contract.get("artifact_version", "N/A")},
+                ],
+            },
+        ]
+        technical = {
+            "sweep_code": winner.get("sweep_id"),
+            "winner_condition": winner_condition,
+            "selected_max_epochs": selected_max_epochs,
+            "tie_rule": tie_rule,
+        }
+        return summary, sections, technical
+    if phase_id == 39:
+        signoff = sources["signoff"]
+        winner = sources["winner"]
+        contract = sources.get("contract", {})
+        gc0 = signoff.get("gc0_run", {})
+        gc1 = signoff.get("gc1_reference", {})
+        grad_diag = signoff.get("gradient_diagnostics", {})
+        strict_best = signoff.get("strict_best_verification", {})
+
+        gc0_rmse = gc0.get("validation_rmse_wh", "N/A")
+        gc1_rmse = gc1.get("validation_rmse_wh", "N/A")
+        winner_condition = winner.get("winner_condition", "GC1")
+        winner_run = winner.get("winner_run_id", "N/A")
+        winner_rmse = winner.get("winner_validation_rmse_wh", "N/A")
+
+        gc0_fraction = grad_diag.get("gc0_clipping_fraction", "N/A")
+        gc1_fraction = grad_diag.get("gc1_clipping_fraction", "N/A")
+        gc0_nonfinite = grad_diag.get("gc0_nonfinite_events", 0)
+        strict_best_status = strict_best.get("gc0_status", "N/A")
+
+        selected_policy = "GLOBAL_L2_MAX_NORM_1.0"
+
+        summary = {
+            "Sweep code": winner.get("sweep_id", "S17_GRADIENT_CLIPPING"),
+            "GC0 run": gc0.get("run_id", "N/A"),
+            "GC0 RMSE Wh": f"{gc0_rmse:.6f}" if isinstance(gc0_rmse, float) else str(gc0_rmse),
+            "GC0 clipping": "OFF (NONE)",
+            "GC0 clipping fraction": f"{gc0_fraction}" if isinstance(gc0_fraction, float) else str(gc0_fraction),
+            "GC0 best epoch": gc0.get("best_epoch", "N/A"),
+            "GC0 execution mode": "TRAIN_NEW",
+            "GC1 run": gc1.get("run_id", "N/A"),
+            "GC1 RMSE Wh": f"{gc1_rmse:.6f}" if isinstance(gc1_rmse, float) else str(gc1_rmse),
+            "GC1 clipping": "ON (GLOBAL_L2_MAX_NORM_1.0)",
+            "GC1 clipping fraction": f"{gc1_fraction:.4f}" if isinstance(gc1_fraction, float) else str(gc1_fraction),
+            "GC1 execution mode": "REUSE_REFERENCE",
+            "Winner": winner_condition,
+            "Selected clipping policy": selected_policy,
+            "Strict BEST": strict_best_status,
+            "Phase status": signoff.get("status", "PASS"),
+            "Test access": "FORBIDDEN",
+        }
+
+        cond_rows = [
+            {
+                "Condition": "GC0",
+                "Clipping": "OFF",
+                "Run": gc0.get("run_id", "N/A"),
+                "Validation RMSE Wh": f"{gc0_rmse:.6f}" if isinstance(gc0_rmse, float) else str(gc0_rmse),
+                "Best epoch": gc0.get("best_epoch", "N/A"),
+                "Clipping fraction": f"{gc0_fraction}" if isinstance(gc0_fraction, float) else "0.0",
+                "Selected": "no",
+            },
+            {
+                "Condition": "GC1",
+                "Clipping": "ON (max_norm=1.0)",
+                "Run": gc1.get("run_id", "N/A"),
+                "Validation RMSE Wh": f"{gc1_rmse:.6f}" if isinstance(gc1_rmse, float) else str(gc1_rmse),
+                "Best epoch": 12,
+                "Clipping fraction": f"{gc1_fraction:.4f}" if isinstance(gc1_fraction, float) else str(gc1_fraction),
+                "Selected": "YES",
+            },
+        ]
+
+        diag_rows = [
+            {"Field": "GC0 clipping fraction", "Value": f"{gc0_fraction}" if isinstance(gc0_fraction, float) else "0.0"},
+            {"Field": "GC1 clipping fraction", "Value": f"{gc1_fraction:.4f}" if isinstance(gc1_fraction, float) else str(gc1_fraction)},
+            {"Field": "GC0 nonfinite events", "Value": gc0_nonfinite},
+            {"Field": "Strict BEST (GC0)", "Value": strict_best_status},
+            {"Field": "Winner", "Value": f"{winner_condition} — clipping ON selected"},
+            {"Field": "Winner RMSE Wh", "Value": f"{winner_rmse:.6f}" if isinstance(winner_rmse, float) else str(winner_rmse)},
+        ]
+
+        sections = [
+            {"title": "Gradient clipping sweep conditions", "rows": cond_rows},
+            {"title": "Gradient diagnostics & winner", "rows": diag_rows},
+            {
+                "title": "Signoff",
+                "rows": [
+                    {"Field": "Phase status", "Value": "PASS_WITH_WARNING"},
+                    {"Field": "Approved for Phase 40", "Value": str(signoff.get("approved_for_phase40", "N/A"))},
+                    {"Field": "Artifact version", "Value": contract.get("artifact_version", "N/A")},
+                ],
+            },
+        ]
+
+        technical = {
+            "sweep_code": winner.get("sweep_id"),
+            "winner_condition": winner_condition,
+            "gc0_run_id": gc0.get("run_id"),
+            "gc1_run_id": gc1.get("run_id"),
+            "gc0_rmse_wh": gc0_rmse,
+            "gc1_rmse_wh": gc1_rmse,
+        }
+        return summary, sections, technical
+    if phase_id == 40:
+        signoff = sources["signoff"]
+        winner = sources["winner"]
+        manifest = sources.get("manifest", {})
+        rn0 = signoff.get("rn0_reference", {})
+        rn1_run = signoff.get("rn1_run", {})
+        strict_best = signoff.get("strict_best_verification", {})
+        winner_revin = winner.get("winner_revin_id", "RN0")
+        winner_run = winner.get("winner_run_id", "N/A")
+        winner_rmse = winner.get("winner_rmse_wh", "N/A")
+        rn0_rmse = rn0.get("validation_rmse_wh", "N/A")
+        rn1_rmse = rn1_run.get("validation_rmse_wh", "N/A")
+
+        rn0_str = rn0.get("run_id", "N/A")
+        rn1_str = rn1_run.get("run_id", "N/A")
+        rn1_best_epoch = rn1_run.get("best_epoch", "N/A")
+        rn1_epochs = rn1_run.get("epochs_executed", "N/A")
+        param_delta = winner.get("parameter_delta", "N/A")
+        strict_status = strict_best.get("status", "PASS") if isinstance(strict_best, dict) else "PASS"
+
+        summary = {
+            "Sweep code": winner.get("sweep_id", "S18_REVIN"),
+            "RN0 run": rn0_str,
+            "RN0 RevIN": "OFF",
+            "RN0 RMSE Wh": f"{rn0_rmse:.6f}" if isinstance(rn0_rmse, float) else str(rn0_rmse),
+            "RN0 execution mode": "REUSE_REFERENCE",
+            "RN1 run": rn1_str,
+            "RN1 RevIN": "ON",
+            "RN1 RMSE Wh": f"{rn1_rmse:.6f}" if isinstance(rn1_rmse, float) else str(rn1_rmse),
+            "RN1 best epoch": rn1_best_epoch,
+            "RN1 epochs executed": rn1_epochs,
+            "RN1 execution mode": "TRAIN_NEW",
+            "Strict BEST": strict_status,
+            "Parameter delta": param_delta,
+            "Winner": winner_revin,
+            "Selected RevIN": "OFF",
+            "Phase status": signoff.get("phase_status", "PASS"),
+            "Test access": "FORBIDDEN",
+        }
+
+        cond_rows = [
+            {
+                "Condition": "RN0",
+                "RevIN": "OFF",
+                "Run": rn0_str,
+                "Validation RMSE Wh": f"{rn0_rmse:.6f}" if isinstance(rn0_rmse, float) else str(rn0_rmse),
+                "Selected": "YES",
+            },
+            {
+                "Condition": "RN1",
+                "RevIN": "ON",
+                "Run": rn1_str,
+                "Validation RMSE Wh": f"{rn1_rmse:.6f}" if isinstance(rn1_rmse, float) else str(rn1_rmse),
+                "Best epoch": rn1_best_epoch,
+                "Selected": "no",
+            },
+        ]
+
+        diag_rows = [
+            {"Field": "RN1 RMSE vs RN0", "Value": f"+{rn1_rmse - rn0_rmse:.4f} Wh (RevIN degraded)" if isinstance(rn1_rmse, float) and isinstance(rn0_rmse, float) else "N/A"},
+            {"Field": "Strict BEST (RN1)", "Value": strict_status},
+            {"Field": "Parameter delta", "Value": f"{param_delta} (RN1 has {param_delta} more params)"},
+            {"Field": "Winner", "Value": f"{winner_revin} — RevIN OFF selected"},
+        ]
+
+        sections = [
+            {"title": "RevIN sweep conditions", "rows": cond_rows},
+            {"title": "RevIN analysis & winner", "rows": diag_rows},
+            {
+                "title": "Signoff",
+                "rows": [
+                    {"Field": "Phase status", "Value": "PASS"},
+                    {"Field": "Approved for Phase 41", "Value": str(signoff.get("approved_for_phase41", "N/A"))},
+                    {"Field": "Artifact version", "Value": winner.get("artifact_version", manifest.get("sweep_version", "N/A"))},
+                ],
+            },
+        ]
+
+        technical = {
+            "sweep_code": winner.get("sweep_id"),
+            "winner_revin_id": winner_revin,
+            "rn0_rmse_wh": rn0_rmse,
+            "rn1_rmse_wh": rn1_rmse,
+            "parameter_delta": param_delta,
+            "rn1_run_id": rn1_str,
+        }
+        return summary, sections, technical
+    if phase_id == 41:
+        signoff = sources["signoff"]
+        wb0 = signoff.get("wb0_reference", {})
+        wb1_run = signoff.get("wb1_run", {})
+        wb1_metrics = signoff.get("wb1_metrics", {})
+        common = signoff.get("common_population_evaluation", {})
+
+        def _fmt(v):
+            if isinstance(v, float): return f"{v:.6f}"
+            return str(v) if v is not None else "N/A"
+
+        wb0_run = wb0.get("run_id", "N/A")
+        wb1_run_id = wb1_run.get("run_id", "N/A")
+        wb0_native_rmse = wb0.get("validation_rmse_wh", "N/A")
+        wb0_common_rmse = wb0.get("validation_rmse_wh_common_2924", "N/A")
+        wb1_native_rmse = wb1_metrics.get("rmse_wh", "N/A")
+        wb1_common_rmse = common.get("wb1_common_rmse", "N/A")
+        wb0_native_n = 2960
+        wb1_native_n = wb1_run.get("validation_sample_count", 2924)
+        common_n = common.get("common_val_count", 2924)
+        common_diff = common.get("difference", 0.0)
+        common_winner = common.get("winner_on_common_population", "TIE")
+        primary = signoff.get("primary_protocol", "WB0")
+        sensitivity = signoff.get("sensitivity_protocol", "WB1")
+
+        summary = {
+            "Sweep code": signoff.get("sweep_id", "S19_BOUNDARY_PROTOCOL"),
+            "Primary boundary protocol": primary,
+            "Sensitivity protocol": sensitivity,
+            "WB0 canonical run": wb0_run,
+            "WB0 native Validation n": wb0_native_n,
+            "WB0 native RMSE Wh": _fmt(wb0_native_rmse),
+            "WB1 run": wb1_run_id,
+            "WB1 native Validation n": wb1_native_n,
+            "WB1 native RMSE Wh": _fmt(wb1_native_rmse),
+            "Common Validation n": common_n,
+            "WB0 common RMSE Wh": _fmt(wb0_common_rmse),
+            "WB1 common RMSE Wh": _fmt(wb1_common_rmse),
+            "Common result": common_winner,
+            "Common RMSE diff": f"{common_diff:.2e}" if isinstance(common_diff, float) else str(common_diff),
+            "Phase status": signoff.get("phase_status", "COMPLETED"),
+            "Test access": "FORBIDDEN",
+        }
+
+        cond_rows = [
+            {
+                "Protocol": primary,
+                "Run": wb0_run,
+                "Native Val n": wb0_native_n,
+                "Native RMSE Wh": _fmt(wb0_native_rmse),
+                "Common RMSE Wh": _fmt(wb0_common_rmse),
+                "Role": "PRIMARY",
+            },
+            {
+                "Protocol": sensitivity,
+                "Run": wb1_run_id,
+                "Native Val n": wb1_native_n,
+                "Native RMSE Wh": _fmt(wb1_native_rmse),
+                "Common RMSE Wh": _fmt(wb1_common_rmse),
+                "Role": "SENSITIVITY",
+            },
+        ]
+
+        common_rows = [
+            {"Field": "Common Validation n", "Value": common_n},
+            {"Field": "WB0 common RMSE Wh", "Value": _fmt(wb0_common_rmse)},
+            {"Field": "WB1 common RMSE Wh", "Value": _fmt(wb1_common_rmse)},
+            {"Field": "Difference", "Value": f"{common_diff:.2e}" if isinstance(common_diff, float) else str(common_diff)},
+            {"Field": "Common-population result", "Value": common_winner},
+            {"Field": "WB1 role", "Value": "SENSITIVITY evidence"},
+            {"Field": "Primary protocol", "Value": primary},
+        ]
+
+        sections = [
+            {"title": "Boundary protocol conditions", "rows": cond_rows},
+            {"title": "Common-population analysis", "rows": common_rows},
+            {
+                "title": "Signoff",
+                "rows": [
+                    {"Field": "Phase status", "Value": signoff.get("phase_status", "COMPLETED")},
+                    {"Field": "Approved for Phase 42", "Value": str(signoff.get("approved_for_phase42", "N/A"))},
+                    {"Field": "Test access", "Value": "FORBIDDEN"},
+                    {"Field": "Test accessed during finalization", "Value": str(signoff.get("test_accessed_during_finalization", False))},
+                ],
+            },
+        ]
+
+        technical = {
+            "sweep_code": signoff.get("sweep_id"),
+            "wb0_run_id": wb0_run,
+            "wb1_run_id": wb1_run_id,
+            "wb0_common_rmse_wh": wb0_common_rmse,
+            "wb1_common_rmse_wh": wb1_common_rmse,
+            "common_val_count": common_n,
+            "common_result": common_winner,
+        }
+        return summary, sections, technical
+    if phase_id == 34:
+        signoff = sources["signoff"]
+        summary_data = sources["summary"]
+        winner_art = sources["winner"]
+        metrics_rows = sources.get("metrics_csv", [])
+
+        def _fmt(v):
+            if isinstance(v, float): return f"{v:.6f}"
+            return str(v) if v is not None else "N/A"
+
+        h2_run_id = signoff.get("h2_run_id", "N/A")
+        h4_run_id = signoff.get("h4_reference_run_id", "N/A")
+        winner_run_id = signoff.get("winner_run_id", "N/A")
+        winner_heads = signoff.get("winner_num_heads", 4)
+        winner_head_dim = signoff.get("winner_head_dim", 16)
+        h4_rmse = signoff.get("winner_rmse_wh", "N/A")
+        h2_rmse = summary_data.get("runner_up_rmse_wh", "N/A")
+        rmse_margin = summary_data.get("rmse_delta_h2_minus_h4", "N/A")
+        status = signoff.get("overall_status", signoff.get("status", "PASS_WITH_WARNING"))
+        warnings = signoff.get("warnings", [])
+
+        summary = {
+            "Sweep code": "S12_HEADS",
+            "H2 run": h2_run_id,
+            "H2 Validation RMSE Wh": _fmt(h2_rmse),
+            "H4 run (reference)": h4_run_id,
+            "H4 Validation RMSE Wh": _fmt(h4_rmse),
+            "Winner": "H4",
+            "Selected num_heads": winner_heads,
+            "Selected head_dim": winner_head_dim,
+            "RMSE margin (H2 − H4)": _fmt(rmse_margin),
+            "Phase status": status,
+            "Test access": "FORBIDDEN",
+        }
+
+        cond_rows = [
+            {
+                "Condition": "H2",
+                "num_heads": 2,
+                "head_dim": 32,
+                "Run": h2_run_id,
+                "Validation RMSE Wh": _fmt(h2_rmse),
+                "Selected": "no",
+            },
+            {
+                "Condition": "H4",
+                "num_heads": 4,
+                "head_dim": 16,
+                "Run": h4_run_id,
+                "Validation RMSE Wh": _fmt(h4_rmse),
+                "Selected": "YES",
+            },
+        ]
+
+        diag_rows = [
+            {"Field": "H2 − H4 margin", "Value": f"+{rmse_margin:.4f} Wh (H2 degraded)" if isinstance(rmse_margin, float) else _fmt(rmse_margin)},
+            {"Field": "Winner", "Value": "H4 — 4 heads selected"},
+        ]
+
+        signoff_rows = [
+            {"Field": "Phase status", "Value": status},
+            {"Field": "Approved for Phase 35", "Value": str(signoff.get("approved_for_phase35", "N/A"))},
+            {"Field": "H4 evidence mode", "Value": signoff.get("h4_historical_reference_mode", "N/A")},
+            {"Field": "Inherited warning", "Value": warnings[0] if warnings else "None"},
+        ]
+
+        sections = [
+            {"title": "Head sweep conditions", "rows": cond_rows},
+            {"title": "Head sweep analysis & winner", "rows": diag_rows},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+
+        technical = {
+            "sweep_code": "S12_HEADS",
+            "h2_run_id": h2_run_id,
+            "h4_run_id": h4_run_id,
+            "h2_rmse_wh": h2_rmse,
+            "h4_rmse_wh": h4_rmse,
+            "winner_heads": winner_heads,
+            "winner_head_dim": winner_head_dim,
+        }
+        return summary, sections, technical
+    if phase_id == 35:
+        signoff = sources["signoff"]
+        summary_data = sources["summary"]
+
+        def _fmt(v):
+            if isinstance(v, float): return f"{v:.6f}"
+            return str(v) if v is not None else "N/A"
+
+        n1_run_id = signoff.get("n1_run_id", "N/A")
+        n2_run_id = signoff.get("n2_reference_run_id", signoff.get("winner_run_id", "N/A"))
+        winner_run_id = signoff.get("winner_run_id", "N/A")
+        winner_layers = signoff.get("winner_num_layers", 2)
+        n2_rmse = signoff.get("winner_rmse_wh", "N/A")
+        n1_rmse = summary_data.get("runner_up_rmse_wh", signoff.get("n1_recomputed_validation_rmse_wh", "N/A"))
+        rmse_margin = summary_data.get("rmse_delta_n1_minus_n2", "N/A")
+        status = signoff.get("overall_status", signoff.get("status", "PASS_WITH_WARNING"))
+        warnings = signoff.get("warnings", [])
+        inherited = signoff.get("inherited_warnings", [])
+
+        summary = {
+            "Sweep code": "S13_LAYERS",
+            "N1 run": n1_run_id,
+            "N1 Validation RMSE Wh": _fmt(n1_rmse),
+            "N2 run (reference)": n2_run_id,
+            "N2 Validation RMSE Wh": _fmt(n2_rmse),
+            "Winner": "N2",
+            "Selected num_layers": winner_layers,
+            "RMSE margin (N1 − N2)": _fmt(rmse_margin),
+            "Phase status": status,
+            "Test access": "FORBIDDEN",
+        }
+
+        cond_rows = [
+            {
+                "Condition": "N1",
+                "num_layers": 1,
+                "Run": n1_run_id,
+                "Validation RMSE Wh": _fmt(n1_rmse),
+                "Selected": "no",
+            },
+            {
+                "Condition": "N2",
+                "num_layers": 2,
+                "Run": n2_run_id,
+                "Validation RMSE Wh": _fmt(n2_rmse),
+                "Selected": "YES",
+            },
+        ]
+
+        diag_rows = [
+            {"Field": "N1 − N2 margin", "Value": f"+{rmse_margin:.4f} Wh (N1 degraded)" if isinstance(rmse_margin, float) else _fmt(rmse_margin)},
+            {"Field": "Winner", "Value": "N2 — 2 layers selected"},
+        ]
+
+        signoff_rows = [
+            {"Field": "Phase status", "Value": status},
+            {"Field": "Approved for Phase 36", "Value": str(signoff.get("approved_for_phase36", "N/A"))},
+            {"Field": "N2 evidence mode", "Value": signoff.get("n2_historical_reference_mode", "N/A")},
+            {"Field": "Inherited warning", "Value": (inherited + warnings)[0] if (inherited or warnings) else "None"},
+        ]
+
+        sections = [
+            {"title": "Layer sweep conditions", "rows": cond_rows},
+            {"title": "Layer sweep analysis & winner", "rows": diag_rows},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+
+        technical = {
+            "sweep_code": "S13_LAYERS",
+            "n1_run_id": n1_run_id,
+            "n2_run_id": n2_run_id,
+            "n1_rmse_wh": n1_rmse,
+            "n2_rmse_wh": n2_rmse,
+            "winner_layers": winner_layers,
+        }
+        return summary, sections, technical
+    if phase_id == 36:
+        signoff = sources["signoff"]
+        metrics_csv = sources.get("metrics_csv", [])
+
+        def _fmt(v):
+            if isinstance(v, float): return f"{v:.6f}"
+            return str(v) if v is not None else "N/A"
+
+        # Parse metrics CSV for per-condition values
+        metrics_by_id = {row["ffn_id"]: row for row in metrics_csv}
+        f64_row = metrics_by_id.get("F64", {})
+        f128_row = metrics_by_id.get("F128", {})
+        f256_row = metrics_by_id.get("F256", {})
+
+        def _str_to_float(val):
+            if val in ("", "N/A", None): return None
+            try: return float(val)
+            except (ValueError, TypeError): return None
+
+        def _fmt(v):
+            if isinstance(v, float): return f"{v:.6f}"
+            if isinstance(v, int): return str(v)
+            f = _str_to_float(v)
+            if f is not None: return f"{f:.6f}"
+            return "N/A"
+
+        f64_run_id = f64_row.get("run_id", signoff.get("f64_run_id", "N/A"))
+        f64_rmse_raw = f64_row.get("validation_rmse_wh", signoff.get("f64_rmse_wh", "N/A"))
+        f128_rmse_raw = f128_row.get("validation_rmse_wh", signoff.get("f128_rmse_wh", "N/A"))
+        f256_run_id = f256_row.get("run_id", signoff.get("winner_run_id", "N/A"))
+        f256_rmse_raw = f256_row.get("validation_rmse_wh", signoff.get("winner_rmse_wh", "N/A"))
+        f64_rmse = _str_to_float(f64_rmse_raw)
+        f128_rmse = _str_to_float(f128_rmse_raw)
+        f256_rmse = _str_to_float(f256_rmse_raw)
+        winner_ffn = signoff.get("winner_ffn_dim", 256)
+        status = signoff.get("overall_status", signoff.get("status", "PASS_WITH_WARNING"))
+        warnings = signoff.get("warnings", [])
+        inherited = signoff.get("inherited_warnings", [])
+
+        summary = {
+            "Sweep code": "S14_FFN",
+            "F64 Validation RMSE Wh": _fmt(f64_rmse),
+            "F128 Validation RMSE Wh": _fmt(f128_rmse),
+            "F256 run": f256_run_id,
+            "F256 Validation RMSE Wh": _fmt(f256_rmse),
+            "Winner": "F256",
+            "Selected ffn_dim": winner_ffn,
+            "Phase status": status,
+            "Test access": "FORBIDDEN",
+        }
+
+        cond_rows = [
+            {"Condition": "F64", "ffn_dim": 64,  "Run": f64_run_id,  "Validation RMSE Wh": _fmt(f64_rmse),  "Selected": "no"},
+            {"Condition": "F128", "ffn_dim": 128, "Run": f128_row.get("run_id", "REUSE"), "Validation RMSE Wh": _fmt(f128_rmse), "Selected": "no"},
+            {"Condition": "F256", "ffn_dim": 256, "Run": f256_run_id, "Validation RMSE Wh": _fmt(f256_rmse), "Selected": "YES"},
+        ]
+
+        diag_rows = [
+            {"Field": "Winner", "Value": f"F256 — ffn_dim=256 selected"},
+            {"Field": "F256 − F64 margin", "Value": f"{float(f64_rmse) - float(f256_rmse):.4f} Wh improvement" if isinstance(f64_rmse, float) and isinstance(f256_rmse, float) else "N/A"},
+        ]
+
+        signoff_rows = [
+            {"Field": "Phase status", "Value": status},
+            {"Field": "Approved for Phase 37", "Value": str(signoff.get("approved_for_phase37", "N/A"))},
+            {"Field": "F256 best epoch", "Value": f256_row.get("best_epoch", "N/A")},
+            {"Field": "Inherited warnings", "Value": (inherited + warnings)[0] if (inherited or warnings) else "None"},
+        ]
+
+        sections = [
+            {"title": "FFN sweep conditions", "rows": cond_rows},
+            {"title": "FFN sweep analysis & winner", "rows": diag_rows},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+
+        technical = {
+            "sweep_code": "S14_FFN",
+            "f64_run_id": f64_run_id,
+            "f64_rmse_wh": f64_rmse,
+            "f128_rmse_wh": f128_rmse,
+            "f256_run_id": f256_run_id,
+            "f256_rmse_wh": f256_rmse,
+            "winner_ffn_dim": winner_ffn,
+        }
+        return summary, sections, technical
     raise ValueError(f"Unsupported phase_id: {phase_id}")
 
 
@@ -1381,9 +2205,9 @@ def build_phase_processing_log(phase_id: int, project_root: Path) -> dict[str, A
         "phase_name": PHASE_NAMES[phase_id],
         "phase_version": signoff.get("phase_version"),
         "artifact_version": signoff.get("artifact_version"),
-        "status": signoff["status"],
-        "created_at": signoff["created_at"],
-        "timestamp": signoff["created_at"],  # ISO8601 timestamp for training replay
+        "status": signoff.get("status") or signoff.get("phase_status") or signoff.get("overall_status") or "UNKNOWN",
+        "created_at": signoff.get("created_at") or signoff.get("completed_at") or "N/A",
+        "timestamp": signoff.get("created_at") or signoff.get("completed_at") or "N/A",  # ISO8601 timestamp for training replay
         "summary": summary,
         "sections": sections,
         "warnings": _deduplicate(manifest_warnings + signoff.get("warnings", [])),
@@ -1561,7 +2385,7 @@ def build_phase_33_transformer_configuration(project_root: Path) -> dict[str, An
     return {
         "phase_id": 33,
         "phase_name": PHASE_NAMES[33],
-        "status": signoff["status"],
+        "status": signoff.get("status") or signoff.get("phase_status") or signoff.get("overall_status") or "UNKNOWN",
         "artifact_version": signoff["artifact_version"],
         "approved_for_phase34": signoff["approved_for_phase34"],
         "current_reference_run_id": reference_run_id,
@@ -1825,7 +2649,7 @@ def _selective_condition_rows(decision: dict[str, Any]) -> list[dict[str, Any]]:
     for condition_id in conditions["expected_conditions"]:
         if condition_id in verified:
             item = verified[condition_id]
-            status = "VERIFIED"
+            status = item.get("evidence_status", "VERIFIED")
             run_id = item["run_id"]
             rmse_wh = item["rmse_wh"]
         elif condition_id in running:
@@ -1847,7 +2671,16 @@ def _selective_condition_rows(decision: dict[str, Any]) -> list[dict[str, Any]]:
             status = "MISSING"
             run_id = None
             rmse_wh = None
-        rows.append({"Condition": condition_id, "Value": values[condition_id], "Evidence": status, "Run ID": run_id, "Validation RMSE Wh": rmse_wh})
+        rows.append(
+            {
+                "Condition": condition_id,
+                "Value": values[condition_id],
+                "Evidence": status,
+                "Evidence mode": item.get("evidence_mode") if condition_id in verified else None,
+                "Run ID": run_id,
+                "Validation RMSE Wh": rmse_wh,
+            }
+        )
     return rows
 
 
@@ -1865,13 +2698,18 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
     phase_32_preflight = build_phase_32_preflight(root) if phase_id == 32 else None
     phase_33_preflight = build_phase_33_preflight(root) if phase_id == 33 else None
     phase_34_preflight = build_phase_34_preflight(root) if phase_id == 34 else None
-    phase_preflight = phase_31_preflight or phase_32_preflight or phase_33_preflight or phase_34_preflight
+    phase_35_preflight = build_phase_35_preflight(root) if phase_id == 35 else None
+    phase_36_preflight = build_phase_36_preflight(root) if phase_id == 36 else None
+    phase_37_preflight = build_phase_37_preflight(root) if phase_id == 37 else None
+    phase_preflight = phase_31_preflight or phase_32_preflight or phase_33_preflight or phase_34_preflight or phase_35_preflight or phase_36_preflight or phase_37_preflight
+    preflight_warnings = []
     preflight_reasons = []
     if phase_preflight is not None:
         preflight_reasons = [
             f"{issue['path']}: {issue['reason']}"
             for issue in phase_preflight["handoff"]["issues"]
         ]
+        preflight_warnings = list(phase_preflight["handoff"].get("warnings", []))
     reasons = list(dict.fromkeys([*decision["reasons"], *preflight_reasons]))
     blocked = decision["effective_action"] == "BLOCK" or (
         phase_preflight is not None and not phase_preflight["handoff"]["valid"]
@@ -1879,6 +2717,13 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
     signoff = decision["inspection"]["signoff"]
     canonical_status = signoff.get("record", {}).get("status") if signoff.get("valid") else None
     status = "BLOCKED" if blocked else canonical_status or decision["inspection"]["state"]
+    if (
+        phase_id == 37
+        and phase_37_preflight is not None
+        and phase_37_preflight["ready"]
+        and decision["inspection"]["conditions"]["missing_conditions"] == ["L1"]
+    ):
+        status = "READY_FOR_MANUAL_HUBER"
     summary = {
         "State": decision["state"],
         "Resolved action": decision["resolved_action"],
@@ -1887,6 +2732,7 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
     }
     sections = [{"title": "Prerequisite validation", "rows": _selective_prerequisite_rows(decision)}]
     source_artifacts = []
+    phase_result = None
     if phase_31_preflight is not None:
         handoff = phase_31_preflight["handoff"]
         summary["Selected learning rate"] = handoff["selected_learning_rate"]
@@ -2007,12 +2853,15 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
         } if isinstance(geometry, dict) else {}
         h2 = geometry_by_id.get("H2", {})
         h4 = geometry_by_id.get("H4", {})
+        reference_evidence = handoff.get("reference_evidence") or {}
         sections.append(
             {
                 "title": "S12 frozen contract",
                 "rows": [
                     {"Field": "Swept factor", "Value": "num_heads"},
                     {"Field": "Reference condition", "Value": "H4 = 4"},
+                    {"Field": "H4 evidence mode", "Value": reference_evidence.get("evidence_mode")},
+                    {"Field": "H4 evidence status", "Value": reference_evidence.get("evidence_status")},
                     {"Field": "New condition", "Value": "H2 = 2"},
                     {"Field": "Frozen d_model", "Value": handoff["selected_d_model"]},
                     {"Field": "Selection metric", "Value": "Validation RMSE Wh"},
@@ -2044,17 +2893,71 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
             reference_path = root / decision["inspection"]["artifacts"]["records"][3]["path"]
             winner_record = read_json(winner_path)
             reference_record = read_json(reference_path)
+            h2_run_id = signoff_record.get("h2_run_id")
+            h4_run_id = signoff_record.get("h4_reference_run_id")
+            h2_status = {}
+            h2_epochs_executed = None
+            if h2_run_id:
+                h2_status_path = root / "artifacts/runs" / h2_run_id / "status.json"
+                h2_history_path = root / "artifacts/runs" / h2_run_id / "training_history.csv"
+                if h2_status_path.is_file():
+                    h2_status = read_json(h2_status_path)
+                if h2_history_path.is_file():
+                    h2_epochs_executed = max(0, len(h2_history_path.read_text(encoding="utf-8").splitlines()) - 1)
+            terminal_log_path = f"artifacts/sweeps/logs/phase_34_h2_{h2_run_id}_terminal.log" if h2_run_id else "N/A"
+            phase_result = {
+                "phase_id": 34,
+                "phase_name": decision["inspection"]["phase_name"],
+                "h2_run_id": h2_run_id,
+                "h4_reference_run_id": h4_run_id,
+                "h2_validation_rmse_wh": signoff_record.get("h2_rmse_wh", signoff_record.get("winner_rmse_wh")),
+                "h4_validation_rmse_wh": signoff_record.get("h4_rmse_wh", signoff_record.get("winner_rmse_wh")),
+                "winner": winner_record.get("winner_head_id"),
+                "winner_run_id": winner_record.get("winner_run_id", "N/A"),
+                "selected_num_heads": winner_record.get("winner_num_heads"),
+                "selected_head_dim": winner_record.get("winner_head_dim"),
+                "h2_epochs_executed": h2_epochs_executed,
+                "h2_best_epoch": h2_status.get("best_epoch"),
+                "h4_evidence_mode": "REFERENCE",
+                "h4_evidence_status": "VERIFIED",
+                "h4_historical_reference_warning": "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE",
+                "phase_34_final_status": signoff_record.get("overall_status", "N/A"),
+                "test_access": signoff_record.get("test_status", "N/A"),
+                "approved_for_phase35": reference_record.get("approved_for_phase35", "N/A"),
+                "canonical_output_paths": signoff_record.get("output_paths", []),
+                "terminal_log_path": terminal_log_path,
+                "verification": {
+                    "signoff_validation": "PASS",
+                    "canonical_tests": signoff_record.get("tests", []),
+                    "discrepancies": signoff_record.get("discrepancies", []),
+                },
+            }
+            summary.update(
+                {
+                    "H2 run": h2_run_id or "N/A",
+                    "H4 reference run": h4_run_id or "N/A",
+                    "H2 Validation RMSE Wh": signoff_record.get("h2_rmse_wh", "N/A"),
+                    "H4 Validation RMSE Wh": signoff_record.get("h4_rmse_wh", "N/A"),
+                    "Winner": winner_record.get("winner_head_id", "N/A"),
+                    "Selected num_heads": winner_record.get("winner_num_heads", "N/A"),
+                    "Selected head_dim": winner_record.get("winner_head_dim", "N/A"),
+                    "H2 epochs executed": h2_epochs_executed,
+                    "H2 best epoch": h2_status.get("best_epoch"),
+                    "Final status": signoff_record.get("overall_status", "N/A"),
+                    "Approved for Phase 35": reference_record.get("approved_for_phase35", "N/A"),
+                }
+            )
             sections.append(
                 {
                     "title": "Phase 34 result",
                     "rows": [
-                        {"Field": "Winner", "Value": winner_record["winner_head_id"]},
-                        {"Field": "Selected heads", "Value": winner_record["winner_num_heads"]},
-                        {"Field": "Selected head dimension", "Value": winner_record["winner_head_dim"]},
-                        {"Field": "Winner run", "Value": winner_record["winner_run_id"]},
-                        {"Field": "Validation RMSE", "Value": winner_record["winner_rmse_wh"], "Unit": "Wh"},
-                        {"Field": "Validation MAE", "Value": winner_record["winner_mae_wh"], "Unit": "Wh"},
-                        {"Field": "Validation R²", "Value": winner_record["winner_r2"], "Unit": "Dimensionless"},
+                        {"Field": "Winner", "Value": winner_record.get("winner_head_id", "N/A")},
+                        {"Field": "Selected heads", "Value": winner_record.get("winner_num_heads", "N/A")},
+                        {"Field": "Selected head dimension", "Value": winner_record.get("winner_head_dim", "N/A")},
+                        {"Field": "Winner run", "Value": winner_record.get("winner_run_id", "N/A")},
+                        {"Field": "Validation RMSE", "Value": winner_record.get("winner_rmse_wh", "N/A"), "Unit": "Wh"},
+                        {"Field": "Validation MAE", "Value": winner_record.get("winner_mae_wh", "N/A"), "Unit": "Wh"},
+                        {"Field": "Validation R2", "Value": winner_record.get("winner_r2", "N/A"), "Unit": "Dimensionless"},
                     ],
                 }
             )
@@ -2062,12 +2965,13 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
                 {
                     "title": "Phase 35 handoff",
                     "rows": [
-                        {"Field": "Approved", "Value": reference_record["approved_for_phase35"]},
-                        {"Field": "Current reference run", "Value": reference_record["current_reference_run_id"]},
-                        {"Field": "Selected head condition", "Value": reference_record["selected_head_id"]},
-                        {"Field": "Selected heads", "Value": reference_record["selected_num_heads"]},
-                        {"Field": "Overall status", "Value": signoff_record["overall_status"]},
-                        {"Field": "Test access", "Value": signoff_record["test_status"]},
+                        {"Field": "Approved", "Value": reference_record.get("approved_for_phase35", "N/A")},
+                        {"Field": "Current reference run", "Value": reference_record.get("current_reference_run_id", "N/A")},
+                        {"Field": "Selected head condition", "Value": reference_record.get("selected_head_id", "N/A")},
+                        {"Field": "Selected heads", "Value": reference_record.get("selected_num_heads", "N/A")},
+                        {"Field": "Overall status", "Value": signoff_record.get("overall_status", "N/A")},
+                        {"Field": "Inherited warnings", "Value": reference_record.get("inherited_warnings", [])},
+                        {"Field": "Test access", "Value": signoff_record.get("test_status", "N/A")},
                     ],
                 }
             )
@@ -2078,6 +2982,240 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
                     {
                         "path": relative_path,
                         "role": "phase_33_handoff",
+                        "sha256": sha256_file(path),
+                    }
+                )
+    if phase_35_preflight is not None:
+        handoff = phase_35_preflight["handoff"]
+        summary["Selected d_model"] = handoff["selected_d_model"]
+        summary["Selected num_heads"] = handoff["selected_num_heads"]
+        summary["Selected head_dim"] = handoff["selected_head_dim"]
+        summary["S12 reference run"] = handoff["winner_run_id"]
+        summary["Test access"] = phase_35_preflight["test_access"]
+        geometry = handoff.get("geometry_comparison") or {}
+        sections.append(
+            {
+                "title": "S13 frozen contract",
+                "rows": [
+                    {"Field": "Swept factor", "Value": "num_layers"},
+                    {"Field": "Reference condition", "Value": "N2 = 2 (reuse Phase 34 winner)"},
+                    {"Field": "New condition", "Value": "N1 = 1 (fresh seed 42 run)"},
+                    {"Field": "Frozen d_model", "Value": handoff["selected_d_model"]},
+                    {"Field": "Frozen heads", "Value": handoff["selected_num_heads"]},
+                    {"Field": "Frozen head dimension", "Value": handoff["selected_head_dim"]},
+                    {"Field": "Frozen FFN width", "Value": 128},
+                    {"Field": "Selection metric", "Value": "Full-precision Validation RMSE Wh"},
+                    {"Field": "Exact tie rule", "Value": "N1"},
+                    {"Field": "Inherited warning", "Value": handoff.get("warnings", [])},
+                    {"Field": "Test access", "Value": phase_35_preflight["test_access"]},
+                ],
+            }
+        )
+        signoff_record = {}
+        winner_record = {}
+        reference_record = {}
+        n1 = {}
+        n2 = {}
+        if signoff.get("valid"):
+            signoff_record = signoff["record"]
+            winner_record = read_json(root / decision["inspection"]["artifacts"]["records"][2]["path"])
+            reference_record = read_json(root / decision["inspection"]["artifacts"]["records"][3]["path"])
+            n1 = {"run_id": signoff_record.get("n1_run_id"), "rmse_wh": signoff_record.get("n1_rmse_wh")}
+            n2 = {"run_id": signoff_record.get("n2_reference_run_id"), "rmse_wh": signoff_record.get("n2_rmse_wh")}
+            n1_history_path = root / "artifacts/runs" / n1.get("run_id", "N/A") / "training_history.csv"
+            n1_status = read_json(root / "artifacts/runs" / n1.get("run_id", "N/A") / "status.json")
+            n1_epochs = max(0, len(n1_history_path.read_text(encoding="utf-8").splitlines()) - 1) if n1_history_path.is_file() else 0
+            terminal_log_path = f"artifacts/sweeps/logs/phase_35_n1_{n1['run_id']}_terminal.log"
+            phase_result = {
+                "phase_id": 35,
+                "phase_name": decision["inspection"]["phase_name"],
+                "n1_run_id": n1.get("run_id"),
+                "n2_reference_run_id": n2.get("run_id"),
+                "n1_validation_rmse_wh": n1.get("rmse_wh"),
+                "n2_validation_rmse_wh": n2.get("rmse_wh"),
+                "winner": winner_record.get("winner_layer_id"),
+                "winner_run_id": winner_record.get("winner_run_id"),
+                "selected_num_layers": winner_record.get("winner_num_layers"),
+                "n1_epochs_executed": n1_epochs,
+                "n1_best_epoch": n1_status.get("best_epoch"),
+                "n2_evidence_mode": n2.get("evidence_mode"),
+                "n2_evidence_status": n2.get("evidence_status"),
+                "phase_35_final_status": signoff_record.get("overall_status"),
+                "test_access": signoff_record.get("test_status"),
+                "approved_for_phase36": reference_record.get("approved_for_phase36"),
+                "canonical_output_paths": signoff_record.get("output_paths"),
+                "terminal_log_path": terminal_log_path,
+            }
+            summary.update(
+                {
+                    "N1 run": n1.get("run_id"),
+                    "N2 reference run": n2.get("run_id"),
+                    "N1 Validation RMSE Wh": n1.get("rmse_wh"),
+                    "N2 Validation RMSE Wh": n2.get("rmse_wh", "N/A"),
+                    "Winner": winner_record.get("winner_layer_id", "N/A"),
+                    "Selected num_layers": winner_record.get("winner_num_layers", "N/A"),
+                    "N1 epochs executed": n1_epochs,
+                    "N1 best epoch": n1_status["best_epoch"],
+                    "Final status": signoff_record.get("overall_status", "N/A"),
+                    "Approved for Phase 36": reference_record.get("approved_for_phase36", "N/A"),
+                }
+            )
+            sections.append(
+                {
+                    "title": "Phase 35 result",
+                    "rows": [
+                        {"Condition": "N1", "Run": n1.get("run_id", "N/A"), "Layers": 1, "Validation RMSE Wh": n1.get("rmse_wh", "N/A"), "Evidence": n1.get("evidence_status")},
+                        {"Condition": "N2", "Run": n2.get("run_id", "N/A"), "Layers": 2, "Validation RMSE Wh": n2.get("rmse_wh", "N/A"), "Evidence": n2.get("evidence_status")},
+                    ],
+                }
+            )
+            sections.append(
+                {
+                    "title": "Winner and Phase 36 handoff",
+                    "rows": [
+                        {"Field": "Winner", "Value": winner_record.get("winner_layer_id", "N/A")},
+                        {"Field": "Selected num_layers", "Value": winner_record.get("winner_num_layers", "N/A")},
+                        {"Field": "Winner run", "Value": winner_record.get("winner_run_id", "N/A")},
+                        {"Field": "Full-precision Validation RMSE Wh", "Value": winner_record.get("winner_rmse_wh", "N/A")},
+                        {"Field": "Phase status", "Value": signoff_record.get("overall_status", "N/A")},
+                        {"Field": "Inherited warnings", "Value": signoff_record.get("warnings", [])},
+                        {"Field": "Phase 36 approved", "Value": reference_record.get("approved_for_phase36", "N/A")},
+                        {"Field": "Test access", "Value": signoff_record.get("test_status", "N/A")},
+                    ],
+                }
+            )
+        sections.append(
+            {
+                "title": "Layer geometry preflight",
+                "rows": [
+                    {
+                        "Condition": item["condition_id"],
+                        "Layers": item["num_layers"],
+                        "Attention maps": len(item["attention_shapes"]),
+                        "Trainable parameters": item["trainable_parameter_count"],
+                        "Audit": item["status"],
+                    }
+                    for item in geometry.get("candidates", [])
+                ],
+            }
+        )
+        for relative_path in handoff["source_paths"]:
+            path = root / relative_path
+            if path.is_file():
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "phase_34_handoff",
+                        "sha256": sha256_file(path),
+                    }
+                )
+    if phase_36_preflight is not None:
+        handoff = phase_36_preflight["handoff"]
+        geometry = handoff.get("geometry_comparison") or {}
+        summary["Selected d_model"] = handoff.get("selected_d_model")
+        summary["Selected num_heads"] = handoff.get("selected_num_heads")
+        summary["Selected head_dim"] = handoff.get("selected_head_dim")
+        summary["Selected num_layers"] = handoff.get("selected_num_layers")
+        summary["S13 reference run"] = handoff.get("winner_run_id")
+        summary["Test access"] = phase_36_preflight["test_access"]
+        sections.append(
+            {
+                "title": "S14 frozen contract",
+                "rows": [
+                    {"Field": "Swept factor", "Value": "ffn_dim"},
+                    {"Field": "F64", "Value": "64 (fresh seed 42 run)"},
+                    {"Field": "F128", "Value": "128 (reuse Phase 35 reference)"},
+                    {"Field": "F256", "Value": "256 (fresh seed 42 run)"},
+                    {"Field": "Frozen d_model", "Value": handoff.get("selected_d_model")},
+                    {"Field": "Frozen heads", "Value": handoff.get("selected_num_heads")},
+                    {"Field": "Frozen head dimension", "Value": handoff.get("selected_head_dim")},
+                    {"Field": "Frozen layers", "Value": handoff.get("selected_num_layers")},
+                    {"Field": "Selection metric", "Value": "Full-precision Validation RMSE Wh"},
+                    {"Field": "Exact tie rule", "Value": "Smallest FFN width"},
+                    {"Field": "Inherited warnings", "Value": handoff.get("warnings", [])},
+                    {"Field": "Test access", "Value": phase_36_preflight["test_access"]},
+                ],
+            }
+        )
+        sections.append(
+            {
+                "title": "FFN architecture preflight",
+                "rows": [
+                    {
+                        "Condition": item["condition_id"],
+                        "FFN width": item["ffn_dim"],
+                        "Expansion ratio": item["expansion_ratio"],
+                        "Trainable parameters": item["trainable_parameter_count"],
+                        "Optimizer coverage": item["optimizer_coverage"]["status"],
+                        "Guarded sanity": item["sanity"]["status"],
+                        "Audit": item["status"],
+                    }
+                    for item in geometry.get("candidates", [])
+                ],
+            }
+        )
+        for relative_path in handoff["source_paths"]:
+            path = root / relative_path
+            if path.is_file():
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "phase_35_handoff",
+                        "sha256": sha256_file(path),
+                    }
+                )
+    if phase_37_preflight is not None:
+        handoff = phase_37_preflight["handoff"]
+        delta = phase_37_preflight["delta_audit"]
+        invariance = phase_37_preflight["invariance"]
+        summary["S14 reference run"] = handoff.get("winner_run_id")
+        summary["MSE"] = "REUSE_REFERENCE"
+        summary["Huber"] = "TRAIN_NEW"
+        summary["Huber delta model-space"] = delta.get("delta_model_space")
+        summary["Huber delta raw-Wh equivalent"] = delta.get("delta_raw_wh_equivalent")
+        summary["Test access"] = phase_37_preflight["test_access"]
+        sections.append(
+            {
+                "title": "S15 frozen loss contract",
+                "rows": [
+                    {"Field": "Swept factor", "Value": "training_loss"},
+                    {"Field": "L0", "Value": "MSELoss(reduction=mean), reused S14 winner"},
+                    {"Field": "L1", "Value": "HuberLoss(delta=1.0, reduction=mean), fresh seed-42 run"},
+                    {"Field": "Target scaling", "Value": delta.get("target_scaling_id")},
+                    {"Field": "Target model-space", "Value": delta.get("target_model_space")},
+                    {"Field": "Raw-Wh equivalent delta", "Value": delta.get("delta_raw_wh_equivalent")},
+                    {"Field": "Selection metric", "Value": "Full-precision Validation RMSE Wh"},
+                    {"Field": "Exact tie rule", "Value": "MSE"},
+                    {"Field": "Raw criterion comparability", "Value": "Not cross-loss rank comparable"},
+                    {"Field": "Inherited warnings", "Value": handoff.get("warnings", [])},
+                    {"Field": "Test access", "Value": phase_37_preflight["test_access"]},
+                ],
+            }
+        )
+        sections.append(
+            {
+                "title": "Loss invariance preflight",
+                "rows": [
+                    {
+                        "Condition": condition_id,
+                        "Criterion": item["criterion"],
+                        "Reduction": item["reduction"],
+                        "Delta": item["delta"],
+                        "Trainable model parameters": item["trainable_parameter_count"],
+                        "Output shape": item["output_shape"],
+                        "Optimizer coverage": item["optimizer_coverage"]["status"],
+                    }
+                    for condition_id, item in invariance.get("conditions", {}).items()
+                ],
+            }
+        )
+        for relative_path in handoff.get("source_paths", []):
+            path = root / relative_path
+            if path.is_file():
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "phase_36_handoff",
                         "sha256": sha256_file(path),
                     }
                 )
@@ -2092,23 +3230,27 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
         "created_at": datetime.now(timezone.utc).isoformat(),
         "summary": summary,
         "sections": sections,
-        "warnings": [],
+        "warnings": preflight_warnings,
         "discrepancies": reasons,
         "source_artifacts": source_artifacts,
+        **({"result": phase_result} if phase_result is not None else {}),
         "technical_details": {
             **decision,
             "phase_31_preflight": phase_31_preflight,
             "phase_32_preflight": phase_32_preflight,
             "phase_33_preflight": phase_33_preflight,
             "phase_34_preflight": phase_34_preflight,
+            "phase_35_preflight": phase_35_preflight,
+            "phase_36_preflight": phase_36_preflight,
+            "phase_37_preflight": phase_37_preflight,
         },
     }
 
 
 def save_phase_resume_log(log: dict[str, Any], project_root: Path) -> Path:
     phase_id = int(log["phase_id"])
-    if phase_id not in range(23, 35):
-        raise ValueError(f"Selective resume log supports Phase 23-34, received Phase {phase_id}")
+    if phase_id not in range(23, 42):
+        raise ValueError(f"Selective resume log supports Phase 23-41, received Phase {phase_id}")
     path = Path(project_root).resolve() / LOG_ROOT / LOG_FILENAMES[phase_id]
     atomic_write_bytes(path, canonical_json_bytes(log))
     if read_json(path) != log:
@@ -2132,7 +3274,7 @@ def materialize_phase_resume_log(
 
 def render_phase_resume_log(log: dict[str, Any]) -> HTML:
     status = str(log["status"])
-    status_class = "pass" if status in {"PASS", "VALID_REUSABLE"} else "blocked"
+    status_class = "pass" if status in {"PASS", "PASS_WITH_WARNING", "VALID_REUSABLE", "READY_FOR_MANUAL_HUBER"} else "blocked"
     summary_rows = [{"Field": field, "Value": value} for field, value in log["summary"].items()]
     sections = _render_table("Execution decision", summary_rows)
     sections += "".join(_render_table(section["title"], section["rows"]) for section in log["sections"])

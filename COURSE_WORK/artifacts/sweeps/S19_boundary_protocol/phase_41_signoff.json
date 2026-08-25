@@ -1,0 +1,172 @@
+{
+  "phase_id": 41,
+  "phase_name": "S19 Boundary Protocol Check",
+  "phase_version": "PHASE-41-v2",
+  "phase_status": "COMPLETED",
+  "completed_at": "2026-08-25T05:42:00+00:00",
+  "sweep_id": "S19_BOUNDARY_PROTOCOL",
+  "sweep_version": "SWEEP_S19_BOUNDARY-v1",
+  "phase_40_handoff": {
+    "phase_40_signoff_status": "PASS",
+    "approved_for_phase41": true,
+    "winner_run_id": "RUN_TR_S14_0023_A711A9B8",
+    "selected_revin_id": "RN0",
+    "selected_revin_enabled": false,
+    "current_boundary_protocol": "WB0"
+  },
+  "wb0_reference": {
+    "run_id": "RUN_TR_S14_0023_A711A9B8",
+    "validation_rmse_wh": 57.69679988114431,
+    "validation_rmse_wh_common_2924": 56.87018043709572,
+    "execution_mode": "REUSE_REFERENCE",
+    "fresh_training": false
+  },
+  "wb1_run": {
+    "run_id": "RUN_TR_S19_0034_CF8C1FE8",
+    "execution_mode": "TRAIN_NEW",
+    "scientific_training_executed": true,
+    "scientific_run_id_created": true,
+    "checkpoint_created": true,
+    "metrics_computed": true,
+    "test_predictions_generated": false,
+    "test_metrics_computed": false,
+    "recovered_after_metric_registry_fix": true,
+    "recovery_reason": "register_metric expected WB0 count=2960 but WB1 produced n=2924",
+    "recovery_date": "2026-08-25T05:35:00+00:00",
+    "best_epoch": 12,
+    "early_stopping_reason": "patience_exhausted",
+    "max_epochs": 50,
+    "patience": 10,
+    "train_sample_count": 13670,
+    "validation_sample_count": 2924,
+    "test_sample_count": 2925
+  },
+  "wb1_metrics": {
+    "rmse_wh": 56.87018043709572,
+    "mae_wh": 26.612104664565965,
+    "r2": 0.6024044417311543,
+    "r2_status": "DEFINED",
+    "n_samples": 2924,
+    "finite_status": "PASS",
+    "split_id": "VALIDATION",
+    "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+    "metric_version": "METRICS-v1"
+  },
+  "common_population_evaluation": {
+    "common_val_count": 2924,
+    "wb0_common_rmse": 56.87018043709572,
+    "wb1_common_rmse": 56.87018043709572,
+    "difference": 0.0,
+    "winner_on_common_population": "TIE",
+    "note": "WB1 IDs are a strict subset of WB0 IDs (2924 ⊂ 2960). The 36 samples removed by WB1 are the boundary-adjacent samples that degrade WB0's full-population RMSE from 56.87 to 57.70. On the exact same 2924 samples, WB0 and WB1 produce numerically identical RMSE to machine precision."
+  },
+  "primary_protocol": "WB0",
+  "sensitivity_protocol": "WB1",
+  "boundary_factor": "window_boundary_protocol",
+  "winner": "TIE",
+  "inherited_warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ],
+  "populations": {
+    "train": {
+      "wb0_count": 13670,
+      "wb1_count": 13670,
+      "equal": true
+    },
+    "validation": {
+      "wb0_count": 2960,
+      "wb1_count": 2924,
+      "common_count": 2924,
+      "wb0_only_count": 36,
+      "wb1_only_count": 0,
+      "wb1_subset_wb0": true,
+      "removed_rate_pct": 1.2162162162162162
+    },
+    "test": {
+      "wb0_count": 2961,
+      "wb1_count": 2925,
+      "common_count_metadata": 2925,
+      "wb0_only_count_metadata": 36,
+      "wb1_only_count_metadata": 0,
+      "wb1_subset_wb0": true,
+      "removed_rate_pct_metadata": 1.21580547112462
+    }
+  },
+  "common_population_fingerprints": {
+    "common_val_sha256": "9e8c8407cda30c86d73735659107f3461dfabb19401c7c754e1cfbbc0ce8269e",
+    "common_test_sha256_metadata": "49c2abff485062812c41e648b3a718c58ed73b34da1594c81a2526bf468ce887"
+  },
+  "window_fingerprint_audit": {
+    "lookback": 144,
+    "equal_windows_count": 2924,
+    "different_windows_count": 0,
+    "fraction_equal": 1.0,
+    "status": "PASS"
+  },
+  "boundary_context_depth_audit": {
+    "wb0_only_validation_target_count": 36,
+    "previous_split_rows_min": 1,
+    "previous_split_rows_max": 36,
+    "previous_split_rows_mean": 36.0
+  },
+  "training_config_delta_only_window_boundary_protocol": true,
+  "revin_invariance": {
+    "selected_revin_id": "RN0",
+    "wb0_revin_enabled": false,
+    "wb1_revin_enabled": false
+  },
+  "gc_invariance": {
+    "selected_gc_enabled": true,
+    "selected_gc_max_norm": 1.0
+  },
+  "initialization_fairness": "NOT_VERIFIABLE",
+  "sample_order_fairness": "NOT_VERIFIABLE",
+  "wb1_fresh_run_contract": {
+    "fresh_seed": 42,
+    "fresh_loaders": true,
+    "fresh_model": true,
+    "fresh_criterion": true,
+    "fresh_optimizer": true,
+    "no_wb0_checkpoint_load": true,
+    "no_warm_start": true,
+    "no_optimizer_state_reuse": true,
+    "native_val_early_stopping": true,
+    "no_common_pop_reselection": true
+  },
+  "common_pop_evaluator_preflight": "PASS",
+  "dry_run": {
+    "wb0_status": "PASS",
+    "wb1_status": "PASS",
+    "scientific_state_created": false,
+    "test_data_accessed": false
+  },
+  "focused_tests": {
+    "total": 76,
+    "passed": 76,
+    "failed": 0,
+    "status": "PASS"
+  },
+  "audit_only": "PASS",
+  "test_access": "FORBIDDEN",
+  "test_accessed_during_finalization": false,
+  "training_executed_during_finalization": false,
+  "ready_for_wb1_training": true,
+  "approved_for_phase42": true,
+  "phase42_handoff": {
+    "approved": true,
+    "wb0_run_id": "RUN_TR_S14_0023_A711A9B8",
+    "wb1_run_id": "RUN_TR_S19_0034_CF8C1FE8",
+    "selected_revin_id": "RN0",
+    "selected_revin_enabled": false,
+    "primary_protocol": "WB0",
+    "boundary_protocol_winner": "TIE",
+    "factor": "window_boundary_protocol",
+    "common_val_rmse": 56.87018043709572
+  },
+  "corrections_applied": [
+    "Phase 41 WB1 WINDOWPOP corrective: protocol-aware population count validation in build_dataset_suite (datasets.py)",
+    "Phase 41 WB1 METRIC-POPULATION corrective: protocol-aware expected_sample_indices (metrics.py) and boundary_protocol propagation through engine.train (engine.py)",
+    "Phase 41 WB1 METRIC-REGISTRY corrective: protocol-aware register_metric sample count validation (registry.py) and WB1 sample count injection in run_single_condition.py",
+    "Phase 41 WB1 RECOVERY: recover_wb1_run corrected config counts and re-registered metrics for RUN_TR_S19_0034_CF8C1FE8 without retraining"
+  ]
+}
