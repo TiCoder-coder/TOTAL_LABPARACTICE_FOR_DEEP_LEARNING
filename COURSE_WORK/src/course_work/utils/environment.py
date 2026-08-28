@@ -279,8 +279,8 @@ def materialize_phase_1(project_root: Path | None = None) -> dict[str, Any]:
     if existing_count == len(phase_paths):
         return load_validated_environment_signoff(root)
     inventory = environment_inventory(root)
-#    if not inventory["kernel"]["matches_interpreter"]:
-#        raise RuntimeError("Notebook kernel does not match the active interpreter")
+    if not inventory["kernel"]["matches_interpreter"]:
+        raise RuntimeError("Notebook kernel does not match the active interpreter")
     if inventory["default_dtype"] != "torch.float32":
         raise RuntimeError("Default torch dtype must be torch.float32")
     smoke = device_smoke_test()
