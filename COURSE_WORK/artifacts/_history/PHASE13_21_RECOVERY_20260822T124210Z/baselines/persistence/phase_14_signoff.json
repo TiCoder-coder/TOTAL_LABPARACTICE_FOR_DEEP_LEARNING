@@ -39,14 +39,14 @@
   "metric_version": "METRICS-v1",
   "model_id": "PERSISTENCE_LAST_VALUE",
   "output_checksums": {
-    "artifacts/baselines/persistence/README_PERSISTENCE.md": "91aaf84b598912898be790a989563d2d054313f819dbd0ab6e081e53e179a061",
+    "artifacts/baselines/persistence/README_PERSISTENCE.md": "c08b5ca8ae7288a5534c7f2ff2e354426ee01863cb5dd9c595142fbcde0a5739",
     "artifacts/baselines/persistence/persistence_audit.csv": "b26f55cbe9393165dacf16ae0351e978ff2992ab86907fa719c3745f4d0144ba",
-    "artifacts/baselines/persistence/persistence_baseline_summary.json": "6c7aea59946f430b3fe19749786a9b478bdcc7979faac21fc196276f3348892c",
-    "artifacts/baselines/persistence/persistence_discrepancies.json": "bb61f20caa9346afb911d92cf92272fee300766f3fe0c47f639f41e001c0d383",
-    "artifacts/baselines/persistence/persistence_manifest.json": "591ae1b09a885bbce8d40417170e4eb8d31736a45a9be514be088e01249426f0",
+    "artifacts/baselines/persistence/persistence_baseline_summary.json": "dc69ec6f3beecdf4b8a9e5eb184e6aec542ccbb3e6f6a90136db1403883f858b",
+    "artifacts/baselines/persistence/persistence_discrepancies.json": "a5a80241d09cca2fb80588c6557479d5d30f883bcfb8bd85610be9af655b282c",
+    "artifacts/baselines/persistence/persistence_manifest.json": "bc8d4fa29d6d64236d75a85a018a385eb4f531cfcb5f1e0d1b74ad892d7db716",
     "artifacts/baselines/persistence/persistence_unit_tests.csv": "e09c85fd0163c9e5f587d588561729790a27928d432885313633ed3178bcc970",
-    "artifacts/baselines/persistence/persistence_validation_metrics.json": "7b716c80c1ce9a2e92e8457b9de7679adb5e7ad9c5dfc1cad6e99b735cc591b9",
-    "artifacts/baselines/persistence/persistence_validation_predictions.csv": "9c9bff67aa5d101468821d9c763a9c4d79b0ac68fd1562cccf3cb344674b01be"
+    "artifacts/baselines/persistence/persistence_validation_metrics.json": "c8e9e09788057c6cbdc6f8410e5741aea8c2a136ef5246084960266132b0a795",
+    "artifacts/baselines/persistence/persistence_validation_predictions.csv": "7e3dab52285ef82f61a4f8fce721d36d373fe98ccb8375bc945baa7657399131"
   },
   "output_paths": [
     "artifacts/baselines/persistence/persistence_manifest.json",

@@ -1,0 +1,9 @@
+{
+  "lstm_b0_run_id": "RUN_LS_LS_0002_22A25637",
+  "metric_version": "METRICS-v1",
+  "persistence_run_or_artifact": "artifacts/baselines/persistence/persistence_baseline_summary.json",
+  "population_notes": "Validation count is 2960 for WB0.",
+  "shared_task_contract": "UCI Appliances Energy Prediction, Sequence-to-One",
+  "test_status": "FORBIDDEN",
+  "transformer_primary_run_id": "RUN_TR_S14_0023_A711A9B8"
+}

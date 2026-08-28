@@ -1,0 +1,20 @@
+{
+  "boundary_protocol": "WB0",
+  "forecast_task": "UCI Appliances Energy Prediction, Sequence-to-One",
+  "horizon": 1,
+  "metric_version": "METRICS-v1",
+  "phase42_shortlist_fingerprint": "d55056d39ecfe9e3a4168028111e3c14a3aa0935ea0b80f50967481715c1e86a",
+  "primary_validation_metric": "RMSE_Wh",
+  "scaler_checksums": {
+    "target_scaler": "94917a1a2b9a101b"
+  },
+  "selected_feature_variant": "FS2_TF1",
+  "selected_lookback": 144,
+  "selected_target_scaling": "YS1",
+  "selected_time_features": "TF1",
+  "split_version": "SPLIT-v1",
+  "test_locked": true,
+  "transformer_primary_candidate_id": "TR_C0_PRIMARY",
+  "transformer_primary_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "window_population_policy": "WINDOWPOP-v1"
+}

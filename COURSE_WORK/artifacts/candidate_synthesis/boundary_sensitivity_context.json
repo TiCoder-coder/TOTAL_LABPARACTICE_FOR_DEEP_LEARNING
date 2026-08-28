@@ -1,0 +1,16 @@
+{
+  "common_delta_rmse": 0.0,
+  "common_validation_rmse_wb0": 56.87018043709572,
+  "common_validation_rmse_wb1": 56.87018043709572,
+  "common_window_fraction_equal": 1.0,
+  "primary_protocol": "WB0",
+  "protocol_amendment_required": false,
+  "sensitivity_interpretation": "WB0 and WB1 produce identical validation metrics on common population.",
+  "sensitivity_protocol": "WB1",
+  "test_coverage_removed_metadata": 1.21580547112462,
+  "train_population_equal": true,
+  "validation_coverage_removed": 1.2162162162162162,
+  "warnings": [],
+  "wb0_reference_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "wb1_run_id": "RUN_TR_S19_0034_CF8C1FE8"
+}

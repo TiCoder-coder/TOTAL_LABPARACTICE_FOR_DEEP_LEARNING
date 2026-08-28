@@ -180,6 +180,7 @@ class TrainingEngine:
         target_scaler_bundle: dict[str, Any] | None,
         population_fingerprint: str,
         boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
+        evaluate_validation: bool = True,
     ) -> TrainingResult:
         record = self.registry.get_run(run_id)
         config = record["config"]
@@ -315,24 +316,34 @@ class TrainingEngine:
                 data["horizon_steps"],
                 boundary_protocol,
             )
-            _write_heartbeat(epoch, "eval_val_started")
-            sample_idx, y_true, y_pred, val_metric = self._evaluate_loader(
-                model,
-                validation_loader,
-                device,
-                target_option,
-                target_scaler_bundle,
-                run_id,
-                model_id,
-                "VALIDATION",
-                population_fingerprint,
-                data["lookback_steps"],
-                data["horizon_steps"],
-                boundary_protocol,
-            )
+            if evaluate_validation:
+                _write_heartbeat(epoch, "eval_val_started")
+                sample_idx, y_true, y_pred, val_metric = self._evaluate_loader(
+                    model,
+                    validation_loader,
+                    device,
+                    target_option,
+                    target_scaler_bundle,
+                    run_id,
+                    model_id,
+                    "VALIDATION",
+                    population_fingerprint,
+                    data["lookback_steps"],
+                    data["horizon_steps"],
+                    boundary_protocol,
+                )
+            else:
+                sample_idx = np.array([], dtype=np.int64)
+                y_true = np.array([], dtype=np.float64)
+                y_pred = np.array([], dtype=np.float64)
+                val_metric = train_metric
             _write_heartbeat(epoch, "epoch_completed")
 
-            improved = early_stop.update(epoch, val_metric.rmse_wh)
+            improved = (
+                early_stop.update(epoch, val_metric.rmse_wh)
+                if evaluate_validation
+                else epoch == max_epochs
+            )
             if improved:
                 best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
                 best_metric_result = val_metric
@@ -369,7 +380,7 @@ class TrainingEngine:
                     "is_best": improved,
                 }
             )
-            if early_stop.should_stop():
+            if evaluate_validation and early_stop.should_stop():
                 stopped_reason = "EARLY_STOPPING"
                 break
         if best_state is None or best_metric_result is None:

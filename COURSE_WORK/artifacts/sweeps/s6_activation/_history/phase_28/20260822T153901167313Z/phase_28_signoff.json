@@ -13,7 +13,7 @@
   ],
   "output_checksums": {
     "artifacts/sweeps/s6_activation/results.csv": "bcd8e2dcce45fc3ccfbc2d87eb203946ef42ed965e3914980772a4d3643c6e14",
-    "artifacts/sweeps/s6_activation/sweep_manifest.json": "5d353b39745867af67de6680fb142d02744de90bd9aa2ff1e45df2c5c7da79d5"
+    "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
   },
   "output_paths": [
     "artifacts/sweeps/s6_activation/sweep_manifest.json",

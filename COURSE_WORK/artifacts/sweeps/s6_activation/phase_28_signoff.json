@@ -24,9 +24,9 @@
   ],
   "output_checksums": {
     "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
-    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
-    "artifacts/sweeps/s6_activation/s6_reference_update.json": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d",
-    "artifacts/sweeps/s6_activation/sweep_manifest.json": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+    "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
   },
   "output_paths": [
     "artifacts/sweeps/s6_activation/results.csv",

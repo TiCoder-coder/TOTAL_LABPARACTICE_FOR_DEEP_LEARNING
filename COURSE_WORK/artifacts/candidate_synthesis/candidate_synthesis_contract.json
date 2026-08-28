@@ -1,0 +1,8 @@
+{
+  "max_candidates": 3,
+  "no_cartesian_recombination": true,
+  "no_test": true,
+  "no_training": true,
+  "no_validation_evaluation": true,
+  "shortlist_immutable": true
+}

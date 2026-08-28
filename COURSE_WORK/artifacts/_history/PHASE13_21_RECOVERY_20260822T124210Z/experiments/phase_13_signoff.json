@@ -72,7 +72,7 @@
     "artifacts/experiments/sweep_registry.csv"
   ],
   "output_checksums": {
-    "artifacts/experiments/README_EXPERIMENTS.md": "89dad56cbf018d09143611173256ddc7f107c1860e2666bc57be29305085709c",
+    "artifacts/experiments/README_EXPERIMENTS.md": "5c796f80f7557a69de0f518dcf61c329e3e3ec962ae1af777f17cf332b09dbc5",
     "artifacts/experiments/experiment_families.csv": "f70313e270fa012af64286401b44e339c9928b0df82a1a0309efbf00cb4d0ae0"
   },
   "output_paths": [

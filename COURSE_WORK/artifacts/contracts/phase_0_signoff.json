@@ -12,8 +12,8 @@
     "configs/base/coursework_contract.json"
   ],
   "output_checksums": {
-    "artifacts/contracts/coursework_contract.json": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
-    "artifacts/contracts/coursework_contract.sha256": "997ab4c28697f2fce2c7e880827319cc33b92cd1971030de1f38018460ac1404"
+    "artifacts/contracts/coursework_contract.json": "1f9298c92265fb6e02a61272caa1dd151e2372e829c69b2e91f6d2fa22fb84f8",
+    "artifacts/contracts/coursework_contract.sha256": "fedce134ac201b3744853d6907f0067f5341992409dd6258bcd74cf399ee93e4"
   },
   "output_paths": [
     "artifacts/contracts/coursework_contract.json",

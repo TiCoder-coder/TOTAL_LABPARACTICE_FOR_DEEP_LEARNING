@@ -24,9 +24,9 @@
   ],
   "output_checksums": {
     "artifacts/sweeps/s3_target_scaling/results.csv": "665524c0b332d198718a1f21d76c49ebd1a28814139863c9ae14f91dfa452f09",
-    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
-    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5",
-    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json": "dd8139d09c4aad6c80b696b08bf7155f4d2ac46117aa935bcad657d28614d878"
+    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "55344c17c6b48da4473e3a8d9ba83e4c2c28ce77c3315459d3a959e9bc084505",
+    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2f8968065267e5d6ace0834070eb635e9ecb512d77e19f8623b27dc4c47ccd78",
+    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json": "ab34f2505a8f167de47c33cd9e8d7943ddcc2ae55df3ac5eb6a811f8bc96f565"
   },
   "output_paths": [
     "artifacts/sweeps/s3_target_scaling/results.csv",

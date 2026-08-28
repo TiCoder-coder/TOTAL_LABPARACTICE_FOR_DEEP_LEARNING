@@ -19,12 +19,12 @@
   ],
   "metric_version": "METRICS-v1",
   "output_checksums": {
-    "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md": "899c13f58f7466e1ee379d0baaa48d4837104f81ab875a7d814fa79ba01d28bd",
+    "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md": "9b7068d943d5e2fdeb9adb0eb508d3857d807545d51695658318aba2143c4b9e",
     "artifacts/lstm_baseline/lstm_baseline_audit.csv": "4a0a0b18de2de824ffa75860ccee3562c7d939cc457951a0f8a98727afec1170",
-    "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "df4267992b6dbd9cf05f3bf26e71acaeb6b67eddaf81c64f65b05ff522c5ed5a",
-    "artifacts/lstm_baseline/lstm_baseline_run_contract.json": "ffadc0319ef499ea1868d05cc93b621522aa24b124e799e286912d0f725beedd",
+    "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "c021b154678c0bef310a1f7aea49e4e13bc400ee703d40eb3d1fb169ad1d62f1",
+    "artifacts/lstm_baseline/lstm_baseline_run_contract.json": "16b5cfcb42983a50529aacb0f5b92656a3a60436b1944b9d71136e75153cb251",
     "artifacts/lstm_baseline/lstm_baseline_run_summary.csv": "4953db2aa62e72411aaa003ed8ef8c4bdee3e876454edaefb95bde58c5cd34c4",
-    "artifacts/lstm_baseline/lstm_baseline_summary.json": "2d5b55cfc312155f1ce453b3aec82f4925efa3fdc02060a79ece37cda7d0c56c",
+    "artifacts/lstm_baseline/lstm_baseline_summary.json": "ecfd8681c29f36b327c0690770382e7c0fb7572dae437415a4a8815bd429a9a0",
     "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv": "b03b86a716634a4734c26139bcadaae4ab0073c98ffe5f01097d1026355e9bfd",
     "artifacts/runs/RUN_LS_LS_0004_D26C1EC5/checkpoints/best_checkpoint.pt": "d529176c8c627bd046944a1e72ff598c5249dceb030722b09448dd2b18d0bda9",
     "artifacts/runs/RUN_LS_LS_0004_D26C1EC5/metrics/best_validation_metrics.json": "975135519d6b542f75fa24aa75af160e28c201c004df72b21e1722f7ab63ddbc"

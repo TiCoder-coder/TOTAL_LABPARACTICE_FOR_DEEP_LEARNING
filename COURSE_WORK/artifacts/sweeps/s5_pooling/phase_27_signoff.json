@@ -24,9 +24,9 @@
   ],
   "output_checksums": {
     "artifacts/sweeps/s5_pooling/results.csv": "2b1389775490c22357bde8d0626bdbb2ffd7cc18971f0ad86a47941819e71509",
-    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
-    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d",
-    "artifacts/sweeps/s5_pooling/sweep_manifest.json": "9ae60c7b993525992753aa073a8c5fd473044f69d97f9813ce1750915f5a13be"
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "b2ce7864b35f590340c03b44ba622018444546adec7fd6cbcfb3b19986339bd1",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1cab8f4f171ff1110021181a4ce7e4aa686303127dffdd1d197b5738e6ecd2e9",
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json": "13b73ef22dea663107f4e2aa9de8d1ae4d8f1628c735c3dbfdfb008daaa0b1cc"
   },
   "output_paths": [
     "artifacts/sweeps/s5_pooling/results.csv",

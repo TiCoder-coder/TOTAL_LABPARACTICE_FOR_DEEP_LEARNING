@@ -13,7 +13,7 @@
   ],
   "output_checksums": {
     "artifacts/sweeps/s4_lookback/results.csv": "c85b585bf2a4f43419980c1b5024e6815600fe77f5955316dd1659463e8beca7",
-    "artifacts/sweeps/s4_lookback/sweep_manifest.json": "5b37500a8c2ac1286ada9f76e9dc8fa1c9be4e2e2d75069f34ac57269df4bd6b"
+    "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
   },
   "output_paths": [
     "artifacts/sweeps/s4_lookback/sweep_manifest.json",

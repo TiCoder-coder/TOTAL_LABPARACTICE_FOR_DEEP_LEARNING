@@ -1,0 +1,16 @@
+{
+  "artifact_version": "CANDIDATE_SYNTHESIS-v1",
+  "candidate_count": 3,
+  "completed_at": "2026-08-28T08:21:18.464444+00:00",
+  "created_at": "2026-08-28T08:21:18.464444+00:00",
+  "discrepancies": [],
+  "overall_status": "PASS",
+  "phase_id": 42,
+  "phase_name": "Candidate Synthesis",
+  "phase_version": "PHASE-42-v1",
+  "primary_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "ready_for_phase43": true,
+  "status": "PASS",
+  "test_status": "NOT_ACCESSED",
+  "warnings": []
+}

@@ -23,14 +23,14 @@
   "output_checksums": {
     "artifacts/runs/RUN_TR_B0_0010_1CEB611E/checkpoints/best_checkpoint.pt": "bde19132ac02bf476b09d6fe9c9ec940828147887e54cf01afc9bc9513103b6b",
     "artifacts/runs/RUN_TR_B0_0010_1CEB611E/metrics/best_validation_metrics.json": "c42bf8dff8f1745c275057e8cd7ebc9f2195a8bc01d833282d7ea190e215826e",
-    "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md": "b2675bca3520c9db96bd3cc59a50360f98e827f45379b869a4d256d2c69ceace",
+    "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md": "21d8889053d81a2251c6951a9812adf26cdf81e15750de895288e651005d0d66",
     "artifacts/transformer_b0/baseline_comparison_population_audit.csv": "dc7dbe57f2f8fb4a7339562a908a2d95298906a67cb3592ac2afc8393e94ee2c",
     "artifacts/transformer_b0/transformer_b0_audit.csv": "ea4ea7efca672b2aea3e9319c576b7f2f818a1a25f3c6bfcad9c1663643a6a7d",
-    "artifacts/transformer_b0/transformer_b0_discrepancies.json": "3f06a0b4c487ff9fd40473896dfb717732267d0569017e5f7f41ac367bd55f3f",
+    "artifacts/transformer_b0/transformer_b0_discrepancies.json": "c021b154678c0bef310a1f7aea49e4e13bc400ee703d40eb3d1fb169ad1d62f1",
     "artifacts/transformer_b0/transformer_b0_preflight_audit.csv": "ecf58f53c9a745c7a99fa2bcf56c29ab024663d2be9c6bc7e862bd3f76663b75",
-    "artifacts/transformer_b0/transformer_b0_run_contract.json": "510b022688c5fb77ae29d82e57ed7e1138fb01f8b4cf2c8f158f2be95cc2e2fe",
+    "artifacts/transformer_b0/transformer_b0_run_contract.json": "4ab3a8da4d08069c5a01b52324915c996ce239f83942f7680866b09da8660a3d",
     "artifacts/transformer_b0/transformer_b0_run_summary.csv": "281fd0aec1080c137b31652d3d163ad5c8a7a4a18e3efa8b7f8cff30eaebcda2",
-    "artifacts/transformer_b0/transformer_b0_summary.json": "d1bb66c143a9f59b0ba2bc9b2bdb09d914832b00ba8cf1a5950e4a9b7a389a58",
+    "artifacts/transformer_b0/transformer_b0_summary.json": "3b78173962d4f31308fb977a64d708b18fd3ef5aceca049057bc5e6209af0428",
     "artifacts/transformer_b0/transformer_b0_vs_baselines_validation.csv": "dbe1c3d202736ca5d019580dac21f734524252bb7dc80d9a491c7910312e4435"
   },
   "output_paths": [

@@ -1,0 +1,17 @@
+{
+  "candidate_shortlist_frozen_on_signoff": true,
+  "candidate_strategy": "PRIMARY_PLUS_TWO_ONE_FACTOR_LOCAL_ALTERNATIVES",
+  "created_at": "2026-08-28T08:21:18.461936+00:00",
+  "max_transformer_candidates": 3,
+  "new_test_access": 0,
+  "new_training_runs": 0,
+  "new_validation_evaluations": 0,
+  "phase": 42,
+  "ranking_strategy": "LEXICOGRAPHIC_LOCAL_REGRET",
+  "source_phase41_signoff": "artifacts/sweeps/S19_boundary_protocol/phase_41_signoff.json",
+  "source_primary_protocol": "WB0",
+  "source_primary_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "status": "PASS",
+  "test_status": "NOT_ACCESSED",
+  "version": "CANDIDATE_SYNTHESIS-v1"
+}

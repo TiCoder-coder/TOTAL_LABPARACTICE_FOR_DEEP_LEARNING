@@ -23,9 +23,9 @@
   ],
   "output_checksums": {
     "artifacts/sweeps/S10_dropout/s10_dropout_metrics.csv": "e482fae9eab24752b06ea97304f39a72cb5ab4405eefb719ae6261bc5f3b2302",
-    "artifacts/sweeps/S10_dropout/s10_dropout_sweep_manifest.json": "e19639c33c2b26636b16a2a4747e9078df3c3b5bcfd20f32ebe578a75b692ffd",
-    "artifacts/sweeps/S10_dropout/s10_dropout_winner.json": "e788a47d1b00a1d7f10c86c14656fd50cb8f969276ebf73137a9f3f8ee832da5",
-    "artifacts/sweeps/S10_dropout/s10_reference_update.json": "8efc483d6e0b5701129010d8f00e14e914df97c893b9610a773159993feb619e"
+    "artifacts/sweeps/S10_dropout/s10_dropout_sweep_manifest.json": "2e3fbd4752e11a07975193265e639118c7c475de124ccc218e21662437eb8583",
+    "artifacts/sweeps/S10_dropout/s10_dropout_winner.json": "fb43349d37f1731188449ce58f343f54f9c3676d9dd673ed85b6353c645f9fef",
+    "artifacts/sweeps/S10_dropout/s10_reference_update.json": "b29d4122e4c0e9e745a3d01a38f30d00ffb0a1d7b8619db538b88040287947b0"
   },
   "output_paths": [
     "artifacts/sweeps/S10_dropout/s10_dropout_metrics.csv",

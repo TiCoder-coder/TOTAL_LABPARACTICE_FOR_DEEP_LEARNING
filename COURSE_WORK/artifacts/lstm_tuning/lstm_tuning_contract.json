@@ -1,0 +1,12 @@
+{
+  "max_epochs": 50,
+  "patience": 10,
+  "stages": [
+    "LT1",
+    "LT2",
+    "LT3",
+    "LT4",
+    "LT5"
+  ],
+  "unidirectional_lstm_only": true
+}

@@ -1,0 +1,62 @@
+{
+  "candidate_count": 3,
+  "candidates": [
+    {
+      "candidate_config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+      "candidate_id": "TR_C0_PRIMARY",
+      "candidate_role": "PRIMARY",
+      "changed_factor": "NONE",
+      "changed_from": "NONE",
+      "changed_to": "NONE",
+      "evidence_class": "PRIMARY_EXISTING",
+      "exact_existing_run_id": "RUN_TR_S14_0023_A711A9B8",
+      "ready_for_phase44": true,
+      "shortlist_position": 0,
+      "source_local_regret_pct": 0.0,
+      "source_local_regret_wh": 0.0,
+      "source_phase": 41,
+      "source_sweep": "S19",
+      "status": "PASS"
+    },
+    {
+      "candidate_config_fingerprint": "3b08be3ddd51e22ad350dcededcd6f242518a1d2214f0cd634d424ac82920d28",
+      "candidate_id": "TR_C1_ALT_WEIGHT_DECAY",
+      "candidate_role": "LOCAL_ALTERNATIVE",
+      "changed_factor": "weight_decay",
+      "changed_from": "N/A",
+      "changed_to": "WD1",
+      "evidence_class": "LOCAL_ALT_SYNTHESIZED",
+      "exact_existing_run_id": "N/A",
+      "ready_for_phase44": true,
+      "shortlist_position": 1,
+      "source_local_regret_pct": 0.0034892566217627503,
+      "source_local_regret_wh": 0.002026626561459466,
+      "source_phase": 31,
+      "source_sweep": "S9",
+      "status": "PASS"
+    },
+    {
+      "candidate_config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "candidate_role": "LOCAL_ALTERNATIVE",
+      "changed_factor": "lookback",
+      "changed_from": "N/A",
+      "changed_to": "L72",
+      "evidence_class": "LOCAL_ALT_SYNTHESIZED",
+      "exact_existing_run_id": "N/A",
+      "ready_for_phase44": true,
+      "shortlist_position": 2,
+      "source_local_regret_pct": 0.25519472314904534,
+      "source_local_regret_wh": 0.15064877806919696,
+      "source_phase": 26,
+      "source_sweep": "S4",
+      "status": "PASS"
+    }
+  ],
+  "created_at": "2026-08-28T08:21:18.461936+00:00",
+  "phase_id": 42,
+  "phase_name": "Candidate Synthesis",
+  "primary_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "primary_val_rmse": 57.69679988114431,
+  "status": "PASS"
+}

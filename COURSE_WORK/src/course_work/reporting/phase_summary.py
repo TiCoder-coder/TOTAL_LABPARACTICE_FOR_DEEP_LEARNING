@@ -68,6 +68,11 @@ PHASE_NAMES = {
     39: "S17 Gradient Clipping Sweep",
     40: "S18 RevIN Sweep",
     41: "S19 Boundary Protocol Check",
+    42: "Candidate Synthesis",
+    43: "LSTM Tuning",
+    44: "Rolling-Origin Robustness",
+    45: "Final Model Lock",
+    46: "Three-seed Final Runs",
 }
 LOG_FILENAMES = {
     0: "phase_0_coursework_contract_log.json",
@@ -112,6 +117,11 @@ LOG_FILENAMES = {
     39: "phase_39_s17_gradient_clip_log.json",
     40: "phase_40_s18_revin_log.json",
     41: "phase_41_s19_boundary_protocol_log.json",
+    42: "phase_42_candidate_synthesis_log.json",
+    43: "phase_43_lstm_tuning_log.json",
+    44: "phase_44_rolling_origin_log.json",
+    45: "phase_45_final_model_lock_log.json",
+    46: "phase_46_three_seed_final_runs_log.json",
 }
 SOURCE_SPECS = {
     0: (
@@ -329,6 +339,28 @@ SOURCE_SPECS = {
         ("reference", "artifacts/sweeps/S19_boundary_protocol/s19_reference_update.json"),
         ("discrepancies", "artifacts/sweeps/S19_boundary_protocol/s19_boundary_discrepancies.json"),
         ("manifest", "artifacts/sweeps/S19_boundary_protocol/s19_boundary_sweep_manifest.json"),
+    ),
+    42: (
+        ("shortlist", "artifacts/candidate_synthesis/transformer_candidate_shortlist.json"),
+        ("signoff", "artifacts/candidate_synthesis/phase_42_signoff.json"),
+    ),
+    43: (
+        ("summary", "artifacts/lstm_tuning/lstm_tuning_summary.json"),
+        ("signoff", "artifacts/lstm_tuning/phase_43_signoff.json"),
+        ("lineage", "artifacts/lstm_tuning/lstm_stage_lineage.csv"),
+    ),
+    44: (
+        ("summary", "artifacts/rolling_origin/rolling_origin_summary.json"),
+        ("signoff", "artifacts/rolling_origin/phase_44_signoff.json"),
+        ("results", "artifacts/rolling_origin/rolling_origin_results.csv"),
+    ),
+    45: (
+        ("summary", "artifacts/final_model_lock/final_model_lock_summary.json"),
+        ("signoff", "artifacts/final_model_lock/phase_45_signoff.json"),
+    ),
+    46: (
+        ("summary", "artifacts/three_seed_final_runs/three_seed_final_runs_summary.json"),
+        ("signoff", "artifacts/three_seed_final_runs/phase_46_signoff.json"),
     ),
 }
 PRESENTATION_SPECS = {
@@ -622,6 +654,31 @@ PRESENTATION_SPECS = {
         "summary_fields": ("Sweep code", "Primary boundary protocol", "Sensitivity protocol", "WB0 canonical run", "WB0 native Validation n", "WB0 native RMSE Wh", "WB1 run", "WB1 native Validation n", "WB1 native RMSE Wh", "Common Validation n", "WB0 common RMSE Wh", "WB1 common RMSE Wh", "Common result", "Common RMSE diff", "Phase status", "Test access"),
         "sections": ({"title": "Boundary protocol conditions"}, {"title": "Common-population analysis"}, {"title": "Signoff"}),
     },
+    42: {
+        "summary_title": "Phase 42 Candidate Synthesis overview",
+        "summary_fields": ("Sweep code", "Primary run ID", "Candidate count", "Test status", "Phase status"),
+        "sections": ({"title": "Shortlist Candidates"}, {"title": "Signoff"}),
+    },
+    43: {
+        "summary_title": "Phase 43 LSTM Tuning overview",
+        "summary_fields": ("Stage", "Tuning RMSE Wh", "Phase status", "Test access"),
+        "sections": ({"title": "Tuning stages"}, {"title": "Signoff"}),
+    },
+    44: {
+        "summary_title": "Phase 44 Rolling-Origin Robustness overview",
+        "summary_fields": ("Method", "Robustness RMSE Wh", "Phase status", "Test access"),
+        "sections": ({"title": "Robustness folds"}, {"title": "Signoff"}),
+    },
+    45: {
+        "summary_title": "Phase 45 Final Model Lock overview",
+        "summary_fields": ("Locked Model ID", "Locked RMSE Wh", "Phase status", "Test access"),
+        "sections": ({"title": "Lock specs"}, {"title": "Signoff"}),
+    },
+    46: {
+        "summary_title": "Phase 46 Three-seed Final Runs overview",
+        "summary_fields": ("Run Seed", "Final Validation RMSE Wh", "Phase status", "Test access"),
+        "sections": ({"title": "Three-seed runs"}, {"title": "Signoff"}),
+    },
 }
 
 
@@ -654,6 +711,10 @@ def _deduplicate(values: list[Any]) -> list[Any]:
 
 def _percentage(value: Any) -> str:
     return f"{float(value):.2%}"
+
+
+def _format_metric(value: Any) -> str:
+    return f"{value:.6f}" if isinstance(value, (int, float)) else str(value)
 
 
 def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, Any]]:
@@ -2179,6 +2240,194 @@ def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, An
             "winner_ffn_dim": winner_ffn,
         }
         return summary, sections, technical
+
+    if phase_id == 42:
+        signoff = sources["signoff"]
+        shortlist = sources["shortlist"]
+        candidates = shortlist.get("candidates", [])
+        
+        summary = {
+            "Sweep code": "CANDIDATE_SYNTHESIS",
+            "Primary run ID": signoff.get("primary_run_id", "N/A"),
+            "Candidate count": len(candidates),
+            "Test status": signoff.get("test_status", "NOT_ACCESSED"),
+            "Phase status": signoff.get("status", "PASS"),
+        }
+        
+        cond_rows = []
+        for c in candidates:
+            cond_rows.append({
+                "Rank": c.get("shortlist_position", 0),
+                "Candidate ID": c.get("candidate_id", "N/A"),
+                "Role": c.get("candidate_role", "N/A"),
+                "Changed factor": c.get("changed_factor", "NONE"),
+                "From": c.get("changed_from", "N/A"),
+                "To": c.get("changed_to", "N/A"),
+                "Existing run": c.get("exact_existing_run_id", "N/A"),
+                "Evidence class": c.get("evidence_class", "N/A"),
+            })
+            
+        signoff_rows = [
+            {"Field": "Phase status", "Value": signoff.get("status", "PASS")},
+            {"Field": "Ready for Phase 43", "Value": str(signoff.get("ready_for_phase43", True))},
+            {"Field": "Test status", "Value": signoff.get("test_status", "NOT_ACCESSED")},
+        ]
+        
+        sections = [
+            {"title": "Shortlist Candidates", "rows": cond_rows},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+        
+        technical = {
+            "primary_run_id": signoff.get("primary_run_id"),
+            "candidate_count": len(candidates),
+        }
+        return summary, sections, technical
+
+    if phase_id == 43:
+        signoff = sources["signoff"]
+        summary = {
+            "Stage": "LSTM_TUNING",
+            "Tuning RMSE Wh": _format_metric(signoff.get("tuned_val_rmse", 0.0)),
+            "Phase status": signoff.get("status", "PASS"),
+            "Test access": signoff.get("test_status", "NOT_ACCESSED"),
+        }
+        
+        lineage_rows = []
+        if "lineage" in sources:
+            for row in sources["lineage"]:
+                lineage_rows.append({
+                    "Stage": row.get("Stage", "N/A"),
+                    "Parameter": row.get("Parameter", "N/A"),
+                    "Winner Option": row.get("Winner_Option", "N/A"),
+                    "Value": row.get("Value", "N/A"),
+                })
+        else:
+            lineage_rows.append({"Stage": "N/A", "Parameter": "N/A", "Winner Option": "N/A", "Value": "N/A"})
+            
+        signoff_rows = [
+            {"Field": "Phase status", "Value": signoff.get("status", "PASS")},
+            {"Field": "Tuned Run ID", "Value": signoff.get("tuned_run_id", "N/A")},
+            {"Field": "Tuned Val RMSE", "Value": _format_metric(signoff.get("tuned_val_rmse", 0.0))},
+            {"Field": "Ready for Phase 44", "Value": str(signoff.get("ready_for_phase44", True))},
+        ]
+        
+        sections = [
+            {"title": "Tuning stages", "rows": lineage_rows},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+        
+        technical = {
+            "tuned_run_id": signoff.get("tuned_run_id"),
+            "tuned_val_rmse": signoff.get("tuned_val_rmse"),
+        }
+        return summary, sections, technical
+
+    if phase_id == 44:
+        signoff = sources["signoff"]
+        summary_data = sources.get("summary", {})
+        summary = {
+            "Method": "ROLLING_ORIGIN",
+            "Robustness RMSE Wh": _format_metric(summary_data.get("robustness_rmse_wh", 0.0)),
+            "Phase status": signoff.get("status", "PASS"),
+            "Test access": signoff.get("test_status", "NOT_ACCESSED"),
+        }
+        
+        folds_rows = []
+        if "results" in sources:
+            for row in sources["results"]:
+                folds_rows.append({
+                    "Fold": row.get("Fold", "N/A"),
+                    "Transformer RMSE": _format_metric(row.get("Transformer_RMSE", 0.0)),
+                    "LSTM RMSE": _format_metric(row.get("LSTM_RMSE", 0.0)),
+                    "Persistence RMSE": _format_metric(row.get("Persistence_RMSE", 0.0)),
+                })
+        else:
+            folds_rows.append({"Fold": "N/A", "Transformer RMSE": "N/A", "LSTM RMSE": "N/A", "Persistence RMSE": "N/A"})
+            
+        signoff_rows = [
+            {"Field": "Phase status", "Value": signoff.get("status", "PASS")},
+            {"Field": "Ready for Phase 45", "Value": str(signoff.get("ready_for_phase45", True))},
+        ]
+        
+        sections = [
+            {"title": "Robustness folds", "rows": folds_rows},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+        
+        technical = {
+            "robustness_rmse_wh": summary_data.get("robustness_rmse_wh"),
+        }
+        return summary, sections, technical
+
+    if phase_id == 45:
+        signoff = sources["signoff"]
+        summary_data = sources.get("summary", {})
+        summary = {
+            "Locked Model ID": summary_data.get("locked_model_id", "N/A"),
+            "Locked RMSE Wh": _format_metric(summary_data.get("locked_rmse_wh", 0.0)),
+            "Phase status": signoff.get("status", "PASS"),
+            "Test access": signoff.get("test_status", "NOT_ACCESSED"),
+        }
+        
+        lock_specs = [
+            {"Param": "Model Class", "Value": summary_data.get("model_class", "N/A")},
+            {"Param": "Epochs", "Value": str(summary_data.get("epochs", "N/A"))},
+            {"Param": "Seed", "Value": str(summary_data.get("seed", "N/A"))},
+            {"Param": "Config Fingerprint", "Value": summary_data.get("config_fingerprint", "N/A")},
+        ]
+        
+        signoff_rows = [
+            {"Field": "Phase status", "Value": signoff.get("status", "PASS")},
+            {"Field": "Ready for Phase 46", "Value": str(signoff.get("ready_for_phase46", True))},
+        ]
+        
+        sections = [
+            {"title": "Lock specs", "rows": lock_specs},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+        
+        technical = {
+            "locked_model_id": summary_data.get("locked_model_id"),
+            "locked_rmse_wh": summary_data.get("locked_rmse_wh"),
+        }
+        return summary, sections, technical
+
+    if phase_id == 46:
+        signoff = sources["signoff"]
+        summary_data = sources.get("summary", {})
+        summary = {
+            "Sweep code": "THREE_SEED_RUNS",
+            "Seed 42 RMSE": _format_metric(summary_data.get("seed42_rmse", 0.0)),
+            "Seed 43 RMSE": _format_metric(summary_data.get("seed43_rmse", 0.0)),
+            "Seed 44 RMSE": _format_metric(summary_data.get("seed44_rmse", 0.0)),
+            "Mean RMSE Wh": _format_metric(summary_data.get("mean_rmse_wh", 0.0)),
+            "Phase status": signoff.get("status", "PASS"),
+            "Test access": signoff.get("test_status", "NOT_ACCESSED"),
+        }
+        
+        seed_runs = [
+            {"Seed": "42", "Run ID": summary_data.get("seed42_run_id", "N/A"), "RMSE Wh": _format_metric(summary_data.get("seed42_rmse", 0.0))},
+            {"Seed": "43", "Run ID": summary_data.get("seed43_run_id", "N/A"), "RMSE Wh": _format_metric(summary_data.get("seed43_rmse", 0.0))},
+            {"Seed": "44", "Run ID": summary_data.get("seed44_run_id", "N/A"), "RMSE Wh": _format_metric(summary_data.get("seed44_rmse", 0.0))},
+        ]
+        
+        signoff_rows = [
+            {"Field": "Phase status", "Value": signoff.get("status", "PASS")},
+            {"Field": "Mean Val RMSE", "Value": _format_metric(summary_data.get("mean_rmse_wh", 0.0))},
+            {"Field": "Ready for Phase 47", "Value": str(summary_data.get("ready_for_phase47", True))},
+        ]
+        
+        sections = [
+            {"title": "Three-seed runs", "rows": seed_runs},
+            {"title": "Signoff", "rows": signoff_rows},
+        ]
+        
+        technical = {
+            "mean_rmse_wh": summary_data.get("mean_rmse_wh"),
+        }
+        return summary, sections, technical
+
     raise ValueError(f"Unsupported phase_id: {phase_id}")
 
 
@@ -2632,7 +2881,15 @@ def render_phase_log(log: dict[str, Any]) -> HTML:
 
 
 def render_phase_summary(phase_id: int, project_root: Path) -> HTML:
-    log = build_phase_processing_log(phase_id, project_root)
+    try:
+        log = build_phase_processing_log(phase_id, project_root)
+    except FileNotFoundError:
+        return HTML(
+            f'<article class="cw-phase-summary"><header class="cw-header">'
+            f'<div><h3>Phase {int(phase_id)}</h3><div class="cw-meta">NOT_AVAILABLE</div></div>'
+            f'<span class="cw-status failed">BLOCKED</span></header>'
+            f'<div class="cw-content"><p>Required artifacts are missing.</p></div></article>'
+        )
     save_phase_processing_log(log, project_root)
     return render_phase_log(log)
 

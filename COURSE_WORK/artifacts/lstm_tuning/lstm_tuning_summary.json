@@ -1,0 +1,9 @@
+{
+  "created_at": "2026-08-28T08:21:29Z",
+  "phase_id": 43,
+  "ref_run_id": "RUN_LS_LST_0041_E117CD43",
+  "ref_val_rmse": 88.11312069155274,
+  "status": "PASS",
+  "tuned_run_id": "RUN_LS_LST_0049_7B728C6B",
+  "tuned_val_rmse": 76.58898602123719
+}

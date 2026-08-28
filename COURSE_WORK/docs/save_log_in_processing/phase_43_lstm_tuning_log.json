@@ -1,0 +1,105 @@
+{
+  "artifact_version": "LSTM_TUNING-v1",
+  "created_at": "2026-08-28T08:21:29Z",
+  "discrepancies": [],
+  "phase_id": 43,
+  "phase_name": "LSTM Tuning",
+  "phase_version": "PHASE-43-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Parameter": "hidden_size",
+          "Stage": "LT1",
+          "Value": "128",
+          "Winner Option": "LH128"
+        },
+        {
+          "Parameter": "num_layers",
+          "Stage": "LT2",
+          "Value": "1",
+          "Winner Option": "LN1"
+        },
+        {
+          "Parameter": "dropout",
+          "Stage": "LT3",
+          "Value": "0.0",
+          "Winner Option": "LD0"
+        },
+        {
+          "Parameter": "learning_rate",
+          "Stage": "LT4",
+          "Value": "0.001",
+          "Winner Option": "LLR3"
+        },
+        {
+          "Parameter": "weight_decay",
+          "Stage": "LT5",
+          "Value": "0.0001",
+          "Winner Option": "LWD1"
+        }
+      ],
+      "title": "Tuning stages"
+    },
+    {
+      "rows": [
+        {
+          "Field": "Phase status",
+          "Value": "PASS"
+        },
+        {
+          "Field": "Tuned Run ID",
+          "Value": "RUN_LS_LST_0049_7B728C6B"
+        },
+        {
+          "Field": "Tuned Val RMSE",
+          "Value": "76.588986"
+        },
+        {
+          "Field": "Ready for Phase 44",
+          "Value": "True"
+        }
+      ],
+      "title": "Signoff"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/lstm_tuning/lstm_tuning_summary.json",
+      "role": "summary",
+      "sha256": "bbf227f14d9a5d30abeb2e0e8fd22097f0381ff517fa3522138a65f38fe1199e"
+    },
+    {
+      "path": "artifacts/lstm_tuning/phase_43_signoff.json",
+      "role": "signoff",
+      "sha256": "375dac535e13154293c31d94583145217ff8f118528af11a81997c96ada3b5ae"
+    },
+    {
+      "path": "artifacts/lstm_tuning/lstm_stage_lineage.csv",
+      "role": "lineage",
+      "sha256": "44656d1bc5fd44066a76a26db935a09bf9b8a12681eea168ff01d1705290b82a"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Phase status": "PASS",
+    "Stage": "LSTM_TUNING",
+    "Test access": "NOT_ACCESSED",
+    "Tuning RMSE Wh": "76.588986"
+  },
+  "technical_details": {
+    "config_fingerprint": null,
+    "dataset_revision": null,
+    "environment_id": null,
+    "input_checksums": {},
+    "input_paths": [],
+    "output_checksums": {},
+    "output_paths": [],
+    "tests": [],
+    "tuned_run_id": "RUN_LS_LST_0049_7B728C6B",
+    "tuned_val_rmse": 76.58898602123719
+  },
+  "timestamp": "2026-08-28T08:21:29Z",
+  "warnings": []
+}

@@ -1,0 +1,16 @@
+{
+  "artifact_version": "LSTM_TUNING-v1",
+  "completed_at": "2026-08-28T08:21:29Z",
+  "created_at": "2026-08-28T08:21:29Z",
+  "discrepancies": [],
+  "overall_status": "PASS",
+  "phase_id": 43,
+  "phase_name": "LSTM Tuning",
+  "phase_version": "PHASE-43-v1",
+  "ready_for_phase44": true,
+  "status": "PASS",
+  "test_status": "NOT_ACCESSED",
+  "tuned_run_id": "RUN_LS_LST_0049_7B728C6B",
+  "tuned_val_rmse": 76.58898602123719,
+  "warnings": []
+}

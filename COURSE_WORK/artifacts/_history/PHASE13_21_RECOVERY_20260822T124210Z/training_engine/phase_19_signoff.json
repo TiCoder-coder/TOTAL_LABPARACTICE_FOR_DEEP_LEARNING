@@ -17,22 +17,22 @@
     "artifacts/environment/environment_report.json"
   ],
   "output_checksums": {
-    "artifacts/training_engine/README_TRAINING_ENGINE.md": "43dddce660b673a9bb1f1fd80eb9a7db77e0720cb7611dbbaffc7c8cb63e008d",
-    "artifacts/training_engine/checkpoint_schema.json": "13140f95da565e80b40407d0d29183d95a1eaef866fc0f3d4f5f94f3de08631c",
+    "artifacts/training_engine/README_TRAINING_ENGINE.md": "106cddcdff7ffd9dcc935756e6ccb00fbdb54fa4ac563bc985101dc1f04eda18",
+    "artifacts/training_engine/checkpoint_schema.json": "2666f8d58d72b75bbcda0b647b1555e2ff9d2484d43eed6eb999a0276f771f82",
     "artifacts/training_engine/early_stopping_audit.csv": "4bab060062e6017068255e6f65917860932921605726286dca88d9f4fce28533",
     "artifacts/training_engine/training_checkpoint_audit.csv": "61e83c06fef1c30f4b90cfe368801226769e2d8fc785303e724bd1c3aae4692d",
-    "artifacts/training_engine/training_engine_contract.json": "64b41dd639d1a053e96107b44d5af3c883fbd3d112307a04252ec20885099e7e",
-    "artifacts/training_engine/training_engine_discrepancies.json": "14bc180779a368654b1d7a289a3a303a4a5113c427ae92e13ce2d2857b6d485b",
+    "artifacts/training_engine/training_engine_contract.json": "db8731e0635835918dbff89405793bad3da01b4be9147d17bd7fb36d6d473394",
+    "artifacts/training_engine/training_engine_discrepancies.json": "033453a8cb1c68eb1364a4183ab92ca7d263f0a59a6876fac20c6cd154f31b77",
     "artifacts/training_engine/training_engine_implementation_audit.csv": "f80618011796582bd94544829b9c6aca537c025af121127623ad89ba5bb4617d",
-    "artifacts/training_engine/training_engine_manifest.json": "b14948ee5b854b254e5dd2bf179622cda72f94c5748398733ead089a342ba016",
+    "artifacts/training_engine/training_engine_manifest.json": "5f61ba8cbbf5fca4e04300844b5c86b59df245d39dff8a79c725f9b19d93fe8d",
     "artifacts/training_engine/training_engine_unit_tests.csv": "2d49b8f3e2fde2c0907d0d25d8ca9944c1a66e0569c9a2f2052f7a0dd7dd456f",
     "artifacts/training_engine/training_gradient_audit.csv": "3b0ec588fa13d67a446174284f3953bc066a4446dfce6a2c4bc04bf1ef45d7b3",
     "artifacts/training_engine/training_history_audit.csv": "b0d6ef6aa26e5c6db626a22e0e4e4e33c06c2b9fd9650f189312055a9f8f07ff",
-    "artifacts/training_engine/training_history_schema.json": "d8beea2204beae8cc8610ae7fcf7ac3ba71c02d1695d07d81e048ccb2ed91ba1",
+    "artifacts/training_engine/training_history_schema.json": "a7cf9eddd35bf6de3ff5ccd02c77209deb487605629a5d913ffc9393137ba5a5",
     "artifacts/training_engine/training_registry_audit.csv": "d92d2b78b73a4999fe322486c15da4a48b9602ac2191c678c554467f825dfc87",
     "artifacts/training_engine/training_resume_audit.csv": "44ce2b9d82d3c5982ee430806fd3d13bc3905c5fb1e86e66759c25fd6d3a2f23",
-    "artifacts/training_engine/training_run_config_schema.json": "45d7b03be293aadf9284a59ea4d247c5e0a3186443d2095796cb587f5bc8d1c6",
-    "artifacts/training_engine/training_state_schema.json": "3b6b8c51df5fa884eea1ba5899efa1677bfa748ea06fb9b1544f2a764ead4a33"
+    "artifacts/training_engine/training_run_config_schema.json": "6fc4b24e2a8bd9ae5b97e1e49f879a476b773597997bcac5c50dc371e9d8449b",
+    "artifacts/training_engine/training_state_schema.json": "49e11fd084b3bba08ee35d4ff830d79b632eae5994cb08fb9a629e1ea644fccf"
   },
   "output_paths": [
     "artifacts/training_engine/training_engine_manifest.json",

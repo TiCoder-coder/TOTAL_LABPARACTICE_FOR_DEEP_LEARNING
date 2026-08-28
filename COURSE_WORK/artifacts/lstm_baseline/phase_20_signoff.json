@@ -19,15 +19,15 @@
   ],
   "metric_version": "METRICS-v1",
   "output_checksums": {
-    "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md": "899c13f58f7466e1ee379d0baaa48d4837104f81ab875a7d814fa79ba01d28bd",
+    "artifacts/lstm_baseline/README_LSTM_BASELINE_RUN.md": "9b7068d943d5e2fdeb9adb0eb508d3857d807545d51695658318aba2143c4b9e",
     "artifacts/lstm_baseline/lstm_baseline_audit.csv": "376dd9a5fdb5613082b4b418c47717174043b6c0690245facde08f7a246866af",
-    "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "92a3d1b89397d47c61a2d25c3a6152e1158179c3afe29dcae94ea4c1fe81ac8c",
-    "artifacts/lstm_baseline/lstm_baseline_run_contract.json": "ffadc0319ef499ea1868d05cc93b621522aa24b124e799e286912d0f725beedd",
+    "artifacts/lstm_baseline/lstm_baseline_discrepancies.json": "c021b154678c0bef310a1f7aea49e4e13bc400ee703d40eb3d1fb169ad1d62f1",
+    "artifacts/lstm_baseline/lstm_baseline_run_contract.json": "16b5cfcb42983a50529aacb0f5b92656a3a60436b1944b9d71136e75153cb251",
     "artifacts/lstm_baseline/lstm_baseline_run_summary.csv": "709c977fb826ae2d13567b5232c2eacf321f889322fac51c43711e74c0679ba6",
-    "artifacts/lstm_baseline/lstm_baseline_summary.json": "e542d93e9f725dfdd79dc7408aff280336dcdff72845b63c79fee0c4f89bcd5f",
+    "artifacts/lstm_baseline/lstm_baseline_summary.json": "ecfd8681c29f36b327c0690770382e7c0fb7572dae437415a4a8815bd429a9a0",
     "artifacts/lstm_baseline/lstm_vs_persistence_validation.csv": "b0010026c8f716eed35da15ebb1965e5bb7e3fe0fa5d616eef0e7600caa6478e",
     "artifacts/runs/RUN_LS_LS_0002_22A25637/checkpoints/best_checkpoint.pt": "765dfb535441ab7cfaaf38d25e9a2fc970d65a7ad013034393fbcf3259ffe3f1",
-    "artifacts/runs/RUN_LS_LS_0002_22A25637/metrics/best_validation_metrics.json": "cf9457874fc96f2e8a3fd2bb029dbb654889f4e2fce6ff63fe90e36323a6c3c7"
+    "artifacts/runs/RUN_LS_LS_0002_22A25637/metrics/best_validation_metrics.json": "4122b4f2be7a73f9e802abf769cfd1f04bc20901588f39c7a33067b88f1ff302"
   },
   "output_paths": [
     "artifacts/lstm_baseline/lstm_baseline_run_contract.json",

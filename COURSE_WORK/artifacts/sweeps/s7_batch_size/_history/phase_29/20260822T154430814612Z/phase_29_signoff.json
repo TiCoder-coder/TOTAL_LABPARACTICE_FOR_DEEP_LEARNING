@@ -13,7 +13,7 @@
   ],
   "output_checksums": {
     "artifacts/sweeps/s7_batch_size/results.csv": "09674859f07e8b8f09bf7a990ac3f4762a912ea130ea195d841e89a10506e782",
-    "artifacts/sweeps/s7_batch_size/sweep_manifest.json": "92719e7b97da5765d32ea114c8c9e6984671ce0d7e7772a7f044c47643099993"
+    "artifacts/sweeps/s7_batch_size/sweep_manifest.json": "4722b42f136081ad1d8fbd421b3b7242d1ff42bee2dabeaf541279d4bc8f95b6"
   },
   "output_paths": [
     "artifacts/sweeps/s7_batch_size/sweep_manifest.json",

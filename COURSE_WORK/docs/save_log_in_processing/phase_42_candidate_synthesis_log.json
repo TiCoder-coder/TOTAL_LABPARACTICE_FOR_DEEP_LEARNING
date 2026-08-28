@@ -1,0 +1,97 @@
+{
+  "artifact_version": "CANDIDATE_SYNTHESIS-v1",
+  "created_at": "2026-08-28T08:21:18.464444+00:00",
+  "discrepancies": [],
+  "phase_id": 42,
+  "phase_name": "Candidate Synthesis",
+  "phase_version": "PHASE-42-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Candidate ID": "TR_C0_PRIMARY",
+          "Changed factor": "NONE",
+          "Evidence class": "PRIMARY_EXISTING",
+          "Existing run": "RUN_TR_S14_0023_A711A9B8",
+          "From": "NONE",
+          "Rank": 0,
+          "Role": "PRIMARY",
+          "To": "NONE"
+        },
+        {
+          "Candidate ID": "TR_C1_ALT_WEIGHT_DECAY",
+          "Changed factor": "weight_decay",
+          "Evidence class": "LOCAL_ALT_SYNTHESIZED",
+          "Existing run": "N/A",
+          "From": "N/A",
+          "Rank": 1,
+          "Role": "LOCAL_ALTERNATIVE",
+          "To": "WD1"
+        },
+        {
+          "Candidate ID": "TR_C2_ALT_LOOKBACK",
+          "Changed factor": "lookback",
+          "Evidence class": "LOCAL_ALT_SYNTHESIZED",
+          "Existing run": "N/A",
+          "From": "N/A",
+          "Rank": 2,
+          "Role": "LOCAL_ALTERNATIVE",
+          "To": "L72"
+        }
+      ],
+      "title": "Shortlist Candidates"
+    },
+    {
+      "rows": [
+        {
+          "Field": "Phase status",
+          "Value": "PASS"
+        },
+        {
+          "Field": "Ready for Phase 43",
+          "Value": "True"
+        },
+        {
+          "Field": "Test status",
+          "Value": "NOT_ACCESSED"
+        }
+      ],
+      "title": "Signoff"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/candidate_synthesis/transformer_candidate_shortlist.json",
+      "role": "shortlist",
+      "sha256": "b5fdc4278ce171077cf6e7a521afc94b7d54b47fdc562273a07b6ca1ab4430c0"
+    },
+    {
+      "path": "artifacts/candidate_synthesis/phase_42_signoff.json",
+      "role": "signoff",
+      "sha256": "181ff9b248e3ac88b33274b88fd0e2552e563ee74ebf00e81148ca1b3653a44d"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Candidate count": 3,
+    "Phase status": "PASS",
+    "Primary run ID": "RUN_TR_S14_0023_A711A9B8",
+    "Sweep code": "CANDIDATE_SYNTHESIS",
+    "Test status": "NOT_ACCESSED"
+  },
+  "technical_details": {
+    "candidate_count": 3,
+    "config_fingerprint": null,
+    "dataset_revision": null,
+    "environment_id": null,
+    "input_checksums": {},
+    "input_paths": [],
+    "output_checksums": {},
+    "output_paths": [],
+    "primary_run_id": "RUN_TR_S14_0023_A711A9B8",
+    "tests": []
+  },
+  "timestamp": "2026-08-28T08:21:18.464444+00:00",
+  "warnings": []
+}
