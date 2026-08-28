@@ -508,6 +508,39 @@ class TrainingEngine:
                 f"epoch_{result.best_epoch}",
                 status=metric.status,
             )
+        registered_metrics = {
+            item["metric_name"]
+            for item in self.registry.get_run(run_id)["metrics"]
+            if item["split_id"] == "VALIDATION"
+            and item["epoch_or_checkpoint"] == f"epoch_{result.best_epoch}"
+        }
+        missing_metrics = {"mae_wh", "rmse_wh", "r2"} - registered_metrics
+        if missing_metrics:
+            metric_values = {
+                "mae_wh": metric.mae_wh,
+                "rmse_wh": metric.rmse_wh,
+                "r2": metric.r2,
+            }
+            for metric_name in sorted(missing_metrics):
+                self.registry.register_metric(
+                    run_id,
+                    "VALIDATION",
+                    metric_name,
+                    metric_values[metric_name],
+                    metric_unit_for(metric_name),
+                    metric.n_samples,
+                    metric.population_fingerprint,
+                    f"epoch_{result.best_epoch}",
+                    status=metric.status,
+                )
+            registered_metrics = {
+                item["metric_name"]
+                for item in self.registry.get_run(run_id)["metrics"]
+                if item["split_id"] == "VALIDATION"
+                and item["epoch_or_checkpoint"] == f"epoch_{result.best_epoch}"
+            }
+        if {"mae_wh", "rmse_wh", "r2"} - registered_metrics:
+            raise RuntimeError("Validation metric persistence incomplete")
         return paths
 
 

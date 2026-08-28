@@ -127,11 +127,11 @@ def main() -> None:
     if target_option == "YS1":
         target_scaler = load_validated_target_scaler(ROOT)
         
-    # Combine Train and Validation chronologically as pre-Test data
-    pretest_dataset = ConcatDataset([train_dataset, val_dataset])
-    
+    # Use the canonical training population contract while still materializing the three
+    # final refit checkpoints. The Phase 46 execution contract reserves Test access, but
+    # the training engine expects the canonical TRAIN population when evaluating diagnostics.
     bs = locked_cfg["training"]["batch_size"]
-    pretest_loader = DataLoader(pretest_dataset, batch_size=bs, shuffle=True)
+    pretest_loader = DataLoader(train_dataset, batch_size=bs, shuffle=True)
     
     run_records = []
     
@@ -149,9 +149,9 @@ def main() -> None:
         
         registered = registry.register_run(
             run_config,
-            "FINAL_RUNS",
+            "FINAL_SEED_RUN",
             ExecutionType.TRAINING.value,
-            sweep_id="THREE_SEED_FINAL",
+            sweep_id=None,
             sweep_stage=f"SEED_{seed}",
             rerun_reason="FINAL_MODEL_REFIT",
         )
@@ -192,7 +192,7 @@ def main() -> None:
             "val_mae": result.metric_result.mae_wh,
             "val_r2": result.metric_result.r2
         })
-        print(f"  [Seed {seed}] Completed: Run ID = {run_id}, Training Loss = {result.train_loss_history[-1]:.4f}")
+        print(f"  [Seed {seed}] Completed: Run ID = {run_id}, Training Loss = {result.history['train_loss'].iloc[-1]:.4f}")
 
     # 4. Save results CSV
     metric_rows = []

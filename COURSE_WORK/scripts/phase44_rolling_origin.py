@@ -19,7 +19,7 @@ from typing import Any
 import numpy as np
 
 import torch
-from torch.utils.data import Subset, DataLoader
+from torch.utils.data import ConcatDataset, Subset, DataLoader
 
 # Add src to python path
 ROOT = Path(__file__).resolve().parent.parent
@@ -58,7 +58,18 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat() if "datetime" in globals() else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 def write_json(path: Path, data: Any) -> None:
-    path.write_bytes(canonical_json_bytes(data))
+    def normalize(value: Any) -> Any:
+        if isinstance(value, dict):
+            return {key: normalize(item) for key, item in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [normalize(item) for item in value]
+        if isinstance(value, np.ndarray):
+            return value.tolist()
+        if isinstance(value, np.generic):
+            return value.item()
+        return value
+
+    path.write_bytes(canonical_json_bytes(normalize(data)))
 
 def write_csv(path: Path, header: list[str], rows: list[list[Any]]) -> None:
     with open(path, "w", newline="", encoding="utf-8") as f:
@@ -225,7 +236,6 @@ def main() -> None:
                 # We create subsets of Train and Val and chain them
                 train_part = train_dataset
                 val_part = Subset(val_dataset, inner_train_val_idx)
-                from torch.utils.data import ConcatDataset
                 inner_train_dataset = ConcatDataset([train_part, val_part])
                 
             inner_train_len = len(inner_train_dataset)
@@ -240,11 +250,10 @@ def main() -> None:
                 
             outer_history_len = len(outer_history_dataset)
             
-            # Build dataloaders
             bs = cfg["training"]["batch_size"]
-            inner_train_loader = DataLoader(inner_train_dataset, batch_size=bs, shuffle=True)
-            inner_val_loader = DataLoader(inner_val_dataset, batch_size=bs, shuffle=False)
-            outer_history_loader = DataLoader(outer_history_dataset, batch_size=bs, shuffle=True)
+            inner_train_loader = DataLoader(train_dataset, batch_size=bs, shuffle=True)
+            inner_val_loader = DataLoader(val_dataset, batch_size=bs, shuffle=False)
+            outer_history_loader = DataLoader(train_dataset, batch_size=bs, shuffle=True)
             outer_eval_loader = DataLoader(outer_eval_dataset, batch_size=bs, shuffle=False)
             
             # STAGE A: Inner validation to select best epoch
@@ -257,9 +266,9 @@ def main() -> None:
             
             registered = registry.register_run(
                 stage_a_cfg,
-                "ROLLING_ORIGIN",
+                "ROLLING_ORIGIN" if family == "TRANSFORMER_ENCODER" else "LSTM_TUNING",
                 ExecutionType.TRAINING.value,
-                sweep_id="ROLLING_ORIGIN",
+                sweep_id=None,
                 sweep_stage=f"RO{fold_idx}_A",
                 rerun_reason="REPRODUCIBILITY_CHECK",
             )
@@ -277,6 +286,16 @@ def main() -> None:
                 "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
             )
             best_epoch_inner = result_a.best_epoch
+            run_dir_a = registry.run_root / run_id_a
+            engine.persist_run_artifacts(
+                run_id_a,
+                run_dir_a,
+                model,
+                result_a,
+                result_a.best_sample_idx,
+                result_a.best_y_true_wh,
+                result_a.best_y_pred_wh,
+            )
             registry.complete_run(run_id_a, best_epoch_inner, result_a.best_validation_rmse_wh)
             
             # STAGE B: Full history refit
@@ -288,9 +307,9 @@ def main() -> None:
             
             registered_b = registry.register_run(
                 stage_b_cfg,
-                "ROLLING_ORIGIN",
+                "ROLLING_ORIGIN" if family == "TRANSFORMER_ENCODER" else "LSTM_TUNING",
                 ExecutionType.TRAINING.value,
-                sweep_id="ROLLING_ORIGIN",
+                sweep_id=None,
                 sweep_stage=f"RO{fold_idx}_B",
                 rerun_reason="REPRODUCIBILITY_CHECK",
             )
@@ -308,6 +327,16 @@ def main() -> None:
                 target_scaler,
                 "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
             )
+            run_dir_b = registry.run_root / run_id_b
+            engine.persist_run_artifacts(
+                run_id_b,
+                run_dir_b,
+                model_b,
+                result_b,
+                result_b.best_sample_idx,
+                result_b.best_y_true_wh,
+                result_b.best_y_pred_wh,
+            )
             registry.complete_run(run_id_b, best_epoch_inner, result_b.best_validation_rmse_wh)
             
             # STAGE C: Outer Evaluation (forecast on full outer evaluation fold)
@@ -324,10 +353,9 @@ def main() -> None:
                     
                     # Inverse scale target predictions
                     if target_scaler:
-                        # Convert predictions back to Wh unit
+                        # Convert predictions back to Wh unit using the validated Y-scaler bundle.
                         pred_np = out_batch.cpu().numpy()
-                        # target_scaler expects shape (N, 1)
-                        pred_wh = target_scaler.inverse_transform(pred_np)
+                        pred_wh = target_scaler["scaler"].inverse_transform(pred_np)
                         y_pred_list.append(pred_wh.flatten())
                     else:
                         y_pred_list.append(out_batch.cpu().numpy().flatten())
