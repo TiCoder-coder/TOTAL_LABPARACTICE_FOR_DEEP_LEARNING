@@ -1,0 +1,83 @@
+{
+  "artifact_version": "THREE_SEED_FINAL_RUNS-v1",
+  "created_at": "2026-08-29T17:44:45.542696+00:00",
+  "discrepancies": [],
+  "phase_id": 46,
+  "phase_name": "Three-seed Final Runs",
+  "phase_version": "PHASE-46-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "RMSE Wh": "41.705684",
+          "Run ID": "RUN_TR_FSD_0153_B15A19DC",
+          "Seed": "42"
+        },
+        {
+          "RMSE Wh": "39.615442",
+          "Run ID": "RUN_TR_FSD_0154_DD82D743",
+          "Seed": "123"
+        },
+        {
+          "RMSE Wh": "39.890953",
+          "Run ID": "RUN_TR_FSD_0155_59A50ADD",
+          "Seed": "2026"
+        }
+      ],
+      "title": "Three-seed runs"
+    },
+    {
+      "rows": [
+        {
+          "Field": "Phase status",
+          "Value": "PASS"
+        },
+        {
+          "Field": "Mean Val RMSE",
+          "Value": "40.404026"
+        },
+        {
+          "Field": "Ready for Phase 47",
+          "Value": "True"
+        }
+      ],
+      "title": "Signoff"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/three_seed_final_runs/three_seed_final_runs_summary.json",
+      "role": "summary",
+      "sha256": "04ff4c38a1bf8b62a88d07f6a5d4dedc62ceac7b48f6998cdd8f13e97234b5c9"
+    },
+    {
+      "path": "artifacts/three_seed_final_runs/phase_46_signoff.json",
+      "role": "signoff",
+      "sha256": "9ad96cd94771ca3f3bf77f61354375b8a290dc85f68734b4572cb65bdb2a587f"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Mean RMSE Wh": "40.404026",
+    "Phase status": "PASS",
+    "Seed 123 RMSE": "39.615442",
+    "Seed 2026 RMSE": "39.890953",
+    "Seed 42 RMSE": "41.705684",
+    "Sweep code": "THREE_SEED_RUNS",
+    "Test access": "NOT_ACCESSED"
+  },
+  "technical_details": {
+    "config_fingerprint": null,
+    "dataset_revision": null,
+    "environment_id": null,
+    "input_checksums": {},
+    "input_paths": [],
+    "mean_rmse_wh": 40.40402630684091,
+    "output_checksums": {},
+    "output_paths": [],
+    "tests": []
+  },
+  "timestamp": "2026-08-29T17:44:45.542696+00:00",
+  "warnings": []
+}

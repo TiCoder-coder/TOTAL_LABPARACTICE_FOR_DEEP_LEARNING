@@ -676,7 +676,7 @@ PRESENTATION_SPECS = {
     },
     46: {
         "summary_title": "Phase 46 Three-seed Final Runs overview",
-        "summary_fields": ("Run Seed", "Final Validation RMSE Wh", "Phase status", "Test access"),
+        "summary_fields": ("Sweep code", "Seed 42 RMSE", "Seed 123 RMSE", "Seed 2026 RMSE", "Mean RMSE Wh", "Phase status", "Test access"),
         "sections": ({"title": "Three-seed runs"}, {"title": "Signoff"}),
     },
 }
@@ -2786,22 +2786,24 @@ def _render_split_bar(technical_details: dict[str, Any]) -> str:
 def _visible_sections(log: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]], bool]:
     phase_id = int(log["phase_id"])
     spec = PRESENTATION_SPECS[phase_id]
-    summary_rows = [
-        {"Field": field, "Value": log["summary"][field]}
-        for field in spec["summary_fields"]
-    ]
-    source_sections = {section["title"]: section["rows"] for section in log["sections"]}
+    summary = log.get("summary", {})
+    summary_rows = []
+    for field in spec["summary_fields"]:
+        value = summary.get(field, "N/A")
+        summary_rows.append({"Field": field, "Value": value})
+
+    source_sections = {section["title"]: section["rows"] for section in log.get("sections", [])}
     visible_sections = []
     for section_spec in spec["sections"]:
         source_title = section_spec.get("source_title", section_spec["title"])
-        rows = source_sections[source_title]
+        rows = source_sections.get(source_title, [])
         row_field = section_spec.get("row_field")
         if row_field is not None:
             allowed_values = set(section_spec["row_values"])
             rows = [row for row in rows if row.get(row_field) in allowed_values]
         columns = section_spec.get("columns")
         if columns is not None:
-            rows = [{column: row[column] for column in columns} for row in rows]
+            rows = [{column: row.get(column, "N/A") for column in columns} for row in rows]
         visible_sections.append({"title": section_spec["title"], "rows": rows})
     return summary_rows, visible_sections, bool(spec.get("split_allocation", False))
 

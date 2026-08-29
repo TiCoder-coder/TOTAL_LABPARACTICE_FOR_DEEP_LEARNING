@@ -1,0 +1,25 @@
+{
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "feature_variant": "FS2_TF1",
+  "final_runs": [
+    {
+      "rmse": 41.70568399358886,
+      "run_id": "RUN_TR_FSD_0153_B15A19DC",
+      "seed": 42
+    },
+    {
+      "rmse": 39.61544168366244,
+      "run_id": "RUN_TR_FSD_0154_DD82D743",
+      "seed": 123
+    },
+    {
+      "rmse": 39.89095324327143,
+      "run_id": "RUN_TR_FSD_0155_59A50ADD",
+      "seed": 2026
+    }
+  ],
+  "lookback": 36,
+  "ready_for_phase47": true,
+  "recommended_model_id": "TR_C0_PRIMARY",
+  "target_scaling": "YS1"
+}

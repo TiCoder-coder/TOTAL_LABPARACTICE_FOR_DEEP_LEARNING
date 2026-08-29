@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-08-29T17:44:45.539406+00:00",
+  "mean_rmse_wh": 40.40402630684091,
+  "phase_id": 46,
+  "ready_for_phase47": true,
+  "seed123_rmse": 39.61544168366244,
+  "seed123_run_id": "RUN_TR_FSD_0154_DD82D743",
+  "seed2026_rmse": 39.89095324327143,
+  "seed2026_run_id": "RUN_TR_FSD_0155_59A50ADD",
+  "seed42_rmse": 41.70568399358886,
+  "seed42_run_id": "RUN_TR_FSD_0153_B15A19DC",
+  "status": "PASS"
+}
