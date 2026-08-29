@@ -1,0 +1,10 @@
+{
+  "epochs": 50,
+  "model_id": "TR_C0_PRIMARY",
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "test_locked": true
+}

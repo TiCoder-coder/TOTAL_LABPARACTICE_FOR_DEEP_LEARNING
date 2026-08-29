@@ -14,6 +14,7 @@ from course_work.models._audit_utils import utc_now
 from course_work.models.transformer_regressor import (
     TRANSFORMER_IMPL_VERSION,
     build_reference_transformer_config,
+    materialize_phase_16,
     TransformerRegressor,
     verify_existing_signoff as verify_phase_16_signoff,
 )
@@ -225,10 +226,16 @@ def materialize_phase_17(project_root: Path | None = None) -> dict[str, Any]:
     if signoff_path.exists():
         manifest = read_json(manifest_path) if manifest_path.exists() else {}
         if manifest.get("reference_model_version") and manifest.get("unit_test_count"):
-            return verify_existing_signoff(root, signoff_path)
-        if manifest_path.exists() or signoff_path.exists():
+            try:
+                return verify_existing_signoff(root, signoff_path)
+            except RuntimeError as exc:
+                if any(token in str(exc) for token in ("checksum mismatch", "version mismatch", "status is not PASS")):
+                    shutil.rmtree(root / ARTIFACT_ROOT, ignore_errors=True)
+                else:
+                    raise
+        elif manifest_path.exists() or signoff_path.exists():
             shutil.rmtree(root / ARTIFACT_ROOT, ignore_errors=True)
-    phase_16 = verify_phase_16_signoff(root, root / "artifacts/models/transformer/phase_16_signoff.json")
+    phase_16 = materialize_phase_16(root)
     environment = read_json(root / "artifacts/environment/environment_report.json")
     dataloader_manifest = read_json(root / "artifacts/dataloaders/dataloader_manifest.json")
     feature_count = int(dataloader_manifest["feature_count"])

@@ -240,6 +240,25 @@ class ExperimentRegistryTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.registry.register_metric(run["run_id"], "VALIDATION", "rmse_wh", 1.0, "Wh", samples, population, "BEST")
 
+    def test_final_refit_mode_allows_combined_pretest_population_metrics(self) -> None:
+        config = deepcopy(self.base_config)
+        config["training"]["final_refit_mode"] = True
+        run = self.registry.register_run(config, "TRANSFORMER_BASELINE", ExecutionType.TRAINING.value)
+        self.registry.start_run(run["run_id"])
+        population = config["lineage"]["population_fingerprint"]
+        train_samples = config["data"]["train_sample_count"]
+        for kind, name in (
+            (ArtifactType.TRAIN_LOG.value, "training.csv"),
+            (ArtifactType.BEST_CHECKPOINT.value, "best.pt"),
+            (ArtifactType.METRICS.value, "metrics.json"),
+        ):
+            self.registry.register_artifact(run["run_id"], kind, self.artifact(run["run_id"], name), True)
+        self.registry.register_metric(run["run_id"], "VALIDATION", "mae_wh", 8.0, "Wh", train_samples, population, "FINAL_REFIT")
+        self.registry.register_metric(run["run_id"], "VALIDATION", "rmse_wh", 10.0, "Wh", train_samples, population, "FINAL_REFIT")
+        self.registry.register_metric(run["run_id"], "VALIDATION", "r2", 0.8, "dimensionless", train_samples, population, "FINAL_REFIT")
+        completed = self.registry.complete_run(run["run_id"], best_epoch=7, best_validation_rmse_wh=10.0)
+        self.assertEqual(completed["status"], RunStatus.COMPLETED.value)
+
     def test_training_completion_requires_artifacts_metrics_and_matching_best_value(self) -> None:
         run = self.registry.register_run(deepcopy(self.base_config), "TRANSFORMER_BASELINE", ExecutionType.TRAINING.value)
         self.registry.start_run(run["run_id"])

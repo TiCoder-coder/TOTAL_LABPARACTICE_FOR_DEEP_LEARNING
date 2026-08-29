@@ -1,14 +1,14 @@
 {
   "artifact_version": "TRANSFORMER_IMPL-v1",
-  "created_at": "2026-08-22T12:50:19.711213+00:00",
+  "created_at": "2026-08-29T08:55:12.941523+00:00",
   "dataset_revision": "DATA-v1",
   "discrepancies": [],
   "environment_id": "ENV-v1",
   "feature_count": 31,
   "input_checksums": {
-    "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
-    "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
-    "artifacts/models/lstm/phase_15_signoff.json": "ab835c551e82fab3d6cc4bb2f5a42c7f3607088808ea12dca47cef7a45e76dec"
+    "artifacts/dataloaders/dataloader_manifest.json": "78ea080982ad3042adda166e3d323de9b13afa76947dba2053c895111f963952",
+    "artifacts/environment/environment_report.json": "ee9f78b9ca72e4293aa1d739f189e494ddce35e2581d8e7016ec213fca3b042a",
+    "artifacts/models/lstm/phase_15_signoff.json": "4bfc3f1f7fd622eb6d1ff28d290705ae5eb0e109cc33070259a11a16a11edaa2"
   },
   "input_paths": [
     "artifacts/models/lstm/phase_15_signoff.json",
@@ -16,17 +16,17 @@
     "artifacts/environment/environment_report.json"
   ],
   "output_checksums": {
-    "artifacts/models/transformer/README_TRANSFORMER.md": "caa68a5423447ebbdf6f986d55d90ccd938c14bd06a8d6fd470d4cb650bc22c7",
-    "artifacts/models/transformer/transformer_attention_contract.json": "2f9e64e3ff882cd5f1f3f1fd75b496a8bada65624a046a0ce60d9f0c84f4e078",
-    "artifacts/models/transformer/transformer_config_schema.json": "1245041247fca0660b11ac1b57b7c9c6a9f293aca21fbae8bf258a8be11de7dd",
-    "artifacts/models/transformer/transformer_discrepancies.json": "c3cb9770afcc54557ffbdb23bb419d5e81c261d03f72dd88d34c750a42654184",
+    "artifacts/models/transformer/README_TRANSFORMER.md": "42dfa23390ae3d6473e200b0e062cbbe9d88f840fab9f0e27aa17017b6ea54d2",
+    "artifacts/models/transformer/transformer_attention_contract.json": "36b565795efe339ba8a3d7aeabc2e787b32caf7030bf71b60129427a39674998",
+    "artifacts/models/transformer/transformer_config_schema.json": "a42f24488594acd0d29ff760e613f232aaa5e3f11c035a77ca620b5f10c68c14",
+    "artifacts/models/transformer/transformer_discrepancies.json": "7553a18178dd79d3a933c9567cf663beb06c987af8296f9c9318855f1443f631",
     "artifacts/models/transformer/transformer_implementation_audit.csv": "c88454fe480f6d0edd893425da0070d6960a21f0a308dc47e467e1ef84db7742",
-    "artifacts/models/transformer/transformer_model_manifest.json": "50e7da2066ec252d49d98618f0e26352b13c867ca75645874ce5d19ddc51346c",
+    "artifacts/models/transformer/transformer_model_manifest.json": "06f5fb57f1972daab2120b58b282d3ef3ab7709bccc98745d1ebb93b55845ba0",
     "artifacts/models/transformer/transformer_module_audit.csv": "3e808370708b85812942f010a55196403c5fe95e2f3356617e72a45db69c87e4",
     "artifacts/models/transformer/transformer_parameter_audit.csv": "0a3f432ab2690bc27edd5d0959aef1291a00a6b187d4924b1a8228bff3449126",
     "artifacts/models/transformer/transformer_positional_encoding_audit.csv": "f9b2eee17d8958c564c82a8648e266994d2f85c1744e3c00b7d88f7016561aec",
-    "artifacts/models/transformer/transformer_reference_config.json": "26625605549682a1bfee652e4193faf2bd34a44f77f38a56ec1eba50be1fefcd",
-    "artifacts/models/transformer/transformer_shape_contract.json": "84ffbdbad2cc5e79c20d88b10315b9f4a491b923e6ba3df48c98e5b77f24e07e",
+    "artifacts/models/transformer/transformer_reference_config.json": "c3c923dfaf308d5f8cdb7aa31848063134f6764628ba32ed0ccb2f19ffdd70df",
+    "artifacts/models/transformer/transformer_shape_contract.json": "8c7ca501741975ad630a2e8632f17a0190fda013074a5c3902903b7b1a96d1dc",
     "artifacts/models/transformer/transformer_unit_tests.csv": "3534f861ab30f0b7d8f7818437025a1242a5b5c291136a8587c755a0d314535b"
   },
   "output_paths": [

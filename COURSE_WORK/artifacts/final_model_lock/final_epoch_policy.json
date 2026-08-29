@@ -1,0 +1,4 @@
+{
+  "early_stopping_disabled": true,
+  "epochs_locked": 50
+}

@@ -12,6 +12,7 @@ import json
 import os
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -71,6 +72,9 @@ def main() -> None:
     locked_id = p45_handoff["locked_model_id"]
     locked_cfg = p45_handoff["config"]
     locked_fp = p45_handoff["config_fingerprint"]
+    locked_rmse_wh = float(p45_handoff.get("locked_rmse_wh", p44_signoff.get("selected_transformer_rmse", 0.0)))
+    model_class = p45_handoff.get("model_class", locked_cfg.get("model", {}).get("model_family", "TRANSFORMER_ENCODER"))
+    seed = p45_handoff.get("seed", locked_cfg.get("reproducibility", {}).get("seed", "N/A"))
     
     # 1. Write lock manifest & contracts
     write_json(ARTIFACT_DIR / "final_model_lock_manifest.json", {
@@ -175,8 +179,11 @@ def main() -> None:
         "phase_id": 45,
         "status": "PASS",
         "locked_model_id": locked_id,
+        "locked_rmse_wh": locked_rmse_wh,
+        "model_class": model_class,
         "config_fingerprint": locked_fp,
         "epochs": locked_cfg["training"]["max_epochs"],
+        "seed": seed,
         "locked_at": now_iso()
     })
     
@@ -194,6 +201,8 @@ def main() -> None:
         "completed_at": now_iso(),
         "created_at": now_iso(),
         "locked_model_id": locked_id,
+        "locked_rmse_wh": locked_rmse_wh,
+        "model_class": model_class,
         "config_fingerprint": locked_fp,
         "test_status": "NOT_ACCESSED",
         "ready_for_phase46": True,
@@ -205,8 +214,11 @@ def main() -> None:
     # Handoff to Phase 46
     handoff_46 = {
         "locked_model_id": locked_id,
+        "locked_rmse_wh": locked_rmse_wh,
+        "model_class": model_class,
         "config_fingerprint": locked_fp,
         "epochs": locked_cfg["training"]["max_epochs"],
+        "seed": seed,
         "config": locked_cfg,
         "seeds": [42, 123, 2026],
         "ready_for_phase46": True

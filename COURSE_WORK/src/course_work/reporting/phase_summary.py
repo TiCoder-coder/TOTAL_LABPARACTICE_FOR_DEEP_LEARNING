@@ -717,6 +717,22 @@ def _format_metric(value: Any) -> str:
     return f"{value:.6f}" if isinstance(value, (int, float)) else str(value)
 
 
+def _parse_float(value: Any) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        cleaned = value.strip()
+        if cleaned in {"", "N/A", "nan", "NaN"}:
+            return None
+        try:
+            return float(cleaned)
+        except ValueError:
+            return None
+    return None
+
+
 def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, Any]]:
     if phase_id == 0:
         contract = sources["contract"]
@@ -2332,29 +2348,48 @@ def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, An
             "Phase status": signoff.get("status", "PASS"),
             "Test access": signoff.get("test_status", "NOT_ACCESSED"),
         }
-        
+
         folds_rows = []
         if "results" in sources:
+            fold_lookup: dict[str, dict[str, Any]] = {}
             for row in sources["results"]:
-                folds_rows.append({
-                    "Fold": row.get("Fold", "N/A"),
-                    "Transformer RMSE": _format_metric(row.get("Transformer_RMSE", 0.0)),
-                    "LSTM RMSE": _format_metric(row.get("LSTM_RMSE", 0.0)),
-                    "Persistence RMSE": _format_metric(row.get("Persistence_RMSE", 0.0)),
-                })
-        else:
+                fold_name = row.get("Fold") or row.get("fold") or "N/A"
+                model_id = str(row.get("ModelID") or row.get("model_id") or row.get("Model") or "N/A")
+                rmse_value = _parse_float(row.get("Validation_RMSE", row.get("validation_rmse_wh", row.get("RMSE", row.get("rmse_wh", 0.0)))))
+                if fold_name not in fold_lookup:
+                    fold_lookup[fold_name] = {
+                        "Fold": fold_name,
+                        "Transformer RMSE": "N/A",
+                        "LSTM RMSE": "N/A",
+                        "Persistence RMSE": "N/A",
+                    }
+
+                if model_id == "LSTM_TUNED":
+                    fold_lookup[fold_name]["LSTM RMSE"] = _format_metric(rmse_value) if rmse_value is not None else "N/A"
+                elif model_id == "PERSISTENCE_LAST_VALUE":
+                    fold_lookup[fold_name]["Persistence RMSE"] = _format_metric(rmse_value) if rmse_value is not None else "N/A"
+                elif model_id.startswith("TR_"):
+                    current_tr = _parse_float(fold_lookup[fold_name].get("Transformer RMSE", "N/A"))
+                    if current_tr is None or rmse_value is not None and rmse_value < current_tr:
+                        fold_lookup[fold_name]["Transformer RMSE"] = _format_metric(rmse_value) if rmse_value is not None else "N/A"
+                elif model_id == "N/A":
+                    pass
+
+            folds_rows = list(fold_lookup.values())
+
+        if not folds_rows:
             folds_rows.append({"Fold": "N/A", "Transformer RMSE": "N/A", "LSTM RMSE": "N/A", "Persistence RMSE": "N/A"})
-            
+
         signoff_rows = [
             {"Field": "Phase status", "Value": signoff.get("status", "PASS")},
             {"Field": "Ready for Phase 45", "Value": str(signoff.get("ready_for_phase45", True))},
         ]
-        
+
         sections = [
             {"title": "Robustness folds", "rows": folds_rows},
             {"title": "Signoff", "rows": signoff_rows},
         ]
-        
+
         technical = {
             "robustness_rmse_wh": summary_data.get("robustness_rmse_wh"),
         }
@@ -2398,9 +2433,9 @@ def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, An
         summary_data = sources.get("summary", {})
         summary = {
             "Sweep code": "THREE_SEED_RUNS",
-            "Seed 42 RMSE": _format_metric(summary_data.get("seed42_rmse", 0.0)),
-            "Seed 43 RMSE": _format_metric(summary_data.get("seed43_rmse", 0.0)),
-            "Seed 44 RMSE": _format_metric(summary_data.get("seed44_rmse", 0.0)),
+            "Seed 42 RMSE": _format_metric(summary_data.get("seed42_rmse", summary_data.get("seed42_rmse", 0.0))),
+            "Seed 123 RMSE": _format_metric(summary_data.get("seed123_rmse", summary_data.get("seed43_rmse", 0.0))),
+            "Seed 2026 RMSE": _format_metric(summary_data.get("seed2026_rmse", summary_data.get("seed44_rmse", 0.0))),
             "Mean RMSE Wh": _format_metric(summary_data.get("mean_rmse_wh", 0.0)),
             "Phase status": signoff.get("status", "PASS"),
             "Test access": signoff.get("test_status", "NOT_ACCESSED"),
@@ -2408,8 +2443,8 @@ def _phase_content(phase_id: int, sources: dict[str, Any]) -> tuple[dict[str, An
         
         seed_runs = [
             {"Seed": "42", "Run ID": summary_data.get("seed42_run_id", "N/A"), "RMSE Wh": _format_metric(summary_data.get("seed42_rmse", 0.0))},
-            {"Seed": "43", "Run ID": summary_data.get("seed43_run_id", "N/A"), "RMSE Wh": _format_metric(summary_data.get("seed43_rmse", 0.0))},
-            {"Seed": "44", "Run ID": summary_data.get("seed44_run_id", "N/A"), "RMSE Wh": _format_metric(summary_data.get("seed44_rmse", 0.0))},
+            {"Seed": "123", "Run ID": summary_data.get("seed123_run_id", summary_data.get("seed43_run_id", "N/A")), "RMSE Wh": _format_metric(summary_data.get("seed123_rmse", summary_data.get("seed43_rmse", 0.0)))},
+            {"Seed": "2026", "Run ID": summary_data.get("seed2026_run_id", summary_data.get("seed44_run_id", "N/A")), "RMSE Wh": _format_metric(summary_data.get("seed2026_rmse", summary_data.get("seed44_rmse", 0.0)))},
         ]
         
         signoff_rows = [

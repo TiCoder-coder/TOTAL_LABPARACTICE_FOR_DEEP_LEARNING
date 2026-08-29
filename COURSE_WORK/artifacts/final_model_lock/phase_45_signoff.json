@@ -1,0 +1,18 @@
+{
+  "artifact_version": "FINAL_MODEL_LOCK-v1",
+  "completed_at": "2026-08-29T09:00:18.908316+00:00",
+  "config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "created_at": "2026-08-29T09:00:18.908316+00:00",
+  "discrepancies": [],
+  "locked_model_id": "TR_C0_PRIMARY",
+  "locked_rmse_wh": 61.50746536254883,
+  "model_class": "TRANSFORMER_ENCODER",
+  "overall_status": "PASS",
+  "phase_id": 45,
+  "phase_name": "Final Model Lock",
+  "phase_version": "PHASE-45-v1",
+  "ready_for_phase46": true,
+  "status": "PASS",
+  "test_status": "NOT_ACCESSED",
+  "warnings": []
+}

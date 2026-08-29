@@ -1,0 +1,11 @@
+{
+  "config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "epochs": 50,
+  "locked_at": "2026-08-29T09:00:18.908316+00:00",
+  "locked_model_id": "TR_C0_PRIMARY",
+  "locked_rmse_wh": 61.50746536254883,
+  "model_class": "TRANSFORMER_ENCODER",
+  "phase_id": 45,
+  "seed": 42,
+  "status": "PASS"
+}

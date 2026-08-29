@@ -1,0 +1,84 @@
+{
+  "artifact_version": "ROLLING_ORIGIN-v1",
+  "created_at": "2026-08-29T06:12:52Z",
+  "discrepancies": [],
+  "phase_id": 44,
+  "phase_name": "Rolling-Origin Robustness",
+  "phase_version": "PHASE-44-v1",
+  "presentation_version": "PHASE-PRESENTATION-v2",
+  "sections": [
+    {
+      "rows": [
+        {
+          "Fold": "RO1",
+          "LSTM RMSE": "66.833282",
+          "Persistence RMSE": "76.361008",
+          "Transformer RMSE": "69.367676"
+        },
+        {
+          "Fold": "RO2",
+          "LSTM RMSE": "54.308865",
+          "Persistence RMSE": "56.151482",
+          "Transformer RMSE": "52.426567"
+        },
+        {
+          "Fold": "RO3",
+          "LSTM RMSE": "59.179787",
+          "Persistence RMSE": "65.185799",
+          "Transformer RMSE": "60.986935"
+        }
+      ],
+      "title": "Robustness folds"
+    },
+    {
+      "rows": [
+        {
+          "Field": "Phase status",
+          "Value": "PASS"
+        },
+        {
+          "Field": "Ready for Phase 45",
+          "Value": "True"
+        }
+      ],
+      "title": "Signoff"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "artifacts/rolling_origin/rolling_origin_summary.json",
+      "role": "summary",
+      "sha256": "ec89e9a274885bf11a2ab360586d46fa3cdff983d41165e562ede8bba364571c"
+    },
+    {
+      "path": "artifacts/rolling_origin/phase_44_signoff.json",
+      "role": "signoff",
+      "sha256": "0208d04d14253d40a9067c319e3c3dfd535d36d43f0efafe6d978afd9ddf12ce"
+    },
+    {
+      "path": "artifacts/rolling_origin/rolling_origin_results.csv",
+      "role": "results",
+      "sha256": "16d1424ea66bd184d6a28d9564e1112be1c723f89d2ddd4a537394de232c82c2"
+    }
+  ],
+  "status": "PASS",
+  "summary": {
+    "Method": "ROLLING_ORIGIN",
+    "Phase status": "PASS",
+    "Robustness RMSE Wh": "61.507465",
+    "Test access": "NOT_ACCESSED"
+  },
+  "technical_details": {
+    "config_fingerprint": null,
+    "dataset_revision": null,
+    "environment_id": null,
+    "input_checksums": {},
+    "input_paths": [],
+    "output_checksums": {},
+    "output_paths": [],
+    "robustness_rmse_wh": 61.50746536254883,
+    "tests": []
+  },
+  "timestamp": "2026-08-29T06:12:52Z",
+  "warnings": []
+}

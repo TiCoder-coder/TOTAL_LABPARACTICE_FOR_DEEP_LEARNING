@@ -1210,8 +1210,15 @@ class ExperimentRegistry:
         # Train is never reduced (13670 for both protocols).
         data = record["config"]["data"]
         boundary_protocol = data.get("boundary_protocol", "WB0_CONTEXT_CARRY_OVER")
-        if boundary_protocol == "WB1_STRICT_ISOLATION":
-            expected_counts: dict[str, int] = {"TRAIN": 13670, "VALIDATION": 2924, "TEST": 2925}
+        final_refit_mode = bool(record["config"]["training"].get("final_refit_mode", False))
+        if final_refit_mode and split == "VALIDATION":
+            expected_counts = {
+                "TRAIN": int(data["train_sample_count"]),
+                "VALIDATION": int(data["train_sample_count"]),
+                "TEST": int(data["test_sample_count"]),
+            }
+        elif boundary_protocol == "WB1_STRICT_ISOLATION":
+            expected_counts = {"TRAIN": 13670, "VALIDATION": 2924, "TEST": 2925}
         else:
             expected_counts = {
                 "TRAIN": int(data["train_sample_count"]),
@@ -1276,20 +1283,26 @@ class ExperimentRegistry:
             raise ValueError(f"Required artifacts missing: {sorted(missing_artifacts)}")
         if record["execution_type"] != ExecutionType.SANITY.value:
             required_split = "TEST" if record["execution_type"] == ExecutionType.FINAL_TEST.value else "VALIDATION"
-            required_metric_rows = [item for item in record["metrics"] if item["split_id"] == required_split and item["status"] in {"PASS", "PASS_WITH_WARNING"}]
-            metric_names = {item["metric_name"] for item in required_metric_rows}
-            if metric_names != REQUIRED_METRICS:
-                raise ValueError(f"Required {required_split} metrics are incomplete")
-            if required_split == "VALIDATION":
-                rmse_values = [float(item["metric_value"]) for item in required_metric_rows if item["metric_name"] == "rmse_wh" and item["metric_value"] is not None]
-                if len(rmse_values) != 1:
-                    raise ValueError("Exactly one Validation RMSE is required for completion")
-                if best_validation_rmse_wh is None:
+            final_refit_mode = bool(record["config"]["training"].get("final_refit_mode", False))
+            if not final_refit_mode:
+                required_metric_rows = [item for item in record["metrics"] if item["split_id"] == required_split and item["status"] in {"PASS", "PASS_WITH_WARNING"}]
+                metric_names = {item["metric_name"] for item in required_metric_rows}
+                if metric_names != REQUIRED_METRICS:
+                    raise ValueError(f"Required {required_split} metrics are incomplete")
+                if required_split == "VALIDATION":
+                    rmse_values = [float(item["metric_value"]) for item in required_metric_rows if item["metric_name"] == "rmse_wh" and item["metric_value"] is not None]
+                    if len(rmse_values) != 1:
+                        raise ValueError("Exactly one Validation RMSE is required for completion")
+                    if best_validation_rmse_wh is None:
+                        best_validation_rmse_wh = rmse_values[0]
+                    elif not math.isclose(best_validation_rmse_wh, rmse_values[0], rel_tol=1e-12, abs_tol=1e-12):
+                        raise ValueError("Best Validation RMSE differs from registered metric")
+                    if record["execution_type"] in {ExecutionType.TRAINING.value, ExecutionType.ROBUSTNESS.value} and best_epoch is None:
+                        raise ValueError("Training completion requires best_epoch")
+            elif required_split == "VALIDATION" and best_validation_rmse_wh is None and any(item["split_id"] == "VALIDATION" for item in record["metrics"]):
+                rmse_values = [float(item["metric_value"]) for item in record["metrics"] if item["split_id"] == "VALIDATION" and item["metric_name"] == "rmse_wh" and item["metric_value"] is not None]
+                if len(rmse_values) == 1:
                     best_validation_rmse_wh = rmse_values[0]
-                elif not math.isclose(best_validation_rmse_wh, rmse_values[0], rel_tol=1e-12, abs_tol=1e-12):
-                    raise ValueError("Best Validation RMSE differs from registered metric")
-                if record["execution_type"] in {ExecutionType.TRAINING.value, ExecutionType.ROBUSTNESS.value} and best_epoch is None:
-                    raise ValueError("Training completion requires best_epoch")
         if best_validation_rmse_wh is not None and (not math.isfinite(best_validation_rmse_wh) or best_validation_rmse_wh < 0):
             raise ValueError("best_validation_rmse_wh must be finite and non-negative")
         if best_epoch is not None and best_epoch <= 0:
