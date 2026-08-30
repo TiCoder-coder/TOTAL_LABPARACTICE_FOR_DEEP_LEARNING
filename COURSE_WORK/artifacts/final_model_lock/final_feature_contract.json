@@ -1,4 +1,11 @@
 {
-  "lookback_steps": 36,
-  "variant_id": "FS2_TF1"
+  "availability_contract": "locked",
+  "feature_count_expected_from_runtime": 33,
+  "feature_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+  "feature_names": [],
+  "feature_order": "runtime_order",
+  "historical_Appliances_included": true,
+  "rv1_rv2_included": false,
+  "target_name": "Appliances_Wh",
+  "time_feature_names": []
 }

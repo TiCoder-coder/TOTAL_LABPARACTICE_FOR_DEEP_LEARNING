@@ -1,3 +1,8 @@
 {
-  "loss_fn": "MSE"
+  "evaluation_space": "Wh",
+  "huber_delta_if_applicable": null,
+  "loss_id": "MSE",
+  "loss_name": "MSE",
+  "reduction": "mean",
+  "target_space": "y_model"
 }

@@ -1,5 +1,36 @@
 {
-  "pin_memory": true,
-  "recipe_version": "FINAL_RECIPE-v1",
-  "shuffle": true
+  "LR": 0.0003,
+  "RevIN": false,
+  "WD": 0.001,
+  "accumulation": 1,
+  "attention_retention_during_training": false,
+  "batch": 32,
+  "checkpoint_type": "FINAL_REFIT",
+  "drop_last": false,
+  "early_stopping": false,
+  "epochs": 50,
+  "final_data_region": "FINAL_DEV_REGION-v1",
+  "final_population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "final_scaling_contract": {
+    "fit_region": "FINAL_DEV_REGION-v1",
+    "x_scaler_bundle_id": "XSCALER__FS2_TF1",
+    "x_scaler_checksum": "4e7c96d5accc2917855ed669b33d2666b3aa07f6b83b40097a9690c6a5f5e334",
+    "y_scaler_bundle_id": "YSCALER__YS1",
+    "y_scaler_checksum": "b3326a79da81b092460ef8d4a140a101b21f2433ff30c36971d626d2a2491697"
+  },
+  "gradient_clipping": 1.0,
+  "loss": "MSE",
+  "model_config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "optimizer": "AdamW",
+  "precision": "fp32",
+  "scheduler": null,
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "shuffle": true,
+  "validation_loader": null,
+  "warmup": null,
+  "worker_policy": "torch_initial_seed_mod_2_32_numpy_python"
 }

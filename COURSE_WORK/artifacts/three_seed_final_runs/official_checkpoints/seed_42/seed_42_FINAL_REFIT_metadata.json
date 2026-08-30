@@ -1,0 +1,11 @@
+{
+  "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_42/seed_42_FINAL_REFIT.pt",
+  "checkpoint_type": "FINAL_REFIT",
+  "config_sha256": "b15a19dc960d2113323b20135ec4067e03b5931daa4c4e4f6e09932a7cea5c05",
+  "created_at": "2026-08-30T01:28:39.926115+00:00",
+  "model_state_sha256": "2a99eab49911c1f47a3355a13f5ccb95a79d0453c4aea3af6689f730f195e638",
+  "phase": 46,
+  "rmse_wh": 0.0,
+  "run_id": "RUN_TR_FSD_0153_B15A19DC",
+  "seed": 42
+}

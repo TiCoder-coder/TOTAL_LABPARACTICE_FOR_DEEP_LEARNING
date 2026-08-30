@@ -3,16 +3,19 @@
   "feature_variant": "FS2_TF1",
   "final_runs": [
     {
+      "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_42/seed_42_FINAL_REFIT.pt",
       "rmse": 41.70568399358886,
       "run_id": "RUN_TR_FSD_0153_B15A19DC",
       "seed": 42
     },
     {
+      "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_123/seed_123_FINAL_REFIT.pt",
       "rmse": 39.61544168366244,
       "run_id": "RUN_TR_FSD_0154_DD82D743",
       "seed": 123
     },
     {
+      "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_2026/seed_2026_FINAL_REFIT.pt",
       "rmse": 39.89095324327143,
       "run_id": "RUN_TR_FSD_0155_59A50ADD",
       "seed": 2026

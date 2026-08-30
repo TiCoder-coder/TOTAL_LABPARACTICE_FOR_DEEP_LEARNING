@@ -1,3 +1,5 @@
 {
-  "fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14"
+  "canonical_json_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "canonicalization_rules": "canonical_json_bytes",
+  "source_config_file": "phase45_final_model_lock_handoff.json"
 }

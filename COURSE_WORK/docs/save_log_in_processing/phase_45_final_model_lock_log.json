@@ -1,6 +1,6 @@
 {
   "artifact_version": "FINAL_MODEL_LOCK-v1",
-  "created_at": "2026-08-29T09:00:18.908316+00:00",
+  "created_at": "2026-08-30T01:34:54.356824+00:00",
   "discrepancies": [],
   "phase_id": 45,
   "phase_name": "Final Model Lock",
@@ -46,12 +46,12 @@
     {
       "path": "artifacts/final_model_lock/final_model_lock_summary.json",
       "role": "summary",
-      "sha256": "29c673b3b1b1bb9d4dd783b5b948281ca67c8c1268047bf8a53da1eaa83eb749"
+      "sha256": "0afda2f7151e137a7cf0a3c0497547b73e10bee114de62d79518072bc29779f9"
     },
     {
       "path": "artifacts/final_model_lock/phase_45_signoff.json",
       "role": "signoff",
-      "sha256": "450db04bb89047b6497ee9134a5a3375c44f1761f71b156b390cc792a6230399"
+      "sha256": "9f73839868f2f40403db8fed4a3c1236414e662ddd8ae6e70bfcf30b6521d814"
     }
   ],
   "status": "PASS",
@@ -73,6 +73,6 @@
     "output_paths": [],
     "tests": []
   },
-  "timestamp": "2026-08-29T09:00:18.908316+00:00",
+  "timestamp": "2026-08-30T01:34:54.356824+00:00",
   "warnings": []
 }

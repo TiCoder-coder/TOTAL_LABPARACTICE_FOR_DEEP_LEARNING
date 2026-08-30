@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-08-30T01:28:40.075926+00:00",
+  "exactly_three_fixed_seeds": true,
+  "fresh_model_optimizer_loaders_each_seed": true,
+  "no_best_checkpoint": true,
+  "no_early_stopping": true,
+  "no_ensemble": true,
+  "no_seed_selection": true,
+  "no_test": true,
+  "no_validation": true,
+  "official_checkpoint": "FINAL_REFIT",
+  "phase": 46,
+  "same_epoch_count": true,
+  "same_final_dev_target_ids": true,
+  "same_final_model_configuration": true,
+  "same_final_scaler_bundle": true,
+  "same_optimizer_loss_clipping_revin": true,
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "status": "PASS",
+  "version": "THREE_SEED_FINAL_RUNS-v1"
+}

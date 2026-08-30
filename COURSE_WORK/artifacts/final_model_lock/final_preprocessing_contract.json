@@ -1,3 +1,16 @@
 {
-  "scaling": "YS1"
+  "continuity_policy": "strict",
+  "continuous_features": "runtime_order",
+  "no_interpolation": true,
+  "no_padding": true,
+  "passthrough_binary_features": true,
+  "passthrough_cyclical_features": true,
+  "raw_schema_version": "SCHEMA-v1",
+  "scaling_groups": {
+    "x": "XSCALER__FS2_TF1",
+    "y": "YSCALER__YS1"
+  },
+  "target_scaling": "YS1",
+  "time_feature_formulas": {},
+  "window_construction": "rolling_window"
 }

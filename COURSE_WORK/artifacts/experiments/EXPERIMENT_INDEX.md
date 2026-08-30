@@ -2,7 +2,7 @@
 
 Registry: EXPERIMENTS-v1
 
-Registered runs: 156
+Registered runs: 158
 
 | Family | Phase | Model | Runs | Status |
 |---|---:|---|---:|---|
@@ -30,5 +30,5 @@ Registered runs: 156
 | S19_BOUNDARY_PROTOCOL | 41 | TRANSFORMER_ENCODER | 3 | PLANNED |
 | LSTM_TUNING | 43 | LSTM | 35 | PLANNED |
 | ROLLING_ORIGIN | 44 | TRANSFORMER_ENCODER | 76 | PLANNED |
-| FINAL_SEED_RUN | 46 | TRANSFORMER_ENCODER | 9 | PLANNED |
+| FINAL_SEED_RUN | 46 | TRANSFORMER_ENCODER | 11 | PLANNED |
 | FINAL_TEST | 47 | TRANSFORMER_ENCODER | 0 | PLANNED |

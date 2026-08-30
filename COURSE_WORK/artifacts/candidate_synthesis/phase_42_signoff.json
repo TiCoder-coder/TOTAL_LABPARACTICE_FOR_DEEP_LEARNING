@@ -1,13 +1,19 @@
 {
   "artifact_version": "CANDIDATE_SYNTHESIS-v1",
   "candidate_count": 3,
-  "completed_at": "2026-08-28T08:21:18.464444+00:00",
-  "created_at": "2026-08-28T08:21:18.464444+00:00",
+  "candidate_fingerprints": {
+    "TR_C0_PRIMARY": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+    "TR_C1_ALT_WEIGHT_DECAY": "3b08be3ddd51e22ad350dcededcd6f242518a1d2214f0cd634d424ac82920d28",
+    "TR_C2_ALT_LOOKBACK": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24"
+  },
+  "completed_at": "2026-08-30T01:34:46.070218+00:00",
+  "created_at": "2026-08-30T01:34:46.070233+00:00",
   "discrepancies": [],
   "overall_status": "PASS",
   "phase_id": 42,
   "phase_name": "Candidate Synthesis",
   "phase_version": "PHASE-42-v1",
+  "primary_candidate_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
   "primary_run_id": "RUN_TR_S14_0023_A711A9B8",
   "ready_for_phase43": true,
   "status": "PASS",

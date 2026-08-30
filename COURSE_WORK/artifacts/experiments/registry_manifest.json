@@ -1,5 +1,5 @@
 {
-  "active_count": 19,
+  "active_count": 21,
   "artifact_registry_enabled": true,
   "atomic_write_policy": "TEMP_FSYNC_ATOMIC_REPLACE",
   "canonical_registry_file": "experiment_registry.jsonl",
@@ -18,8 +18,8 @@
   "production_registry_empty": false,
   "record_schema_version": 1,
   "registry_contract_fingerprint": "124a2edf1dc8a30845f7ffa7e0c46bf8d05a8c7ebe916b539f711e8d9dff36df",
-  "registry_fingerprint": "2afd66499524c54adfea690c9f661a65c576136cd361f60db475a28377d05a55",
-  "run_count": 156,
+  "registry_fingerprint": "bc13890bbba86b089aea7080c927fa2cd7a40993702c33d8ea092030f97d7a19",
+  "run_count": 158,
   "status_counts": {
     "ARCHIVED": 0,
     "CANCELLED": 3,
@@ -28,13 +28,13 @@
     "INVALIDATED": 0,
     "PLANNED": 0,
     "REGISTERED": 1,
-    "RUNNING": 18
+    "RUNNING": 20
   },
   "sweep_consistency_guard_enabled": true,
   "sweep_count": 4,
   "synthetic_records_persisted": false,
   "test_firewall_enabled": true,
-  "updated_at": "2026-08-29T17:49:08.809082+00:00",
+  "updated_at": "2026-08-30T01:19:55.256786+00:00",
   "upstream_contract_versions": {
     "dataloader_version": "DATALOADERS-v1",
     "dataset_fingerprint": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",

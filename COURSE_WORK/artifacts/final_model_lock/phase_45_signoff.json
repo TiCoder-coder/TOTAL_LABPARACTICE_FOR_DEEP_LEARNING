@@ -1,9 +1,15 @@
 {
   "artifact_version": "FINAL_MODEL_LOCK-v1",
-  "completed_at": "2026-08-29T09:00:18.908316+00:00",
+  "completed_at": "2026-08-30T01:34:54.356808+00:00",
+  "completed_seed_count": 3,
   "config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
-  "created_at": "2026-08-29T09:00:18.908316+00:00",
+  "config_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "created_at": "2026-08-30T01:34:54.356824+00:00",
   "discrepancies": [],
+  "early_stopping_used": false,
+  "feature_sha256": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+  "final_lock_sha256": "016de5e628c5c817f593d9dab2c9a7b9ccf3563419854756a3a377d9436507e8",
+  "final_refit_epochs": 50,
   "locked_model_id": "TR_C0_PRIMARY",
   "locked_rmse_wh": 61.50746536254883,
   "model_class": "TRANSFORMER_ENCODER",
@@ -11,8 +17,19 @@
   "phase_id": 45,
   "phase_name": "Final Model Lock",
   "phase_version": "PHASE-45-v1",
+  "population_sha256": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
   "ready_for_phase46": true,
+  "recipe_sha256": "7f863dd451b79a90a61ed7a80980e2a97469cefecf5ea81d0350189c9a9f4d72",
+  "scientific_run_count": 3,
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
   "status": "PASS",
   "test_status": "NOT_ACCESSED",
-  "warnings": []
+  "validation_used": false,
+  "warnings": [],
+  "x_scaler_sha256": "4e7c96d5accc2917855ed669b33d2666b3aa07f6b83b40097a9690c6a5f5e334",
+  "y_scaler_sha256_or_identity": "b3326a79da81b092460ef8d4a140a101b21f2433ff30c36971d626d2a2491697"
 }

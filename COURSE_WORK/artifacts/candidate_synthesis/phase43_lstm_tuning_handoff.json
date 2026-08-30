@@ -9,7 +9,7 @@
     "target_scaler": "94917a1a2b9a101b"
   },
   "selected_feature_variant": "FS2_TF1",
-  "selected_lookback": 144,
+  "selected_lookback": 36,
   "selected_target_scaling": "YS1",
   "selected_time_features": "TF1",
   "split_version": "SPLIT-v1",

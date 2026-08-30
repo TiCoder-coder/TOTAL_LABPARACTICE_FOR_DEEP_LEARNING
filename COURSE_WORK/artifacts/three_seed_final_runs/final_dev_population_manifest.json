@@ -1,0 +1,23 @@
+{
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "created_at": "2026-08-30T01:28:40.077951+00:00",
+  "excluded_splits": [
+    "TEST"
+  ],
+  "first_target_id": "TARGET_0000",
+  "first_target_timestamp": "N/A",
+  "horizon": 1,
+  "included_splits": [
+    "TRAIN",
+    "VALIDATION"
+  ],
+  "last_target_id": "TARGET_0000",
+  "last_target_timestamp": "N/A",
+  "lookback": 36,
+  "population_policy": "FINAL_DEV_REGION-v1",
+  "region_id": "FINAL_DEV_REGION-v1",
+  "status": "PASS",
+  "target_count_runtime": 33,
+  "target_ids_sha256": "51d6914de75f6560cec340677b30537d9c783c9dfc5810a3367f01b00b71a019",
+  "test_target_count_included": 0
+}

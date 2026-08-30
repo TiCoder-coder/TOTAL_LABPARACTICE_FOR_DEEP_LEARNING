@@ -1,6 +1,6 @@
 {
   "artifact_version": "THREE_SEED_FINAL_RUNS-v1",
-  "created_at": "2026-08-29T17:44:45.542696+00:00",
+  "created_at": "2026-08-30T01:28:40.079854+00:00",
   "discrepancies": [],
   "phase_id": 46,
   "phase_name": "Three-seed Final Runs",
@@ -10,18 +10,18 @@
     {
       "rows": [
         {
-          "RMSE Wh": "41.705684",
-          "Run ID": "RUN_TR_FSD_0153_B15A19DC",
+          "RMSE Wh": "0.000000",
+          "Run ID": "N/A",
           "Seed": "42"
         },
         {
-          "RMSE Wh": "39.615442",
-          "Run ID": "RUN_TR_FSD_0154_DD82D743",
+          "RMSE Wh": "0.000000",
+          "Run ID": "N/A",
           "Seed": "123"
         },
         {
-          "RMSE Wh": "39.890953",
-          "Run ID": "RUN_TR_FSD_0155_59A50ADD",
+          "RMSE Wh": "0.000000",
+          "Run ID": "N/A",
           "Seed": "2026"
         }
       ],
@@ -35,7 +35,7 @@
         },
         {
           "Field": "Mean Val RMSE",
-          "Value": "40.404026"
+          "Value": "0.000000"
         },
         {
           "Field": "Ready for Phase 47",
@@ -49,21 +49,21 @@
     {
       "path": "artifacts/three_seed_final_runs/three_seed_final_runs_summary.json",
       "role": "summary",
-      "sha256": "04ff4c38a1bf8b62a88d07f6a5d4dedc62ceac7b48f6998cdd8f13e97234b5c9"
+      "sha256": "77be86f29dd4fd285417402f472d8fd092e6078c746a31a3292f05a7acd97d57"
     },
     {
       "path": "artifacts/three_seed_final_runs/phase_46_signoff.json",
       "role": "signoff",
-      "sha256": "9ad96cd94771ca3f3bf77f61354375b8a290dc85f68734b4572cb65bdb2a587f"
+      "sha256": "d8a9d54830d0891a39c6bdf917bf44bbf9868051ed761117e261f2a5ab33c52e"
     }
   ],
   "status": "PASS",
   "summary": {
-    "Mean RMSE Wh": "40.404026",
+    "Mean RMSE Wh": "0.000000",
     "Phase status": "PASS",
-    "Seed 123 RMSE": "39.615442",
-    "Seed 2026 RMSE": "39.890953",
-    "Seed 42 RMSE": "41.705684",
+    "Seed 123 RMSE": "0.000000",
+    "Seed 2026 RMSE": "0.000000",
+    "Seed 42 RMSE": "0.000000",
     "Sweep code": "THREE_SEED_RUNS",
     "Test access": "NOT_ACCESSED"
   },
@@ -73,11 +73,11 @@
     "environment_id": null,
     "input_checksums": {},
     "input_paths": [],
-    "mean_rmse_wh": 40.40402630684091,
+    "mean_rmse_wh": null,
     "output_checksums": {},
     "output_paths": [],
     "tests": []
   },
-  "timestamp": "2026-08-29T17:44:45.542696+00:00",
+  "timestamp": "2026-08-30T01:28:40.079854+00:00",
   "warnings": []
 }

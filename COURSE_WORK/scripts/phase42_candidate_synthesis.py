@@ -483,7 +483,7 @@ def main() -> None:
         "selected_feature_variant": "FS2_TF1",
         "selected_time_features": "TF1",
         "selected_target_scaling": "YS1",
-        "selected_lookback": 144,
+        "selected_lookback": 36,
         "boundary_protocol": "WB0",
         "window_population_policy": "WINDOWPOP-v1",
         "split_version": "SPLIT-v1",
@@ -682,6 +682,12 @@ Tổng hợp và chuẩn bị candidate shortlist cho Transformer.
     )
 
     # 6. Ghi phase_42_signoff.json
+    candidate_fingerprints = {
+        "TR_C0_PRIMARY": primary_fingerprint,
+    }
+    for candidate in shortlist_candidates[1:]:
+        candidate_fingerprints[candidate["candidate_id"]] = candidate["candidate_config_fingerprint"]
+
     signoff = {
         "phase_id": 42,
         "phase_name": "Candidate Synthesis",
@@ -693,6 +699,8 @@ Tổng hợp và chuẩn bị candidate shortlist cho Transformer.
         "created_at": now_iso(),
         "primary_run_id": primary_run_id,
         "candidate_count": len(shortlist_candidates),
+        "candidate_fingerprints": candidate_fingerprints,
+        "primary_candidate_fingerprint": primary_fingerprint,
         "test_status": "NOT_ACCESSED",
         "ready_for_phase43": True,
         "warnings": [],

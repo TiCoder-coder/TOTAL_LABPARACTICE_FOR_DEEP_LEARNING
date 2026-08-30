@@ -1,4 +1,16 @@
 {
-  "fit_population": "FINAL_DEV_REGION-v1",
-  "target_scaler": "YS1"
+  "RevIN_fold_independent_global_scaler_bridge_if_active": false,
+  "Test_rows_used": false,
+  "X_scaler_semantics": "SCALING-v1",
+  "Y_scaler_semantics": "YS1",
+  "binary_passthrough": true,
+  "expected_checksum_fields": [
+    "x_scaler_checksum",
+    "y_scaler_checksum"
+  ],
+  "fit_once": true,
+  "fit_region": "FINAL_DEV_REGION-v1",
+  "reuse_all_seeds": true,
+  "time_features_passthrough": true,
+  "version": "FINAL_SCALING-v1"
 }
