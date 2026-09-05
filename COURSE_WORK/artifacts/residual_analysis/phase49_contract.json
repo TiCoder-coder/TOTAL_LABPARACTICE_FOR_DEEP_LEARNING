@@ -1,0 +1,67 @@
+{
+  "created_at_utc": "2026-09-03T19:44:22Z",
+  "definition_freeze": {
+    "acf_key_lags": [
+      1,
+      6,
+      12,
+      36,
+      72,
+      144
+    ],
+    "acf_lag_range": [
+      1,
+      144
+    ],
+    "histogram_bins": 50,
+    "histogram_common_range": true,
+    "kurtosis": "Fisher excess kurtosis bias=False normal_reference=0",
+    "ljung_box_lags": [
+      6,
+      36,
+      144
+    ],
+    "ljung_box_policy": "SECONDARY_DIAGNOSTIC",
+    "mad_definition": "median(abs(residual - median(residual)))",
+    "prediction_decile_count": 10,
+    "prediction_decile_source": "y_pred_only",
+    "prediction_decile_use": "DESCRIPTIVE_DIAGNOSTIC_ONLY",
+    "rolling_cadence_minutes": 10,
+    "rolling_window_samples": 144,
+    "skewness": "sample skewness bias=False",
+    "std_ddof": 1
+  },
+  "forbidden_in_phase49": [
+    "new test inference",
+    "checkpoint loading",
+    "training",
+    "optimizer steps",
+    "backward pass",
+    "scaler fitting",
+    "prediction correction",
+    "residual correction",
+    "bias correction",
+    "recalibration",
+    "best seed selection",
+    "ensemble promotion",
+    "3N iid pooling",
+    "test-derived Phase50 regimes",
+    "worst-error ranking",
+    "attention analysis"
+  ],
+  "n_seeds": 3,
+  "n_test_per_seed": 2961,
+  "negative_semantics": "OVERPREDICTION",
+  "phase": "49",
+  "positive_semantics": "UNDERPREDICTION",
+  "ready_for_phase50_handoff": true,
+  "ready_for_phase51_context_handoff": true,
+  "residual_convention": "y_true - y_pred",
+  "scope": "Phase49 residual analysis contract — frozen for Phase49-F",
+  "seeds": [
+    "42",
+    "123",
+    "2026"
+  ],
+  "zero_policy": "EXACT_ZERO"
+}

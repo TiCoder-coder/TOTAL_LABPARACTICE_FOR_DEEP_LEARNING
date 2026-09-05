@@ -1,0 +1,22 @@
+{
+  "BEST_semantics": "not_applicable",
+  "LAST_semantics": "final_epoch_state",
+  "attention_inspection_compatibility_required": true,
+  "checkpoint_type": "FINAL_REFIT",
+  "config_fingerprint_required": true,
+  "lock_fingerprint_required": true,
+  "official_epoch": 50,
+  "population_fingerprint_required": true,
+  "recipe_fingerprint_required": true,
+  "required_metadata": [
+    "seed",
+    "config_fingerprint",
+    "recipe_fingerprint",
+    "lock_fingerprint",
+    "scaler_checksums",
+    "population_fingerprint"
+  ],
+  "scaler_checksums_required": true,
+  "seed_required": true,
+  "strict_load_required": true
+}

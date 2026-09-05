@@ -1,0 +1,37 @@
+{
+  "table_id": "FT01",
+  "title": "Final Experimental and Model Configuration",
+  "evidence_class": "METHOD / LOCKED_CONFIG",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Frozen upstream source. See final_table_source_ledger.csv for cell lineage.",
+    "Mean ± SD (ddof=1) of seed-level metrics; descriptive only; NOT an ensemble forecast."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 29,
+  "csv_path": "artifacts/final_tables/tables/csv/FT01_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT01_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT01_rows.tex",
+  "csv_sha256": "8dc0b45f932f7723931f7e3554a99400c7ccb9d8ef6a3a3adbd537464ebc52d8",
+  "markdown_sha256": "98e26549b38fc6908d8d50e570e10430b2be37247818e9c6bc4ecc753950239b",
+  "latex_sha256": "b48a84667b3d1875d99b216530c7f838193194bafe6eaf74c4bdc4898346f56e"
+}

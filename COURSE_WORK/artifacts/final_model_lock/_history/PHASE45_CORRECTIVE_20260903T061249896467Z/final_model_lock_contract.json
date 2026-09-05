@@ -1,0 +1,14 @@
+{
+  "epochs": 50,
+  "final_lock_sha256": "016de5e628c5c817f593d9dab2c9a7b9ccf3563419854756a3a377d9436507e8",
+  "model_family": "TRANSFORMER_ENCODER",
+  "model_id": "TR_C0_PRIMARY",
+  "no_early_stopping": true,
+  "no_validation": true,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "test_locked": true
+}

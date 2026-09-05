@@ -1,0 +1,259 @@
+{
+  "log_id": "PHASE-43-47-HTML-VIZ-SYNC-EXEC-LOG",
+  "schema_version": "EXEC_LOG-v1",
+  "created_at": "2026-09-03T23:35:00+07:00",
+  "executed_at_utc": "2026-09-03T16:35:00+00:00",
+  "operator_role": "Senior ML Reporting Engineer + Notebook Architecture Reviewer",
+  "operator_mode": "presentation_only_html_visualization",
+  "phase_range": "43-47",
+  "reference_style": "Phase24-32",
+  "plan_used": {
+    "plan_id": "USER-INSTRUCTION-HTML-VIZ-PHASE-43-47",
+    "instruction_source": "User prompt: COURSE_WORK — HTML VISUALIZATION SYNC FOR PHASE 43\u219247 ONLY",
+    "approval_status": "USER_APPROVED",
+    "human_approved": true
+  },
+  "reporting_modules_changed": [
+    {
+      "path": "src/course_work/reporting/phase_43_47_resume.py",
+      "action": "CREATED",
+      "purpose": "Phase 43-47 read-only HTML visualization renderer",
+      "public_api": [
+        "render_phase_43_lstm_tuning_resume(project_root)",
+        "render_phase_44_rolling_origin_resume(project_root)",
+        "render_phase_45_final_model_lock_resume(project_root)",
+        "render_phase_46_three_seed_final_runs_resume(project_root)",
+        "render_phase_47_final_test_evaluation_resume(project_root)"
+      ],
+      "ownership_decision": "Created as a separate module rather than extending phase_summary.py because architecture_rule.md \u00a77.9.1 restricts phase_summary.py to Phase 0-33 ownership. Phase 43-47 are out of that scope but follow the same architectural principles (read-only, escape-everything, no JS, no def/class added to notebook)."
+    },
+    {
+      "path": "src/course_work/reporting/phase_summary.py",
+      "action": "UNCHANGED",
+      "sha256_first_16_before": "06234a39d47dd4da",
+      "sha256_first_16_after": "06234a39d47dd4da",
+      "note": "Phase 0-33 ownership boundary preserved per architecture_rule \u00a77.9.1"
+    }
+  ],
+  "notebook_cells_changed": [
+    {
+      "cell_index": 117,
+      "phase": "Phase 43",
+      "type": "markdown",
+      "before_summary": "Phase 43 - LSTM Tuning (full narrative + canonical artifact paths listing)",
+      "after_summary": "Phase 43 - LSTM Tuning (compact narrative + Inputs/Outputs only, no inline data)"
+    },
+    {
+      "cell_index": 118,
+      "phase": "Phase 43",
+      "type": "code",
+      "before_summary": "materialize_phase_43 + manual JSON loads + raw print of stage winners",
+      "after_summary": "from course_work.reporting.phase_43_47_resume import render_phase_43_lstm_tuning_resume; display(render_phase_43_lstm_tuning_resume(PROJECT_ROOT))"
+    },
+    {
+      "cell_index": 119,
+      "phase": "Phase 44",
+      "type": "markdown",
+      "before_summary": "Phase 44 narrative + canonical PASS state bullets",
+      "after_summary": "Phase 44 compact narrative + protocol note (LSTM may have lowest pooled RMSE; Phase 45 locks best Transformer by protocol)"
+    },
+    {
+      "cell_index": 120,
+      "phase": "Phase 44",
+      "type": "code",
+      "before_summary": "manual read_json + raw print of fingerprint match",
+      "after_summary": "display(render_phase_44_rolling_origin_resume(PROJECT_ROOT))"
+    },
+    {
+      "cell_index": 121,
+      "phase": "Phase 45",
+      "type": "markdown",
+      "before_summary": "Phase 45 narrative + canonical PASS state bullets",
+      "after_summary": "Phase 45 compact narrative + epoch-policy note (median of [19, 30, 37] = 30)"
+    },
+    {
+      "cell_index": 122,
+      "phase": "Phase 45",
+      "type": "code",
+      "before_summary": "manual read_json + raw print of locked_model_id etc.",
+      "after_summary": "display(render_phase_45_final_model_lock_resume(PROJECT_ROOT))"
+    },
+    {
+      "cell_index": 123,
+      "phase": "Phase 46",
+      "type": "markdown",
+      "before_summary": "Phase 46 narrative + canonical PASS state bullets",
+      "after_summary": "Phase 46 compact narrative + FINAL_DEV DIAGNOSTIC warning (NOT held-out Test)"
+    },
+    {
+      "cell_index": 124,
+      "phase": "Phase 46",
+      "type": "code",
+      "before_summary": "manual read_json + raw print of candidate/run_ids/etc.",
+      "after_summary": "display(render_phase_46_three_seed_final_runs_resume(PROJECT_ROOT))"
+    },
+    {
+      "cell_index": 125,
+      "phase": "Phase 47",
+      "type": "markdown",
+      "before_summary": "Phase 47 narrative + Inputs/Eligibility scopes",
+      "after_summary": "Phase 47 compact narrative (unchanged in scope; already correct from prior sync)"
+    },
+    {
+      "cell_index": 126,
+      "phase": "Phase 47",
+      "type": "code",
+      "before_summary": "manual json.loads + raw prints of overall_status/final_lock/etc. + pd.read_csv display",
+      "after_summary": "display(render_phase_47_final_test_evaluation_resume(PROJECT_ROOT))"
+    },
+    {
+      "cell_index": 127,
+      "phase": "Phase 47",
+      "type": "code",
+      "before_summary": "manual pd.read_csv + raw prints of mean\u00b1SD",
+      "after_summary": "display(render_phase_47_final_test_evaluation_resume(PROJECT_ROOT))"
+    },
+    {
+      "cell_index": 128,
+      "phase": "Phase 47",
+      "type": "code",
+      "before_summary": "manual pd.read_csv + raw prints of comparison",
+      "after_summary": "display(render_phase_47_final_test_evaluation_resume(PROJECT_ROOT))"
+    },
+    {
+      "cell_index": 129,
+      "phase": "Phase 47",
+      "type": "markdown",
+      "before_summary": "Phase 47 Scientific Conclusion narrative with explicit metric winners",
+      "after_summary": "Compact Phase 47 \u2192 next phases handoff (full scientific conclusion now lives inside the Phase 47 dashboard)"
+    }
+  ],
+  "notebook_cells_unchanged": [
+    {"cell_index": 116, "phase": "Phase 42", "reason": "out of scope (user instruction: ONLY Phase 43-47)"},
+    {"cell_index": 130, "phase": "Pipeline Summary", "reason": "out of scope (user instruction: ONLY Phase 43-47)"}
+  ],
+  "canonical_artifacts_consumed_read_only": [
+    "artifacts/lstm_tuning/phase_43_signoff.json",
+    "artifacts/lstm_tuning/lstm_tuned_winner.json",
+    "artifacts/lstm_tuning/lstm_stage_lineage.csv",
+    "artifacts/lstm_tuning/lt1_hidden_size_metrics.csv",
+    "artifacts/lstm_tuning/lt2_layers_metrics.csv",
+    "artifacts/lstm_tuning/lt3_dropout_metrics.csv",
+    "artifacts/lstm_tuning/lt4_learning_rate_metrics.csv",
+    "artifacts/lstm_tuning/lt5_weight_decay_metrics.csv",
+    "artifacts/rolling_origin/phase_44_signoff.json",
+    "artifacts/rolling_origin/rolling_origin_pooled_metrics.csv",
+    "artifacts/rolling_origin/rolling_origin_transformer_robustness_ranking.csv",
+    "artifacts/rolling_origin/rolling_origin_inner_best_epochs.csv",
+    "artifacts/rolling_origin/rolling_origin_recommended_transformer.json",
+    "artifacts/final_model_lock/phase_45_signoff.json",
+    "artifacts/final_model_lock/final_epoch_policy.json",
+    "artifacts/final_model_lock/final_seed_contract.json",
+    "artifacts/final_model_lock/final_model_lock_summary.json",
+    "artifacts/three_seed_final_runs/phase_46_signoff.json",
+    "artifacts/three_seed_final_runs/three_seed_final_runs_summary.json",
+    "artifacts/three_seed_final_runs/final_lock_verification.json",
+    "artifacts/final_test/phase_47_signoff.json",
+    "artifacts/final_test/final_test_population_manifest.json",
+    "artifacts/final_test/final_test_access_event.json"
+  ],
+  "phase43_visualized": true,
+  "phase44_visualized": true,
+  "phase45_visualized": true,
+  "phase46_visualized": true,
+  "phase47_visualized": true,
+  "validation_checks": {
+    "static_safety_scan_full_notebook": {
+      "optimizer.step(": 0,
+      "loss.backward(": 0,
+      "model.train(": 0,
+      "phase47_final_test_evaluation": 0,
+      "subprocess": 0,
+      "run_path": 0,
+      "sys.path.append": 0,
+      "sys.path.insert": 0,
+      "/Users/": 0,
+      "materialize_phase_43_invocation": 0,
+      "materialize_phase_44_invocation": 0,
+      "materialize_phase_45_invocation": 0,
+      "materialize_phase_46_invocation": 0,
+      "materialize_phase_47_invocation": 0,
+      "result": "PASS"
+    },
+    "static_safety_scan_phase_43_47_cells_only": {
+      "optimizer.step(": 0,
+      "loss.backward(": 0,
+      "model.train(": 0,
+      "phase47_final_test_evaluation": 0,
+      "subprocess": 0,
+      "run_path": 0,
+      "sys.path.append": 0,
+      "sys.path.insert": 0,
+      "/Users/": 0,
+      "result": "PASS"
+    },
+    "notebook_phase_order": {
+      "phase_headings": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47],
+      "result": "PASS"
+    },
+    "notebook_json_valid": {
+      "result": "PASS",
+      "total_cells": 131
+    },
+    "notebook_presentation_only": {
+      "phase_43_47_cells_have_no_def_or_class": true,
+      "phase_43_47_cells_use_only_reporting_imports_and_display": true,
+      "result": "PASS"
+    },
+    "renderer_independent_tests": {
+      "phase_43_html_length": 11480,
+      "phase_44_html_length": 8722,
+      "phase_45_html_length": 9344,
+      "phase_46_html_length": 9277,
+      "phase_47_html_length": 10327,
+      "phase_43_required_strings_present": true,
+      "phase_44_required_strings_present": true,
+      "phase_45_required_strings_present": true,
+      "phase_46_required_strings_present": true,
+      "phase_47_required_strings_present": true,
+      "phase_47_value_cross_check": "12 of 12 canonical values present in HTML (Test N=2961, seed42/123/2026 RMSE, mean RMSE/MAE/R2, sd RMSE, persistence MAE/RMSE/R2, LSTM eligibility)",
+      "scientific_conclusion_no_universal_better_claim": true,
+      "result": "PASS"
+    },
+    "scientific_immutability_vs_baseline": {
+      "phase_43_signoff_unchanged": true,
+      "phase_44_signoff_unchanged": true,
+      "phase_45_signoff_unchanged": true,
+      "phase_46_signoff_unchanged": true,
+      "phase_47_signoff_unchanged": true,
+      "phase_43_processing_log_unchanged": true,
+      "phase_44_processing_log_unchanged": true,
+      "phase_45_processing_log_unchanged": true,
+      "phase_46_processing_log_unchanged": true,
+      "phase_47_processing_log_unchanged": true,
+      "phase_summary_py_unchanged": true,
+      "checkpoint_files_modified": 0,
+      "new_run_ids_created": 0,
+      "result": "PASS"
+    },
+    "phase_42_cell_unchanged": {
+      "phase_42_first_line": "phase_42_signoff = materialize_phase_42(PROJECT_ROOT)",
+      "result": "PASS",
+      "note": "User instruction: ONLY Phase 43-47; Phase 42 was preserved as-is."
+    },
+    "pipeline_summary_cell_unchanged": {
+      "pipeline_summary_first_line": "## Pipeline State \u2014 Canonical",
+      "result": "PASS"
+    }
+  },
+  "scientific_training_executed": false,
+  "phase47_test_reevaluated": false,
+  "optimizer_steps": 0,
+  "new_run_ids": 0,
+  "checkpoints_modified": false,
+  "scientific_artifacts_modified": false,
+  "notebook_phase42_unchanged": true,
+  "phase_summary_py_unchanged": true,
+  "rendering_layer_architectural_decision": "Created src/course_work/reporting/phase_43_47_resume.py as a NEW module rather than extending phase_summary.py because architecture_rule.md \u00a77.9.1 restricts phase_summary.py to Phase 0-33 ownership. The new module follows the same architectural principles (read-only canonical artifacts, escape-everything HTML, no JS, no def/class added to notebook, full precision until presentation rounding).",
+  "final_status": "PASS"
+}

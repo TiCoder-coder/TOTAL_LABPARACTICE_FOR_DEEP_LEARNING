@@ -1,0 +1,27 @@
+{
+  "archive_reason": "PRESERVED AS HISTORICAL EVIDENCE BEFORE PHASE 59 SCIENTIFIC CORRECTIVE",
+  "archived_at_utc": "2026-09-05T14:40:50.183258+00:00",
+  "previous_version": "FINAL_CONCLUSIONS-v1",
+  "previous_source_phase54_version": "<not recorded in Phase59 v1 manifest>",
+  "previous_source_phase55_version": "<not recorded in Phase59 v1 manifest>",
+  "previous_source_phase56_version": "<not recorded in Phase59 v1 manifest>",
+  "previous_source_phase57_version": "<not recorded in Phase59 v1 manifest>",
+  "previous_source_phase58_version": "FINAL_TABLES-v1",
+  "previous_final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24 (STALE — was config fingerprint, not canonical combined lock)",
+  "previous_final_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "archive_path": "artifacts/final_conclusions/_history/FINAL_CONCLUSIONS-v1_ARCHIVED_20260905T144050177254",
+  "new_version_after_corrective": "FINAL_CONCLUSIONS-v2",
+  "corrective_fixes": [
+    "Update source_phase58_version to FINAL_TABLES-v2",
+    "Add explicit source_phase54_version = LAST_QUERY_ATTENTION-v2",
+    "Add explicit source_phase55_version = HEAD_COMPARISON-v2",
+    "Add explicit source_phase56_version = ERROR_CONDITIONED_ATTENTION-v2",
+    "Add explicit source_phase57_version = SEED_STABILITY_ATTENTION-v2",
+    "Correct final_lock_sha256 to canonical 81fb87c4... (combined model lock)",
+    "Add separate config_fingerprint_sha256 = 585c5e79...",
+    "Preserve final_test_population_sha256 = d7dbc0b3... (already correct)",
+    "Regenerate scientific narrative fingerprint",
+    "Add corrective tests (lineage v2, SHA identity separation, stale-marker audit, claim guards)",
+    "Verify narrative text preserved except lineage/metadata"
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "phase": 52,
+  "version": "ATTENTION_EXTRACTION-v1",
+  "expected": 37,
+  "actual_pass": 37,
+  "items": [
+    {
+      "oid": "O52.01",
+      "artifact": "attention_extraction_manifest.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.02",
+      "artifact": "attention_extraction_contract.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.03",
+      "artifact": "phase52_preflight_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.04",
+      "artifact": "attention_source_verification.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.05",
+      "artifact": "attention_checkpoint_verification.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.06",
+      "artifact": "attention_environment_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.07",
+      "artifact": "attention_extraction_batch_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.08",
+      "artifact": "attention_prediction_equivalence_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.09",
+      "artifact": "attention_tensor_integrity_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.10",
+      "artifact": "attention_probability_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.11",
+      "artifact": "attention_model_mutation_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.12",
+      "artifact": "attention_reproducibility_audit.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.13",
+      "artifact": "attention_test_target_order.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.14",
+      "artifact": "attention_dense_case_order.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.15",
+      "artifact": "attention_relative_position_map.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.16",
+      "artifact": "attention_case_position_map.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.17",
+      "artifact": "attention_case_metadata.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.18",
+      "artifact": "raw/dense_case_attention_seed42.npz",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.19",
+      "artifact": "raw/last_query_attention_seed42.npz",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.20",
+      "artifact": "raw_attention_checksums.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.21",
+      "artifact": "attention_dense_last_query_consistency.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.22",
+      "artifact": "attention_last_query_summary.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.23",
+      "artifact": "attention_full_matrix_summary.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.24",
+      "artifact": "attention_recent_mass_summary.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.25",
+      "artifact": "attention_top_source_summary.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.26",
+      "artifact": "attention_extraction_findings.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.27",
+      "artifact": "phase53_attention_heatmaps_handoff.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.28",
+      "artifact": "phase54_last_query_attention_handoff.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.29",
+      "artifact": "phase55_head_comparison_handoff.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.30",
+      "artifact": "phase56_error_conditioned_attention_handoff.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.31",
+      "artifact": "phase57_seed_stability_attention_handoff.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.32",
+      "artifact": "attention_extraction_tests.csv",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.33",
+      "artifact": "attention_extraction_discrepancies.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.34",
+      "artifact": "attention_extraction_summary.json",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.35",
+      "artifact": "attention_extraction_report.md",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.36",
+      "artifact": "README_ATTENTION_EXTRACTION.md",
+      "status": "PASS"
+    },
+    {
+      "oid": "O52.37",
+      "artifact": "phase_52_signoff.json",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "table_id": "FA08",
+  "title": "Full Error-Conditioned Attention Coefficients",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Diagnostic only; not deployment regimes; not causal."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 432,
+  "csv_path": "artifacts/final_tables/tables/csv/FA08_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA08_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA08_rows.tex",
+  "csv_sha256": "cc9ad73d94d8ab43bca22d2f4017ec5dde6b01423dfb63fcce211e8fdec90d51",
+  "markdown_sha256": "c968cdb2136a7871c081dafb7b8ebb29231506368e6e8a4612a706528ddedbb4",
+  "latex_sha256": "fe43e05bcf98745a47d5ca4b9116eaeac3ad62b7fbe18ac51dc4daf41084328d"
+}

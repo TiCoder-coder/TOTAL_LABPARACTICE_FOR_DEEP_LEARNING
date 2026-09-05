@@ -1,0 +1,71 @@
+{
+  "main_table_ids": [
+    "FT01",
+    "FT02",
+    "FT03",
+    "FT04",
+    "FT05",
+    "FT06",
+    "FT07",
+    "FT08",
+    "FT09",
+    "FT10"
+  ],
+  "appendix_table_ids": [
+    "FA01",
+    "FA02",
+    "FA03",
+    "FA04",
+    "FA05",
+    "FA06",
+    "FA07",
+    "FA08",
+    "FA09",
+    "FA10",
+    "FA11",
+    "FA12"
+  ],
+  "model_order": [
+    "Persistence Baseline",
+    "Tuned LSTM Baseline",
+    "Final Transformer — Seed 42",
+    "Final Transformer — Seed 123",
+    "Final Transformer — Seed 2026",
+    "Final Transformer — Three-Seed Summary"
+  ],
+  "seed_order": [
+    42,
+    123,
+    2026
+  ],
+  "metrics": [
+    "MAE (Wh)",
+    "RMSE (Wh)",
+    "R^2"
+  ],
+  "three_seed_summary": {
+    "metric_mean_of_three_seed_metrics": true,
+    "ddof": 1,
+    "is_ensemble": false
+  },
+  "rounding": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "no_best_value_highlight": true,
+  "no_test_reranking": true,
+  "no_new_metric": true,
+  "no_new_hypothesis_test": true,
+  "no_new_confidence_interval": true,
+  "no_ensemble_reconstruction": true,
+  "no_causal_claim": true,
+  "no_attention_feature_importance": true,
+  "phase50_regime_freeze": true,
+  "phase51_worst_case_freeze": true,
+  "phase57_matching_anchor_seed": 42,
+  "created_at": "2026-09-04T20:33:13Z"
+}

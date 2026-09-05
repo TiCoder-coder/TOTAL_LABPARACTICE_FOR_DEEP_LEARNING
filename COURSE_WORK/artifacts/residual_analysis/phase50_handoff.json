@@ -1,0 +1,79 @@
+{
+  "created_at_utc": "2026-09-03T19:44:23Z",
+  "forbidden_in_phase50": [
+    "creating test-derived target regimes",
+    "reusing phase49 prediction deciles as phase50 regimes",
+    "applying residual correction based on phase49 findings alone",
+    "selecting a best seed based on phase49 metrics alone",
+    "promoting an ensemble metric as the canonical model"
+  ],
+  "no_test_derived_thresholds_for_phase50": true,
+  "phase": "50",
+  "phase49_findings_summary": {
+    "n_findings": 10,
+    "policy_notes": [
+      "All findings are descriptive only; no causal claim.",
+      "No correction / recalibration proposal is emitted.",
+      "No best-seed selection, ensemble promotion, or 3N iid interpretation.",
+      "Ljung-Box p-values are SECONDARY DIAGNOSTIC only; do not gate PASS/FAIL.",
+      "Phase50 target regimes MUST use TRAIN-derived thresholds only.",
+      "No worst-error ranking in Phase49 (deferred to Phase51)."
+    ]
+  },
+  "phase49_passed_gates": true,
+  "phase49_persistence_baseline": {
+    "N": 2961,
+    "exact_fraction": 0.2944951030057413,
+    "mae": 26.73758865248227,
+    "mean_residual": 0.12495778453225262,
+    "median_residual": 0.0,
+    "overprediction_fraction": 0.3667679837892604,
+    "rmse": 66.83691534084765,
+    "sha256_first16": "7115af1c479b8957",
+    "std_residual": 66.84808757705314,
+    "underprediction_fraction": 0.3387369132049983
+  },
+  "phase49_prediction_deciles_are_NOT_phase50_regimes": true,
+  "phase49_residual_findings_are_descriptive": true,
+  "phase49_seed_performance": {
+    "123": {
+      "mae_wh": 27.11486924829266,
+      "mean_residual": 5.885584477100035,
+      "median_residual": 0.37464463595620856,
+      "n": 2961,
+      "r2": 0.5347188997659036,
+      "rmse_wh": 61.98608587121866,
+      "std_residual": 61.716457287208534
+    },
+    "2026": {
+      "mae_wh": 28.94229416815529,
+      "mean_residual": 3.2074270400174867,
+      "median_residual": -1.0795207859742675,
+      "n": 2961,
+      "r2": 0.4952737966044358,
+      "rmse_wh": 64.56013557970728,
+      "std_residual": 64.49130293440155
+    },
+    "42": {
+      "mae_wh": 29.528646738232613,
+      "mean_residual": 5.559035351374675,
+      "median_residual": -0.8630630669310904,
+      "n": 2961,
+      "r2": 0.4892735101282182,
+      "rmse_wh": 64.94275370825517,
+      "std_residual": 64.71532119050227
+    }
+  },
+  "phase50_target_regime_policy": "TRAIN_DERIVED_ONLY",
+  "phase50_threshold_policy": "TRAIN_DERIVED_ONLY",
+  "ready_for_phase50": true,
+  "required_in_phase50": [
+    "derive target regimes exclusively from TRAIN residuals",
+    "preserve phase49 residual convention (y_true - y_pred)",
+    "preserve zero policy (EXACT_ZERO, no epsilon)",
+    "report seed-level metrics; no best-seed selection",
+    "no 3N iid pooling"
+  ],
+  "residual_convention": "y_true - y_pred",
+  "scope": "Phase50 handoff (consumed by Phase50 implementation)"
+}

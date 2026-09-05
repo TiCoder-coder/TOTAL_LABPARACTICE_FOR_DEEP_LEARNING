@@ -1,0 +1,10 @@
+{
+  "actual_observed_history_semantics": "strict_past_only",
+  "future_input_forbidden": true,
+  "past_cross_boundary_context_allowed": true,
+  "protocol": "WB0",
+  "protocol_amendment_required": false,
+  "recursive_prediction_feedback_forbidden": true,
+  "s19_sensitivity_reference": "WB0_CONTEXT_CARRY_OVER",
+  "target_assigned_by_target_timestamp": true
+}

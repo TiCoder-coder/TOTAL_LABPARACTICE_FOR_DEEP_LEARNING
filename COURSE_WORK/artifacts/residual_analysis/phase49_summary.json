@@ -1,0 +1,105 @@
+{
+  "contract_invariants": {
+    "attention_analysis_executed": false,
+    "best_seed_selected": false,
+    "bias_correction_applied": false,
+    "causal_interpretation_emitted": false,
+    "checkpoint_loading": false,
+    "deciles_used_as_phase50_regimes": false,
+    "ensemble_promoted": false,
+    "ljung_box_used_for_pass_fail": false,
+    "lstm_residual_artifact_created": false,
+    "new_inference": false,
+    "no_epsilon_around_zero": true,
+    "optimizer_steps": 0,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_b_modified": false,
+    "phase49_c_modified": false,
+    "phase49_d_modified": false,
+    "phase49_e_modified": false,
+    "phase50_regimes_created": false,
+    "residual_correction_applied": false,
+    "scaler_fit": false,
+    "target_regime_analysis_deferred_to_phase50": true,
+    "three_n_iid_interpretation": false,
+    "training": false,
+    "worst_error_ranking_executed": false
+  },
+  "created_at_utc": "2026-09-03T19:44:23Z",
+  "findings_summary": {
+    "n_findings": 10,
+    "policy_notes": [
+      "All findings are descriptive only; no causal claim.",
+      "No correction / recalibration proposal is emitted.",
+      "No best-seed selection, ensemble promotion, or 3N iid interpretation.",
+      "Ljung-Box p-values are SECONDARY DIAGNOSTIC only; do not gate PASS/FAIL.",
+      "Phase50 target regimes MUST use TRAIN-derived thresholds only.",
+      "No worst-error ranking in Phase49 (deferred to Phase51)."
+    ]
+  },
+  "n_figures": 22,
+  "n_o49_complete": 33,
+  "n_o49_total": 33,
+  "n_seeds": 3,
+  "n_test": 2961,
+  "negative_semantics": "OVERPREDICTION",
+  "o49_completeness_fraction": 1.0,
+  "objective": "Produce the canonical descriptive residual analysis for the frozen Transformer Phase47 predictions (seeds 42, 123, 2026) on N=2961 Test observations, then finalize Phase49 with full audit, figures, findings, handoffs, report, README, and strict signoff.",
+  "persistence_baseline": {
+    "N": 2961,
+    "exact_fraction": 0.2944951030057413,
+    "mae": 26.73758865248227,
+    "mean_residual": 0.12495778453225262,
+    "median_residual": 0.0,
+    "overprediction_fraction": 0.3667679837892604,
+    "rmse": 66.83691534084765,
+    "sha256_first16": "7115af1c479b8957",
+    "std_residual": 66.84808757705314,
+    "underprediction_fraction": 0.3387369132049983
+  },
+  "phase": "49",
+  "phase50_thresholds_policy": "TRAIN_DERIVED_ONLY",
+  "phase51_first_allowed_to_rank_worst_errors": true,
+  "phase_sub_letter": "F",
+  "positive_semantics": "UNDERPREDICTION",
+  "ready_for_phase50_handoff": true,
+  "ready_for_phase51_context_handoff": true,
+  "residual_convention": "y_true - y_pred",
+  "seed_performance": {
+    "123": {
+      "mae_wh": 27.11486924829266,
+      "mean_residual": 5.885584477100035,
+      "median_residual": 0.37464463595620856,
+      "n": 2961,
+      "r2": 0.5347188997659036,
+      "rmse_wh": 61.98608587121866,
+      "std_residual": 61.716457287208534
+    },
+    "2026": {
+      "mae_wh": 28.94229416815529,
+      "mean_residual": 3.2074270400174867,
+      "median_residual": -1.0795207859742675,
+      "n": 2961,
+      "r2": 0.4952737966044358,
+      "rmse_wh": 64.56013557970728,
+      "std_residual": 64.49130293440155
+    },
+    "42": {
+      "mae_wh": 29.528646738232613,
+      "mean_residual": 5.559035351374675,
+      "median_residual": -0.8630630669310904,
+      "n": 2961,
+      "r2": 0.4892735101282182,
+      "rmse_wh": 64.94275370825517,
+      "std_residual": 64.71532119050227
+    }
+  },
+  "seeds": [
+    "42",
+    "123",
+    "2026"
+  ],
+  "title": "Phase49 Residual Analysis — Finalization Summary",
+  "zero_policy": "EXACT_ZERO"
+}

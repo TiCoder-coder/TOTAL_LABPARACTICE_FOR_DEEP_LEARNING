@@ -1,0 +1,36 @@
+{
+  "table_id": "FT10",
+  "title": "Evidence and Limitation Summary",
+  "evidence_class": "EVIDENCE_AND_LIMITATION",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Single-house dataset. No multi-house generalization possible."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 10,
+  "csv_path": "artifacts/final_tables/tables/csv/FT10_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT10_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT10_rows.tex",
+  "csv_sha256": "7d04a821af5b651523ef461afb68f3fab7c065190554303f72df9b56eac2a0a5",
+  "markdown_sha256": "abbe6b05268eb99d9134a09587c16591368c94fe459577efb9d6e541b3d098c5",
+  "latex_sha256": "e8730ea9c2d4feb70b6ed1426355cac24add160b6d4ecd45411b5528d85010ad"
+}

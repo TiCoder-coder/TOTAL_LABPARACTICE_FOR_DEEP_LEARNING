@@ -1,10 +1,11 @@
 {
-  "created_at": "2026-08-29T06:12:52Z",
-  "persistence_rmse": 66.41580963134766,
+  "candidate_count": 4,
+  "created_at": "2026-09-03T05:54:35.205134+00:00",
+  "fold_count": 3,
   "phase_id": 44,
-  "robustness_rmse_wh": 61.50746536254883,
-  "selected_transformer_id": "TR_C0_PRIMARY",
-  "selected_transformer_rmse": 61.50746536254883,
-  "status": "PASS",
-  "tuned_lstm_rmse": 60.32796096801758
+  "recommended_pooled_rmse_wh": 59.85979463604273,
+  "recommended_transformer_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "recommended_transformer_id": "TR_C2_ALT_LOOKBACK",
+  "signoff_status": "PASS",
+  "test_status": "NOT_ACCESSED"
 }

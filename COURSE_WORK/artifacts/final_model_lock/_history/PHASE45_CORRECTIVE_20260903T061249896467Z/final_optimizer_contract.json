@@ -1,0 +1,15 @@
+{
+  "LR": 0.0003,
+  "WD": 0.001,
+  "betas": [
+    0.9,
+    0.999
+  ],
+  "eps": 1e-08,
+  "gradient_accumulation": 1,
+  "optimizer": "AdamW",
+  "parameter_group_policy": "all_parameters",
+  "precision_policy": "fp32",
+  "scheduler": null,
+  "warmup": null
+}

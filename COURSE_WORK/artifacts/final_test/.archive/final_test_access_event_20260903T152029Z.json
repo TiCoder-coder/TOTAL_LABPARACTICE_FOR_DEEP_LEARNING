@@ -1,0 +1,24 @@
+{
+  "event_id": "TEST_FIRST_ACCESS_EVENT",
+  "phase": 47,
+  "authorized": true,
+  "final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "evaluation_contract_sha256": "f5bd800422ab552f8bafb7d4ff11fd1c9bb0bc9c66c2bb370d72acf4945a1996",
+  "first_access_timestamp": "2026-09-03T15:19:24.713440+00:00",
+  "access_reason": "FINAL_HELD_OUT_EVALUATION",
+  "authorized_models": [
+    "TRANSFORMER_SEED42",
+    "TRANSFORMER_SEED123",
+    "TRANSFORMER_SEED2026",
+    "PERSISTENCE",
+    "LSTM_TUNED_DEV_IF_ELIGIBLE"
+  ],
+  "authorized_metrics": [
+    "MAE_Wh",
+    "RMSE_Wh",
+    "R2"
+  ],
+  "scientific_config_frozen": true,
+  "post_access_tuning_forbidden": true,
+  "status": "AUTHORIZED"
+}

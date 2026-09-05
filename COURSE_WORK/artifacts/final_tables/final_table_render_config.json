@@ -1,0 +1,32 @@
+{
+  "phase": 58,
+  "model_order": [
+    "Persistence Baseline",
+    "Tuned LSTM Baseline",
+    "Final Transformer — Seed 42",
+    "Final Transformer — Seed 123",
+    "Final Transformer — Seed 2026",
+    "Final Transformer — Three-Seed Summary"
+  ],
+  "seed_order": [
+    42,
+    123,
+    2026
+  ],
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "mean_sd_ddof": 1,
+  "missing_label": "N/A",
+  "negative_zero_fix": true,
+  "no_best_value_highlight": true,
+  "no_ensemble": true,
+  "latex_booktabs": true,
+  "markdown_table_align": "default",
+  "frozen_at": "2026-09-05T14:02:23Z"
+}

@@ -1,0 +1,63 @@
+{
+  "phase": 47,
+  "audit_date": "2026-09-03",
+  "audit_type": "ONE_SHOT_PRE_OFFICIAL_AUDIT",
+  "total_defects_found": 2,
+  "defects": [
+    {
+      "id": 1,
+      "severity": "CRITICAL",
+      "category": "MISSING_OUTPUT",
+      "file": "src/course_work/phase47/writers.py",
+      "function": "N/A",
+      "plan_requirement": "Phase47 plan §154, §176: O47.29 (figures) — 4 summary PNG files required",
+      "observed_behavior": "write_figures() did not exist in writers.py",
+      "root_cause": "O47.29 was not implemented in the initial Phase47 infrastructure",
+      "runtime_impact": "Summary figures (TEST_47_01-04) would not be generated",
+      "scientific_impact": "No visual summary of Test results",
+      "fix": "Implemented write_figures() producing 4 PNGs: RMSE, MAE, R2 by seed+baseline, and seed variability error bars",
+      "test_access_required": false,
+      "training_required": false,
+      "status": "FIXED",
+      "test_coverage": "test_phase47_write_figures_structure added"
+    },
+    {
+      "id": 2,
+      "severity": "CRITICAL",
+      "category": "MISSING_OUTPUT",
+      "file": "src/course_work/phase47/writers.py",
+      "function": "N/A",
+      "plan_requirement": "Phase47 plan §154: O47.36 (final_test_tests.csv) and O47.37 (final_test_discrepancies.json) required",
+      "observed_behavior": "write_tests() and write_discrepancies() did not exist in writers.py",
+      "root_cause": "O47.36 and O47.37 were not implemented in the initial Phase47 infrastructure",
+      "runtime_impact": "Test results and discrepancy reporting artifacts would not be generated",
+      "scientific_impact": "Incomplete artifact coverage for governance",
+      "fix": "Implemented write_tests() producing final_test_tests.csv and write_discrepancies() producing final_test_discrepancies.json",
+      "test_access_required": false,
+      "training_required": false,
+      "status": "FIXED",
+      "test_coverage": "test_phase47_write_discrepancies and test_phase47_write_tests added"
+    }
+  ],
+  "defects_by_severity": {
+    "CRITICAL": 2,
+    "MAJOR": 0,
+    "MINOR": 0
+  },
+  "all_defects_fixed": true,
+  "no_new_defects": true,
+  "test_accessed_during_audit": false,
+  "training_executed_during_audit": false,
+  "artifacts_modified": false,
+  "phase45_evidence_modified": false,
+  "phase46_evidence_modified": false,
+  "verification_results": {
+    "pretest_gate": "PASS (15/15 gates)",
+    "focused_tests": "PASS (40/40 tests)",
+    "boundary_probe": "PASS (boundary reached safely)",
+    "phase46_regression": "PASS (48/48 tests)"
+  },
+  "plan_requirements_matrix": "phase_47_plan_requirements_matrix.json",
+  "plan_conformance": "PASS",
+  "ready_for_phase47_human_evaluation": true
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/phase_44_signoff.json",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/phase_44_signoff.json",
+    "sha256": "2ba38a176614c91a5d2c3b34b5a17043944fea8de88daacb076c0d8124a5ddb9",
+    "size": 1759,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_contract.json",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/rolling_origin_contract.json",
+    "sha256": "377a28139ca11592d4dc22636ec6beb156b740b235c26bf6c28a7d914b1cab46",
+    "size": 237,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_findings.csv",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/rolling_origin_findings.csv",
+    "sha256": "2012ed1f56748e3d80922d5dc4ede8d1b47b47aa4c567fad0c1a15896850188f",
+    "size": 363,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_manifest.json",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/rolling_origin_manifest.json",
+    "sha256": "840c223b274df465a7b6fe0620a20d08dfa86d9dd609a7c8da1c2a38f3851444",
+    "size": 50,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_results.csv",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/rolling_origin_results.csv",
+    "sha256": "16d1424ea66bd184d6a28d9564e1112be1c723f89d2ddd4a537394de232c82c2",
+    "size": 809,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_summary.json",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/rolling_origin_summary.json",
+    "sha256": "ec89e9a274885bf11a2ab360586d46fa3cdff983d41165e562ede8bba364571c",
+    "size": 301,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/phase44_preflight_audit.csv",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/phase44_preflight_audit.csv",
+    "sha256": "4f74b7acdc45a9fb1dd2461477552368cc90e954cfbaea177a5232494028ba76",
+    "size": 108,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/phase45_final_model_lock_handoff.json",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/phase45_final_model_lock_handoff.json",
+    "sha256": "2aeeada1116326d3011e0b9771c817a069c5e6250c6ea7481bd49548ecbf1eae",
+    "size": 4061,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/README_ROLLING_ORIGIN.md",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/README_ROLLING_ORIGIN.md",
+    "sha256": "88e09478dcfb2e64b2be1b649f046ae18cd422087cd959950b5396ca6fb0d139",
+    "size": 79,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  },
+  {
+    "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_01_model_comparison.png",
+    "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/PHASE44_PRE_CORRECTIVE_20260902T131859Z/RO_44_01_model_comparison.png",
+    "sha256": "0b649e570d09ddb386c8241556a13660b21f380d5ecffd99c2e4a39c779dd8ae",
+    "size": 49505,
+    "reason": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION",
+    "archived_at": "2026-09-02T13:18:59Z",
+    "status": "HISTORICAL_INVALIDATED_BY_PROTOCOL_DEVIATION"
+  }
+]

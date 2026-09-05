@@ -1,0 +1,106 @@
+{
+  "context_constants": {
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "cadence_minutes": 10,
+    "context_radius": 6,
+    "feature_count": 33,
+    "feature_set": "FS2_TF1",
+    "lookback": 72,
+    "test_population_first_id": 16774,
+    "test_population_last_id": 19734,
+    "test_population_n": 2961
+  },
+  "created_at_utc": "2026-09-04T07:12:37.673708+00:00",
+  "deliverables": {
+    "casebook_index": {
+      "path": "artifacts/worst_error_analysis/casebook_index.csv",
+      "sha256": "f1fd25bc53cbd754c5db229c1de5ac7d2e2b50bc8bd68e896a4e8211b5ee8d0e"
+    },
+    "casebook_integrity_audit": {
+      "path": "artifacts/worst_error_analysis/casebook_integrity_audit.csv",
+      "sha256": "701e961a52243f3022958f390ef15c03928bea301a2276bfb668e46994d584de"
+    },
+    "casebook_membership_bridge": {
+      "path": "artifacts/worst_error_analysis/casebook_membership_bridge.csv",
+      "sha256": "33ee3f169644efebf165d14010dfa84145fdb88b3b2dd0125dcdee6425a0845b"
+    },
+    "casebook_unique_case_master": {
+      "path": "artifacts/worst_error_analysis/casebook_unique_case_master.csv",
+      "sha256": "9fed07e90ca27db636034866528fd8659b96a5128b4ec74b5ce1fdab91aa1f4e"
+    },
+    "context_integrity_audit": {
+      "path": "artifacts/worst_error_analysis/context_integrity_audit.csv",
+      "sha256": "a28c7c8d52fee9a1b27ce9ccf7968f73404f9c40bca6273a221aa4325dec1ec8"
+    },
+    "feature_order_audit": {
+      "path": "artifacts/worst_error_analysis/feature_order_audit.csv",
+      "sha256": "605abcd65d9c08296ade5a589860c853810a591a2a09e391d5760bdb4f2c9b0d"
+    },
+    "input_window_integrity_audit": {
+      "path": "artifacts/worst_error_analysis/input_window_integrity_audit.csv",
+      "sha256": "9d5caa971815ec079561a48aa2025fb245207320f99f1f53133672fefd54723b"
+    },
+    "input_window_manifest": {
+      "path": "artifacts/worst_error_analysis/input_window_manifest.csv",
+      "sha256": "281215ac4230942ef2a7df8c6fbd8662fa92ac0482addfce96c3e0a1d0682a0e"
+    },
+    "local_temporal_context": {
+      "path": "artifacts/worst_error_analysis/local_temporal_context.csv",
+      "sha256": "4285726d9691b76231db4b87ce95ee2f006d07b924c586612d038052519c0bba"
+    },
+    "lstm_eligibility_context": {
+      "path": "artifacts/worst_error_analysis/lstm_eligibility_context.json",
+      "sha256": "833d399c5aa252a6559d7330b310bbb984f7bb6518dc6b76d42e546cc88dba8d"
+    },
+    "model_visible_feature_summary": {
+      "path": "artifacts/worst_error_analysis/model_visible_feature_summary.csv",
+      "sha256": "a56c18926575edcc91b04d7028dad37f40db974df4c482a3d62eb3318719d8aa"
+    }
+  },
+  "forbidden_actions_status": {
+    "attention_analysis_executed": false,
+    "best_seed_selected": false,
+    "casebook_created": true,
+    "checkpoint_loading": false,
+    "ensemble": false,
+    "feature_attribution": false,
+    "figures_created": false,
+    "final_findings_created": false,
+    "individual_case_inspection_executed": true,
+    "input_context_executed": true,
+    "manual_case_selection": false,
+    "new_test_inference": false,
+    "phase51_signoff_created": false,
+    "phase52_started": false,
+    "prediction_correction": false,
+    "ranking_changed": false,
+    "scaler_fit": false,
+    "shap": false,
+    "temporal_context_executed": true,
+    "training": false
+  },
+  "phase": 51,
+  "ready_for_phase51_g": false,
+  "source_shas": {
+    "feature_registry_canonical_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+    "persistence_sha256": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+    "phase51_d_canonical_shas": {
+      "error_concentration_table.csv": "8913a7dd1d43f5f58b1d0db86900ccf0815504fd087e9669dcff26678781565e",
+      "hardness_group_summary.csv": "98a2da44cdf059e35d852139fff9af3f2a06bc0dfc5158919b4667f51afbb3e4",
+      "hardness_vs_seed_disagreement.csv": "33052a40551e28c91762ea4fff28975edb027ade0fecdef47b63be13e6baa9aa",
+      "seed_overlap_table.csv": "6fb4c9cd5055763ae77cad6af2627c7439295d7eda084c55b41688076f3c402e",
+      "worst_case_membership_matrix.csv": "036442da9f282b7e9008304672da25c25470e4443ff130f4dc1065636e60db3e"
+    },
+    "phase51_e_canonical_shas": {
+      "baseline_context.csv": "365b98dce4a32494871850bbb6d1bdcf59a3ecadccd880cfa071b9e7a3f9f86a",
+      "baseline_context_summary.csv": "0fe3ab37bf3563122dd64e87ab17edbeabc4b6d646243052bce83b30854bdd89",
+      "regime_composition.csv": "2e235a4bc76d9235d2198205b3b812a05597f5edb38b4b0cc01dd0dec4214860",
+      "regime_overrepresentation.csv": "dfcd4a0d69957e4249d41d382a0118342f8464281a3c88486d46a61a3fa3bafe",
+      "shared_worst_regime_context.csv": "cb948de5d37f9bb94902a4a35f7edb8119afa2b097721a0fb31e1edaafbf6889"
+    },
+    "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f"
+  },
+  "subphase": "51-F",
+  "version": "WORST_ERROR_ANALYSIS_CASEBOOK-v1"
+}

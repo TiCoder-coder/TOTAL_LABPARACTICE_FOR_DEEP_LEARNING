@@ -1,0 +1,48 @@
+{
+  "target_notebook": "notebook_course_work/CourseWork_1.ipynb",
+  "backup_path": "notebook_course_work/CourseWork_1.ipynb.bak_before_phase56_visualization",
+  "notebook_sha_before": "bde0875b6e90d091db4a58351314b8d61b1ec76db4a7e752525c1f3c3789147a",
+  "notebook_sha_after": "da06638964efca8d097ceee2fb2c4f0c9e758ebb0871321cec1caf33e7ecd792",
+  "cells_before": 142,
+  "cells_after": 144,
+  "phase0_55_preserved": true,
+  "phase56_html_persisted": true,
+  "html_bytes": 805830,
+  "embedded_figure_count": 10,
+  "run_all_used": false,
+  "only_phase56_cell_executed": true,
+  "scientific_analysis_rerun": false,
+  "canonical_phase56_artifacts_modified": false,
+  "phase56_artifact_shas_at_write_time": {
+    "artifacts/error_conditioned_attention/phase_56_signoff.json": "c3cffbcb81a631f880a5a1918ca33f136c82f2a3b4c8e19b19b986e9f48d1ab2",
+    "artifacts/error_conditioned_attention/error_conditioned_attention_manifest.json": "1c467f7a4508779884a127a12b5c315b69555c36c752ef5fb3e548de416f930a",
+    "artifacts/error_conditioned_attention/error_conditioned_attention_contract.json": "1792225a507a20e6391481996965cadb44b9655e9dac64a5bfb457214bbb7f86",
+    "artifacts/error_conditioned_attention/error_conditioned_attention_summary.json": "f665e83cf0eb559b4f24131c9551d1a7c047cac6c4513c03ac418b66a7e92097",
+    "artifacts/error_conditioned_attention/error_conditioning_assignment.csv": "92349dac94d1ce0784226fb4be05a0f29f2f19f351d313e6d9888cdb375ae81a",
+    "artifacts/error_conditioned_attention/error_conditioning_assignment_fingerprint.json": "3ef6078ef71927dbdd706a4e9d49e30186c5995129fb5087072358f059513e16",
+    "artifacts/error_conditioned_attention/error_attention_association_long.csv": "f170ef8889ae566cce879bf4413763fecbc3970381a85f37004abd535d15610c",
+    "artifacts/error_conditioned_attention/error_attention_high_low_metric_comparison.csv": "5850bcfdd778d8310d65b66521f43dbc4784271b6279893486095a7f4c52e43d",
+    "artifacts/error_conditioned_attention/error_attention_signed_metric_comparison.csv": "a032b67d723a87bfcbefb811b08cb3a7d45d75dc794ea25b81261750909c1967",
+    "artifacts/error_conditioned_attention/error_conditioned_attention_findings.csv": "cfa7e2de87e4981d822cac1bb6bb36c964a44e2d025c2eb9970d380021379965",
+    "artifacts/error_conditioned_attention/phase57_seed_stability_attention_handoff.json": "eb32e0a105047fe343f48c1c7fd99351310da51c1e350bfb8931804a386d54dc",
+    "artifacts/error_conditioned_attention/phase58_attention_results_context_handoff.json": "fec3ee73ec076fed51ca00c445f35db19b4ffb0b922c8563975c324d1c2dfa12"
+  },
+  "phase57_started": false,
+  "phase58_started": false,
+  "renderer_path": "src/course_work/reporting/phase_56_dashboard.py",
+  "renderer_api": "render_phase_56_dashboard(project_root)",
+  "dashboard_version": "ERROR_CONDITIONED_ATTENTION-v1",
+  "test_count_semantics": {
+    "internal_signoff_tests": "43/43 (from phase_56_signoff.json + error_conditioned_attention_tests.csv)",
+    "focused_pytest_suite": "77/77 (from tests/unit/test_phase56_error_conditioned_attention.py)"
+  },
+  "o56_inventory_display": {
+    "canonical_plan_definition": "O56.1 .. O56.38 (38 items per Phase 56 plan)",
+    "phase56_signoff_artifacts_count": 37,
+    "phase56_signoff_figures_count": 101,
+    "phase56_signoff_findings_count": 251,
+    "renderer_displays": "37 manifest-artifact files, 101 canonical figures, 38 plan-defined O56 items, 251 findings"
+  },
+  "final_status": "PHASE 56-H NOTEBOOK VISUALIZATION COMPLETE",
+  "created_at_utc": "2026-09-04T20:00:00Z"
+}

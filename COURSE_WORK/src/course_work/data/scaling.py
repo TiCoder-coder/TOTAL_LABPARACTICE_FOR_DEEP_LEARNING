@@ -38,6 +38,7 @@ from course_work.utils.artifacts import (
 
 
 SCALING_VERSION = "SCALING-v1"
+FINAL_SCALING_VERSION = "FINAL_SCALING-v1"
 SCALING_ARTIFACT_ROOT = "artifacts/scaling"
 SCALER_ARTIFACT_ROOT = "artifacts/scalers"
 TARGET_COLUMN = "Appliances"
@@ -202,12 +203,35 @@ def transform_feature_variant(
     global_split_fingerprint: str,
 ) -> pd.DataFrame:
     validate_scaler_bundle(bundle, variant_id, feature_fingerprint, global_split_fingerprint)
+    return _apply_feature_transform(dataframe, bundle)
+
+
+def transform_feature_variant_with_scaler_bundle(
+    dataframe: pd.DataFrame,
+    bundle: dict[str, Any],
+    variant_id: str,
+    feature_fingerprint: str,
+    global_split_fingerprint: str,
+) -> pd.DataFrame:
+    """Apply feature transformation using an explicit scaler bundle.
+
+    Unlike transform_feature_variant, this function does NOT call
+    validate_scaler_bundle — it accepts a pre-validated bundle so callers
+    can pass FINAL_SCALING-v1 bundles (scaling_version=FINAL_SCALING-v1)
+    that would fail the Phase-9-only validate_scaler_bundle check.
+
+    The caller is responsible for validating the bundle before passing it.
+    """
+    return _apply_feature_transform(dataframe, bundle)
+
+
+def _apply_feature_transform(dataframe: pd.DataFrame, bundle: dict[str, Any]) -> pd.DataFrame:
     full_order = bundle["full_feature_order"]
     if dataframe.columns.duplicated().any() or list(dataframe.columns) != full_order:
-        raise ValueError(f"Transform feature order mismatch for {variant_id}")
+        raise ValueError(f"Transform feature order mismatch for {bundle.get('variant_id', 'unknown')}")
     output = dataframe.copy(deep=True).astype("float64")
     scaled_order = bundle["scaled_feature_order"]
-    values = _require_finite(output, full_order, f"{variant_id} transform")
+    values = _require_finite(output, full_order, f"{bundle.get('variant_id', 'unknown')} transform")
     if values.shape[1] != len(full_order):
         raise RuntimeError("Transform feature count changed")
     scaled_values = bundle["scaler"].transform(output.loc[:, scaled_order].to_numpy(dtype=np.float64, copy=True))
@@ -274,8 +298,13 @@ def transform_target(values: Any, option: str, y_bundle: dict[str, Any] | None =
         return array.copy()
     if option != "YS1" or y_bundle is None:
         raise ValueError(f"Unsupported or incomplete target scaling option: {option}")
-    if y_bundle.get("scaling_version") != SCALING_VERSION or y_bundle.get("option") != "YS1":
-        raise ValueError("YS1 scaler bundle contract mismatch")
+    valid_versions = {SCALING_VERSION, FINAL_SCALING_VERSION}
+    if y_bundle.get("scaling_version") not in valid_versions or y_bundle.get("option") != "YS1":
+        raise ValueError(
+            f"YS1 scaler bundle contract mismatch: expected scaling_version in {valid_versions} "
+            f"and option=YS1, got scaling_version={y_bundle.get('scaling_version')}, "
+            f"option={y_bundle.get('option')}"
+        )
     return y_bundle["scaler"].transform(flat).reshape(original_shape)
 
 
@@ -289,7 +318,8 @@ def inverse_transform_target(values: Any, option: str, y_bundle: dict[str, Any] 
         return array.copy()
     if option != "YS1" or y_bundle is None:
         raise ValueError(f"Unsupported or incomplete target scaling option: {option}")
-    if y_bundle.get("scaling_version") != SCALING_VERSION or y_bundle.get("option") != "YS1":
+    valid_versions = {SCALING_VERSION, FINAL_SCALING_VERSION}
+    if y_bundle.get("scaling_version") not in valid_versions or y_bundle.get("option") != "YS1":
         raise ValueError("YS1 scaler bundle contract mismatch")
     return y_bundle["scaler"].inverse_transform(flat).reshape(original_shape)
 

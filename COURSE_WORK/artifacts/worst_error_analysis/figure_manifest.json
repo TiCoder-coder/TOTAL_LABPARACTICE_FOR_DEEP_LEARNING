@@ -1,0 +1,118 @@
+{
+  "descriptive_only": true,
+  "figures": [
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_01_top20_abs_error_seed42.png",
+      "selection_rule": "rank position 1..20 from frozen Phase 51-C selection",
+      "sha256": "8321ad232513761fda9fe6b3cfd3687097635a4b9539f428688bbf1e92f3131b",
+      "size_bytes": 26724,
+      "source": "artifacts/worst_error_analysis/worst_per_seed_top20.csv",
+      "title": "Phase 51 W1 — seed 42"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_02_top20_abs_error_seed123.png",
+      "selection_rule": "rank position 1..20 from frozen Phase 51-C selection",
+      "sha256": "6810975be2373d5e72df64c0dc696d0419108366683a8cc60475091a83d9a7d5",
+      "size_bytes": 26241,
+      "source": "artifacts/worst_error_analysis/worst_per_seed_top20.csv",
+      "title": "Phase 51 W1 — seed 123"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_03_top20_abs_error_seed2026.png",
+      "selection_rule": "rank position 1..20 from frozen Phase 51-C selection",
+      "sha256": "c36e9a9d49ba7d8f4b41295f06f4ca71062ce5eef7e33bf99c1d6a36c6c006b9",
+      "size_bytes": 26908,
+      "source": "artifacts/worst_error_analysis/worst_per_seed_top20.csv",
+      "title": "Phase 51 W1 — seed 2026"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_04_shared_top20_hardness.png",
+      "selection_rule": "rank position 1..20 from frozen Phase 51-C shared selection",
+      "sha256": "7b53c04678cca38f12f41d8d487b75a74e31212ff7988a861cda015dcc102fc9",
+      "size_bytes": 52616,
+      "source": "artifacts/worst_error_analysis/worst_shared_top20.csv",
+      "title": "Phase 51 W2 — Shared Top20"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_05_w3prediction.png",
+      "selection_rule": "signed_rank 1..10 from frozen Phase 51-C signed selection",
+      "sha256": "05b8d61e93eeadae5e820f332f02483193ba04b35cb917c9f90afd91a5aa97d9",
+      "size_bytes": 31986,
+      "source": "artifacts/worst_error_analysis/worst_underprediction_top10.csv",
+      "title": "Phase 51 W3_UNDERPREDICTION_WORST"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_06_w4prediction.png",
+      "selection_rule": "signed_rank 1..10 from frozen Phase 51-C signed selection",
+      "sha256": "ee0df50cbdb78b41181fd29fdf8ad65c43e99662bdeb31a42e3130423d6b7617",
+      "size_bytes": 32879,
+      "source": "artifacts/worst_error_analysis/worst_overprediction_top10.csv",
+      "title": "Phase 51 W4_OVERPREDICTION_WORST"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_07_seed_top20_overlap.png",
+      "selection_rule": "frozen Phase 51-D overlap computation (W1_PAIRWISE section)",
+      "sha256": "072d199d02e66dfd88c76d37f4b99d8305b5cdcf633378d1930894b3660acf9e",
+      "size_bytes": 22335,
+      "source": "artifacts/worst_error_analysis/seed_overlap_table.csv",
+      "title": "Phase 51 W5 — Cross-seed Top20 overlap"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_08_hardness_vs_seed_disagreement.png",
+      "selection_rule": "full Test population descriptive scatter (no threshold)",
+      "sha256": "c0c0acf6c56fb96336baf7807f46c780374853e583abb9a8f2073fdfe7a3f8dc",
+      "size_bytes": 33850,
+      "source": "artifacts/worst_error_analysis/hardness_vs_seed_disagreement.csv",
+      "title": "Phase 51 W6 — Hardness vs Seed Spread"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_09_shared_worst_regime_composition.png",
+      "selection_rule": "frozen Phase 50 regime labels reused exactly",
+      "sha256": "d7d6c6f554c15341665e1a41d303e9013c559462b58298e73d1e5043c4ed9a18",
+      "size_bytes": 28283,
+      "source": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "title": "Phase 51 W2 regime composition (R2)"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_10_sample_share_vs_worst_case_share.png",
+      "selection_rule": "frozen Phase 51-D concentration rows",
+      "sha256": "f3dc815f2eaf5b0735fe9e7b736888e37e7a488e6a2b9fea33985e7ca772c591",
+      "size_bytes": 32670,
+      "source": "artifacts/worst_error_analysis/error_concentration_table.csv",
+      "title": "Phase 51 — Top20 sample vs error share"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_11_error_concentration_sse.png",
+      "selection_rule": "k ∈ {1, 2, 5, 10, 20} descriptive curve",
+      "sha256": "62f232683211798c7da5f1e340d623175618da510132ed87949622589a7b0775",
+      "size_bytes": 66310,
+      "source": "artifacts/worst_error_analysis/error_concentration_table.csv",
+      "title": "Phase 51 — Error concentration"
+    },
+    {
+      "descriptive_only": true,
+      "filename": "WORST_51_12_baseline_context_shared_worst.png",
+      "selection_rule": "frozen Phase 51-E baseline context (case-level)",
+      "sha256": "73227ef436c2a62587fbc09c3dc3180b384a5212690d34bd7f8f2fa402d9a809",
+      "size_bytes": 44720,
+      "source": "artifacts/worst_error_analysis/baseline_context.csv",
+      "title": "Phase 51 — Baseline context"
+    }
+  ],
+  "n_figures": 12,
+  "no_causal_claims": true,
+  "phase": 51,
+  "subphase": "51-G",
+  "version": "PHASE51_FIGURE_MANIFEST-v1"
+}

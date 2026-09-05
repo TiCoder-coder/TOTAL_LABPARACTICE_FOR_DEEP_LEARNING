@@ -1,0 +1,32 @@
+{
+  "phase": 59,
+  "version": "FINAL_CONCLUSIONS-v1",
+  "source_phase58_version": "FINAL_TABLES-v1",
+  "final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "final_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "research_question_count": 10,
+  "claim_count": 10,
+  "approved_claim_count": 9,
+  "limitation_count": 14,
+  "future_work_count": 10,
+  "sentence_audit_count": 39,
+  "new_analysis": false,
+  "new_training": false,
+  "new_test_inference": false,
+  "new_metric": false,
+  "post_test_retuning": false,
+  "causal_claim": false,
+  "status": "COMPLETE",
+  "created_at": "2026-09-05T04:03:17Z",
+  "new_attention_extraction": false,
+  "new_hypothesis_test": false,
+  "ensemble_reconstructed": false,
+  "best_seed_selected": false,
+  "best_head_selected": false,
+  "external_generalization_claim": false
+}

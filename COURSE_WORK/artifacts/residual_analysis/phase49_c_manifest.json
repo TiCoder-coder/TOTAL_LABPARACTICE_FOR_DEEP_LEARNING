@@ -1,0 +1,266 @@
+{
+  "artifacts": {
+    "distribution_summary_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_residual_distribution_summary.csv",
+    "histogram_bin_edges_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_histogram_bin_edges.csv",
+    "histogram_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_residual_histogram_50bins.csv",
+    "phase49_c_manifest_json": "artifacts/residual_analysis/phase49_c_manifest.json",
+    "sign_balance_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_sign_balance.csv",
+    "signed_bias_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_signed_bias.csv",
+    "tail_diagnostics_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_tail_diagnostics.csv"
+  },
+  "contract_invariants": {
+    "attention_analysis_executed": false,
+    "best_seed_selected": false,
+    "bias_correction_applied": false,
+    "checkpoint_loading": false,
+    "deciles_used_as_phase50_regimes": false,
+    "ensemble_promoted": false,
+    "ljung_box_used_for_pass_fail": false,
+    "new_inference": false,
+    "no_epsilon_around_zero": true,
+    "no_top_k_worst_ranking": true,
+    "optimizer_steps": 0,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_b_modified": false,
+    "residual_correction_applied": false,
+    "scaler_fit": false,
+    "target_regime_analysis_deferred_to_phase50": true,
+    "three_n_iid_interpretation": false,
+    "training": false,
+    "worst_error_ranking_executed": false
+  },
+  "definition_freeze": {
+    "cross_seed_summary_ddof": 1,
+    "histogram_bins": 50,
+    "histogram_common_range": true,
+    "kurtosis": "Fisher excess kurtosis bias=False normal_reference=0",
+    "mad_definition": "median(abs(residual - median(residual)))",
+    "negative_semantics": "OVERPREDICTION",
+    "positive_semantics": "UNDERPREDICTION",
+    "residual_convention": "y_true - y_pred",
+    "skewness": "sample skewness bias=False",
+    "std_ddof": 1,
+    "zero_policy": "EXACT_ZERO"
+  },
+  "distribution_summary": {
+    "123": {
+      "iqr": 21.12188186367476,
+      "kurtosis_excess": 22.52083747113086,
+      "mad": 10.525170518884309,
+      "max": 567.4577150093082,
+      "mean": 5.885584477100035,
+      "median": 0.37464463595620856,
+      "min": -289.69583515443696,
+      "n": 2961,
+      "p01": -138.1601678927282,
+      "p05": -47.37568281020596,
+      "p95": 79.44411759544764,
+      "p99": 300.27490627717265,
+      "q1": -10.334892520429634,
+      "q3": 10.786989343245125,
+      "skewness": 3.2326265051321337,
+      "std": 61.716457287208534
+    },
+    "2026": {
+      "iqr": 22.978704653469414,
+      "kurtosis_excess": 21.006221377619752,
+      "mad": 11.53370092557958,
+      "max": 534.8287859818215,
+      "mean": 3.2074270400174867,
+      "median": -1.0795207859742675,
+      "min": -338.41885083989104,
+      "n": 2961,
+      "p01": -166.4946533730642,
+      "p05": -54.41117231405593,
+      "p95": 77.51205165088368,
+      "p99": 293.6526245065449,
+      "q1": -13.06868501160345,
+      "q3": 9.910019641865965,
+      "skewness": 2.7928703240695265,
+      "std": 64.49130293440155
+    },
+    "42": {
+      "iqr": 23.921703741603594,
+      "kurtosis_excess": 21.478376510873325,
+      "mad": 11.959620408612416,
+      "max": 600.5894787902071,
+      "mean": 5.559035351374675,
+      "median": -0.8630630669310904,
+      "min": -274.9851117075611,
+      "n": 2961,
+      "p01": -147.36668292326428,
+      "p05": -55.620968740805466,
+      "p95": 85.17952019328558,
+      "p99": 303.71233290219186,
+      "q1": -12.825357933936104,
+      "q3": 11.09634580766749,
+      "skewness": 3.2738107268949737,
+      "std": 64.71532119050227
+    }
+  },
+  "executed_at_utc": "2026-09-03T19:44:22Z",
+  "histogram": {
+    "all_seeds_count_to_2961": true,
+    "all_seeds_fraction_to_1": true,
+    "common_residual_range": {
+      "max": 600.5894787902071,
+      "min": -338.41885083989104
+    },
+    "n_bins": 50,
+    "n_rows_total": 150,
+    "n_seeds": 3,
+    "shared_bin_edges_across_seeds": true
+  },
+  "n_per_seed": 2961,
+  "next_step_letter_after_c": "D (ACF + sign runs + Ljung-Box + rolling 144); requires explicit human approval",
+  "phase": "49",
+  "phase47_source_n_rows": {
+    "seed123": 2961,
+    "seed2026": 2961,
+    "seed42": 2961
+  },
+  "phase47_source_sha256_snapshot_first16": {
+    "seed123": "1bb55c445ffe132d",
+    "seed2026": "bfb575357dd6a8e3",
+    "seed42": "246ee0d725af972b"
+  },
+  "phase49_b_artifact_sha256_snapshot": {
+    "phase49_b_manifest.json": "dd0067118954b193ebec1b1aaa94567ca1d8c6cf95fc1a9f48e8da7405a4aca7",
+    "phase49_field_consistency_audit.csv": "8a286ddcbef71df01a286b3e9f1a70f7b3577ea443073e33f4f327fa7a591008",
+    "phase49_metric_reconstruction_audit.csv": "54e62b9c3486818bc6da2bc1600ccaa564f5719b7c7518bbcee995f2eb3aa207",
+    "phase49_source_verification.json": "21b73ca283a75f113a0cc2c07a42abcdace1637fc78ed40f559e2990519b1a88",
+    "residual_long_table.csv": "8418a99110bfda7047bd27c49c1c7a9769313b1ce1fa6dc66925f5286d120038",
+    "residual_wide_table.csv": "931ff9109aef236d9517d8964d29168316c7d5903633441443c1ae5e71e8f8bd"
+  },
+  "phase50_authorized": false,
+  "phase51_authorized": false,
+  "phase52_plus_authorized": false,
+  "phase_sub_letter": "C",
+  "ready_for_phase49_d": true,
+  "scope": "Residual distribution + signed bias + sign balance + tail diagnostics + 50-common-bin histogram preparation",
+  "seed_mean_residual_semantics": "SEED_MEAN_RESIDUAL_DESCRIPTIVE",
+  "seeds": [
+    "42",
+    "123",
+    "2026"
+  ],
+  "sign_balance": {
+    "123": {
+      "exact_count": 0,
+      "exact_fraction": 0.0,
+      "fractions_sum_to_one": true,
+      "n": 2961,
+      "overprediction_count": 1454,
+      "overprediction_fraction": 0.4910503208375549,
+      "underprediction_count": 1507,
+      "underprediction_fraction": 0.5089496791624452
+    },
+    "2026": {
+      "exact_count": 0,
+      "exact_fraction": 0.0,
+      "fractions_sum_to_one": true,
+      "n": 2961,
+      "overprediction_count": 1575,
+      "overprediction_fraction": 0.5319148936170213,
+      "underprediction_count": 1386,
+      "underprediction_fraction": 0.46808510638297873
+    },
+    "42": {
+      "exact_count": 0,
+      "exact_fraction": 0.0,
+      "fractions_sum_to_one": true,
+      "n": 2961,
+      "overprediction_count": 1549,
+      "overprediction_fraction": 0.5231340763255656,
+      "underprediction_count": 1412,
+      "underprediction_fraction": 0.4768659236744343
+    }
+  },
+  "signed_bias": {
+    "123": {
+      "exact_count": 0,
+      "exact_fraction": 0.0,
+      "fractions_sum_to_one": true,
+      "mean_absolute_residual_wh": 27.11486924829266,
+      "mean_overprediction_residual_wh": -21.616200896664843,
+      "mean_residual_wh": 5.885584477100035,
+      "mean_underprediction_residual_wh": 32.420153776007886,
+      "median_residual_wh": 0.37464463595620856,
+      "n": 2961,
+      "overprediction_count": 1454,
+      "overprediction_fraction": 0.4910503208375549,
+      "underprediction_count": 1507,
+      "underprediction_fraction": 0.5089496791624452
+    },
+    "2026": {
+      "exact_count": 0,
+      "exact_fraction": 0.0,
+      "fractions_sum_to_one": true,
+      "mean_absolute_residual_wh": 28.94229416815529,
+      "mean_overprediction_residual_wh": -24.190775100449535,
+      "mean_residual_wh": 3.2074270400174867,
+      "mean_underprediction_residual_wh": 34.34174765418456,
+      "median_residual_wh": -1.0795207859742675,
+      "n": 2961,
+      "overprediction_count": 1575,
+      "overprediction_fraction": 0.5319148936170213,
+      "underprediction_count": 1386,
+      "underprediction_fraction": 0.46808510638297873
+    },
+    "42": {
+      "exact_count": 0,
+      "exact_fraction": 0.0,
+      "fractions_sum_to_one": true,
+      "mean_absolute_residual_wh": 29.528646738232613,
+      "mean_overprediction_residual_wh": -22.90962534424995,
+      "mean_residual_wh": 5.559035351374675,
+      "mean_underprediction_residual_wh": 36.78988196435098,
+      "median_residual_wh": -0.8630630669310904,
+      "n": 2961,
+      "overprediction_count": 1549,
+      "overprediction_fraction": 0.5231340763255656,
+      "underprediction_count": 1412,
+      "underprediction_fraction": 0.4768659236744343
+    }
+  },
+  "sources": {
+    "phase49_b_long_table": "artifacts/residual_analysis/residual_long_table.csv",
+    "phase49_b_long_table_rows": 8883,
+    "phase49_b_manifest": "artifacts/residual_analysis/phase49_b_manifest.json",
+    "phase49_b_wide_table": "artifacts/residual_analysis/residual_wide_table.csv"
+  },
+  "status": "PENDING_HUMAN_APPROVAL_FOR_PHASE49_D",
+  "tail_diagnostics": {
+    "123": {
+      "abs_error_p90": 57.135007351191746,
+      "abs_error_p95": 116.20128818044961,
+      "abs_error_p99": 300.27490627717265,
+      "fraction_above_p90": 0.0999662276258021,
+      "fraction_above_p95": 0.04998311381290105,
+      "fraction_above_p99": 0.010131712259371834,
+      "max_absolute_error": 567.4577150093082,
+      "n": 2961
+    },
+    "2026": {
+      "abs_error_p90": 61.64704355524631,
+      "abs_error_p95": 128.06828968784703,
+      "abs_error_p99": 308.4452617044149,
+      "fraction_above_p90": 0.0999662276258021,
+      "fraction_above_p95": 0.04998311381290105,
+      "fraction_above_p99": 0.010131712259371834,
+      "max_absolute_error": 534.8287859818215,
+      "n": 2961
+    },
+    "42": {
+      "abs_error_p90": 64.16623647970042,
+      "abs_error_p95": 128.23673087049752,
+      "abs_error_p99": 303.71233290219186,
+      "fraction_above_p90": 0.0999662276258021,
+      "fraction_above_p95": 0.04998311381290105,
+      "fraction_above_p99": 0.010131712259371834,
+      "max_absolute_error": 600.5894787902071,
+      "n": 2961
+    }
+  }
+}

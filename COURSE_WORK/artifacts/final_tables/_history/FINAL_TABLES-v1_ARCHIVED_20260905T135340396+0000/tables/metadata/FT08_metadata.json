@@ -1,0 +1,37 @@
+{
+  "table_id": "FT08",
+  "title": "Error-Conditioned Attention Summary",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "HIGH/LOW are Test diagnostic cohorts; not deployment regimes.",
+    "Error-attention associations are descriptive; not causal."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 108,
+  "csv_path": "artifacts/final_tables/tables/csv/FT08_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT08_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT08_rows.tex",
+  "csv_sha256": "0598f732f2d970fa66604f19524a3a7c126bab896b8a2e66d86bd0563a903eb6",
+  "markdown_sha256": "a1191be805765dee2830614f91fdad34cbbb7e22c0720fc49c5c17ef9225fefd",
+  "latex_sha256": "47516fe7a56eaf6ccc1b7848161c34a0328fab0ed8b18bcb3ff8845583e777a0"
+}

@@ -1,0 +1,23 @@
+{
+  "phase": 54,
+  "downstream_phase": 57,
+  "downstream_name": "Seed-Stability Attention",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "per_seed_head_profiles": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_profile_by_lag.csv",
+  "per_seed_head_metrics": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metric_summary_by_head.csv",
+  "raw_last_query_refs": "PHASE52_RAW_LAST_QUERY_NPZ",
+  "raw_last_query_sha256": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "same_target_order": true,
+  "same_layers_heads": true,
+  "same_index_semantic_alignment_not_guaranteed": true,
+  "head_matching_not_performed_in_phase54": true,
+  "seed_stability_inference_performed": false,
+  "ready_for_phase57_context": true,
+  "phase57_authorized": false,
+  "phase52_signoff_sha256": "71075d9cc639c3f08a2a7ef571d7e14260254d5fd12d5f1d7159cd88aa35e23a",
+  "metrics_long_ref": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metrics_long.csv"
+}

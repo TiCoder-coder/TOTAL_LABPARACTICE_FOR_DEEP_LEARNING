@@ -1,0 +1,11 @@
+{
+  "prediction_bundle_refs": {
+    "seed_42": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+    "seed_123": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+    "seed_2026": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+    "persistence": "artifacts/final_test/predictions/final_test_predictions_persistence.csv"
+  },
+  "test_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "ready_for_phase50": true,
+  "status": "PASS"
+}

@@ -1,0 +1,11 @@
+{
+  "config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "config_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "final_lock_sha256": "016de5e628c5c817f593d9dab2c9a7b9ccf3563419854756a3a377d9436507e8",
+  "lineage_sha256": "376ae5fcaf05dc61ae2ce523aa60277558a5eff1bf94f0302b4b8990836eab6b",
+  "locked_at": "2026-08-30T01:34:54.342617+00:00",
+  "phase": 45,
+  "recipe_sha256": "7f863dd451b79a90a61ed7a80980e2a97469cefecf5ea81d0350189c9a9f4d72",
+  "recommended_model_id": "TR_C0_PRIMARY",
+  "version": "FINAL_MODEL_LOCK-v1"
+}

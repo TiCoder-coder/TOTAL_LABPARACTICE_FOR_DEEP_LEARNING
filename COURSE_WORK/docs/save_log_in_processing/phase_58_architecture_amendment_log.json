@@ -1,0 +1,149 @@
+{
+  "phase": 58,
+  "phase_name": "Final Tables",
+  "amendment_id": "phase-58-architecture-amendment-v1.20",
+  "version": "v1.20",
+  "date": "2026-09-05",
+  "reason": "Authorize a strictly reporting synthesis and governance phase that produces the final report-ready tables (FT01-FT10 + FA01-FA12) under artifacts/final_tables/ from frozen upstream machine-readable artifacts (Phase 44-57). Phase 58 is NOT a new analysis phase; it may only copy / join / reshape / format / audit / recompute display aggregates already authorized upstream.",
+  "authorized_paths": {
+    "source_packages": [
+      "src/course_work/phase58/"
+    ],
+    "artifact_roots": [
+      "artifacts/final_tables/",
+      "artifacts/final_tables/tables/csv/",
+      "artifacts/final_tables/tables/markdown/",
+      "artifacts/final_tables/tables/latex/",
+      "artifacts/final_tables/tables/metadata/"
+    ],
+    "logs": [
+      "docs/save_log_in_processing/phase_58_final_tables_log.json",
+      "docs/save_log_in_processing/phase_58_architecture_amendment_log.json"
+    ],
+    "tests": [
+      "tests/unit/test_phase58_*.py"
+    ],
+    "future_deferred": [
+      "src/course_work/reporting/phase_58_dashboard.py"
+    ]
+  },
+  "locked_scientific_contracts": {
+    "source_authority_precedence": [
+      "Phase 45 (final model lock)",
+      "Phase 46 (three-seed identities)",
+      "Phase 47 (final Test metrics)",
+      "Phase 48 (prediction spread)",
+      "Phase 49 (residuals)",
+      "Phase 50 (error regimes)",
+      "Phase 51 (worst cases)",
+      "Phase 52 (raw attention)",
+      "Phase 53 (attention figures)",
+      "Phase 54 (last-query metrics)",
+      "Phase 55 (head comparison)",
+      "Phase 56 (error-conditioned attention)",
+      "Phase 57 (seed-stability attention)",
+      "Phase 44 (rolling-origin robustness; development evidence)",
+      "Phase 43 (LSTM tuning lineage; development evidence)"
+    ],
+    "official_seeds": [42, 123, 2026],
+    "three_seed_summary": "mean +/- sample SD of seed-level metrics, ddof=1; NOT an ensemble forecast",
+    "ft02_model_order": [
+      "Persistence Baseline",
+      "Tuned LSTM Baseline",
+      "Final Transformer - Seed 42",
+      "Final Transformer - Seed 123",
+      "Final Transformer - Seed 2026",
+      "Final Transformer - Three-Seed Summary"
+    ],
+    "display_precision": {
+      "Wh": 2,
+      "r2": 3,
+      "dimensionless": 3,
+      "minutes": 1,
+      "percent": 1,
+      "count": "integer"
+    },
+    "aggregate_before_round": true,
+    "best_value_highlighting": false,
+    "phase50_regime_freeze": true,
+    "phase51_worst_case_freeze": true,
+    "attention_not_feature_importance": true,
+    "attention_not_causal": true,
+    "no_mape": true,
+    "no_new_significance_test": true,
+    "no_new_confidence_interval": true
+  },
+  "forbidden_actions": [
+    "training, fine-tune, optimizer.step, .backward, model.train",
+    "scaler.fit, scaler.fit_transform",
+    "new Test inference",
+    "new attention extraction, return_attention",
+    "model checkpoint loading, model.forward, torch.load",
+    "destructive overwrite of any Phase 43-57 canonical artifact",
+    "best-seed selection, best-head selection",
+    "ensemble reconstruction, weighted overall stability score",
+    "Test reranking, best-value highlighting (bold/color)",
+    "MAPE, new accuracy %",
+    "new hypothesis test (paired t-test, Wilcoxon, Diebold-Mariano, bootstrap)",
+    "new confidence interval",
+    "Phase 50 regime redefinition",
+    "Phase 51 worst-case reselection/removal",
+    "attention labeled as feature importance or causal contribution",
+    "attention stability labeled as functional-equivalence proof",
+    "cross-seed head semantic alignment assumption by same index",
+    "reading numeric attention values from PNG heatmaps",
+    "manual typing of scientific values without source lineage",
+    "implementing Phase 59 substantive conclusions",
+    "notebook modification in this run"
+  ],
+  "test_firewall": "Phase 58 may read all Phase 43-57 frozen machine-readable artifacts. Phase 58 may NOT modify any frozen artifact, may NOT train, may NOT reload model, may NOT run new Test inference, may NOT extract attention, may NOT select best seed/head, may NOT perform new significance tests, may NOT introduce MAPE, may NOT interpret attention causally, may NOT digitize PNG, may NOT weight multiple metrics into a single ensemble score.",
+  "minimum_outputs": [
+    "O58.1 final tables manifest",
+    "O58.2 final tables contract",
+    "O58.3 preflight audit",
+    "O58.4 frozen table inventory",
+    "O58.5 frozen figure inventory",
+    "O58.6 render config",
+    "O58.7 source ledger",
+    "O58.8 critical cell lineage",
+    "O58.9 model label map",
+    "O58.10 label dictionary",
+    "O58.11-O58.20 FT01-FT10 main tables",
+    "O58.21 FA01-FA12 appendix tables",
+    "O58.22 CSV versions",
+    "O58.23 Markdown versions",
+    "O58.24 LaTeX versions",
+    "O58.25 per-table metadata JSON",
+    "O58.26 table checksums",
+    "O58.27 cross-consistency audit",
+    "O58.28 population audit",
+    "O58.29 final-model-lock audit",
+    "O58.30 seed audit",
+    "O58.31 unit audit",
+    "O58.32 rounding audit",
+    "O58.33 coursework requirement coverage",
+    "O58.34 table-to-claim traceability",
+    "O58.35 FINAL_TABLE_CATALOG.md",
+    "O58.36 findings",
+    "O58.37 tests",
+    "O58.38 discrepancy log",
+    "O58.39 phase59 handoff",
+    "O58.40 summary JSON",
+    "O58.41 human-readable report",
+    "O58.42 README",
+    "O58.43 sign-off"
+  ],
+  "notebook_status": "NONE in this run. Phase 58-H deferred to a separate Human-approved run.",
+  "downstream_boundary": {
+    "phase59_ready_field_in_signoff": true,
+    "phase59_authorized": false,
+    "phase59_substantive_implementation_in_phase58": false
+  },
+  "source_plan_reference": {
+    "phase_detail": "docs/plan-doc/plan_detail_for_each_phase/Phase_58_Final_tables.md",
+    "pre_process_plan": "docs/plan-doc/plan_before_process/phase_58_final_tables_plan.md"
+  },
+  "human_approval": "APPROVED 2026-09-05",
+  "architecture_strength_preserved": true,
+  "created_at": "2026-09-05T03:30:00Z"
+}

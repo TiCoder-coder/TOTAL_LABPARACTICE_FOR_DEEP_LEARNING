@@ -1,0 +1,37 @@
+{
+  "FINAL_DEV_fingerprint": "552e6895dbc6f7a93b0ea9a2ab4de77abd58d8780ad4bc85b697a485ccbc31a9",
+  "FINAL_DEV_target_count": 16774,
+  "FINAL_RO_epochs": [
+    30,
+    37,
+    19
+  ],
+  "artifact_version": "FINAL_MODEL_LOCK-v1",
+  "completed_seed_count": 3,
+  "config_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "early_stopping_used": false,
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "final_refit_epochs": 30,
+  "lineage_sha256": "9ba532539d548156e1d5d933abe8c1463617cdc790741e48d5249b452995d9fe",
+  "locked_config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "locked_feature_variant_id": "FS2_TF1",
+  "locked_lookback_steps": 72,
+  "locked_model_family": "TRANSFORMER_ENCODER",
+  "locked_model_id": "TR_C2_ALT_LOOKBACK",
+  "overall_status": "FAIL",
+  "phase44_recommended_rmse_wh": 59.85979463604273,
+  "phase_id": 45,
+  "phase_name": "Final Model Lock",
+  "phase_version": "PHASE-45-v1",
+  "ready_for_phase46": false,
+  "recipe_sha256": "857dbaf7903792cdba3e126a50d8919992f02e0fff838cba86180026c9e0220c",
+  "scientific_run_count": 3,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "status": "FAIL",
+  "test_status": "NOT_ACCESSED",
+  "validation_used": false
+}

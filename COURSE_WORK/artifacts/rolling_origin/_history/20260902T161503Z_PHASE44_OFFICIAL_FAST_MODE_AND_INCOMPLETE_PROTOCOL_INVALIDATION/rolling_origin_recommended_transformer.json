@@ -1,0 +1,21 @@
+{
+  "all_folds_complete": true,
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "candidate_config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "candidate_id": "TR_C2_ALT_LOOKBACK",
+  "fold_metrics": {},
+  "fold_win_count": 1,
+  "mean_fold_rmse_wh": 29.839055,
+  "phase42_shortlist_position": 2,
+  "phase44_version": "ROBASE-v1",
+  "pooled_outer_mae_wh": 23.761695,
+  "pooled_outer_r2": 0.895351,
+  "pooled_outer_rmse_wh": 29.838912,
+  "ranking_rule": "pooled_rmse_wh primary; tie worst_fold/sd/shortlist_pos",
+  "sd_fold_rmse_wh": 0.346335,
+  "source_phase42_role": "PRIMARY",
+  "status": "PASS",
+  "test_status": "NOT_ACCESSED",
+  "tie_break_used": false,
+  "worst_fold_rmse_wh": 30.258463
+}

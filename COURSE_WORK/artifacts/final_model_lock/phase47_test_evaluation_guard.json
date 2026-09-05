@@ -1,0 +1,15 @@
+{
+  "enforcement_phase": "PHASE47",
+  "guard_owner": "PHASE45_FINAL_MODEL_LOCK",
+  "phase45_test_access": "forbidden",
+  "phase46_test_access": "forbidden",
+  "phase47_test_access": "first_allowed",
+  "test_access_first_allowed_phase": 47,
+  "test_labels_read_in_phase45": false,
+  "test_labels_read_in_phase46": false,
+  "test_metric_computed_in_phase45": false,
+  "test_metric_computed_in_phase46": false,
+  "test_prediction_count_in_phase45": 0,
+  "test_prediction_count_in_phase46": 0,
+  "version": "PHASE47_TEST_GUARD-v1"
+}

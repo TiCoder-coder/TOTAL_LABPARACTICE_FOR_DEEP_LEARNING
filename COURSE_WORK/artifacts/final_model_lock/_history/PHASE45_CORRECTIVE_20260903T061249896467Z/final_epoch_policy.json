@@ -1,0 +1,17 @@
+{
+  "RO1_inner_best_epoch": null,
+  "RO2_inner_best_epoch": null,
+  "RO3_inner_best_epoch": null,
+  "candidate_max_epochs": 50,
+  "final_refit_epochs": 50,
+  "no_seed_dependency": true,
+  "no_test_dependency": true,
+  "policy_id": "MEDIAN_RO_INNER_BEST_EPOCHS-v1",
+  "sorted_epochs": [
+    50
+  ],
+  "source_candidate_id": "TR_C0_PRIMARY",
+  "source_phase": 44,
+  "status": "PASS",
+  "within_cap": true
+}

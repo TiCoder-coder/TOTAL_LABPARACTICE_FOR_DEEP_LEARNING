@@ -1,0 +1,29 @@
+{
+  "phase": 52,
+  "downstream_phase": 54,
+  "downstream_name": "Last-Query Attention",
+  "ready_for_phase54": true,
+  "phase54_authorized": false,
+  "n_test": 2961,
+  "last_query_storage_shape": [
+    2961,
+    2,
+    4,
+    72
+  ],
+  "raw_files": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "target_order_sha": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "lag_map_sha": "948bc0dcb56674f7f8c117d7e7050490b391e39225754e8a21861d00e59e5063",
+  "last_query_summary_sha": "fa835d228966edf27e0b9bc76d3620d8728465afe27ccbcfff63fe151a85c082",
+  "definitions": {
+    "last_query": "A[:, :, L-1, :]",
+    "lag_steps_formula": "L - p (H=1)",
+    "lag_minutes_formula": "10 * LagSteps_p",
+    "pooling": "LAST_STEP",
+    "last_query_directly_corresponds_to_pooled_token": true
+  }
+}

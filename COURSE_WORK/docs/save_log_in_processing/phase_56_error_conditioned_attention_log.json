@@ -1,0 +1,78 @@
+{
+  "phase": 56,
+  "phase_name": "Error-conditioned attention",
+  "version": "ERROR_CONDITIONED_ATTENTION-v2",
+  "started_at": "2026-09-05T10:19:03Z",
+  "stages": [
+    {
+      "stage": "load_sources",
+      "status": "OK"
+    },
+    {
+      "stage": "cohort_assignment",
+      "status": "OK",
+      "assignment_sha256": "fde852c7a72efe556efa3f6aef22c134694b447be4deb66dfb61f156fa3f28eb",
+      "shared_sha256": "c93f6cbd5c7aefd1e700e43a72f3ddaca53d01060eb73601194aa171d67d31bc",
+      "per_seed_counts": {
+        "42": {
+          "LOW_ERROR": 592,
+          "MID_ERROR": 1777,
+          "HIGH_ERROR": 592
+        },
+        "123": {
+          "LOW_ERROR": 592,
+          "MID_ERROR": 1777,
+          "HIGH_ERROR": 592
+        },
+        "2026": {
+          "LOW_ERROR": 592,
+          "MID_ERROR": 1777,
+          "HIGH_ERROR": 592
+        }
+      },
+      "shared_counts": {
+        "SHARED_LOW_ERROR": 592,
+        "SHARED_MID_ERROR": 1777,
+        "SHARED_HIGH_ERROR": 592
+      }
+    },
+    {
+      "stage": "join",
+      "status": "OK",
+      "expected_rows": 71064,
+      "observed_rows": 71064
+    },
+    {
+      "stage": "continuous_associations",
+      "status": "OK",
+      "rows": 432
+    },
+    {
+      "stage": "high_low",
+      "status": "OK",
+      "profile_sum_low_ok": true,
+      "profile_sum_high_ok": true,
+      "d_hl_sum_ok": true
+    },
+    {
+      "stage": "signed_under_over",
+      "status": "OK",
+      "d_uo_sum_ok": true
+    },
+    {
+      "stage": "figures",
+      "status": "OK",
+      "count": 101
+    }
+  ],
+  "finished_at": "2026-09-05T10:19:28Z",
+  "result": {
+    "overall_status": "PASS",
+    "n_artifact_files": 37,
+    "n_figures": 101,
+    "n_findings": 292,
+    "tests_pass": 43,
+    "tests_total": 43,
+    "discrepancies_count": 0
+  }
+}

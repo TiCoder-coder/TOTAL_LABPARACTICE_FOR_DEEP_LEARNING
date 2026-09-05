@@ -1,0 +1,36 @@
+{
+  "table_id": "FA03",
+  "title": "Residual Distribution Details",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Residual = y_true - y_pred; UNDER = residual > 0; OVER = residual < 0."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 3,
+  "csv_path": "artifacts/final_tables/tables/csv/FA03_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA03_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA03_rows.tex",
+  "csv_sha256": "4a58bd440cf764fbc117fd2378110cdf74955609b0f19a6c924112f54eedb7e2",
+  "markdown_sha256": "f734407e85b6df6bb32d6a1113d1bb13bfcfa06c47ebfcaa8ad80a826c745119",
+  "latex_sha256": "1804871b066cee930ddc8d6f8a9af9609b7930f20f49426bdf915ab60b072c98"
+}

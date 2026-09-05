@@ -1,0 +1,64 @@
+{
+  "cross_seed_alignment": {
+    "cross_seed_alignment_pass": true,
+    "target_id_sets_identical": true,
+    "target_timestamp_order_identical": true,
+    "test_population_sha256_expected": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "y_true_vector_identical": true
+  },
+  "per_seed": {
+    "123": {
+      "all_y_finite": true,
+      "bundle_name": "final_test_predictions_seed123.csv",
+      "bundle_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+      "expected_sha256": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+      "first_target_id": "TGT_00016774",
+      "first_timestamp": "2016-05-07 04:40:00",
+      "last_target_id": "TGT_00019734",
+      "last_timestamp": "2016-05-27 18:00:00",
+      "n_rows": 2961,
+      "n_rows_expected": 2961,
+      "n_rows_ok": true,
+      "n_unique_target_id": 2961,
+      "observed_sha256": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+      "sha256_match": true,
+      "target_id_unique_ok": true
+    },
+    "2026": {
+      "all_y_finite": true,
+      "bundle_name": "final_test_predictions_seed2026.csv",
+      "bundle_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+      "expected_sha256": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+      "first_target_id": "TGT_00016774",
+      "first_timestamp": "2016-05-07 04:40:00",
+      "last_target_id": "TGT_00019734",
+      "last_timestamp": "2016-05-27 18:00:00",
+      "n_rows": 2961,
+      "n_rows_expected": 2961,
+      "n_rows_ok": true,
+      "n_unique_target_id": 2961,
+      "observed_sha256": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+      "sha256_match": true,
+      "target_id_unique_ok": true
+    },
+    "42": {
+      "all_y_finite": true,
+      "bundle_name": "final_test_predictions_seed42.csv",
+      "bundle_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+      "expected_sha256": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+      "first_target_id": "TGT_00016774",
+      "first_timestamp": "2016-05-07 04:40:00",
+      "last_target_id": "TGT_00019734",
+      "last_timestamp": "2016-05-27 18:00:00",
+      "n_rows": 2961,
+      "n_rows_expected": 2961,
+      "n_rows_ok": true,
+      "n_unique_target_id": 2961,
+      "observed_sha256": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+      "sha256_match": true,
+      "target_id_unique_ok": true
+    }
+  },
+  "verification_at_utc": "2026-09-03T19:44:21Z",
+  "verification_status": "PASS"
+}

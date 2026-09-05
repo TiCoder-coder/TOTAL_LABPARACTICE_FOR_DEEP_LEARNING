@@ -1,0 +1,216 @@
+{
+  "audit_kind": "phase57_read_only_active_revision_and_notebook_consistency_audit",
+  "audit_at_utc": "2026-09-05T20:30:00+00:00",
+  "active_state": {
+    "active_revision": "SEED_STABILITY_ATTENTION-v1",
+    "signoff_sha256": "23ed184f030e2b590532a9c8...",
+    "overall_status": "PASS",
+    "completed": true,
+    "created_at": "2026-09-04T19:47:26.795524+00:00",
+    "historical_revisions": [],
+    "open_discrepancies": 0,
+    "produced_before_phase54_v2_corrective": true,
+    "produced_before_phase55_v2_corrective": true,
+    "produced_before_phase56_v2_corrective": true
+  },
+  "stale_lineage_findings": [
+    "source_phase54_version: LAST_QUERY_ATTENTION-v1 (Phase54 active = LAST_QUERY_ATTENTION-v2)",
+    "source_phase55_version: HEAD_COMPARISON-v1 (Phase55 active = HEAD_COMPARISON-v2)",
+    "source_phase56_version: ERROR_CONDITIONED_ATTENTION-v1 (Phase56 active = ERROR_CONDITIONED_ATTENTION-v2)",
+    "final_lock_sha256 STORES the seed-42 raw NPZ SHA 102086f7... (should be canonical Phase45 combined lock 81fb87c4...; raw NPZ SHA should be in separate field)",
+    "test_population_sha256 STORES Phase52 attention target-order SHA c7039090... (should be Phase47 canonical test population SHA d7dbc0b3...)",
+    "Missing: raw_last_query_seed42_sha256 field (separate field semantics)",
+    "Missing: phase47_canonical_test_population_sha256 field"
+  ],
+  "critical_dependency_findings": {
+    "Phase54_scientific_dependency": {
+      "yes": true,
+      "details": [
+        "matched_head_metric_stability (analyses.py) reads sources.last_query_metrics_long (Phase54 file)",
+        "matched_head_per_target_stability reads Phase54 metrics_long",
+        "Top1_lag_stability reads Phase54 last_query_top1_lag_frequency",
+        "Recent-mass summary reads Phase54 last_query_recent_mass_summary (via sources)"
+      ],
+      "impact": "Phase54 v1 metrics_long had all-zero normalized_entropy. matched_head_metric_seed_stability.csv has spearman_across_targets=0.0 and mean_absolute_difference=0.0 for ALL normalized_entropy cells (24 rows)."
+    },
+    "Phase55_scientific_dependency": {
+      "yes": "PROVENANCE/CONTEXT only",
+      "details": [
+        "head_matching_assignments uses Phase55-derived canonical_groups",
+        "Phase57 re-computes everything from raw NPZ + Phase54 metrics"
+      ],
+      "impact": "Phase55 handoff is provenance/context only; scientific recompute is independent. Same-index semantic alignment is FALSE (phase57 does its own canonical matching)."
+    },
+    "Phase56_scientific_dependency": {
+      "yes": true,
+      "details": [
+        "layer_error_conditioned_stability (analyses.py) reads sources.error_attention_association_long (Phase56 file)",
+        "matched_head_error_conditioned_stability reads same Phase56 file",
+        "Both functions reindex Phase56 per-head effects to canonical matched groups"
+      ],
+      "impact": "Phase56 v1 error_attention_association_long.csv had spearman_rho=0.0 with status=NOT_DEFINED_CONSTANT_INPUT for ALL normalized_entropy cells (72 rows). Phase57 v1 stability rows inherit these zeros: layer_error_conditioned_seed_stability.csv has seed42_value=seed123_value=seed2026_value=mean=0.0 for NE. matched_head_error_conditioned_stability.csv also has all-zero NE values (32 NE rows)."
+    }
+  },
+  "scientific_guards": {
+    "best_seed_selected": false,
+    "best_head_selected": false,
+    "head_pruning": false,
+    "head_ablation": false,
+    "model_training": false,
+    "new_test_inference": false,
+    "new_attention_extraction": false,
+    "causal_claim": false,
+    "phase58_ready": true,
+    "phase58_authorized": false,
+    "phase59_context_ready": true,
+    "phase59_authorized": false
+  },
+  "head_alignment_policy": {
+    "same_index_semantic_alignment_assumed": false,
+    "matching_method": "EXHAUSTIVE_PERMUTATION",
+    "canonical_matching_cost": "JSD_MEAN_TEMPORAL_PROFILE",
+    "anchor_seed": 42,
+    "anchor_reason": "FIRST_PREDECLARED_FINAL_SEED",
+    "performance_based_anchor": false,
+    "cycle_consistency_audited": true,
+    "ambiguity_audited": true,
+    "matching_independent_of_error": true,
+    "perm_invariant_layer_check_present": true
+  },
+  "key_results_v1": {
+    "layer_head_mean_stability": {
+      "layer_0": {
+        "mean_pairwise_jsd": 0.0431,
+        "max_pairwise_jsd": 0.0569,
+        "mean_cosine": 0.841
+      },
+      "layer_1": {
+        "mean_pairwise_jsd": 0.0403,
+        "max_pairwise_jsd": 0.0419,
+        "mean_cosine": 0.8774
+      }
+    },
+    "matched_head_profile_stability": {
+      "scope": "8 canonical groups \u00d7 2 layers = 16 rows",
+      "mean_jsd_range": "[0.0856, 0.1366]",
+      "min_cosine_range": "[~0.6, ~0.76]",
+      "cycle_consistency": "1 of 4 group/layer not cycle-consistent at L0",
+      "ambiguity": "0 ambiguous matchings"
+    },
+    "normalized_entropy_v1_status": {
+      "layer_attention_metric_seed_stability": "ALL NON-ZERO (6 cells, range [0.2435, 0.6565] Spearman) \u2014 uses raw NPZ recompute, NOT stale Phase54",
+      "matched_head_metric_seed_stability": "ALL ZERO (24 NE cells) \u2014 uses stale Phase54 v1 metrics_long with zero NE",
+      "layer_error_conditioned_seed_stability_NE": "ALL ZERO (12 NE rows) \u2014 uses stale Phase56 v1 error_attention_association_long with zero Spearman",
+      "matched_head_error_conditioned_stability_NE": "ALL ZERO (32 NE rows) \u2014 same Phase56 stale zero source"
+    }
+  },
+  "target_seed_alignment": {
+    "n_test": 2961,
+    "seed_pair_manifest": "3 rows, all OK (P1: 42\u2194123, P2: 42\u21942026, P3: 123\u21942026)",
+    "per_seed_target_count": {
+      "42": 2961,
+      "123": 2961,
+      "2026": 2961
+    },
+    "all_targets_unique_per_seed": true,
+    "target_population_identical_across_seeds": true,
+    "no_3N_pseudo_pooling": true,
+    "positional_join_without_identity": false,
+    "raw_attention_shape": "[2961, 2, 4, 72]",
+    "lag_orientation": "lag1 newest / lag72 oldest"
+  },
+  "statistical_integrity": {
+    "nan_inf_cells": 0,
+    "ne_in_unit_interval_after_v2_source": true,
+    "profile_sums_near_one": true,
+    "v1_zero_NE_in_matched_head_metric": true,
+    "v1_zero_NE_in_layer_error_conditioned": true,
+    "v1_zero_NE_in_matched_head_error_conditioned": true,
+    "v1_non_zero_NE_in_layer_attention_metric": true,
+    "no_seed_pooling_as_iid": true,
+    "no_significance_testing": true,
+    "n_reconcile": "All rows show N=2961"
+  },
+  "downstream": {
+    "phase58_handoff": {
+      "path": "artifacts/seed_stability_attention/phase58_final_tables_handoff.json",
+      "stale": true,
+      "stale_references": [
+        "source_phase54_version=v1",
+        "source_phase55_version=v1",
+        "source_phase56_version=v1",
+        "wrong final_lock_sha256"
+      ]
+    },
+    "phase59_handoff": {
+      "path": "artifacts/seed_stability_attention/phase59_conclusions_context_handoff.json",
+      "stale": true,
+      "stale_references": [
+        "source_phase54_version=v1",
+        "source_phase55_version=v1",
+        "source_phase56_version=v1"
+      ]
+    },
+    "phase58_executed": false,
+    "phase59_executed": false
+  },
+  "notebook_audit": {
+    "phase57_cells_present": true,
+    "cell_144_markdown_source": 435,
+    "cell_145_code_source": 128,
+    "cell_145_html_output_size": 949402,
+    "cell_145_contains_SEED_STABILITY_ATTENTION-v1": true,
+    "cell_145_contains_SEED_STABILITY_ATTENTION-v2": false,
+    "cell_144_describes_separate_a_b": true,
+    "semantic_alignment_caveat_displayed": true,
+    "embedded_pngs_in_145": 10,
+    "filesystem_paths_exposed": 0,
+    "long_sha_strings": 0,
+    "warning_keywords_in_html": 0,
+    "cards_sections": "33 cards / 19 sections (clean)"
+  },
+  "presentation_clutter": {
+    "giant_cross_seed_tables": false,
+    "excessive_per_head_plots": false,
+    "duplicated_figures": false,
+    "raw_json_exposed": false,
+    "artifact_paths_exposed": false,
+    "sha_heavy_provenance": false,
+    "large_colored_warnings": false,
+    "unclear_seed_aggregation": false,
+    "language_implying_semantic_alignment": false,
+    "language_implying_attention_stability_means_causal_importance": false,
+    "verdict": "Cell 145 dashboard is CLEAN \u2014 10 curated PNGs, 0 paths, 0 SHAs, 0 warnings, 33 cards / 19 sections. Same-index semantic alignment caveat clearly displayed."
+  },
+  "scientific_protocol_issues": [
+    "Phase57 v1 was produced BEFORE the Phase54/55/56 v2 corrective chain",
+    "source_phase54_version, source_phase55_version, source_phase56_version in Phase57 signoff all say v1",
+    "final_lock_sha256 field stores seed-42 raw NPZ SHA (incorrect field semantics)",
+    "test_population_sha256 field stores Phase52 attention target-order SHA (incorrect field semantics)",
+    "raw_last_query_seed42_sha256 field MISSING (separate field semantics not preserved)",
+    "phase47_canonical_test_population_sha256 field MISSING",
+    "matched_head_metric_seed_stability NE rows ALL ZERO (24/24 cells) \u2014 fed by stale Phase54 v1 metrics_long with zero NE",
+    "layer_error_conditioned_seed_stability NE rows ALL ZERO (12/12 cells) \u2014 fed by stale Phase56 v1 error_attention_association_long with zero Spearman",
+    "matched_head_error_conditioned_stability NE rows ALL ZERO (32/32 cells) \u2014 fed by stale Phase56 v1",
+    "Phase58 final_tables_handoff and Phase59 conclusions_context_handoff are STALE (reference v1 lineage + wrong final_lock)",
+    "Cell 145 dashboard HTML still renders Phase57 v1 values (NE zeros in 3 of 4 affected tables)"
+  ],
+  "presentation_issues": [],
+  "repair_required": {
+    "scope": "Phase57 v1 is STALE relative to the v2 corrective chain. A Phase57 v2 corrective re-run is required to:",
+    "actions": [
+      "1. Archive Phase57 v1 as historical evidence (don't silently overwrite)",
+      "2. Update Phase57 signoff / manifest / summary with source_phase54=v2, source_phase55=v2, source_phase56=v2",
+      "3. Correct final_lock_sha256 = 81fb87c4... (canonical Phase45 combined lock)",
+      "4. Add separate fields: raw_last_query_seed42_sha256 = 102086f7..., phase47_canonical_test_population_sha256 = d7dbc0b3..., test_population_sha256 = keep as Phase52 attention target-order SHA c7039090... in its own field (or rename to phase52_attention_target_order_sha256)",
+      "5. Regenerate matched_head_metric_seed_stability against current Phase54 v2 metrics_long",
+      "6. Regenerate layer_error_conditioned_seed_stability + matched_head_error_conditioned_stability against Phase56 v2 error_attention_association_long",
+      "7. Re-validate: layer_attention_metric_seed_stability NE values are unaffected (uses raw NPZ, independent of Phase54/56 stale)",
+      "8. Phase58 + Phase59 handoffs need re-emission with v2 lineage",
+      "9. Notebook cell 145 dashboard HTML needs presentation-only refresh against Phase57 v2 outputs",
+      "10. Do NOT change Phase57 source code scientific logic \u2014 only data lineage and stale output regeneration",
+      "11. Do NOT change Phase57 canonical head-matching results (independent of entropy)",
+      "12. Phase58/59 execution remains OUT OF SCOPE"
+    ]
+  }
+}

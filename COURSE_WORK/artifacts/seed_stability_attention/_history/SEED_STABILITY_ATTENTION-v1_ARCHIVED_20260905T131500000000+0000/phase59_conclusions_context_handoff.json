@@ -1,0 +1,114 @@
+{
+  "phase": 57,
+  "downstream_phase": 59,
+  "downstream_name": "Conclusions",
+  "source_phase57_version": "SEED_STABILITY_ATTENTION-v1",
+  "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v1",
+  "source_phase55_version": "HEAD_COMPARISON-v1",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "main_stability_findings": [
+    {
+      "finding_id": "F0000",
+      "scope": "LAYER_HEAD_MEAN",
+      "seed": "",
+      "layer": 0,
+      "head_if_applicable": "",
+      "code": "LAYER_HEAD_MEAN_PROFILES_HIGHLY_SIMILAR_DESCRIPTIVE",
+      "value": "mean_JSD=0.043061, mean_W1=53.0767min, mean_cos=0.8410"
+    },
+    {
+      "finding_id": "F0001",
+      "scope": "LAYER_HEAD_MEAN",
+      "seed": "",
+      "layer": 1,
+      "head_if_applicable": "",
+      "code": "LAYER_HEAD_MEAN_PROFILES_HIGHLY_SIMILAR_DESCRIPTIVE",
+      "value": "mean_JSD=0.040311, mean_W1=46.2113min, mean_cos=0.8774"
+    },
+    {
+      "finding_id": "F0002",
+      "scope": "LAYER_PER_TARGET",
+      "seed": "",
+      "layer": 0,
+      "head_if_applicable": "",
+      "code": "LAYER_PER_TARGET_ATTENTION_STABLE_DESCRIPTIVE",
+      "value": "median_JSD=0.100139, mean_JSD=0.119446, max_JSD=0.489748"
+    },
+    {
+      "finding_id": "F0003",
+      "scope": "LAYER_PER_TARGET",
+      "seed": "",
+      "layer": 1,
+      "head_if_applicable": "",
+      "code": "LAYER_PER_TARGET_ATTENTION_STABLE_DESCRIPTIVE",
+      "value": "median_JSD=0.103619, mean_JSD=0.111425, max_JSD=0.353761"
+    },
+    {
+      "finding_id": "F0007",
+      "scope": "MATCHED_HEAD_PROFILE",
+      "seed": "",
+      "layer": "",
+      "head_if_applicable": "",
+      "code": "MATCHED_HEAD_PROFILES_VARIABLE_DESCRIPTIVE",
+      "value": "max_mean_JSD=0.136601"
+    }
+  ],
+  "matching_limitations": [],
+  "seed_variability_findings": [
+    {
+      "finding_id": "F0005",
+      "scope": "CYCLE",
+      "seed": "",
+      "layer": "",
+      "head_if_applicable": "",
+      "code": "HEAD_MATCHING_CYCLE_INCONSISTENT",
+      "value": "inconsistent_heads=3"
+    },
+    {
+      "finding_id": "F0006",
+      "scope": "MATCH_METHOD_SENSITIVITY",
+      "seed": "",
+      "layer": "",
+      "head_if_applicable": "",
+      "code": "JSD_WASSERSTEIN_MATCHING_DIFFER",
+      "value": "any_pair_disagreement=True"
+    }
+  ],
+  "error_attention_robustness_findings": [
+    {
+      "finding_id": "F0009",
+      "scope": "ERROR_CONDITIONED_LAYER",
+      "seed": "",
+      "layer": "",
+      "head_if_applicable": "",
+      "code": "ERROR_ATTENTION_SIGN_CONSISTENT_ACROSS_SEEDS",
+      "value": "unanim_sign_rows=40/76"
+    },
+    {
+      "finding_id": "F0010",
+      "scope": "SHARED_COHORT",
+      "seed": "",
+      "layer": "",
+      "head_if_applicable": "",
+      "code": "SHARED_COHORT_EFFECT_VARIES_ACROSS_SEEDS",
+      "value": "unanim=6/12"
+    }
+  ],
+  "prediction_attention_disagreement_findings": [
+    {
+      "finding_id": "F0011",
+      "scope": "PREDICTION_ATTENTION_DISAGREEMENT",
+      "seed": "",
+      "layer": "",
+      "head_if_applicable": "",
+      "code": "PREDICTION_SPREAD_ASSOCIATED_WITH_ATTENTION_DISAGREEMENT",
+      "value": "max_|rho|=0.3835"
+    }
+  ],
+  "attention_is_temporal_not_feature_importance": true,
+  "attention_is_not_causal_explanation": true,
+  "attention_stability_is_not_functional_equivalence": true,
+  "three_seed_limit": true,
+  "no_model_change_after_test": true,
+  "ready_for_phase59_context": true
+}

@@ -1,0 +1,160 @@
+{
+  "K_OVER_PER_SEED": 10,
+  "K_PER_SEED": 20,
+  "K_SHARED": 20,
+  "K_SHARED_SIGNED": 10,
+  "K_UNDER_PER_SEED": 10,
+  "approval_at_utc": "2026-09-04T03:23:24.068855+00:00",
+  "approved_by": "human_owner",
+  "cadence_minutes": 10,
+  "cherry_picking_forbidden": true,
+  "contract_frozen": true,
+  "contract_id": "phase51-selection-contract-2026-09-04-v1.13",
+  "created_at_utc": "2026-09-04T03:23:24.068851+00:00",
+  "forbidden_actions": [
+    "training",
+    "new_test_inference",
+    "checkpoint_loading",
+    "scaler_fitting",
+    "best_seed_selection",
+    "ensemble_promotion",
+    "prediction_correction",
+    "recalibration",
+    "test_derived_threshold_tuning",
+    "phase50_regime_recomputation",
+    "3N_iid_pooling",
+    "manual_cherry_picking",
+    "random_tiebreak_in_ranking",
+    "phase52_attention_analysis"
+  ],
+  "individual_case_inspection": false,
+  "local_context_radius_steps": 6,
+  "lstm_eligibility": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+  "lstm_not_eligible_reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+  "manual_preselection_forbidden": true,
+  "n_test": 2961,
+  "negative_residual_semantics": "OVERPREDICTION",
+  "persistence_context_only": true,
+  "phase": 51,
+  "phase50_test_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+  "phase50_thresholds": {
+    "Q25_y": 50.0,
+    "Q75_y": 100.0,
+    "Q90_abs_delta": 80.0,
+    "Q90_y": 210.0
+  },
+  "phase50_train_threshold_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+  "phase52_authorized": false,
+  "positive_residual_semantics": "UNDERPREDICTION",
+  "primary_ranking_direction": "DESC",
+  "primary_ranking_metric": "absolute_error_wh",
+  "random_tiebreak_forbidden": true,
+  "ranking_families": {
+    "W1": {
+      "description": "Top 20 absolute_error_wh per seed separately (seed 42 / 123 / 2026)",
+      "filter": null,
+      "group_by": "seed",
+      "k": 20,
+      "name": "PER_SEED_WORST"
+    },
+    "W2": {
+      "description": "Top 20 by mean(|e42|+|e123|+|e2026|)/3 across all Test targets",
+      "filter": null,
+      "group_by": null,
+      "k": 20,
+      "name": "SHARED_WORST"
+    },
+    "W3": {
+      "description": "Top 10 absolute_error_wh per seed, residual > 0 only",
+      "filter": "residual > 0",
+      "group_by": "seed",
+      "k": 10,
+      "name": "UNDERPREDICTION_WORST"
+    },
+    "W3_SH": {
+      "description": "Top 10 with residual > 0 for ALL 3 seeds",
+      "filter": "residual > 0 for ALL seeds",
+      "group_by": null,
+      "k": 10,
+      "name": "SHARED_ALL_UNDER"
+    },
+    "W4": {
+      "description": "Top 10 absolute_error_wh per seed, residual < 0 only",
+      "filter": "residual < 0",
+      "group_by": "seed",
+      "k": 10,
+      "name": "OVERPREDICTION_WORST"
+    },
+    "W4_SH": {
+      "description": "Top 10 with residual < 0 for ALL 3 seeds",
+      "filter": "residual < 0 for ALL seeds",
+      "group_by": null,
+      "k": 10,
+      "name": "SHARED_ALL_OVER"
+    }
+  },
+  "regime_families": [
+    "R1_TARGET_LEVEL",
+    "R2_EXTREME_HIGH",
+    "R3_CHANGE_MAGNITUDE",
+    "R4_CHANGE_DIRECTION",
+    "R5_TIME_OF_DAY",
+    "R6_DAY_TYPE"
+  ],
+  "regime_labels": {
+    "R1_TARGET_LEVEL": [
+      "TL_LOW",
+      "TL_MID",
+      "TL_HIGH"
+    ],
+    "R2_EXTREME_HIGH": [
+      "EXTREME_HIGH",
+      "NON_EXTREME"
+    ],
+    "R3_CHANGE_MAGNITUDE": [
+      "CHANGE_NORMAL",
+      "CHANGE_RAPID",
+      "CHANGE_UNCLASSIFIED"
+    ],
+    "R4_CHANGE_DIRECTION": [
+      "DIR_UP",
+      "DIR_FLAT",
+      "DIR_DOWN",
+      "DIR_UNCLASSIFIED"
+    ],
+    "R5_TIME_OF_DAY": [
+      "TOD_NIGHT",
+      "TOD_MORNING",
+      "TOD_AFTERNOON",
+      "TOD_EVENING"
+    ],
+    "R6_DAY_TYPE": [
+      "DAY_WEEKDAY",
+      "DAY_WEEKEND"
+    ]
+  },
+  "residual_convention": "y_true - y_pred",
+  "schema": "WORST_ERROR_SELECTION_CONTRACT-v1",
+  "seed_list": [
+    "42",
+    "123",
+    "2026"
+  ],
+  "selection_executed": false,
+  "source_checksums_to_verify": {
+    "phase47_persistence_predictions": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+    "phase47_seed123_predictions": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+    "phase47_seed2026_predictions": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+    "phase47_seed42_predictions": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+    "phase49_residual_long": "8418a99110bfda7047bd27c49c1c7a9769313b1ce1fa6dc66925f5286d120038",
+    "phase49_residual_wide": "931ff9109aef236d9517d8964d29168316c7d5903633441443c1ae5e71e8f8bd",
+    "phase50_test_regime_assignment": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+    "phase50_thresholds": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109"
+  },
+  "subphase": "51-B",
+  "test_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "tie_break": "target_id ASC",
+  "version": "WORST_ERROR_ANALYSIS-v1",
+  "worst_error_ranking_executed": false,
+  "zero_policy": "EXACT_ZERO"
+}

@@ -1,0 +1,13 @@
+{
+  "audit_kind": "O51_INVENTORY",
+  "phase": 51,
+  "subphase": "51-G",
+  "summary": {
+    "completeness_ratio": 1.0,
+    "missing_o51_ids": [],
+    "n_found": 38,
+    "n_missing": 0,
+    "n_required": 38,
+    "overall_status": "PASS"
+  }
+}

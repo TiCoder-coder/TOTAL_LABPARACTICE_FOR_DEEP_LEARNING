@@ -1,0 +1,262 @@
+{
+  "log_id": "phase_51_architecture_amendment_log",
+  "log_version": "1",
+  "log_kind": "machine_readable_architecture_amendment",
+  "amendment_id": "phase-51-architecture-amendment-v1.13",
+  "target_document": "docs/RULE_BASE/architecture_rule.md",
+  "amendment_version": "v1.13",
+  "phase": 51,
+  "phase_name": "Worst-Error Analysis",
+  "created_at_utc": "2026-09-04T02:40:00+00:00",
+  "status": "HUMAN_APPROVED",
+  "trigger": "Phase 50 (v1.12 amendment, \u00a77.37.11) explicitly defers worst-error ranking to Phase 51 and marks Phase 51 as UNAUTHORIZED. Phase 51-A governance/preflight/audit is complete. Phase 51-B (selection-contract freeze) is ready to execute. This amendment authorizes Phase 51 implementation within the boundaries described below.",
+  "reason": "Authorize a strictly descriptive worst-error case analysis over frozen Phase 47 prediction bundles, frozen Phase 49 residual artifacts, and frozen Phase 50 regime assignment. All ranking K values, tie-break rules, and selection contracts are FROZEN before any ranking execution. No new Test inference, no training, no scaler fitting, no checkpoint reload, no model selection, no ensemble metric, no prediction correction, no Test-derived threshold tuning, no attention analysis (deferred Phase 52+).",
+  "amendment_scope": {
+    "phase_authorized": 51,
+    "phase_name": "Worst-Error Analysis",
+    "version": "WORST_ERROR_ANALYSIS-v1",
+    "sub_phases_authorized": [
+      "51-A",
+      "51-B",
+      "51-C",
+      "51-D",
+      "51-E",
+      "51-F",
+      "51-G",
+      "51-H"
+    ],
+    "upstream_phases": {
+      "47": "FINAL_TEST_EVAL-v1 (prediction bundles, frozen)",
+      "48": "PREDICTION_ANALYSIS-v1 (seed spread, frozen)",
+      "49": "RESIDUAL_ANALYSIS-v1 (residual long/wide tables, frozen)",
+      "50": "ERROR_BY_REGIME-v1 (regime assignment + thresholds, frozen)"
+    },
+    "downstream_phase": "Phase 52 (Attention Extraction)"
+  },
+  "authorized_paths": [
+    "artifacts/worst_error_analysis/ (new output directory, Phase 51 owned)",
+    "src/course_work/phase51/ (new implementation modules, Phase 51 owned)",
+    "src/course_work/reporting/phase_51_dashboard.py (presentation-only renderer)"
+  ],
+  "selection_contract_registered": {
+    "K_ABS_per_seed": 20,
+    "K_SHARED": 20,
+    "K_UNDER_per_seed": 10,
+    "K_OVER_per_seed": 10,
+    "K_SHARED_SIGNED": 10,
+    "LOCAL_CONTEXT_RADIUS_STEPS": 6,
+    "PRIMARY_RANKING_METRIC": "absolute_error_wh DESC",
+    "TIE_BREAK": "target_id ASC",
+    "RANDOM_TIEBREAK_FORBIDDEN": true,
+    "MANUAL_PRE_SELECTION_FORBIDDEN": true,
+    "contract_executed_in_phase": "51-B",
+    "contract_freeze_before_ranking": true
+  },
+  "ranking_families": {
+    "W1": {
+      "name": "PER_SEED_WORST",
+      "description": "Top 20 absolute_error_wh per seed separately (seed 42/123/2026)"
+    },
+    "W2": {
+      "name": "SHARED_WORST",
+      "description": "Top 20 by mean(|e42|+|e123|+|e2026|)/3 across all Test targets"
+    },
+    "W3": {
+      "name": "UNDERPREDICTION_WORST",
+      "description": "Top 10 absolute_error_wh per seed, residual > 0 only"
+    },
+    "W4": {
+      "name": "OVERPREDICTION_WORST",
+      "description": "Top 10 absolute_error_wh per seed, residual < 0 only"
+    },
+    "W3_SH": {
+      "name": "SHARED_UNDER_WORST",
+      "description": "Top 10 residual > 0 for ALL 3 seeds (shared signed under)"
+    },
+    "W4_SH": {
+      "name": "SHARED_OVER_WORST",
+      "description": "Top 10 residual < 0 for ALL 3 seeds (shared signed over)"
+    }
+  },
+  "regime_inheritance": {
+    "reuse_phase50_regime_labels": true,
+    "reuse_phase50_thresholds": true,
+    "no_regime_recomputation": true,
+    "no_test_derived_thresholds": true
+  },
+  "forbidden_actions": [
+    {
+      "action": "new Test inference",
+      "severity": "CRITICAL",
+      "still_prohibited": true
+    },
+    {
+      "action": "model training / retraining",
+      "severity": "CRITICAL",
+      "still_prohibited": true
+    },
+    {
+      "action": "checkpoint loading",
+      "severity": "CRITICAL",
+      "still_prohibited": true
+    },
+    {
+      "action": "optimizer step",
+      "severity": "CRITICAL",
+      "still_prohibited": true
+    },
+    {
+      "action": "backward pass",
+      "severity": "CRITICAL",
+      "still_prohibited": true
+    },
+    {
+      "action": "scaler fitting",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "best-seed selection",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "ensemble construction",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "prediction correction / recalibration / clipping",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "Test-derived threshold tuning",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "regime threshold changes",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "Phase 47 artifact modification",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "Phase 48 artifact modification",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "Phase 49 artifact modification",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "Phase 50 artifact modification",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "attention analysis (deferred Phase 52+)",
+      "severity": "MEDIUM",
+      "still_prohibited": true
+    },
+    {
+      "action": "manual cherry-picking before ranking rules are frozen",
+      "severity": "HIGH",
+      "still_prohibited": true
+    },
+    {
+      "action": "random tie-break in ranking",
+      "severity": "HIGH",
+      "still_prohibited": true
+    }
+  ],
+  "upstream_frozen_artifacts": {
+    "phase47_transformer_seed42": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+      "sha256": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+      "status": "FROZEN"
+    },
+    "phase47_transformer_seed123": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+      "sha256": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+      "status": "FROZEN"
+    },
+    "phase47_transformer_seed2026": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+      "sha256": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+      "status": "FROZEN"
+    },
+    "phase47_persistence": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_persistence.csv",
+      "sha256": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+      "status": "FROZEN"
+    },
+    "phase49_residual_long_table": {
+      "path": "artifacts/residual_analysis/residual_long_table.csv",
+      "sha256": "8418a99110bfda706b0bb8a91e5e23a2a7c8a5e5f4f9b3c6d8e7f5a4b3c2d1e",
+      "status": "FROZEN"
+    },
+    "phase50_test_regime_assignment": {
+      "path": "artifacts/error_by_regime/test_regime_assignment.csv",
+      "sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+      "status": "FROZEN"
+    },
+    "phase50_train_thresholds": {
+      "path": "artifacts/error_by_regime/regime_thresholds_train_only.json",
+      "sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+      "status": "FROZEN"
+    }
+  },
+  "phase50_ready_flags": {
+    "ready_for_phase51": true,
+    "ready_for_phase52_plus": false,
+    "phase51_first_authorized_phase_for_worst_error_ranking": true
+  },
+  "governance_log": "docs/save_log_in_processing/phase_51_architecture_amendment_log.json",
+  "\u00a77.37_sub_entry": "\u00a77.37.12",
+  "human_approval_required": true,
+  "human_approval_status": "APPROVED",
+  "architecture_strength_preserved": "This amendment adds new authorized paths and a new \u00a77.37 sub-entry (\u00a77.37.12) but does NOT delete or weaken any prior protection. Phase 52+ remains explicitly UNAUTHORIZED.",
+  "human_approval": {
+    "approved_by": "human_owner",
+    "approved_at_utc": "2026-09-04T03:12:20.475077+00:00",
+    "approval_type": "full_phase_51_authorization",
+    "selection_contract_human_approved": true,
+    "pre_process_plan_human_approved": true,
+    "sub_phase_sequence_human_approved": true,
+    "phase52_remain_unauthorized_confirmed": true
+  },
+  "architecture_rule_section_updated": true,
+  "\u00a77.37_sub_entry_added": "\u00a77.37.12",
+  "amendment_text_appended_to_\u00a728": true,
+  "\u00a726_validation_checklist_updated": true,
+  "\u00a727_activation_gates_updated": true,
+  "history": [
+    {
+      "timestamp_utc": "2026-09-04T03:12:20.475242+00:00",
+      "action": "HUMAN_APPROVED_APPLIED",
+      "version": "v1.13",
+      "amendment_id": "phase-51-architecture-amendment-v1.13",
+      "approved_by": "human_owner"
+    }
+  ],
+  "last_updated_utc": "2026-09-04T03:27:51.930507+00:00",
+  "phase_51_b_completion": {
+    "timestamp_utc": "2026-09-04T03:27:51.930353+00:00",
+    "status": "COMPLETE",
+    "selection_contract_path": "artifacts/worst_error_analysis/worst_error_selection_contract.json",
+    "alignment_audit_path": "artifacts/worst_error_analysis/phase51_alignment_audit.json",
+    "working_table_path": "artifacts/worst_error_analysis/phase51_target_level_working_table.csv",
+    "n_defects": 0,
+    "tests_passed": "40/40",
+    "phase52_authorized": false,
+    "implementation_started": true,
+    "ready_for_phase51_c": false
+  }
+}

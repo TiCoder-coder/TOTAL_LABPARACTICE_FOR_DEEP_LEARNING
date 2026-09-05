@@ -1,0 +1,117 @@
+{
+  "V1_layout": {
+    "columns": "HEADS",
+    "expected_total_grids": "n_cases \u00d7 n_seeds",
+    "mode": "CASE_SHARED_SCALE",
+    "name": "V1_CASE_BY_SEED_GRID",
+    "panel_count": 8,
+    "rows": "LAYERS",
+    "scope": "every dense case \u00d7 every seed"
+  },
+  "V2_layout": {
+    "columns": "HEADS",
+    "expected_total_grids": "n_report_cases \u00d7 n_layers",
+    "mode": "CASE_SHARED_SCALE",
+    "name": "V2_CROSS_SEED_REPORT_GRID",
+    "panel_count": 12,
+    "rows": "SEEDS",
+    "scope": "Phase51 W2 SHARED_WORST ranks 1-5 \u00d7 each layer"
+  },
+  "V3_layout": {
+    "mode": "CASE_SHARED_SCALE",
+    "name": "V3_INDIVIDUAL_PER_HEAD_MAP",
+    "scope": "shared top5 report cases (deterministic only; no visual selection)"
+  },
+  "annotation_policy": {
+    "column_labels": [
+      "H1",
+      "H2",
+      "H3",
+      "H4"
+    ],
+    "row_labels": [
+      "L1",
+      "L2"
+    ],
+    "x_axis_tick_interval_lag_steps": 6,
+    "y_axis_tick_interval_lag_steps": 6
+  },
+  "aspect": "SQUARE_PER_MATRIX",
+  "colorbar_label": "Attention weight",
+  "colormap": "viridis",
+  "colormap_policy": "SEQUENTIAL_PERCEPTUALLY_UNIFORM",
+  "created_at_utc": "2026-09-04",
+  "created_before_render": true,
+  "figure_size_policy": {
+    "V1_per_panel": [
+      4.0,
+      4.0
+    ],
+    "V2_per_panel": [
+      3.5,
+      3.5
+    ],
+    "V3_per_panel": [
+      4.5,
+      4.5
+    ],
+    "fixed_probability_per_panel": [
+      4.0,
+      4.0
+    ]
+  },
+  "fixed_probability_layout": {
+    "name": "FIXED_PROBABILITY_REPORT",
+    "scope": "shared top5 report cases \u00d7 each seed \u00d7 each layer \u00d7 each head",
+    "vmax": 1.0,
+    "vmin": 0.0
+  },
+  "include_oldest_tick": true,
+  "interpolation": "NONE_OR_NEAREST",
+  "lag_tick_steps_included": [
+    1,
+    6,
+    36,
+    72
+  ],
+  "lag_tick_steps_requested": [
+    1,
+    6,
+    36,
+    72,
+    144
+  ],
+  "matrix_orientation": "QUERY_ROWS_SOURCE_COLUMNS",
+  "max_report_cases": 5,
+  "mode_A": {
+    "name": "FIXED_PROBABILITY",
+    "purpose": "absolute probability reference; comparable across cases / seeds / layers / heads; no clipping.",
+    "vmax": 1.0,
+    "vmin": 0.0
+  },
+  "mode_B": {
+    "name": "CASE_SHARED_SCALE",
+    "purpose": "case-shared comparison; one vmax per (target case) computed across all 3 seeds \u00d7 all layers \u00d7 all heads \u00d7 all q \u00d7 all s; all panels of that case share identical scale.",
+    "vmax_formula": "MAX_OVER_ALL_SEEDS_LAYERS_HEADS_FOR_CASE",
+    "vmin": 0.0
+  },
+  "origin": "ROW0_TOP",
+  "phase": 53,
+  "raw_dtype": "float32",
+  "report_case_rank_range": [
+    1,
+    5
+  ],
+  "report_case_rule": "PHASE51_W2_SHARED_RANK_1_TO_5",
+  "resolution_policy": {
+    "primary_dpi": 300,
+    "vector_output": "svg_if_requested_but_canonical_png"
+  },
+  "sepal_columns_rank1_to_5": true,
+  "transpose": false,
+  "version": "ATTENTION_HEATMAPS-render-config-v1",
+  "x_label": "Source / key historical position",
+  "x_order": "OLDEST_TO_NEWEST",
+  "y_label": "Query historical position",
+  "y_order": "OLDEST_TO_NEWEST_TOP_TO_BOTTOM"
+}

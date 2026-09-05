@@ -1,0 +1,465 @@
+{
+  "log_id": "phase_50_architecture_amendment_log",
+  "log_version": "2",
+  "log_kind": "governance_log",
+  "task": "PHASE_50_A2_ARCHITECTURE_AMENDMENT",
+  "phase": 50,
+  "phase_name": "Error-by-regime analysis",
+  "amendment_id": "phase-50-architecture-amendment-v1.12",
+  "amendment_version": "v1.12",
+  "amendment_date": "2026-09-04",
+  "amendment_target_files": [
+    "docs/RULE_BASE/architecture_rule.md §7.37.11 (NEW, Phase 50 entry) — referenced from v1.12 §28 entry",
+    "docs/RULE_BASE/architecture_rule.md §25 (Phase 50 transition state entry appended after Phase 49 entry)",
+    "docs/RULE_BASE/architecture_rule.md §26 (Phase 50 validation checklist entry appended)",
+    "docs/RULE_BASE/architecture_rule.md §27 (PHASE_50_PHASE_A_AUDIT_APPROVED + PHASE_50_PHASE_A2_GOVERNANCE_APPROVED + PHASE_50_PRE_PROCESS_PLAN_APPROVED + PHASE_50_AMENDMENT_V1_12_HUMAN_APPROVAL + PHASE_50_B_PHASE_B_ACTIVE_AFTER_HUMAN_APPROVAL markers added)",
+    "docs/RULE_BASE/architecture_rule.md §28 (v1.12 entry appended after v1.11 closing fence; Phase 51/52+ remain explicitly UNAUTHORIZED)"
+  ],
+  "amendment_authorized_paths_PROPOSED": [
+    "src/course_work/phase50/",
+    "src/course_work/reporting/phase_50_dashboard.py",
+    "artifacts/error_by_regime/",
+    "docs/save_log_in_processing/phase_50_error_by_regime_analysis_log.json",
+    "docs/save_log_in_processing/phase_50_architecture_amendment_log.json",
+    "docs/plan-doc/plan_before_process/phase_50_error_by_regime_analysis_plan.md"
+  ],
+  "amendment_authorized_paths_FINAL_APPROVED": [
+    "src/course_work/phase50/ (read-only Phase 50 implementation package; sibling of src/course_work/phase49/)",
+    "src/course_work/reporting/phase_50_dashboard.py (notebook presentation renderer; sibling of phase_49_dashboard.py)",
+    "artifacts/error_by_regime/ (derived immutable artifacts; sibling of artifacts/residual_analysis/)",
+    "docs/save_log_in_processing/phase_50_error_by_regime_analysis_log.json (machine-readable Phase 50 processing log)",
+    "docs/save_log_in_processing/phase_50_architecture_amendment_log.json (this governance log)",
+    "tests/unit/test_phase50_*.py (Phase 50 focused unit tests)",
+    "docs/plan-doc/plan_before_process/phase_50_error_by_regime_analysis_plan.md (pre-process plan, APPROVED 2026-09-04)"
+  ],
+  "amendment_authorized_paths_FINAL_APPROVED_count": 7,
+  "amendment_scope": "authorize Phase 50 implementation paths in architecture governance only; no Phase 50 source code in this amendment; no Phase 50 scientific artifacts",
+  "amendment_explicitly_NOT_authorized_FINAL_APPROVED": [
+    "Phase 51 implementation",
+    "Phase 52+ implementation",
+    "Any new Test inference (checkpoint-loaded prediction generation)",
+    "Any training / checkpoint reload / scaler-fit path",
+    "Any optimizer step (.step() / .backward() / model.train())",
+    "Any best-seed selection, representative-seed selection by regime metric",
+    "Any ensemble promotion, 3N iid pooling",
+    "Any regime-specific residual correction, bias correction, post-hoc recalibration",
+    "Any Test-derived target regime threshold (all thresholds must be Train-only)",
+    "Any Cartesian regime mining across the 6 regime families",
+    "Any regime-driven retuning of features / lookback / loss / learning rate / RevIN / epoch / Transformer / seed",
+    "Any weighted Test headline metric that uses regime-specific weights",
+    "Any worst-error ranking (deferred to Phase 51)",
+    "Any attention extraction or visualization (deferred to Phase 52+)",
+    "Destructive overwrite of artifacts/residual_analysis/phase50_handoff.json (the Phase 49 → Phase 50 consumption handoff)",
+    "Destructive overwrite of artifacts/final_test/phase50_error_regime_handoff.json (Phase 47 placeholder; preserved as historical Phase 47 evidence per C50-I09)",
+    "Destructive overwrite of any Phase 47 / 48 / 49 canonical artifact or signoff"
+  ],
+  "amendment_owns_leakage_boundary_FINAL_APPROVED": {
+    "Stage_A": "TRAIN ONLY: derive thresholds from REGIME_REFERENCE_TRAIN-v1; NO Test access",
+    "Stage_B": "TEST TRUTH + TIMESTAMP + CONTINUITY ONLY: assign regime labels; NO y_pred / NO residual / NO model_id in assignment",
+    "Stage_C": "FREEZE: write test_regime_assignment_audit.csv + test_regime_assignment_fingerprint.json; sha256 frozen BEFORE Stage D",
+    "Stage_D": "JOIN + METRIC, ONLY AFTER STAGE C: many-to-one on target_id; 0 unmatched; 0 duplicates"
+  },
+  "amendment_explicitly_NOT_authorized_PROPOSED": [
+    "Phase 51 implementation",
+    "Phase 52+ implementation",
+    "Any new Test inference (checkpoint-loaded prediction generation)",
+    "Any training / checkpoint reload / scaler-fit path",
+    "Any optimizer step (.step() / .backward() / model.train())",
+    "Any best-seed selection, representative-seed selection by regime metric",
+    "Any ensemble promotion, 3N iid pooling",
+    "Any regime-specific residual correction, bias correction, post-hoc recalibration",
+    "Any Test-derived target regime threshold (all thresholds must be Train-only)",
+    "Any Cartesian regime mining across the 6 regime families",
+    "Any regime-driven retuning of features / lookback / loss / learning rate / RevIN / epoch / Transformer / seed",
+    "Any weighted Test headline metric that uses regime-specific weights",
+    "Any worst-error ranking (deferred to Phase 51)",
+    "Any attention extraction or visualization (deferred to Phase 52+)"
+  ],
+  "_legacy_NOT_authorized_PROPOSED_kept_for_history": "see amendment_explicitly_NOT_authorized_PROPOSED above; the FINAL_APPROVED list adds: destructive overwrite of artifacts/residual_analysis/phase50_handoff.json and destructive overwrite of artifacts/final_test/phase50_error_regime_handoff.json",
+  "amendment_train_reference_lock_PROPOSED": {
+    "name": "REGIME_REFERENCE_TRAIN-v1",
+    "definition": "original Train target_ids \u2229 WINDOWPOP-v1 \u2229 temporally valid target_ids \u2229 continuity-valid Train target_ids",
+    "raw_target_coordinate": "raw Appliances Wh from data/raw_data/energydata_complete.csv (or data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv, raw_row_index + 1 = timeline_target)",
+    "excluded_populations": ["VALIDATION", "TEST", "Train+Validation final-refit population", "standardized y_model (YS1)", "RevIN normalized coordinates"],
+    "expected_train_population_size": 13670
+  },
+  "amendment_threshold_policy_lock_PROPOSED": {
+    "source": "REGIME_REFERENCE_TRAIN-v1 ONLY",
+    "library": "numpy.quantile (or equivalent pandas/numpy linear interpolation)",
+    "quantile_method": "LINEAR (numpy default for numpy.quantile; explicit method=linear for pd.quantile)",
+    "dtype_expectation": "float64",
+    "finite_value_requirement": "all input values must be finite; non-finite values rejected before quantile computation",
+    "deterministic_rerun": "same Train reference + same quantile method \u2192 identical thresholds bit-for-bit",
+    "threshold_fingerprint_required": true
+  },
+  "amendment_temporal_contract_lock_PROPOSED": {
+    "delta_definition": "delta_y_t = y_t - y_{t-1}",
+    "cadence_minutes": 10,
+    "exact_predecessor_required": true,
+    "no_gap_crossing": true,
+    "no_split_crossing_for_Train_threshold_estimation": true,
+    "Train_first_segment_point_unclassified": true,
+    "deliberate_zero_classification": "DIR_FLAT: delta_y == 0 (exact, no epsilon)",
+    "WB0_Test_predecessor_authorization": "Per Phase 50 plan \u00a720 and SPLIT-v1 context_policy=input_rows_may_precede_target_period_under_wb0; the first Test target may use its preceding Validation/WB0 actual observation as delta predecessor IF the predecessor is exactly 10 minutes earlier AND within the same continuity segment.",
+    "explicitly_forbidden": [
+      "fabricating delta=0 to fill unclassified rows",
+      "crossing a temporal gap to define a predecessor",
+      "using Test points as predecessor for Train thresholds",
+      "using standardized / RevIN-normalized coordinates for delta"
+    ]
+  },
+  "amendment_six_regime_families_lock_PROPOSED": [
+    "R1_TARGET_LEVEL (TL_LOW / TL_MID / TL_HIGH)",
+    "R2_EXTREME_HIGH (EXTREME_HIGH / NON_EXTREME)",
+    "R3_CHANGE_MAGNITUDE (CHANGE_NORMAL / CHANGE_RAPID / CHANGE_UNCLASSIFIED)",
+    "R4_CHANGE_DIRECTION (DIR_UP / DIR_FLAT / DIR_DOWN / DIR_UNCLASSIFIED)",
+    "R5_TIME_OF_DAY (TOD_NIGHT 00:00-05:59 / TOD_MORNING 06:00-11:59 / TOD_AFTERNOON 12:00-17:59 / TOD_EVENING 18:00-23:59, derived from raw dataset timestamp clock)",
+    "R6_DAY_TYPE (DAY_WEEKDAY Mon-Fri / DAY_WEEKEND Sat-Sun, no holiday regime)"
+  ],
+  "amendment_threshold_table_lock_PROPOSED": {
+    "R1": {"Q25_y": "Train-only, computed from REGIME_REFERENCE_TRAIN-v1 raw Appliances Wh", "Q75_y": "Train-only, computed from REGIME_REFERENCE_TRAIN-v1 raw Appliances Wh"},
+    "R2": {"Q90_y": "Train-only, computed from REGIME_REFERENCE_TRAIN-v1 raw Appliances Wh"},
+    "R3": {"Q90_abs_delta": "Train-only, computed from |delta_y_t| over Train target_ids satisfying exact 10-min predecessor + continuity-valid + no-split-crossing conditions"}
+  },
+  "amendment_stage_boundary_lock_PROPOSED": {
+    "Stage_A": "Original Train only \u2192 derive thresholds (REGIME_REFERENCE_TRAIN-v1 \u2192 regime_thresholds_train_only.json \u2192 regime_threshold_fingerprint.json)",
+    "Stage_B": "Test truth + timestamp + continuity only \u2192 assign regime labels \u2192 test_regime_assignment.csv (NO prediction fields, NO residual fields, NO model IDs)",
+    "Stage_C": "freeze test_regime_assignment.csv checksum BEFORE error join; create test_regime_assignment_audit.csv",
+    "Stage_D": "ONLY after Stage C, join Phase 49 residual_long_table.csv + residual_wide_table.csv on target_id (many-to-one, no row drop)",
+    "enforcement": [
+      "src/course_work/phase50/thresholds.py may ONLY read REGIME_REFERENCE_TRAIN-v1 (must NOT import Phase 49 residual artifacts)",
+      "src/course_work/phase50/regime_assignment.py may ONLY read Test truth + timestamp + continuity from FINAL_TEST_POP-v1 (must NOT import Phase 47 prediction bundles or Phase 49 residual artifacts)",
+      "src/course_work/phase50/error_join.py is the ONLY module allowed to read both the frozen test_regime_assignment.csv AND Phase 49 residual_long_table.csv + residual_wide_table.csv",
+      "src/course_work/phase50/metrics.py is read-only over the joined table; may not import any scaler or checkpoint",
+      "src/course_work/phase50/contract.py must expose assert_train_only / assert_test_no_y_pred_in_assignment / assert_no_test_threshold / assert_no_phase51_in_phase50"
+    ]
+  },
+  "amendment_baseline_handling_lock_PROPOSED": {
+    "PERSISTENCE": {
+      "eligibility": "include if frozen Phase 47 persistence bundle (artifacts/final_test/predictions/final_test_predictions_persistence.csv, sha256=7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b, N=2961) is available on the same Test population",
+      "expected_persistence_metrics": {"mae_wh": 26.73758865248227, "rmse_wh": 66.83691534084765, "r2": 0.459046692018256, "n": 2961},
+      "comparison_rule": "per-seed regime metric computed from persistence y_pred_wh \u2013 same regime labels (assigned from Test truth, no extra rule)"
+    },
+    "LSTM_TUNED_DEV": {
+      "eligibility": "PRESERVE upstream NOT_ELIGIBLE_CONFIG_MISMATCH (final_test_lstm_eligibility.json)",
+      "phase_50_handling": "emit a single metadata row with model_id=LSTM_TUNED_DEV, eligibility=NOT_APPLICABLE, status=NOT_EVALUATED_BY_PROTOCOL; do NOT fabricate residuals",
+      "artifacts": "O50.29 LSTM comparison = NOT_APPLICABLE_ROW (single CSV row documenting policy, not metrics)"
+    }
+  },
+  "amendment_cross_seed_lock_PROPOSED": {
+    "seeds": [42, 123, 2026],
+    "all_seeds_retained": true,
+    "seed_pooling_as_3N_iid": false,
+    "best_seed_selection": false,
+    "ensemble_promotion": false,
+    "cross_seed_summary_ddof": 1,
+    "seed_mean_residual_semantics": "SEED_MEAN_RESIDUAL_DESCRIPTIVE (Phase 49 lock; carry forward)"
+  },
+  "amendment_phase49_artifact_consumers_PROPOSED": {
+    "residual_long_table.csv": "per-seed error rows (3*2961=8883 rows); joined many-to-one with test_regime_assignment.csv on target_id",
+    "residual_wide_table.csv": "side-by-side per-seed residuals; used for SAE/SSE global reconstruction audits",
+    "phase49_signed_bias.csv": "report per-seed signed-bias by regime (read-only consumer)",
+    "phase49_residual_acf.csv": "NOT consumed by regime metrics (ACF is global-only by Phase 49 design)",
+    "phase49_cross_seed_residual_agreement.csv": "Phase 50 O50.26 seed-spread by regime does NOT replace this; only used to verify the cross-seed sign-consensus taxonomy remains the same",
+    "phase49_cross_seed_sign_consensus.csv": "consumed by O50.27 sign-consensus by regime; the canonical taxonomy is the one Phase 49 used (ALL_UNDER / ALL_OVER / ALL_EXACT / TWO_UNDER_ONE_OVER / TWO_OVER_ONE_UNDER / MIXED); Phase 50 plan §117 reuses the SAME taxonomy and reports fractions within each regime (no new labels)",
+    "phase49_rolling_residual_diagnostics.csv": "NOT consumed by Phase 50 regime metrics (Phase 50 does not duplicate rolling diagnostics); may be referenced for cross-phase narrative only",
+    "phase49_persistence_context.csv": "reference only; Phase 50 recomputes per-regime persistence metrics independently using frozen Phase 47 persistence bundle",
+    "phase49_prediction_deciles.csv": "explicitly NOT a Phase 50 regime (Phase 49 lock: decile_not_phase50_regime=true); only used to verify Phase 50 does NOT reuse deciles as regimes"
+  },
+  "amendment_artifact_name_corrections": [
+    {
+      "phase50_plan_logical_name": "residual_long_table.csv",
+      "actual_canonical_filename": "artifacts/residual_analysis/residual_long_table.csv",
+      "status": "EXACT_MATCH",
+      "action_required": "none"
+    },
+    {
+      "phase50_plan_logical_name": "residual_wide_table.csv",
+      "actual_canonical_filename": "artifacts/residual_analysis/residual_wide_table.csv",
+      "status": "EXACT_MATCH",
+      "action_required": "none"
+    },
+    {
+      "phase50_plan_logical_name": "residual_bias_summary.csv",
+      "actual_canonical_filename": "artifacts/residual_analysis/phase49_signed_bias.csv",
+      "status": "CANONICAL_EQUIVALENT",
+      "evidence": "Phase 49 emits signed-bias summary as phase49_signed_bias.csv (columns: model_id, N, mean_residual_wh, median_residual_wh, std_residual_wh, ...)",
+      "action_required": "Phase 50 implementation must read phase49_signed_bias.csv (do NOT create a residual_bias_summary.csv alias)"
+    },
+    {
+      "phase50_plan_logical_name": "residual_acf_diagnostics.csv",
+      "actual_canonical_filename": "artifacts/residual_analysis/phase49_residual_acf.csv (full) and phase49_residual_acf_key_lags.csv (key lags only)",
+      "status": "PARTIAL_CONFLICT",
+      "evidence": "Phase 49 emits BOTH a full residual ACF table AND a key-lags subset; Phase 50 plan refers to a single 'residual_acf_diagnostics.csv'",
+      "action_required": "Phase 50 implementation reads phase49_residual_acf_key_lags.csv for regime-level reference if needed; does NOT create new ACF artifacts (Phase 49 owns ACF)."
+    },
+    {
+      "phase50_plan_logical_name": "residual_seed_sign_consensus.csv",
+      "actual_canonical_filename": "artifacts/residual_analysis/phase49_cross_seed_sign_consensus.csv",
+      "status": "CANONICAL_EQUIVALENT",
+      "evidence": "Phase 49 emits cross-seed sign consensus at phase49_cross_seed_sign_consensus.csv (columns: consensus_class, count, fraction); the canonical taxonomy is ALL_UNDER / ALL_OVER / ALL_EXACT / TWO_UNDER_ONE_OVER / TWO_OVER_ONE_UNDER / MIXED.",
+      "action_required": "Phase 50 implementation joins this taxonomy with test_regime_assignment.csv to produce O50.27; do NOT create a new 'residual_seed_sign_consensus.csv' file."
+    },
+    {
+      "phase50_plan_logical_name": "phase_49_signoff.json",
+      "actual_canonical_filename": "artifacts/residual_analysis/phase_49_signoff.json",
+      "status": "EXACT_MATCH",
+      "action_required": "none"
+    },
+    {
+      "phase50_plan_logical_name": "phase50_error_regime_handoff.json",
+      "actual_canonical_filename": "artifacts/final_test/phase50_error_regime_handoff.json (preview, written by Phase 47)",
+      "status": "AMBIGUOUS",
+      "evidence": "Phase 47 emitted a phase50_error_regime_handoff.json preview (541 bytes) which is just a placeholder indicating Phase 50 will overwrite it; the active Phase 49 \u2192 Phase 50 handoff is artifacts/residual_analysis/phase50_handoff.json (TRAIN_DERIVED_ONLY policy, residual_convention=y_true - y_pred).",
+      "action_required": "Phase 50 implementation reads artifacts/residual_analysis/phase50_handoff.json (Phase 49 \u2192 Phase 50 handoff). Phase 47 placeholder is overwritten by Phase 50 implementation with phase50_signoff_input.json (a NEW artifact documenting Phase 50's input gates)."
+    },
+    {
+      "phase50_plan_logical_name": "phase50_target_regime_policy",
+      "actual_canonical_filename": "artifacts/residual_analysis/phase50_handoff.json",
+      "status": "EXACT_MATCH",
+      "evidence": "phase50_handoff.json key = phase50_target_regime_policy = TRAIN_DERIVED_ONLY",
+      "action_required": "none"
+    }
+  ],
+  "amendment_notebook_presentation_lock_PROPOSED": {
+    "notebook_path": "notebook_course_work/CourseWork_1.ipynb",
+    "added_cells_after_phase_49": [
+      "Markdown cell: '## Phase 50 - Error-by-Regime Analysis'",
+      "Code cell: 'from course_work.reporting.phase_50_dashboard import render_phase_50_dashboard; display(render_phase_50_dashboard(PROJECT_ROOT))'"
+    ],
+    "forbidden_in_notebook": [
+      "threshold computation (Q25/Q75/Q90/Q90_abs_delta)",
+      "train_regime_assignment.csv construction",
+      "test_regime_assignment.csv construction",
+      "regime assignment logic (TL_LOW/MID/HIGH, EXTREME_HIGH, CHANGE_RAPID, DIR_UP, TOD_MORNING, DAY_WEEKEND)",
+      "residual joins",
+      "regime metric computation",
+      "training / inference / checkpoint loading / optimizer / scaler fit",
+      "model.train() / optimizer.step() / .backward()",
+      "pd.read_csv inline processing (data must come through dashboard module)",
+      "matplotlib / seaborn inline figure creation",
+      "any import of phase50.* modules other than the dashboard renderer",
+      "materialize_phase50* calls",
+      "any Phase 51 implementation"
+    ]
+  },
+  "amendment_testing_strategy_lock_PROPOSED": {
+    "TRAIN-ONLY": [
+      "test_phase50_train_reference_excludes_validation",
+      "test_phase50_train_reference_excludes_test",
+      "test_phase50_thresholds_derived_from_raw_appliances_wh_only",
+      "test_phase50_quantile_method_is_linear_and_deterministic"
+    ],
+    "TEMPORAL": [
+      "test_phase50_delta_requires_exact_10_min_predecessor",
+      "test_phase50_delta_no_gap_crossing",
+      "test_phase50_delta_no_train_split_crossing",
+      "test_phase50_delta_test_wb0_predecessor_authorized_for_first_test_target",
+      "test_phase50_unclassified_when_no_predecessor"
+    ],
+    "ASSIGNMENT": [
+      "test_phase50_assignment_no_prediction_fields",
+      "test_phase50_assignment_no_residual_fields",
+      "test_phase50_assignment_labels_same_across_models",
+      "test_phase50_assignment_full_test_population_coverage",
+      "test_phase50_assignment_explicit_unclassified_for_r3_r4"
+    ],
+    "JOIN": [
+      "test_phase50_join_many_to_one",
+      "test_phase50_join_no_row_drop",
+      "test_phase50_join_no_duplicate_matches",
+      "test_phase50_join_occurs_after_test_assignment_freeze"
+    ],
+    "METRICS": [
+      "test_phase50_mae_definition",
+      "test_phase50_rmse_definition",
+      "test_phase50_r2_guard_when_singleton_or_zero_variance",
+      "test_phase50_mbe_uses_residual_convention_y_true_minus_y_pred",
+      "test_phase50_under_over_exact_zero_policy",
+      "test_phase50_sae_sse_computed_per_seed",
+      "test_phase50_rmse_lift_wh_vs_pct_both_present"
+    ],
+    "CONTRIBUTION": [
+      "test_phase50_sample_share_sums_to_one_per_seed",
+      "test_phase50_sae_share_sums_to_one_per_seed",
+      "test_phase50_sse_share_sums_to_one_per_seed",
+      "test_phase50_global_sse_reconstruction"
+    ],
+    "CROSS-SEED": [
+      "test_phase50_all_three_seeds_present",
+      "test_phase50_cross_seed_ddof_equals_one",
+      "test_phase50_no_3n_iid_pooling",
+      "test_phase50_no_best_seed_selection"
+    ],
+    "BASELINE": [
+      "test_phase50_persistence_same_target_population",
+      "test_phase50_persistence_baseline_minus_transformer_delta_convention",
+      "test_phase50_lstm_remains_not_eligible_config_mismatch"
+    ],
+    "SCOPE": [
+      "test_phase50_no_test_thresholds",
+      "test_phase50_no_cartesian_mining",
+      "test_phase50_no_correction_recalibration",
+      "test_phase50_no_training_inference_optimizer",
+      "test_phase50_no_worst_error_ranking",
+      "test_phase50_no_attention_analysis",
+      "test_phase50_no_phase51_implementation",
+      "test_phase50_notebook_unchanged_except_two_appended_cells"
+    ]
+  },
+  "amendment_known_contract_issues_PROPOSED": [
+    {
+      "id": "C50-I01",
+      "severity": "MEDIUM",
+      "summary": "RMSE lift has two coexisting quantities: RMSELift_{s,r} = RMSE_regime/RMSE_global - 1 (ratio form, used in plan \u00a789) and rmse_lift_wh = regime_rmse - global_seed_rmse (absolute form, used in regime_rmse_lift.csv schema at plan \u00a7138). These are different quantities.",
+      "evidence": "Plan \u00a789 and \u00a7138; both quoted.",
+      "proposed_resolution": "Phase 50 implementation MUST emit BOTH fields in regime_rmse_lift.csv (rmse_lift_wh and rmse_lift_pct = 100 * rmse_lift_wh / global_seed_rmse) AND must rename the ratio form to rmse_lift_ratio (not rmse_lift_pct) to avoid confusion. The Phase 50 pre-process plan will pre-declare this rename.",
+      "human_approval_required": true
+    },
+    {
+      "id": "C50-I02",
+      "severity": "MEDIUM",
+      "summary": "Phase 50 plan \u00a7117 sign-consensus taxonomy appears abbreviated to ALL_UNDER/ALL_OVER/MIXED only; actual Phase 49 canonical taxonomy is ALL_UNDER/ALL_OVER/ALL_EXACT/TWO_UNDER_ONE_OVER/TWO_OVER_ONE_UNDER/MIXED.",
+      "evidence": "Plan \u00a7117 lists only 3 classes; Phase 49 cross_seed_sign_consensus.csv has 6 classes (ALL_EXACT=0, MIXED=0).",
+      "proposed_resolution": "Phase 50 implementation MUST reuse the full Phase 49 6-class taxonomy when joining with regime labels; the plan \u00a7117 abbreviation is treated as a description of the dominant categories, not a redefinition. Phase 50 O50.27 columns must exactly mirror phase49_cross_seed_sign_consensus.csv taxonomy.",
+      "human_approval_required": true
+    },
+    {
+      "id": "C50-I03",
+      "severity": "HIGH",
+      "summary": "R\u00b2 NOT_DEFINED representation is not pinned in the Phase 50 plan.",
+      "evidence": "Plan \u00a7760 and \u00a71677 reference R\u00b2 = NOT_DEFINED but do not specify the serialized form (string, null, NaN, empty cell).",
+      "proposed_resolution": "Phase 50 implementation MUST emit r2_status=NOT_DEFINED as an explicit string column (not null, not NaN), with r2 numeric cell set to empty string in CSV and null in JSON. This preserves deterministic CSV parsing and matches Phase 49 final_test_summary.json r2_status convention.",
+      "human_approval_required": true
+    },
+    {
+      "id": "C50-I04",
+      "severity": "HIGH",
+      "summary": "Train target_id checksum semantics are not pre-declared by WINDOWPOP-v1 (which only fingerprints the population as a whole); Phase 50 will need a Train-only target_ids checksum.",
+      "evidence": "WINDOWPOP-v1 fingerprints (a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987) cover Train+Val+Test intersection; there is no pre-existing TRAIN-only target_ids_sha256 fingerprint.",
+      "proposed_resolution": "Phase 50 implementation computes Train-only target_ids_sha256 from the REGIME_REFERENCE_TRAIN-v1 subset of common_target_population.csv where target_split_id==TRAIN. This sha256 is stored in regime_thresholds_train_only.json.target_ids_sha256 and frozen before any threshold derivation.",
+      "human_approval_required": true
+    },
+    {
+      "id": "C50-I05",
+      "severity": "LOW",
+      "summary": "Phase 48 prediction_seed_spread.csv is at the per-target level with target_id granularity \u2014 Phase 50 can aggregate directly by joining on target_id.",
+      "evidence": "prediction_seed_spread.csv schema verified: target_id, target_timestamp, y_true_wh, seed_mean_prediction, seed_std_prediction, seed_min_prediction, seed_max_prediction, seed_range_prediction.",
+      "proposed_resolution": "Phase 50 O50.26 regime_seed_spread_summary.csv is a regime-grouped aggregation of prediction_seed_spread.csv. Direct join on target_id is supported; no schema change needed.",
+      "human_approval_required": false
+    },
+    {
+      "id": "C50-I06",
+      "severity": "LOW",
+      "summary": "WB0 Test predecessor is explicitly authorized by SPLIT-v1 context_policy=input_rows_may_precede_target_period_under_wb0 AND by Phase 50 plan \u00a720.",
+      "evidence": "split_manifest.json primary_boundary_protocol=WB0_CONTEXT_CARRY_OVER; context_policy=input_rows_may_precede_target_period_under_wb0; final_test_population_manifest.json boundary_protocol=WB0_CONTEXT_CARRY_OVER.",
+      "proposed_resolution": "Phase 50 implementation authorizes the contiguous predecessor of Test first point (TGT_00016774 \u2192 TGT_00016773 = VALIDATION last target, raw Appliances=40) for delta_y_test computation. Subsequent Test points use the immediately preceding Test point (both within FINAL_TEST_POP-v1). This is gap-safe and split-crossing-free at the WINDOWPOP-population level.",
+      "human_approval_required": false
+    },
+    {
+      "id": "C50-I07",
+      "severity": "LOW",
+      "summary": "WINDOWPOP-v1 already enforces continuity membership via the continuity_segment_id column in common_target_population.csv.",
+      "evidence": "common_target_population.csv contains continuity_segment_id; all WINDOWPOP-v1 targets are by construction continuity-valid (they pass the 3-lookback test in 3 lookback options).",
+      "proposed_resolution": "Phase 50 implementation reuses common_target_population.csv's continuity_segment_id for R3/R4 predecessor checks; no new continuity computation needed.",
+      "human_approval_required": false
+    },
+    {
+      "id": "C50-I08",
+      "severity": "MEDIUM",
+      "summary": "Phase 49 phase49_prediction_deciles.csv is explicitly NOT a Phase 50 regime; Phase 50 must NOT reuse deciles as R1/R2/R3.",
+      "evidence": "Phase 49 amendment lock: decile_not_phase50_regime=true.",
+      "proposed_resolution": "Phase 50 contract.py must assert assert_decile_not_phase50_regime(decision_made); Phase 50 implementation never reads phase49_prediction_deciles.csv as a regime source. Documented in pre-process plan.",
+      "human_approval_required": false
+    },
+    {
+      "id": "C50-I09",
+      "severity": "MEDIUM",
+      "summary": "Phase 47 placeholder phase50_error_regime_handoff.json at artifacts/final_test/ exists (541 bytes) and would collide with the new Phase 50 handoff artifact under the same logical name.",
+      "evidence": "artifacts/final_test/phase50_error_regime_handoff.json present; Phase 49 \u2192 Phase 50 handoff at artifacts/residual_analysis/phase50_handoff.json (TRAIN_DERIVED_ONLY policy) also present.",
+      "proposed_resolution": "Phase 50 implementation OVERWRITES artifacts/final_test/phase50_error_regime_handoff.json as the new phase50_signoff_input.json document (input gates); the existing artifacts/residual_analysis/phase50_handoff.json remains the upstream consumption handoff. Both filenames are documented in the pre-process plan mapping.",
+      "human_approval_required": true
+    }
+  ],
+  "human_approval_state": {
+    "amendment_v1_12": "APPROVED",
+    "pre_process_plan": "APPROVED",
+    "phase_50_b": "ACTIVE_AFTER_HUMAN_APPROVAL"
+  },
+  "human_approval_granted_at_utc": "2026-09-04T03:00:00+00:00",
+  "human_approval_granted_by": "human_owner",
+  "human_approval_scope": "Phase50 architecture amendment v1.12 ONLY; pre-process plan v1.0; does NOT authorize Phase51/52+, new Test inference, checkpoint loading, training, optimizer, scaler fitting, residual correction, recalibration, best-seed selection, ensemble promotion, 3N iid pooling, Test-derived threshold tuning, regime-driven retuning, Cartesian regime mining, worst-error ranking, or attention analysis",
+  "human_approval_contract_resolutions_APPROVED": {
+    "C50-I01": {
+      "approved": true,
+      "resolution": "Keep all three RMSE lift representations with distinct names: rmse_lift_wh = regime_rmse - global_seed_rmse (signed Wh); rmse_lift_ratio = regime_rmse / global_seed_rmse - 1 (dimensionless); rmse_lift_pct = 100 * rmse_lift_ratio (percentage). Do not conflate them.",
+      "approved_at_utc": "2026-09-04T03:00:00+00:00"
+    },
+    "C50-I02": {
+      "approved": true,
+      "resolution": "Reuse the full canonical Phase 49 sign-consensus taxonomy verbatim (6 classes: ALL_UNDER / ALL_OVER / ALL_EXACT / TWO_UNDER_ONE_OVER / TWO_OVER_ONE_UNDER / MIXED). If Phase 50 later needs a reduced taxonomy, the mapping must be deterministic and explicitly documented before aggregation.",
+      "approved_at_utc": "2026-09-04T03:00:00+00:00"
+    },
+    "C50-I03": {
+      "approved": true,
+      "resolution": "R² undefined policy: r2_status = 'NOT_DEFINED' (explicit string); CSV numeric R² field = empty (no characters between commas); JSON numeric R² field = null. Never fabricate R² = 0.",
+      "approved_at_utc": "2026-09-04T03:00:00+00:00"
+    },
+    "C50-I04": {
+      "approved": true,
+      "resolution": "Authorize creation of a Phase 50-specific Train-only target population SHA256 (REGIME_REFERENCE_TRAIN-v1 sha256). Must be computed deterministically from canonical Train target IDs (UTF-8, sorted, LF-separated). Store provenance (source path: artifacts/windows/common_target_population.csv filtered by target_split_id==TRAIN) and serialization method in regime_thresholds_train_only.json.target_ids_sha256 and regime_reference_train_manifest.json. FROZEN before Stage A threshold derivation.",
+      "approved_at_utc": "2026-09-04T03:00:00+00:00"
+    },
+    "C50-I09": {
+      "approved": true,
+      "resolution": "Do NOT overwrite ambiguous upstream handoffs destructively. The Phase 49 → Phase 50 consumption handoff under artifacts/residual_analysis/phase50_handoff.json is the CANONICAL consumption handoff. If Phase 50 needs a new input-gates artifact, create a new uniquely-named Phase 50-owned file (e.g., artifacts/error_by_regime/phase50_input_gates.json). The 541-byte Phase 47 placeholder at artifacts/final_test/phase50_error_regime_handoff.json is preserved untouched as historical Phase 47 evidence.",
+      "approved_at_utc": "2026-09-04T03:00:00+00:00"
+    }
+  },
+  "human_approval_not_resolved_for_implementation": [
+    "Phase 50-B sub-phase approval — required before Phase 50-B source code begins (per pre-process plan §24)",
+    "Phase 50-C sub-phase approval — required before Stage B regime assignment begins",
+    "Phase 50-D sub-phase approval — required before Stage D residual join begins",
+    "Phase 50-E sub-phase approval — required before cross-seed aggregation begins",
+    "Phase 50-F sub-phase approval — required before baseline + seed-spread + sign-consensus begin",
+    "Phase 50-G sub-phase approval — required before final signoff",
+    "Phase 50-H sub-phase approval — required before notebook dashboard cell appended",
+    "Optionally: review of Train-only thresholds at Stage A freeze",
+    "Optionally: review of test_regime_assignment.csv at Stage C freeze",
+    "Phase 50 findings narrative — required before Phase 50-G signoff",
+    "Phase 50 final signoff — required before Phase 51 begins",
+    "Notebook Phase 50 cell append — required before Phase 50-H"
+  ],
+  "implementation_started": false,
+  "new_inference": false,
+  "training": false,
+  "optimizer_steps": 0,
+  "checkpoint_loading": false,
+  "scaler_fit": false,
+  "phase47_modified": false,
+  "phase48_modified": false,
+  "phase49_modified": false,
+  "phase50_authorized_in_architecture_rule": true,
+  "phase50_implementation_started": false,
+  "phase51_authorized": false,
+  "phase51_started": false,
+  "phase52_plus_authorized": false,
+  "phase52_plus_started": false,
+  "stop_conditions_observed": [],
+  "created_at_utc": "2026-09-04T02:50:00+00:00",
+  "approved_at_utc": "2026-09-04T03:00:00+00:00",
+  "approval_state_history": [
+    {
+      "version": "v1.12-PROPOSED",
+      "state": "PENDING_HUMAN_APPROVAL",
+      "timestamp_utc": "2026-09-04T02:50:00+00:00"
+    },
+    {
+      "version": "v1.12",
+      "state": "APPROVED",
+      "timestamp_utc": "2026-09-04T03:00:00+00:00",
+      "approver": "human_owner",
+      "scope_approved": "Phase50 architecture amendment v1.12 + pre-process plan v1.0 + 5 contract resolutions (C50-I01/I02/I03/I04/I09)"
+    }
+  ]
+}

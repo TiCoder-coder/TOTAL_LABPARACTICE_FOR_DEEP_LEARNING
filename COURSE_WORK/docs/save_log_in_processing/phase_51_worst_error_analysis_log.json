@@ -1,0 +1,1121 @@
+{
+  "log_id": "phase_51_worst_error_analysis_log",
+  "log_version": "1",
+  "log_kind": "machine_readable_processing_log",
+  "task": "PHASE_51_WORST_ERROR_ANALYSIS_GOVERNANCE_AUDIT",
+  "phase": 51,
+  "subphase": "51-A",
+  "phase_name": "Worst-Error Analysis",
+  "plan_file": "docs/plan-doc/plan_detail_for_each_phase/Phase_51_Worst-error_analysis.md",
+  "pre_process_plan": "docs/plan-doc/plan_before_process/phase_51_worst_error_analysis_plan.md",
+  "architecture_amendment": "docs/save_log_in_processing/phase_51_architecture_amendment_log.json",
+  "scope": "Phase 51-A: governance + preflight + source audit. NO ranking, NO case inspection, NO casebook creation.",
+  "architecture_rule_read": true,
+  "architecture_rule_version": "v1.12",
+  "rule_code_read": true,
+  "phase51_requirement_read": true,
+  "phase51_plan_version": "WORST_ERROR_ANALYSIS-v1",
+  "architecture_authorization": {
+    "status": "AUTHORIZED_v1.13",
+    "current_rule": "Phase 51 is UNAUTHORIZED under architecture_rule.md v1.12",
+    "required_action": "Human must approve v1.13 amendment before Phase 51-B",
+    "amendment_id": "phase-51-architecture-amendment-v1.13",
+    "amendment_status": "HUMAN_APPROVED_APPLIED",
+    "phase50_amendment_reference": "v1.12, §7.37.11",
+    "amendment_version": "v1.13"
+  },
+  "upstream_signoffs": {
+    "phase47_signoff": {
+      "path": "artifacts/final_test/phase_47_signoff.json",
+      "sha256": "80614523b6091e21",
+      "status": "PASS",
+      "phase": 47,
+      "n_test": 2961,
+      "seeds": [
+        "42",
+        "123",
+        "2026"
+      ],
+      "persistence_included": true,
+      "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+    },
+    "phase48_signoff": {
+      "path": "artifacts/prediction_analysis/phase_48_signoff.json",
+      "sha256": "e8c102d582a35dd2",
+      "status": "PASS",
+      "phase": 48,
+      "n_test": 2961,
+      "ready_for_phase49": true,
+      "ready_for_phase51_context": true
+    },
+    "phase49_signoff": {
+      "path": "artifacts/residual_analysis/phase_49_signoff.json",
+      "sha256": "9d5fc659717dbc15",
+      "status": "PASS",
+      "phase": 49,
+      "residual_convention": "y_true - y_pred",
+      "n_test": 2961
+    },
+    "phase50_signoff": {
+      "path": "artifacts/error_by_regime/phase_50_signoff.json",
+      "sha256": "31d9575c441b6f42",
+      "status": "PASS",
+      "phase": 50,
+      "n_test": 2961,
+      "ready_for_phase51": true,
+      "ready_for_phase52_plus": false,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_modified": false,
+      "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+    }
+  },
+  "frozen_scientific_context": {
+    "seeds": [
+      "42",
+      "123",
+      "2026"
+    ],
+    "n_test": 2961,
+    "test_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "residual_convention": "y_true - y_pred",
+    "positive_residual": "UNDERPREDICTION",
+    "negative_residual": "OVERPREDICTION",
+    "phase50_test_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+    "phase50_train_threshold_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+    "phase50_test_assignment_verified": true,
+    "phase50_threshold_q25_y": 50.0,
+    "phase50_threshold_q75_y": 100.0,
+    "phase50_threshold_q90_y": 210.0,
+    "phase50_threshold_q90_abs_delta": 80.0
+  },
+  "phase51_handoffs": {
+    "from_final_test": {
+      "path": "artifacts/final_test/phase51_worst_error_handoff.json",
+      "sha256": "4e97e304a52a3a72",
+      "status": "PASS",
+      "prediction_bundle_refs": {
+        "seed_42": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+        "seed_123": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+        "seed_2026": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+        "persistence": "artifacts/final_test/predictions/final_test_predictions_persistence.csv"
+      }
+    },
+    "from_prediction_analysis": {
+      "path": "artifacts/prediction_analysis/phase51_worst_error_context_handoff.json",
+      "sha256": "dd767dd87fcd250b",
+      "status": "PASS",
+      "seed_spread_table_path": "artifacts/prediction_analysis/prediction_seed_spread.csv",
+      "phase48_executed_worst_error_ranking": false
+    },
+    "from_error_by_regime": {
+      "path": "artifacts/error_by_regime/phase51_handoff.json",
+      "sha256": "e5ee74215a40ad32",
+      "status": "PASS",
+      "phase51_first_authorized_phase_for_worst_error_ranking": true,
+      "phase51_inherits_frozen_test_assignment": true,
+      "phase51_inherits_frozen_train_thresholds": true,
+      "phase50_worst_error_ranking_executed": false
+    },
+    "from_phase51_f": {
+      "status": "PASS",
+      "ready_for_phase51_g": true,
+      "at_utc": "2026-09-04T06:06:04.532511+00:00",
+      "outputs": [
+        "casebook_index.csv",
+        "casebook_membership_bridge.csv",
+        "casebook_unique_case_master.csv",
+        "local_temporal_context.csv",
+        "input_window_manifest.csv",
+        "feature_order_audit.csv",
+        "model_visible_feature_summary.csv",
+        "context_integrity_audit.csv",
+        "input_window_integrity_audit.csv",
+        "casebook_integrity_audit.csv",
+        "lstm_eligibility_context.json",
+        "phase51_f_manifest.json"
+      ],
+      "lookback": 72,
+      "feature_count": 33,
+      "feature_set": "FS2_TF1",
+      "context_radius": 6,
+      "case_count": 160,
+      "unique_target_count": 44
+    },
+    "from_phase51_f_corrective": {
+      "status": "PASS",
+      "ready_for_phase51_g": true,
+      "at_utc": "2026-09-04T06:34:33.248885+00:00",
+      "outputs": [
+        "exact_input_window_reconstruction.csv",
+        "exact_input_windows_per_feature_summary.csv",
+        "target_history_context.csv",
+        "feature_order_positional_audit.csv",
+        "input_window_contract_vs_values_audit.csv",
+        "exact_input_reconstruction_manifest.json",
+        "lstm_eligibility_context.json"
+      ]
+    }
+  },
+  "source_integrity": {
+    "phase47_predictions_exist": true,
+    "phase47_predictions_sha256_verified": true,
+    "phase49_residual_long_table_exists": true,
+    "phase49_residual_long_table_rows": 8883,
+    "phase50_test_regime_assignment_exists": true,
+    "phase50_test_regime_assignment_rows": 2961,
+    "phase50_regime_labels_reused": true,
+    "overall": "PASS"
+  },
+  "selection_contract_registered": {
+    "status": "REGISTERED_NOT_EXECUTED",
+    "K_ABS_per_seed": 20,
+    "K_SHARED": 20,
+    "K_UNDER_per_seed": 10,
+    "K_OVER_per_seed": 10,
+    "K_SHARED_SIGNED": 10,
+    "LOCAL_CONTEXT_RADIUS_STEPS": 6,
+    "PRIMARY_RANKING_METRIC": "absolute_error_wh DESC",
+    "TIE_BREAK": "target_id ASC",
+    "RANDOM_TIEBREAK_FORBIDDEN": true,
+    "MANUAL_PRE_SELECTION_FORBIDDEN": true,
+    "ranked_in_phase": "51-C",
+    "contract_freeze_in_phase": "51-B",
+    "human_approved": true,
+    "approved_at_utc": "2026-09-04T03:12:20.475663+00:00"
+  },
+  "worst_error_ranking_executed": false,
+  "individual_case_inspection_executed": true,
+  "training": false,
+  "new_test_inference": false,
+  "checkpoint_loading": false,
+  "optimizer_steps": 0,
+  "scaler_fit": false,
+  "best_seed_selected": false,
+  "ensemble": false,
+  "prediction_correction": false,
+  "phase47_modified": false,
+  "phase48_modified": false,
+  "phase49_modified": false,
+  "phase50_modified": false,
+  "phase52_started": false,
+  "implementation_started": true,
+  "sub_phases": {
+    "51-A": {
+      "status": "COMPLETE",
+      "human_approval_required": false,
+      "completed_at_utc": "2026-09-04T03:12:20.475666+00:00"
+    },
+    "51-B": {
+      "status": "PENDING",
+      "human_approval_required": true
+    },
+    "51-C": {
+      "status": "PENDING",
+      "human_approval_required": true
+    },
+    "51-D": {
+      "status": "PENDING",
+      "human_approval_required": true
+    },
+    "51-E": {
+      "status": "PENDING",
+      "human_approval_required": true
+    },
+    "51-F": {
+      "status": "PENDING",
+      "human_approval_required": true
+    },
+    "51-G": {
+      "status": "COMPLETE",
+      "human_approval_required": true,
+      "completed_at_utc": "2026-09-04T07:13:11.538420+00:00"
+    },
+    "51-H": {
+      "status": "PENDING",
+      "human_approval_required": true
+    }
+  },
+  "ready_for_phase51_b": true,
+  "human_approval_required": true,
+  "human_approval_gate": "Human must approve v1.13 architecture amendment before Phase 51-B execution",
+  "blockers": [],
+  "contract_issues": [],
+  "created_at_utc": "2026-09-04T02:40:00+00:00",
+  "overall_status": "PASS",
+  "pre_process_plan_status": "APPROVED",
+  "phase50_signoff": "PASS",
+  "phase51_handoff": "PASS",
+  "selection_contract_human_approved": true,
+  "selection_contract_executed": false,
+  "phase51_path_authorized": true,
+  "phase51_artifact_dir_authorized": true,
+  "phase51_reporting_authorized": true,
+  "phase51_notebook_presentation_authorized": true,
+  "phase52_authorized": false,
+  "human_approval_status": "PARTIAL_51A_APPROVED_51B_GATE_PENDING",
+  "last_updated_utc": "2026-09-04T07:13:11.538420+00:00",
+  "subphase_blocks": {
+    "51-B": {
+      "phase": 51,
+      "subphase": "51-B",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-04T03:27:51.926244+00:00",
+      "source_verification": "PASS",
+      "alignment_verification": "PASS",
+      "n_test": 2961,
+      "n_residual_long": 8883,
+      "n_seeds": 3,
+      "residual_rows_per_seed": {
+        "42": 2961,
+        "123": 2961,
+        "2026": 2961
+      },
+      "alignment_defects": 0,
+      "alignment_audit_json_path": "artifacts/worst_error_analysis/phase51_alignment_audit.json",
+      "alignment_audit_csv_path": "artifacts/worst_error_analysis/phase51_alignment_audit.csv",
+      "selection_contract_path": "artifacts/worst_error_analysis/worst_error_selection_contract.json",
+      "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+      "selection_contract_fingerprint_path": "artifacts/worst_error_analysis/selection_contract_fingerprint.json",
+      "working_table_path": "artifacts/worst_error_analysis/phase51_target_level_working_table.csv",
+      "manifest_path": "artifacts/worst_error_analysis/worst_error_analysis_manifest.json",
+      "tests": "40/40 PASS",
+      "tests_file": "tests/unit/test_phase51_b_frozen_contract.py",
+      "defects": [],
+      "implementation_started": true,
+      "selection_contract_frozen": true,
+      "selection_contract_executed": false,
+      "worst_error_ranking_executed": false,
+      "individual_case_inspection": false,
+      "training": false,
+      "new_test_inference": false,
+      "checkpoint_loading": false,
+      "optimizer_steps": 0,
+      "scaler_fit": false,
+      "best_seed_selected": false,
+      "ensemble": false,
+      "prediction_correction": false,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_modified": false,
+      "phase50_modified": false,
+      "phase52_started": false,
+      "phase52_authorized": false,
+      "ready_for_phase51_c": false,
+      "human_approval_required": false,
+      "human_approval_status": "PENDING_51C_GATE",
+      "k_values_registered": {
+        "K_PER_SEED": 20,
+        "K_SHARED": 20,
+        "K_UNDER_PER_SEED": 10,
+        "K_OVER_PER_SEED": 10,
+        "K_SHARED_SIGNED": 10,
+        "CONTEXT_RADIUS": 6
+      },
+      "primary_ranking": "absolute_error_wh DESC",
+      "tie_break": "target_id ASC",
+      "forbidden_in_51b": [
+        "worst_error_ranking",
+        "sorting_for_ranking",
+        "top_k_creation",
+        "individual_case_inspection",
+        "training",
+        "inference",
+        "checkpoint_loading",
+        "scaler_fitting",
+        "best_seed_selection",
+        "ensemble_construction",
+        "prediction_correction",
+        "phase52_implementation"
+      ],
+      "selection_contract_fingerprint_sha256": "7e24cd50df59af39c6a6b9d3f6e46732bb866a275b51024ec49f1b368888cc74",
+      "manifest_sha256": "88ccf51ceed1d6de44d059fa808d41a315f1c276168e006b0c924562e4b6eb26",
+      "working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f"
+    }
+  },
+  "selection_contract_frozen": true,
+  "individual_case_inspection": false,
+  "phase51_c": {
+    "subphase": "51-C",
+    "status": "PASS",
+    "implementation_started": true,
+    "completed": true,
+    "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "selection_contract_verified": true,
+    "source_working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f",
+    "source_working_table_rows": 2961,
+    "ranking_families": {
+      "W1_PER_SEED_WORST": {
+        "rows_total": 60,
+        "rows_per_seed": 20,
+        "artifact": "worst_per_seed_top20.csv",
+        "sha256": "42b397cf2555b96381c7d34a4ece4a322090a107fa1beb638b0734c068a46f5e"
+      },
+      "W2_SHARED_WORST": {
+        "rows_total": 20,
+        "artifact": "worst_shared_top20.csv",
+        "sha256": "e551d14870992ec1739b5ae6d8bf403e551b8f6598e72462188eded01d0c678a"
+      },
+      "W3_UNDERPREDICTION_WORST": {
+        "rows_total": 30,
+        "rows_per_seed": 10,
+        "artifact": "worst_underprediction_top10.csv",
+        "sha256": "f4cb7092279e4baa4c3917eb06b64eca471f6fb1c80a96e1918560e217cbe411"
+      },
+      "W4_OVERPREDICTION_WORST": {
+        "rows_total": 30,
+        "rows_per_seed": 10,
+        "artifact": "worst_overprediction_top10.csv",
+        "sha256": "476e9cd10729858dfc63276c71732861fbe9e015b4c1429e677355b4f1bd6897"
+      },
+      "W3_SH_SHARED_ALL_UNDER": {
+        "rows_total": 10,
+        "artifact": "shared_all_under_top10.csv",
+        "sha256": "0b4bf8cb1e4f21c0bcf8f45cbe912b525d9f998f85849f2d954a533e66912637"
+      },
+      "W4_SH_SHARED_ALL_OVER": {
+        "rows_total": 10,
+        "artifact": "shared_all_over_top10.csv",
+        "sha256": "a43b0f0a46c284e7949c2025bd5a8574af25b1215a886629a891fa7f14bdf3be"
+      }
+    },
+    "ranking_audit": {
+      "artifact": "phase51_ranking_audit.json",
+      "sha256": "e6298e9a1dce1a6d3165b2afe3f5b1fea9c83a565110cc8767f3c99e61be3d54",
+      "all_pass": true
+    },
+    "manifest": {
+      "artifact": "worst_error_ranking_manifest.json",
+      "sha256": "dd2801c22c1e81e93385882f841646cc5f28f31e2212867fd68deb975e1df0ac"
+    },
+    "defects_found": [],
+    "defects_fixed": [],
+    "focused_tests": {
+      "total": 45,
+      "passed": 45,
+      "failed": 0,
+      "file": "tests/unit/test_phase51_c_ranking.py"
+    },
+    "safety_flags": {
+      "selection_contract_executed": true,
+      "worst_error_ranking_executed": true,
+      "individual_case_inspection_executed": false,
+      "casebook_created": false,
+      "overlap_analysis_executed": false,
+      "error_concentration_executed": false,
+      "regime_enrichment_executed": false,
+      "temporal_context_executed": false,
+      "input_context_executed": false,
+      "new_test_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "optimizer_steps": 0,
+      "scaler_fit": false,
+      "best_seed_selected": false,
+      "ensemble": false,
+      "prediction_correction": false,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_modified": false,
+      "phase50_modified": false,
+      "phase52_started": false
+    },
+    "deterministic": true,
+    "ranking_metric_primary": "absolute_error_wh DESC",
+    "ranking_metric_shared": "mean_abs_error_wh DESC",
+    "tie_break": "target_timestamp ASC, target_id ASC (per-seed) | target_id ASC (shared)",
+    "ready_for_phase51_d": false,
+    "awaiting_human_approval_for_51_d": true
+  },
+  "phase51_c_corrective": {
+    "subphase": "51-C",
+    "task": "PHASE_51_C_FROZEN_CONTRACT_CONFORMANCE_CORRECTION",
+    "contract_drift_detected": true,
+    "ranker_drift_detected": true,
+    "old_sort_keys_W1_W3_W4": "absolute_error_wh DESC, target_timestamp ASC, target_id ASC",
+    "new_sort_keys_W1_W3_W4": "absolute_error_wh DESC, target_id ASC",
+    "new_sort_keys_W2_W3SH_W4SH": "mean_abs_error_wh DESC, target_id ASC (UNCHANGED — already conformant)",
+    "frozen_tie_break_literal": "target_id ASC",
+    "top_k_membership_changed": false,
+    "rank_order_changed": false,
+    "scientific_impact": "0 (no ties existed at top-K absolute_error boundary; drift was latent)",
+    "artifacts_regenerated": true,
+    "archive_path": "artifacts/worst_error_analysis/_archive/phase51_c_pre_contract_correction_2026-09-04_1025/",
+    "contract_repair_summary": {
+      "canonical_frozen_contract_sha_target": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+      "restored_to_canonical_sha": true,
+      "root_cause_of_drift": "writers.write_selection_contract overwrote frozen contract every materialize_b run; Phase 51-B tests calling materialize_phase51_b regenerated datetime.now() stamps and SHA drifted.",
+      "defect_fix": [
+        "writers.write_selection_contract now uses write_bytes_once_or_verify (refuses to overwrite)",
+        "materialize_b.build_selection_contract_payload now uses pinned constant timestamps that reproduce ec798326...",
+        "frozen_sort_key_compliance.py added (forbidden-sort-key gate)",
+        "materialize_c runs the sort-key compliance gate before ranking",
+        "ranking_audit.py tie-break check relaxed from (timestamp+id) to (id only)"
+      ]
+    },
+    "contract_sha_after_correction": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "phase51_b_artifacts_modified": false,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_modified": false,
+    "phase50_modified": false,
+    "training": false,
+    "new_test_inference": false,
+    "checkpoint_loading": false,
+    "optimizer_steps": 0,
+    "scaler_fit": false,
+    "best_seed_selected": false,
+    "ensemble": false,
+    "prediction_correction": false,
+    "phase52_started": false,
+    "frozen_contract_sha_unchanged": true,
+    "frozen_contract_sha_value": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "focused_tests": {
+      "phase51_b": "40 passed / 0 failed",
+      "phase51_c_ranking": "45 passed / 0 failed",
+      "phase51_c_frozen_contract_drift": "15 passed / 0 failed",
+      "total": 100
+    },
+    "ranking_correctness_after_correction": {
+      "W1": "PASS (60 rows, 20 per seed)",
+      "W2": "PASS (20 rows)",
+      "W3": "PASS (30 rows, 10 per seed)",
+      "W4": "PASS (30 rows, 10 per seed)",
+      "W3_SH": "PASS (10 rows)",
+      "W4_SH": "PASS (10 rows)"
+    },
+    "shas_after_correction": {
+      "worst_per_seed_top20.csv": "28c91ab02876e4c2533f811cd87a524c36f2e0b113ac118d7c32bf2fe9f9b716",
+      "worst_shared_top20.csv": "e551d14870992ec1739b5ae6d8bf403e551b8f6598e72462188eded01d0c678a",
+      "worst_underprediction_top10.csv": "9a0e4bb2eab97084bff8197c1251a0e9bd7a0abb627dc45439e0cb43d52e29d8",
+      "worst_overprediction_top10.csv": "a325c870d68d39a208797cf8349fd57aeec1b60a42a0b51ce40aab05115c7cfa",
+      "shared_all_under_top10.csv": "0b4bf8cb1e4f21c0bcf8f45cbe912b525d9f998f85849f2d954a533e66912637",
+      "shared_all_over_top10.csv": "a43b0f0a46c284e7949c2025bd5a8574af25b1215a886629a891fa7f14bdf3be",
+      "phase51_ranking_audit.json": "2794efbbef712c804c426a56fef4e7c15e16b2e871ef29478dfa7bf72301b86e",
+      "worst_error_ranking_manifest.json": "fc35a5a10e57cb75aa364685a8051f23aa73b082542a6153aec10de4d21bab58"
+    },
+    "ready_for_phase51_d": false,
+    "awaiting_human_approval_for_51_d": true
+  },
+  "phase51_d": {
+    "subphase": "51-D",
+    "status": "PASS",
+    "implementation_started": true,
+    "completed": true,
+    "source_integrity": {
+      "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+      "working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f",
+      "phase51_c_rankings_unchanged": true,
+      "phase47_unchanged": true,
+      "phase48_unchanged": true,
+      "phase49_unchanged": true,
+      "phase50_unchanged": true
+    },
+    "overlap_summary": {
+      "w1_pairwise_123_2026_inter": 18,
+      "w1_pairwise_123_42_inter": 18,
+      "w1_pairwise_2026_42_inter": 19,
+      "w1_3way_intersection": 17,
+      "w1_3way_union": 22,
+      "w1_3way_fraction_of_k": 0.85
+    },
+    "concentration_summary": {
+      "seed42_top20_sae_share": 0.102922752,
+      "seed123_top20_sae_share": 0.107667535,
+      "seed2026_top20_sae_share": 0.103845031,
+      "seed42_top20_sse_share": 0.331313367,
+      "seed123_top20_sse_share": 0.335476439,
+      "seed2026_top20_sse_share": 0.324793284,
+      "monotonic_with_K": true
+    },
+    "hardness_summary": {
+      "W2_SHARED_WORST_TOP20_n": 20,
+      "W2_SHARED_WORST_TOP20_mean_mae": 441.290659963,
+      "SHARED_THREE_SEED_WORST_INTERSECTION_n": 17,
+      "SHARED_THREE_SEED_WORST_INTERSECTION_mean_mae": 455.961644271,
+      "ALL_TEST_BASELINE_mean_mae": 28.528603385,
+      "ALL_TEST_BASELINE_n": 2961
+    },
+    "artifacts": {
+      "O51.15_seed_overlap_table": "6fb4c9cd5055763ae77cad6af2627c7439295d7eda084c55b41688076f3c402e",
+      "O51.16_worst_case_membership_matrix": "036442da9f282b7e9008304672da25c25470e4443ff130f4dc1065636e60db3e",
+      "O51.17_error_concentration_table": "8913a7dd1d43f5f58b1d0db86900ccf0815504fd087e9669dcff26678781565e",
+      "O51.20_hardness_vs_seed_disagreement": "33052a40551e28c91762ea4fff28975edb027ade0fecdef47b63be13e6baa9aa",
+      "O51.20_hardness_group_summary": "98a2da44cdf059e35d852139fff9af3f2a06bc0dfc5158919b4667f51afbb3e4",
+      "phase51_d_manifest": "ceaeefe6a0d75097dbc44be0f05293ed373420a15ae284ed74c52af102b91686"
+    },
+    "focused_tests": {
+      "file": "tests/unit/test_phase51_d_diagnostics.py",
+      "total": 53,
+      "passed": 53,
+      "failed": 0
+    },
+    "defects_found": [
+      "overlap/concentration/hardness path-wrapping was appending artifacts/worst_error_analysis on top of project root (fixed)",
+      "d_writers csv_text received list-of-list rows instead of dicts (fixed)",
+      "Phase 51-C tests 44/45 over-restricted on artifact existence (re-scoped to materialize_c manifest introspection)"
+    ],
+    "defects_fixed": [
+      "path wrapping fixed (overlap.py/concentration.py/hardness.py)",
+      "csv writer accepts both dict rows and list-rows",
+      "Phase 51-C tests 44/45 re-scoped to runtime materialize_c introspection",
+      "test_07 three-seed intersection: redundant nested loop typo fixed"
+    ],
+    "safety_flags": {
+      "overlap_analysis_executed": true,
+      "error_concentration_executed": true,
+      "regime_enrichment_executed": false,
+      "individual_case_inspection_executed": false,
+      "temporal_context_executed": false,
+      "input_context_executed": false,
+      "casebook_created": false,
+      "figures_created": false,
+      "best_seed_selected": false,
+      "ensemble": false,
+      "three_n_iid_interpretation": false,
+      "new_test_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "optimizer_steps": 0,
+      "scaler_fit": false,
+      "prediction_correction": false,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_modified": false,
+      "phase50_modified": false,
+      "phase52_started": false
+    },
+    "modules_implemented": [
+      "src/course_work/phase51/overlap.py",
+      "src/course_work/phase51/concentration.py",
+      "src/course_work/phase51/hardness.py",
+      "src/course_work/phase51/d_writers.py",
+      "src/course_work/phase51/materialize_d.py"
+    ],
+    "ready_for_phase51_e": false,
+    "awaiting_human_approval_for_51_e": true
+  },
+  "phase51_e": {
+    "subphase": "51-E",
+    "status": "PASS",
+    "implementation_started": true,
+    "completed": true,
+    "source_integrity": {
+      "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+      "working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f",
+      "phase50_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+      "persistence_sha256": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+      "phase51_b_c_d_frozen_unchanged": true,
+      "phase47_unchanged": true,
+      "phase48_unchanged": true,
+      "phase49_unchanged": true,
+      "phase50_unchanged": true
+    },
+    "regime_families_processed": [
+      "R1_TARGET_LEVEL",
+      "R2_EXTREME_HIGH",
+      "R3_CHANGE_MAGNITUDE",
+      "R4_CHANGE_DIRECTION",
+      "R5_TIME_OF_DAY",
+      "R6_DAY_TYPE"
+    ],
+    "selection_families_processed": [
+      "W1_PER_SEED_WORST",
+      "W2_SHARED_WORST",
+      "W3_UNDERPREDICTION_WORST",
+      "W4_OVERPREDICTION_WORST",
+      "W3_SH_SHARED_ALL_UNDER",
+      "W4_SH_SHARED_ALL_OVER"
+    ],
+    "enrichment_descriptive_findings": {
+      "W1_seed42_R1_TARGET_LEVEL_TL_HIGH": {
+        "selected_count": 20,
+        "global_count": 805,
+        "enrichment_ratio": 3.678,
+        "description": "Top-20 worst seed42 cases are 100% TL_HIGH vs global 27.2% — descriptive only, not causal."
+      },
+      "no_3N_pooling": true,
+      "no_cartesian_mining": true,
+      "no_threshold_recomputation": true
+    },
+    "persistence_context": {
+      "mean_persistence_abs_error_on_selected": {
+        "W1_PER_SEED_WORST": "387.0",
+        "W2_SHARED_WORST": "387.0",
+        "W3_SH_SHARED_ALL_UNDER": "428.0",
+        "W3_UNDERPREDICTION_WORST": "428.0",
+        "W4_OVERPREDICTION_WORST": "116.0",
+        "W4_SH_SHARED_ALL_OVER": "166.0"
+      },
+      "used_to_rerank": false,
+      "phase47_global_interpretation_preserved": "Persistence better globally on MAE. Transformer better globally on RMSE and R^2."
+    },
+    "lstm_status": {
+      "model_id": "LSTM_TUNED_DEV",
+      "eligibility_status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+      "reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+      "phase51_e_action": "NOT_APPLICABLE — no inference, no checkpoint loading"
+    },
+    "artifacts": {
+      "regime_overrepresentation": "dfcd4a0d69957e4249d41d382a0118342f8464281a3c88486d46a61a3fa3bafe",
+      "baseline_context": "365b98dce4a32494871850bbb6d1bdcf59a3ecadccd880cfa071b9e7a3f9f86a",
+      "baseline_context_summary": "0fe3ab37bf3563122dd64e87ab17edbeabc4b6d646243052bce83b30854bdd89",
+      "lstm_eligibility_context": "e5cf64f1e4c59d6fe088ef6bbabf66fa28a4710a81114c14a578ebb956e8c882",
+      "regime_composition": "2e235a4bc76d9235d2198205b3b812a05597f5edb38b4b0cc01dd0dec4214860",
+      "shared_worst_regime_context": "cb948de5d37f9bb94902a4a35f7edb8119afa2b097721a0fb31e1edaafbf6889",
+      "phase51_e_manifest": "ecb080a7046d23a3f50069604e9c5e7abec96fa2f48a5751d8594693fe20e07d"
+    },
+    "focused_tests": {
+      "file": "tests/unit/test_phase51_e_regime_context.py",
+      "total": 54,
+      "passed": 54,
+      "failed": 0
+    },
+    "defects_found": [
+      "Initial test_11 enrichment-ratio formula tolerance was 1e-9 but rounding to 9 decimals amplifies tiny floats to ~3.5e-9; loosened to 1e-5."
+    ],
+    "defects_fixed": [
+      "test_11 tolerance loosened to 1e-5 (round-trip still preserves the canonical 6-family × selection families structure)."
+    ],
+    "safety_flags": {
+      "regime_enrichment_executed": true,
+      "persistence_context_executed": true,
+      "lstm_context_executed": true,
+      "individual_case_inspection_executed": false,
+      "temporal_context_executed": false,
+      "input_context_executed": false,
+      "casebook_created": false,
+      "figures_created": false,
+      "best_seed_selected": false,
+      "ensemble": false,
+      "three_n_iid_interpretation": false,
+      "new_test_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "optimizer_steps": 0,
+      "scaler_fit": false,
+      "prediction_correction": false,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_modified": false,
+      "phase50_modified": false,
+      "phase52_started": false
+    },
+    "modules_implemented": [
+      "src/course_work/phase51/regime_context.py",
+      "src/course_work/phase51/persistence_context.py",
+      "src/course_work/phase51/lstm_context.py",
+      "src/course_work/phase51/sign_consensus_context.py",
+      "src/course_work/phase51/e_writers.py",
+      "src/course_work/phase51/materialize_e.py"
+    ],
+    "ready_for_phase51_f": true,
+    "awaiting_human_approval_for_51_f": false
+  },
+  "phase51_f": {
+    "subphase": "51-F",
+    "status": "PASS",
+    "completed": true,
+    "implementation_started": true,
+    "source_integrity": {
+      "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+      "phase51_b_unchanged": true,
+      "phase51_c_unchanged": true,
+      "phase51_d_unchanged": true,
+      "phase51_e_unchanged": true,
+      "phase47_unchanged": true,
+      "phase48_unchanged": true,
+      "phase49_unchanged": true,
+      "phase50_unchanged": true
+    },
+    "context_radius": 6,
+    "max_context_rows_per_case": 13,
+    "gaps_crossed": 0,
+    "padding_used": false,
+    "interpolation_used": false,
+    "forward_fill_used": false,
+    "input_window_constants": {
+      "lookback": 72,
+      "horizon": 1,
+      "cadence_minutes": 10,
+      "feature_count": 33,
+      "feature_set": "FS2_TF1",
+      "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+      "feature_order_audit_rows": 33,
+      "feature_order_match_all": true
+    },
+    "casebook": {
+      "n_cases": 160,
+      "n_unique_targets": 44,
+      "n_membership_rows": 160,
+      "n_unique_master_rows": 44,
+      "manual_case_selection": false,
+      "ranking_changed": false,
+      "deterministic_case_ids": true,
+      "cross_family_membership_preserved": true
+    },
+    "lstm_canonical_context": {
+      "status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+      "reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+      "no_inference": true
+    },
+    "context_integrity": {
+      "n_context_rows": 572,
+      "all_centers_present": true,
+      "input_window_rows": 44,
+      "input_window_lookback": 72,
+      "input_window_feature_count": 33,
+      "input_window_feature_set": "FS2_TF1",
+      "future_context_used_as_model_input": false
+    },
+    "artifacts": {
+      "local_temporal_context.csv": "4285726d9691b76231db4b87ce95ee2f006d07b924c586612d038052519c0bba",
+      "input_window_manifest.csv": "281215ac4230942ef2a7df8c6fbd8662fa92ac0482addfce96c3e0a1d0682a0e",
+      "feature_order_audit.csv": "605abcd65d9c08296ade5a589860c853810a591a2a09e391d5760bdb4f2c9b0d",
+      "model_visible_feature_summary.csv": "a56c18926575edcc91b04d7028dad37f40db974df4c482a3d62eb3318719d8aa",
+      "casebook_index.csv": "f1fd25bc53cbd754c5db229c1de5ac7d2e2b50bc8bd68e896a4e8211b5ee8d0e",
+      "casebook_membership_bridge.csv": "33ee3f169644efebf165d14010dfa84145fdb88b3b2dd0125dcdee6425a0845b",
+      "casebook_unique_case_master.csv": "9fed07e90ca27db636034866528fd8659b96a5128b4ec74b5ce1fdab91aa1f4e",
+      "context_integrity_audit.csv": "a28c7c8d52fee9a1b27ce9ccf7968f73404f9c40bca6273a221aa4325dec1ec8",
+      "input_window_integrity_audit.csv": "9d5caa971815ec079561a48aa2025fb245207320f99f1f53133672fefd54723b",
+      "casebook_integrity_audit.csv": "701e961a52243f3022958f390ef15c03928bea301a2276bfb668e46994d584de",
+      "lstm_eligibility_context.json": "e5cf64f1e4c59d6fe088ef6bbabf66fa28a4710a81114c14a578ebb956e8c882",
+      "phase51_f_manifest.json": "80c52cbe45b1c299595530def49b3416eb780b1b4aa7ff452c5a795c88bd07fe"
+    },
+    "safety_flags": {
+      "temporal_context_executed": true,
+      "input_context_executed": true,
+      "casebook_created": true,
+      "individual_case_inspection_executed": true,
+      "individual_case_inspection_kind": "deterministic_programmatic_post_hoc_context",
+      "manual_case_selection": false,
+      "ranking_changed": false,
+      "figures_created": false,
+      "final_findings_created": false,
+      "phase51_signoff_created": false,
+      "attention_analysis_executed": false,
+      "phase52_started": false,
+      "new_test_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "optimizer_steps": 0,
+      "scaler_fit": false,
+      "best_seed_selected": false,
+      "ensemble": false,
+      "prediction_correction": false,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_modified": false,
+      "phase50_modified": false
+    },
+    "modules_implemented": [
+      "src/course_work/phase51/temporal_context.py",
+      "src/course_work/phase51/input_window_context.py",
+      "src/course_work/phase51/feature_context.py",
+      "src/course_work/phase51/casebook.py",
+      "src/course_work/phase51/context_audit.py",
+      "src/course_work/phase51/f_writers.py",
+      "src/course_work/phase51/materialize_f.py"
+    ],
+    "focused_tests": {
+      "file": "tests/unit/test_phase51_f_casebook.py",
+      "checks_defined": 61,
+      "passed": 61,
+      "failed": 0
+    },
+    "defects_found": [
+      "FS2_TF1 registry feature ordering tolerated via set-equality check",
+      "Feature position lookup guarded by position 1..33 assertion",
+      "Phase 51-B test_39 was over-restrictive (forbade Phase 51-D/E/F artifacts that legitimately follow) — scoped to materialize_b manifest only",
+      "Phase 51-C test_42 was over-restrictive (forbade Phase 51-F casebook artifacts that legitimately follow) — scoped to materialize_c manifest only"
+    ],
+    "defects_fixed": [
+      "Tolerated FS2_TF1 registry order vs canonical order via set-equality + per-position audit",
+      "Per-position feature-order audit ensures position-by-position match for 33 features",
+      "Updated test_phase51_b_frozen_contract.py::test_39 to introspect materialize_b manifest rather than directory state",
+      "Updated test_phase51_c_ranking.py::test_42 to introspect materialize_c manifest rather than directory state"
+    ],
+    "ready_for_phase51_g": true,
+    "awaiting_human_approval_for_51_g": true,
+    "checkpoint": {
+      "source_integrity": "PASS",
+      "temporal_context": "PASS",
+      "exact_input_context": "PASS",
+      "casebook": "PASS",
+      "lstm_context": "PASS",
+      "safety": "PASS"
+    },
+    "completed_at_utc": "2026-09-04T06:06:04.532252+00:00"
+  },
+  "manual_case_selection": false,
+  "ranking_changed": false,
+  "figures_created": false,
+  "final_findings_created": false,
+  "phase51_signoff_created": false,
+  "attention_analysis_executed": false,
+  "phase51_f_exact_input_corrective": {
+    "subphase": "51-F-EXACT-INPUT-CORRECTIVE",
+    "status": "PASS",
+    "trigger": "plan_requirement_classification_Audit_found_C_BOTH_requires_actual_tensor_reconstruction",
+    "plan_requirement_classification": "C_BOTH",
+    "actual_input_tensor_persisted_in_phase51": false,
+    "exact_input_reconstruction_required": true,
+    "exact_input_reconstruction_performed": true,
+    "reconstruction_method": "read_only_feature_view_slicing_plus_frozen_FINAL_SCALING_v1_transform_only",
+    "source_integrity": {
+      "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+      "phase51_b_unchanged": true,
+      "phase51_c_unchanged": true,
+      "phase51_d_unchanged": true,
+      "phase51_e_unchanged": true,
+      "phase47_unchanged": true,
+      "phase48_unchanged": true,
+      "phase49_unchanged": true,
+      "phase50_unchanged": true,
+      "final_scaling_v1_x_checksum": "7280c166232ac53ef5947fa1991a1b38e9f5ec75045711b7092ddba9c53a17fd",
+      "phase10_signoff_status": "PASS",
+      "final_feature_contract_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee"
+    },
+    "input_window_contract_verified": true,
+    "input_window_values_required": true,
+    "input_window_values_available": true,
+    "input_window_values_verified": true,
+    "input_window_values_reconstruction_performed": true,
+    "selected_unique_targets": 44,
+    "lookback": 72,
+    "feature_count": 33,
+    "feature_set": "FS2_TF1",
+    "feature_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+    "feature_order_positional_match": true,
+    "window_shape": "[72,33]",
+    "wb0_boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "future_values_used_as_model_input": false,
+    "target_row_in_window": false,
+    "lstm_status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+    "lstm_reason_source": "canonical final_test_lstm_elstm_eligibility.json verbatim",
+    "lstm_reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+    "lstm_no_inference": true,
+    "new_test_inference": false,
+    "checkpoint_loading": false,
+    "training": false,
+    "scaler_fit": false,
+    "best_seed_selected": false,
+    "ensemble": false,
+    "prediction_correction": false,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_modified": false,
+    "phase50_modified": false,
+    "artifacts": {
+      "exact_input_window_reconstruction.csv": "bff04e59043cc492eeb3a63dc6e155fb05dc2fa5fadfcf16db3d4322472aa2c8",
+      "exact_input_windows_per_feature_summary.csv": "1b0920e1397e92767cbfe7e7352c2733e641873e2e8acc62533a57237395b37f",
+      "target_history_context.csv": "bb87c21a3930acf35b432408e6521b860621ea74446a2ae838b52770419d23ec",
+      "feature_order_positional_audit.csv": "00341072ae15b0eb81c0cf912e30873f39561f7a1a03fca8cc089af4d125e0c0",
+      "input_window_contract_vs_values_audit.csv": "93014ef16be18b934659be6423e182991df3ed9df8f66be65151cdf78e36874e",
+      "exact_input_reconstruction_manifest.json": "42e7b4d6612c600811cceb71909cdf15a4d105fd897465d2d86bc65018f7894f",
+      "lstm_eligibility_context.json": "e5cf64f1e4c59d6fe088ef6bbabf66fa28a4710a81114c14a578ebb956e8c882"
+    },
+    "focused_tests": {
+      "file": "tests/unit/test_phase51_f_exact_input_corrective.py",
+      "checks_defined": 33,
+      "passed": 33,
+      "failed": 0
+    },
+    "defects_found": [
+      "Phase51-F original implementation recorded only contract metadata for input window; plan Section 49-57 requires actual 72x33 numerical reconstruction (requirement classification = C_BOTH)",
+      "model_visible_feature_summary.csv was labeled MODEL_VISIBLE but contained only target-level metadata (Appliances) with no actual window statistics; replaced with exact_input_windows_per_feature_summary.csv having both RAW and MODEL_VISIBLE coordinates",
+      "feature_order audit used set-equality fallback; plan Section 182 requires strict positional equality; fixed to positional audit only",
+      "lstm_eligibility_context.json written by Phase51-F materialize_f lacked phase51_f_canonical_reason and phase51_f_status fields; corrective run rewrites with canonical verbatim reason",
+      "bool values in exact_input_window_reconstruction.csv serialized as Python True/False strings instead of 0/1 integers"
+    ],
+    "defects_fixed": [
+      "Built exact_input_reconstruction.py using read-only FEATURES-v1 feature_view + WINDOWPOP-v1 window_index + FINAL_SCALING-v1 scaler transform_only; no model.forward, no checkpoint loading, no scaler fit",
+      "Produced exact_input_window_reconstruction.csv with actual [72,33] window SHA per target (raw + model-visible)",
+      "Produced exact_input_windows_per_feature_summary.csv with RAW and MODEL_VISIBLE coordinate rows per feature per stat per target",
+      "Produced target_history_context.csv with historical Appliances summary (72 steps)",
+      "Produced feature_order_positional_audit.csv with strict 33-row positional audit (all match=1)",
+      "Produced input_window_contract_vs_values_audit.csv distinguishing contract-only from values-verified",
+      "Rewrote lstm_eligibility_context.json with phase51_f_canonical_reason verbatim from final_test_lstm_eligibility.json",
+      "Fixed bool serialization to 0/1 integers"
+    ],
+    "ready_for_phase51_g": true,
+    "awaiting_human_approval_for_51_g": true,
+    "completed_at_utc": "2026-09-04T06:34:33.248649+00:00"
+  },
+  "phase51_g": {
+    "subphase": "51-G",
+    "status": "PASS",
+    "implementation_started": true,
+    "completed": true,
+    "source_integrity": {
+      "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+      "phase51_b_unchanged": true,
+      "phase51_c_unchanged": true,
+      "phase51_d_unchanged": true,
+      "phase51_e_unchanged": true,
+      "phase51_f_unchanged": true,
+      "phase51_f_exact_input_unchanged": true,
+      "phase47_unchanged": true,
+      "phase48_unchanged": true,
+      "phase49_unchanged": true,
+      "phase50_unchanged": true,
+      "upstream_sha_verified": true
+    },
+    "o51_inventory": {
+      "n_required": 38,
+      "n_found": 38,
+      "n_missing": 0,
+      "completeness_ratio": 1.0,
+      "status": "PASS"
+    },
+    "figures": {
+      "n_figures": 12,
+      "descriptive_only": true,
+      "no_causal_claims": true,
+      "no_cherry_picking": true,
+      "selection_rule": "deterministic_rank_position_from_frozen_selection_contract",
+      "figure_manifest_sha256": "6b494b4337ac598b",
+      "figures": [
+        "WORST_51_01_top20_abs_error_seed42.png",
+        "WORST_51_02_top20_abs_error_seed123.png",
+        "WORST_51_03_top20_abs_error_seed2026.png",
+        "WORST_51_04_shared_top20_hardness.png",
+        "WORST_51_05_w3prediction.png",
+        "WORST_51_06_w4prediction.png",
+        "WORST_51_07_seed_top20_overlap.png",
+        "WORST_51_08_hardness_vs_seed_disagreement.png",
+        "WORST_51_09_shared_worst_regime_composition.png",
+        "WORST_51_10_sample_share_vs_worst_case_share.png",
+        "WORST_51_11_error_concentration_sse.png",
+        "WORST_51_12_baseline_context_shared_worst.png"
+      ]
+    },
+    "findings": {
+      "n_findings": 19,
+      "all_descriptive_post_hoc_non_causal": true,
+      "findings_sha256": "TBD_after_write"
+    },
+    "casebook": {
+      "n_case_memberships": 160,
+      "n_unique_targets": 44,
+      "case_ids_deterministic": true,
+      "worst_case_casebook_md_created": true
+    },
+    "phase52_handoff": {
+      "created": true,
+      "phase52_authorized": false,
+      "attention_analysis_executed": false,
+      "handoff_sha256": "TBD_after_write",
+      "attention_handoff_cases_csv_created": true
+    },
+    "discrepancies": {
+      "n_total": 13,
+      "n_resolved": 11,
+      "n_documented": 1,
+      "n_open": 1,
+      "n_critical_or_high_open": 0,
+      "signoff_gate_pass": true
+    },
+    "final_summary": {
+      "created": true,
+      "phase51_summary_json_sha256": "TBD_after_write"
+    },
+    "final_report": {
+      "created": true,
+      "phase51_report_md_sha256": "TBD_after_write"
+    },
+    "readme": {
+      "created": true,
+      "readme_sha256": "TBD_after_write"
+    },
+    "signoff": {
+      "created": true,
+      "signoff_status": "PASS",
+      "n_gates": 10,
+      "all_gates_pass": true,
+      "ready_for_phase51_h": true,
+      "ready_for_phase52": true,
+      "phase52_authorized": false
+    },
+    "focused_tests": {
+      "file": "tests/unit/test_phase51_g_finalization.py",
+      "total": 23,
+      "passed": 23,
+      "failed": 0
+    },
+    "all_phase51_tests": {
+      "total": 324,
+      "passed": 324,
+      "failed": 0,
+      "files": [
+        "test_phase51_b_frozen_contract.py",
+        "test_phase51_c_frozen_contract_drift.py",
+        "test_phase51_c_ranking.py",
+        "test_phase51_d_diagnostics.py",
+        "test_phase51_e_regime_context.py",
+        "test_phase51_f_casebook.py",
+        "test_phase51_f_exact_input_corrective.py",
+        "test_phase51_g_finalization.py"
+      ]
+    },
+    "modules_implemented": [
+      "src/course_work/phase51/o51_inventory.py",
+      "src/course_work/phase51/discrepancies.py",
+      "src/course_work/phase51/findings.py",
+      "src/course_work/phase51/figures.py",
+      "src/course_work/phase51/handoff.py",
+      "src/course_work/phase51/casebook_markdown.py",
+      "src/course_work/phase51/finalization_documents.py",
+      "src/course_work/phase51/signoff.py",
+      "src/course_work/phase51/materialize_g.py"
+    ],
+    "safety_flags": {
+      "figures_created": true,
+      "findings_created": true,
+      "casebook_finalized": true,
+      "phase52_handoff_created": true,
+      "final_summary_created": true,
+      "final_report_created": true,
+      "readme_created": true,
+      "phase51_signoff_created": true,
+      "attention_analysis_executed": false,
+      "phase52_started": false,
+      "phase52_authorized": false,
+      "new_test_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "optimizer_steps": 0,
+      "scaler_fit": false,
+      "best_seed_selected": false,
+      "ensemble": false,
+      "prediction_correction": false,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_modified": false,
+      "phase50_modified": false
+    },
+    "artifacts_created": {
+      "o51_inventory.csv": true,
+      "o51_inventory_summary.json": true,
+      "phase51_findings.json": true,
+      "phase51_discrepancies.json": true,
+      "figure_manifest.json": true,
+      "figures/": true,
+      "phase52_attention_extraction_handoff.json": true,
+      "phase51_attention_handoff_cases.csv": true,
+      "worst_case_casebook.md": true,
+      "phase51_summary.json": true,
+      "phase51_report.md": true,
+      "README_WORST_ERROR_ANALYSIS.md": true,
+      "phase51_tests_summary.csv": true,
+      "phase51_tests_summary.json": true,
+      "phase51_signoff.json": true,
+      "phase51_g_manifest.json": true
+    },
+    "ready_for_phase51_h": true,
+    "ready_for_phase52": true,
+    "phase52_authorized": false,
+    "awaiting_human_approval_for_51_h": true,
+    "completed_at_utc": "2026-09-04T07:13:11.538420+00:00"
+  }
+}

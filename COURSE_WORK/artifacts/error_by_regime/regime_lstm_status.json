@@ -1,0 +1,10 @@
+{
+  "eligibility_status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+  "no_fabricated_residuals": true,
+  "no_inference_performed": true,
+  "no_retrain_performed": true,
+  "phase50_status": "NOT_APPLICABLE",
+  "reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+  "source_artifact": "artifacts/final_test/final_test_lstm_eligibility.json",
+  "version": "REGIME_LSTM_STATUS-v1"
+}

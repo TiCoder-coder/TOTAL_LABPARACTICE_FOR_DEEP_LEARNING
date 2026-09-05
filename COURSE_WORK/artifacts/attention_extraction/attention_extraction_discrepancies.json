@@ -1,0 +1,56 @@
+{
+  "phase": 52,
+  "version": "ATTENTION_EXTRACTION-v1",
+  "n_discrepancies": 7,
+  "issues": [
+    {
+      "id": "DC-52-001",
+      "title": "np.savez .tmp naming conflict",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "description": "np.savez appends .npz; temp dir approach fixed"
+    },
+    {
+      "id": "DC-52-002",
+      "title": "prediction-equivalence coordinate mismatch",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "description": "Added Y inverse transform; max diff 2.99e-04 Wh (PASS)"
+    },
+    {
+      "id": "DC-52-003",
+      "title": "checkpoint wrapper structure",
+      "severity": "LOW",
+      "status": "RESOLVED",
+      "description": "Unwrap model_state_dict wrapper in strict_load_checkpoint"
+    },
+    {
+      "id": "DC-52-004",
+      "title": "TransformerModelConfig fields mismatch",
+      "severity": "LOW",
+      "status": "RESOLVED",
+      "description": "Removed unexpected model_name kwarg"
+    },
+    {
+      "id": "DC-52-005",
+      "title": "shape unpacking shadow (L overwritten by loop var)",
+      "severity": "LOW",
+      "status": "RESOLVED",
+      "description": "Renamed LOOK variable; removed L shadowing"
+    },
+    {
+      "id": "DC-52-006",
+      "title": "torch.load weights_only=True stripped wrapper",
+      "severity": "LOW",
+      "status": "RESOLVED",
+      "description": "Using weights_only=False with explicit wrapper unwrap"
+    },
+    {
+      "id": "DC-52-007",
+      "title": "Object-array SHA256 in npz metadata",
+      "severity": "LOW",
+      "status": "RESOLVED",
+      "description": "Skip SHA for object arrays; verify shape+dtype only"
+    }
+  ]
+}

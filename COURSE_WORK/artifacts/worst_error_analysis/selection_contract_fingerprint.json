@@ -1,0 +1,13 @@
+{
+  "contract_frozen": true,
+  "created_at_utc": "2026-09-04T07:12:36.113209+00:00",
+  "individual_case_inspection": false,
+  "phase": 51,
+  "phase52_authorized": false,
+  "selection_contract_path": "artifacts/worst_error_analysis/worst_error_selection_contract.json",
+  "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+  "selection_executed": false,
+  "subphase": "51-B",
+  "version": "SELECTION_CONTRACT_FINGERPRINT-v1",
+  "worst_error_ranking_executed": false
+}

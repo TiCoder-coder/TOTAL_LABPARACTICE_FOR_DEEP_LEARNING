@@ -1,0 +1,296 @@
+{
+  "log_id": "NB-P47-PRES-SYNC-001-EXEC-LOG",
+  "schema_version": "EXEC_LOG-v1",
+  "created_at": "2026-09-03T23:01:49.460249",
+  "executed_at_utc": "2026-09-03T16:01:49.460256+00:00",
+  "operator_role": "Senior ML Systems Engineer + Notebook Architecture Reviewer",
+  "operator_mode": "presentation_only_sync",
+  "plan_used": {
+    "plan_id": "NB-P47-PRES-SYNC-001",
+    "plan_path": "docs/plan-doc/plan_before_process/notebook_phase47_presentation_sync_plan.md",
+    "approval_status": "APPROVED_WITH_CONDITIONS",
+    "human_approved": true
+  },
+  "notebook": {
+    "path": "notebook_course_work/CourseWork.ipynb",
+    "before_total_cells": 124,
+    "after_total_cells": 131,
+    "first_modified_utc": "2026-09-03T15:54:00+00:00",
+    "modifications_recorded_utc": "2026-09-03T16:01:49.460743+00:00"
+  },
+  "cells_changed": [
+    {
+      "cell_index": 2,
+      "phase": "Environment",
+      "defect": "D-03",
+      "before_first_line": "import sys",
+      "after_first_line": "## Environment Setup"
+    },
+    {
+      "cell_index": 3,
+      "phase": "Environment",
+      "defect": "D-03",
+      "before_first_line": "import sys",
+      "after_first_line": "import importlib"
+    },
+    {
+      "cell_index": 97,
+      "phase": "Phase 33",
+      "defect": "D-04",
+      "before_first_line": "## Transformer Configuration after Phase 33",
+      "after_first_line": "## Phase 33 - S11 d_model Sweep"
+    },
+    {
+      "cell_index": 120,
+      "phase": "Phase 44",
+      "defect": "D-02-extension",
+      "before_first_line": "phase_44_signoff = materialize_phase_44(PROJECT_ROOT)",
+      "after_first_line": "phase_44_signoff = read_json(PROJECT_ROOT / \"artifacts\" / \"rolling_origin\" / \"phase_44_signoff.json\")"
+    },
+    {
+      "cell_index": 121,
+      "phase": "Phase 45",
+      "defect": "D-02-extension",
+      "before_first_line": "> **STATUS: DERIVED FROM HISTORICAL PHASE 44 / BLOCKED**",
+      "after_first_line": "- `overall_status: PASS`"
+    },
+    {
+      "cell_index": 122,
+      "phase": "Phase 45",
+      "defect": "D-10",
+      "before_first_line": "phase_45_signoff = materialize_phase_45(PROJECT_ROOT)",
+      "after_first_line": "phase_45_signoff = read_json(PROJECT_ROOT / \"artifacts\" / \"final_model_lock\" / \"phase_45_signoff.json\")"
+    },
+    {
+      "cell_index": 123,
+      "phase": "Phase 46",
+      "defect": "D-02",
+      "before_first_line": "> **STATUS: DERIVED FROM HISTORICAL PHASE 45 / BLOCKED**",
+      "after_first_line": "- `overall_status: PASS`"
+    },
+    {
+      "cell_index": 124,
+      "phase": "Phase 46",
+      "defect": "D-02",
+      "before_first_line": "phase_46_signoff = materialize_phase_46(PROJECT_ROOT)",
+      "after_first_line": "phase_46_signoff = read_json(PROJECT_ROOT / \"artifacts\" / \"three_seed_final_runs\" / \"phase_46_signoff.json\")"
+    },
+    {
+      "cell_index": 125,
+      "phase": "Phase 47 (new)",
+      "defect": "D-01",
+      "before_first_line": "(did not exist)",
+      "after_first_line": "## Phase 47 - Final Test Evaluation"
+    },
+    {
+      "cell_index": 126,
+      "phase": "Phase 47 (new)",
+      "defect": "D-01",
+      "before_first_line": "(did not exist)",
+      "after_first_line": "from pathlib import Path"
+    },
+    {
+      "cell_index": 127,
+      "phase": "Phase 47 (new)",
+      "defect": "D-01",
+      "before_first_line": "(did not exist)",
+      "after_first_line": "print(\"Aggregate Transform Test metrics"
+    },
+    {
+      "cell_index": 128,
+      "phase": "Phase 47 (new)",
+      "defect": "D-01",
+      "before_first_line": "(did not exist)",
+      "after_first_line": "print(\"Per-seed comparison table"
+    },
+    {
+      "cell_index": 129,
+      "phase": "Phase 47 (new)",
+      "defect": "D-01",
+      "before_first_line": "(did not exist)",
+      "after_first_line": "### Phase 47 Scientific Conclusion"
+    },
+    {
+      "cell_index": 130,
+      "phase": "Pipeline Summary",
+      "defect": "D-01/D-02-summary",
+      "before_first_line": "**Phase 47 (final Test release):** PENDING RESEAL.",
+      "after_first_line": "**Phase 47 (canonical, completed):**"
+    }
+  ],
+  "defects_resolved": {
+    "D-01": {
+      "description": "Phase 47 missing presentation section + cell 124 stale 'PENDING RESEAL'",
+      "status": "RESOLVED",
+      "evidence": [
+        "Inserted Phase 47 section (cells 125-129) with 5 read-only cells covering signoff, per-seed CSV, aggregate CSV, comparison CSV, scientific conclusion.",
+        "Replaced Summary cell (now 130) to reflect canonical PASS state for Phases 43-47."
+      ]
+    },
+    "D-02": {
+      "description": "Phase 46 stale BLOCKED presentation + materialize_phase_46() invocation",
+      "status": "RESOLVED",
+      "evidence": [
+        "Replaced cell 123 markdown to remove 'DERIVED FROM HISTORICAL PHASE 45 / BLOCKED' block.",
+        "Replaced cell 124 code to use read_json of phase_46_signoff.json; print canonical PASS state.",
+        "Bonus: cells 119/120/121 (Phase 44/45 markdown+code) also converted to read-only display since they too referenced stale BLOCKED framing.",
+        "Bonus: cell 130 (Pipeline Summary) reflects canonical Phase 45/46/47 PASS state."
+      ]
+    },
+    "D-03": {
+      "description": "sys.path hack in cell 2",
+      "status": "RESOLVED",
+      "evidence": [
+        "Replaced cell 2 contents with a markdown prerequisite instructing user to run `pip install -e .` from COURSE_WORK/.",
+        "Replaced the original cell 3 (which had sys.path.append) with an importable-package sanity check.",
+        "Final cell 4 retains the original `from IPython.display...` and `from course_work.*` imports — works without sys.path hack once package is installed editable."
+      ]
+    },
+    "D-04": {
+      "description": "Phase 33 heading normalization",
+      "status": "RESOLVED",
+      "evidence": [
+        "Renamed cell 96 markdown heading from '## Transformer Configuration after Phase 33' to '## Phase 33 - S11 d_model Sweep'.",
+        "Heading now matches the canonical naming convention used in cells 98 (Phase 34), 99 (Phase 35), etc."
+      ]
+    },
+    "D-10": {
+      "description": "Phase 45 materialize_phase_45() executable materialization",
+      "status": "RESOLVED",
+      "evidence": [
+        "Replaced cell 122 (Phase 45) code with read_json + render_phase_summary(45) — no materialize call.",
+        "Replaced cell 121 (Phase 45 markdown) to remove 'DERIVED FROM HISTORICAL PHASE 44 / BLOCKED' note and present canonical PASS state."
+      ]
+    }
+  },
+  "canonical_artifacts_consumed_read_only": [
+    "artifacts/final_test/phase_47_signoff.json",
+    "artifacts/final_test/final_test_metrics_by_seed.csv",
+    "artifacts/final_test/transformer_seed_aggregate_metrics.csv",
+    "artifacts/final_test/final_test_baseline_metrics.csv",
+    "artifacts/final_test/final_test_model_comparison.csv",
+    "artifacts/final_test/final_test_population_manifest.json",
+    "artifacts/final_test/final_test_access_event.json",
+    "artifacts/three_seed_final_runs/phase_46_signoff.json",
+    "artifacts/final_model_lock/phase_45_signoff.json",
+    "artifacts/rolling_origin/phase_44_signoff.json",
+    "artifacts/lstm_tuning/lstm_tuned_winner.json"
+  ],
+  "phase47_metrics_validation": {
+    "tolerance": "0.00e+00 (exact equality with canonical signoff)",
+    "seed_42": {
+      "mae_wh": 29.528646738232613,
+      "rmse_wh": 64.94275370825517,
+      "r2": 0.4892735101282182,
+      "checkpoint_sha256": "c3cfad116aa91d47fb2f2950407498901b980a344a99462776e4b90828805b10",
+      "status": "PASS"
+    },
+    "seed_123": {
+      "mae_wh": 27.11486924829266,
+      "rmse_wh": 61.98608587121866,
+      "r2": 0.5347188997659036,
+      "checkpoint_sha256": "8a134fec517be0dfcd81ac6f961bf75fa69e8d34666205f731d893969bf01e22",
+      "status": "PASS"
+    },
+    "seed_2026": {
+      "mae_wh": 28.94229416815529,
+      "rmse_wh": 64.56013557970728,
+      "r2": 0.4952737966044358,
+      "checkpoint_sha256": "8753800539f7a617bacbaa541daafbbfaff338a1de38ae1a5146650b4593dc6f",
+      "status": "PASS"
+    },
+    "mean_sd": {
+      "mae_mean_wh": 28.52860338489352,
+      "mae_sd_wh": 1.258942211085166,
+      "rmse_mean_wh": 63.8296583863937,
+      "rmse_sd_wh": 1.608001514957306,
+      "r2_mean": 0.5064220688328526,
+      "r2_sd": 0.024688739135270282
+    },
+    "persistence": {
+      "mae_wh": 26.73758865248227,
+      "rmse_wh": 66.83691534084765,
+      "r2": 0.459046692018256
+    },
+    "lstm_eligibility": "NOT_EVALUATED_BY_PROTOCOL (config mismatch: L36 vs L72 lookback)",
+    "n_test": 2961,
+    "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "scientific_conclusion": "Transformer better RMSE/R²; Persistence better MAE"
+  },
+  "validation_checks": {
+    "static_safety_scan": {
+      "result": "PASS",
+      "checks": [
+        "optimizer.step(: count=0",
+        "loss.backward(: count=0",
+        "model.train(: count=0",
+        "materialize_phase_44(: count=0",
+        "materialize_phase_45(: count=0",
+        "materialize_phase_46(: count=0",
+        "phase46_three_seed_runs: count=0",
+        "phase47_final_test_evaluation: count=0",
+        "sys.path.append: count=0",
+        "sys.path.insert: count=0",
+        "/Users/: count=0"
+      ]
+    },
+    "stale_text_scan": {
+      "result": "PASS",
+      "checks": [
+        "BLOCKED: count=0",
+        "PENDING RESEAL: count=0",
+        "PENDING CORRECTIVE: count=0",
+        "DERIVED FROM HISTORICAL: count=0"
+      ]
+    },
+    "phase_headings_present": {
+      "result": "PASS",
+      "headings_found": 47,
+      "phase_47_present": true,
+      "phase_order": "1-47"
+    },
+    "code_syntax_validity": {
+      "result": "PASS",
+      "code_cells": 65,
+      "syntax_errors": 0
+    },
+    "json_validity": {
+      "result": "PASS",
+      "notebook_path": "notebook_course_work/CourseWork.ipynb"
+    },
+    "artifact_hash_unchanged": {
+      "result": "PASS",
+      "files_verified": 6,
+      "files_unmodified": 6
+    },
+    "scientific_artifact_mtime_unchanged_vs_audit": {
+      "result": "PASS",
+      "three_seed_final_runs_modified_after_audit": 0,
+      "final_test_modified_after_audit": 0,
+      "final_model_lock_modified_after_audit": 0,
+      "checkpoint_modified_after_audit": 0
+    },
+    "phase_47_read_only_canonical_values_match_signoff": {
+      "result": "PASS",
+      "tolerance": "0.00e+00",
+      "method": "all values displayed in Phase 47 cells match phase_47_signoff.json verbatim"
+    },
+    "no_new_run_ids_created": {
+      "result": "PASS",
+      "new_run_ids": 0,
+      "method": "unique RUN IDs in notebook unchanged vs pre-implementation"
+    },
+    "phase_44_45_46_47_cells_read_only": {
+      "result": "PASS",
+      "method": "verified each code cell in cells 120, 122, 124, 126, 127, 128 has materialize_44_45_46_47=False, script_invocation=False"
+    }
+  },
+  "scientific_training_executed": false,
+  "phase47_test_reevaluated": false,
+  "new_run_ids_created": 0,
+  "checkpoints_modified": false,
+  "canonical_artifacts_modified": false,
+  "scientific_artifacts_modified_total": 0,
+  "final_status": "PASS",
+  "final_summary": "Notebook CourseWork.ipynb is now synchronized with the canonical post-Phase-47 repository state. All four primary defects (D-01, D-02, D-03, D-04) and the bonus defect (D-10) are RESOLVED. The notebook is read-only: no training, no Test re-evaluation, no best-seed selection, no ensemble, no scaler fitting. All Phase 47 displayed values match phase_47_signoff.json exactly. Pipeline is ready for Phase 48/52 planning."
+}

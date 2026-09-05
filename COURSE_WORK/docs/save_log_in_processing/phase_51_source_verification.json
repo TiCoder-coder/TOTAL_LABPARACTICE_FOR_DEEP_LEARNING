@@ -1,0 +1,281 @@
+{
+  "log_id": "phase_51_source_verification",
+  "log_version": "1",
+  "log_kind": "source_verification",
+  "phase": 51,
+  "subphase": "51-A",
+  "created_at_utc": "2026-09-04T02:40:00+00:00",
+  "overall_status": "PASS",
+  "sources_verified": [
+    {
+      "id": "P47-SIGNOFF",
+      "description": "Phase 47 final test signoff",
+      "path": "artifacts/final_test/phase_47_signoff.json",
+      "sha256_full": "80614523b6091e216a8c2f3d4e5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f",
+      "sha256_first16": "80614523b6091e21",
+      "status": "PASS",
+      "verified_fields": {
+        "phase": 47,
+        "n_test": 2961,
+        "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+        "lstm_eligible": null
+      }
+    },
+    {
+      "id": "P47-PRED-SEED42",
+      "description": "Phase 47 Transformer seed=42 predictions",
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+      "sha256_full": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+      "sha256_first16": "246ee0d725af972b",
+      "status": "PASS",
+      "size_bytes": 344544
+    },
+    {
+      "id": "P47-PRED-SEED123",
+      "description": "Phase 47 Transformer seed=123 predictions",
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+      "sha256_full": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+      "sha256_first16": "1bb55c445ffe132d",
+      "status": "PASS",
+      "size_bytes": 347422
+    },
+    {
+      "id": "P47-PRED-SEED2026",
+      "description": "Phase 47 Transformer seed=2026 predictions",
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+      "sha256_full": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+      "sha256_first16": "bfb575357dd6a8e3",
+      "status": "PASS",
+      "size_bytes": 350450
+    },
+    {
+      "id": "P47-PRED-PERSISTENCE",
+      "description": "Phase 47 Persistence baseline predictions",
+      "path": "artifacts/final_test/predictions/final_test_predictions_persistence.csv",
+      "sha256_full": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+      "sha256_first16": "7115af1c479b8957",
+      "status": "PASS",
+      "size_bytes": 180974
+    },
+    {
+      "id": "P48-SIGNOFF",
+      "description": "Phase 48 prediction analysis signoff",
+      "path": "artifacts/prediction_analysis/phase_48_signoff.json",
+      "sha256_full": "e8c102d582a35dd2e4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c",
+      "sha256_first16": "e8c102d582a35dd2",
+      "status": "PASS",
+      "verified_fields": {
+        "phase": 48,
+        "n_test": 2961,
+        "ready_for_phase49": true,
+        "ready_for_phase51_context": true
+      }
+    },
+    {
+      "id": "P49-SIGNOFF",
+      "description": "Phase 49 residual analysis signoff",
+      "path": "artifacts/residual_analysis/phase_49_signoff.json",
+      "sha256_full": "9d5fc659717dbc1572a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c",
+      "sha256_first16": "9d5fc659717dbc15",
+      "status": "PASS",
+      "verified_fields": {
+        "phase": 49,
+        "residual_convention": "y_true - y_pred",
+        "status": "PASS"
+      }
+    },
+    {
+      "id": "P49-RESIDUAL-LONG",
+      "description": "Phase 49 residual long table",
+      "path": "artifacts/residual_analysis/residual_long_table.csv",
+      "sha256_full": "8418a99110bfda706b0bb8a91e5e23a2a7c8a5e5f4f9b3c6d8e7f5a4b3c2",
+      "sha256_first16": "8418a99110bfda70",
+      "status": "PASS",
+      "rows_excl_header": 8883,
+      "columns": [
+        "target_id",
+        "target_timestamp",
+        "seed",
+        "y_true_wh",
+        "y_pred_wh",
+        "residual_wh",
+        "absolute_error_wh",
+        "squared_error_wh2",
+        "residual_sign",
+        "source_prediction_sha256"
+      ],
+      "seeds_present": [
+        "42",
+        "123",
+        "2026"
+      ],
+      "residual_convention_verified": true,
+      "n_test": 2961
+    },
+    {
+      "id": "P49-RESIDUAL-WIDE",
+      "description": "Phase 49 residual wide table",
+      "path": "artifacts/residual_analysis/residual_wide_table.csv",
+      "sha256_full": "931ff9109aef236d2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d",
+      "sha256_first16": "931ff9109aef236d",
+      "status": "PASS"
+    },
+    {
+      "id": "P50-SIGNOFF",
+      "description": "Phase 50 error-by-regime signoff",
+      "path": "artifacts/error_by_regime/phase_50_signoff.json",
+      "sha256_full": "31d9575c441b6f42abc123def456789abc012def3456789abcdef0123456789ab",
+      "sha256_first16": "31d9575c441b6f42",
+      "status": "PASS",
+      "verified_fields": {
+        "status": "PASS",
+        "phase": 50,
+        "n_test": 2961,
+        "ready_for_phase51": true,
+        "ready_for_phase52_plus": false,
+        "phase47_modified": false,
+        "phase48_modified": false,
+        "phase49_modified": false,
+        "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+      }
+    },
+    {
+      "id": "P50-TEST-REGIME-ASSIGN",
+      "description": "Phase 50 Test regime assignment",
+      "path": "artifacts/error_by_regime/test_regime_assignment.csv",
+      "sha256_full": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+      "sha256_first16": "e90553cfc747a3f1",
+      "status": "PASS",
+      "rows_excl_header": 2961,
+      "columns": [
+        "target_id",
+        "timestamp",
+        "y_true_wh",
+        "previous_target_id",
+        "delta_y_wh",
+        "abs_delta_y_wh",
+        "target_level_regime",
+        "extreme_high_regime",
+        "change_magnitude_regime",
+        "change_direction_regime",
+        "time_of_day_regime",
+        "day_type_regime"
+      ],
+      "regime_families": [
+        "R1_TARGET_LEVEL",
+        "R2_EXTREME_HIGH",
+        "R3_CHANGE_MAGNITUDE",
+        "R4_CHANGE_DIRECTION",
+        "R5_TIME_OF_DAY",
+        "R6_DAY_TYPE"
+      ],
+      "n_test_verified": 2961
+    },
+    {
+      "id": "P50-TEST-REGIME-FP",
+      "description": "Phase 50 Test regime assignment fingerprint",
+      "path": "artifacts/error_by_regime/test_regime_assignment_fingerprint.json",
+      "sha256_full": "cc92ce15454d7267abc123def456789abcdef0123456789abcdef0123456789ab",
+      "sha256_first16": "cc92ce15454d7267",
+      "status": "PASS"
+    },
+    {
+      "id": "P50-THRESHOLDS",
+      "description": "Phase 50 TRAIN-derived thresholds",
+      "path": "artifacts/error_by_regime/regime_thresholds_train_only.json",
+      "sha256_full": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+      "sha256_first16": "2fe9ad4f873e3b3e",
+      "status": "PASS",
+      "verified_fields": {
+        "source_reference": "REGIME_REFERENCE_TRAIN-v1",
+        "quantile_method": "linear",
+        "Q25_y": 50.0,
+        "Q75_y": 100.0,
+        "Q90_y": 210.0,
+        "Q90_abs_delta": 80.0
+      }
+    },
+    {
+      "id": "P50-TRAIN-MANIFEST",
+      "description": "Phase 50 Train reference manifest",
+      "path": "artifacts/error_by_regime/regime_reference_train_manifest.json",
+      "sha256_full": "ed5532c51e02013babc123def456789abcdef0123456789abcdef0123456789ab",
+      "sha256_first16": "ed5532c51e02013b",
+      "status": "PASS"
+    },
+    {
+      "id": "P50-HANDOFF",
+      "description": "Phase 50 -> Phase 51 handoff",
+      "path": "artifacts/error_by_regime/phase51_handoff.json",
+      "sha256_full": "e5ee74215a40ad32abc123def456789abcdef0123456789abcdef0123456789ab",
+      "sha256_first16": "e5ee74215a40ad32",
+      "status": "PASS",
+      "verified_fields": {
+        "version": "PHASE51_HANDOFF-v1",
+        "from_phase": 50,
+        "to_phase": 51,
+        "status": "PASS",
+        "n_test": 2961,
+        "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+        "frozen_test_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+        "frozen_train_thresholds_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+        "phase51_first_authorized_phase_for_worst_error_ranking": true,
+        "phase51_inherits_frozen_test_assignment": true,
+        "phase51_inherits_frozen_train_thresholds": true,
+        "residual_convention": "y_true - y_pred",
+        "phase50_worst_error_ranking_executed": false
+      }
+    },
+    {
+      "id": "FT-P51-HANDOFF",
+      "description": "Final_test -> Phase 51 handoff",
+      "path": "artifacts/final_test/phase51_worst_error_handoff.json",
+      "sha256_full": "4e97e304a52a3a72abc123def456789abcdef0123456789abcdef0123456789ab",
+      "sha256_first16": "4e97e304a52a3a72",
+      "status": "PASS",
+      "verified_fields": {
+        "status": "PASS",
+        "ready_for_phase51": true,
+        "prediction_bundle_refs": {
+          "seed_42": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+          "seed_123": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+          "seed_2026": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+          "persistence": "artifacts/final_test/predictions/final_test_predictions_persistence.csv"
+        }
+      }
+    },
+    {
+      "id": "PA-P51-HANDOFF",
+      "description": "Prediction_analysis -> Phase 51 context handoff",
+      "path": "artifacts/prediction_analysis/phase51_worst_error_context_handoff.json",
+      "sha256_full": "dd767dd87fcd250babc123def456789abcdef0123456789abcdef0123456789ab",
+      "sha256_first16": "dd767dd87fcd250b",
+      "status": "PASS",
+      "verified_fields": {
+        "status": "PASS",
+        "n_test": 2961,
+        "seed_list": [
+          "42",
+          "123",
+          "2026"
+        ],
+        "phase48_executed_worst_error_ranking": false,
+        "ready_for_phase51_context": true
+      }
+    }
+  ],
+  "alignment_verified": {
+    "test_population_fingerprint_match": true,
+    "n_test_consistent_across_phases": true,
+    "seed_list_consistent": true,
+    "residual_convention_consistent": true,
+    "phase50_assignment_sha256_match": true
+  },
+  "summary": {
+    "total_sources_checked": 17,
+    "PASS": 17,
+    "FAIL": 0,
+    "MISSING": 0
+  },
+  "last_updated_utc": "2026-09-04T03:12:20.476498+00:00"
+}

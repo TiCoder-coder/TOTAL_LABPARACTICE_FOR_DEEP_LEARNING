@@ -357,6 +357,74 @@ def transform_feature_timeline(
     return values
 
 
+def transform_feature_timeline_with_scaler(
+    feature_view: pd.DataFrame,
+    variant_id: str,
+    feature_entry: dict[str, Any],
+    global_split_fingerprint: str,
+    project_root: Path | None = None,
+    *,
+    scaler_bundle: dict[str, Any] | None = None,
+) -> np.ndarray:
+    """Transform a feature view using an explicit scaler bundle.
+
+    This is equivalent to transform_feature_timeline but accepts a pre-loaded
+    scaler_bundle so callers can specify which scaler registry to use
+    (e.g., FINAL_SCALING-v1 instead of Phase 9 scalers).
+
+    Args:
+        feature_view: The full pre-Test feature DataFrame.
+        variant_id: Feature variant ID (e.g. "FS2_TF1").
+        feature_entry: The feature entry from the feature registry (already loaded).
+        global_split_fingerprint: Split fingerprint from split_manifest.
+        project_root: COURSE_WORK root.
+        scaler_bundle: Either:
+            - A registry dict with key "x_bundles" (existing behavior), or
+            - A pre-loaded joblib X bundle dict (contains "scaler" key).
+            If None, falls back to the Phase 9 scaler bundle (existing behavior).
+
+    Returns:
+        np.ndarray of shape (len(feature_view), feature_entry["feature_count"]).
+    """
+    if scaler_bundle is None:
+        bundle = load_validated_scaler_bundle(variant_id, project_root)
+    elif "scaler" in scaler_bundle:
+        # Pre-loaded joblib bundle (scaler is already instantiated).
+        bundle = scaler_bundle
+    elif "x_bundles" in scaler_bundle:
+        # Registry dict — extract the variant entry.
+        if variant_id not in scaler_bundle["x_bundles"]:
+            raise KeyError(
+                f"Variant {variant_id} not found in provided scaler_bundle. "
+                f"Available: {list(scaler_bundle.get('x_bundles', {}).keys())}"
+            )
+        bundle = scaler_bundle["x_bundles"][variant_id]
+    else:
+        raise ValueError(
+            f"scaler_bundle must be a registry dict (with 'x_bundles') "
+            f"or a pre-loaded joblib bundle (with 'scaler'). "
+            f"Got: {list(scaler_bundle.keys())}"
+        )
+    # Use the bundle-aware transform so FINAL_SCALING-v1 bundles
+    # (scaling_version=FINAL_SCALING-v1) are accepted.
+    from course_work.data.scaling import transform_feature_variant_with_scaler_bundle
+    transformed = transform_feature_variant_with_scaler_bundle(
+        feature_view.loc[:, feature_entry["features"]],
+        bundle,
+        variant_id,
+        feature_entry["fingerprint"],
+        global_split_fingerprint,
+    )
+    if list(transformed.columns) != feature_entry["features"]:
+        raise RuntimeError(f"Feature order changed during timeline transform for {variant_id}")
+    values = np.ascontiguousarray(transformed.to_numpy(dtype=np.float32, copy=True))
+    if values.shape != (len(feature_view), feature_entry["feature_count"]):
+        raise RuntimeError(f"Feature timeline shape mismatch for {variant_id}")
+    if not np.isfinite(values).all():
+        raise RuntimeError(f"Feature timeline contains non-finite values for {variant_id}")
+    return values
+
+
 def materialize_window(
     feature_matrix: np.ndarray,
     window_record: pd.Series | dict[str, Any],

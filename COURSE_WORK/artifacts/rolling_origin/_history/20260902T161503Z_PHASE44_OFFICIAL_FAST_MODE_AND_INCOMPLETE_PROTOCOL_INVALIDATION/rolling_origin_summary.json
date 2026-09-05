@@ -1,0 +1,9 @@
+{
+  "fold_count": 3,
+  "fold_protocol": "RO3_EXPANDING_PRETEST-v1",
+  "learned_model_count": 4,
+  "outer_target_total_count": 11840,
+  "overall_status": "PREPARED",
+  "transformer_candidate_count": 3,
+  "version": "ROBASE-v1"
+}

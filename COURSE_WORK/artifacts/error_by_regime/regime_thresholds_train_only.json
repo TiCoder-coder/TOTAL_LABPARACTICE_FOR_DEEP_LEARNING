@@ -1,0 +1,61 @@
+{
+  "change_magnitude": {
+    "Q90_abs_delta": 80.0,
+    "valid_delta_pair_count": 13669
+  },
+  "created_before_test_error_join": true,
+  "day_type": {
+    "weekday_labels": [
+      "DAY_WEEKDAY"
+    ],
+    "weekend_labels": [
+      "DAY_WEEKEND"
+    ]
+  },
+  "degenerate_change_magnitude": false,
+  "degenerate_target_level": false,
+  "extreme_high": {
+    "Q90": 210.0
+  },
+  "n_train_classified_delta_pairs": 13669,
+  "n_train_reference": 13670,
+  "quantile_dtype": "float64",
+  "quantile_function": "numpy.quantile",
+  "quantile_library": "numpy",
+  "quantile_method": "linear",
+  "source_reference": "REGIME_REFERENCE_TRAIN-v1",
+  "status": "PASS",
+  "target_ids_sha256": "67d1e5dff4395cdcad4175d5e5bb813af928a76037bb9af720185e7122512225",
+  "target_level": {
+    "Q25": 50.0,
+    "Q75": 100.0
+  },
+  "target_unit": "Wh",
+  "test_values_used": false,
+  "time_of_day": {
+    "blocks": [
+      {
+        "end_hour": 6,
+        "label": "TOD_NIGHT",
+        "start_hour": 0
+      },
+      {
+        "end_hour": 12,
+        "label": "TOD_MORNING",
+        "start_hour": 6
+      },
+      {
+        "end_hour": 18,
+        "label": "TOD_AFTERNOON",
+        "start_hour": 12
+      },
+      {
+        "end_hour": 24,
+        "label": "TOD_EVENING",
+        "start_hour": 18
+      }
+    ]
+  },
+  "validation_values_used": false,
+  "version": "REGIME_THRESHOLDS-v1"
+}

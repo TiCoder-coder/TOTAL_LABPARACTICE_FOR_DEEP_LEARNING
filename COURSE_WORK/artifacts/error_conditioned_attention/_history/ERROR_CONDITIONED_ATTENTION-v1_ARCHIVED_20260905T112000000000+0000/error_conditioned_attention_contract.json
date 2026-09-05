@@ -1,0 +1,34 @@
+{
+  "residual": "y_true - y_pred",
+  "AE": "abs(residual)",
+  "C1_continuous": "Spearman",
+  "C2_seed_cohorts": "rank-based bottom20/middle60/top20 + 10 deciles",
+  "C3_shared_cohorts": "shared hardness 20/60/20 + 10 deciles (identical across seeds)",
+  "core_attention_metrics": [
+    "normalized_entropy",
+    "expected_lag_minutes",
+    "recent_1h_mass",
+    "recent_6h_mass",
+    "top5_mass",
+    "lag80_minutes"
+  ],
+  "high_vs_low": [
+    "metric diffs",
+    "Cliff's delta",
+    "profile JSD/L1/Cosine/Wasserstein minutes"
+  ],
+  "signed": "UNDER vs OVER",
+  "layer_summary": "metric of head-mean vector",
+  "secondary": "full-matrix summary Spearman",
+  "forbidden": [
+    "p-value fishing",
+    "best head",
+    "head pruning",
+    "seed selection",
+    "regime retuning",
+    "cartesian subgroup mining",
+    "causal claims",
+    "retraining",
+    "prediction correction"
+  ]
+}

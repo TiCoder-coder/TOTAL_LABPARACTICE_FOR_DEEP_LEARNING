@@ -1,0 +1,30 @@
+{
+  "phase": 55,
+  "downstream_phase": 56,
+  "downstream_name": "Error-conditioned Attention",
+  "source_phase55_version": "HEAD_COMPARISON-v1",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "contract_sha256": "c5663f2a21de4985548d8471ad4e87c9e844bd7e81672f2a363c71573f1d9692",
+  "final_lock_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "head_behavior_summary_ref": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/head_comparison/head_behavior_summary.csv",
+  "head_pair_comparison_long_ref": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/head_comparison/head_pair_comparison_long.csv",
+  "layer_diversity_summary_ref": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/head_comparison/layer_head_diversity_summary.csv",
+  "last_query_metrics_long_ref": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metrics_long.csv",
+  "raw_last_query_refs": {
+    "seed42": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed42.npz",
+    "seed123": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed123.npz",
+    "seed2026": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed2026.npz"
+  },
+  "head_order": "ARCHITECTURAL",
+  "best_head_selected": false,
+  "head_pruning": false,
+  "error_conditioning_performed_in_phase55": false,
+  "ready_for_phase56": true
+}

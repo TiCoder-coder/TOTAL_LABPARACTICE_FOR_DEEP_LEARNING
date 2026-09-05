@@ -1,0 +1,272 @@
+{
+  "log_id": "phase_43_47_notebook_visualization_sync_log",
+  "log_version": "1.0.0",
+  "log_kind": "notebook_visualization_sync",
+  "target_notebook": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb",
+  "reporting_module": "COURSE_WORK/src/course_work/reporting/phase_43_47_dashboard.py",
+  "scope": "Phase 43 -> Phase 47 only (Phase 0-42 cells untouched)",
+  "operation_timestamp_utc": "2026-09-04T00:05:00+00:00",
+  "operator_role": "Senior ML Reporting Engineer + Notebook Integrity Reviewer",
+
+  "notebook_baseline": {
+    "path": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb",
+    "original_notebook_sha256": "5830bf6b28de9426aa2cfe183ede44595db746f299fe9208c609d49729428182",
+    "original_cell_count": 124,
+    "original_size_bytes": 3023005,
+    "original_phase_42_end_index": 114,
+    "original_phase_0_42_outputs_total": 94,
+    "original_phase_0_42_cells_with_outputs": 55,
+    "original_phase_47_present": false
+  },
+
+  "notebook_final": {
+    "path": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb",
+    "final_notebook_sha256": "fb8dbdc886ef1dbc",
+    "final_cell_count": 126,
+    "final_size_bytes": 3049419,
+    "final_phase_47_present": true
+  },
+
+  "backup_artifact": {
+    "path": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb.bak_pre_p43_47_sync",
+    "sha256": "5830bf6b28de9426aa2cfe183ede44595db746f299fe9208c609d49729428182",
+    "size_bytes": 3023005
+  },
+
+  "exact_changed_cell_indexes": {
+    "Phase_43": {
+      "markdown_cell_index": 116,
+      "code_cell_index": 117,
+      "markdown_before_first_line": "## Phase 43 - LSTM Tuning",
+      "code_before_first_line": "phase_43_signoff = materialize_phase_43(PROJECT_ROOT)",
+      "code_after_first_line": "from course_work.reporting.phase_43_47_dashboard import render_phase_43_dashboard"
+    },
+    "Phase_44": {
+      "markdown_cell_index": 118,
+      "code_cell_index": 119,
+      "markdown_before_first_line": "## Phase 44 - Rolling-Origin Robustness",
+      "code_before_first_line": "phase_44_signoff = materialize_phase_44(PROJECT_ROOT)",
+      "code_after_first_line": "from course_work.reporting.phase_43_47_dashboard import render_phase_44_dashboard"
+    },
+    "Phase_45": {
+      "markdown_cell_index": 120,
+      "code_cell_index": 121,
+      "markdown_before_first_line": "## Phase 45 - Final Model Lock",
+      "code_before_first_line": "phase_45_signoff = materialize_phase_45(PROJECT_ROOT)",
+      "code_after_first_line": "from course_work.reporting.phase_43_47_dashboard import render_phase_45_dashboard"
+    },
+    "Phase_46": {
+      "markdown_cell_index": 122,
+      "code_cell_index": 123,
+      "markdown_before_first_line": "## Phase 46 - Three-Seed Final Runs",
+      "code_before_first_line": "phase_46_signoff = materialize_phase_46(PROJECT_ROOT)",
+      "code_after_first_line": "from course_work.reporting.phase_43_47_dashboard import render_phase_46_dashboard"
+    },
+    "Phase_47_added": {
+      "markdown_cell_index": 124,
+      "code_cell_index": 125,
+      "status": "newly_appended",
+      "markdown_first_line": "## Phase 47 - Final Test Evaluation",
+      "code_first_line": "from course_work.reporting.phase_43_47_dashboard import render_phase_47_dashboard"
+    }
+  },
+
+  "phase_0_42_preservation": {
+    "status": "PASS",
+    "cells_preserved": 116,
+    "cells_byte_identical_to_baseline": 116,
+    "outputs_preserved": 94,
+    "cells_with_outputs_preserved": 55,
+    "verification_method": "json.dumps(cells, sort_keys=True) byte-equality"
+  },
+
+  "phase_43_renderer": {
+    "status": "PASS",
+    "html_output_persisted": true,
+    "html_size_bytes": 10226,
+    "cell_index": 117,
+    "renderer_function": "course_work.reporting.phase_43_47_dashboard.render_phase_43_dashboard",
+    "contains_all_5_stages": true,
+    "contains_winner_run_id": "RUN_LS_LST_0175_BCE5A2CD",
+    "contains_phase44_readiness": true,
+    "training_used": false
+  },
+
+  "phase_44_renderer": {
+    "status": "PASS",
+    "html_output_persisted": true,
+    "html_size_bytes": 7749,
+    "cell_index": 119,
+    "renderer_function": "course_work.reporting.phase_43_47_dashboard.render_phase_44_dashboard",
+    "recommended_transformer": "TR_C2_ALT_LOOKBACK",
+    "transformer_pooled_rmse_wh": 59.8598,
+    "lstm_pooled_rmse_wh": 59.2363,
+    "persistence_pooled_rmse_wh": 66.4297,
+    "test_status": "NOT_ACCESSED",
+    "protocol_lock_decision": "TR_C2_ALT_LOOKBACK (per RO3_EXPANDING_PRETEST-v1 protocol)",
+    "training_used": false
+  },
+
+  "phase_45_renderer": {
+    "status": "PASS",
+    "html_output_persisted": true,
+    "html_size_bytes": 8323,
+    "cell_index": 121,
+    "renderer_function": "course_work.reporting.phase_43_47_dashboard.render_phase_45_dashboard",
+    "locked_candidate": "TR_C2_ALT_LOOKBACK",
+    "ro1_inner_best_epoch": 30,
+    "ro2_inner_best_epoch": 37,
+    "ro3_inner_best_epoch": 19,
+    "sorted_epochs": [19, 30, 37],
+    "median_epoch": 30,
+    "final_refit_epochs": 30,
+    "seed_list": [42, 123, 2026],
+    "ready_for_phase46": true,
+    "test_status": "NOT_ACCESSED",
+    "training_used": false
+  },
+
+  "phase_46_renderer": {
+    "status": "PASS",
+    "html_output_persisted": true,
+    "html_size_bytes": 8208,
+    "cell_index": 123,
+    "renderer_function": "course_work.reporting.phase_43_47_dashboard.render_phase_46_dashboard",
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "seed42_rmse_wh": 47.8557,
+    "seed123_rmse_wh": 47.3096,
+    "seed2026_rmse_wh": 48.5010,
+    "average_rmse_wh": 47.8888,
+    "final_refit_epochs": 30,
+    "validation_used": "NONE",
+    "early_stopping_used": false,
+    "final_dev_region_label": "FINAL_DEV DIAGNOSTIC",
+    "ready_for_phase47": true,
+    "test_status": "NOT_ACCESSED",
+    "training_used": false
+  },
+
+  "phase_47_renderer": {
+    "status": "PASS",
+    "html_output_persisted": true,
+    "html_size_bytes": 10030,
+    "cell_index": 125,
+    "renderer_function": "course_work.reporting.phase_43_47_dashboard.render_phase_47_dashboard",
+    "n_test": 2961,
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "per_seed_metrics": {
+      "seed_42": {"MAE": 29.5286, "RMSE": 64.9428, "R2": 0.4893},
+      "seed_123": {"MAE": 27.1149, "RMSE": 61.9861, "R2": 0.5347},
+      "seed_2026": {"MAE": 28.9423, "RMSE": 64.5601, "R2": 0.4953}
+    },
+    "aggregate_transformer_mean_sd": {
+      "MAE": {"mean": 28.5286, "sd": 1.2589},
+      "RMSE": {"mean": 63.8297, "sd": 1.6080},
+      "R2": {"mean": 0.5064, "sd": 0.0247}
+    },
+    "persistence_metrics": {"MAE": 26.7376, "RMSE": 66.8369, "R2": 0.4590},
+    "scientific_interpretation": {
+      "RMSE_winner": "Transformer",
+      "RMSE_evidence": "63.83 < 66.84",
+      "R2_winner": "Transformer",
+      "R2_evidence": "0.506 > 0.459",
+      "MAE_winner": "Persistence",
+      "MAE_evidence": "26.74 < 28.53",
+      "universal_claim_made": false,
+      "explicit_disclaimer": "We do not claim Transformer beats Persistence on every metric"
+    },
+    "lstm_eligibility": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+    "lstm_eligibility_reason": "LSTM_TUNED_DEV uses lookback L36 while final Transformer uses L72 under the Phase 47 protocol",
+    "training_used": false,
+    "scaler_fit_used": false,
+    "best_seed_selected": false,
+    "ensemble_used": false,
+    "post_test_tuning": false,
+    "phase47_signoff": "PASS"
+  },
+
+  "canonical_artifacts_consumed": [
+    "artifacts/lstm_tuning/phase_43_signoff.json",
+    "artifacts/lstm_tuning/lstm_tuned_winner.json",
+    "artifacts/lstm_tuning/lstm_stage_lineage.csv",
+    "artifacts/lstm_tuning/lt1_hidden_size_metrics.csv",
+    "artifacts/lstm_tuning/lt2_layers_metrics.csv",
+    "artifacts/lstm_tuning/lt3_dropout_metrics.csv",
+    "artifacts/lstm_tuning/lt4_learning_rate_metrics.csv",
+    "artifacts/lstm_tuning/lt5_weight_decay_metrics.csv",
+    "artifacts/rolling_origin/phase_44_signoff.json",
+    "artifacts/rolling_origin/rolling_origin_pooled_metrics.csv",
+    "artifacts/rolling_origin/rolling_origin_transformer_robustness_ranking.csv",
+    "artifacts/rolling_origin/rolling_origin_inner_best_epochs.csv",
+    "artifacts/rolling_origin/rolling_origin_recommended_transformer.json",
+    "artifacts/final_model_lock/phase_45_signoff.json",
+    "artifacts/final_model_lock/final_epoch_policy.json",
+    "artifacts/final_model_lock/final_seed_contract.json",
+    "artifacts/three_seed_final_runs/phase_46_signoff.json",
+    "artifacts/three_seed_final_runs/three_seed_final_runs_summary.json",
+    "artifacts/final_test/phase_47_signoff.json",
+    "artifacts/final_test/final_test_population_manifest.json",
+    "artifacts/final_test/final_test_metrics_by_seed.csv",
+    "artifacts/final_test/transformer_seed_aggregate_metrics.csv",
+    "artifacts/final_test/final_test_baseline_metrics.csv",
+    "artifacts/final_test/final_test_model_comparison.csv",
+    "artifacts/final_test/final_test_access_event.json"
+  ],
+
+  "canonical_artifacts_modified": false,
+  "canonical_artifacts_verification": {
+    "artifacts/final_test/phase_47_signoff.json": "80614523b6091e21 (unchanged)",
+    "artifacts/three_seed_final_runs/phase_46_signoff.json": "ef450f820b8b46e9 (unchanged)",
+    "artifacts/final_model_lock/phase_45_signoff.json": "464ee2101d91b987 (unchanged)",
+    "artifacts/rolling_origin/phase_44_signoff.json": "f1b58ec100c7ce8a (unchanged)",
+    "artifacts/lstm_tuning/phase_43_signoff.json": "b4ab86100366392b (unchanged)"
+  },
+
+  "forbidden_patterns_audit": {
+    "materialize_phase_43_calls_remaining": 0,
+    "materialize_phase_44_calls_remaining": 0,
+    "materialize_phase_45_calls_remaining": 0,
+    "materialize_phase_46_calls_remaining": 0,
+    "materialize_phase_47_calls_remaining": 0,
+    "sys_path_hacks_in_changed_cells": 0,
+    "absolute_paths_in_changed_cells": 0,
+    "training_patterns_in_changed_cells": 0,
+    "optimizer_step_in_changed_cells": 0,
+    "scaler_fit_in_changed_cells": 0,
+    "model_train_in_changed_cells": 0,
+    "backward_in_changed_cells": 0,
+    "checkpoints_modified": false,
+    "new_run_ids": 0
+  },
+
+  "scientific_immutability": {
+    "training_executed": false,
+    "optimizer_steps": 0,
+    "phase47_test_reevaluated": false,
+    "new_run_ids": 0,
+    "checkpoints_modified": false,
+    "canonical_artifacts_modified": false,
+    "test_first_access_in_phase47": true,
+    "scaler_fitting_in_phase47": false,
+    "best_seed_selection_in_phase47": false,
+    "ensemble_in_phase47": false
+  },
+
+  "html_outputs_persisted": {
+    "phase_43_cell_117_html_bytes": 10226,
+    "phase_44_cell_119_html_bytes": 7749,
+    "phase_45_cell_121_html_bytes": 8323,
+    "phase_46_cell_123_html_bytes": 8208,
+    "phase_47_cell_125_html_bytes": 10030
+  },
+
+  "notebook_presentation_only": {
+    "is_presentation_only": true,
+    "large_html_inline_in_notebook": false,
+    "reusable_html_in_src_cw_reporting": true,
+    "no_train_calls_in_changed_cells": true,
+    "no_materialize_calls_in_changed_cells": true
+  },
+
+  "final_status": "PASS"
+}

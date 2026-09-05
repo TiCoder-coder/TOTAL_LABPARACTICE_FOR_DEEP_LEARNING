@@ -1,549 +1,440 @@
-#!/usr/bin/env python3
-"""Phase 44 - Rolling-Origin Robustness.
+"""Phase 44 — Rolling-origin robustness orchestrator (HUMAN-ONLY scientific runner).
 
-Evaluates the temporal stability of the 3 Transformer candidates,
-the tuned LSTM model, and the Persistence baseline across 3 contiguous folds (RO1-RO3).
-Computes pooled outer-fold RMSE/MAE/R2 and macro fold statistics.
-Saves all required O44 artifacts and renders figures.
+This script is the canonical command-line entry point for Phase 44.
+
+Run modes:
+
+  --mode preflight : dry-run gates (config verification, zero training)
+                     [NO optimizer steps, NO official run IDs, NO Test access]
+  --mode rehearsal : disposable code-path rehearsal (synthetic data + tiny epoch cap)
+                     [NO official artifacts, NO Test access]
+  --mode official  : HUMAN-RUN scientific Phase 44 with real Training + Refit
+                     [creates official run IDs, writes 39 O44 artifacts,
+                      signs off Phase 44 if every gate passes]
+
+Default is `--mode preflight` to prevent accidental scientific runs.
+
+Official scientific invocation (HUMAN ONLY):
+
+  caffeinate -dim \\
+  env PYTHONPATH=src MPLCONFIGDIR=/tmp/mpl \\
+  ./.venv/bin/python \\
+  scripts/phase44_rolling_origin.py --mode official
 """
 from __future__ import annotations
 
-import csv
+import argparse
 import json
-import os
 import sys
-import time
-import math
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
-import numpy as np
 
-import torch
-from torch.utils.data import ConcatDataset, Subset, DataLoader
 
-# Add src to python path
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "src"))
+def _now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
-from course_work.data.datasets import build_train_validation_loaders
-from course_work.data.scaling import load_validated_target_scaler
-from course_work.experiments.registry import (
-    ExperimentRegistry,
-    build_reference_run_config,
-    ExecutionType,
-    compute_config_fingerprint,
-)
-from course_work.training.engine import TrainingEngine, build_model_from_run_config
-from course_work.utils.environment import select_device
-from course_work.utils.reproducibility import DEVELOPMENT_SEED, configure_reproducibility, set_seed
-from course_work.utils.artifacts import canonical_json_bytes, sha256_bytes, sha256_file, read_json
 
-import matplotlib.pyplot as plt
+def _phase_root() -> Path:
+    return Path(__file__).resolve().parent
 
-ARTIFACT_DIR = ROOT / "artifacts" / "rolling_origin"
-ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-FIGURE_DIR = ARTIFACT_DIR / "figures"
-FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
-def deep_copy_config(config: dict[str, Any]) -> dict[str, Any]:
-    return json.loads(json.dumps(config))
+def _project_root() -> Path:
+    return _phase_root().parent
 
-# Upstream files
-PHASE_42_SIGNOFF = ROOT / "artifacts" / "candidate_synthesis" / "phase_42_signoff.json"
-TRANSFORMER_SHORTLIST = ROOT / "artifacts" / "candidate_synthesis" / "transformer_candidate_shortlist.json"
-PHASE_43_SIGNOFF = ROOT / "artifacts" / "lstm_tuning" / "phase_43_signoff.json"
-LSTM_WINNER = ROOT / "artifacts" / "lstm_tuning" / "lstm_tuned_winner.json"
 
-def now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat() if "datetime" in globals() else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Phase 44 rolling-origin")
+    parser.add_argument(
+        "--mode",
+        choices=["preflight", "rehearsal", "official", "finalize"],
+        default="preflight",
+        help="Run mode. Default: preflight (no training). "
+             "finalize: reuse completed Stage A/B evidence (NO training).",
+    )
+    parser.add_argument("--seed", type=int, default=42, help="RNG seed")
+    args = parser.parse_args()
 
-def write_json(path: Path, data: Any) -> None:
-    def normalize(value: Any) -> Any:
-        if isinstance(value, dict):
-            return {key: normalize(item) for key, item in value.items()}
-        if isinstance(value, (list, tuple)):
-            return [normalize(item) for item in value]
-        if isinstance(value, np.ndarray):
-            return value.tolist()
-        if isinstance(value, np.generic):
-            return value.item()
-        return value
+    project_root = _project_root()
+    artifact_dir = project_root / "artifacts" / "rolling_origin"
 
-    path.write_bytes(canonical_json_bytes(normalize(data)))
+    if args.mode == "preflight":
+        return _run_preflight(project_root)
+    if args.mode == "rehearsal":
+        return _run_rehearsal(project_root, seed=args.seed)
+    if args.mode == "official":
+        return _run_official(project_root, seed=args.seed)
+    if args.mode == "finalize":
+        return _run_finalize(project_root, seed=args.seed)
+    return 1
 
-def write_csv(path: Path, header: list[str], rows: list[list[Any]]) -> None:
-    with open(path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(header)
-        for row in rows:
-            writer.writerow(row)
 
-def main() -> None:
-    print("Executing Phase 44 — Rolling-Origin Robustness")
-    
-    # 1. Preflight
-    if not PHASE_42_SIGNOFF.exists() or not TRANSFORMER_SHORTLIST.exists() or not PHASE_43_SIGNOFF.exists() or not LSTM_WINNER.exists():
-        print("Required upstream Phase 42/43 files not found! Exiting.")
-        sys.exit(1)
-        
-    p42_signoff = read_json(PHASE_42_SIGNOFF)
-    p43_signoff = read_json(PHASE_43_SIGNOFF)
-    
-    preflight_valid = p42_signoff.get("status") == "PASS" and p43_signoff.get("status") == "PASS"
-    
-    preflight_rows = [
-        ["phase42_signoff_pass", str(p42_signoff.get("status") == "PASS")],
-        ["phase43_signoff_pass", str(p43_signoff.get("status") == "PASS")],
-        ["test_firewall_locked", "True"],
-        ["status", "PASS" if preflight_valid else "FAIL"]
-    ]
-    write_csv(ARTIFACT_DIR / "phase44_preflight_audit.csv", ["Metric", "Value"], preflight_rows)
-    
-    if not preflight_valid:
-        print("Preflight audit failed! Exiting.")
-        sys.exit(1)
-        
-    # Write contract
-    write_json(ARTIFACT_DIR / "rolling_origin_contract.json", {
-        "K_folds": 3,
-        "protocol": "RO3_EXPANDING_PRETEST-v1",
-        "models_evaluated": ["TR_C0_PRIMARY", "TR_C1_ALT_WEIGHT_DECAY", "TR_C2_ALT_LOOKBACK", "LSTM_TUNED", "PERSISTENCE_LAST_VALUE"],
-        "test_locked": True
-    })
+def _run_preflight(project_root: Path) -> int:
+    """Dry-run preflight gates.
 
-    # 2. Setup Device and Seeds
-    device = select_device()
-    configure_reproducibility("D0")
-    set_seed(DEVELOPMENT_SEED)
-    
-    registry = ExperimentRegistry(ROOT)
-    engine = TrainingEngine(registry)
-    
-    # Load model configs
-    tr_shortlist_data = read_json(TRANSFORMER_SHORTLIST)
-    lstm_winner_data = read_json(LSTM_WINNER)
-    
-    # Candidates list
-    candidates = []
-    # Transformers
-    for c in tr_shortlist_data["candidates"]:
-        candidates.append({
-            "id": c["candidate_id"],
-            "family": "TRANSFORMER_ENCODER",
-            "config": c["config"]
-        })
-    # LSTM
-    candidates.append({
-        "id": "LSTM_TUNED",
-        "family": "LSTM",
-        "config": lstm_winner_data["config"]
-    })
-    
-    # We will score candidates on 3 folds
-    # Split Validation targets chronologically into 3 folds (V1, V2, V3)
-    # Since validation size is 2960:
-    val_indices = list(range(2960))
-    v_splits = np.array_split(val_indices, 3)
-    V1_idx = list(v_splits[0])
-    V2_idx = list(v_splits[1])
-    V3_idx = list(v_splits[2])
-    
-    # Load target scaler (we'll reuse the default YS1 target scaler)
-    target_scaler = load_validated_target_scaler(ROOT)
-    
-    results_rows = []
-    comparison_results = {c["id"]: {"rmses": [], "maes": [], "r2s": []} for c in candidates}
-    comparison_results["PERSISTENCE_LAST_VALUE"] = {"rmses": [], "maes": [], "r2s": []}
-    
-    # Setup data loaders for each model (since features/lookbacks may differ)
-    # Cache datasets to avoid rebuilding
-    cached_loaders = {}
-    
-    def get_loaders_for_candidate(cfg: dict[str, Any]) -> tuple[Any, Any, Any, str]:
-        variant_id = cfg["data"]["feature_variant_id"]
-        lookback = cfg["data"]["lookback_steps"]
-        target_option = cfg["data"]["target_scaling_option"]
-        bp_code = cfg["data"]["boundary_protocol"]
-        if bp_code == "WB0":
-            bp_code = "WB0_CONTEXT_CARRY_OVER"
-        elif bp_code == "WB1":
-            bp_code = "WB1_STRICT_PARTITION"
-            
-        cache_key = (variant_id, lookback, target_option, bp_code)
-        if cache_key in cached_loaders:
-            return cached_loaders[cache_key]
-            
-        loaders_tuple = build_train_validation_loaders(
-            project_root=ROOT,
-            variant_id=variant_id,
-            lookback=lookback,
-            target_option=target_option,
-            device_type=str(device.type),
-            boundary_protocol=bp_code
+    TASK 9: exercises configuration of the SAME official orchestration path
+    through the point immediately before scientific registration/training.
+
+    Verifies:
+      - all candidate configs (4: 3 Transformers + 1 LSTM)
+      - all fold populations (Stage A/B/C roles)
+      - all scaler contracts (Stage A + B fit regions)
+      - all registry payloads (12 Stage A + 12 Stage B = 24 valid payloads)
+      - all artifact destinations (39 O44 outputs)
+      - all O44 schemas (writers exist and accept canonical inputs)
+      - all signoff requirements (consistency C01-C13)
+      - Test firewall (no Test ids in any fold population or scaler fit)
+
+    ZERO optimizer steps. ZERO official run IDs.
+    """
+    from course_work.rolling_origin.preflight import (
+        run_preflight,
+        write_preflight_audit_csv,
+    )
+
+    result = run_preflight(
+        project_root=project_root,
+        phase_42_signoff_path=project_root / "artifacts/candidate_synthesis/phase_42_signoff.json",
+        transformer_shortlist_path=project_root / "artifacts/candidate_synthesis/transformer_candidate_shortlist.json",
+        phase_43_signoff_path=project_root / "artifacts/lstm_tuning/phase_43_signoff.json",
+        lstm_winner_path=project_root / "artifacts/lstm_tuning/lstm_tuned_winner.json",
+        lstm_handoff_path=project_root / "artifacts/lstm_tuning/phase44_rolling_origin_lstm_handoff.json",
+        include_official_config_audit=True,
+    )
+    out_path = project_root / "artifacts/rolling_origin/phase44_preflight_audit.csv"
+    write_preflight_audit_csv(out_path, result)
+    print(f"\nPHASE 44 PREFLIGHT")
+    print(f"  gates passed: {sum(1 for g in result.gates if g.passed)}/{len(result.gates)}")
+    for g in result.gates:
+        flag = "PASS" if g.passed else "FAIL"
+        print(f"  [{flag}] {g.gate_id}: {g.description[:60]}")
+    print(f"\nAudit written to: {out_path}")
+    return 0 if result.all_passed else 1
+
+
+def _run_rehearsal(project_root: Path, seed: int) -> int:
+    """Disposable code-path rehearsal."""
+    return _run_rehearsal_impl(project_root, seed=seed)
+
+
+def _run_rehearsal_impl(project_root: Path, seed: int = 42) -> int:
+    """Rehearsal uses the SAME core orchestrator as official mode
+    (TASK 10 — Mode Separation), but writes to a temporary directory
+    (no official scientific artifacts). All real Stage A/B/C primitives
+    are exercised; only the registry, run root, and epoch budget differ.
+    """
+    import tempfile
+    from course_work.rolling_origin.real_run import (
+        RunContext, run_real_pipeline,
+    )
+
+    with tempfile.TemporaryDirectory(prefix="phase44_rehearsal_") as tmp:
+        tmp_path = Path(tmp)
+        ctx = RunContext(
+            project_root=project_root,
+            transformer_shortlist_path=project_root / "artifacts/candidate_synthesis/transformer_candidate_shortlist.json",
+            lstm_handoff_path=project_root / "artifacts/lstm_tuning/phase44_rolling_origin_lstm_handoff.json",
+            phase_42_signoff_path=project_root / "artifacts/candidate_synthesis/phase_42_signoff.json",
+            phase_43_signoff_path=project_root / "artifacts/lstm_tuning/phase_43_signoff.json",
+            artifact_dir=tmp_path / "artifacts",
+            registry_root=tmp_path / "registry",
+            run_root=tmp_path / "runs",
+            seed=seed,
+            is_rehearsal=True,
+            scientific_max_epochs=2,    # tiny budget for rehearsal
+            scientific_patience=2,
+            rehearsal_synthetic=True,   # do not call real optimizer
         )
-        cached_loaders[cache_key] = loaders_tuple
-        return loaders_tuple
+        result = run_real_pipeline(ctx)
+        print(f"\nPHASE 44 REHEARSAL (disposable, temp registry)")
+        print(f"  exit_code: {result.exit_code}")
+        print(f"  summary: {result.summary}")
+        print(f"  candidates: {result.n_candidates}")
+        print(f"  folds: {result.n_folds}")
+        print(f"  Stage A runs: {result.n_stage_a_runs}")
+        print(f"  Stage B runs: {result.n_stage_b_runs}")
+        print(f"  Outer prediction bundles: {result.n_outer_prediction_bundles}")
+        print(f"  Persistence bundles: {result.n_persistence_bundles}")
+        if result.exception:
+            print(f"  exception:\n{result.exception}")
+        return result.exit_code
 
-    # 3. Outer Fold Evaluation Loop
-    for fold_idx in [1, 2, 3]:
-        print(f"\nEvaluating Fold RO{fold_idx}...")
-        
-        # Determine fold indices based on RO specifications
-        if fold_idx == 1:
-            outer_eval_val_idx = V1_idx
-            inner_val_train_idx = list(range(13670 - len(V1_idx), 13670))
-            inner_train_train_idx = list(range(0, 13670 - len(V1_idx)))
-        elif fold_idx == 2:
-            outer_eval_val_idx = V2_idx
-            inner_val_val_idx = V1_idx
-            inner_train_train_idx = list(range(13670))
-        else: # fold 3
-            outer_eval_val_idx = V3_idx
-            inner_val_val_idx = V2_idx
-            # inner train is train + V1
-            inner_train_train_idx = list(range(13670))
-            inner_train_val_idx = V1_idx
-            
-        for cand in candidates:
-            cid = cand["id"]
-            cfg = cand["config"]
-            family = cand["family"]
-            
-            # Load candidate-specific dataloaders
-            loaders_tuple = get_loaders_for_candidate(cfg)
-            datasets_dict = loaders_tuple[0]
-            window_fingerprint = loaders_tuple[2]
-            
-            train_dataset = datasets_dict["TRAIN"]
-            val_dataset = datasets_dict["VALIDATION"]
-            
-            # Construct PyTorch datasets for this fold
-            # Outer Evaluation
-            outer_eval_dataset = Subset(val_dataset, outer_eval_val_idx)
-            
-            # Inner Validation
-            if fold_idx == 1:
-                inner_val_dataset = Subset(train_dataset, inner_val_train_idx)
-                inner_train_dataset = Subset(train_dataset, inner_train_train_idx)
-            elif fold_idx == 2:
-                inner_val_dataset = Subset(val_dataset, inner_val_val_idx)
-                inner_train_dataset = train_dataset
-            else: # fold 3
-                inner_val_dataset = Subset(val_dataset, inner_val_val_idx)
-                # Chain Train set and V1 subset
-                # We can use ConcatDataset or indices mapping
-                # For simplicity, since inner train is original Train + V1 validation:
-                # We create subsets of Train and Val and chain them
-                train_part = train_dataset
-                val_part = Subset(val_dataset, inner_train_val_idx)
-                inner_train_dataset = ConcatDataset([train_part, val_part])
-                
-            inner_train_len = len(inner_train_dataset)
-            
-            # Scalers refit / Stage B history
-            if fold_idx == 1:
-                outer_history_dataset = train_dataset
-            elif fold_idx == 2:
-                outer_history_dataset = ConcatDataset([train_dataset, Subset(val_dataset, V1_idx)])
-            else: # fold 3
-                outer_history_dataset = ConcatDataset([train_dataset, Subset(val_dataset, V1_idx + V2_idx)])
-                
-            outer_history_len = len(outer_history_dataset)
-            
-            bs = cfg["training"]["batch_size"]
-            inner_train_loader = DataLoader(train_dataset, batch_size=bs, shuffle=True)
-            inner_val_loader = DataLoader(val_dataset, batch_size=bs, shuffle=False)
-            outer_history_loader = DataLoader(train_dataset, batch_size=bs, shuffle=True)
-            outer_eval_loader = DataLoader(outer_eval_dataset, batch_size=bs, shuffle=False)
-            
-            # STAGE A: Inner validation to select best epoch
-            print(f"  [{cid}] Stage A Inner validation...")
-            # We enforce max_epochs=2 and patience=2 in fast-mode
-            stage_a_cfg = deep_copy_config(cfg)
-            stage_a_cfg["training"]["max_epochs"] = 2
-            stage_a_cfg["training"]["patience"] = 2
-            stage_a_cfg["lineage"]["population_fingerprint"] = "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
-            
-            registered = registry.register_run(
-                stage_a_cfg,
-                "ROLLING_ORIGIN" if family == "TRANSFORMER_ENCODER" else "LSTM_TUNING",
-                ExecutionType.TRAINING.value,
-                sweep_id=None,
-                sweep_stage=f"RO{fold_idx}_A",
-                rerun_reason="REPRODUCIBILITY_CHECK",
-            )
-            run_id_a = registered["run_id"]
-            registry.start_run(run_id_a)
-            
-            model = build_model_from_run_config(stage_a_cfg)
-            result_a = engine.train(
-                run_id_a,
-                inner_train_loader,
-                inner_val_loader,
-                model,
-                device,
-                target_scaler,
-                "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
-            )
-            best_epoch_inner = result_a.best_epoch
-            run_dir_a = registry.run_root / run_id_a
-            engine.persist_run_artifacts(
-                run_id_a,
-                run_dir_a,
-                model,
-                result_a,
-                result_a.best_sample_idx,
-                result_a.best_y_true_wh,
-                result_a.best_y_pred_wh,
-            )
-            registry.complete_run(run_id_a, best_epoch_inner, result_a.best_validation_rmse_wh)
-            
-            # STAGE B: Full history refit
-            print(f"  [{cid}] Stage B Full refit for {best_epoch_inner} epochs...")
-            stage_b_cfg = deep_copy_config(cfg)
-            stage_b_cfg["training"]["max_epochs"] = best_epoch_inner
-            stage_b_cfg["training"]["early_stopping_enabled"] = False
-            stage_b_cfg["lineage"]["population_fingerprint"] = "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
-            
-            registered_b = registry.register_run(
-                stage_b_cfg,
-                "ROLLING_ORIGIN" if family == "TRANSFORMER_ENCODER" else "LSTM_TUNING",
-                ExecutionType.TRAINING.value,
-                sweep_id=None,
-                sweep_stage=f"RO{fold_idx}_B",
-                rerun_reason="REPRODUCIBILITY_CHECK",
-            )
-            run_id_b = registered_b["run_id"]
-            registry.start_run(run_id_b)
-            
-            model_b = build_model_from_run_config(stage_b_cfg)
-            # Train for best_epoch_inner without early stopping
-            result_b = engine.train(
-                run_id_b,
-                outer_history_loader,
-                inner_val_loader, # validation loader dummy
-                model_b,
-                device,
-                target_scaler,
-                "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
-            )
-            run_dir_b = registry.run_root / run_id_b
-            engine.persist_run_artifacts(
-                run_id_b,
-                run_dir_b,
-                model_b,
-                result_b,
-                result_b.best_sample_idx,
-                result_b.best_y_true_wh,
-                result_b.best_y_pred_wh,
-            )
-            registry.complete_run(run_id_b, best_epoch_inner, result_b.best_validation_rmse_wh)
-            
-            # STAGE C: Outer Evaluation (forecast on full outer evaluation fold)
-            print(f"  [{cid}] Stage C Outer evaluation...")
-            # Run prediction on full outer_eval_loader
-            model_b.eval()
-            y_pred_list = []
-            y_true_list = []
-            with torch.no_grad():
-                for batch in outer_eval_loader:
-                    x_batch = batch["x"].to(device)
-                    y_batch = batch["y_raw_wh"]
-                    out_batch = model_b(x_batch)
-                    
-                    # Inverse scale target predictions
-                    if target_scaler:
-                        # Convert predictions back to Wh unit using the validated Y-scaler bundle.
-                        pred_np = out_batch.cpu().numpy()
-                        pred_wh = target_scaler["scaler"].inverse_transform(pred_np)
-                        y_pred_list.append(pred_wh.flatten())
-                    else:
-                        y_pred_list.append(out_batch.cpu().numpy().flatten())
-                        
-                    y_true_list.append(y_batch.numpy().flatten())
-            
-            y_pred = np.concatenate(y_pred_list)
-            y_true = np.concatenate(y_true_list)
-            
-            # Compute evaluation metrics
-            rmse = np.sqrt(np.mean((y_true - y_pred) ** 2))
-            mae = np.mean(np.abs(y_true - y_pred))
-            mean_y = np.mean(y_true)
-            r2 = 1.0 - (np.sum((y_true - y_pred) ** 2) / np.sum((y_true - mean_y) ** 2))
-            
-            comparison_results[cid]["rmses"].append(rmse)
-            comparison_results[cid]["maes"].append(mae)
-            comparison_results[cid]["r2s"].append(r2)
-            
-            results_rows.append([
-                f"RO{fold_idx}", cid, f"{rmse:.6f}", f"{mae:.6f}", f"{r2:.4f}"
-            ])
-            print(f"    [{cid}] RMSE: {rmse:.4f} Wh, MAE: {mae:.4f} Wh, R2: {r2:.4f}")
-            
-        # Persistence Baseline
-        # Uses y_true shifted by 1 step
-        # Let's load the targets for this fold
-        # Since Persistence baseline prediction is y_pred[i] = y_true[i-1]:
-        # For simplicity, we can load the raw target sequence from outer_eval
-        # Or from original raw data. One-step ahead target offset:
-        # y_true = y_t. y_pred = y_{t-1}.
-        # In outer_eval_loader, batch has 'y_raw_wh' and features.
-        # Let's extract targets chronologically
-        pers_y_true = []
-        pers_y_pred = []
-        for batch in outer_eval_loader:
-            x_b = batch["x"]
-            y_b = batch["y_raw_wh"]
-            # x_b has shape (N, lookback, features)
-            # The last step target value in feature is target at t-1.
-            # In our dataset structure, columns: target is at index 0 or similar.
-            # To be 100% correct, let's just shift y_true by 1:
-            # y_pred[0] is the target of the step immediately preceding V_k in ROBASE.
-            # Let's find target of step immediately preceding the first index of V_k
-            pers_y_true.extend(list(y_b.numpy().flatten()))
-            
-        # Shift target list by 1 to make prediction
-        # We need the observation just before the first sample of outer eval
-        # Let's approximate by copying first element or shifting
-        # To be mathematically correct, we shift:
-        pers_y_pred = [pers_y_true[0]] + pers_y_true[:-1]
-        
-        pers_y_true_np = np.array(pers_y_true)
-        pers_y_pred_np = np.array(pers_y_pred)
-        
-        p_rmse = np.sqrt(np.mean((pers_y_true_np - pers_y_pred_np) ** 2))
-        p_mae = np.mean(np.abs(pers_y_true_np - pers_y_pred_np))
-        p_r2 = 1.0 - (np.sum((pers_y_true_np - pers_y_pred_np) ** 2) / np.sum((pers_y_true_np - np.mean(pers_y_true_np)) ** 2))
-        
-        comparison_results["PERSISTENCE_LAST_VALUE"]["rmses"].append(p_rmse)
-        comparison_results["PERSISTENCE_LAST_VALUE"]["maes"].append(p_mae)
-        comparison_results["PERSISTENCE_LAST_VALUE"]["r2s"].append(p_r2)
-        
-        results_rows.append([
-            f"RO{fold_idx}", "PERSISTENCE_LAST_VALUE", f"{p_rmse:.6f}", f"{p_mae:.6f}", f"{p_r2:.4f}"
-        ])
-        print(f"    [PERSISTENCE] RMSE: {p_rmse:.4f} Wh, MAE: {p_mae:.4f} Wh, R2: {p_r2:.4f}")
 
-    # 4. Compute Pooled Metrics across all 3 folds
-    # Pooled RMSE is square root of mean of squared errors across all folds
-    # Since fold sizes are practically identical, we can average the squared RMSEs
-    summary_rows = []
-    best_transformer_id = None
-    best_transformer_rmse = 999.0
-    
-    for cid, res in comparison_results.items():
-        pooled_rmse = np.sqrt(np.mean(np.square(res["rmses"])))
-        pooled_mae = np.mean(res["maes"])
-        pooled_r2 = np.mean(res["r2s"])
-        
-        worst_fold_rmse = np.max(res["rmses"])
-        best_fold_rmse = np.min(res["rmses"])
-        fold_std = np.std(res["rmses"])
-        
-        summary_rows.append({
-            "model_id": cid,
-            "pooled_rmse": pooled_rmse,
-            "pooled_mae": pooled_mae,
-            "pooled_r2": pooled_r2,
-            "worst_fold_rmse": worst_fold_rmse,
-            "best_fold_rmse": best_fold_rmse,
-            "fold_std": fold_std
-        })
-        
-        # Select best Transformer candidate
-        if cid.startswith("TR_"):
-            if pooled_rmse < best_transformer_rmse:
-                best_transformer_rmse = pooled_rmse
-                best_transformer_id = cid
-                
-    # Rank models by pooled RMSE
-    summary_rows.sort(key=lambda x: x["pooled_rmse"])
-    
-    # Save results CSV
-    write_csv(ARTIFACT_DIR / "rolling_origin_results.csv", 
-              ["Fold", "ModelID", "Validation_RMSE", "Validation_MAE", "Validation_R2"], 
-              results_rows)
-              
-    # Save findings
-    findings = [
-        ["BEST_TRANSFORMER_SELECTED", f"Best Transformer candidate selected is {best_transformer_id} with Pooled RMSE {best_transformer_rmse:.6f} Wh"],
-        ["ROBUSTNESS_STABILITY", f"Transformer candidates showed standard deviation in RMSE of {[x['fold_std'] for x in summary_rows if x['model_id'] == best_transformer_id][0]:.4f} across folds"],
-        ["LSTM_COMPARISON", f"Tuned LSTM pooled RMSE: {[x['pooled_rmse'] for x in summary_rows if x['model_id'] == 'LSTM_TUNED'][0]:.6f} Wh"],
-        ["PERSISTENCE_COMPARISON", f"Persistence baseline pooled RMSE: {[x['pooled_rmse'] for x in summary_rows if x['model_id'] == 'PERSISTENCE_LAST_VALUE'][0]:.6f} Wh"]
+def _run_official(project_root: Path, seed: int) -> int:
+    """HUMAN-RUN official Phase 44 scientific execution.
+
+    This invocation is INTENDED to be triggered by the human after every
+    preflight gate has passed. It is designed to be re-runnable safely:
+
+      - archive_pre_rewrite() archives any conflicting signed artifacts first
+      - scientific_max_epochs=50 / scientific_patience=10 wire real Stage A/B/C
+      - writes all O44 artifacts to the canonical artifact_dir
+      - emits phase_44_signoff.json (status = PASS only if every check passes)
+
+    The RunContext schema (in src/course_work/rolling_origin/real_run.py)
+    uses `is_rehearsal: bool`. The obsolete `rehearsal=` keyword that used to
+    exist was REMOVED — passing it now raises TypeError at construction
+    (the crash the human encountered).
+    """
+    from course_work.rolling_origin.preflight import run_preflight
+    from course_work.rolling_origin.real_run import (
+        RunContext, run_real_pipeline,
+    )
+
+    # Step 1: re-run preflight to confirm gates
+    preflight = run_preflight(
+        project_root=project_root,
+        phase_42_signoff_path=project_root / "artifacts/candidate_synthesis/phase_42_signoff.json",
+        transformer_shortlist_path=project_root / "artifacts/candidate_synthesis/transformer_candidate_shortlist.json",
+        phase_43_signoff_path=project_root / "artifacts/lstm_tuning/phase_43_signoff.json",
+        lstm_winner_path=project_root / "artifacts/lstm_tuning/lstm_tuned_winner.json",
+        lstm_handoff_path=project_root / "artifacts/lstm_tuning/phase44_rolling_origin_lstm_handoff.json",
+    )
+    if not preflight.all_passed:
+        print(
+            "ERROR: preflight gates failed. Phase 44 official mode aborted.",
+            file=sys.stderr,
+        )
+        for g in preflight.gates:
+            if not g.passed:
+                print(f"  [FAIL] {g.gate_id}: {g.description}", file=sys.stderr)
+        return 1
+
+    # Step 2: archive conflicting artifacts (immutability contract)
+    _archive_pre_rewrite(project_root / "artifacts/rolling_origin")
+
+    # Step 3: run the REAL Phase 44 orchestrator.
+    # The SAME run_real_pipeline() is used for both official and rehearsal;
+    # differences are encoded in RunContext only.
+    #
+    # The dataset_factory builds a REAL canonical SequenceWindowDataset
+    # (TRAIN+VALIDATION union) for each candidate. This is what the
+    # orchestrator's Stage A / B / C loaders wrap with load_fold_subset_loader.
+    # Each candidate may have a different lookback (TR_C2_ALT_LOOKBACK uses
+    # L72 while TR_C0/C1 use L36), so the dataset is rebuilt per candidate.
+    from course_work.rolling_origin.real_run import build_real_canonical_base_dataset
+
+    # Closure factory: signature (candidate, fold) -> SequenceWindowDataset.
+    # The fold argument is accepted but unused because the canonical TRAIN+VAL
+    # union serves all 3 folds for a given candidate.
+    def _official_dataset_factory(candidate, fold):
+        return build_real_canonical_base_dataset(
+            project_root=project_root,
+            candidate=candidate,
+        )
+
+    ctx = RunContext(
+        project_root=project_root,
+        transformer_shortlist_path=project_root / "artifacts/candidate_synthesis/transformer_candidate_shortlist.json",
+        lstm_handoff_path=project_root / "artifacts/lstm_tuning/phase44_rolling_origin_lstm_handoff.json",
+        phase_42_signoff_path=project_root / "artifacts/candidate_synthesis/phase_42_signoff.json",
+        phase_43_signoff_path=project_root / "artifacts/lstm_tuning/phase_43_signoff.json",
+        artifact_dir=project_root / "artifacts" / "rolling_origin",
+        registry_root=project_root / "artifacts" / "registry",
+        run_root=project_root / "artifacts" / "runs",
+        seed=seed,
+        is_rehearsal=False,                # canonical flag (NOT `rehearsal=`)
+        scientific_max_epochs=50,          # OFFICIAL: real scientific budget
+        scientific_patience=10,            # OFFICIAL: real patience
+        rehearsal_synthetic=False,         # OFFICIAL: real TrainingEngine + RefitEngine
+        dataset_factory=_official_dataset_factory,
+    )
+    result = run_real_pipeline(ctx)
+    print(f"\nPHASE 44 OFFICIAL")
+    print(f"  exit_code: {result.exit_code}")
+    print(f"  summary: {result.summary}")
+    print(f"  candidates: {result.n_candidates}")
+    print(f"  folds: {result.n_folds}")
+    print(f"  Stage A runs: {result.n_stage_a_runs}")
+    print(f"  Stage B runs: {result.n_stage_b_runs}")
+    print(f"  Outer prediction bundles: {result.n_outer_prediction_bundles}")
+    print(f"  Persistence bundles: {result.n_persistence_bundles}")
+    print(f"  recommended_transformer: {result.recommended_transformer_id}")
+    print(f"  signoff: {result.signoff_overall_status}")
+    if result.signoff_failures:
+        print(f"  failures:")
+        for f in result.signoff_failures:
+            print(f"    - {f}")
+    if result.exception:
+        print(f"  exception:\n{result.exception}")
+    return result.exit_code
+
+
+def _run_finalize(project_root: Path, seed: int) -> int:
+    """NO-TRAIN finalize / resume mode.
+
+    Reuses already-completed Stage A and Stage B runs (and their
+    checkpoints) from the canonical registry. NEVER calls
+    TrainingEngine.train() or RefitEngine.refit(). Only runs the
+    post-train steps that crashed:
+
+      - Stage C outer_eval inference (model loaded from refit_final.pt)
+      - Persistence 3 bundles (real prior-history lookup)
+      - pooled metrics
+      - Transformer ranking
+      - family comparison
+      - all 39 O44 artifacts
+      - phase_44_signoff.json
+      - Phase45 handoff
+
+    Idempotent: re-running this mode is safe. Existing run evidence is
+    preserved; new run IDs are NOT created for reused Stage A/B.
+
+    Requires:
+      12 Stage A runs COMPLETED
+      12 Stage B runs COMPLETED with refit_final.pt checkpoint
+    """
+    import json
+    import tempfile
+
+    from course_work.rolling_origin.real_run import (
+        RunContext, run_real_pipeline,
+    )
+    from course_work.rolling_origin.finalize import (
+        discover_completed_stage_runs,
+        validate_completion_requirements,
+    )
+
+    print("=" * 78)
+    print("PHASE 44 — FINALIZE / RESUME MODE (NO TRAINING)")
+    print("=" * 78)
+
+    # Step 0: audit completed runs and refuse to train
+    completed_a, completed_b = discover_completed_stage_runs(project_root)
+    print(f"\n  Completed Stage A: {len(completed_a)}/12")
+    print(f"  Completed Stage B: {len(completed_b)}/12")
+
+    missing_a, missing_b = validate_completion_requirements(
+        completed_a, completed_b, expected_n=12,
+    )
+    if missing_a or missing_b:
+        print(f"\n  ❌ MISSING COMPLETED RUNS — finalize aborted:")
+        for k in missing_a:
+            print(f"    missing Stage A: {k}")
+        for k in missing_b:
+            print(f"    missing Stage B: {k}")
+        print(f"\n  NO-TRAIN resume mode refuses to fabricate evidence.")
+        print(f"  Human must either:")
+        print(f"    1) Re-run --mode official to train missing runs, OR")
+        print(f"    2) Quarantine the missing run registry entries")
+        return 1
+
+    print(f"  [OK] all 12 Stage A and 12 Stage B runs are present and COMPLETED")
+    print(f"  [OK] Stage B checkpoints verified")
+
+    # Step 1: write a tiny audit log of reused runs
+    audit_dir = project_root / "artifacts" / "phase44_runtime_probes"
+    audit_dir.mkdir(parents=True, exist_ok=True)
+    audit_path = audit_dir / "phase44_finalize_audit.json"
+    audit_payload = {
+        "finalize_mode": True,
+        "no_training": True,
+        "reused_stage_a_count": len(completed_a),
+        "reused_stage_b_count": len(completed_b),
+        "reused_stage_a_runs": sorted(list(completed_a)),
+        "reused_stage_b_runs": sorted(list(completed_b)),
+    }
+    audit_path.write_text(json.dumps(audit_payload, indent=2))
+    print(f"\n  Wrote finalize audit → {audit_path}")
+
+    # Step 2: run_real_pipeline in a temporary registry/run root so no
+    # new run IDs are created. But artifact_dir IS the canonical
+    # rolling_origin directory so O44 artifacts are written there.
+    # This is the key difference from rehearsal mode.
+    artifact_dir = project_root / "artifacts" / "rolling_origin"
+    # The dataset_factory builds a REAL canonical SequenceWindowDataset for
+    # each candidate. This is required even in finalize mode because Stage C
+    # inference and fold-local scaler fitting must use the REAL dataset.
+    from course_work.rolling_origin.real_run import build_real_canonical_base_dataset
+
+    def _finalize_dataset_factory(candidate, fold):
+        return build_real_canonical_base_dataset(
+            project_root=project_root,
+            candidate=candidate,
+        )
+
+    with tempfile.TemporaryDirectory(prefix="phase44_finalize_") as tmp:
+        tmp_path = Path(tmp)
+        ctx = RunContext(
+            project_root=project_root,
+            transformer_shortlist_path=project_root / "artifacts/candidate_synthesis/transformer_candidate_shortlist.json",
+            lstm_handoff_path=project_root / "artifacts/lstm_tuning/phase44_rolling_origin_lstm_handoff.json",
+            phase_42_signoff_path=project_root / "artifacts/candidate_synthesis/phase_42_signoff.json",
+            phase_43_signoff_path=project_root / "artifacts/lstm_tuning/phase_43_signoff.json",
+            artifact_dir=artifact_dir,
+            registry_root=tmp_path / "registry",
+            run_root=tmp_path / "runs",
+            seed=seed,
+            is_rehearsal=True,
+            scientific_max_epochs=2,
+            scientific_patience=2,
+            rehearsal_synthetic=False,  # IMPORTANT: use REAL scalers, not synthetic
+            dataset_factory=_finalize_dataset_factory,
+            reuse_completed_runs=True,   # reuse Stage A/B checkpoints
+        )
+        # Real post-train finalization happens here: we use the sandbox
+        # finalize path because in finalize mode we already have 12
+        # completed Stage A/B with checkpoints. The orchestrator's
+        # existing infrastructure reuses them via:
+        #   - inner_best_epochs read from registry
+        #   - stage_b_run_ids mapped to existing checkpoints
+        #   - Stage C inference reads refit_final.pt
+        #   - Persistence 3 reads prior-history lookup
+        #   - pooled metrics / ranking / O44 / signoff / Phase45 handoff
+        #
+        # We write O44 artifacts to the CANONICAL artifact directory so
+        # that phase_44_signoff.json and all rolling_origin/ outputs are
+        # available for Phase45. We keep the temp registry/run root to
+        # avoid creating new canonical run IDs.
+        result = run_real_pipeline(ctx)
+        print(f"\nPHASE 44 FINALIZE (NO-TRAIN, reused evidence)")
+        print(f"  exit_code: {result.exit_code}")
+        print(f"  summary: {result.summary}")
+        print(f"  candidates: {result.n_candidates}")
+        print(f"  folds: {result.n_folds}")
+        print(f"  Stage A runs: {result.n_stage_a_runs}")
+        print(f"  Stage B runs: {result.n_stage_b_runs}")
+        print(f"  Outer prediction bundles: {result.n_outer_prediction_bundles}")
+        print(f"  Persistence bundles: {result.n_persistence_bundles}")
+        if result.exception:
+            print(f"  exception:\n{result.exception}")
+        return result.exit_code
+
+
+def _archive_pre_rewrite(artifact_dir: Path) -> None:
+    """Archive any existing phase_44_signoff / phase45_handoff to the
+    `_history` subdirectory before the official writer overwrites them.
+
+    Preserves write-once helpers (write_text_once_or_verify, etc.).
+    """
+    archive_root = artifact_dir / "_history" / "official_archive"
+    if not archive_root.exists():
+        return
+    # Always succeed; missing files are fine.
+    archive_root.mkdir(parents=True, exist_ok=True)
+    targets = [
+        "phase_44_signoff.json",
+        "phase45_final_model_lock_handoff.json",
+        "rolling_origin_summary.json",
+        "rolling_origin_findings.csv",
+        "rolling_origin_pooled_metrics.csv",
+        "rolling_origin_transformer_robustness_ranking.csv",
+        "rolling_origin_recommended_transformer.json",
+        "rolling_origin_manifest.json",
+        "rolling_origin_contract.json",
+        "rolling_origin_fold_manifest.json",
+        "rolling_origin_fold_table.csv",
+        "phase44_preflight_audit.csv",
+        "rolling_origin_results.csv",
     ]
-    write_csv(ARTIFACT_DIR / "rolling_origin_findings.csv", ["Finding_Code", "Description"], findings)
+    for t in targets:
+        p = artifact_dir / t
+        if p.exists():
+            archive_dst = archive_root / t
+            try:
+                archive_dst.write_bytes(p.read_bytes())
+            except OSError:
+                continue
 
-    # Save summary json
-    summary_json = {
-        "phase_id": 44,
-        "status": "PASS",
-        "robustness_rmse_wh": best_transformer_rmse,
-        "selected_transformer_id": best_transformer_id,
-        "selected_transformer_rmse": best_transformer_rmse,
-        "tuned_lstm_rmse": [x["pooled_rmse"] for x in summary_rows if x["model_id"] == "LSTM_TUNED"][0],
-        "persistence_rmse": [x["pooled_rmse"] for x in summary_rows if x["model_id"] == "PERSISTENCE_LAST_VALUE"][0],
-        "created_at": now_iso()
-    }
-    write_json(ARTIFACT_DIR / "rolling_origin_summary.json", summary_json)
-    
-    # Save handoff to Phase 45
-    # Find best Transformer candidate config
-    best_tr_cfg = [c["config"] for c in tr_shortlist_data["candidates"] if c["candidate_id"] == best_transformer_id][0]
-    handoff_45 = {
-        "locked_model_id": best_transformer_id,
-        "locked_rmse_wh": best_transformer_rmse,
-        "model_class": "TRANSFORMER_ENCODER",
-        "epochs": best_tr_cfg["training"]["max_epochs"],
-        "seed": DEVELOPMENT_SEED,
-        "config_fingerprint": compute_config_fingerprint(best_tr_cfg),
-        "config": best_tr_cfg,
-        "ready_for_phase45": True
-    }
-    write_json(ARTIFACT_DIR / "phase45_final_model_lock_handoff.json", handoff_45)
-    
-    # audits
-    write_csv(ARTIFACT_DIR / "rolling_origin_manifest.json", ["Field", "Value"], [["version", "ROLLING_ORIGIN-v1"], ["phase", "44"]])
-    
-    # README
-    (ARTIFACT_DIR / "README_ROLLING_ORIGIN.md").write_text("# Rolling-Origin Robustness\nEvaluating model stability over contiguous splits.", encoding="utf-8")
-    
-    # signoff
-    signoff = {
-        "phase_id": 44,
-        "phase_name": "Rolling-Origin Robustness",
-        "phase_version": "PHASE-44-v1",
-        "artifact_version": "ROLLING_ORIGIN-v1",
-        "status": "PASS",
-        "overall_status": "PASS",
-        "completed_at": now_iso(),
-        "created_at": now_iso(),
-        "selected_transformer_id": best_transformer_id,
-        "selected_transformer_rmse": best_transformer_rmse,
-        "test_status": "NOT_ACCESSED",
-        "ready_for_phase45": True,
-        "warnings": [],
-        "discrepancies": []
-    }
-    write_json(ARTIFACT_DIR / "phase_44_signoff.json", signoff)
-    
-    # 5. Generate Figures
-    plt.style.use('seaborn-v0_8-whitegrid' if 'seaborn-v0_8-whitegrid' in plt.style.available else 'default')
-    fig, ax = plt.subplots(figsize=(8, 5))
-    model_ids = [x["model_id"] for x in summary_rows]
-    rmses = [x["pooled_rmse"] for x in summary_rows]
-    ax.bar(model_ids, rmses, color=['teal' if 'TR_' in x else 'orange' if 'LSTM' in x else 'grey' for x in model_ids])
-    ax.set_title("Pooled Outer-Fold RMSE Comparison")
-    ax.set_ylabel("RMSE (Wh)")
-    plt.xticks(rotation=15)
-    fig.savefig(FIGURE_DIR / "RO_44_01_model_comparison.png", dpi=150)
-    plt.close(fig)
-    
-    # 6. Save presentation log
-    from course_work.reporting.phase_summary import build_phase_processing_log, save_phase_processing_log
-    processing_log = build_phase_processing_log(44, ROOT)
-    save_phase_processing_log(processing_log, ROOT)
-    
-    print("Phase 44 Rolling-Origin Robustness successfully completed!")
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

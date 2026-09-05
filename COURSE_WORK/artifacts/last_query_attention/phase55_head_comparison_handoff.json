@@ -1,0 +1,49 @@
+{
+  "_metadata_correction_note": "Metadata corrective 2026-09-05T09:06:22.037809+00:00: final_lock_sha256 corrected from seed42 NPZ SHA (71075d9cc639c3f08a2a7ef571d7e14260254d5fd12d5f1d7159cd88aa35e23a) to combined_lock_sha256 (81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec).",
+  "_old_final_lock_sha256": "71075d9cc639c3f08a2a7ef571d7e14260254d5fd12d5f1d7159cd88aa35e23a",
+  "_test_population_note": "test_population_sha256 = c7039090 (attention_test_target_order.csv, Phase52); phase47_canonical_test_population_sha256 = d7dbc0b3 (Phase47 canonical).",
+  "contract_sha256": "c505f876573db3b098b3bb15631c9ca4e537eb0d2899a9b2651d2dea6d20e4a1",
+  "corrected_artifact_shas": {
+    "last_query_attention_contract.json": "a29e9e867841603ba383d2067526b7d4dba65fb8a25ff0b697489a6e31372b20",
+    "last_query_lag_bin_mass.csv": "ce130031afb4555e7a796c05098647981320a73e092526a30f49ad2f9b210a4f",
+    "last_query_metrics_long.csv": "fc2fa821e140af5971acfcf9881c3b0d4f43cc3e7b592a3a3d2535c4ed5e56c5",
+    "metric_summary_by_head.csv": "df08ce2c0c89907fbacbdde0e2fc3c0c2df0fc4ba06f6d9f8e00ae3bdb7e6dab"
+  },
+  "coverage_radius_summary": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_coverage_radius_summary.csv",
+  "downstream_name": "Head Comparison",
+  "downstream_phase": 55,
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "head_order": "ARCHITECTURAL_INDEX",
+  "head_ranking_performed": false,
+  "head_semantic_alignment_across_seeds": false,
+  "heads": 4,
+  "lag_bin_mass": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_lag_bin_mass.csv",
+  "last_query_metrics_long": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metrics_long.csv",
+  "layers": 2,
+  "lookback": 72,
+  "metadata_corrective_at_utc": "2026-09-05T09:06:22.037809+00:00",
+  "metric_summary_by_head": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metric_summary_by_head.csv",
+  "n_metrics_rows": 71064,
+  "phase": 54,
+  "phase47_canonical_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "phase55_authorized": false,
+  "profile_by_lag": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_profile_by_lag.csv",
+  "raw_last_query_seed42_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "raw_last_query_sha256": {
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19",
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff"
+  },
+  "ready_for_phase55": true,
+  "recent_mass_summary": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_recent_mass_summary.csv",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "source_phase54_corrective_at_utc": "2026-09-05T08:57:17.401832+00:00",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "top1_lag_frequency": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_top1_lag_frequency.csv"
+}

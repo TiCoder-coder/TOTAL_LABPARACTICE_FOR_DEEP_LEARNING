@@ -1,0 +1,52 @@
+{
+  "V1_scope": "all dense cases \u00d7 all seeds (rows=layers, columns=heads)",
+  "V2_scope": "Phase51 W2 SHARED_WORST ranks 1-5 \u00d7 all layers (rows=seeds, columns=heads)",
+  "V3_scope": "shared top5 cases \u00d7 seed \u00d7 layer \u00d7 head \u00d7 mode (deterministic only)",
+  "color": "sequential perceptually uniform",
+  "colorbar_label": "Attention weight",
+  "display": {
+    "query_oldest_to_newest": "top_to_bottom",
+    "source_oldest_to_newest": "left_to_right"
+  },
+  "forbidden": [
+    "per-panel autoscale",
+    "percentile clipping",
+    "log transform",
+    "head averaging as primary",
+    "seed averaging as primary",
+    "head ranking",
+    "case cherry-picking",
+    "causal claim",
+    "feature importance claim"
+  ],
+  "interpolation": "NONE_OR_NEAREST",
+  "masks": "no causal triangle hiding",
+  "matrix_transform": "NONE",
+  "mode_A_scale": [
+    0.0,
+    1.0
+  ],
+  "mode_B_scale": {
+    "vmax": "case-wide max across all 3 seeds \u00d7 all layers \u00d7 all heads",
+    "vmin": 0.0
+  },
+  "per_map_axes": {
+    "x": "source",
+    "y": "query"
+  },
+  "position_order": {
+    "position_0": "OLDEST",
+    "position_L_minus_1": "NEWEST"
+  },
+  "raw_dense_shape": [
+    44,
+    2,
+    4,
+    72,
+    72
+  ],
+  "raw_dtype": "float32",
+  "raw_source": "Phase52 float32 dense attention NPZ only",
+  "status": "FROZEN",
+  "version": "ATTENTION_HEATMAPS-v1"
+}

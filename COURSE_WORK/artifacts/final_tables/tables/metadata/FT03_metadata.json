@@ -1,0 +1,36 @@
+{
+  "table_id": "FT03",
+  "title": "Rolling-Origin Temporal Robustness (DEVELOPMENT_EVIDENCE)",
+  "evidence_class": "DEVELOPMENT_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "DEVELOPMENT_EVIDENCE only. Pooled RMSE is the primary criterion; mean fold RMSE is secondary."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 5,
+  "csv_path": "artifacts/final_tables/tables/csv/FT03_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT03_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT03_rows.tex",
+  "csv_sha256": "953d2f7f9c968729431777b682edcb407a0796e7ffe231a0b2a6601f195ecbbe",
+  "markdown_sha256": "003d12ef4203bba887c33584160a87ef548431f14a968d3c1941bac7945574c9",
+  "latex_sha256": "83c1c5b1616ea1931473a9389632a58bddc59e1f61a00422634ff315de377930"
+}

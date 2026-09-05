@@ -1,11 +1,159 @@
 {
-  "config": {
+  "approved_for_phase45": true,
+  "fold_rmse_sd_wh": 7.921445162773814,
+  "lstm_tuned_context": {
+    "data": {
+      "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+      "feature_count": 33,
+      "feature_names": [
+        "lights",
+        "T1",
+        "RH_1",
+        "T2",
+        "RH_2",
+        "T3",
+        "RH_3",
+        "T4",
+        "RH_4",
+        "T5",
+        "RH_5",
+        "T6",
+        "RH_6",
+        "T7",
+        "RH_7",
+        "T8",
+        "RH_8",
+        "T9",
+        "RH_9",
+        "T_out",
+        "Press_mm_hg",
+        "RH_out",
+        "Windspeed",
+        "Visibility",
+        "Tdewpoint",
+        "Appliances",
+        "rv1",
+        "rv2",
+        "hour_sin",
+        "hour_cos",
+        "dow_sin",
+        "dow_cos",
+        "weekend"
+      ],
+      "feature_variant_id": "FS2_TF1",
+      "horizon_steps": 1,
+      "lookback_steps": 36,
+      "sampling_interval_minutes": 10,
+      "target_access_mode": "VALIDATION",
+      "target_scaling_option": "YS1",
+      "test_access_enabled": false,
+      "test_locked": true,
+      "test_sample_count": 0,
+      "train_sample_count": 13670,
+      "validation_sample_count": 2960
+    },
+    "lineage": {
+      "dataloader_fingerprint": "e18ee56249c0e054862bf4bfd3cabe08f82a40959a9acd45af891c8dc0ba2808",
+      "dataloader_version": "DATALOADERS-v1",
+      "dataset_fingerprint": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+      "dataset_revision": "DATA-v1",
+      "eda_version": "EDA-v1",
+      "environment_id": "ENV-v1",
+      "feature_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+      "feature_set_version": "FEATURESETS-v1",
+      "feature_version": "FEATURES-v1",
+      "global_split_fingerprint": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
+      "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+      "metric_version": "METRICS-v1",
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "population_version": "WINDOWPOP-v1",
+      "scaler_bundle_checksum": "4e7c96d5accc2917855ed669b33d2666b3aa07f6b83b40097a9690c6a5f5e334",
+      "scaler_bundle_id": "XSCALER__FS2_TF1",
+      "scaling_version": "SCALING-v1",
+      "schema_version": "SCHEMA-v1",
+      "split_version": "SPLIT-v1",
+      "target_scaler_bundle_id": "YSCALER__YS1",
+      "target_scaler_checksum": "b3326a79da81b092460ef8d4a140a101b21f2433ff30c36971d626d2a2491697",
+      "temporal_version": "TEMPORAL-v1",
+      "train_dataloader_fingerprint": "471601b7f6352a699f84d72bfeeb7bb82b1ac52b90a3ffe0fa980a07fc0a3f08",
+      "validation_dataloader_fingerprint": "e18ee56249c0e054862bf4bfd3cabe08f82a40959a9acd45af891c8dc0ba2808",
+      "window_fingerprint": "8dea0fb4f44b7acb264a5d840f0f44c0b2c3481f42e5d459a2294f7572cc6bae",
+      "window_version": "WINDOWS-v1"
+    },
+    "model": {
+      "batch_first": true,
+      "bidirectional": false,
+      "dropout": 0.1,
+      "hidden_size": 64,
+      "implementation_version": "LSTM_IMPL-v1",
+      "input_size": 33,
+      "model_family": "LSTM",
+      "model_name": "LSTM Regressor",
+      "model_version": "LSTM-v1",
+      "num_layers": 2,
+      "output_size": 1,
+      "pooling": "LAST_STEP"
+    },
+    "reproducibility": {
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "dataloader_seed": 42,
+      "deterministic_mode": "D0",
+      "global_seed": 42,
+      "seed": 42,
+      "torch_deterministic_algorithms": true,
+      "worker_seed_policy": "torch_initial_seed_mod_2_32_numpy_python"
+    },
+    "runtime": {
+      "device_name": "mps",
+      "device_type": "mps",
+      "dtype": "float32",
+      "mixed_precision": false,
+      "num_workers": 0,
+      "pin_memory": false,
+      "platform": "Darwin",
+      "python_version": "3.10.11",
+      "sklearn_version": "1.7.2",
+      "torch_version": "2.13.0"
+    },
+    "training": {
+      "batch_size": 64,
+      "early_stopping_enabled": true,
+      "early_stopping_metric": "rmse_wh",
+      "early_stopping_min_delta": 0,
+      "early_stopping_mode": "MIN",
+      "early_stopping_patience": 10,
+      "enabled": true,
+      "gradient_clip_max_norm": 1.0,
+      "gradient_clipping_enabled": true,
+      "huber_delta": null,
+      "learning_rate": 0.0003,
+      "loss_name": "MSE",
+      "max_epochs": 50,
+      "optimizer_name": "AdamW",
+      "revin_affine": null,
+      "revin_enabled": false,
+      "revin_eps": null,
+      "revin_target_channels": null,
+      "scheduler_config": null,
+      "scheduler_name": null,
+      "weight_decay": 0.0
+    }
+  },
+  "mean_fold_rmse_wh": 59.859533225269715,
+  "persistence_context": {
+    "model_id": "PERSISTENCE_LAST_VALUE",
+    "pooled_rmse_wh": 66.42970273458556,
+    "version": "WB0_LAST_STEP_v1"
+  },
+  "recommended_transformer_candidate_id": "TR_C2_ALT_LOOKBACK",
+  "recommended_transformer_config": {
     "data": {
       "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
       "feature_count": 33,
       "feature_variant_id": "FS2_TF1",
       "horizon_steps": 1,
-      "lookback_steps": 36,
+      "lookback_steps": 72,
       "sampling_interval_minutes": 10,
       "target_access_mode": "VALIDATION",
       "target_scaling_option": "YS1",
@@ -102,11 +250,71 @@
       "weight_decay": 0.001
     }
   },
-  "config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
-  "epochs": 50,
-  "locked_model_id": "TR_C0_PRIMARY",
-  "locked_rmse_wh": 61.50746536254883,
-  "model_class": "TRANSFORMER_ENCODER",
-  "ready_for_phase45": true,
-  "seed": 42
+  "recommended_transformer_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "recommended_transformer_inner_best_epochs": {
+    "RO1": 30,
+    "RO2": 37,
+    "RO3": 19
+  },
+  "recommended_transformer_stage_a_run_ids": {
+    "RO1": "RUN_TR_ROB_0008_7830AC38",
+    "RO2": "RUN_TR_ROB_0012_BACCF17A",
+    "RO3": "RUN_TR_ROB_0016_007F2C62"
+  },
+  "recommended_transformer_stage_b_run_ids": {
+    "RO1": "RUN_TR_ROB_0020_E789F80E",
+    "RO2": "RUN_TR_ROB_0024_A615974C",
+    "RO3": "RUN_TR_ROB_0028_81ED5358"
+  },
+  "rolling_origin_fold_metrics": [],
+  "rolling_origin_pooled_metrics": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "pooled_mae_wh": 27.950651178167792,
+      "pooled_r2": 0.5788465716025317,
+      "pooled_rmse_wh": 59.85979463604273
+    },
+    {
+      "candidate_id": "TR_C0_PRIMARY",
+      "pooled_mae_wh": 26.20607341889053,
+      "pooled_r2": 0.5765002082540295,
+      "pooled_rmse_wh": 60.02631084640269
+    },
+    {
+      "candidate_id": "TR_C1_ALT_WEIGHT_DECAY",
+      "pooled_mae_wh": 25.662137698085974,
+      "pooled_r2": 0.5737607191900489,
+      "pooled_rmse_wh": 60.22014370275604
+    }
+  ],
+  "source_phase44_version": "ROBASE-v1",
+  "test_status": "NOT_ACCESSED",
+  "transformer_ranking": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "fold_rmse_sd_wh": 7.921445162773814,
+      "pooled_rmse_wh": 59.85979463604273,
+      "rank": 1,
+      "shortlist_position": 2,
+      "worst_fold_rmse_wh": 69.15856291676356
+    },
+    {
+      "candidate_id": "TR_C0_PRIMARY",
+      "fold_rmse_sd_wh": 8.841567570449113,
+      "pooled_rmse_wh": 60.02631084640269,
+      "rank": 2,
+      "shortlist_position": 0,
+      "worst_fold_rmse_wh": 69.9404340851858
+    },
+    {
+      "candidate_id": "TR_C1_ALT_WEIGHT_DECAY",
+      "fold_rmse_sd_wh": 7.460326844467699,
+      "pooled_rmse_wh": 60.22014370275604,
+      "rank": 3,
+      "shortlist_position": 1,
+      "worst_fold_rmse_wh": 68.49317853909878
+    }
+  ],
+  "warnings": [],
+  "worst_fold_rmse_wh": 69.15856291676356
 }

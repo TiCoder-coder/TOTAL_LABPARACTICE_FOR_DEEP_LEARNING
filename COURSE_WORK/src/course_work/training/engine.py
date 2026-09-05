@@ -129,6 +129,8 @@ class TrainingEngine:
         lookback_steps: int,
         horizon_steps: int,
         boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
+        evaluation_mode_override: str | None = None,
+        population_context=None,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, Any]:
         model.eval()
         sample_indices: list[int] = []
@@ -148,7 +150,15 @@ class TrainingEngine:
                 sample_indices.extend(sample_idx.tolist())
                 y_true_wh.extend(true_wh.tolist())
                 y_pred_wh.extend(pred_wh.tolist())
-        evaluation_mode = EvaluationMode.TRAIN_DIAGNOSTIC.value if split_id == "TRAIN" else EvaluationMode.VALIDATION.value
+        # Use explicit override for FINAL_DEV_DIAGNOSTIC; otherwise derive from split_id.
+        if evaluation_mode_override:
+            evaluation_mode = evaluation_mode_override
+        elif split_id.upper() == "FINAL_DEV":
+            evaluation_mode = EvaluationMode.FINAL_DEV_DIAGNOSTIC.value
+        elif split_id.upper() == "TRAIN":
+            evaluation_mode = EvaluationMode.TRAIN_DIAGNOSTIC.value
+        else:
+            evaluation_mode = EvaluationMode.VALIDATION.value
         metric_result = compute_regression_metrics(
             np.asarray(y_true_wh),
             np.asarray(y_pred_wh),
@@ -162,6 +172,7 @@ class TrainingEngine:
             horizon_steps=horizon_steps,
             target_scaling_option=target_option,
             boundary_protocol=boundary_protocol,
+            population_context=population_context,
         )
         return (
             np.asarray(sample_indices, dtype=np.int64),
@@ -181,6 +192,10 @@ class TrainingEngine:
         population_fingerprint: str,
         boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
         evaluate_validation: bool = True,
+        final_refit_mode: bool = False,
+        train_population_context=None,
+        validation_population_context=None,
+        validation_population_fingerprint: str | None = None,
     ) -> TrainingResult:
         record = self.registry.get_run(run_id)
         config = record["config"]
@@ -302,6 +317,13 @@ class TrainingEngine:
             print(f"  [TRAIN] epoch {epoch} - train_loss={train_loss:.4f} - evaluating...", flush=True)
 
             _write_heartbeat(epoch, "eval_train_started")
+            # In Phase 46 FINAL_REFIT mode, the optimizer trains over FINAL_DEV
+            # (TRAIN + VALIDATION).  Diagnostic evaluation must therefore also
+            # be over FINAL_DEV population to avoid population mismatch failures.
+            if final_refit_mode:
+                eval_split_id = "FINAL_DEV"
+            else:
+                eval_split_id = "TRAIN"
             _, train_true, train_pred, train_metric = self._evaluate_loader(
                 model,
                 train_loader,
@@ -310,11 +332,15 @@ class TrainingEngine:
                 target_scaler_bundle,
                 run_id,
                 model_id,
-                "TRAIN",
+                eval_split_id,
                 population_fingerprint,
                 data["lookback_steps"],
                 data["horizon_steps"],
                 boundary_protocol,
+                evaluation_mode_override=(
+                    "FINAL_DEV_DIAGNOSTIC" if final_refit_mode else None
+                ),
+                population_context=train_population_context,
             )
             if evaluate_validation:
                 _write_heartbeat(epoch, "eval_val_started")
@@ -327,10 +353,11 @@ class TrainingEngine:
                     run_id,
                     model_id,
                     "VALIDATION",
-                    population_fingerprint,
+                    validation_population_fingerprint or population_fingerprint,
                     data["lookback_steps"],
                     data["horizon_steps"],
                     boundary_protocol,
+                    population_context=validation_population_context,
                 )
             else:
                 sample_idx = np.array([], dtype=np.int64)
@@ -387,9 +414,19 @@ class TrainingEngine:
             raise RuntimeError("Training did not produce a best checkpoint")
         model.load_state_dict(best_state)
         history = pd.DataFrame(history_rows, columns=HISTORY_COLUMNS)
+
+        # FINAL_REFIT semantics: when evaluate_validation=False, official_epoch
+        # equals the final epoch (max_epochs), not the early-stop best_epoch.
+        # early_stop.best_epoch is None when early stopping is disabled, so
+        # we use max_epochs as the canonical final epoch for FINAL_REFIT.
+        if evaluate_validation:
+            official_epoch = int(early_stop.best_epoch or 1)
+        else:
+            official_epoch = max_epochs
+
         return TrainingResult(
             history=history,
-            best_epoch=int(early_stop.best_epoch or 1),
+            best_epoch=official_epoch,
             best_validation_rmse_wh=float(best_metric_result.rmse_wh),
             metric_result=best_metric_result,
             trainable_parameters=sum(parameter.numel() for parameter in model.parameters() if parameter.requires_grad),
@@ -492,6 +529,10 @@ class TrainingEngine:
         ):
             self.registry.register_artifact(run_id, artifact_type, path, required=artifact_type != ArtifactType.PREDICTIONS.value)
         metric = result.metric_result
+        # The split_id used for registry MUST match the metric_result's split_id.
+        # In FINAL_REFIT mode this is "FINAL_DEV" (TRAIN+VALIDATION union).
+        # In standard TRAINING mode this is "VALIDATION".
+        registry_split_id = metric.split_id or "VALIDATION"
         for metric_name, metric_value in (
             ("mae_wh", metric.mae_wh),
             ("rmse_wh", metric.rmse_wh),
@@ -499,7 +540,7 @@ class TrainingEngine:
         ):
             self.registry.register_metric(
                 run_id,
-                "VALIDATION",
+                registry_split_id,
                 metric_name,
                 metric_value,
                 metric_unit_for(metric_name),
@@ -511,7 +552,7 @@ class TrainingEngine:
         registered_metrics = {
             item["metric_name"]
             for item in self.registry.get_run(run_id)["metrics"]
-            if item["split_id"] == "VALIDATION"
+            if item["split_id"] == registry_split_id
             and item["epoch_or_checkpoint"] == f"epoch_{result.best_epoch}"
         }
         missing_metrics = {"mae_wh", "rmse_wh", "r2"} - registered_metrics
@@ -524,7 +565,7 @@ class TrainingEngine:
             for metric_name in sorted(missing_metrics):
                 self.registry.register_metric(
                     run_id,
-                    "VALIDATION",
+                    registry_split_id,
                     metric_name,
                     metric_values[metric_name],
                     metric_unit_for(metric_name),
@@ -536,7 +577,7 @@ class TrainingEngine:
             registered_metrics = {
                 item["metric_name"]
                 for item in self.registry.get_run(run_id)["metrics"]
-                if item["split_id"] == "VALIDATION"
+                if item["split_id"] == registry_split_id
                 and item["epoch_or_checkpoint"] == f"epoch_{result.best_epoch}"
             }
         if {"mae_wh", "rmse_wh", "r2"} - registered_metrics:

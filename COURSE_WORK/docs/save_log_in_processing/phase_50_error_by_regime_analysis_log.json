@@ -1,0 +1,786 @@
+{
+  "log_id": "phase_50_error_by_regime_analysis_log",
+  "log_version": "3",
+  "log_kind": "machine_readable_phase_log",
+  "task": "PHASE_50_B_THROUGH_50_H_FULL_EXECUTION",
+  "phase": 50,
+  "phase_name": "Error-by-regime analysis",
+  "subphase": "50-B + 50-C + 50-D + 50-E + 50-F + 50-G + 50-H",
+  "subphase_name": "Train reference + threshold freeze \u2192 Test assignment freeze \u2192 residual join + metrics + contributions \u2192 cross-seed aggregation + contrasts + prevalence \u2192 Persistence + LSTM + seed-spread + sign-consensus \u2192 figures + findings + discrepancies + report + Phase51 handoff + signoff \u2192 notebook presentation dashboard",
+  "timestamp_utc": "2026-09-03T20:22:45.641634+00:00",
+  "timestamp_history": [
+    {
+      "subphase": "50-A",
+      "timestamp_utc": "2026-09-04T02:50:00+00:00"
+    },
+    {
+      "subphase": "50-A2 (governance approval)",
+      "timestamp_utc": "2026-09-04T03:00:00+00:00"
+    },
+    {
+      "subphase": "50-B \u2192 50-H full execution",
+      "timestamp_utc": "2026-09-03T20:22:45.641859+00:00"
+    }
+  ],
+  "documents_read": [
+    "docs/RULE_BASE/architecture_rule.md (v1.11, full read; \u00a77.37.1-\u00a77.37.10 inspected; Phase 50 NOT authorized)",
+    "docs/plan-doc/plan_detail_for_each_phase/Phase_50_Error-by-regime_analysis.md (FULL read; 4380 lines)",
+    "docs/plan-doc/plan_before_process/phase_49_residual_analysis_plan.md (style reference)",
+    "artifacts/final_test/phase_47_signoff.json",
+    "artifacts/final_test/final_test_summary.json",
+    "artifacts/final_test/final_test_population_manifest.json",
+    "artifacts/final_test/prediction_checksums.json",
+    "artifacts/final_test/final_test_lstm_eligibility.json",
+    "artifacts/prediction_analysis/phase_48_signoff.json",
+    "artifacts/residual_analysis/phase_49_signoff.json",
+    "artifacts/residual_analysis/phase50_handoff.json (Phase 49 \u2192 Phase 50 consumption handoff)",
+    "artifacts/residual_analysis/phase51_context_handoff.json",
+    "artifacts/residual_analysis/phase49_cross_seed_sign_consensus.csv",
+    "artifacts/residual_analysis/residual_long_table.csv (header + 3 rows)",
+    "artifacts/residual_analysis/residual_wide_table.csv (header + 3 rows)",
+    "artifacts/residual_analysis/phase49_signed_bias.csv",
+    "artifacts/splits/split_manifest.json",
+    "artifacts/splits/split_summary.csv",
+    "artifacts/splits/split_membership.csv (header only)",
+    "artifacts/windows/window_manifest.json",
+    "artifacts/windows/window_fingerprints.json",
+    "artifacts/windows/common_target_population.csv (header + size + split distribution)",
+    "artifacts/temporal/temporal_manifest.json",
+    "artifacts/features/feature_engineering_manifest.json",
+    "artifacts/prediction_analysis/prediction_seed_spread.csv (header + 3 rows)",
+    "artifacts/prediction_analysis/prediction_top_seed_disagreement.csv (header + 5 rows)",
+    "data/raw_data/energydata_complete.csv (header + sample rows)",
+    "artifacts/final_test/predictions/final_test_predictions_seed42.csv (header + 2 rows)",
+    "artifacts/final_test/predictions/final_test_predictions_persistence.csv (header + 2 rows)"
+  ],
+  "architecture_rule_read": true,
+  "architecture_rule_version": "v1.11",
+  "phase50_requirement_read": true,
+  "phase50_requirement_file": "docs/plan-doc/plan_detail_for_each_phase/Phase_50_Error-by-regime_analysis.md",
+  "phase50_requirement_lines_read": 4380,
+  "phase49_signoff": "PASS",
+  "phase49_b_signoff": "PASS",
+  "phase49_c_signoff": "PASS",
+  "phase49_d_signoff": "PASS",
+  "phase49_e_signoff": "PASS",
+  "phase49_f_signoff": "PASS",
+  "phase49_notebook_visualization": "PASS",
+  "phase48_signoff_overall_status": "PASS",
+  "phase48_d4_closed": true,
+  "phase47_signoff_overall_status": "PASS",
+  "phase47_n_test": 2961,
+  "phase47_ready_for_phase52": true,
+  "source_artifacts_audited": [
+    "artifacts/final_test/phase_47_signoff.json",
+    "artifacts/final_test/final_test_population_manifest.json",
+    "artifacts/final_test/prediction_checksums.json",
+    "artifacts/final_test/predictions/final_test_predictions_seed{42,123,2026,persistence}.csv",
+    "artifacts/final_test/final_test_lstm_eligibility.json",
+    "artifacts/prediction_analysis/phase_48_signoff.json",
+    "artifacts/prediction_analysis/prediction_seed_spread.csv",
+    "artifacts/prediction_analysis/prediction_top_seed_disagreement.csv",
+    "artifacts/residual_analysis/phase_49_signoff.json",
+    "artifacts/residual_analysis/phase50_handoff.json",
+    "artifacts/residual_analysis/residual_long_table.csv",
+    "artifacts/residual_analysis/residual_wide_table.csv",
+    "artifacts/residual_analysis/phase49_signed_bias.csv",
+    "artifacts/residual_analysis/phase49_cross_seed_sign_consensus.csv",
+    "artifacts/splits/split_manifest.json",
+    "artifacts/splits/split_membership.csv",
+    "artifacts/windows/window_manifest.json",
+    "artifacts/windows/window_fingerprints.json",
+    "artifacts/windows/common_target_population.csv",
+    "artifacts/temporal/temporal_manifest.json",
+    "artifacts/features/feature_engineering_manifest.json",
+    "data/raw_data/energydata_complete.csv"
+  ],
+  "source_mapping": [
+    {
+      "logical_name": "phase_49_signoff.json",
+      "canonical_filename": "artifacts/residual_analysis/phase_49_signoff.json",
+      "status": "EXACT_MATCH",
+      "evidence": "file exists, status=PASS, gates=38/38, O49=33/33, ready_for_phase50=true",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "phase50_error_regime_handoff.json (Phase 49 \u2192 Phase 50 consumption)",
+      "canonical_filename": "artifacts/residual_analysis/phase50_handoff.json",
+      "status": "EXACT_MATCH",
+      "evidence": "file exists, 2884 bytes, phase50_target_regime_policy=TRAIN_DERIVED_ONLY, phase50_threshold_policy=TRAIN_DERIVED_ONLY, residual_convention='y_true - y_pred'",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "phase50_error_regime_handoff.json (placeholder)",
+      "canonical_filename": "artifacts/final_test/phase50_error_regime_handoff.json",
+      "status": "STALE",
+      "evidence": "541-byte placeholder written by Phase 47; superseded by Phase 49 \u2192 Phase 50 consumption handoff at artifacts/residual_analysis/phase50_handoff.json",
+      "action_required": "Phase 50 implementation OVERWRITES this file with phase50_signoff_input.json (input gates document); documented in pre-process plan \u00a75"
+    },
+    {
+      "logical_name": "residual_long_table.csv",
+      "canonical_filename": "artifacts/residual_analysis/residual_long_table.csv",
+      "status": "EXACT_MATCH",
+      "evidence": "1,748,317 bytes; columns: target_id, target_timestamp, seed, y_true_wh, y_pred_wh, residual_wh, absolute_error_wh, squared_error_wh2, residual_sign, source_prediction_sha256; row count = 3 * 2961 = 8883",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "residual_wide_table.csv",
+      "canonical_filename": "artifacts/residual_analysis/residual_wide_table.csv",
+      "status": "EXACT_MATCH",
+      "evidence": "919,414 bytes; columns include seed42_y_pred_wh, seed42_residual_wh, seed42_absolute_error_wh, seed42_squared_error_wh2 (and seed123, seed2026), seed_mean_residual_wh, seed_mean_residual_semantics=SEED_MEAN_RESIDUAL_DESCRIPTIVE",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "residual_bias_summary.csv",
+      "canonical_filename": "artifacts/residual_analysis/phase49_signed_bias.csv",
+      "status": "CANONICAL_EQUIVALENT",
+      "evidence": "file exists; this is the per-seed signed-bias summary emitted by Phase 49",
+      "action_required": "Phase 50 reads phase49_signed_bias.csv; do NOT create residual_bias_summary.csv alias"
+    },
+    {
+      "logical_name": "residual_acf_diagnostics.csv",
+      "canonical_filename": "artifacts/residual_analysis/phase49_residual_acf.csv (full) and phase49_residual_acf_key_lags.csv (key lags subset)",
+      "status": "PARTIAL_CONFLICT",
+      "evidence": "Phase 49 emits TWO ACF tables (full + key lags); Phase 50 plan refers to a single 'residual_acf_diagnostics.csv'",
+      "action_required": "Phase 50 reads phase49_residual_acf_key_lags.csv for narrative reference only; does NOT create new ACF artifacts"
+    },
+    {
+      "logical_name": "residual_seed_sign_consensus.csv",
+      "canonical_filename": "artifacts/residual_analysis/phase49_cross_seed_sign_consensus.csv",
+      "status": "CANONICAL_EQUIVALENT",
+      "evidence": "file exists; 6-class taxonomy ALL_UNDER (1003), ALL_OVER (1085), ALL_EXACT (0), TWO_UNDER_ONE_OVER (423), TWO_OVER_ONE_UNDER (450), MIXED (0); total 2961",
+      "action_required": "Phase 50 joins this taxonomy with test_regime_assignment.csv to produce O50.27; do NOT create a new residual_seed_sign_consensus.csv file"
+    },
+    {
+      "logical_name": "phase_47_signoff.json",
+      "canonical_filename": "artifacts/final_test/phase_47_signoff.json",
+      "status": "EXACT_MATCH",
+      "evidence": "1973 bytes; overall_status=PASS, n_test=2961, ready_for_phase48=true, ready_for_phase52=true",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "final_test_population_manifest.json",
+      "canonical_filename": "artifacts/final_test/final_test_population_manifest.json",
+      "status": "EXACT_MATCH",
+      "evidence": "551 bytes; population_id=FINAL_TEST_POP-v1, target_count=2961, boundary_protocol=WB0_CONTEXT_CARRY_OVER, target_ids_sha256=d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "prediction_checksums.json",
+      "canonical_filename": "artifacts/final_test/prediction_checksums.json",
+      "status": "EXACT_MATCH",
+      "evidence": "938 bytes; all 4 prediction sha256 entries match filesystem (seed42=246ee0d7..., seed123=1bb55c44..., seed2026=bfb57535..., persistence=7115af1c...)",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "SPLIT-v1",
+      "canonical_filename": "artifacts/splits/split_manifest.json",
+      "status": "EXACT_MATCH",
+      "evidence": "split_version=SPLIT-v1, train_rows=13814, validation_rows=2960, test_rows=2961, primary_boundary_protocol=WB0_CONTEXT_CARRY_OVER, context_policy=input_rows_may_precede_target_period_under_wb0, target_assignment_policy=by_target_timestamp",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "WINDOWPOP-v1",
+      "canonical_filename": "artifacts/windows/window_manifest.json + window_fingerprints.json",
+      "status": "EXACT_MATCH",
+      "evidence": "population_version=WINDOWPOP-v1, common_population_fingerprint=a40ded88...1987, sampling_interval_minutes=10, primary_boundary_protocol=WB0_CONTEXT_CARRY_OVER, common_target_population_policy=intersection_of_native_L36_L72_L144_WB0_targets",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "raw Appliances Wh",
+      "canonical_filename": "data/raw_data/energydata_complete.csv",
+      "status": "EXACT_MATCH",
+      "evidence": "19735 rows, 29 columns including 'Appliances' (int64, 0 NaN); mapping verified: target_sample_id 'TGT_00016774' \u2192 timeline_target=16774 \u2192 raw_row_index=16773 \u2192 Appliances=60, matching Phase 47 y_true_wh=60.0",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "LSTM eligibility",
+      "canonical_filename": "artifacts/final_test/final_test_lstm_eligibility.json",
+      "status": "EXACT_MATCH",
+      "evidence": "eligibility_status=NOT_ELIGIBLE_CONFIG_MISMATCH, reason='LSTM uses lookback=None, but final Transformer uses lookback=72', status=PASS",
+      "action_required": "Phase 50 emits a single NOT_APPLICABLE row for LSTM in regime_metrics_lstm.csv; does NOT fabricate LSTM residuals"
+    },
+    {
+      "logical_name": "Persistence bundle",
+      "canonical_filename": "artifacts/final_test/predictions/final_test_predictions_persistence.csv",
+      "status": "EXACT_MATCH",
+      "evidence": "sha256=7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b, N=2961, on same Test population, per-target y_true_wh and y_pred_wh and residual_wh columns present",
+      "action_required": "none"
+    },
+    {
+      "logical_name": "Phase 48 seed spread source",
+      "canonical_filename": "artifacts/prediction_analysis/prediction_seed_spread.csv",
+      "status": "EXACT_MATCH",
+      "evidence": "487520 bytes; per-target granularity: target_id, target_timestamp, y_true_wh, seed_mean_prediction, seed_std_prediction, seed_min_prediction, seed_max_prediction, seed_range_prediction, spread_semantics=CROSS_SEED_PREDICTION_SPREAD",
+      "action_required": "Phase 50 O50.26 regime_seed_spread_summary.csv is a regime-grouped aggregation; direct join on target_id supported"
+    },
+    {
+      "logical_name": "Phase 48 top-20 disagreement",
+      "canonical_filename": "artifacts/prediction_analysis/prediction_top_seed_disagreement.csv",
+      "status": "EXACT_MATCH",
+      "evidence": "4525 bytes; 20 rows; ranking_basis=seed_range_prediction_descending_target_id_ascending_tiebreak (NOT worst-error); used as Phase 48 narrative reference only",
+      "action_required": "none (Phase 50 does not consume top-20 disagreement table)"
+    }
+  ],
+  "test_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "test_population_n": 2961,
+  "test_population_first_target_id": "TGT_00016774",
+  "test_population_last_target_id": "TGT_00019734",
+  "test_population_first_timestamp": "2016-05-07 04:40:00",
+  "test_population_last_timestamp": "2016-05-27 18:00:00",
+  "test_population_boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "residual_convention": "y_true - y_pred",
+  "positive_residual_semantics": "UNDERPREDICTION",
+  "negative_residual_semantics": "OVERPREDICTION",
+  "zero_policy": "EXACT_ZERO",
+  "phase49_policy_compliance": {
+    "no_best_seed": "PASS",
+    "no_ensemble": "PASS",
+    "no_3n_iid_interpretation": "PASS",
+    "no_correction_recalibration": "PASS",
+    "no_new_test_inference": "PASS",
+    "no_training": "PASS",
+    "no_checkpoint_loading": "PASS",
+    "no_optimizer_steps": "PASS",
+    "no_worst_error_ranking": "PASS",
+    "no_attention_analysis": "PASS"
+  },
+  "train_reference_status": {
+    "raw_appliances_source": "FOUND (data/raw_data/energydata_complete.csv; 19735 rows; 0 NaN)",
+    "train_target_id_source": "FOUND (artifacts/windows/common_target_population.csv filtered by target_split_id==TRAIN; 13670 rows)",
+    "windowpop_v1": "FOUND (artifacts/windows/window_manifest.json; population_version=WINDOWPOP-v1)",
+    "temporal_v1": "FOUND (artifacts/temporal/temporal_manifest.json; cadence_minutes=10)",
+    "split_v1": "FOUND (artifacts/splits/split_manifest.json; train_rows=13814)",
+    "featuresets_v1": "FOUND (artifacts/features/feature_engineering_manifest.json)",
+    "continuity_source": "FOUND (common_target_population.csv.continuity_segment_id)",
+    "wb0_test_predecessor_authorization": "VERIFIED (SPLIT-v1 context_policy=input_rows_may_precede_target_period_under_wb0; Phase 50 plan \u00a720; first Test target TGT_00016774 has predecessor TGT_00016773 from last Validation, raw Appliances=40, exactly 10 min earlier, same continuity segment SEG-0001)",
+    "train_target_id_count_in_windowpop": 13670,
+    "train_target_id_count_in_split": 13814,
+    "delta_count_in_train": "TBD in Phase 50-B (gap-safe, no split crossing, continuity-valid)",
+    "expected_delta_count_train": "~13,669 (13670 target_ids minus 1 first point per continuity segment; preliminary)"
+  },
+  "quantile_contract_status": {
+    "library_proposed": "numpy.quantile",
+    "method_proposed": "linear",
+    "dtype_expectation": "float64",
+    "finite_value_requirement": "yes",
+    "deterministic_rerun_expected": true,
+    "thresholds_computed": false,
+    "rationale": "Phase 49 already used numpy for statistical aggregation; numpy.quantile default interpolation=linear is the conventional choice across this codebase (verified in Phase 49 implementations)."
+  },
+  "temporal_contract_status": {
+    "delta_definition": "delta_y_t = y_t - y_(t-1)",
+    "cadence_minutes": 10,
+    "exact_predecessor_required": true,
+    "no_gap_crossing": true,
+    "no_split_crossing_for_train_threshold_estimation": true,
+    "wb0_test_first_point_predecessor_authorized": true,
+    "explicit_unclassified_when_no_predecessor": true,
+    "deliberate_zero_classification": "DIR_FLAT (no epsilon)",
+    "continuity_segment_column_source": "common_target_population.csv.continuity_segment_id",
+    "all_target_timestamps_10_min_apart_in_test": "to be re-verified in Phase 50-C (TEST split has no gaps per final_test_population_manifest.json)"
+  },
+  "persistence_status": {
+    "bundle_exists": true,
+    "sha256": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+    "n": 2961,
+    "target_id_alignment": "exact (TGT_00016774 .. TGT_00019734, same order as FINAL_TEST_POP-v1)",
+    "ready_for_phase50": true
+  },
+  "lstm_status": {
+    "eligibility": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+    "source_file": "artifacts/final_test/final_test_lstm_eligibility.json",
+    "reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+    "phase50_handling": "emit single metadata row in regime_metrics_lstm.csv with status=NOT_EVALUATED_BY_PROTOCOL; do NOT fabricate LSTM residuals"
+  },
+  "phase48_seed_spread_status": {
+    "source": "artifacts/prediction_analysis/prediction_seed_spread.csv",
+    "target_id_granularity": true,
+    "joinable_with_test_regime_assignment": true,
+    "n_columns": 9
+  },
+  "phase49_sign_consensus_taxonomy": {
+    "source": "artifacts/residual_analysis/phase49_cross_seed_sign_consensus.csv",
+    "classes": [
+      "ALL_UNDER",
+      "ALL_OVER",
+      "ALL_EXACT",
+      "TWO_UNDER_ONE_OVER",
+      "TWO_OVER_ONE_UNDER",
+      "MIXED"
+    ],
+    "counts": {
+      "ALL_UNDER": 1003,
+      "ALL_OVER": 1085,
+      "ALL_EXACT": 0,
+      "TWO_UNDER_ONE_OVER": 423,
+      "TWO_OVER_ONE_UNDER": 450,
+      "MIXED": 0
+    },
+    "total": 2961,
+    "phase50_reuse": "Phase 50 O50.27 joins per-target per-seed sign (computed from residual_long_table.csv) with test_regime_assignment.csv to produce per-regime consensus fractions; taxonomy unchanged from Phase 49"
+  },
+  "phase49_decile_status": {
+    "phase49_deciles_are_not_phase50_regime": true,
+    "rationale": "Phase 49 lock: decile_not_phase50_regime=true; deciles are diagnostic-only and Phase 50 must not reuse them as R1/R2/R3 thresholds"
+  },
+  "architecture_amendment_required": true,
+  "architecture_amendment_created": "YES (docs/RULE_BASE/architecture_rule.md v1.12 entry appended; canonical governance log at docs/save_log_in_processing/phase_50_architecture_amendment_log.json)",
+  "architecture_amendment_id": "phase-50-architecture-amendment-v1.12",
+  "architecture_amendment_human_approval_state": "APPROVED",
+  "architecture_v1_12_status": "APPROVED",
+  "pre_process_plan_status": "APPROVED",
+  "phase50_b_authorized": true,
+  "architecture_rule_currently_authorizes_phase50": true,
+  "phase50_authorization_locations": [
+    "docs/RULE_BASE/architecture_rule.md \u00a725 (Phase 50 transition state entry)",
+    "docs/RULE_BASE/architecture_rule.md \u00a726 (Phase 50 validation checklist entry)",
+    "docs/RULE_BASE/architecture_rule.md \u00a727 (PHASE_50_PHASE_A_AUDIT_APPROVED + PHASE_50_PHASE_A2_GOVERNANCE_APPROVED + PHASE_50_PRE_PROCESS_PLAN_APPROVED + PHASE_50_AMENDMENT_V1_12_HUMAN_APPROVAL + PHASE_50_B_PHASE_B_ACTIVE_AFTER_HUMAN_APPROVAL)",
+    "docs/RULE_BASE/architecture_rule.md \u00a728 (v1.12 entry appended after v1.11 closing fence)"
+  ],
+  "implementation_started": true,
+  "thresholds_computed": true,
+  "test_regime_assignment_created": true,
+  "train_regime_assignment_created": true,
+  "residual_join_executed": true,
+  "regime_metrics_computed": true,
+  "rmse_lift_computed": true,
+  "sae_sse_computed": true,
+  "figures_generated": true,
+  "new_test_inference": false,
+  "checkpoint_loading": false,
+  "training": false,
+  "optimizer_steps": 0,
+  "scaler_fit": false,
+  "best_seed_selected": false,
+  "ensemble": false,
+  "three_n_iid_interpretation": false,
+  "test_derived_threshold_used": false,
+  "cartesian_regime_mining": false,
+  "prediction_correction": false,
+  "bias_correction": false,
+  "residual_model": false,
+  "worst_error_ranking_executed": false,
+  "attention_analysis_executed": false,
+  "phase47_modified": false,
+  "phase48_modified": false,
+  "phase49_modified": false,
+  "phase51_started": false,
+  "notebook_modified": true,
+  "pre_process_plan_created": true,
+  "pre_process_plan_filename": "docs/plan-doc/plan_before_process/phase_50_error_by_regime_analysis_plan.md",
+  "phase50_contract_issues_found_count": 9,
+  "phase50_contract_issues_summary": [
+    {
+      "id": "C50-I01",
+      "severity": "MEDIUM",
+      "summary": "RMSELift_{s,r} ratio form and rmse_lift_wh absolute form coexist; rename ratio form to rmse_lift_ratio"
+    },
+    {
+      "id": "C50-I02",
+      "severity": "MEDIUM",
+      "summary": "Phase 50 plan \u00a7117 abbreviates sign-consensus taxonomy to 3 classes; actual Phase 49 canonical taxonomy is 6 classes; Phase 50 must reuse 6-class taxonomy"
+    },
+    {
+      "id": "C50-I03",
+      "severity": "HIGH",
+      "summary": "R\u00b2 NOT_DEFINED serialization not pinned; pre-declare r2_status=NOT_DEFINED (explicit string) + r2 numeric cell empty in CSV / null in JSON"
+    },
+    {
+      "id": "C50-I04",
+      "severity": "HIGH",
+      "summary": "Train-only target_ids sha256 not pre-declared; Phase 50 must compute from REGIME_REFERENCE_TRAIN-v1 subset of common_target_population.csv (target_split_id==TRAIN)"
+    },
+    {
+      "id": "C50-I05",
+      "severity": "LOW",
+      "summary": "Phase 48 prediction_seed_spread.csv has target_id granularity; Phase 50 O50.26 can aggregate directly"
+    },
+    {
+      "id": "C50-I06",
+      "severity": "LOW",
+      "summary": "WB0 Test predecessor for TGT_00016774 is explicitly authorized and verifiable; no new contract needed"
+    },
+    {
+      "id": "C50-I07",
+      "severity": "LOW",
+      "summary": "common_target_population.csv.continuity_segment_id already exists; Phase 50 reuses it for R3/R4 predecessor checks"
+    },
+    {
+      "id": "C50-I08",
+      "severity": "MEDIUM",
+      "summary": "phase49_prediction_deciles.csv is explicitly NOT a Phase 50 regime; pre-declare assert_decile_not_phase50_regime in contract.py"
+    },
+    {
+      "id": "C50-I09",
+      "severity": "MEDIUM",
+      "summary": "artifacts/final_test/phase50_error_regime_handoff.json (541-byte Phase 47 placeholder) will be overwritten by Phase 50 with phase50_signoff_input.json; documented in pre-process plan \u00a75"
+    }
+  ],
+  "phase49_artifact_name_mapping_status": "PASS_WITH_MAPPING (8 logical-name entries; 5 EXACT_MATCH; 2 CANONICAL_EQUIVALENT; 1 PARTIAL_CONFLICT; 1 STALE; documented in amendment log)",
+  "stop_conditions_observed": [
+    "architecture_rule.md v1.11 does NOT authorize Phase 50; explicit blocker; v1.12 amendment PROPOSED but Human approval required before implementation",
+    "0 thresholds computed",
+    "0 train/test regime assignments created",
+    "0 residual joins executed",
+    "0 regime metrics computed",
+    "no notebook modification",
+    "no Phase 51 implementation"
+  ],
+  "files_created_or_modified": [
+    {
+      "filename": "docs/RULE_BASE/architecture_rule.md",
+      "kind": "canonical_governance",
+      "kind_description": "Modified \u2014 appended v1.12 amendment entry to \u00a728 + Phase 50 transition state entry to \u00a725 + Phase 50 validation checklist entry to \u00a726 + 5 activation gate markers to \u00a727",
+      "amendment_id": "phase-50-architecture-amendment-v1.12",
+      "human_approval_state": "APPROVED 2026-09-04T03:00:00+00:00",
+      "approval_scope": "Phase 50 implementation paths; Stage A/B/C/D leakage boundary; 5 approved contract resolutions; phase 51/52+ remain UNAUTHORIZED"
+    },
+    {
+      "filename": "docs/save_log_in_processing/phase_50_architecture_amendment_log.json",
+      "kind": "governance_log",
+      "kind_description": "Phase 50 architecture amendment v1.12 canonical governance log (upgraded from PROPOSED to APPROVED; log_version bumped from 1 to 2)",
+      "amendment_id": "phase-50-architecture-amendment-v1.12"
+    },
+    {
+      "filename": "docs/plan-doc/plan_before_process/phase_50_error_by_regime_analysis_plan.md",
+      "kind": "pre_process_plan",
+      "kind_description": "Phase 50 pre-process plan v1.0 (APPROVED 2026-09-04T03:00:00+00:00 by human_owner)",
+      "plan_version": "v1.0"
+    },
+    {
+      "filename": "docs/save_log_in_processing/phase_50_error_by_regime_analysis_log.json",
+      "kind": "machine_readable_phase_log",
+      "kind_description": "Phase 50-A + 50-A2 audit and governance-approval log (this file; log_version bumped from 1 to 2; approval status fields added)"
+    }
+  ],
+  "files_NOT_modified": [
+    "docs/RULE_BASE/architecture_rule.md",
+    "notebook_course_work/CourseWork_1.ipynb",
+    "artifacts/final_test/*",
+    "artifacts/prediction_analysis/*",
+    "artifacts/residual_analysis/*",
+    "src/course_work/phase49/*",
+    "src/course_work/reporting/phase_49_dashboard.py",
+    "data/raw_data/energydata_complete.csv",
+    "artifacts/splits/*",
+    "artifacts/windows/*",
+    "artifacts/temporal/*",
+    "artifacts/features/*"
+  ],
+  "proposed_phase50_module_ownership": [
+    "src/course_work/phase50/__init__.py",
+    "src/course_work/phase50/contract.py (assert_train_only, assert_no_test_threshold, assert_decile_not_phase50_regime, etc.)",
+    "src/course_work/phase50/sources.py (loads frozen Phase 47/48/49 artifacts; checksum verify)",
+    "src/course_work/phase50/train_reference.py (REGIME_REFERENCE_TRAIN-v1 construction)",
+    "src/course_work/phase50/thresholds.py (Stage A: Train-only quantile derivation)",
+    "src/course_work/phase50/regime_assignment.py (Stage B: Test regime labeling; no prediction fields)",
+    "src/course_work/phase50/assignment_audit.py (Stage C: 10-check audit + fingerprint)",
+    "src/course_work/phase50/error_join.py (Stage D: many-to-one residual join)",
+    "src/course_work/phase50/metrics.py (per-seed per-regime metrics)",
+    "src/course_work/phase50/contributions.py (SAE/SSE share + reconstruction audit)",
+    "src/course_work/phase50/cross_seed.py (mean + sample SD with ddof=1)",
+    "src/course_work/phase50/contrasts.py (predeclared pairwise contrasts)",
+    "src/course_work/phase50/rank_stability.py (regime rank stability across seeds)",
+    "src/course_work/phase50/prevalence.py (Train-vs-Test prevalence)",
+    "src/course_work/phase50/persistence.py (per-regime Persistence metrics + baseline delta)",
+    "src/course_work/phase50/lstm_context.py (single NOT_APPLICABLE row)",
+    "src/course_work/phase50/seed_spread.py (O50.26; reads prediction_seed_spread.csv)",
+    "src/course_work/phase50/sign_consensus.py (O50.27; per-target per-seed sign join with regime)",
+    "src/course_work/phase50/baseline_deltas.py (Persistence - Transformer delta summaries)",
+    "src/course_work/phase50/figures.py (14-18 PNGs)",
+    "src/course_work/phase50/findings.py (safe descriptive wording)",
+    "src/course_work/phase50/o50_inventory.py (39 O50 artifacts)",
+    "src/course_work/phase50/handoff.py (phase50_handoff_to_phase51.json)",
+    "src/course_work/phase50/signoff.py (38+ gate checks)",
+    "src/course_work/phase50/writers.py (atomic CSV/JSON writers; mode 0444 for frozen files)",
+    "src/course_work/phase50/materialize_b.py / materialize_c.py / materialize_d.py / materialize_e.py / materialize_f.py / materialize_g.py / materialize_h.py",
+    "src/course_work/reporting/phase_50_dashboard.py (Phase 50-H notebook renderer)"
+  ],
+  "proposed_phase50_subphases": {
+    "50-B": "Train reference construction + Train-only threshold derivation (Stage A)",
+    "50-C": "Test regime assignment + audit + freeze (Stages B + C)",
+    "50-D": "Residual join + per-seed regime metrics + contributions (Stage D)",
+    "50-E": "Cross-seed aggregation + predeclared contrasts + rank stability + Train-vs-Test prevalence",
+    "50-F": "Persistence comparison + LSTM placeholder + Phase 48 seed-spread by regime + Phase 49 sign-consensus by regime + baseline deltas",
+    "50-G": "Figures + findings + discrepancies + report + README + Phase51 handoff + final Phase50 signoff",
+    "50-H": "Notebook presentation-only dashboard synchronization"
+  },
+  "human_approval_required_list": [
+    "Architecture amendment v1.12 (phase-50-architecture-amendment-v1.12-PROPOSED) \u2014 required before Phase 50-B implementation",
+    "Pre-process plan v1.0 (phase_50_error_by_regime_analysis_plan.md) \u2014 required before Phase 50-B implementation",
+    "Train-only thresholds (Q25/Q75/Q90/Q90_abs_delta) \u2014 optional review at Stage A freeze; auto-approve if degenerate handling triggers",
+    "Stage C test_regime_assignment.csv freeze \u2014 optional review at Stage C freeze; auto-approve if 10-check audit passes",
+    "Phase 50 findings narrative \u2014 required before Phase 50-G signoff",
+    "Phase 50 final signoff \u2014 required before Phase 51 begins",
+    "Notebook Phase 50 cell append \u2014 required before Phase 50-H"
+  ],
+  "ready_for_phase50_b": true,
+  "blockers": [],
+  "phase50_canonical_artifact_sha256": {
+    "regime_reference_train_manifest.json": "ed5532c51e02013b0a12155a6e97cf2ffed5e4be0100c8222ccf8fba492a5c83",
+    "regime_reference_train_audit.csv": "bf88a241f8264d37c83dfd334b256e963660cd1cf19f1d21f4f679fd50f74ac4",
+    "regime_thresholds_train_only.json": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+    "regime_threshold_audit.csv": "d902f04198f0d45f71b172033d7eef5b497bc06e847e15eac83070274c171ecf",
+    "regime_threshold_fingerprint.json": "3e643f226fad27ddba9ea5e490004590fbf2954e28748ca704adfecafc135d15",
+    "train_regime_assignment.csv": "8bdca4d4ec811ef7b133b3c2f150aecc5ed365cbaca32d68f17d770738845bd8",
+    "test_regime_assignment.csv": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+    "test_regime_assignment_audit.csv": "f9bee2fbbeccdb8c6655060a18e282143085680e3a0161ced94add31d1a93fc3",
+    "test_regime_assignment_fingerprint.json": "cc92ce15454d7267643c067a6fc797b16806bdcf859c1e2d978a962ff84bb746",
+    "regime_error_join_audit.csv": "bc7edf86e35bb3a1d4a33e419c371b40e583be443d38832d7ef6ee052dfe8684",
+    "regime_metrics_long.csv": "8b05a3b4586840954ebe13e24e1bc2d8c10771248b1754e980dec2ef07505f96",
+    "regime_cross_seed_summary.csv": "caf29ec39f05d3145cdb2eb0629fa590bc08b68daaad1f306727dfe4312a2f12",
+    "regime_rmse_lift.csv": "86a640920e49a52bfd6781e678e206070521c6622b0cfb5e42e5266b746d4ab6",
+    "regime_pairwise_contrasts.csv": "c362e31262e37dff7f3371cac19517a97d4e9a200b8935bc8a48684e4755e2db",
+    "regime_train_vs_test_prevalence.csv": "7b346dc4045f55df7de4dd7456b214d268d6d1e7545751353ed6ccce2237f2d8",
+    "regime_rank_stability.csv": "99e32a885c3f45e10d4180e42bb670120749a79cd2e58f08d1298f6949a1fa0e",
+    "regime_metrics_persistence.csv": "b8eebabc9a82ecc61a742bce67cbb22b83e89e861632991330f5b152fa0c8c52",
+    "regime_metrics_lstm.csv": "32a5f8994f6848b843b0d96257c23ea5d1c75b096dfb58e58d373f6497430df1",
+    "regime_seed_spread.csv": "2d6e2ddbd5d749847eee53f4505badd399bde72505afdcbf0f69f4ea65cccb4e",
+    "regime_seed_spread_status.json": "607c0b335d804d91a22376dd8dd31a8755be665f480ba9089e89426afef090e5",
+    "regime_sign_consensus.csv": "72bc59055820b6524156fed282e615dc779c71aca59f2cc57fb0e8aed61a1883",
+    "regime_sign_consensus_mapping.json": "fac8df474a668e9a42a62d08b0f7652f820aa5adc9e5b6119ccb347985cf0974",
+    "regime_lstm_status.json": "5317a5351e47e753b36c08f4a864b5df92035bc6a115566f92a84fc76f19cd1d",
+    "phase50_findings.json": "f364649d570f3d9bfdef41f5c4e15bd0a902cd7c425dbaaca6533629bc78710c",
+    "phase50_discrepancies.json": "dcdff4d8d631803866e2095617133d6353ecfa7b31a16f58df8ad2ebc71be9ef",
+    "phase50_report.md": "cd9da0f8a0490f8874fbe5264d53e28e22b30ca4203c603b9710804281880c80",
+    "README.md": "1fab608ec916292f45487f181eb8d1e89535e77e3de8fdca5a1f205a70a0dc65",
+    "phase51_handoff.json": "fad1c013f5c2c21dab02cfa35d51e4646ac0ed0249ef3c5ac4194c58e3393b9d",
+    "phase_50_signoff.json": "69fc614a6a3ee40a0ad312270277875e422cc01241db2a47fa77bf14bc6d02b2"
+  },
+  "phase50_figures_sha256": {
+    "fig_phase50_change_direction_rmse.png": "9125d2b555a0a2e5b78ee90a41567b3350db994c75090c34d93951c68e9e871a",
+    "fig_phase50_change_magnitude_rmse.png": "3c3532d02eb064c5bac4664c3405c9653ad6401856182a1a6457b4eca1019ded",
+    "fig_phase50_cross_seed_rmse_stability.png": "4ac5fc4b64c0b1382e7cd73cf879e8b78b753fab3efee501e972aba6d6b02f71",
+    "fig_phase50_day_type_mae.png": "6de006dddb86f39d395fb68e0f0e8e8ae59dd41fcf9a2f16672b33cf9dd1e1db",
+    "fig_phase50_extreme_high_rmse.png": "c758650addb76f314cdf1c7f3277c70c2d713222760031793b6629ad46a9609e",
+    "fig_phase50_persistence_vs_transformer_mae.png": "83885ec34084df521a9a3440fc34a04cd6b27e895f3beaba9b86cf3eed9b7c67",
+    "fig_phase50_rmse_lift_r1.png": "c807b04665766b93ee935a7db9fd89312715b9e04a4353f5bc1a118c6ea8d9da",
+    "fig_phase50_seed_spread_r1.png": "ccc2780bf6fcff2904b3210e2fe98b3cc3e482f8d66f7840fe4b1658ae9eef44",
+    "fig_phase50_sign_consensus_r1.png": "78fc0e3781b39c1b9144cc115886a98eaf729ae738c62e3d834de2c8c9b79c22",
+    "fig_phase50_sse_contribution_r1.png": "8d79f672265c4eb13474da2a7994ec457fa4e5135aea6cd42e2f8520c8d207bf",
+    "fig_phase50_target_level_mae.png": "4af7d2e95ed60c687a32f69281bbcc6bd4b75be1131db789439f430281172a36",
+    "fig_phase50_target_level_rmse.png": "2ecd94d41c17956e86d26e487544434a851f29e88ce035b63b6a92e46c6238ec",
+    "fig_phase50_test_regime_prevalence.png": "34fa90e4d1e799da3e0d0c184c9cbdae4d4ed4324ea1555a492992479b46645f",
+    "fig_phase50_time_of_day_mae.png": "5ad15b6d474256cd0d4e0885f12c60795935d708681e9b773ed58ad0ba95f6bc"
+  },
+  "notebook_backup_file": "CourseWork_1.ipynb.bak_before_phase50_20260903T202044",
+  "notebook_sha256": "75ff690af9474e5d085ef4d84dfc49dbe7baedd3461285c14098d144a105551f",
+  "phase_50_signoff_summary": {
+    "status": "PASS",
+    "n_gates": 38,
+    "n_gates_passed": 38,
+    "ready_for_phase51": true,
+    "ready_for_phase52_plus": false,
+    "n_figures": 14,
+    "n_canonical_artifacts": 28
+  },
+  "subphase_history": [
+    {
+      "subphase": "50-B",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-03T20:22:45.652994+00:00",
+      "outputs": [
+        "artifacts/error_by_regime/regime_reference_train_manifest.json",
+        "artifacts/error_by_regime/regime_reference_train_audit.csv",
+        "artifacts/error_by_regime/regime_thresholds_train_only.json",
+        "artifacts/error_by_regime/regime_threshold_audit.csv",
+        "artifacts/error_by_regime/regime_threshold_fingerprint.json"
+      ],
+      "q25": 50.0,
+      "q75": 100.0,
+      "q90": 210.0,
+      "q90_abs_delta": 80.0,
+      "n_train_reference": 13670,
+      "n_classified_delta_pairs": 13669,
+      "quantile_method": "linear",
+      "quantile_library": "numpy",
+      "tests": "20 passed (tests/unit/test_phase50_b_train_reference_and_thresholds.py)",
+      "defects": "0",
+      "safety_invariants": [
+        "training=false",
+        "test_derived_threshold_used=false"
+      ],
+      "upstream_integrity": "Phase 47/48/49 canonical artifacts unchanged (sha256 verified)."
+    },
+    {
+      "subphase": "50-C",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-03T20:22:45.653004+00:00",
+      "outputs": [
+        "artifacts/error_by_regime/test_regime_assignment.csv",
+        "artifacts/error_by_regime/test_regime_assignment_audit.csv",
+        "artifacts/error_by_regime/test_regime_assignment_fingerprint.json",
+        "artifacts/error_by_regime/train_regime_assignment.csv"
+      ],
+      "n_test_target_ids": 2961,
+      "first_target_id": "TGT_00016774",
+      "wb0_predecessor": "TGT_00016773 (last Validation)",
+      "audit_checks_passed": 11,
+      "tests": "25 passed (tests/unit/test_phase50_c_regime_assignment.py)",
+      "defects": "0",
+      "safety_invariants": [
+        "no_prediction_columns",
+        "no_seed_or_model_id_columns"
+      ],
+      "upstream_integrity": "Phase 47/48/49 unchanged; thresholds frozen from 50-B."
+    },
+    {
+      "subphase": "50-D",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-03T20:22:45.653006+00:00",
+      "outputs": [
+        "artifacts/error_by_regime/regime_error_join_audit.csv",
+        "artifacts/error_by_regime/regime_metrics_long.csv"
+      ],
+      "n_join_rows": 8883,
+      "n_unmatched": 0,
+      "n_duplicate": 0,
+      "global_mae_per_seed": {
+        "42": 29.529,
+        "123": 27.115,
+        "2026": 28.942
+      },
+      "global_rmse_per_seed": {
+        "42": 64.943,
+        "123": 61.986,
+        "2026": 64.56
+      },
+      "tests": "15 passed (tests/unit/test_phase50_d_residual_join_metrics.py)",
+      "defects": "0",
+      "safety_invariants": [
+        "sample_share_sum_to_1",
+        "sae_share_sum_to_1",
+        "sse_share_sum_to_1"
+      ],
+      "upstream_integrity": "Phase 47/48/49 unchanged."
+    },
+    {
+      "subphase": "50-E",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-03T20:22:45.653008+00:00",
+      "outputs": [
+        "artifacts/error_by_regime/regime_cross_seed_summary.csv",
+        "artifacts/error_by_regime/regime_rmse_lift.csv",
+        "artifacts/error_by_regime/regime_pairwise_contrasts.csv",
+        "artifacts/error_by_regime/regime_train_vs_test_prevalence.csv",
+        "artifacts/error_by_regime/regime_rank_stability.csv"
+      ],
+      "cross_seed_ddof": 1,
+      "predeclared_contrasts": 6,
+      "tests": "16 passed (tests/unit/test_phase50_e_cross_seed.py)",
+      "defects": "0",
+      "safety_invariants": [
+        "ddof=1",
+        "no_3n_pooling"
+      ],
+      "upstream_integrity": "Phase 47/48/49 unchanged."
+    },
+    {
+      "subphase": "50-F",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-03T20:22:45.653009+00:00",
+      "outputs": [
+        "artifacts/error_by_regime/regime_metrics_persistence.csv",
+        "artifacts/error_by_regime/regime_metrics_lstm.csv",
+        "artifacts/error_by_regime/regime_seed_spread.csv",
+        "artifacts/error_by_regime/regime_seed_spread_status.json",
+        "artifacts/error_by_regime/regime_sign_consensus.csv",
+        "artifacts/error_by_regime/regime_sign_consensus_mapping.json",
+        "artifacts/error_by_regime/regime_lstm_status.json"
+      ],
+      "persistence_global_mae_wh": 26.73758865248227,
+      "persistence_global_rmse_wh": 66.83691534084765,
+      "lstm_status": "NOT_APPLICABLE",
+      "tests": "17 passed (tests/unit/test_phase50_f_baselines_context.py)",
+      "defects": "0",
+      "safety_invariants": [
+        "no_lstm_inference",
+        "no_lstm_retrain",
+        "no_lstm_fabrication"
+      ],
+      "upstream_integrity": "Phase 47/48/49 unchanged."
+    },
+    {
+      "subphase": "50-G",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-03T20:22:45.653012+00:00",
+      "outputs": [
+        "artifacts/error_by_regime/figures/*.png (14 figures)",
+        "artifacts/error_by_regime/phase50_findings.json",
+        "artifacts/error_by_regime/phase50_discrepancies.json",
+        "artifacts/error_by_regime/phase50_report.md",
+        "artifacts/error_by_regime/README.md",
+        "artifacts/error_by_regime/phase51_handoff.json",
+        "artifacts/error_by_regime/phase_50_signoff.json"
+      ],
+      "n_figures": 14,
+      "n_discrepancies": 9,
+      "n_unresolved_critical_discrepancies": 0,
+      "phase51_worst_error_ranking_executed": false,
+      "tests": "19 passed (tests/unit/test_phase50_g_finalization.py)",
+      "defects": "0",
+      "safety_invariants": [
+        "training=false",
+        "new_test_inference=false",
+        "checkpoint_loading=false",
+        "optimizer_steps=0",
+        "scaler_fit=false",
+        "best_seed_selected=false",
+        "ensemble=false",
+        "three_n_iid_interpretation=false",
+        "test_derived_threshold_used=false",
+        "cartesian_regime_mining=false",
+        "prediction_correction=false",
+        "worst_error_ranking_executed=false",
+        "attention_analysis_executed=false",
+        "phase47_modified=false",
+        "phase48_modified=false",
+        "phase49_modified=false"
+      ],
+      "upstream_integrity": "Phase 47/48/49 unchanged."
+    },
+    {
+      "subphase": "50-H",
+      "status": "PASS",
+      "timestamp_utc": "2026-09-03T20:22:45.653013+00:00",
+      "outputs": [
+        "src/course_work/reporting/phase_50_dashboard.py (read-only renderer)",
+        "notebook_course_work/CourseWork_1.ipynb (130 \u2192 132 cells, +1 markdown +1 code)"
+      ],
+      "tests": "14 passed (tests/unit/test_phase50_h_notebook_dashboard.py)",
+      "defects": "0",
+      "safety_invariants": [
+        "no_training_text_in_dashboard",
+        "no_scaler_text_in_dashboard",
+        "no_checkpoint_text_in_dashboard",
+        "phase0_49_cells_preserved_source",
+        "phase0_49_cells_preserved_outputs"
+      ],
+      "upstream_integrity": "Phase 47/48/49 unchanged; Phase 0-49 notebook cells preserved."
+    }
+  ],
+  "final_safety_invariants": {
+    "training": false,
+    "new_test_inference": false,
+    "checkpoint_loading": false,
+    "optimizer_steps": 0,
+    "scaler_fit": false,
+    "best_seed_selected": false,
+    "ensemble": false,
+    "three_n_iid_interpretation": false,
+    "test_derived_threshold_used": false,
+    "cartesian_regime_mining": false,
+    "prediction_correction": false,
+    "worst_error_ranking_executed": false,
+    "attention_analysis_executed": false,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_modified": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "phase": 55,
+  "downstream_phase": 57,
+  "downstream_name": "Seed-stability head context",
+  "source_phase55_version": "HEAD_COMPARISON-v1",
+  "within_seed_pairwise_jsd": "see head_similarity_matrix_jsd.csv (architectural order)",
+  "within_seed_pairwise_wasserstein": "see head_distance_matrix_wasserstein.csv (architectural order)",
+  "head_to_layer_mean_distance": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/head_comparison/head_to_layer_mean_distance.csv",
+  "layer_head_diversity_summary": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/head_comparison/layer_head_diversity_summary.csv",
+  "per_seed_head_profiles_ref": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_profile_by_lag.csv",
+  "head_count": 4,
+  "layer_count": 2,
+  "same_index_semantic_alignment_assumed": false,
+  "head_matching_performed": false,
+  "ready_for_phase57_context": true
+}

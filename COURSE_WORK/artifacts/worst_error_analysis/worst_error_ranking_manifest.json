@@ -1,0 +1,68 @@
+{
+  "artifacts": {
+    "RANKING_AUDIT": {
+      "path": "phase51_ranking_audit.json",
+      "sha256": "6af75542c9b4c6899d9a3968a84addb4e7e96ea6fff3188b965d711c480cc00d"
+    },
+    "W1_PER_SEED_TOP20": {
+      "path": "worst_per_seed_top20.csv",
+      "sha256": "28c91ab02876e4c2533f811cd87a524c36f2e0b113ac118d7c32bf2fe9f9b716"
+    },
+    "W2_SHARED_TOP20": {
+      "path": "worst_shared_top20.csv",
+      "sha256": "e551d14870992ec1739b5ae6d8bf403e551b8f6598e72462188eded01d0c678a"
+    },
+    "W3_SH_SHARED_ALL_UNDER": {
+      "path": "shared_all_under_top10.csv",
+      "sha256": "0b4bf8cb1e4f21c0bcf8f45cbe912b525d9f998f85849f2d954a533e66912637"
+    },
+    "W3_UNDERPREDICTION_TOP10": {
+      "path": "worst_underprediction_top10.csv",
+      "sha256": "9a0e4bb2eab97084bff8197c1251a0e9bd7a0abb627dc45439e0cb43d52e29d8"
+    },
+    "W4_OVERPREDICTION_TOP10": {
+      "path": "worst_overprediction_top10.csv",
+      "sha256": "a325c870d68d39a208797cf8349fd57aeec1b60a42a0b51ce40aab05115c7cfa"
+    },
+    "W4_SH_SHARED_ALL_OVER": {
+      "path": "shared_all_over_top10.csv",
+      "sha256": "a43b0f0a46c284e7949c2025bd5a8574af25b1215a886629a891fa7f14bdf3be"
+    }
+  },
+  "created_at_utc": "2026-09-04T07:12:36.884004+00:00",
+  "forbidden_actions_status": {
+    "casebook_created": false,
+    "error_concentration_executed": false,
+    "individual_case_inspection": false,
+    "input_context_executed": false,
+    "overlap_analysis_executed": false,
+    "phase52_started": false,
+    "regime_enrichment_executed": false,
+    "selection_contract_executed": true,
+    "temporal_context_executed": false,
+    "worst_error_ranking_executed": true
+  },
+  "n_test": 2961,
+  "phase": 51,
+  "ranking_audit_all_pass": true,
+  "ranking_families_executed": [
+    "W1_PER_SEED_WORST",
+    "W2_SHARED_WORST",
+    "W3_UNDERPREDICTION_WORST",
+    "W4_OVERPREDICTION_WORST",
+    "W3_SH_SHARED_ALL_UNDER",
+    "W4_SH_SHARED_ALL_OVER"
+  ],
+  "ready_for_phase51_d": false,
+  "seeds": [
+    "42",
+    "123",
+    "2026"
+  ],
+  "selection_contract_path": "artifacts/worst_error_analysis/worst_error_selection_contract.json",
+  "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+  "source_working_table_path": "artifacts/worst_error_analysis/phase51_target_level_working_table.csv",
+  "source_working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f",
+  "subphase": "51-C",
+  "version": "WORST_ERROR_ANALYSIS_RANKING-v1"
+}

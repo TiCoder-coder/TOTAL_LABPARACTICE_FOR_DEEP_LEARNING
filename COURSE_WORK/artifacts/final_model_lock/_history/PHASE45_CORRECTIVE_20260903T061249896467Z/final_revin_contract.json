@@ -1,0 +1,8 @@
+{
+  "affine": false,
+  "centering": false,
+  "enabled": false,
+  "eps": 1e-05,
+  "scope": "none",
+  "variance_convention": "none"
+}

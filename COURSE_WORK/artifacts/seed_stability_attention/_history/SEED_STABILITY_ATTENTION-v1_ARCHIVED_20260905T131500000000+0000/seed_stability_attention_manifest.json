@@ -1,0 +1,32 @@
+{
+  "phase": 57,
+  "version": "SEED_STABILITY_ATTENTION-v1",
+  "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v1",
+  "source_phase55_version": "HEAD_COMPARISON-v1",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "final_lock_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "alignment_anchor_seed": 42,
+  "alignment_anchor_reason": "FIRST_PREDECLARED_FINAL_SEED",
+  "canonical_matching_cost": "JSD_MEAN_TEMPORAL_PROFILE",
+  "matching_method": "EXHAUSTIVE_PERMUTATION",
+  "match_tie_tolerance": 1e-12,
+  "matching_sensitivity": "WASSERSTEIN_MINUTES",
+  "primary_permutation_invariant_view": "LAYER_HEAD_MEAN",
+  "new_attention_extraction": false,
+  "new_test_inference": false,
+  "model_training": false,
+  "best_seed_selection": false,
+  "best_head_selection": false,
+  "head_pruning": false,
+  "causal_claim": false,
+  "warnings": [],
+  "status": "PASS",
+  "created_at": "2026-09-04T19:47:26.795001+00:00"
+}

@@ -1,0 +1,46 @@
+{
+  "phase": 54,
+  "version": "LAST_QUERY_ATTENTION-v1",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "source_phase53_version": "ATTENTION_HEATMAPS-v1",
+  "final_lock_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "target_order_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "position_map_sha256": "948bc0dcb56674f7f8c117d7e7050490b391e39225754e8a21861d00e59e5063",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "lookback_steps": 72,
+  "num_layers": 2,
+  "num_heads": 4,
+  "pooling": "LAST_STEP",
+  "last_query_definition": "A[:,:,L-1,:]",
+  "raw_axis_order": [
+    "target",
+    "layer",
+    "head",
+    "source"
+  ],
+  "raw_last_query_sha256": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "n_metrics_rows": 71064,
+  "n_raw_files": 3,
+  "new_attention_extraction": false,
+  "new_test_inference": false,
+  "head_ranking": false,
+  "error_conditioning": false,
+  "seed_stability_inference": false,
+  "feature_importance_claim": false,
+  "causal_claim": false,
+  "phase55_ready": true,
+  "phase56_context_ready": true,
+  "phase57_context_ready": true,
+  "status": "PASS",
+  "created_at_utc": "2026-09-04T13:32:23+00:00",
+  "contract_sha256": "bfdc27a769b03397ed206bc797dffde0b8a62436075c8f028d7752d2cd209799"
+}

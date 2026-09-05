@@ -1,0 +1,227 @@
+{
+  "archived_at_utc": "2026-09-05T13:15:01.741873+00:00",
+  "archive_reason": "SEED_STABILITY_ATTENTION-v1 frozen as historical evidence before corrective. v1 was computed against LAST_QUERY_ATTENTION-v1 (zero normalized_entropy due to HIGH-severity Phase54 bug), HEAD_COMPARISON-v1 (also stale), and ERROR_CONDITIONED_ATTENTION-v1 (zero NE Spearman due to v1 constant-input bug). Affected v1 outputs: matched_head_metric_seed_stability.csv (NE rows all 0.0), layer_error_conditioned_seed_stability.csv (NE rows all 0.0), matched_head_error_conditioned_stability.csv (NE rows all 0.0). v1 metadata also has wrong final_lock_sha256 (102086f7... = seed-42 raw NPZ SHA, should be canonical Phase45 81fb87c4...) and wrong test_population_sha256 (c7039090... = Phase52 attention target-order SHA, should be Phase47 test population d7dbc0b3...).",
+  "active_revision_before_archive": "SEED_STABILITY_ATTENTION-v1",
+  "corrective_revision": "SEED_STABILITY_ATTENTION-v2",
+  "v1_signoff_sha256": "23ed184f030e2b590532a9c8786f4955e6a8b20589971622f76736426040fe75",
+  "v1_signoff_source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "v1_signoff_source_phase55_version": "HEAD_COMPARISON-v1",
+  "v1_signoff_source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v1",
+  "v1_signoff_final_lock_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "v1_signoff_test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "v1_handling_fingerprint": "",
+  "files_archived": [
+    {
+      "name": "phase_57_signoff.json",
+      "sha256": "23ed184f030e2b590532a9c8786f4955e6a8b20589971622f76736426040fe75",
+      "size_bytes": 2147
+    },
+    {
+      "name": "seed_stability_attention_manifest.json",
+      "sha256": "b14fced85738db5aefad0ff765872e79c3a95b42cd8ab8ba9e3e1e5007782012",
+      "size_bytes": 1154
+    },
+    {
+      "name": "seed_stability_attention_contract.json",
+      "sha256": "45d9ddc1e83c7259bfdfc52c30763451342adadff59bf269a5f7720a8419c162",
+      "size_bytes": 1717
+    },
+    {
+      "name": "seed_stability_attention_summary.json",
+      "sha256": "785b1f4085bd5d9e52b1df79542a6bc0bc0f8e9faa59036b4a8877f0921b6831",
+      "size_bytes": 5715
+    },
+    {
+      "name": "seed_stability_attention_report.md",
+      "sha256": "ab08fb00209e1523cdd0b5f907ae267c117fe66129017a40a011983e19bb35f4",
+      "size_bytes": 5741
+    },
+    {
+      "name": "README_SEED_STABILITY_ATTENTION.md",
+      "sha256": "30893edc512a3b456311d03c1f88843856cd5fa98f8bec3d84da1bc5e6982d40",
+      "size_bytes": 4251
+    },
+    {
+      "name": "seed_stability_attention_findings.csv",
+      "sha256": "f9a5a99d7322dd4d997f26bb8259f8accd6d297449ee8f8107a9ef17c1ba15ec",
+      "size_bytes": 1732
+    },
+    {
+      "name": "seed_stability_attention_tests.csv",
+      "sha256": "64ff2edb27b5ec990009c90cf0f8a9090013806ed7e4d9f4f9bd814f1cefe9ec",
+      "size_bytes": 2257
+    },
+    {
+      "name": "seed_stability_attention_discrepancies.json",
+      "sha256": "f2e7e0df1e1eed93c237740fc57cde344006b352d49d3a05d07e9d12228c0bf7",
+      "size_bytes": 51
+    },
+    {
+      "name": "seed_stability_source_verification.csv",
+      "sha256": "8ce03de2e9f87580066bc95dcb1c9c50cd98d2005006efded60e9d14861e0a55",
+      "size_bytes": 1847
+    },
+    {
+      "name": "seed_pair_manifest.csv",
+      "sha256": "5a2bb63584afdee523a6d3c708235e884e7f46a982d648fab254c4ed2e054ff7",
+      "size_bytes": 190
+    },
+    {
+      "name": "phase57_preflight_audit.csv",
+      "sha256": "5552eac31cb65e88f7c7c6d918302f4538caeb65fb2892c3af901b153872cf55",
+      "size_bytes": 963
+    },
+    {
+      "name": "head_matching_fingerprint.json",
+      "sha256": "d06cf7e94428ad8ccc777e6c2cf31a8761300297b8c8a17d5cee38189597cab5",
+      "size_bytes": 914
+    },
+    {
+      "name": "head_matching_assignments.csv",
+      "sha256": "67ac6ccd99cffbc723496669f9a94dcac4b195262da9e2b753adf7321cf1c781",
+      "size_bytes": 2941
+    },
+    {
+      "name": "head_matching_cost_matrices.csv",
+      "sha256": "afabd966b870f76178b636641f46d790985766644c2c1d1e1714bfadf8b3f23d",
+      "size_bytes": 9113
+    },
+    {
+      "name": "head_matching_ambiguity_audit.csv",
+      "sha256": "607735601c06db28f2febf6c59bef70dbc8edccce859d3c26e492c30b67a6931",
+      "size_bytes": 887
+    },
+    {
+      "name": "head_matching_cycle_consistency.csv",
+      "sha256": "b9970b6cbf5f28031803e3cf5c1d43811daa8541895b77cae58d6eba05183212",
+      "size_bytes": 251
+    },
+    {
+      "name": "head_matching_edge_margin_audit.csv",
+      "sha256": "ac903ab9ea34dcb3374da0b8354ac9f95b92a50b523fe55625dc975026d4e2e6",
+      "size_bytes": 2982
+    },
+    {
+      "name": "head_matching_wasserstein_sensitivity.csv",
+      "sha256": "0fc2992279adc81f4996a00f5b403de46116eb7c73056c07359f8fedf8946976",
+      "size_bytes": 711
+    },
+    {
+      "name": "head_matching_independence_audit.csv",
+      "sha256": "b833204ca31edf2ce5c0d6fa82059698ae38ed05b722deff3690155988c2de13",
+      "size_bytes": 327
+    },
+    {
+      "name": "canonical_matched_head_groups.csv",
+      "sha256": "cb3389342acc52e33e80911cb78cfe00c6c793e43eab7c753432cbdcbf62c7d6",
+      "size_bytes": 690
+    },
+    {
+      "name": "layer_head_mean_seed_stability.csv",
+      "sha256": "ed9073a537be0a9fcc4c5eab2ad4426ab8f5037138c427e2f52fd19ac58f1bca",
+      "size_bytes": 983
+    },
+    {
+      "name": "layer_head_mean_seed_stability_summary.csv",
+      "sha256": "bbfabf0ca3a04656c6c527f78fcaa1d1cd6ab84bb481e14efa420ee829cb1941",
+      "size_bytes": 416
+    },
+    {
+      "name": "layer_head_mean_per_target_stability.csv",
+      "sha256": "a8970a867117cc9f726603c8fb56c5ba8f27146fc58770554564c4dffd971ee3",
+      "size_bytes": 1911769
+    },
+    {
+      "name": "layer_attention_disagreement_by_target.csv",
+      "sha256": "44d5303ae880818f520bc761f9105bdb9b97abd9e0f2abbcebecf1eac4a4b7c5",
+      "size_bytes": 590975
+    },
+    {
+      "name": "layer_attention_metric_seed_stability.csv",
+      "sha256": "5a2cd2eac2b8d5a528b586e25b5b729741892af5daa670078e26f5a0a9fb6cd3",
+      "size_bytes": 3397
+    },
+    {
+      "name": "matched_head_profile_seed_stability.csv",
+      "sha256": "a89c3eab348d016414d617c364c2d1379443a28ff5f0dd547812b9863aa11a29",
+      "size_bytes": 4007
+    },
+    {
+      "name": "matched_head_profile_stability_summary.csv",
+      "sha256": "167a5ce42dc022797062363003b4cdb4ea753772e33eec62046b7d8ae152960f",
+      "size_bytes": 1283
+    },
+    {
+      "name": "matched_head_consensus_profile.csv",
+      "sha256": "097a59df165722a2c98eb0a4d649cf120c667ee2972a11df59b265537a8a2392",
+      "size_bytes": 103973
+    },
+    {
+      "name": "matched_head_per_target_stability.csv",
+      "sha256": "cf6b29399dbdf3b8244f854e02b472b6f5f8b7818648da23786d6ceaeba9eb59",
+      "size_bytes": 8224469
+    },
+    {
+      "name": "matched_head_disagreement_by_target.csv",
+      "sha256": "b726aa3a4844ab876933a378d6810d06add98dd2210223525af5e8d8983fb6fa",
+      "size_bytes": 2406070
+    },
+    {
+      "name": "matched_head_metric_seed_stability.csv",
+      "sha256": "71880772eb9bbdbd29a6e8c12409662f8f35026ff88a208313936fcd063d96e4",
+      "size_bytes": 13306
+    },
+    {
+      "name": "matched_head_top1_lag_stability.csv",
+      "sha256": "ac38e16586999fc8485bec9037c3fa343e1b431a4de321b5c83f896a9bb4832d",
+      "size_bytes": 1847
+    },
+    {
+      "name": "dense_case_attention_seed_stability.csv",
+      "sha256": "70ead99bd7ed5ecafce18067ccd89ef7d2d52e31253563a00860fe22c399a654",
+      "size_bytes": 191505
+    },
+    {
+      "name": "dense_case_attention_stability_summary.csv",
+      "sha256": "c97951b0ddada29c5e5318226e74baaf92ae787067697b21cdb4e4fdc03b8afb",
+      "size_bytes": 2944
+    },
+    {
+      "name": "layer_error_conditioned_seed_stability.csv",
+      "sha256": "9e75be736f08a26b683648bfbe4347d3962ff3eb27f13641d745bf91585eddcc",
+      "size_bytes": 14391
+    },
+    {
+      "name": "matched_head_error_conditioned_stability.csv",
+      "sha256": "f680d8c2cf642c436c3ba06bda363183ae8c3f7524af53b85a244108a50d5c14",
+      "size_bytes": 29947
+    },
+    {
+      "name": "prediction_attention_disagreement_association.csv",
+      "sha256": "8c97b0105c9d1d1a5f822fe35273344ec7d906a464a6c728fcaa8b0059c7d60d",
+      "size_bytes": 689
+    },
+    {
+      "name": "matched_head_prediction_disagreement_association.csv",
+      "sha256": "5944371051b63ea7c448bc5c6c3ff10d34f163199fb880a918c86e9a7e92654e",
+      "size_bytes": 3070
+    },
+    {
+      "name": "attention_seed_stability_evidence_summary.csv",
+      "sha256": "eeeefbd2c094b3b3917e209a3a338c42329cf576255702b88bdb1f391e7a77de",
+      "size_bytes": 3112
+    },
+    {
+      "name": "phase58_final_tables_handoff.json",
+      "sha256": "97ecb4897eff80817958e07c4f2b8e21b8100b2970f0c8505d34e30145f4adc4",
+      "size_bytes": 131196
+    },
+    {
+      "name": "phase59_conclusions_context_handoff.json",
+      "sha256": "0054431599703982ea2be8d4fe7dc1ca311ada2ec472dbacace7e7c156df04e2",
+      "size_bytes": 3384
+    }
+  ],
+  "files_archived_count": 42,
+  "corrective_to_run": "Phase57 v2 corrective re-run to regenerate matched_head_metric_seed_stability, layer_error_conditioned_seed_stability, matched_head_error_conditioned_stability against Phase54-v2 / Phase56-v2 upstream."
+}

@@ -1,0 +1,1827 @@
+{
+  "log_id": "phase_49_residual_analysis_log",
+  "log_version": "1",
+  "log_kind": "machine_readable_processing_log",
+  "task": "PHASE_49_RESIDUAL_ANALYSIS",
+  "phase": 49,
+  "phase_name": "Residual analysis",
+  "phase_version_target": "RESIDUAL_ANALYSIS-v1",
+  "plan_file": "docs/plan-doc/plan_detail_for_each_phase/Phase_49_Residual_analysis.md",
+  "pre_process_plan_file": "docs/plan-doc/plan_before_process/phase_49_residual_analysis_plan.md",
+  "architecture_file": "docs/RULE_BASE/architecture_rule.md",
+  "rule_code_file": "docs/RULE_BASE/rule_code.md",
+  "scope": "PHASE_49_A_PRE_IMPLEMENTATION_AUDIT_AND_CONTRACT_FREEZE_ONLY",
+  "operation_timestamp_utc": "2026-09-04T01:25:00+00:00",
+  "phase49_a": {
+    "task": "PHASE_49_A",
+    "scope": "audit + contract freeze + defect matrix + pre-process plan only",
+    "executed_steps": [
+      "Read working_rule.md, architecture_rule.md, rule_code.md (per rule_code.md §42)",
+      "Read Phase 49 canonical plan in full",
+      "Read Phase 47 signoff and source checksum JSON",
+      "Read Phase 48 signoff and Phase 49 handoff JSON",
+      "Verified all 4 frozen Phase 47 prediction bundles byte-identical to prediction_checksums.json",
+      "Verified all 3 Transformer seed bundles contain residual_wh / absolute_error_wh / squared_error_wh with internal consistency",
+      "Verified target_id set, target_timestamp order, and y_true equality across the 3 Transformer bundles",
+      "Verified 10-min cadence over full Test period (0 gaps) — Test is perfectly continuous",
+      "Verified N_TEST = 2961 across the 3 Transformer bundles",
+      "Verified test population fingerprint = d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "Verified Phase 48 signoff overall_status == PASS, ready_for_phase49 == true",
+      "Verified Phase 49 handoff JSON: status == PASS, residual_convention == 'y_true - y_pred', phase48_executed_residual_analysis == false",
+      "Architecture authorization audit: v1.10 amendment §28 explicitly states 'Phase 49+ vẫn KHÔNG ĐƯỢC triển khai trong vòng này'",
+      "Froze residual convention and all derived definitions (contract JSON)",
+      "Completed defect matrix (8 defects across 30 categories, 1 CRITICAL = D-ARCH-1)",
+      "Wrote pre-process plan at docs/plan-doc/plan_before_process/phase_49_residual_analysis_plan.md"
+    ],
+    "read_complete_flags": {
+      "working_rule_read": true,
+      "architecture_rule_read": true,
+      "rule_code_read": true,
+      "phase_detail_read": true,
+      "phase_48_signoff_read": true,
+      "phase_49_handoff_read": true,
+      "phase_47_signoff_read": true,
+      "phase_47_prediction_bundles_read": true,
+      "context_read_complete": true
+    },
+    "upstream_health_flags": {
+      "phase_47_signoff_pass": true,
+      "phase_47_source_bundles_byte_identical": true,
+      "phase_47_n_test_correct": true,
+      "phase_47_population_fingerprint_correct": true,
+      "phase_47_test_continuous": true,
+      "phase_48_signoff_pass": true,
+      "phase_48_handoff_present": true,
+      "phase_48_source_predictions_unmodified": true,
+      "phase_48_artifacts_unmodified": true,
+      "phase_49_handoff_pass": true,
+      "upstream_healthy": true
+    },
+    "frozen_contract": "artifacts/phase49_audit/phase49_a_contract.json",
+    "defect_matrix_summary": {
+      "artifacts/phase49_audit/phase49_a_defect_matrix.json": "phase49_a_requirements_matrix",
+      "artifacts/phase49_audit/phase49_a_defect_matrix_full.json": "phase49_a_defect_matrix_full",
+      "summary_counts": {
+        "PASS": 19,
+        "PARTIAL": 1,
+        "FAIL": 1,
+        "MISSING": 0
+      },
+      "blocking_defect_ids": [
+        "D-ARCH-1"
+      ],
+      "non_blocking_defect_ids": [
+        "D-COLNAME-1"
+      ],
+      "info_defect_ids": [
+        "D-NO-3N-POOL",
+        "D-NO-PHASE50-REGIME-LEAKAGE",
+        "D-NO-WORST-ERROR-SCOPE-CREEP",
+        "D-LJUNG-BOX-POLICY",
+        "D-NO-RESIDUAL-CORRECTION-MODEL",
+        "D-NOTEBOOK-BOUNDARY"
+      ]
+    },
+    "pre_process_plan": "docs/plan-doc/plan_before_process/phase_49_residual_analysis_plan.md",
+    "implementation_started": false,
+    "implementation_block_reason": "Architecture_rule.md v1.10 §28 explicit deferral: 'does not unlock any other Phase 49+ implementation in this round'. New amendment v1.11 + explicit human approval of pre-process plan are required before any source code is authored.",
+    "new_inference": false,
+    "checkpoint_loading": false,
+    "training": false,
+    "model_train_called": false,
+    "loss_backward_called": false,
+    "optimizer_step_called": false,
+    "scaler_fit_called": false,
+    "optimizer_steps": 0,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase47_artifacts_modified": false,
+    "phase48_artifacts_modified": false,
+    "phase47_source_bundles_byte_identical": true,
+    "phase_47_signoff_status": "PASS",
+    "phase_48_signoff_status": "PASS",
+    "phase_49_handoff_status": "PASS",
+    "user_approval_state": "BLOCKED_WAITING_FOR_HUMAN",
+    "next_step_after_approval": "Phase49-B (distributions / bias / tails / sign balance) only after architecture amendment v1.11 + human approval of pre-process plan"
+  },
+  "contract_freeze": {
+    "frozen_at_utc": "2026-09-04T01:25:00+00:00",
+    "residual_definition": "Y_TRUE_MINUS_Y_PRED",
+    "positive_residual_semantics": "UNDERPREDICTION",
+    "negative_residual_semantics": "OVERPREDICTION",
+    "zero_policy": "EXACT_ZERO",
+    "all_three_seeds_retained": true,
+    "seed_pooling_as_3N_iid": false,
+    "seed_mean_residual_semantics": "SEED_MEAN_RESIDUAL_DESCRIPTIVE",
+    "best_seed_selection": false,
+    "ensemble_residual": false,
+    "prediction_correction": false,
+    "bias_correction": false,
+    "residual_model": false,
+    "new_inference": false,
+    "training": false,
+    "target_regime_analysis_deferred_to_phase50": true,
+    "worst_error_ranking_deferred_to_phase51": true,
+    "attention_analysis_deferred_to_phase52_plus": true,
+    "canonical_cadence_minutes": 10,
+    "test_n_target": 2961,
+    "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "seed_list": [
+      42,
+      123,
+      2026
+    ],
+    "acf_registered_lags": [
+      1,
+      6,
+      12,
+      36,
+      72,
+      144
+    ],
+    "acf_gap_safe": true,
+    "sign_run_gap_safe": true,
+    "rolling_window_samples": 144,
+    "rolling_no_partial_windows": true,
+    "histogram_bins": 50,
+    "histogram_common_range_across_seeds": true,
+    "mad_definition": "median(abs(residual - median(residual)))",
+    "skewness_definition": "sample skewness bias=False",
+    "kurtosis_definition": "Fisher excess kurtosis bias=False normal reference=0",
+    "cross_seed_summary_ddof": 1,
+    "prediction_decile_bins": 10,
+    "decile_basis": "y_pred_wh",
+    "decile_not_phase50_regime": true,
+    "ljung_box_policy": "SECONDARY_DIAGNOSTIC",
+    "ljung_box_lags": [
+      6,
+      36,
+      144
+    ],
+    "ljung_box_not_used_for_pass_fail": true,
+    "ljung_box_not_applicable_policy": "mark NOT_APPLICABLE if global series disconnected; evaluate per adequate contiguous segment",
+    "phase49_artifact_root": "artifacts/residual_analysis/",
+    "phase49_phase_module_root": "src/course_work/phase49/",
+    "phase49_dashboard_module": "src/course_work/reporting/phase_49_dashboard.py",
+    "phase47_artifact_root_immutable": true,
+    "phase48_artifact_root_immutable": true,
+    "contract_status": "FROZEN_AT_PHASE49_A",
+    "contract_can_be_amended_only_by": "human approval after explicit Phase49 pre-process-plan approval and architecture amendment v1.11 authorization"
+  },
+  "ready_for_phase49_b": false,
+  "ready_for_phase49_b_blocked_by": [
+    "Architecture amendment v1.11 not yet drafted",
+    "Pre-process plan not yet human-approved",
+    "User approval gate per rule_code.md §15-§17 not yet passed"
+  ],
+  "human_approval_state": "BLOCKED_WAITING_FOR_HUMAN",
+  "phase49_a2_architecture_amendment": {
+    "task": "PHASE_49_A2",
+    "scope": "governance amendment ONLY — no Phase 49 source code, no scientific artifacts",
+    "executed_steps": [
+      "Read working_rule.md, architecture_rule.md, rule_code.md in full (already cached from phase49_a)",
+      "Read phase_49_residual_analysis_plan.md (pre-process plan from phase49_a) — confirmed §7.37.2 mirror structure available",
+      "Read phase_49_residual_analysis_log.json (processing log from phase49_a) — confirmed contract frozen + defects logged",
+      "Read phase_49_residual_analysis.md (canonical Phase detail) — confirmed scope boundaries",
+      "Drafted §7.37.2 Phase 49 owner entry in architecture_rule.md (inserted after §7.37.1)",
+      "Drafted §7.37.3 Phase 49 residual convention contract (frozen fields)",
+      "Drafted §7.37.4 Phase 49 temporal contract (cadence 10min, gap-safe ACF, rolling 144)",
+      "Drafted §7.37.5 Phase 49 statistical definitions (MAD, skew, kurtosis, deciles)",
+      "Drafted §7.37.6 Phase 49 Ljung-Box policy (secondary diagnostic, no PASS/FAIL)",
+      "Drafted §7.37.7 Phase 49 baseline eligibility (PERSISTENCE available; LSTM NOT_ELIGIBLE)",
+      "Drafted §7.37.8 Phase 49 strictly forbidden actions list (mirrors §7.37.1 forbidden list)",
+      "Drafted §7.37.9 Phase 49 notebook boundary (single-cell, presentation-only)",
+      "Drafted §7.37.10 Phase 49 module ownership (13 phase49/ modules + reporting module)",
+      "Appended v1.11 entry to §28 amendment log",
+      "Added Phase 49 entry to §26 validation checklist",
+      "Added Phase 49 entry to §25 transition state (between Phase 48 paragraph and Phase 9-35 phase list)",
+      "Added Phase 49 governance preamble line to §28 (mirroring Phase 48 governance preamble)",
+      "Added PHASE_49_PHASE_A_AUDIT_APPROVED, PHASE_49_PRE_PROCESS_PLAN_APPROVED, PHASE_49_AMENDMENT_V1_11_HUMAN_APPROVED entries to §27 activation gate"
+    ],
+    "amendment_version": "v1.11",
+    "amendment_id": "phase-49-architecture-amendment-v1.11",
+    "amendment_date": "2026-09-04",
+    "amendment_target_section": "§7.37.2-§7.37.10 + §25 + §26 + §27 + §28",
+    "authorized_paths": [
+      "src/course_work/phase49/",
+      "src/course_work/reporting/phase_49_dashboard.py",
+      "artifacts/residual_analysis/",
+      "docs/save_log_in_processing/phase_49_residual_analysis_log.json",
+      "docs/save_log_in_processing/phase_49_architecture_amendment_log.json"
+    ],
+    "explicitly_NOT_authorized": [
+      "Phase 50 implementation (Error-by-Regime)",
+      "Phase 51 implementation (Worst-Error)",
+      "Phase 52+ implementation (Attention)",
+      "Any new Test inference path",
+      "Any training/checkpoint/scaler-fit path",
+      "Any best-seed / ensemble / residual-correction / bias-correction / recalibration path"
+    ],
+    "implementation_started": false,
+    "new_inference": false,
+    "training": false,
+    "optimizer_steps": 0,
+    "model_train_called": false,
+    "loss_backward_called": false,
+    "optimizer_step_called": false,
+    "scaler_fit_called": false,
+    "checkpoint_loading": false,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase47_artifacts_modified": false,
+    "phase48_artifacts_modified": false,
+    "phase47_source_bundles_byte_identical": true,
+    "phase_47_signoff_status": "PASS",
+    "phase_48_signoff_status": "PASS",
+    "phase_49_handoff_status": "PASS",
+    "src_course_work_phase49_exists": false,
+    "src_course_work_reporting_phase_49_dashboard_exists": false,
+    "artifacts_residual_analysis_exists": false,
+    "phase50_authorized": false,
+    "phase51_authorized": false,
+    "phase52_plus_authorized": false,
+    "human_approval": {
+      "amendment_v1_11_status": "APPROVED",
+      "pre_process_plan_status": "APPROVED",
+      "phase_49_b_status": "COMPLETED",
+      "phase_49_c_human_approval": "APPROVED",
+      "phase_49_c_approval_granted_at_utc": "2026-09-04T01:41:00+00:00",
+      "phase_49_c_approval_granted_by": "human_owner",
+      "phase_49_c_approval_scope": "Phase49-C distribution + bias + sign balance + tails + common-bin histogram preparation ONLY; does NOT authorize ACF, Ljung-Box, sign runs, rolling, magnitude, deciles, cross-seed, figures, signoff, or Phase50+",
+      "phase_49_d_human_approval": "APPROVED",
+      "phase_49_d_approval_granted_at_utc": "2026-09-04T01:47:00+00:00",
+      "phase_49_d_approval_granted_by": "human_owner",
+      "phase_49_d_approval_scope": "Phase49-D temporal diagnostics ONLY (gap-safe ACF + Ljung-Box secondary + sign runs + sign transitions + rolling 144); does NOT authorize magnitude, deciles, cross-seed, figures, signoff, or Phase50+",
+      "phase_49_e_human_approval": "APPROVED",
+      "phase_49_e_approval_granted_at_utc": "2026-09-04T02:18:00+00:00",
+      "phase_49_e_approval_granted_by": "human_owner",
+      "phase_49_e_approval_scope": "Phase49-E magnitude associations + prediction-decile diagnostics + cross-seed residual agreement + cross-seed sign consensus + persistence baseline residual context ONLY; does NOT authorize figures, signoff, worst-error ranking, attention analysis, or Phase50+",
+      "phase_49_f_human_approval": "APPROVED",
+      "phase_49_f_approval_granted_at_utc": "2026-09-04T02:25:00+00:00",
+      "phase_49_f_approval_granted_by": "human_owner",
+      "phase_49_f_approval_scope": "Phase49-F finalization ONLY (full audit + figures + findings + O49 completeness + Phase50 handoff + Phase51 context handoff + summary + report + README + strict signoff); does NOT authorize new inference, training, checkpoint loading, scaler fitting, ensemble, best-seed selection, Test-derived Phase50 thresholds, worst-error ranking, attention analysis, or Phase50+ implementation"
+    },
+    "human_approval_granted_at_utc": "2026-09-04T01:34:00+00:00",
+    "human_approval_granted_by": "human_owner",
+    "human_approval_scope": "Phase49 implementation ONLY; does NOT authorize Phase50/51/52+, new Test inference, checkpoint loading, training, optimizer, scaler fitting, residual correction, recalibration, best-seed selection, ensemble promotion",
+    "next_step_after_approval": "Phase49-B (residual reconstruction + metric reconstruction) only"
+  },
+  "stop_conditions_observed": [],
+  "phase49_b": {
+    "task": "PHASE_49_B",
+    "scope": "Residual reconstruction + metric reconstruction ONLY",
+    "status": "PASS",
+    "ready_for_phase49_c": true,
+    "executed_steps": [
+      "Updated governance approval fields PENDING -> APPROVED (architecture_rule.md sec 27, processing log, governance log)",
+      "Performed read-only Phase49-B defect audit (15 categories, all resolved)",
+      "Created src/course_work/phase49/ package skeleton (only modules required for 49-B)",
+      "Implemented sources.py (sha verify, N=2961, alignment)",
+      "Implemented contract.py (residual convention, sign semantics, frozen-field assertions)",
+      "Implemented residual.py (y_true - y_pred, sign labels, squared_error_wh2)",
+      "Implemented metrics.py (MAE/RMSE/R2 reconstruction using NumPy float64 to match Phase 12 summation order)",
+      "Implemented wide_table.py (wide + long table writers, atomic, deterministic)",
+      "Implemented materialize_b.py (orchestrator + manifest writer)",
+      "Ran materialize_phase49_b() -> STATUS PASS, Metric match phase47 True",
+      "Added tests/unit/test_phase49_b_residual_reconstruction.py (29 tests, all PASS)",
+      "Captured Phase47 source sha snapshot (seed42, seed123, seed2026, phase_47_signoff)",
+      "Captured Phase48 signoff sha snapshot (unchanged)"
+    ],
+    "source_verification": {
+      "verification_status": "PASS",
+      "all_seed_sha_match": true,
+      "all_seed_n_rows_ok": true,
+      "cross_seed_alignment_pass": true
+    },
+    "residual_reconstruction": {
+      "convention": "y_true - y_pred",
+      "positive_semantics": "UNDERPREDICTION",
+      "negative_semantics": "OVERPREDICTION",
+      "zero_policy": "EXACT_ZERO",
+      "legacy_squared_error_wh_verified_matches_derived_wh2": true,
+      "canonical_squred_error_field_name": "squared_error_wh2",
+      "status": "PASS"
+    },
+    "metric_reconstruction": {
+      "status": "PASS",
+      "tolerance": 0.0,
+      "per_seed": {
+        "42": {
+          "n": 2961,
+          "mae_wh": 29.528646738232613,
+          "rmse_wh": 64.94275370825517,
+          "r2": 0.4892735101282182
+        },
+        "123": {
+          "n": 2961,
+          "mae_wh": 27.11486924829266,
+          "rmse_wh": 61.98608587121866,
+          "r2": 0.5347188997659036
+        },
+        "2026": {
+          "n": 2961,
+          "mae_wh": 28.94229416815529,
+          "rmse_wh": 64.56013557970728,
+          "r2": 0.4952737966044358
+        }
+      }
+    },
+    "artifacts": {
+      "long_table_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/residual_long_table.csv",
+      "wide_table_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/residual_wide_table.csv",
+      "long_table_rows": 8883,
+      "wide_table_rows": 2961,
+      "field_consistency_audit_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_field_consistency_audit.csv",
+      "metric_reconstruction_audit_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_metric_reconstruction_audit.csv",
+      "source_verification_manifest_path": "artifacts/residual_analysis/phase49_source_verification.json",
+      "phase49_b_manifest_path": "artifacts/residual_analysis/phase49_b_manifest.json"
+    },
+    "focused_tests": {
+      "test_file": "tests/unit/test_phase49_b_residual_reconstruction.py",
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "passed_status": "PASS"
+    },
+    "defect_matrix": {
+      "defects_audited": 15,
+      "defects_found_in_49_b_implementation": 2,
+      "defects_fixed": 2,
+      "defect_list": [
+        {
+          "id": "D49B-1",
+          "severity": "MAJOR",
+          "file": "src/course_work/phase49/residual.py",
+          "root_cause": "reconstruct_residual_row added redundant field source_prediction_bundle not in long_table schema",
+          "fix": "removed the obsolete field; source_prediction_sha256 already added by reconstruct_residual_long_table"
+        },
+        {
+          "id": "D49B-2",
+          "severity": "CRITICAL",
+          "file": "src/course_work/phase49/metrics.py",
+          "root_cause": "pure-Python float aggregation produced 1e-14 ULP differences vs Phase 12 numpy-based metrics; full numerical tolerance broken",
+          "fix": "switched to numpy.float64 arrays for MAE/RMSE/R2; sum/mean/sqrt computed by numpy; mae_wh, rmse_wh, r2 now match Phase47 signoff at full precision"
+        }
+      ]
+    },
+    "invariants": {
+      "new_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "model_train_called": false,
+      "loss_backward_called": false,
+      "optimizer_step_called": false,
+      "scaler_fit_called": false,
+      "optimizer_steps": 0,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase47_source_bundles_byte_identical": true,
+      "best_seed_selected": false,
+      "ensemble_promoted": false,
+      "three_n_iid_interpretation": false,
+      "phase50_authorized": false,
+      "phase51_authorized": false,
+      "phase52_plus_authorized": false
+    },
+    "executed_at_utc": "2026-09-03T18:38:48Z"
+  },
+  "phase49_c": {
+    "task": "PHASE_49_C",
+    "scope": "Residual distribution + signed bias + sign balance + tail diagnostics + 50-common-bin histogram preparation",
+    "status": "PENDING_HUMAN_APPROVAL_FOR_PHASE49_D",
+    "ready_for_phase49_d": true,
+    "executed_steps": [
+      "Recorded human approval gate for Phase49-C in processing log",
+      "Performed read-only Phase49-C defect audit (15 categories, all resolved before implementation)",
+      "Implemented distributions.py (N/mean/std/min/p01/p05/q1/median/q3/p95/p99/max/iqr/mad/skew/kurtosis_excess)",
+      "Implemented bias.py (signed bias + sign balance + recompute sign class)",
+      "Implemented tails.py (abs_error p90/p95/p99/max + fractions above)",
+      "Implemented histogram.py (50-common-bin shared edges via np.linspace over global range)",
+      "Implemented c_writers.py (CSV/JSON writers + Phase49-B sha snapshot)",
+      "Implemented materialize_c.py orchestrator",
+      "Ran materialize_phase49_c() -> STATUS=PENDING_HUMAN_APPROVAL_FOR_PHASE49_D, ready_for_phase49_d=True",
+      "Added tests/unit/test_phase49_c_distribution_bias_tails_histogram.py (29 tests, all PASS)",
+      "Captured Phase47 source sha snapshot (seed42/123/2026)",
+      "Captured Phase49-B artifact sha snapshot (6 files unchanged)"
+    ],
+    "definition_freeze": {
+      "residual_convention": "y_true - y_pred",
+      "positive_semantics": "UNDERPREDICTION",
+      "negative_semantics": "OVERPREDICTION",
+      "zero_policy": "EXACT_ZERO",
+      "mad_definition": "median(abs(residual - median(residual)))",
+      "skewness": "sample skewness bias=False",
+      "kurtosis": "Fisher excess kurtosis bias=False normal_reference=0",
+      "std_ddof": 1,
+      "histogram_bins": 50,
+      "histogram_common_range": true,
+      "cross_seed_summary_ddof": 1
+    },
+    "distribution_summary": {
+      "42": {
+        "n": 2961,
+        "mean": 5.559035351374675,
+        "std": 64.71532119050227,
+        "min": -274.9851117075611,
+        "p01": -147.36668292326428,
+        "p05": -55.620968740805466,
+        "q1": -12.825357933936104,
+        "median": -0.8630630669310904,
+        "q3": 11.09634580766749,
+        "p95": 85.17952019328558,
+        "p99": 303.71233290219186,
+        "max": 600.5894787902071,
+        "iqr": 23.921703741603594,
+        "mad": 11.959620408612416,
+        "skewness": 3.2738107268949737,
+        "kurtosis_excess": 21.478376510873325
+      },
+      "123": {
+        "n": 2961,
+        "mean": 5.885584477100035,
+        "std": 61.716457287208534,
+        "min": -289.69583515443696,
+        "p01": -138.1601678927282,
+        "p05": -47.37568281020596,
+        "q1": -10.334892520429634,
+        "median": 0.37464463595620856,
+        "q3": 10.786989343245125,
+        "p95": 79.44411759544764,
+        "p99": 300.27490627717265,
+        "max": 567.4577150093082,
+        "iqr": 21.12188186367476,
+        "mad": 10.525170518884309,
+        "skewness": 3.2326265051321337,
+        "kurtosis_excess": 22.52083747113086
+      },
+      "2026": {
+        "n": 2961,
+        "mean": 3.2074270400174867,
+        "std": 64.49130293440155,
+        "min": -338.41885083989104,
+        "p01": -166.4946533730642,
+        "p05": -54.41117231405593,
+        "q1": -13.06868501160345,
+        "median": -1.0795207859742675,
+        "q3": 9.910019641865965,
+        "p95": 77.51205165088368,
+        "p99": 293.6526245065449,
+        "max": 534.8287859818215,
+        "iqr": 22.978704653469414,
+        "mad": 11.53370092557958,
+        "skewness": 2.7928703240695265,
+        "kurtosis_excess": 21.006221377619752
+      }
+    },
+    "signed_bias": {
+      "42": {
+        "n": 2961,
+        "mean_residual_wh": 5.559035351374675,
+        "median_residual_wh": -0.8630630669310904,
+        "mean_absolute_residual_wh": 29.528646738232613,
+        "mean_underprediction_residual_wh": 36.78988196435098,
+        "mean_overprediction_residual_wh": -22.90962534424995,
+        "underprediction_count": 1412,
+        "overprediction_count": 1549,
+        "exact_count": 0,
+        "underprediction_fraction": 0.4768659236744343,
+        "overprediction_fraction": 0.5231340763255656,
+        "exact_fraction": 0.0,
+        "fractions_sum_to_one": true
+      },
+      "123": {
+        "n": 2961,
+        "mean_residual_wh": 5.885584477100035,
+        "median_residual_wh": 0.37464463595620856,
+        "mean_absolute_residual_wh": 27.11486924829266,
+        "mean_underprediction_residual_wh": 32.420153776007886,
+        "mean_overprediction_residual_wh": -21.616200896664843,
+        "underprediction_count": 1507,
+        "overprediction_count": 1454,
+        "exact_count": 0,
+        "underprediction_fraction": 0.5089496791624452,
+        "overprediction_fraction": 0.4910503208375549,
+        "exact_fraction": 0.0,
+        "fractions_sum_to_one": true
+      },
+      "2026": {
+        "n": 2961,
+        "mean_residual_wh": 3.2074270400174867,
+        "median_residual_wh": -1.0795207859742675,
+        "mean_absolute_residual_wh": 28.94229416815529,
+        "mean_underprediction_residual_wh": 34.34174765418456,
+        "mean_overprediction_residual_wh": -24.190775100449535,
+        "underprediction_count": 1386,
+        "overprediction_count": 1575,
+        "exact_count": 0,
+        "underprediction_fraction": 0.46808510638297873,
+        "overprediction_fraction": 0.5319148936170213,
+        "exact_fraction": 0.0,
+        "fractions_sum_to_one": true
+      }
+    },
+    "sign_balance": {
+      "42": {
+        "n": 2961,
+        "underprediction_count": 1412,
+        "underprediction_fraction": 0.4768659236744343,
+        "overprediction_count": 1549,
+        "overprediction_fraction": 0.5231340763255656,
+        "exact_count": 0,
+        "exact_fraction": 0.0,
+        "fractions_sum_to_one": true
+      },
+      "123": {
+        "n": 2961,
+        "underprediction_count": 1507,
+        "underprediction_fraction": 0.5089496791624452,
+        "overprediction_count": 1454,
+        "overprediction_fraction": 0.4910503208375549,
+        "exact_count": 0,
+        "exact_fraction": 0.0,
+        "fractions_sum_to_one": true
+      },
+      "2026": {
+        "n": 2961,
+        "underprediction_count": 1386,
+        "underprediction_fraction": 0.46808510638297873,
+        "overprediction_count": 1575,
+        "overprediction_fraction": 0.5319148936170213,
+        "exact_count": 0,
+        "exact_fraction": 0.0,
+        "fractions_sum_to_one": true
+      }
+    },
+    "tail_diagnostics": {
+      "42": {
+        "n": 2961,
+        "abs_error_p90": 64.16623647970042,
+        "abs_error_p95": 128.23673087049752,
+        "abs_error_p99": 303.71233290219186,
+        "max_absolute_error": 600.5894787902071,
+        "fraction_above_p90": 0.0999662276258021,
+        "fraction_above_p95": 0.04998311381290105,
+        "fraction_above_p99": 0.010131712259371834
+      },
+      "123": {
+        "n": 2961,
+        "abs_error_p90": 57.135007351191746,
+        "abs_error_p95": 116.20128818044961,
+        "abs_error_p99": 300.27490627717265,
+        "max_absolute_error": 567.4577150093082,
+        "fraction_above_p90": 0.0999662276258021,
+        "fraction_above_p95": 0.04998311381290105,
+        "fraction_above_p99": 0.010131712259371834
+      },
+      "2026": {
+        "n": 2961,
+        "abs_error_p90": 61.64704355524631,
+        "abs_error_p95": 128.06828968784703,
+        "abs_error_p99": 308.4452617044149,
+        "max_absolute_error": 534.8287859818215,
+        "fraction_above_p90": 0.0999662276258021,
+        "fraction_above_p95": 0.04998311381290105,
+        "fraction_above_p99": 0.010131712259371834
+      }
+    },
+    "histogram": {
+      "n_bins": 50,
+      "n_rows_total": 150,
+      "shared_bin_edges_across_seeds": true,
+      "all_seeds_count_to_2961": true,
+      "all_seeds_fraction_to_1": true,
+      "n_seeds": 3,
+      "common_residual_range": {
+        "min": -338.41885083989104,
+        "max": 600.5894787902071
+      }
+    },
+    "seed_mean_residual_semantics": "SEED_MEAN_RESIDUAL_DESCRIPTIVE",
+    "artifacts": {
+      "distribution_summary_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_residual_distribution_summary.csv",
+      "signed_bias_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_signed_bias.csv",
+      "sign_balance_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_sign_balance.csv",
+      "tail_diagnostics_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_tail_diagnostics.csv",
+      "histogram_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_residual_histogram_50bins.csv",
+      "histogram_bin_edges_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_histogram_bin_edges.csv",
+      "phase49_c_manifest_json": "artifacts/residual_analysis/phase49_c_manifest.json"
+    },
+    "focused_tests": {
+      "test_file": "tests/unit/test_phase49_c_distribution_bias_tails_histogram.py",
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "combined_with_phase49_b_total": 58,
+      "combined_with_phase49_b_passed": 58,
+      "passed_status": "PASS"
+    },
+    "defect_matrix": {
+      "defects_audited": 15,
+      "defects_found_in_49_c_implementation": 1,
+      "defects_fixed": 1,
+      "defect_list": [
+        {
+          "id": "D49C-1",
+          "severity": "MAJOR",
+          "file": "src/course_work/phase49/bias.py",
+          "root_cause": "signed_bias_for_residuals omitted fractions_sum_to_one field; BIAS_FIELDS referenced it -> KeyError at materialize_c",
+          "fix": "added fractions_sum_to_one (True if |under+over+exact-1| < 1e-12) to signed_bias_for_residuals return dict"
+        }
+      ]
+    },
+    "invariants": {
+      "new_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "model_train_called": false,
+      "loss_backward_called": false,
+      "optimizer_step_called": false,
+      "scaler_fit_called": false,
+      "optimizer_steps": 0,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_b_modified": false,
+      "best_seed_selected": false,
+      "ensemble_promoted": false,
+      "three_n_iid_interpretation": false,
+      "phase50_authorized": false,
+      "phase51_authorized": false,
+      "phase52_plus_authorized": false,
+      "worst_error_ranking_executed": false,
+      "attention_analysis_executed": false,
+      "ljung_box_used_for_pass_fail": false,
+      "deciles_used_as_phase50_regimes": false,
+      "target_regime_analysis_deferred_to_phase50": true,
+      "no_epsilon_around_zero": true,
+      "no_top_k_worst_ranking": true
+    },
+    "phase47_source_sha256_snapshot_first16": {
+      "seed42": "246ee0d725af972b",
+      "seed123": "1bb55c445ffe132d",
+      "seed2026": "bfb575357dd6a8e3"
+    },
+    "phase49_b_artifact_sha256_snapshot": {
+      "residual_long_table.csv": "8418a99110bfda7047bd27c49c1c7a9769313b1ce1fa6dc66925f5286d120038",
+      "residual_wide_table.csv": "931ff9109aef236d9517d8964d29168316c7d5903633441443c1ae5e71e8f8bd",
+      "phase49_b_manifest.json": "ccfacd195737f222f68feb22cf1d4f1e594dfac0e54485f6d92dcb4a3347aa0d",
+      "phase49_source_verification.json": "1873ddf5134ba6addf5613e90852022251cdeb97a0b004661d44ce889d124bd2",
+      "phase49_field_consistency_audit.csv": "8a286ddcbef71df01a286b3e9f1a70f7b3577ea443073e33f4f327fa7a591008",
+      "phase49_metric_reconstruction_audit.csv": "54e62b9c3486818bc6da2bc1600ccaa564f5719b7c7518bbcee995f2eb3aa207"
+    },
+    "executed_at_utc": "2026-09-03T18:44:58Z"
+  },
+  "phase49_d": {
+    "task": "PHASE_49_D",
+    "scope": "Temporal residual diagnostics: gap-safe ACF + Ljung-Box secondary + sign runs + sign transitions + rolling 144",
+    "status": "PENDING_HUMAN_APPROVAL_FOR_PHASE49_E",
+    "ready_for_phase49_e": true,
+    "executed_steps": [
+      "Recorded human approval gate for Phase49-D in processing log",
+      "Performed read-only Phase49-D defect audit (20 categories, all resolved before implementation)",
+      "Implemented autocorrelation.py (gap-safe ACF 1..144 + segment detection + cadence validation)",
+      "Implemented ljung_box.py (lags [6,36,144], per-lag partial sum, secondary diagnostic)",
+      "Implemented sign_runs.py (break at sign change / EXACT zero / temporal gap)",
+      "Implemented sign_transitions.py (exact 10-min cadence required, no smoothing, no epsilon)",
+      "Implemented rolling.py (exact 144 contiguous, no partial / interpolation / padding / forward fill)",
+      "Implemented d_writers.py (atomic CSV/JSON + Phase49-B/C sha snapshot)",
+      "Implemented materialize_d.py orchestrator",
+      "Ran materialize_phase49_d() -> STATUS=PENDING_HUMAN_APPROVAL_FOR_PHASE49_E, ready_for_phase49_e=True",
+      "Added tests/unit/test_phase49_d_temporal_diagnostics.py (34 tests, all PASS)",
+      "Captured Phase47 source sha + Phase49-B/C artifact sha snapshot"
+    ],
+    "definition_freeze": {
+      "residual_convention": "y_true - y_pred",
+      "positive_semantics": "UNDERPREDICTION",
+      "negative_semantics": "OVERPREDICTION",
+      "zero_policy": "EXACT_ZERO",
+      "cadence_minutes": 10,
+      "acf_lag_range": [
+        1,
+        144
+      ],
+      "acf_key_lags": [
+        1,
+        6,
+        12,
+        36,
+        72,
+        144
+      ],
+      "ljung_box_lags": [
+        6,
+        36,
+        144
+      ],
+      "ljung_box_policy": "SECONDARY_DIAGNOSTIC",
+      "rolling_window_samples": 144,
+      "sign_run_breaks_at": [
+        "sign_change",
+        "ZERO",
+        "temporal_gap"
+      ],
+      "transition_cadence_minutes": 10,
+      "no_epsilon_zero": true,
+      "no_smoothing": true
+    },
+    "all_seeds_single_contiguous_segment": true,
+    "contiguity_per_seed_summary": {
+      "42": {
+        "n_segments": 1,
+        "first_segment_length": 2961
+      },
+      "123": {
+        "n_segments": 1,
+        "first_segment_length": 2961
+      },
+      "2026": {
+        "n_segments": 1,
+        "first_segment_length": 2961
+      }
+    },
+    "acf": {
+      "n_rows": 432,
+      "key_lag_rows": 18,
+      "per_seed_audit": {
+        "42": {
+          "seed": "42",
+          "n_lags_emitted": 144,
+          "lag_range": [
+            1,
+            144
+          ],
+          "key_lags_reported": [
+            1,
+            6,
+            12,
+            36,
+            72,
+            144
+          ],
+          "segment_count_per_lag_consistent": true,
+          "segment_count_value": 1,
+          "gap_safe": true
+        },
+        "123": {
+          "seed": "123",
+          "n_lags_emitted": 144,
+          "lag_range": [
+            1,
+            144
+          ],
+          "key_lags_reported": [
+            1,
+            6,
+            12,
+            36,
+            72,
+            144
+          ],
+          "segment_count_per_lag_consistent": true,
+          "segment_count_value": 1,
+          "gap_safe": true
+        },
+        "2026": {
+          "seed": "2026",
+          "n_lags_emitted": 144,
+          "lag_range": [
+            1,
+            144
+          ],
+          "key_lags_reported": [
+            1,
+            6,
+            12,
+            36,
+            72,
+            144
+          ],
+          "segment_count_per_lag_consistent": true,
+          "segment_count_value": 1,
+          "gap_safe": true
+        }
+      }
+    },
+    "ljung_box": {
+      "lags": [
+        6,
+        36,
+        144
+      ],
+      "policy": "SECONDARY_DIAGNOSTIC",
+      "used_for_pass_fail": false,
+      "per_seed_status": {
+        "42": "SECONDARY_DIAGNOSTIC",
+        "123": "SECONDARY_DIAGNOSTIC",
+        "2026": "SECONDARY_DIAGNOSTIC"
+      },
+      "per_seed_n_segments": {
+        "42": 1,
+        "123": 1,
+        "2026": 1
+      }
+    },
+    "sign_runs": {
+      "42": {
+        "run_count": 1083,
+        "underprediction_run_count": 542,
+        "overprediction_run_count": 541,
+        "exact_zero_count": 0,
+        "mean_run_length": 2.7340720221606647,
+        "median_run_length": 1.0,
+        "max_run_length": 58,
+        "p95_run_length": 9.0
+      },
+      "123": {
+        "run_count": 1203,
+        "underprediction_run_count": 602,
+        "overprediction_run_count": 601,
+        "exact_zero_count": 0,
+        "mean_run_length": 2.4613466334164587,
+        "median_run_length": 1.0,
+        "max_run_length": 60,
+        "p95_run_length": 8.0
+      },
+      "2026": {
+        "run_count": 1079,
+        "underprediction_run_count": 540,
+        "overprediction_run_count": 539,
+        "exact_zero_count": 0,
+        "mean_run_length": 2.7442075996292865,
+        "median_run_length": 1.0,
+        "max_run_length": 47,
+        "p95_run_length": 9.0
+      }
+    },
+    "sign_transitions": {
+      "42": {
+        "eligible_pairs": 2960,
+        "total_transitions": NaN
+      },
+      "123": {
+        "eligible_pairs": 2960,
+        "total_transitions": NaN
+      },
+      "2026": {
+        "eligible_pairs": 2960,
+        "total_transitions": NaN
+      }
+    },
+    "rolling": {
+      "window_size": 144,
+      "all_windows_valid_count_144": true,
+      "partial_windows_emitted": false,
+      "forward_fill_used": false,
+      "interpolation_used": false,
+      "padding_used": false,
+      "n_total_windows": 8454,
+      "n_total_windows_expected": 8454,
+      "per_seed": {
+        "42": {
+          "n_windows": 2818
+        },
+        "123": {
+          "n_windows": 2818
+        },
+        "2026": {
+          "n_windows": 2818
+        }
+      }
+    },
+    "seed_mean_residual_semantics": "SEED_MEAN_RESIDUAL_DESCRIPTIVE",
+    "artifacts": {
+      "residual_acf_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_residual_acf.csv",
+      "acf_key_lags_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_residual_acf_key_lags.csv",
+      "ljung_box_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_ljung_box.csv",
+      "sign_runs_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_sign_runs.csv",
+      "sign_run_table_per_seed_csv": "artifacts/residual_analysis/phase49_sign_run_table_seed{42,123,2026}.csv",
+      "sign_transitions_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_sign_transitions.csv",
+      "rolling_residual_diagnostics_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_rolling_residual_diagnostics.csv",
+      "phase49_d_manifest_json": "artifacts/residual_analysis/phase49_d_manifest.json"
+    },
+    "focused_tests": {
+      "test_file": "tests/unit/test_phase49_d_temporal_diagnostics.py",
+      "total": 34,
+      "passed": 34,
+      "failed": 0,
+      "combined_with_phase49_bc_total": 92,
+      "combined_with_phase49_bc_passed": 92,
+      "passed_status": "PASS"
+    },
+    "defect_matrix": {
+      "defects_audited": 20,
+      "defects_found_in_49_d_implementation": 3,
+      "defects_fixed": 3,
+      "defect_list": [
+        {
+          "id": "D49D-1",
+          "severity": "MAJOR",
+          "file": "src/course_work/phase49/sign_transitions.py",
+          "root_cause": "for a, b in SIGN_LABELS attempted 2-var unpack on 3-tuple of strings",
+          "fix": "replaced with nested loops: for a in SIGN_LABELS: for b in SIGN_LABELS"
+        },
+        {
+          "id": "D49D-2",
+          "severity": "MAJOR",
+          "file": "src/course_work/phase49/autocorrelation.py",
+          "root_cause": "ACF row dict had extra field gap_safe not in CSV schema -> csv DictWriter ValueError",
+          "fix": "removed gap_safe from row dict; gap_safe lives only in acf_audit_summary (manifest-level metadata)"
+        },
+        {
+          "id": "D49D-3",
+          "severity": "CRITICAL",
+          "file": "src/course_work/phase49/ljung_box.py",
+          "root_cause": "_ljung_box_for_segment computed single cumulative Q once and returned same value for all 3 lags (Q_lag6 == Q_lag36 == Q_lag144)",
+          "fix": "rewrote to compute per-lag partial sum: Q_k = n(n+2) sum_{i=1..k} acf_i^2/(n-i), each lag gets its own Q statistic"
+        }
+      ]
+    },
+    "invariants": {
+      "new_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "model_train_called": false,
+      "loss_backward_called": false,
+      "optimizer_step_called": false,
+      "scaler_fit_called": false,
+      "optimizer_steps": 0,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_b_modified": false,
+      "phase49_c_modified": false,
+      "best_seed_selected": false,
+      "ensemble_promoted": false,
+      "three_n_iid_interpretation": false,
+      "phase50_authorized": false,
+      "phase51_authorized": false,
+      "phase52_plus_authorized": false,
+      "worst_error_ranking_executed": false,
+      "attention_analysis_executed": false,
+      "ljung_box_used_for_pass_fail": false,
+      "deciles_used_as_phase50_regimes": false,
+      "target_regime_analysis_deferred_to_phase50": true,
+      "no_epsilon_around_zero": true,
+      "no_smoothing": true,
+      "rolling_no_partial_windows": true,
+      "rolling_no_interpolation": true,
+      "rolling_no_padding": true,
+      "rolling_no_forward_fill": true,
+      "no_best_period_selected": true,
+      "no_worst_window_ranking": true
+    },
+    "executed_at_utc": "2026-09-03T18:52:52Z"
+  },
+  "phase49_e": {
+    "task": "PHASE_49_E",
+    "scope": "Magnitude associations + prediction-decile diagnostics + cross-seed residual agreement + cross-seed sign consensus + persistence baseline residual context",
+    "status": "PENDING_HUMAN_APPROVAL_FOR_PHASE49_F",
+    "ready_for_phase49_f": true,
+    "executed_steps": [
+      "Recorded human approval gate for Phase49-E in processing log",
+      "Performed read-only Phase49-E defect audit (19 categories, all resolved before implementation)",
+      "Implemented magnitude_associations.py (Pearson + Spearman, no causal interpretation, 4 x/y pairs per seed)",
+      "Implemented prediction_deciles.py (10 equal-frequency bins via y_pred, np.quantile, duplicate-edge meta, np.searchsorted assignment)",
+      "Implemented cross_seed.py (3 fixed pairs 42-123, 42-2026, 123-2026; sign consensus with 6 classes)",
+      "Implemented persistence_context.py (sha verify + N=2961 + target_id alignment + residual recomputation)",
+      "Implemented e_writers.py (atomic CSV/JSON + Phase49-B/C/D sha snapshot)",
+      "Implemented materialize_e.py orchestrator",
+      "Ran materialize_phase49_e() -> STATUS=PENDING_HUMAN_APPROVAL_FOR_PHASE49_F, ready_for_phase49_f=True",
+      "Added tests/unit/test_phase49_e_associations_deciles_crossseed_persistence.py (35 tests, all PASS)",
+      "Captured Phase47 sha + Phase49-B/C/D artifact sha snapshot"
+    ],
+    "definition_freeze": {
+      "residual_convention": "y_true - y_pred",
+      "positive_semantics": "UNDERPREDICTION",
+      "negative_semantics": "OVERPREDICTION",
+      "zero_policy": "EXACT_ZERO",
+      "decile_count": 10,
+      "decile_source": "y_pred_only",
+      "decile_use": "PREDICTION-DECILE DESCRIPTIVE DIAGNOSTICS ONLY",
+      "phase50_regime_use": false,
+      "cross_seed_scope": "CROSS_SEED_RESIDUAL_AGREEMENT_DIAGNOSTIC",
+      "seed_pairs": [
+        [
+          "42",
+          "123"
+        ],
+        [
+          "42",
+          "2026"
+        ],
+        [
+          "123",
+          "2026"
+        ]
+      ],
+      "causal_interpretation": "NONE",
+      "lstm_status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+      "phase47_baseline_interpretation": {
+        "transformer_better_metrics": [
+          "RMSE",
+          "R2"
+        ],
+        "persistence_better_metric": [
+          "MAE"
+        ]
+      }
+    },
+    "magnitude_associations_summary": {
+      "42": [
+        {
+          "x": "|residual|",
+          "y": "y_true_wh",
+          "pearson": 0.7883116959250447,
+          "spearman": null
+        },
+        {
+          "x": "|residual|",
+          "y": "y_true_wh",
+          "pearson": null,
+          "spearman": 0.4789021054006116
+        },
+        {
+          "x": "|residual|",
+          "y": "y_pred_wh",
+          "pearson": 0.4806214463364433,
+          "spearman": null
+        },
+        {
+          "x": "|residual|",
+          "y": "y_pred_wh",
+          "pearson": null,
+          "spearman": 0.5599618068080291
+        },
+        {
+          "x": "residual",
+          "y": "y_true_wh",
+          "pearson": 0.6732302639128325,
+          "spearman": null
+        },
+        {
+          "x": "residual",
+          "y": "y_true_wh",
+          "pearson": null,
+          "spearman": 0.3631746315383448
+        },
+        {
+          "x": "residual",
+          "y": "y_pred_wh",
+          "pearson": -0.05239790996597823,
+          "spearman": null
+        },
+        {
+          "x": "residual",
+          "y": "y_pred_wh",
+          "pearson": null,
+          "spearman": -0.21337539943642778
+        }
+      ],
+      "123": [
+        {
+          "x": "|residual|",
+          "y": "y_true_wh",
+          "pearson": 0.7539047140439386,
+          "spearman": null
+        },
+        {
+          "x": "|residual|",
+          "y": "y_true_wh",
+          "pearson": null,
+          "spearman": 0.433146973448915
+        },
+        {
+          "x": "|residual|",
+          "y": "y_pred_wh",
+          "pearson": 0.4695353800006158,
+          "spearman": null
+        },
+        {
+          "x": "|residual|",
+          "y": "y_pred_wh",
+          "pearson": null,
+          "spearman": 0.4967932932861029
+        },
+        {
+          "x": "residual",
+          "y": "y_true_wh",
+          "pearson": 0.6573741397251647,
+          "spearman": null
+        },
+        {
+          "x": "residual",
+          "y": "y_true_wh",
+          "pearson": null,
+          "spearman": 0.3897821686778366
+        },
+        {
+          "x": "residual",
+          "y": "y_pred_wh",
+          "pearson": -0.028730542162887708,
+          "spearman": null
+        },
+        {
+          "x": "residual",
+          "y": "y_pred_wh",
+          "pearson": null,
+          "spearman": -0.17104293790331113
+        }
+      ],
+      "2026": [
+        {
+          "x": "|residual|",
+          "y": "y_true_wh",
+          "pearson": 0.7342093658135013,
+          "spearman": null
+        },
+        {
+          "x": "|residual|",
+          "y": "y_true_wh",
+          "pearson": null,
+          "spearman": 0.45261919483076996
+        },
+        {
+          "x": "|residual|",
+          "y": "y_pred_wh",
+          "pearson": 0.4981496779946731,
+          "spearman": null
+        },
+        {
+          "x": "|residual|",
+          "y": "y_pred_wh",
+          "pearson": null,
+          "spearman": 0.534166204751778
+        },
+        {
+          "x": "residual",
+          "y": "y_true_wh",
+          "pearson": 0.6320168122996932,
+          "spearman": null
+        },
+        {
+          "x": "residual",
+          "y": "y_true_wh",
+          "pearson": null,
+          "spearman": 0.3150730450160565
+        },
+        {
+          "x": "residual",
+          "y": "y_pred_wh",
+          "pearson": -0.09956889196843782,
+          "spearman": null
+        },
+        {
+          "x": "residual",
+          "y": "y_pred_wh",
+          "pearson": null,
+          "spearman": -0.24965806649832684
+        }
+      ]
+    },
+    "prediction_deciles_summary": {
+      "42": [
+        {
+          "decile": 1,
+          "N": 296,
+          "pred_min": 33.90259828004292,
+          "pred_max": 48.53242133043005,
+          "mean_residual": 7.253788676548503,
+          "mae": 9.244398733408863,
+          "rmse": 11.330526709950178
+        },
+        {
+          "decile": 2,
+          "N": 296,
+          "pred_min": 48.55189490288042,
+          "pred_max": 53.53647618336685,
+          "mean_residual": 4.063259099446407,
+          "mae": 7.400483742159565,
+          "rmse": 11.926138597166178
+        },
+        {
+          "decile": 3,
+          "N": 296,
+          "pred_min": 53.598688958995425,
+          "pred_max": 58.10202724720643,
+          "mean_residual": 5.429131219068893,
+          "mae": 11.700649135661243,
+          "rmse": 31.29753392758058
+        },
+        {
+          "decile": 4,
+          "N": 296,
+          "pred_min": 58.11753455689733,
+          "pred_max": 63.15578326101216,
+          "mean_residual": 3.287232130796453,
+          "mae": 13.304726150008348,
+          "rmse": 36.21212420663573
+        },
+        {
+          "decile": 5,
+          "N": 296,
+          "pred_min": 63.173657885181456,
+          "pred_max": 69.20871396759233,
+          "mean_residual": -3.499955044476734,
+          "mae": 12.428752910167443,
+          "rmse": 21.225294016183
+        },
+        {
+          "decile": 6,
+          "N": 296,
+          "pred_min": 69.21360413626516,
+          "pred_max": 76.35999460069935,
+          "mean_residual": -0.1039033289881319,
+          "mae": 17.560637326389337,
+          "rmse": 27.959958030704954
+        },
+        {
+          "decile": 7,
+          "N": 296,
+          "pred_min": 76.37382208145684,
+          "pred_max": 88.7664365151403,
+          "mean_residual": 15.634459427418754,
+          "mae": 30.69607961758402,
+          "rmse": 71.33596924471965
+        },
+        {
+          "decile": 8,
+          "N": 296,
+          "pred_min": 89.11392623938663,
+          "pred_max": 105.87680073561968,
+          "mean_residual": 14.107768615197841,
+          "mae": 36.135558690217636,
+          "rmse": 80.93882445305418
+        },
+        {
+          "decile": 9,
+          "N": 296,
+          "pred_min": 105.97582354045036,
+          "pred_max": 160.56908488549456,
+          "mean_residual": 2.715386409613472,
+          "mae": 47.525741591780594,
+          "rmse": 75.05363282301931
+        },
+        {
+          "decile": 10,
+          "N": 297,
+          "pred_min": 160.9109798461543,
+          "pred_max": 632.0144189124627,
+          "mean_residual": 6.69933394899419,
+          "mae": 109.02088462721602,
+          "rmse": 145.09320522105472
+        }
+      ],
+      "123": [
+        {
+          "decile": 1,
+          "N": 296,
+          "pred_min": 39.84971531778935,
+          "pred_max": 48.45766894289294,
+          "mean_residual": 6.951164432729713,
+          "mae": 9.232575209473419,
+          "rmse": 13.203206693883008
+        },
+        {
+          "decile": 2,
+          "N": 296,
+          "pred_min": 48.47390106766068,
+          "pred_max": 52.68230183548961,
+          "mean_residual": 4.698982119897354,
+          "mae": 7.4686401851946185,
+          "rmse": 10.864400908311842
+        },
+        {
+          "decile": 3,
+          "N": 296,
+          "pred_min": 52.69081296875227,
+          "pred_max": 57.044742916513,
+          "mean_residual": 4.8059061292260505,
+          "mae": 9.916519909601409,
+          "rmse": 24.10123865178987
+        },
+        {
+          "decile": 4,
+          "N": 296,
+          "pred_min": 57.084598413355515,
+          "pred_max": 61.43019143233558,
+          "mean_residual": 0.17479820141174973,
+          "mae": 9.734323643187732,
+          "rmse": 16.66276248920542
+        },
+        {
+          "decile": 5,
+          "N": 296,
+          "pred_min": 61.43840392934341,
+          "pred_max": 68.37960640035487,
+          "mean_residual": 1.7581975378024675,
+          "mae": 14.436969381430378,
+          "rmse": 38.19088694046219
+        },
+        {
+          "decile": 6,
+          "N": 296,
+          "pred_min": 68.3928957136948,
+          "pred_max": 76.79259254677787,
+          "mean_residual": 4.870216235805906,
+          "mae": 21.641681108514696,
+          "rmse": 50.77552804661558
+        },
+        {
+          "decile": 7,
+          "N": 296,
+          "pred_min": 76.8260958016166,
+          "pred_max": 88.4190525579009,
+          "mean_residual": 8.95816956382835,
+          "mae": 26.814950996071722,
+          "rmse": 64.24999792880091
+        },
+        {
+          "decile": 8,
+          "N": 296,
+          "pred_min": 88.4331320129984,
+          "pred_max": 105.19366719190195,
+          "mean_residual": 9.192915220133285,
+          "mae": 29.193222065530346,
+          "rmse": 65.52871121841955
+        },
+        {
+          "decile": 9,
+          "N": 296,
+          "pred_min": 105.20721003497906,
+          "pred_max": 150.88184117066976,
+          "mean_residual": 14.205544070631971,
+          "mae": 42.32188984417026,
+          "rmse": 81.9797111491006
+        },
+        {
+          "decile": 10,
+          "N": 297,
+          "pred_min": 151.08030362677016,
+          "pred_max": 600.3412070433304,
+          "mean_residual": 3.24885911548491,
+          "mae": 100.14120953068986,
+          "rmse": 134.3296151858882
+        }
+      ],
+      "2026": [
+        {
+          "decile": 1,
+          "N": 296,
+          "pred_min": 37.27445046061824,
+          "pred_max": 48.13735045164466,
+          "mean_residual": 8.015377796404929,
+          "mae": 10.25623967226794,
+          "rmse": 14.45506416887396
+        },
+        {
+          "decile": 2,
+          "N": 296,
+          "pred_min": 48.277174434791476,
+          "pred_max": 53.261923698171245,
+          "mean_residual": 5.239895183527648,
+          "mae": 8.226651350876148,
+          "rmse": 16.054090237130563
+        },
+        {
+          "decile": 3,
+          "N": 297,
+          "pred_min": 53.26323645337477,
+          "pred_max": 58.33783789992649,
+          "mean_residual": 2.8413646517930773,
+          "mae": 9.211647731815363,
+          "rmse": 23.955571618856588
+        },
+        {
+          "decile": 4,
+          "N": 295,
+          "pred_min": 58.37506166477331,
+          "pred_max": 63.732515195769444,
+          "mean_residual": 2.9775308484271084,
+          "mae": 12.882917464460894,
+          "rmse": 34.901668708996205
+        },
+        {
+          "decile": 5,
+          "N": 296,
+          "pred_min": 63.76163223061536,
+          "pred_max": 68.5576682672972,
+          "mean_residual": 1.5353578802392878,
+          "mae": 16.62088250838438,
+          "rmse": 48.278409920183215
+        },
+        {
+          "decile": 6,
+          "N": 297,
+          "pred_min": 68.58434643939535,
+          "pred_max": 76.61481531751593,
+          "mean_residual": -0.01108553963950896,
+          "mae": 18.088666213194884,
+          "rmse": 36.97815767390505
+        },
+        {
+          "decile": 7,
+          "N": 295,
+          "pred_min": 76.66434227390288,
+          "pred_max": 88.38787773261154,
+          "mean_residual": 9.117332845789145,
+          "mae": 27.71537117569929,
+          "rmse": 60.869772319231295
+        },
+        {
+          "decile": 8,
+          "N": 296,
+          "pred_min": 88.47048487580955,
+          "pred_max": 109.23725029961084,
+          "mean_residual": 9.714444958586077,
+          "mae": 30.423442533764803,
+          "rmse": 65.75115228031585
+        },
+        {
+          "decile": 9,
+          "N": 296,
+          "pred_min": 109.37672276299936,
+          "pred_max": 171.4803639498034,
+          "mean_residual": 5.563419534317475,
+          "mae": 51.00280826461232,
+          "rmse": 91.12363786692529
+        },
+        {
+          "decile": 10,
+          "N": 297,
+          "pred_min": 172.0488118392835,
+          "pred_max": 654.7047020090206,
+          "mean_residual": -12.833874899400511,
+          "mae": 104.78302168262782,
+          "rmse": 139.1048746385713
+        }
+      ]
+    },
+    "cross_seed_residual_agreement": [
+      {
+        "pair": "42-123",
+        "pearson": 0.8981723492887523,
+        "spearman": 0.7393334246901417,
+        "mean_abs_diff": 15.080868673388823,
+        "rmse_between": 28.674403637362076
+      },
+      {
+        "pair": "42-2026",
+        "pearson": 0.8970134288071567,
+        "spearman": 0.781995904604263,
+        "mean_abs_diff": 14.491645246855485,
+        "rmse_between": 29.409766120218485
+      },
+      {
+        "pair": "123-2026",
+        "pearson": 0.9147458802197701,
+        "spearman": 0.7484390799021512,
+        "mean_abs_diff": 14.24980557427256,
+        "rmse_between": 26.330459295276622
+      }
+    ],
+    "cross_seed_sign_consensus": [
+      {
+        "consensus_class": "ALL_UNDER",
+        "count": 1003,
+        "fraction": 0.3387369132049983
+      },
+      {
+        "consensus_class": "ALL_OVER",
+        "count": 1085,
+        "fraction": 0.3664302600472813
+      },
+      {
+        "consensus_class": "ALL_EXACT",
+        "count": 0,
+        "fraction": 0.0
+      },
+      {
+        "consensus_class": "TWO_UNDER_ONE_OVER",
+        "count": 423,
+        "fraction": 0.14285714285714285
+      },
+      {
+        "consensus_class": "TWO_OVER_ONE_UNDER",
+        "count": 450,
+        "fraction": 0.1519756838905775
+      },
+      {
+        "consensus_class": "MIXED",
+        "count": 0,
+        "fraction": 0.0
+      }
+    ],
+    "persistence_context": {
+      "source_sha256_match": true,
+      "verification": {
+        "N_match": true,
+        "N_value": 2961,
+        "target_id_match": true,
+        "y_true_match": true,
+        "timestamp_match": true,
+        "observed_sha256": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+        "status": "PASS"
+      },
+      "context": {
+        "N": 2961,
+        "mean_residual": 0.12495778453225262,
+        "median_residual": 0.0,
+        "std_residual": 66.84808757705314,
+        "mae": 26.73758865248227,
+        "rmse": 66.83691534084765,
+        "underprediction_count": 1003,
+        "overprediction_count": 1086,
+        "exact_count": 872,
+        "underprediction_fraction": 0.3387369132049983,
+        "overprediction_fraction": 0.3667679837892604,
+        "exact_fraction": 0.2944951030057413,
+        "residual_convention": "y_true - y_pred",
+        "scope": "BASELINE_RESIDUAL_CONTEXT",
+        "purpose": "NOT a model ranking"
+      },
+      "phase47_signoff_persistence_metrics": {
+        "mae_wh": 26.73758865248227,
+        "rmse_wh": 66.83691534084765,
+        "r2": 0.459046692018256
+      }
+    },
+    "lstm_policy": {
+      "lstm_tuned_dev": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+      "lstm_eligibility_from_signoff": "NOT_EVALUATED_BY_PROTOCOL",
+      "lstm_metrics_from_signoff": null,
+      "lstm_residual_table_created": false,
+      "lstm_placeholder_residuals_created": false
+    },
+    "artifacts": {
+      "magnitude_associations_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_magnitude_associations.csv",
+      "prediction_deciles_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_prediction_deciles.csv",
+      "cross_seed_residual_agreement_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_cross_seed_residual_agreement.csv",
+      "cross_seed_sign_consensus_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_cross_seed_sign_consensus.csv",
+      "persistence_context_csv": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_persistence_context.csv",
+      "phase49_e_manifest_json": "artifacts/residual_analysis/phase49_e_manifest.json"
+    },
+    "focused_tests": {
+      "test_file": "tests/unit/test_phase49_e_associations_deciles_crossseed_persistence.py",
+      "total": 35,
+      "passed": 35,
+      "failed": 0,
+      "combined_with_phase49_bcd_total": 127,
+      "combined_with_phase49_bcd_passed": 127,
+      "passed_status": "PASS"
+    },
+    "defect_matrix": {
+      "defects_audited": 19,
+      "defects_found_in_49_e_implementation": 0,
+      "defects_fixed": 0,
+      "defect_list": []
+    },
+    "invariants": {
+      "new_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "model_train_called": false,
+      "loss_backward_called": false,
+      "optimizer_step_called": false,
+      "scaler_fit_called": false,
+      "optimizer_steps": 0,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_b_modified": false,
+      "phase49_c_modified": false,
+      "phase49_d_modified": false,
+      "best_seed_selected": false,
+      "ensemble_promoted": false,
+      "three_n_iid_interpretation": false,
+      "phase50_authorized": false,
+      "phase51_authorized": false,
+      "phase52_plus_authorized": false,
+      "worst_error_ranking_executed": false,
+      "attention_analysis_executed": false,
+      "ljung_box_used_for_pass_fail": false,
+      "phase50_regimes_created": false,
+      "deciles_used_as_phase50_regimes": false,
+      "target_regime_analysis_deferred_to_phase50": true,
+      "causal_interpretation_emitted": false,
+      "lstm_residual_artifact_created": false,
+      "lstm_placeholder_residuals_created": false,
+      "no_epsilon_around_zero": true,
+      "persistence_baseline_interpretation_preserved": true
+    },
+    "phase47_persistence_sha256_first16": "7115af1c479b8957",
+    "executed_at_utc": "2026-09-03T19:23:00Z"
+  },
+  "phase49_f_block": {
+    "phase_49_f_human_approval": "APPROVED",
+    "phase_49_f_approval_granted_at_utc": "2026-09-04T02:25:00+00:00",
+    "phase_49_f_approval_granted_by": "human_owner",
+    "phase_49_f_approval_scope": "Phase49-F finalization ONLY (full audit + figures + findings + O49 completeness + Phase50 handoff + Phase51 context handoff + summary + report + README + strict signoff); does NOT authorize new inference, training, checkpoint loading, scaler fitting, ensemble, best-seed selection, Test-derived Phase50 thresholds, worst-error ranking, attention analysis, or Phase50+ implementation",
+    "scope_executed": [
+      "one_shot_audit_phase49_b_c_d_e",
+      "figures_generation",
+      "findings_synthesis",
+      "o49_completeness_enumeration",
+      "phase50_handoff",
+      "phase51_context_handoff",
+      "summary",
+      "report",
+      "readme",
+      "strict_signoff",
+      "focused_finalization_tests",
+      "discrepancy_logging",
+      "processing_log_update"
+    ],
+    "final_audit": {
+      "files_expected": 28,
+      "files_present": 28,
+      "missing": [],
+      "row_counts_checked": {
+        "long_table": 8883,
+        "wide_table": 2961,
+        "distribution_summary": 3,
+        "signed_bias": 3,
+        "tail_diagnostics": 3,
+        "histogram_50bins": 150,
+        "residual_acf": 432,
+        "ljung_box": 3,
+        "magnitude_associations": 24,
+        "prediction_deciles": 30,
+        "cross_seed_residual_agreement": 3
+      },
+      "nan_inf_scan": "no NaN/inf in any scientific CSV (9 NaN in phase49_sign_transitions.csv probability_given_from_a are mathematically correct for from-signs with 0 outgoing transitions)",
+      "matplotlib_available": true,
+      "phase48_signoff_present": true,
+      "phase47_signoff_present": true
+    },
+    "figures": {
+      "n_figures": 22,
+      "directory": "artifacts/residual_analysis/figures/",
+      "naming_pattern": "phase49_fig01..22_*.png",
+      "descriptive_only": true,
+      "no_best_seed_highlighting": true,
+      "no_winner_badges": true,
+      "no_test_tuned_thresholds": true,
+      "no_worst_error_ranking": true,
+      "no_prediction_correction_suggestions": true,
+      "no_causal_annotation": true,
+      "all_uses_underprediction_overprediction_semantics": true
+    },
+    "findings": {
+      "n_findings": 10,
+      "policy_notes": [
+        "All findings are descriptive only; no causal claim.",
+        "No correction / recalibration proposal is emitted.",
+        "No best-seed selection, ensemble promotion, or 3N iid interpretation.",
+        "Ljung-Box p-values are SECONDARY DIAGNOSTIC only; do not gate PASS/FAIL.",
+        "Phase50 target regimes MUST use TRAIN-derived thresholds only.",
+        "No worst-error ranking in Phase49 (deferred to Phase51)."
+      ]
+    },
+    "o49_completeness": {
+      "n_o49_total": 33,
+      "n_o49_complete": 33,
+      "all_complete": true,
+      "missing": []
+    },
+    "phase50_handoff": {
+      "file": "artifacts/residual_analysis/phase50_handoff.json",
+      "residual_convention": "y_true - y_pred",
+      "phase50_target_regime_policy": "TRAIN_DERIVED_ONLY",
+      "phase50_threshold_policy": "TRAIN_DERIVED_ONLY",
+      "phase49_prediction_deciles_are_NOT_phase50_regimes": true,
+      "no_test_derived_thresholds_for_phase50": true
+    },
+    "phase51_context": {
+      "file": "artifacts/residual_analysis/phase51_context_handoff.json",
+      "phase49_performed_no_worst_error_ranking": true,
+      "phase49_emitted_no_top_k_worst_rows": true,
+      "phase51_first_phase_allowed_to_rank_worst_errors": true
+    },
+    "discrepancies": [
+      {
+        "id": "D49F-NaN-1",
+        "severity": "INFO",
+        "blocking": false,
+        "file": "artifacts/residual_analysis/phase49_sign_transitions.csv",
+        "note": "9 NaN values in probability_given_from_a; mathematically correct for from-signs with 0 outgoing transitions.",
+        "phase": "49-D"
+      },
+      {
+        "id": "D49F-EXACT-1",
+        "severity": "INFO",
+        "blocking": false,
+        "file": "artifacts/residual_analysis/phase49_sign_balance.csv",
+        "note": "EXACT count = 0 in all 3 seeds; EXACT fraction = 0.0.",
+        "phase": "49-C"
+      },
+      {
+        "id": "D49F-LSTM-1",
+        "severity": "INFO",
+        "blocking": false,
+        "file": "(no artifact)",
+        "note": "LSTM_TUNED_DEV = NOT_ELIGIBLE_CONFIG_MISMATCH.",
+        "phase": "49-E"
+      }
+    ],
+    "warnings": [],
+    "defect_matrix": {
+      "defects_audited": 19,
+      "defects_found_in_49_f_implementation": 6,
+      "defects_fixed": 6,
+      "defect_list": [
+        {
+          "id": "D49F-1",
+          "category": "namespace",
+          "finding": "Phase49-F contract.py overwrote existing assert_* helpers",
+          "fix": "Restored assert_best_seed_not_selected, assert_ensemble_not_promoted, assert_three_n_iid_not_claimed, assert_residual_sign_semantics as frozen; added callable form contract_n_test/contract_seed_list/contract_test_population_sha256/contract_zero_policy for backward-compat with Phase49-B tests"
+        },
+        {
+          "id": "D49F-2",
+          "category": "missing_source",
+          "finding": "load_phase48_signoff missing from sources.py",
+          "fix": "Added PHASE48_SIGNOFF_REL constant + load_phase48_signoff function"
+        },
+        {
+          "id": "D49F-3",
+          "category": "figure_broadcast",
+          "finding": "Sign-transition figure failed with shape mismatch (3, vs 9,)",
+          "fix": "Restructured to seed_keyed nested dict; NaN mapped to 0 with documented caveat"
+        },
+        {
+          "id": "D49F-4",
+          "category": "schema_missing_seed",
+          "finding": "rolling_residual_diagnostics.csv has no 'seed' column; per-seed rows interleaved by index ranges (0..2817 = seed42)",
+          "fix": "Read as interleaved-by-3-stripe layout in figures; non-figures Phase49-D canonical artifact unchanged (per contract freeze)"
+        },
+        {
+          "id": "D49F-5",
+          "category": "csv_multi_parser",
+          "finding": "O49.18_sign_run_table '{42,123,2026}' parser produced wrong filenames",
+          "fix": "Switched O49.18 entry to pipe-separated triple with per-token brace substitution"
+        },
+        {
+          "id": "D49F-6",
+          "category": "timestamp_format",
+          "finding": "_parse_timestamp rejected 'T'-separated ISO timestamps in rolling CSV",
+          "fix": "_parse_timestamp handles both 'YYYY-MM-DD HH:MM:SS' and 'YYYY-MM-DDTHH:MM:SS'"
+        }
+      ]
+    },
+    "focused_tests": {
+      "test_file": "tests/unit/test_phase49_f_finalization.py",
+      "n_tests_added": 20,
+      "n_tests_passed_phase49_f": 20,
+      "combined_b_c_d_e_f_total": 147,
+      "combined_b_c_d_e_f_passed": 147,
+      "passed_status": "PASS"
+    },
+    "summary": {
+      "file": "artifacts/residual_analysis/phase49_summary.json",
+      "report_file": "artifacts/residual_analysis/phase49_report.json",
+      "readme_file": "artifacts/residual_analysis/phase49_README.json"
+    },
+    "signoff": {
+      "file": "artifacts/residual_analysis/phase_49_signoff.json",
+      "status": "PASS",
+      "n_gates_passed": 38,
+      "n_gates_total": 38,
+      "ready_for_phase50": true,
+      "ready_for_phase51": true
+    },
+    "invariants": {
+      "new_inference": false,
+      "checkpoint_loading": false,
+      "training": false,
+      "scaler_fit": false,
+      "optimizer_steps": 0,
+      "phase47_modified": false,
+      "phase48_modified": false,
+      "phase49_b_modified": false,
+      "phase49_c_modified": false,
+      "phase49_d_modified": false,
+      "phase49_e_modified": false,
+      "best_seed_selected": false,
+      "ensemble_promoted": false,
+      "three_n_iid_interpretation": false,
+      "residual_correction_applied": false,
+      "bias_correction_applied": false,
+      "worst_error_ranking_executed": false,
+      "attention_analysis_executed": false,
+      "ljung_box_used_for_pass_fail": false,
+      "phase50_regimes_created": false,
+      "deciles_used_as_phase50_regimes": false,
+      "phase50_authorized": false,
+      "phase51_authorized": false,
+      "phase52_plus_authorized": false,
+      "lstm_residual_artifact_created": false,
+      "lstm_placeholder_residuals_created": false,
+      "causal_interpretation_emitted": false,
+      "no_epsilon_around_zero": true,
+      "persistence_baseline_interpretation_preserved": true
+    },
+    "phase47_signoff_sha256_first16": "80614523b6091e21",
+    "phase48_signoff_sha256_first16": "e8c102d582a35dd2",
+    "phase49_b_manifest_sha256_first16": "662838a602d4075d",
+    "phase49_c_manifest_sha256_first16": "9b91949ae6b9addf",
+    "phase49_d_manifest_sha256_first16": "2ec22c6836e7fd3b",
+    "phase49_e_manifest_sha256_first16": "a2f6a81eb11c2aca",
+    "executed_at_utc": "2026-09-03T19:35:50Z"
+  }
+}

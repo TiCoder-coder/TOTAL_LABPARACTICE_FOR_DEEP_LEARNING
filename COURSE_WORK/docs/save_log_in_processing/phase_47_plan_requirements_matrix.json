@@ -1,0 +1,383 @@
+# Phase 47 Plan Requirements Matrix
+
+## Audit of Phase 47 Implementation Against Canonical Plan
+**Phase**: 47 — FINAL TEST EVALUATION
+**Audit Date**: 2026-09-03
+**Status**: PRE-OFFICIAL AUDIT COMPLETE
+
+---
+
+## A. Phase46 Release Verification
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| A1 | Phase46 signoff PASS | plan §3 | phase_46_signoff.json exists, status=PASS | PASS | None |
+| A2 | ready_for_phase47 = true | plan §3 | checked in gate | PASS | None |
+| A3 | phase47_released = true | plan §3 | phase47_test_release.json released=true | PASS | None |
+| A4 | Exactly 3 canonical seeds [42, 123, 2026] | plan §11 | seeds verified in gate | PASS | None |
+| A5 | Exact canonical run IDs | plan §1 | verified against OFFICIAL_RUNS | PASS | None |
+| A6 | Candidate = TR_C2_ALT_LOOKBACK | upstream | verified in signoff | PASS | None |
+| A7 | Config fingerprint exact | upstream | 585c5e79... verified | PASS | None |
+| A8 | official_epoch = 30 | upstream | verified in strict load | PASS | None |
+| A9 | checkpoint_type = FINAL_REFIT | plan §34 | verified in strict load | PASS | None |
+| A10 | Checkpoint SHA256s exact | upstream | verified 3/3 | PASS | None |
+| A11 | FINAL_SCALING checksums exact | plan §29 | x: 7280c166..., y: e8c8edb9... | PASS | None |
+| A12 | Test status = NOT_ACCESSED | plan §3 | verified in signoff | PASS | None |
+
+## B. Evaluation Contract
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| B1 | Contract frozen BEFORE Test access | plan §6 | write_evaluation_contract() called before FIRST_ACCESS_EVENT | PASS | None |
+| B2 | Contract includes all required fields | plan §156 | includes models, population, inference, metrics, forbidden rules | PASS | None |
+| B3 | Contract checksum computed | plan §6 | _sha256_str on sorted JSON | PASS | None |
+| B4 | Evaluation manifest written | plan §155 | write_evaluation_manifest() | PASS | None |
+
+## C. First Test Access Governance
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| C1 | TEST_FIRST_ACCESS_EVENT logged | plan §7 | write_first_test_access_event() | PASS | None |
+| C2 | First access logged IMMEDIATELY | plan §159 | called in Step 6 before any inference | PASS | None |
+| C3 | Access log complete | plan §113 | write_test_access_log() + append_test_access_log() | PASS | None |
+| C4 | PHASE_47_AUTHORIZATION constant defined | plan §6 | "PHASE_47_FINAL_EVALUATION" in datasets.py | PASS | None |
+| C5 | Authorization checked before Test access | plan §6 | checked in evaluate_transformer_seed_on_test() | PASS | None |
+| C6 | No post-Test amendment for improvement | plan §8 | Enforced by architecture (no training path) | PASS | None |
+
+## D. Authorized Model List
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| D1 | Transformers: seed42, seed123, seed2026 | plan §9 | OFFICIAL_RUNS in __init__.py | PASS | None |
+| D2 | Persistence baseline | plan §9 | evaluate_persistence_on_test() | PASS | None |
+| D3 | LSTM_TUNED_DEV if eligible | plan §9 | verify_lstm_checkpoint() gate | PASS | None |
+| D4 | No unauthorized Transformer candidates | plan §10 | Only FINAL_REFIT checkpoints loaded | PASS | None |
+| D5 | All three seeds evaluated | plan §11 | Loop over [42, 123, 2026] | PASS | None |
+| D6 | No seed dropped | plan §11 | No drop/filter logic | PASS | None |
+
+## E. Test Population
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| E1 | FINAL_TEST_POP-v1 | plan §12 | materialize_final_test_pop_v1() | PASS | None |
+| E2 | WINDOWPOP-v1 policy | plan §12 | Derived from window_index.csv | PASS | None |
+| E3 | 2961 windows expected | plan §17 | EXPECTED_TEST_WINDOW_COUNT = 2961 | PASS | None |
+| E4 | All target IDs unique | plan §17 | Sorted + uniqueness check | PASS | None |
+| E5 | Chronological ordering | plan §17 | Sort by target_sample_id | PASS | None |
+| E6 | All targets belong to TEST split | plan §17 | mask on target_split_id == "TEST" | PASS | None |
+| E7 | WB0 valid | plan §17 | mask on WB0_valid == True | PASS | None |
+| E8 | included_common_population | plan §17 | mask on included_common_population == True | PASS | None |
+| E9 | Lookback = 72 | plan §25 | mask on lookback_steps == 72 | PASS | None |
+| E10 | Horizon = 1 | plan §26 | mask on horizon_steps == 1 | PASS | None |
+| E11 | Population SHA256 fingerprint | plan §17 | compute_test_population_fingerprint() | PASS | None |
+| E12 | No Test population optimization | plan §13 | No population modification logic | PASS | None |
+| E13 | Common target IDs across all seeds | plan §14 | All seeds use same materialize_final_test_pop_v1() | PASS | None |
+
+## F. WB0 Semantics
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| F1 | Context carry-over protocol | plan §19 | WB0_CONTEXT_CARRY_OVER constant | PASS | None |
+| F2 | First Test target uses Val history | plan §19 | Validated by WB0_valid mask | PASS | None |
+| F3 | Later Test targets use earlier observed Test history | plan §20 | Raw Appliances values used | PASS | None |
+| F4 | No recursive prediction feedback | plan §21 | Actual observed y values, not predictions | PASS | None |
+| F5 | No future Test target in input | plan §22 | max(input_timestamp) < target_timestamp enforced by WB0_valid | PASS | None |
+| F6 | No future weather/exogenous features | plan §23 | Input from feature view rows only | PASS | None |
+
+## G. Feature Contract
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| G1 | Exact feature order from final_feature_contract | plan §24 | FS2_TF1 features loaded from feature_set_registry.json | PASS | None |
+| G2 | Feature count = 33 | plan §4 | 33 features verified in gate | PASS | None |
+| G3 | No auto-sort | plan §24 | Explicit ordered list | PASS | None |
+| G4 | No re-discovery | plan §24 | Loaded from locked registry | PASS | None |
+| G5 | Time features deterministic | plan §27 | Time features pre-computed in feature view | PASS | None |
+
+## H. Lookback / Horizon
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| H1 | Lookback = 72 (L*) | plan §25 | Verified in gate | PASS | None |
+| H2 | Horizon = 1 (H=1) | plan §26 | Verified in gate | PASS | None |
+| H3 | No padding | plan §25 | WB0_valid ensures valid windows only | PASS | None |
+| H4 | No shorter boundary windows | plan §25 | WB0_valid ensures full lookback | PASS | None |
+
+## I. FINAL_SCALING-v1
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| I1 | Load EXACT Phase46 FINAL_SCALING-v1 | plan §28 | scaler_loader.py loads from final_dev/ registry | PASS | None |
+| I2 | X scaler checksum exact | plan §29 | 7280c166... verified | PASS | None |
+| I3 | Y scaler checksum exact | plan §29 | e8c8edb9... verified | PASS | None |
+| I4 | fit() FORBIDDEN | plan §28 | Phase47ScalerWrapper raises ScalerFitAttemptError | PASS | None |
+| I5 | partial_fit() FORBIDDEN | plan §28 | Phase47ScalerWrapper raises ScalerFitAttemptError | PASS | None |
+| I6 | update() FORBIDDEN | plan §28 | No update method called | PASS | None |
+| I7 | No Test statistics in scaler | plan §30 | Scaler fitted on TRAIN+VAL only | PASS | None |
+| I8 | RevIN uses per-window stats | plan §31 | Model forward uses window-level RevIN | PASS | None |
+| I9 | Y inverse transform uses exact Y scaler | plan §94 | y_scaler.inverse_transform() | PASS | None |
+
+## J. Transformer Checkpoint Verification
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| J1 | Checkpoint SHA256 verified | plan §33 | verify_checkpoint_sha256() | PASS | None |
+| J2 | checkpoint_type = FINAL_REFIT | plan §34 | Verified in strict load | PASS | None |
+| J3 | official_epoch = 30 | plan §33 | Verified in strict load | PASS | None |
+| J4 | lock hash matches | plan §33 | Verified | PASS | None |
+| J5 | config hash matches | plan §33 | Verified | PASS | None |
+| J6 | recipe hash matches | plan §33 | Verified | PASS | None |
+| J7 | population hash matches | plan §33 | Verified | PASS | None |
+| J8 | scaler checksums match | plan §33 | Verified | PASS | None |
+| J9 | strict=True, missing_keys=0, unexpected_keys=0 | plan §35 | Verified in strict load | PASS | None |
+| J10 | All 3 seeds verified | plan §33 | Loop over [42, 123, 2026] | PASS | None |
+
+## K. Inference Architecture
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| K1 | model.eval() | plan §36 | model.eval() in evaluate_transformer_seed_on_test() | PASS | None |
+| K2 | torch.inference_mode() | plan §36 | with torch.inference_mode() | PASS | None |
+| K3 | No dropout sampling | plan §36 | inference_mode() prevents dropout sampling | PASS | None |
+| K4 | Standard forward path only | plan §37 | model() not forward_with_attention() | PASS | None |
+| K5 | No attention extraction for official predictions | plan §37 | forward() used, not forward_with_attention() | PASS | None |
+| K6 | No optimizer | plan §2 | No optimizer construction | PASS | None |
+| K7 | No backward() | plan §2 | No backward calls | PASS | None |
+| K8 | No scheduler stepping | plan §2 | No scheduler | PASS | None |
+| K9 | No model mutation | plan §2 | No weight writes | PASS | None |
+| K10 | One complete ordered pass per seed | plan §39 | Sequential iteration over all windows | PASS | None |
+
+## L. Prediction Bundle Schema
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| L1 | seed field | plan §42 | In CSV output | PASS | None |
+| L2 | run_id | plan §42 | In CSV output | PASS | None |
+| L3 | checkpoint_sha256 | plan §42 | In metadata | PASS | None |
+| L4 | target_id | plan §42 | In CSV | PASS | None |
+| L5 | target_timestamp | plan §42 | In CSV | PASS | None |
+| L6 | y_true_wh | plan §42 | In CSV | PASS | None |
+| L7 | y_pred_wh | plan §42 | In CSV | PASS | None |
+| L8 | residual_wh = y_true - y_pred | plan §42 | residual_wh = y_true_wh - y_pred_wh | PASS | None |
+| L9 | absolute_error_wh | plan §42 | In CSV | PASS | None |
+| L10 | squared_error_wh2 | plan §42 | In CSV | PASS | None |
+| L11 | Positive residual = underprediction | plan §42 | residual_wh = y_true - y_pred | PASS | None |
+| L12 | Immutable after checksum | plan §122 | Written once, checksummed | PASS | None |
+| L13 | SHA256 checksum | plan §122 | _sha256_file() | PASS | None |
+
+## M. Metric Contract
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| M1 | MAE Wh | plan §45 | mean_absolute_error() | PASS | None |
+| M2 | RMSE Wh | plan §45 | root_mean_squared_error() | PASS | None |
+| M3 | R² | plan §45 | r2_score() | PASS | None |
+| M4 | split_id = TEST | plan §13 | "TEST" hardcoded | PASS | None |
+| M5 | Same N across seeds | plan §14 | All seeds use same FINAL_TEST_POP-v1 (N=2961) | PASS | None |
+| M6 | Full precision | plan §44 | No rounding in metric computation | PASS | None |
+| M7 | No batch averaging | plan §46 | Global metrics computed on full arrays | PASS | None |
+| M8 | No clipping | plan §97 | No clip() calls | PASS | None |
+| M9 | R² can be negative | plan §104 | r2_score(force_finite=False) allows negative | PASS | None |
+| M10 | y_true finite check | plan §96 | _check_finite() before metrics | PASS | None |
+| M11 | y_pred finite check | plan §96 | _check_finite() before metrics | PASS | None |
+
+## N. Three-Seed Aggregation
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| N1 | All 3 seeds reported | plan §46 | Loop over [42, 123, 2026] | PASS | None |
+| N2 | Per-seed MAE/RMSE/R² | plan §46 | MetricBundle per seed | PASS | None |
+| N3 | Arithmetic mean across seeds | plan §47 | np.mean() | PASS | None |
+| N4 | Sample SD (ddof=1) | plan §47 | np.std(vals, ddof=1) | PASS | None |
+| N5 | min/max/range descriptive | plan §52 | Computed but not used for selection | PASS | None |
+| N6 | R² aggregation: mean of per-seed R² | plan §54 | aggregate_seed_metrics() uses per-seed R² | PASS | None |
+| N7 | No pooled 3N metric | plan §49 | Not computed | PASS | None |
+| N8 | No best-seed selection | plan §51 | No min(argmax) logic in evaluation.py | PASS | None |
+| N9 | No seed ensemble | plan §50 | No prediction averaging | PASS | None |
+
+## O. Persistence Baseline
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| O1 | ŷ_j = y_(j-1) | plan §56 | evaluate_persistence_on_test() | PASS | None |
+| O2 | Same FINAL_TEST_POP-v1 IDs | plan §58 | Uses same target_ids list | PASS | None |
+| O3 | Raw Wh | plan §56 | No scaler | PASS | None |
+| O4 | No training | plan §56 | No model involved | PASS | None |
+| O5 | First target may use Val prior | plan §57 | WB0 allows Val history | PASS | None |
+| O6 | Later targets use earlier observed Test | plan §57 | Actual historical values | PASS | None |
+| O7 | MAE/RMSE/R² via METRICS-v1 | plan §59 | _compute_metrics() | PASS | None |
+| O8 | y_true = actual observed Appliances | plan §93 | ts_to_value lookup | PASS | None |
+| O9 | No prediction feedback | plan §21 | Actual values, not predictions | PASS | None |
+
+## P. LSTM Eligibility
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| P1 | Eligibility decided BEFORE Test score | plan §183 | verify_lstm_checkpoint() before any inference | PASS | None |
+| P2 | LSTM test_status = NOT_ACCESSED | plan §60 | Verified in verify_lstm_checkpoint() | PASS | None |
+| P3 | LSTM checkpoint frozen pre-Test | plan §60 | Phase43 checkpoint (not retrained) | PASS | None |
+| P4 | Strict load | plan §69 | torch.load with strict=True pattern | PASS | None |
+| P5 | Inference-only | plan §69 | eval() + inference_mode() | PASS | None |
+| P6 | If ineligible: no fake prediction | plan §65 | Not evaluated, status = NOT_EVALUATED_BY_PROTOCOL | PASS | None |
+| P7 | Eligibility statuses correct | plan §64 | All 5 statuses defined | PASS | None |
+| P8 | Fairness caveat reported | plan §61, §143 | write_lstm_eligibility() includes fairness_caveat | PASS | None |
+| P9 | LSTM uses L36 vs Transformer L72: noted | plan §61, §141 | verify_lstm_checkpoint() reason explains mismatch | PASS | None |
+
+## Q. Prediction Integrity
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| Q1 | N matches FINAL_TEST_POP-v1 | plan §88 | bundle.n_samples checked | PASS | None |
+| Q2 | Target IDs exact | plan §88 | Same target_ids list across all seeds | PASS | None |
+| Q3 | Order exact | plan §88 | Sorted by target_sample_id | PASS | None |
+| Q4 | Timestamps exact | plan §88 | Same timestamps list | PASS | None |
+| Q5 | y_true finite | plan §96 | _check_finite() | PASS | None |
+| Q6 | y_pred finite | plan §96 | _check_finite() | PASS | None |
+| Q7 | No duplicates | plan §88 | Unique target IDs verified | PASS | None |
+| Q8 | Cross-seed y_true equality | plan §89 | verify_cross_seed_ytrue_equality() | PASS | None |
+| Q9 | Cross-seed timestamp equality | plan §90 | Same population used | PASS | None |
+| Q10 | Persistence y_true equality | plan §91 | Same target_ids list | PASS | None |
+
+## R. Metric Consistency
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| R1 | RMSE/R² ordering consistency | plan §55 | verify_rmse_r2_consistency() | PASS | None |
+| R2 | Lower RMSE → higher R² | plan §55 | Enforced in verify_rmse_r2_consistency() | PASS | None |
+| R3 | No negative RMSE | plan §55 | Checked | PASS | None |
+| R4 | R² ≤ 1 + tolerance | plan §55 | Checked | PASS | None |
+
+## S. Artifact Lifecycle
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| S1 | Immutable after write | plan §122 | No overwrite logic | PASS | None |
+| S2 | SHA256 checksum | plan §122 | _sha256_file() | PASS | None |
+| S3 | Stale artifact archiving | plan §137 | _archive_stale() with timestamp prefix | PASS | None |
+| S4 | Phase45 artifacts unchanged | plan §2 | No modification in Phase47 code | PASS | None |
+| S5 | Phase46 artifacts unchanged | plan §2 | No modification in Phase47 code | PASS | None |
+| S6 | Technical rerun policy | plan §40 | Same checkpoint, same code, same IDs | PASS | None |
+| S7 | No favorable rerun selection | plan §40 | No score-based rerun choice | PASS | None |
+
+## T. O47 Artifact Coverage (41 outputs)
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| T1 | O47.1 Evaluation manifest | plan §155 | write_evaluation_manifest() | PASS | None |
+| T2 | O47.2 Evaluation contract | plan §156 | write_evaluation_contract() | PASS | None |
+| T3 | O47.3 Preflight audit | plan §157 | write_preflight_audit() | PASS | None |
+| T4 | O47.4 Test release verification | plan §158 | write_test_release_verification() | PASS | None |
+| T5 | O47.5 First Test access event | plan §159 | write_first_test_access_event() | PASS | None |
+| T6 | O47.6 Test access log | plan §113 | write_test_access_log() | PASS | None |
+| T7 | O47.7 Test population manifest | plan §160 | write_test_population_manifest() | PASS | None |
+| T8 | O47.8 Test population audit | plan §161 | write_test_population_audit() | PASS | None |
+| T9 | O47.9 Feature order audit | plan §162 | write_feature_order_audit() | PASS | None |
+| T10 | O47.10 Scaler verification | plan §163 | write_scaler_verification() | PASS | None |
+| T11 | O47.11 Checkpoint verification | plan §164 | write_checkpoint_verification() | PASS | None |
+| T12 | O47.12 LSTM eligibility | plan §165 | write_lstm_eligibility() | PASS | None |
+| T13 | O47.13 Common target audit | plan §166 | write_common_target_audit() | PASS | None |
+| T14 | O47.14 Inference manifest | plan §167 | write_inference_manifest() | PASS | None |
+| T15 | O47.15 Seed42 predictions | plan §168 | write_prediction_bundle(seed=42) | PASS | None |
+| T16 | O47.16 Seed123 predictions | plan §168 | write_prediction_bundle(seed=123) | PASS | None |
+| T17 | O47.17 Seed2026 predictions | plan §168 | write_prediction_bundle(seed=2026) | PASS | None |
+| T18 | O47.18 Persistence predictions | plan §168 | write_prediction_bundle(model=PERSISTENCE) | PASS | None |
+| T19 | O47.19 LSTM predictions | plan §168 | write_prediction_bundle() if eligible | PASS | None |
+| T20 | O47.20 Prediction checksums | plan §122 | write_prediction_checksums() | PASS | None |
+| T21 | O47.21 Per-seed metrics | plan §169 | write_metrics_by_seed() | PASS | None |
+| T22 | O47.22 Transformer aggregate | plan §170 | write_transformer_aggregate_metrics() | PASS | None |
+| T23 | O47.23 Baseline metrics | plan §171 | write_baseline_metrics() | PASS | None |
+| T24 | O47.24 Model comparison | plan §172 | write_model_comparison() | PASS | None |
+| T25 | O47.25 Baseline deltas | plan §173 | write_baseline_deltas() | PASS | None |
+| T26 | O47.26 Metric consistency audit | plan §174 | write_metric_consistency_audit() | PASS | None |
+| T27 | O47.27 Prediction integrity audit | plan §168 | write_prediction_integrity_audit() | PASS | None |
+| T28 | O47.28 Summary table | plan §175 | write_summary_table() | PASS | None |
+| T29 | O47.29 Figures (4 PNGs) | plan §176 | write_figures() | PASS | Added in this audit |
+| T30 | O47.30 Findings | plan §179 | write_findings() | PASS | None |
+| T31 | O47.31 Phase48 handoff | plan §197 | write_phase48_handoff() | PASS | None |
+| T32 | O47.32 Phase49 handoff | plan §198 | write_phase49_handoff() | PASS | None |
+| T33 | O47.33 Phase50 handoff | plan §199 | write_phase50_handoff() | PASS | None |
+| T34 | O47.34 Phase51 handoff | plan §200 | write_phase51_handoff() | PASS | None |
+| T35 | O47.35 Phase52 handoff | plan §201 | write_phase52_handoff() | PASS | None |
+| T36 | O47.36 Tests | plan §154 | write_tests() | PASS | Added in this audit |
+| T37 | O47.37 Discrepancies | plan §180 | write_discrepancies() | PASS | Added in this audit |
+| T38 | O47.38 Summary JSON | plan §205 | write_final_summary() | PASS | None |
+| T39 | O47.39 Human-readable report | plan §203 | write_final_test_report() | PASS | None |
+| T40 | O47.40 README | plan §204 | write_readme() | PASS | None |
+| T41 | O47.41 Sign-off | plan §206 | write_signoff() | PASS | None |
+
+## U. JSON/CSV Safety
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| U1 | No set types | plan §17 | _to_jsonable() converts to sorted list | PASS | None |
+| U2 | No Path types | plan §17 | _to_jsonable() converts to str | PASS | None |
+| U3 | No numpy scalars/ndarrays | plan §17 | _to_jsonable() converts to native Python | PASS | None |
+| U4 | No Enum types | plan §17 | _to_jsonable() converts to str | PASS | None |
+| U5 | No datetime in JSON | plan §17 | isoformat() | PASS | None |
+| U6 | NaN/inf handled | plan §17 | Validation before write | PASS | None |
+| U7 | CSV column names exact | plan §162 | Explicit column lists | PASS | None |
+| U8 | Stable CSV column order | plan §162 | Fixed fieldnames | PASS | None |
+| U9 | No accidental index column | plan §162 | No index=True | PASS | None |
+
+## V. Downstream Handoffs
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| V1 | Phase48 handoff includes all prediction refs | plan §197 | prediction_bundle_refs passed | PASS | None |
+| V2 | Phase48 handoff no_best_seed=true | plan §197 | In handoff | PASS | None |
+| V3 | Phase49 handoff residual convention | plan §198 | y_true_wh_minus_y_pred_wh | PASS | None |
+| V4 | Phase50 handoff regime thresholds from Train | plan §199 | Not from Test | PASS | None |
+| V5 | Phase51 handoff no rows dropped | plan §200 | All IDs preserved | PASS | None |
+| V6 | Phase52 handoff attention compatibility | plan §201 | Same checkpoints/scalers | PASS | None |
+
+## W. Signoff
+
+| # | Requirement | Source | Implementation | Status | Required Action |
+|---|-----------|--------|---------------|--------|---------------|
+| W1 | Phase in signoff | plan §206 | 47 | PASS | None |
+| W2 | Version in signoff | plan §206 | FINAL_TEST_EVAL-v1 | PASS | None |
+| W3 | All per-seed metrics | plan §206 | seed42/123/2026 mae, rmse, r2 | PASS | None |
+| W4 | Mean ± SD | plan §206 | transformer_mean/sd fields | PASS | None |
+| W5 | Persistence metrics | plan §206 | persistence_mae/rmse/r2 | PASS | None |
+| W6 | LSTM eligibility and metrics if applicable | plan §206 | lstm_eligibility + lstm_metrics | PASS | None |
+| W7 | No best seed selected | plan §206 | best_seed_selected = False | PASS | None |
+| W8 | No ensemble used | plan §206 | ensemble_used = False | PASS | None |
+| W9 | No training used | plan §206 | training_used = False | PASS | None |
+| W10 | No scaler fit used | plan §206 | scaler_fit_used = False | PASS | None |
+| W11 | Prediction bundles frozen | plan §206 | prediction_bundles_frozen = True | PASS | None |
+| W12 | overall_status field | plan §206 | PASS / PASS_WITH_WARNING / FAIL | PASS | None |
+
+---
+
+## Summary
+
+| Category | PASS | PARTIAL | FAIL | MISSING | NOT_APPLICABLE |
+|----------|------|---------|------|---------|----------------|
+| A. Phase46 Release | 12 | 0 | 0 | 0 | 0 |
+| B. Evaluation Contract | 4 | 0 | 0 | 0 | 0 |
+| C. Test Access Governance | 6 | 0 | 0 | 0 | 0 |
+| D. Authorized Models | 6 | 0 | 0 | 0 | 0 |
+| E. Test Population | 13 | 0 | 0 | 0 | 0 |
+| F. WB0 Semantics | 6 | 0 | 0 | 0 | 0 |
+| G. Feature Contract | 5 | 0 | 0 | 0 | 0 |
+| H. Lookback/Horizon | 4 | 0 | 0 | 0 | 0 |
+| I. FINAL_SCALING-v1 | 9 | 0 | 0 | 0 | 0 |
+| J. Checkpoint Verification | 10 | 0 | 0 | 0 | 0 |
+| K. Inference Architecture | 10 | 0 | 0 | 0 | 0 |
+| L. Prediction Bundle Schema | 13 | 0 | 0 | 0 | 0 |
+| M. Metric Contract | 11 | 0 | 0 | 0 | 0 |
+| N. Three-Seed Aggregation | 9 | 0 | 0 | 0 | 0 |
+| O. Persistence Baseline | 9 | 0 | 0 | 0 | 0 |
+| P. LSTM Eligibility | 9 | 0 | 0 | 0 | 0 |
+| Q. Prediction Integrity | 10 | 0 | 0 | 0 | 0 |
+| R. Metric Consistency | 4 | 0 | 0 | 0 | 0 |
+| S. Artifact Lifecycle | 7 | 0 | 0 | 0 | 0 |
+| T. O47 Artifact Coverage | 41 | 0 | 0 | 0 | 0 |
+| U. JSON/CSV Safety | 9 | 0 | 0 | 0 | 0 |
+| V. Downstream Handoffs | 6 | 0 | 0 | 0 | 0 |
+| W. Signoff | 12 | 0 | 0 | 0 | 0 |
+| **TOTAL** | **225** | **0** | **0** | **0** | **0** |
+
+**Overall Plan Conformance: PASS**
+
+All 225 plan requirements are satisfied.

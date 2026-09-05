@@ -1,0 +1,16 @@
+{
+  "population_id": "FINAL_TEST_POP-v1",
+  "source_population_policy": "WINDOWPOP-v1",
+  "split": "TEST",
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "lookback": 72,
+  "horizon": 1,
+  "target_count": 2961,
+  "first_target_id": "TGT_00016774",
+  "last_target_id": "TGT_00019734",
+  "first_target_timestamp": "2016-05-07 04:40:00",
+  "last_target_timestamp": "2016-05-27 18:00:00",
+  "target_ids_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "status": "PASS",
+  "created_at": "2026-09-03T15:19:24.713883+00:00"
+}

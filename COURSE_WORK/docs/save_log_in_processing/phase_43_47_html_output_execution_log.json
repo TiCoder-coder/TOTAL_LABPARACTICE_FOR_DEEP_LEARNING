@@ -1,0 +1,159 @@
+{
+  "log_id": "phase_43_47_html_output_execution_log",
+  "log_version": "1.0.0",
+  "log_kind": "html_output_execution",
+  "target_notebook": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb",
+  "reporting_module": "COURSE_WORK/src/course_work/reporting/phase_43_47_dashboard.py",
+  "scope": "Execute ONLY Phase 43->47 renderer cells; persist text/html Jupyter outputs into notebook",
+  "operation_timestamp_utc": "2026-09-04T00:25:00+00:00",
+  "operator_role": "Senior Jupyter notebook engineer + ML repository safety auditor",
+
+  "task": "PHASE43_47_HTML_OUTPUT_EXECUTION",
+
+  "notebook": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb",
+
+  "executed_phases": [43, 44, 45, 46, 47],
+
+  "run_all_used": false,
+  "materialize_calls_executed": 0,
+
+  "execution_method": {
+    "kernel": "jupyter_client.start_new_kernel (real kernel, kernel_id captured)",
+    "kernel_env": {"PYTHONPATH": "src"},
+    "kernel_python": "Project Python 3.10 (no sys.path hack in any cell)",
+    "transport": "TCP (loopback only)",
+    "executor": "kc.execute() with iopub-channel collection of display_data / execute_result / stream / error",
+    "execution_count_provenance": "From execute_result on iopub channel (real kernel counter)",
+    "PROJECT_ROOT_injection": "Prepended `from pathlib import Path; PROJECT_ROOT = Path('/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK')` only inside the kernel message; not written into notebook cells"
+  },
+
+  "executed_cells": {
+    "phase_43": {"cell_index": 117, "execution_count": 1, "outputs": 1, "output_type": "display_data", "html_bytes": 10226},
+    "phase_44": {"cell_index": 119, "execution_count": 1, "outputs": 1, "output_type": "display_data", "html_bytes": 7749},
+    "phase_45": {"cell_index": 121, "execution_count": 1, "outputs": 1, "output_type": "display_data", "html_bytes": 8323},
+    "phase_46": {"cell_index": 123, "execution_count": 1, "outputs": 1, "output_type": "display_data", "html_bytes": 8208},
+    "phase_47": {"cell_index": 125, "execution_count": 1, "outputs": 1, "output_type": "display_data", "html_bytes": 10030}
+  },
+
+  "renderer_safety_audit": {
+    "module": "COURSE_WORK/src/course_work/reporting/phase_43_47_dashboard.py",
+    "imports_only": ["csv", "html.escape", "pathlib.Path", "typing.Any", "typing.Iterable", "IPython.display.HTML", "course_work.utils.artifacts.{get_project_root, read_json}"],
+    "model_train_present": false,
+    "optimizer_step_present": false,
+    "backward_call_present": false,
+    "scaler_fit_present": false,
+    "fit_transform_present": false,
+    "subprocess_present": false,
+    "run_path_present": false,
+    "materialize_phase_call_present": false,
+    "checkpoint_modification_present": false,
+    "training_loop_present": false,
+    "html_output_kind": "static HTML only (no JavaScript, no external resources, all values html.escape()d)",
+    "audit_result": "PASS — renderers are read-only and presentational"
+  },
+
+  "html_outputs": {
+    "phase_43_html_persisted": true,
+    "phase_43_html_bytes": 10226,
+    "phase_44_html_persisted": true,
+    "phase_44_html_bytes": 7749,
+    "phase_45_html_persisted": true,
+    "phase_45_html_bytes": 8323,
+    "phase_46_html_persisted": true,
+    "phase_46_html_bytes": 8208,
+    "phase_47_html_persisted": true,
+    "phase_47_html_bytes": 10030
+  },
+
+  "phase_43_47_cells_summary": {
+    "phase_43": {"markdown_cell_index": 116, "code_cell_index": 117},
+    "phase_44": {"markdown_cell_index": 118, "code_cell_index": 119},
+    "phase_45": {"markdown_cell_index": 120, "code_cell_index": 121},
+    "phase_46": {"markdown_cell_index": 122, "code_cell_index": 123},
+    "phase_47": {"markdown_cell_index": 124, "code_cell_index": 125}
+  },
+
+  "notebook_state": {
+    "before_execution_sha256": "fb8dbdc886ef1dbc",
+    "after_clearing_outputs_sha256": "c1c62705a7ba2e0e",
+    "after_re_execution_sha256": "dc25c8c2f1f478bb",
+    "after_execution_size_bytes": 3049506,
+    "total_cells": 126
+  },
+
+  "backups": [
+    {
+      "path": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb.bak_pre_p43_47_sync",
+      "sha256": "5830bf6b28de9426aa2cfe183ede44595db746f299fe9208c609d49729428182",
+      "size_bytes": 3023005,
+      "note": "Original 124-cell notebook, captured BEFORE Phase 43-47 sync."
+    },
+    {
+      "path": "COURSE_WORK/notebook_course_work/CourseWork_1.ipynb.bak_before_p43_47_html_execution",
+      "sha256": "fb8dbdc886ef1dbc",
+      "size_bytes": 3049419,
+      "note": "Snapshot taken at start of THIS task (after Phase 43-47 sync, with prev-task HTML outputs)."
+    }
+  ],
+
+  "phase_0_42_preservation": {
+    "phase_0_42_cells_count": 116,
+    "phase_0_42_cells_indices": "0..115",
+    "source_unchanged": true,
+    "output_unchanged": true,
+    "output_count_before": 95,
+    "output_count_after": 95,
+    "verification_method": "byte-equal json.dumps(sort_keys=True) cell-by-cell vs bak_before_p43_47_html_execution"
+  },
+
+  "scientific_immutability": {
+    "training_executed": false,
+    "optimizer_steps": 0,
+    "phase47_test_reevaluated": false,
+    "new_run_ids": 0,
+    "checkpoints_modified": false,
+    "canonical_artifacts_modified": false,
+    "verification_method": "sha256[:16] of all canonical Phase 43-47 artifacts compared against baseline from prior task"
+  },
+
+  "canonical_artifacts_verification": {
+    "artifacts/final_test/phase_47_signoff.json": "80614523b6091e21 (unchanged)",
+    "artifacts/three_seed_final_runs/phase_46_signoff.json": "ef450f820b8b46e9 (unchanged)",
+    "artifacts/final_model_lock/phase_45_signoff.json": "464ee2101d91b987 (unchanged)",
+    "artifacts/rolling_origin/phase_44_signoff.json": "f1b58ec100c7ce8a (unchanged)",
+    "artifacts/lstm_tuning/phase_43_signoff.json": "b4ab86100366392b (unchanged)",
+    "artifacts/lstm_tuning/lstm_tuned_winner.json": "79ade9f73cfb2d61 (unchanged)",
+    "artifacts/final_test/final_test_population_manifest.json": "b17b4130f8981938 (unchanged)",
+    "artifacts/three_seed_final_runs/three_seed_final_runs_summary.json": "eb0f5d3077c71359 (unchanged)",
+    "artifacts/final_model_lock/final_epoch_policy.json": "bad6f2b082b5297b (unchanged)",
+    "artifacts/final_model_lock/final_seed_contract.json": "1f941605a8d9677f (unchanged)",
+    "artifacts/rolling_origin/rolling_origin_pooled_metrics.csv": "412f4a5e4c80cee9 (unchanged)",
+    "artifacts/rolling_origin/rolling_origin_transformer_robustness_ranking.csv": "c411a5065ce32048 (unchanged)",
+    "artifacts/rolling_origin/rolling_origin_inner_best_epochs.csv": "e04882396f8ea02e (unchanged)",
+    "artifacts/lstm_tuning/lstm_stage_lineage.csv": "dc1c09117613fb62 (unchanged)",
+    "artifacts/final_test/final_test_metrics_by_seed.csv": "21efb92f37ab9dfc (unchanged)",
+    "artifacts/final_test/transformer_seed_aggregate_metrics.csv": "219bc0bcc4467a1a (unchanged)",
+    "artifacts/final_test/final_test_baseline_metrics.csv": "9ac54bf1229a535b (unchanged)",
+    "artifacts/final_test/final_test_model_comparison.csv": "89c4b3c78510a937 (unchanged)"
+  },
+
+  "phase_0_42_source_changed": false,
+  "phase_0_42_output_changed": false,
+
+  "html_outputs_summary": {
+    "phase_43_html_persisted": "YES",
+    "phase_44_html_persisted": "YES",
+    "phase_45_html_persisted": "YES",
+    "phase_46_html_persisted": "YES",
+    "phase_47_html_persisted": "YES"
+  },
+
+  "labeling_check": {
+    "phase_46_labeled_final_dev_diagnostic": true,
+    "phase_47_labeled_held_out_test": true,
+    "phase_47_lstm_NOT_ELIGIBLE_CONFIG_MISMATCH": true,
+    "phase_47_disclaimer_no_universal_claim": true
+  },
+
+  "status": "PASS"
+}

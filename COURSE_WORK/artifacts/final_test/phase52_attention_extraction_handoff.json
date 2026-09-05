@@ -1,0 +1,22 @@
+{
+  "checkpoint_refs": {
+    "42": "artifacts/three_seed_final_runs/official_checkpoints/seed_42/seed_42_FINAL_REFIT.pt",
+    "123": "artifacts/three_seed_final_runs/official_checkpoints/seed_123/seed_123_FINAL_REFIT.pt",
+    "2026": "artifacts/three_seed_final_runs/official_checkpoints/seed_2026/seed_2026_FINAL_REFIT.pt"
+  },
+  "scaler_refs": {
+    "x_scaler": "7280c166232ac53ef5947fa1991a1b38e9f5ec75045711b7092ddba9c53a17fd",
+    "y_scaler": "e8c8edb970591afa5c25faf619d2257b544b1b27c0b725b3be376a52a5946cca"
+  },
+  "feature_order_ref": {
+    "variant": "FS2_TF1",
+    "features": 33,
+    "lookback": 72
+  },
+  "lookback": 72,
+  "test_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "seed_policy": "ALL_THREE_SEEDS",
+  "attention_compatibility_status": "COMPATIBLE",
+  "ready_for_phase52": true,
+  "status": "PASS"
+}

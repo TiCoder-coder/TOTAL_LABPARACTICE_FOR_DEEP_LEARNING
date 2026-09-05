@@ -1,0 +1,7 @@
+{
+  "audit_label": "FINAL_DEV_v1",
+  "archived_at": "2026-09-03T07:36:57.661586+00:00",
+  "archived_files": {},
+  "reason": "Stale lookback=36 manifest superseded by lookback=72 (Phase 45 lock).",
+  "phase": 46
+}

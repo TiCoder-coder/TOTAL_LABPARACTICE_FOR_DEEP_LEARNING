@@ -1,0 +1,37 @@
+{
+  "table_id": "FT05",
+  "title": "Error-by-Regime and Worst-Error Summary",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Phase 50 regime thresholds FROZEN.",
+    "Worst cases are NOT removed from final Test metrics."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 165,
+  "csv_path": "artifacts/final_tables/tables/csv/FT05_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT05_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT05_rows.tex",
+  "csv_sha256": "fe4ce65f2a9e403888acd2a90ee2d7b2a9991cab0b891614e797563fc851bb35",
+  "markdown_sha256": "383c15143e002aee4e57e91b6741391df3b5e17e04322c289529e7c37fe0161e",
+  "latex_sha256": "1198c4191ce66054ed4f2f2a08907f6493941b1243ac77a4fc7b79be6b152c06"
+}

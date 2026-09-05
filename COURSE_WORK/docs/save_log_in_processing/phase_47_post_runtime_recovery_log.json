@@ -1,0 +1,91 @@
+{
+  "phase": 47,
+  "task": "POST_RELEASEPATH_RUNTIME_RECOVERY",
+  "audit_date": "2026-09-03",
+  "audit_round": "POST_RUNTIME_PATH_REFACTOR_AUDIT",
+  "exact_crash_root_cause": {
+    "file": "scripts/phase47_final_test_evaluation.py",
+    "line": 208,
+    "exception": "NameError: name 'release_path' is not defined",
+    "explanation": "After the path_resolver refactor, the old local variable `release_path = ROOT / ... / phase47_test_release.json` was deleted from Step 0 (lines 164-176) and replaced by `release_state = verify_phase46_release_for_phase47(...)`. However, line 208 still referenced the deleted `release_path` local as `phase46_release_path=str(release_path)`, causing NameError at Step 1."
+  },
+  "undefined_stale_variables_found": [
+    {
+      "name": "release_path",
+      "old_definition": "line 164 (deleted)",
+      "old_usage": "line 208 (still present)",
+      "fix": "Replace with `str(p47_release_path)` derived from `release_state.phase47_release_path`"
+    }
+  ],
+  "additional_corrections": [
+    "Augmented Phase46ReleaseState dataclass with 3 Path attributes (phase46_signoff_path, phase47_release_path, phase47_handoff_path)",
+    "Created scripts/_phase47_dry_run_probe.py to verify Steps 0..4 control flow before any Test access",
+    "Archived 2 provisional artifacts from the failed run to artifacts/final_test/_archive_failed_step1_undefined_release_path_20260903/",
+    "Added 8 new regression tests"
+  ],
+  "defect_matrix": {
+    "CRITICAL": [
+      {
+        "id": "D-01",
+        "file": "scripts/phase47_final_test_evaluation.py",
+        "function": "main() Step 1",
+        "line": 208,
+        "root_cause": "Undefined local 'release_path' referenced after path_resolver refactor",
+        "impact": "NameError crash immediately after Step 0; runtime unreachable",
+        "required_fix": "Replace `release_path` with `p47_release_path` derived from `release_state.phase47_release_path`",
+        "test_access": "NO",
+        "training": "NO"
+      }
+    ],
+    "MAJOR": [],
+    "MINOR": [
+      {
+        "id": "D-02",
+        "file": "src/course_work/phase47/path_resolver.py",
+        "function": "Phase46ReleaseState dataclass",
+        "root_cause": "Dataclass lacked Path attributes, forcing downstream scripts to derive paths in non-canonical ways",
+        "impact": "Would cause stale-path bug if any consumer needed a path",
+        "required_fix": "Augment dataclass with phase46_signoff_path, phase47_release_path, phase47_handoff_path",
+        "test_access": "NO",
+        "training": "NO"
+      }
+    ]
+  },
+  "defects_fixed": [
+    "D-01: Stale release_path reference at line 208 → use p47_release_path",
+    "D-02: Phase46ReleaseState augmented with 3 Path attributes",
+    "D-03: Created scripts/_phase47_dry_run_probe.py for static/runtime pre-Test verification",
+    "D-04: Added 8 regression tests in tests/unit/test_phase47_infrastructure.py",
+    "D-05: Archived provisional artifacts from failed run"
+  ],
+  "provisional_artifacts_from_failed_run": [
+    {
+      "path": "artifacts/final_test/final_test_evaluation_contract.json",
+      "classification": "SAFE_PROVISIONAL",
+      "action": "ARCHIVED",
+      "archived_to": "artifacts/final_test/_archive_failed_step1_undefined_release_path_20260903/"
+    },
+    {
+      "path": "artifacts/final_test/phase47_preflight_audit.csv",
+      "classification": "SAFE_PROVISIONAL",
+      "action": "ARCHIVED",
+      "archived_to": "artifacts/final_test/_archive_failed_step1_undefined_release_path_20260903/"
+    }
+  ],
+  "phase46_evidence_modified": false,
+  "test_predictions_generated": false,
+  "training_executed": false,
+  "optimizer_steps": 0,
+  "scaler_fit_calls": 0,
+  "new_run_ids": 0,
+  "verification_results": {
+    "dry_run_probe": "12/12 PASS, FIRST TEST BOUNDARY: REACHED",
+    "focused_tests": "49/49 PASS (41 prior + 8 new post-refactor regressions)",
+    "pretest_gate": "ALL GATES PASSED (16/16)",
+    "phase46_regression": "48/48 PASS, no regressions",
+    "first_test_boundary": "REACHED (no Test access occurred)"
+  },
+  "caffeinate_unbuffered_status": "Recommended human command uses `python -u` to force unbuffered stdout/stderr",
+  "ready_for_phase47_human_rerun": true,
+  "remaining_blockers": []
+}

@@ -1,0 +1,28 @@
+{
+  "critical_open_ids": [],
+  "high_scientific_open_ids": [],
+  "items": [
+    {
+      "category": "DOCUMENTED",
+      "critical": false,
+      "description": "Heatmaps are dense matrices; visual inspection at full resolution is non-trivial. Mode A FIXED_PROBABILITY [0,1] view provides the absolute reference; Mode B case-shared view provides within-case comparison.",
+      "high_scientific": false,
+      "id": "D53.1",
+      "resolution_notes": "Documented in attention_heatmap_report.md \u00a75\u2013\u00a78; Mode A reference always rendered for shared top5 cases.",
+      "status": "DOCUMENTED"
+    },
+    {
+      "category": "DOCUMENTED",
+      "critical": false,
+      "description": "Same numeric head index across seeds is NOT assumed to represent the same learned semantic role. Cross-seed V2 grids display heads at matching architectural positions only.",
+      "high_scientific": false,
+      "id": "D53.2",
+      "resolution_notes": "Documented caveat in every V2 grid caption and in attention_heatmap_report.md \u00a712 and \u00a714.",
+      "status": "DOCUMENTED"
+    }
+  ],
+  "n_documented": 2,
+  "n_open": 0,
+  "n_resolved": 0,
+  "status": "PASS"
+}

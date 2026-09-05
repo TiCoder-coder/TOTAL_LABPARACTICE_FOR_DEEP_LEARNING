@@ -1,0 +1,8 @@
+{
+  "is_confidence_interval": false,
+  "method": "deterministic join on target_id to frozen test_regime_assignment",
+  "source_artifact": "artifacts/prediction_analysis/prediction_seed_spread.csv",
+  "spread_semantics": "CROSS_SEED_PREDICTION_SPREAD",
+  "status": "PASS",
+  "version": "REGIME_SEED_SPREAD_STATUS-v1"
+}

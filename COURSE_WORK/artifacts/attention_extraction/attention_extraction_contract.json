@@ -1,0 +1,102 @@
+{
+  "phase": 52,
+  "version": "ATTENTION_EXTRACTION-v1",
+  "frozen_at_utc": "2026-09-04",
+  "frozen_by": "Phase52 execution (this run)",
+  "authorized_checkpoints": [
+    42,
+    123,
+    2026
+  ],
+  "model": {
+    "family": "TRANSFORMER_ENCODER",
+    "implementation_version": "TRANSFORMER_IMPL-v1",
+    "attention_aware": true,
+    "mode": "eval + torch.inference_mode"
+  },
+  "attention_api": {
+    "need_weights": true,
+    "average_attn_weights": false,
+    "masks": "NONE",
+    "axes": "B_H_Q_S",
+    "self_attention_shape": "B_H_L_L"
+  },
+  "axes": {
+    "dense_storage": "case_layer_head_query_source",
+    "last_query_storage": "target_layer_head_source",
+    "no_implicit_transposition": true
+  },
+  "case_set": {
+    "source": "Phase51 handoff (frozen)",
+    "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "same_case_set_for_all_seeds": true
+  },
+  "all_test_target_population": {
+    "population_id": "FINAL_TEST_POP-v1",
+    "population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "n_test": 2961,
+    "same_target_order_all_seeds": true
+  },
+  "dtype": "float32",
+  "batch_semantics": {
+    "default_extraction_batch": 8,
+    "fallback_chain": [
+      4,
+      2,
+      1
+    ],
+    "data_loader": {
+      "shuffle": false,
+      "drop_last": false
+    }
+  },
+  "tolerances": {
+    "prediction_equivalence_rtol": 1e-05,
+    "prediction_equivalence_atol": 1e-05,
+    "attention_integrity_atol": 1e-05,
+    "attention_integrity_rtol": 1e-05,
+    "row_sum_atol": 1e-05,
+    "row_sum_rtol": 1e-05
+  },
+  "position_semantics": {
+    "position_0_oldest": true,
+    "position_L-1_newest": true,
+    "forecast_target_is_attention_token": false,
+    "last_query_definition": "A[:, :, L-1, :]",
+    "lag_formula": "LagSteps_p = L - p (H=1)",
+    "lag_minutes_formula": "LagMinutes_p = 10 * LagSteps_p"
+  },
+  "no_post_processing": {
+    "head_averaging": false,
+    "layer_averaging": false,
+    "seed_averaging": false,
+    "thresholding": false,
+    "smoothing": false,
+    "renormalizing": false,
+    "interpolation": false,
+    "log_transform": false,
+    "minmax_normalization": false,
+    "float16_storage": false,
+    "uint8_storage": false
+  },
+  "interpretation_free": {
+    "no_causal_attribution": true,
+    "no_feature_importance_claim": true,
+    "no_head_quality_rank": true,
+    "head_index_semantic_alignment_across_seeds_guaranteed": false
+  },
+  "reproducibility_probe_cases": 2,
+  "model_loading": {
+    "strict_load": true,
+    "missing_keys_expected": 0,
+    "unexpected_keys_expected": 0
+  },
+  "artifacts_owner": "Phase52",
+  "downstream_handoffs_only": [
+    "phase53_attention_heatmaps_handoff.json",
+    "phase54_last_query_attention_handoff.json",
+    "phase55_head_comparison_handoff.json",
+    "phase56_error_conditioned_attention_handoff.json",
+    "phase57_seed_stability_attention_handoff.json"
+  ]
+}

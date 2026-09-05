@@ -1,0 +1,19 @@
+{
+  "artifact_root": "artifacts/final_dev_region",
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "combined_fingerprint": "0a904beeec68f245fbb1214f7968679d76ebc6dfc010db5215f677ddc2d31f39",
+  "expected_final_dev": 16630,
+  "feature_variant_id": "FS2_TF1",
+  "final_dev_window_count": 16630,
+  "locked_population_sha": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
+  "locked_train_count": 13670,
+  "locked_validation_count": 2960,
+  "lookback_steps": 72,
+  "population_fingerprint": "0a904beeec68f245fbb1214f7968679d76ebc6dfc010db5215f677ddc2d31f39",
+  "region_name": "FINAL_DEV_REGION-v1",
+  "status": "PASS",
+  "test_window_count": 0,
+  "train_window_count": 13670,
+  "validation_window_count": 2960,
+  "version": "FINAL_DEV_REGION-v1"
+}

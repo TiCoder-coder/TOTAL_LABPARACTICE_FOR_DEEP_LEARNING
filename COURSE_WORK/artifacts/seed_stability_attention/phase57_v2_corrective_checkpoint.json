@@ -1,0 +1,198 @@
+{
+  "phase57_v2_corrective_checkpoint": {
+    "phase": 57,
+    "version": "SEED_STABILITY_ATTENTION-v2",
+    "previous_version_archived": "SEED_STABILITY_ATTENTION-v1",
+    "v1_archive_path": "_history/SEED_STABILITY_ATTENTION-v1_ARCHIVED_20260905T131500000000+0000",
+    "v1_signoff_sha256": "23ed184f030e2b590532a9c8786f4955e6a8b20589971622f76736426040fe75",
+    "v2_signoff_sha256": "54eb7efa34a4a8660e43aabaaf6e6078bb24d9852cf06887b897a24b206c0d72",
+    "corrective_at_utc": "2026-09-05T13:19:53.883047+00:00",
+    "overall_status": "PASS"
+  },
+  "source_lineage_v2": {
+    "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+    "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+    "source_phase55_version": "HEAD_COMPARISON-v2",
+    "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v2"
+  },
+  "shas_v2": {
+    "final_lock_sha256_canonical_phase45": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+    "phase47_canonical_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "phase52_attention_target_order_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+    "raw_last_query_seed42_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "raw_last_query_seed123_sha256": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "raw_last_query_seed2026_sha256": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19",
+    "test_population_sha256_in_v2_signoff": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "conflated_in_v1": true,
+    "conflated_in_v2": false
+  },
+  "stable_core_unchanged": {
+    "head_matching_assignments_unchanged": true,
+    "cycle_consistency_unchanged": true,
+    "ambiguity_audit_unchanged": true,
+    "layer_head_mean_stability_summary_unchanged": true,
+    "layer_attention_metric_seed_stability_unchanged": true,
+    "matched_head_profile_stability_summary_unchanged": true
+  },
+  "phase54_v2_corrective": {
+    "matched_head_entropy_root_cause": "Phase54 v1 last_query_metrics_long.csv had all-zero normalized_entropy due to HIGH-severity bug where lag_steps was passed as eps to normalized_entropy. Phase54 v2 corrected and is now valid.",
+    "matched_head_entropy_regenerated": true,
+    "matched_head_entropy_spearman_range": [
+      -0.30262081017046083,
+      0.6426786329854857
+    ],
+    "matched_head_entropy_mad_range": [
+      0.07231627720287065,
+      0.203435495789767
+    ],
+    "matched_head_entropy_spearman_reconstructed_independently": true,
+    "matched_head_entropy_mad_reconstructed_independently": true,
+    "matched_head_entropy_independent_test_result": {
+      "layer": 0,
+      "canonical_group": 1,
+      "seed_pair": "42↔123",
+      "h42": 0,
+      "h123": 3,
+      "independent_spearman": 0.5104884378538609,
+      "v2_stored_spearman": 0.5104884378538609,
+      "independent_mad": 0.15870152461070583,
+      "v2_stored_mad": 0.15870152461070583,
+      "n_independent": 2961,
+      "n_stored": 2961,
+      "pass": true
+    }
+  },
+  "phase56_v2_corrective": {
+    "error_conditioned_root_cause": "Phase56 v1 error_attention_association_long.csv had spearman_rho=0.0 status=NOT_DEFINED_CONSTANT_INPUT for all 72 NE rows because Phase56 v1 inherited Phase54 v1 zero-NE values. Phase56 v2 corrected.",
+    "layer_error_conditioned_regenerated": true,
+    "matched_head_error_conditioned_regenerated": true,
+    "layer_error_conditioned_entropy_mean_range": [
+      -0.2145541387288812,
+      0.5657052745312879
+    ],
+    "layer_error_conditioned_entropy_sd_range": [
+      0.026424613774496473,
+      0.2679287156194466
+    ],
+    "matched_head_error_conditioned_entropy_mean_range": [
+      -0.2551852695558036,
+      0.37964527027027034
+    ],
+    "error_conditioned_reconstruction_pass": true
+  },
+  "layer_metric_stability_regression": {
+    "drift": 0.0,
+    "expected_ne_value_range": "unchanged from v1 (raw NPZ recompute)",
+    "v1_ne_spearman_sample": "0.24-0.66 (raw NPZ, not stale)",
+    "v2_ne_spearman_sample": "0.24-0.66 (identical)",
+    "all_rows_identical_v1_v2": true,
+    "other_metrics_unchanged": true
+  },
+  "phase55_dependency": {
+    "scientific_dependency": false,
+    "context_version": "HEAD_COMPARISON-v2",
+    "context_sources": [
+      "phase_55_signoff.json",
+      "phase57_seed_stability_head_context_handoff.json"
+    ],
+    "used_for": "head_matching_fingerprint provenance only",
+    "imported_metric_dependency_intentionally_avoided": true
+  },
+  "head_semantic_policy": {
+    "same_index_semantic_alignment_assumed": false,
+    "canonical_matching_cost": "JSD",
+    "matching_method": "EXHAUSTIVE_PERMUTATION",
+    "anchor_seed": 42,
+    "anchor_reason": "FIRST_PREDECLARED_FINAL_SEED",
+    "performance_based_anchor": false,
+    "no_feature_importance_claim": true,
+    "no_causal_claim": true,
+    "no_forecast_quality_attribution": true
+  },
+  "target_seed_alignment": {
+    "seeds": [
+      42,
+      123,
+      2026
+    ],
+    "n_test": 2961,
+    "each_seed_target_count": 2961,
+    "triple_intersection": 2961,
+    "each_seed_all_unique": true,
+    "raw_shape": [
+      2961,
+      2,
+      4,
+      72
+    ],
+    "lag_orientation": "lag1 newest / lag72 oldest",
+    "no_3N_pseudo_pool": true,
+    "no_missing_targets": true,
+    "no_duplicate_targets": true
+  },
+  "scientific_guards": {
+    "no_training": true,
+    "no_new_test_inference": true,
+    "no_attention_reextraction": true,
+    "no_scaler_fit": true,
+    "no_checkpoint_mutation": true,
+    "no_prediction_mutation": true,
+    "no_residual_mutation": true,
+    "no_case_reselection": true,
+    "no_best_seed_selected": true,
+    "no_best_head_selected": true,
+    "no_head_pruning": true,
+    "no_ensemble": true,
+    "no_post_test_model_tuning": true,
+    "no_causal_claim": true,
+    "no_feature_importance_claim": true
+  },
+  "downstream_handoffs": {
+    "phase58_handoff_path": "artifacts/seed_stability_attention/phase58_final_tables_handoff.json",
+    "phase58_authorized": false,
+    "phase59_authorized": false,
+    "phase58_executed": false,
+    "phase59_executed": false,
+    "handoffs_valid": true,
+    "phase57_version_in_handoffs": "SEED_STABILITY_ATTENTION-v2",
+    "source_phase54_in_handoffs": "LAST_QUERY_ATTENTION-v2",
+    "source_phase55_in_handoffs": "HEAD_COMPARISON-v2",
+    "source_phase56_in_handoffs": "ERROR_CONDITIONED_ATTENTION-v2",
+    "final_lock_in_handoffs": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec"
+  },
+  "corrective_tests": {
+    "total_tests": 46,
+    "v1_baseline_tests": 30,
+    "v2_corrective_tests": 16,
+    "all_passing": true,
+    "corrective_test_ids": [
+      "T031",
+      "T032",
+      "T033",
+      "T034",
+      "T035",
+      "T036",
+      "T037",
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T043",
+      "T044",
+      "T045",
+      "T046"
+    ],
+    "open_discrepancies": 0
+  },
+  "preflight": {
+    "total_checks": 22,
+    "critical_failures": 0
+  },
+  "notebook": {
+    "modified": false,
+    "refresh_required": "yes_after_phase58_authorization",
+    "note": "Phase57 v2 outputs are ready and frozen in artifacts/seed_stability_attention/. Notebook cell 145 cached HTML is still v1. After this corrective passes, a presentation-only refresh of cell 145 may be requested."
+  },
+  "final_status": "PASS"
+}

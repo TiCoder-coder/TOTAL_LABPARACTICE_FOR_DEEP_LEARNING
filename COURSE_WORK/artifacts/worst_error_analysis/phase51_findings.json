@@ -1,0 +1,271 @@
+{
+  "artifact_refs": {
+    "baseline_context": "365b98dce4a32494871850bbb6d1bdcf59a3ecadccd880cfa071b9e7a3f9f86a",
+    "context_integrity_audit": "a28c7c8d52fee9a1b27ce9ccf7968f73404f9c40bca6273a221aa4325dec1ec8",
+    "error_concentration_table": "8913a7dd1d43f5f58b1d0db86900ccf0815504fd087e9669dcff26678781565e",
+    "exact_input_window_reconstruction": "bff04e59043cc492eeb3a63dc6e155fb05dc2fa5fadfcf16db3d4322472aa2c8",
+    "hardness_vs_seed_disagreement": "33052a40551e28c91762ea4fff28975edb027ade0fecdef47b63be13e6baa9aa",
+    "lstm_eligibility_context": "e5cf64f1e4c59d6fe088ef6bbabf66fa28a4710a81114c14a578ebb956e8c882",
+    "regime_overrepresentation": "dfcd4a0d69957e4249d41d382a0118342f8464281a3c88486d46a61a3fa3bafe",
+    "seed_overlap_table": "6fb4c9cd5055763ae77cad6af2627c7439295d7eda084c55b41688076f3c402e"
+  },
+  "findings": [
+    {
+      "code": "TOP20_SAE_SSE_CONCENTRATION",
+      "evidence": {
+        "n_population": 2961,
+        "sae_share": 0.1029,
+        "sae_top_k": 8998.981,
+        "sse_share": 0.3313,
+        "sse_top_k": 4137507.218
+      },
+      "scope": "seed=42",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/error_concentration_table.csv",
+      "summary": "Top 20 worst-error cases account for 10.29% of SAE and 33.13% of SSE in Test population for seed 42."
+    },
+    {
+      "code": "TOP20_SAE_SSE_CONCENTRATION",
+      "evidence": {
+        "n_population": 2961,
+        "sae_share": 0.1077,
+        "sae_top_k": 8644.317,
+        "sse_share": 0.3355,
+        "sse_top_k": 3816707.333
+      },
+      "scope": "seed=123",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/error_concentration_table.csv",
+      "summary": "Top 20 worst-error cases account for 10.77% of SAE and 33.55% of SSE in Test population for seed 123."
+    },
+    {
+      "code": "TOP20_SAE_SSE_CONCENTRATION",
+      "evidence": {
+        "n_population": 2961,
+        "sae_share": 0.1038,
+        "sae_top_k": 8899.325,
+        "sse_share": 0.3248,
+        "sse_top_k": 4008430.11
+      },
+      "scope": "seed=2026",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/error_concentration_table.csv",
+      "summary": "Top 20 worst-error cases account for 10.38% of SAE and 32.48% of SSE in Test population for seed 2026."
+    },
+    {
+      "code": "W1_CROSS_SEED_OVERLAP",
+      "evidence": {
+        "intersection_count": 18,
+        "jaccard": 0.8182,
+        "union_count": 22
+      },
+      "scope": "set=123-2026",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/seed_overlap_table.csv",
+      "summary": "W1 pairwise Top20 overlap 123 vs 2026: intersection=18, union=22, Jaccard=0.8182."
+    },
+    {
+      "code": "W1_CROSS_SEED_OVERLAP",
+      "evidence": {
+        "intersection_count": 18,
+        "jaccard": 0.8182,
+        "union_count": 22
+      },
+      "scope": "set=123-42",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/seed_overlap_table.csv",
+      "summary": "W1 pairwise Top20 overlap 123 vs 42: intersection=18, union=22, Jaccard=0.8182."
+    },
+    {
+      "code": "W1_CROSS_SEED_OVERLAP",
+      "evidence": {
+        "intersection_count": 19,
+        "jaccard": 0.9048,
+        "union_count": 21
+      },
+      "scope": "set=2026-42",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/seed_overlap_table.csv",
+      "summary": "W1 pairwise Top20 overlap 2026 vs 42: intersection=19, union=21, Jaccard=0.9048."
+    },
+    {
+      "code": "W1_TRIPLE_INTERSECTION",
+      "evidence": {
+        "intersection_count": 17,
+        "intersection_target_ids": "TGT_00016855,TGT_00017657,TGT_00017677,TGT_00017696,TGT_00017717,TGT_00017860,TGT_00018148,TGT_00018820,TGT_00018829,TGT_00018841,TGT_00019540,TGT_00019541,TGT_00019552,TGT_00019581,TGT_00019582,TGT_00019585,TGT_00019684"
+      },
+      "scope": "W1 × 3 seeds",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/seed_overlap_table.csv",
+      "summary": "All three Final Transformer seeds share 17 Test target(s) in their W1 Top20 worst-error lists."
+    },
+    {
+      "code": "HARDNESS_VS_SEED_SPREAD_SPEARMAN",
+      "evidence": {
+        "n": 22,
+        "spearman_rho": -0.0435
+      },
+      "scope": "All Test population (N=2961)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/hardness_vs_seed_disagreement.csv",
+      "summary": "Spearman rank correlation between per-target mean absolute error across seeds and Phase48 seed_range_prediction is -0.0435."
+    },
+    {
+      "code": "REGIME_OVERREPRESENTATION",
+      "evidence": {
+        "enrichment_ratio": 3.6783,
+        "global_prevalence": 0.2719,
+        "regime_family": "R1_TARGET_LEVEL",
+        "regime_label": "TL_HIGH",
+        "selected_prevalence": 1.0
+      },
+      "scope": "family=R1_TARGET_LEVEL (W1 seed=42 Top20 vs Test population)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "summary": "Worst seed=42 Top20 has share 1.0000 in R1_TARGET_LEVEL=TL_HIGH vs Test population share 0.2719; enrichment ratio 3.6783. Phase 50 regime labels reused without modification."
+    },
+    {
+      "code": "REGIME_OVERREPRESENTATION",
+      "evidence": {
+        "enrichment_ratio": 11.9395,
+        "global_prevalence": 0.0838,
+        "regime_family": "R2_EXTREME_HIGH",
+        "regime_label": "EXTREME_HIGH",
+        "selected_prevalence": 1.0
+      },
+      "scope": "family=R2_EXTREME_HIGH (W1 seed=42 Top20 vs Test population)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "summary": "Worst seed=42 Top20 has share 1.0000 in R2_EXTREME_HIGH=EXTREME_HIGH vs Test population share 0.0838; enrichment ratio 11.9395. Phase 50 regime labels reused without modification."
+    },
+    {
+      "code": "REGIME_OVERREPRESENTATION",
+      "evidence": {
+        "enrichment_ratio": 11.97,
+        "global_prevalence": 0.0794,
+        "regime_family": "R3_CHANGE_MAGNITUDE",
+        "regime_label": "CHANGE_RAPID",
+        "selected_prevalence": 0.95
+      },
+      "scope": "family=R3_CHANGE_MAGNITUDE (W1 seed=42 Top20 vs Test population)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "summary": "Worst seed=42 Top20 has share 0.9500 in R3_CHANGE_MAGNITUDE=CHANGE_RAPID vs Test population share 0.0794; enrichment ratio 11.97. Phase 50 regime labels reused without modification."
+    },
+    {
+      "code": "REGIME_OVERREPRESENTATION",
+      "evidence": {
+        "enrichment_ratio": 2.9492,
+        "global_prevalence": 0.3391,
+        "regime_family": "R4_CHANGE_DIRECTION",
+        "regime_label": "DIR_UP",
+        "selected_prevalence": 1.0
+      },
+      "scope": "family=R4_CHANGE_DIRECTION (W1 seed=42 Top20 vs Test population)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "summary": "Worst seed=42 Top20 has share 1.0000 in R4_CHANGE_DIRECTION=DIR_UP vs Test population share 0.3391; enrichment ratio 2.9492. Phase 50 regime labels reused without modification."
+    },
+    {
+      "code": "REGIME_OVERREPRESENTATION",
+      "evidence": {
+        "enrichment_ratio": 1.7625,
+        "global_prevalence": 0.2553,
+        "regime_family": "R5_TIME_OF_DAY",
+        "regime_label": "TOD_MORNING",
+        "selected_prevalence": 0.45
+      },
+      "scope": "family=R5_TIME_OF_DAY (W1 seed=42 Top20 vs Test population)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "summary": "Worst seed=42 Top20 has share 0.4500 in R5_TIME_OF_DAY=TOD_MORNING vs Test population share 0.2553; enrichment ratio 1.7625. Phase 50 regime labels reused without modification."
+    },
+    {
+      "code": "REGIME_OVERREPRESENTATION",
+      "evidence": {
+        "enrichment_ratio": 1.4167,
+        "global_prevalence": 0.2823,
+        "regime_family": "R6_DAY_TYPE",
+        "regime_label": "DAY_WEEKEND",
+        "selected_prevalence": 0.4
+      },
+      "scope": "family=R6_DAY_TYPE (W1 seed=42 Top20 vs Test population)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "summary": "Worst seed=42 Top20 has share 0.4000 in R6_DAY_TYPE=DAY_WEEKEND vs Test population share 0.2823; enrichment ratio 1.4167. Phase 50 regime labels reused without modification."
+    },
+    {
+      "code": "PERSISTENCE_CASE_LEVEL_COMPARISON",
+      "evidence": {
+        "UNKNOWN": 160
+      },
+      "scope": "Phase 51 selected cases (case-level)",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/baseline_context.csv",
+      "summary": "Selection-conditioned Persistence-vs-Transformer comparison across 160 selected cases: UNKNOWN=160 (100.00%). This is a case-level diagnostic; not a global model comparison."
+    },
+    {
+      "code": "LSTM_NOT_APPLICABLE",
+      "evidence": {
+        "reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+        "status": "NOT_ELIGIBLE_CONFIG_MISMATCH"
+      },
+      "scope": "global",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/lstm_eligibility_context.json",
+      "summary": "LSTM is NOT_ELIGIBLE_CONFIG_MISMATCH in this Phase 51 analysis. Canonical reason: LSTM uses lookback=None, but final Transformer uses lookback=72. No LSTM inference, ranking, or comparison is performed."
+    },
+    {
+      "code": "TEMPORAL_CONTEXT_COVERAGE",
+      "evidence": {
+        "centers_present": 160,
+        "n_cases": 160,
+        "with_gaps": 0
+      },
+      "scope": "Phase 51 cases",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/context_integrity_audit.csv",
+      "summary": "Local ±6 temporal context: centers present in 160/160 cases; 0/160 cases have at least one unavailable row due to boundary/gap. No padding/interpolation applied."
+    },
+    {
+      "code": "EXACT_INPUT_RECONSTRUCTION_COVERAGE",
+      "evidence": {
+        "n_unique_targets": 44,
+        "target_row_excluded": 44,
+        "verified": 44
+      },
+      "scope": "Phase 51 unique selected targets",
+      "severity": "DESCRIPTIVE",
+      "source": "artifacts/worst_error_analysis/exact_input_window_reconstruction.csv",
+      "summary": "Exact 72x33 input-window values reconstructed for 44/44 unique targets; target row excluded in 44/44 cases. Reconstruction is read-only: FEATURES-v1 + WINDOWPOP-v1 + FINAL_SCALING-v1 transform_only. No model inference."
+    },
+    {
+      "code": "CASEBOOK_STRUCTURE",
+      "evidence": {
+        "family_counts": {
+          "W1_PER_SEED_WORST": 60,
+          "W2_SHARED_WORST": 20,
+          "W3_SH_SHARED_ALL_UNDER": 10,
+          "W3_UNDERPREDICTION_WORST": 30,
+          "W4_OVERPREDICTION_WORST": 30,
+          "W4_SH_SHARED_ALL_OVER": 10
+        },
+        "n_cases": 160,
+        "n_unique_targets": 44
+      },
+      "scope": "Phase 51 casebook",
+      "severity": "DESCRIPTIVE",
+      "source": [
+        "artifacts/worst_error_analysis/casebook_index.csv",
+        "artifacts/worst_error_analysis/casebook_unique_case_master.csv"
+      ],
+      "summary": "Casebook contains 160 case memberships covering 44 unique targets. Selection-family counts: {'W1_PER_SEED_WORST': 60, 'W2_SHARED_WORST': 20, 'W3_UNDERPREDICTION_WORST': 30, 'W4_OVERPREDICTION_WORST': 30, 'W3_SH_SHARED_ALL_UNDER': 10, 'W4_SH_SHARED_ALL_OVER': 10}. Deterministic case IDs from (family, seed, rank, target_id)."
+    }
+  ],
+  "kind": "DESCRIPTIVE_POST_HOC_NON_CAUSAL",
+  "n_findings": 19,
+  "phase": 51,
+  "ready_for_phase51_signoff": true,
+  "subphase": "51-G",
+  "version": "PHASE51_FINDINGS-v1"
+}

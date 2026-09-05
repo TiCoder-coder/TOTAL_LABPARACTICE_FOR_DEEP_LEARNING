@@ -1,6 +1,6 @@
 {
   "artifact_version": "METRICS-v1",
-  "created_at": "2026-08-21T08:52:52.361321+00:00",
+  "created_at": "2026-09-01T13:04:22.567019+00:00",
   "discrepancies": [],
   "phase_id": 12,
   "phase_name": "Shared Metrics",
@@ -67,7 +67,7 @@
     {
       "path": "artifacts/metrics/metric_manifest.json",
       "role": "metrics",
-      "sha256": "dee2183887266553165652f266f5255f8fff68a793447d254d7e1edbc5b7af58"
+      "sha256": "cf1095706610703860fedf04357454dcfac8d63f94fb49376a76d9c6251e3a8c"
     },
     {
       "path": "artifacts/metrics/metric_contract.json",
@@ -77,7 +77,7 @@
     {
       "path": "artifacts/metrics/phase_12_signoff.json",
       "role": "signoff",
-      "sha256": "08dee71be6db46b0b95837f0ea2976e86adf0bbf8b2b7aa8ede7a6db87d74fcc"
+      "sha256": "350c281a804330abbf786a4cf1ca26634401af8ee0fd56901a16dbecf8c0d5e0"
     }
   ],
   "status": "PASS",
@@ -95,18 +95,18 @@
     "dataset_revision": "DATA-v1",
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
-      "artifacts/dataloaders/dataset_registry.csv": "77c406cba97e4938feb361dbd8d9e032e5f87242739789920e2a57cd09112751",
-      "artifacts/dataloaders/phase_11_signoff.json": "e43e1ddda073f3f6b870ed0275ff05836344b1b3d2efa71e91324368fab3214a",
-      "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
-      "artifacts/scaling/phase_9_signoff.json": "02b4982cdd6affa4658218ff8b39c398771b8dbfcbc7c4b219c97d2cd8d523cc",
-      "artifacts/scaling/scaler_registry.json": "1068012809a738e30fee1fde10b7cdcbdc9a323da3d1b69e03cb4bd6188c3866",
-      "artifacts/scaling/scaling_manifest.json": "30432641d34d0c12667dc6e4e941b4f8aed7386ac60edfcbef6d047bf5ad1694",
+      "artifacts/dataloaders/dataloader_manifest.json": "78ea080982ad3042adda166e3d323de9b13afa76947dba2053c895111f963952",
+      "artifacts/dataloaders/dataset_registry.csv": "442d2434cf6de4e32036b22bd6357a516e9ab777f5e641275196730626eaa253",
+      "artifacts/dataloaders/phase_11_signoff.json": "a22fd0cc14ae8f823994c21388a11bbff28973c89c6fd4a87fa17354932791ee",
+      "artifacts/environment/environment_report.json": "ee9f78b9ca72e4293aa1d739f189e494ddce35e2581d8e7016ec213fca3b042a",
+      "artifacts/scaling/phase_9_signoff.json": "a2994864ece9ea47490dfee51a04950522cc3921e8408f65ad0d6fe38b987042",
+      "artifacts/scaling/scaler_registry.json": "a2fe469d58590f575ae666652416d0418a8ea2ad8297724c3e90d8d6e4618395",
+      "artifacts/scaling/scaling_manifest.json": "2832086330fd849604079ef2a1d40ce5d1a67b3287eb7051791f9f0edcea32bf",
       "artifacts/windows/common_target_population.csv": "d854e826ce0da67118e33659d239362213fd6447ffe7cd3aa054c672cf690d61",
-      "artifacts/windows/phase_10_signoff.json": "a2e80853ceb853d126e03efe6694f8e4e7bbb69cfe1cbb0c85d4f3996500e4c4",
-      "artifacts/windows/window_fingerprints.json": "c4ef0afcf352a119f03f5d9b86dabe6b5bf0a029afbdb9b29021debb0827468b",
-      "artifacts/windows/window_manifest.json": "88ba16b5e792ceabfdbc50dcdff83db54750b91743e4bb01f889ae8f5da0164d",
-      "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f"
+      "artifacts/windows/phase_10_signoff.json": "06d265df2c48b541c6d3e12a02d1f936e43cae284130e9ef9502a319d311f8ba",
+      "artifacts/windows/window_fingerprints.json": "5555086a49efb08bf55acee49e70cc8bf9920af5df9338a71c2f52a09ea4952c",
+      "artifacts/windows/window_manifest.json": "d24053a2acb42cc9cecbbd4aa0ea6d308f47f2c69f82fa91f46456224b54514e",
+      "configs/base/coursework_contract.json": "afa0ef62c05bbc0ac75d3530130af9fdd26cafa7dd08c60201201a934db21e2f"
     },
     "input_paths": [
       "configs/base/coursework_contract.json",
@@ -129,12 +129,12 @@
       "artifacts/metrics/metric_contract.json": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8",
       "artifacts/metrics/metric_discrepancies.json": "d0895f985e0c1e08266e0deec52304c10c192b722848a2e92bb9b95ed14fa145",
       "artifacts/metrics/metric_implementation_audit.csv": "7a593dfa0f85d6b67b53703ef37713363da1edee0c14663a06d2e9d7677bcbf5",
-      "artifacts/metrics/metric_manifest.json": "dee2183887266553165652f266f5255f8fff68a793447d254d7e1edbc5b7af58",
+      "artifacts/metrics/metric_manifest.json": "cf1095706610703860fedf04357454dcfac8d63f94fb49376a76d9c6251e3a8c",
       "artifacts/metrics/metric_reference_examples.csv": "5da113cb9ace898c56807bfa4a47907ed0a70a8f6e31083aa023fdfa840a0c90",
       "artifacts/metrics/metric_registry.csv": "80d3ff7bf3bfb7b68b16563b3c4a5f0d06b683db3241a330d1eac6f4e4090bf0",
       "artifacts/metrics/metric_test_firewall_audit.csv": "ae00c64a1e864efe7ccd66c94c6173cd92bea388c02d4b0b6ef2f6e1b8476222",
       "artifacts/metrics/metric_unit_tests.csv": "8fc2924659df175c601d81894b8062fd1b9feeae2672a2811c8facc05dd11e88",
-      "artifacts/metrics/prediction_bundle_schema.json": "3ff106e36dd9119fdeaa09cd7d6cd76d3c4afb7b8b16c6163742adfa21c91721"
+      "artifacts/metrics/prediction_bundle_schema.json": "0a19f554c958f328dbe1ea846e9a0f321bb2d5e86734d69e5def7a32d806f715"
     },
     "output_paths": [
       "artifacts/metrics/metric_manifest.json",
@@ -180,6 +180,6 @@
       "test_firewall"
     ]
   },
-  "timestamp": "2026-08-21T08:52:52.361321+00:00",
+  "timestamp": "2026-09-01T13:04:22.567019+00:00",
   "warnings": []
 }

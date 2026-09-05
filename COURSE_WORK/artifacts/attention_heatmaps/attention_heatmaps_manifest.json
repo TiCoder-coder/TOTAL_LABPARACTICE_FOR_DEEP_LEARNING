@@ -1,0 +1,42 @@
+{
+  "case_order_sha256": "e4fce0fabb9bc264d76e2b3f57682a9cc9b30490a488d70ccb926b4c3b1b62d1",
+  "created_at_utc": "2026-09-04",
+  "image_dirs": {
+    "case_grids": "artifacts/attention_heatmaps/case_grids",
+    "cross_seed": "artifacts/attention_heatmaps/cross_seed",
+    "fixed_probability": "artifacts/attention_heatmaps/fixed_probability",
+    "individual_maps": "artifacts/attention_heatmaps/individual_maps"
+  },
+  "lookback": 72,
+  "n_dense_cases": 44,
+  "n_heads": 4,
+  "n_layers": 2,
+  "n_mode_a_grids": 10,
+  "n_total_images": 392,
+  "n_v1_grids": 132,
+  "n_v2_grids": 10,
+  "n_v3_images": 240,
+  "phase": 53,
+  "phase53_status": "PASS",
+  "phase54_handoff": "artifacts/attention_heatmaps/phase54_last_query_attention_context_handoff.json",
+  "position_map_sha256": "948bc0dcb56674f7f8c117d7e7050490b391e39225754e8a21861d00e59e5063",
+  "raw_source_sha256_per_seed": {
+    "42": "33d979a1b6b0aa6e1c2af11c88f1ee943a46b4489e849f6675e65a5036de1d3c",
+    "123": "29b8fdebcfe771f3b0c9e5e215417a37d6dec5ce16b8b6054a60aa21ee2cca25",
+    "2026": "5d4824a5f2f8b46d1ee8e1b9ba5ad6da43159352e32be121dca4dc2abfbc78bc"
+  },
+  "render_config_sha256": "cd437644a9d7de147b8cb5ed78f08e0e1da459e45b92c78a3cc55d771dbb2bb8",
+  "report_case_rank_range": [
+    1,
+    5
+  ],
+  "report_case_rule": "PHASE51_W2_SHARED_RANK_1_TO_5",
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "sepal_columns_rank1_to_5": true,
+  "status": "PASS",
+  "version": "ATTENTION_HEATMAPS-v1"
+}

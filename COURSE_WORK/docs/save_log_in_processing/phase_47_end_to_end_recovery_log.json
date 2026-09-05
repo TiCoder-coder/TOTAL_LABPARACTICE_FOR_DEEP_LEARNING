@@ -1,0 +1,145 @@
+{
+  "phase": 47,
+  "task": "ONE_SHOT_END_TO_END_RECOVERY_FIX",
+  "audit_date": "2026-09-03",
+  "audit_round": "POST_OFFICIAL_FAILED_33x31_FIX",
+  "crash_root_cause": {
+    "file": "src/course_work/phase47/checkpoint_loader.py",
+    "function": "build_transformer_model_from_checkpoint",
+    "line": "validate_transformer_config(model_config)",
+    "explanation": "The checkpoint model_config does NOT store input_size. validate_transformer_config() uses TransformerModelConfig defaults: input_size=31 (FS1_TF1). But Phase46 uses FS2_TF1 with 33 features. Model built with input_projection=[64,31]; checkpoint weights are [64,33] -> RuntimeError at load_state_dict."
+  },
+  "missing_features": {
+    "detail": "NOT 2 missing features — this is a dimension mismatch. Checkpoint weights have 33 features; model was built for 31.",
+    "input_projection_expected": "[64, 33]",
+    "input_projection_actual": "[64, 31]"
+  },
+  "canonical_feature_count": 33,
+  "canonical_feature_order": "PASS — FS2_TF1 from artifacts/feature_sets/feature_set_registry.json",
+  "canonical_feature_list": [
+    "lights","T1","RH_1","T2","RH_2","T3","RH_3","T4","RH_4","T5","RH_5","T6","RH_6","T7","RH_7","T8","RH_8","T9","RH_9","T_out","Press_mm_hg","RH_out","Windspeed","Visibility","Tdewpoint","Appliances","rv1","rv2","hour_sin","hour_cos","dow_sin","dow_cos","weekend"
+  ],
+  "feature_registry": {
+    "canonical_path": "artifacts/feature_sets/feature_set_registry.json",
+    "wrong_path_used": "artifacts/features/feature_set_registry.json",
+    "wrong_path_removed": true
+  },
+  "defect_matrix": {
+    "CRITICAL": [
+      {
+        "id": "D-01",
+        "file": "src/course_work/phase47/checkpoint_loader.py",
+        "function": "build_transformer_model_from_checkpoint",
+        "line": "~244",
+        "root_cause": "validate_transformer_config(model_config) filters model_config dict. TransformerModelConfig defaults input_size=31 (FS1_TF1). Phase46 uses FS2_TF1=33. Model built [64,31]; weights are [64,33] -> RuntimeError.",
+        "impact": "RuntimeError at load_state_dict. All 3 seeds crash at first inference.",
+        "required_fix": "Inject input_size=LOCKED_FEATURES(33) before validate_transformer_config().",
+        "test_access": "NO",
+        "training": "NO",
+        "status": "FIXED"
+      },
+      {
+        "id": "D-02",
+        "file": "scripts/phase47_final_test_evaluation.py",
+        "function": "main() Step 3",
+        "line": 278,
+        "root_cause": "feature_registry_path = ROOT / 'artifacts' / 'features' / 'feature_set_registry.json'. Correct path is 'artifacts/feature_sets/feature_set_registry.json'. Wrong path never exists -> registry never found -> feature audit silently skipped.",
+        "impact": "Feature contract not validated before Test access.",
+        "required_fix": "Change to correct canonical path.",
+        "test_access": "NO",
+        "training": "NO",
+        "status": "FIXED"
+      },
+      {
+        "id": "D-05",
+        "file": "src/course_work/phase47/scaler_loader.py",
+        "function": "load_final_scaling_v1_x_scaler",
+        "line": "joblib.load",
+        "root_cause": "joblib artifact is a dict wrapping StandardScaler: {scaler: StandardScaler, pass_through_feature_order: [...], ...}. Wrapper loaded the dict, not the StandardScaler. transform_only() called dict.transform() -> AttributeError. StandardScaler was fitted on 28 features (scaled).",
+        "impact": "AttributeError on first X scaling attempt.",
+        "required_fix": "Extract inner StandardScaler from dict. Wrap outer dict and handle 33-feature split (28 scaled + 5 pass-through) in transform_only().",
+        "test_access": "NO",
+        "training": "NO",
+        "status": "FIXED"
+      }
+    ],
+    "MAJOR": [
+      {
+        "id": "D-03",
+        "file": "scripts/phase47_final_test_evaluation.py",
+        "function": "main() Step 3 feature audit",
+        "root_cause": "runtime_features = checkpoints[42].model_config.get('feature_names', locked_features). model_config has no feature_names -> always fallback to locked_features from registry. Fixed by D-02 fix + explicit runtime_features = locked_features.",
+        "impact": "Feature audit used fallback path (correct result, but fragile).",
+        "required_fix": "Fix registry path (D-02) + set runtime_features = locked_features.",
+        "test_access": "NO",
+        "training": "NO",
+        "status": "FIXED"
+      },
+      {
+        "id": "D-04",
+        "file": "scripts/phase47_final_test_evaluation.py",
+        "function": "main() Step 3 checkpoint verification",
+        "root_cause": "Orchestrator writes dict keys lock_match/config_match/recipe_match/population_match/scaler_match. writers.py CSV header uses lock_hash_match/config_hash_match/recipe_hash_match/population_hash_match/scaler_ref_match. Extra dict keys silently dropped -> misaligned CSV.",
+        "impact": "Checkpoint verification CSV has misaligned columns.",
+        "required_fix": "Rename orchestrator dict keys to match CSV header.",
+        "test_access": "NO",
+        "training": "NO",
+        "status": "FIXED"
+      }
+    ],
+    "MINOR": []
+  },
+  "defects_fixed": [
+    "D-01: checkpoint_loader.py — inject input_size=LOCKED_FEATURES before validate_transformer_config",
+    "D-02: orchestrator — correct feature registry path: artifacts/feature_sets/feature_set_registry.json",
+    "D-03: orchestrator — runtime_features = locked_features (no fallback)",
+    "D-04: orchestrator — rename CSV dict keys to match writer CSV header",
+    "D-05: scaler_loader.py — wrap outer dict, extract inner StandardScaler, handle 33-feature split in transform_only"
+  ],
+  "defects_remaining": [],
+  "downstream_runtime_audit": "PASS",
+  "o47_artifacts_expected": 41,
+  "o47_artifact_status": "Not written yet (awaiting human rerun)",
+  "verification_results": {
+    "focused_tests": "59/59 PASS",
+    "pretest_gate": "ALL GATES PASSED (16/16)",
+    "phase46_regression": "48/48 PASS",
+    "first_test_boundary_probe": "REACHED (no Test access)",
+    "dry_run_probe": "12/12 PASS, boundary REACHED",
+    "input_size_33_probe": "3/3 seeds: input_size=33, d_model=64, forward finite",
+    "feature_contract_probe": "FS2_TF1 count=33, fingerprint=fc9c42..., last=weekend",
+    "scaler_transform_probe": "X: 33->split(28+5)->33 PASS, Y: PASS",
+    "checkpoint_strict_load": "3/3 PASS",
+    "canonical_path_probe": "feature_sets/feature_set_registry.json exists, wrong path absent",
+    "lstm_not_on_final_test_pop": "NOT_ELIGIBLE_CONFIG_MISMATCH (L36 vs L72)"
+  },
+  "failed_attempt_artifacts": {
+    "classification": {
+      "final_test_access_event.json": "TEST_ACCESS_PROVENANCE — PRESERVED",
+      "final_test_checkpoint_verification.csv": "PARTIAL_INVALID — archived",
+      "final_test_evaluation_contract.json": "SAFE_PREFLIGHT — archived",
+      "final_test_lstm_eligibility.json": "SAFE_PREFLIGHT — archived",
+      "final_test_population_audit.csv": "SAFE_PREFLIGHT — archived",
+      "final_test_population_manifest.json": "SAFE_PREFLIGHT — archived",
+      "final_test_release_verification.json": "SAFE_PREFLIGHT — archived",
+      "final_test_tests.csv": "SAFE_PREFLIGHT — archived",
+      "phase47_preflight_audit.csv": "SAFE_PREFLIGHT — archived",
+      "final_test_discrepancies.json": "SAFE_PREFLIGHT — archived"
+    },
+    "archive_path": "artifacts/final_test/_archive_failed_official_attempt_33x31_202609032100",
+    "provenance_preserved": true
+  },
+  "side_effects": {
+    "test_accessed": false,
+    "training_executed": false,
+    "optimizer_steps": 0,
+    "scaler_fit_calls": 0,
+    "new_run_ids": 0,
+    "checkpoint_modified": false,
+    "phase45_modified": false,
+    "phase46_modified": false,
+    "canonical_phase47_results_written": false
+  },
+  "remaining_blockers": [],
+  "ready_for_phase47_human_rerun": true
+}

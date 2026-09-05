@@ -1,0 +1,106 @@
+{
+  "test_kind": "phase55_corrective_independent_tests",
+  "tested_at_utc": "2026-09-05T11:00:00+00:00",
+  "phase": 55,
+  "phase_revision": "HEAD_COMPARISON-v2",
+  "tests": [
+    {
+      "name": "A.3 normalized_entropy matches Phase54-v2 source",
+      "passed": true,
+      "detail": "match=24, mismatch=0"
+    },
+    {
+      "name": "A.1 normalized_entropy not all zero",
+      "passed": true,
+      "detail": "min=0.737655, max=0.905411"
+    },
+    {
+      "name": "A.2 normalized_entropy within [0,1]",
+      "passed": true,
+      "detail": "range=[0.737655,0.905411]"
+    },
+    {
+      "name": "B.1 head_to_layer_mean_distance.csv not empty",
+      "passed": true,
+      "detail": "size=1838"
+    },
+    {
+      "name": "B.2 expected 24 rows",
+      "passed": true,
+      "detail": "rows=24"
+    },
+    {
+      "name": "B.3 JSD finite",
+      "passed": true,
+      "detail": "range=[0.0366,0.1157]"
+    },
+    {
+      "name": "B.4 jsd_to_layer_mean finite",
+      "passed": true,
+      "detail": "range=[0.0366,0.1157]"
+    },
+    {
+      "name": "C.1 paired diffs have common targets",
+      "passed": true,
+      "detail": "OK=144, NO_COMMON=0"
+    },
+    {
+      "name": "C.2 paired diff N = 2961",
+      "passed": true,
+      "detail": "unique N values: [2961]"
+    },
+    {
+      "name": "C.3 paired diff reconstructed correctly",
+      "passed": true,
+      "detail": "pds=-0.055341, reconstructed=-0.055341"
+    },
+    {
+      "name": "D.1 final_lock_sha256",
+      "passed": true,
+      "detail": "matches canonical Phase45 lock"
+    },
+    {
+      "name": "D.2 raw_last_query_seed42_sha256",
+      "passed": true,
+      "detail": "separate field"
+    },
+    {
+      "name": "D.3 source_phase54_version",
+      "passed": true,
+      "detail": "=LAST_QUERY_ATTENTION-v2"
+    },
+    {
+      "name": "D.4 source_phase52_version",
+      "passed": true,
+      "detail": "=ATTENTION_EXTRACTION-v1"
+    },
+    {
+      "name": "D.5 raw NPZ SHAs unchanged",
+      "passed": true,
+      "detail": "3 files"
+    },
+    {
+      "name": "D.6 phase47_canonical_test_population_sha256",
+      "passed": true,
+      "detail": "present"
+    },
+    {
+      "name": "D.7 Phase56 handoff",
+      "passed": true,
+      "detail": "all fields correct"
+    },
+    {
+      "name": "D.8 Phase57 handoff",
+      "passed": true,
+      "detail": "all fields correct"
+    },
+    {
+      "name": "D.9 No forbidden claims",
+      "passed": true,
+      "detail": "all guards false"
+    }
+  ],
+  "tests_passed": 19,
+  "tests_total": 19,
+  "overall_status": "PASS"
+}

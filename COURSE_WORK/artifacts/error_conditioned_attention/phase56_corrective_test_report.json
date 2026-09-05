@@ -1,0 +1,177 @@
+{
+  "overall": "PASS",
+  "n_tests": 34,
+  "n_pass": 34,
+  "results": [
+    {
+      "name": "A1. Phase54 source NE not all zero",
+      "status": "PASS",
+      "detail": "range=[0.0000,0.9934], n=71064"
+    },
+    {
+      "name": "A2. Phase54 source NE in [0,1]",
+      "status": "PASS",
+      "detail": "min=5.6143e-06, max=0.9934183955"
+    },
+    {
+      "name": "B1.d1.mean matches (|\u0394|<1e-6)",
+      "status": "PASS",
+      "detail": "P56=0.806383, R=0.806383"
+    },
+    {
+      "name": "B1.d1.median matches (|\u0394|<1e-6)",
+      "status": "PASS",
+      "detail": "P56=0.830535, R=0.830535"
+    },
+    {
+      "name": "B1.d5.mean matches (|\u0394|<1e-6)",
+      "status": "PASS",
+      "detail": "P56=0.812938, R=0.812938"
+    },
+    {
+      "name": "B1.d5.median matches (|\u0394|<1e-6)",
+      "status": "PASS",
+      "detail": "P56=0.835955, R=0.835955"
+    },
+    {
+      "name": "B1.d10.mean matches (|\u0394|<1e-6)",
+      "status": "PASS",
+      "detail": "P56=0.569620, R=0.569620"
+    },
+    {
+      "name": "B1.d10.median matches (|\u0394|<1e-6)",
+      "status": "PASS",
+      "detail": "P56=0.642627, R=0.642627"
+    },
+    {
+      "name": "B2.mean_low matches",
+      "status": "PASS",
+      "detail": "P56=0.808726, R=0.808726"
+    },
+    {
+      "name": "B2.mean_high matches",
+      "status": "PASS",
+      "detail": "P56=0.643600, R=0.643600"
+    },
+    {
+      "name": "C1.ABS_ERROR Spearman matches (|\u0394|<1e-3)",
+      "status": "PASS",
+      "detail": "P56=-0.209996, R=-0.209996"
+    },
+    {
+      "name": "C2.ABS_ERROR status != NOT_DEFINED_CONSTANT_METRIC",
+      "status": "PASS",
+      "detail": "status=OK"
+    },
+    {
+      "name": "C1.SIGNED Spearman matches (|\u0394|<1e-3)",
+      "status": "PASS",
+      "detail": "P56=0.013387, R=0.013387"
+    },
+    {
+      "name": "C1.SHARED_HARDNESS Spearman matches (|\u0394|<1e-3)",
+      "status": "PASS",
+      "detail": "P56=-0.2536973127434575, R=-0.253697"
+    },
+    {
+      "name": "C3. Cliff delta matches (|\u0394|<1e-3)",
+      "status": "PASS",
+      "detail": "P56=0.383275, R=0.383275"
+    },
+    {
+      "name": "D1. row count unchanged",
+      "status": "PASS",
+      "detail": "v1=8883, v2=8883"
+    },
+    {
+      "name": "D2. seed=42 cohort counts unchanged",
+      "status": "PASS",
+      "detail": "v1={'LOW_ERROR': 592, 'MID_ERROR': 1777, 'HIGH_ERROR': 592}, v2={'LOW_ERROR': 592, 'MID_ERROR': 1777, 'HIGH_ERROR': 592}"
+    },
+    {
+      "name": "D2. seed=123 cohort counts unchanged",
+      "status": "PASS",
+      "detail": "v1={'LOW_ERROR': 592, 'MID_ERROR': 1777, 'HIGH_ERROR': 592}, v2={'LOW_ERROR': 592, 'MID_ERROR': 1777, 'HIGH_ERROR': 592}"
+    },
+    {
+      "name": "D2. seed=2026 cohort counts unchanged",
+      "status": "PASS",
+      "detail": "v1={'LOW_ERROR': 592, 'MID_ERROR': 1777, 'HIGH_ERROR': 592}, v2={'LOW_ERROR': 592, 'MID_ERROR': 1777, 'HIGH_ERROR': 592}"
+    },
+    {
+      "name": "D3. target membership unchanged",
+      "status": "PASS",
+      "detail": "8883 entries"
+    },
+    {
+      "name": "D4. decile assignments unchanged",
+      "status": "PASS",
+      "detail": "8883 entries"
+    },
+    {
+      "name": "E1. source_phase54_version=v2",
+      "status": "PASS",
+      "detail": "LAST_QUERY_ATTENTION-v2"
+    },
+    {
+      "name": "E2. source_phase55_version=v2",
+      "status": "PASS",
+      "detail": "HEAD_COMPARISON-v2"
+    },
+    {
+      "name": "E3. final_lock=81fb87c4...",
+      "status": "PASS",
+      "detail": "81fb87c44b6af31b6f65eff1..."
+    },
+    {
+      "name": "E4. phase47_canonical=d7dbc0b3...",
+      "status": "PASS",
+      "detail": "d7dbc0b3cde772dc3f62c181..."
+    },
+    {
+      "name": "E5. raw_last_query_seed42_sha256 stored separately",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "E6.raw.NPZ seed42",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "E6.raw.NPZ seed123",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "E6.raw.NPZ seed2026",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "F1. decile NE all non-zero",
+      "status": "PASS",
+      "detail": "n=240, min=0.40534614065472974"
+    },
+    {
+      "name": "F2. high-low mean_low all non-zero",
+      "status": "PASS",
+      "detail": "n=24, min=0.7194725126550676"
+    },
+    {
+      "name": "F4. signed mean_under all non-zero",
+      "status": "PASS",
+      "detail": "n=24, min=0.6986827944080293"
+    },
+    {
+      "name": "F6. layer_head_mean NE all non-zero",
+      "status": "PASS",
+      "detail": "min=0.4841799723048141"
+    },
+    {
+      "name": "F7. NE Spearman no NOT_DEFINED_CONSTANT_METRIC",
+      "status": "PASS",
+      "detail": "statuses={'OK'}"
+    }
+  ]
+}

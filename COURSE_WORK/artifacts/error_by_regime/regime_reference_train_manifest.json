@@ -1,0 +1,30 @@
+{
+  "cadence_minutes": 10,
+  "first_target_id": "TGT_00000144",
+  "last_target_id": "TGT_00013813",
+  "n": 13670,
+  "provenance": {
+    "excluded_populations": [
+      "VALIDATION",
+      "TEST",
+      "Train+Validation final-refit population",
+      "YS1 standardized y_model",
+      "RevIN normalized coordinates"
+    ],
+    "filter": "target_split_id == TRAIN (raw Appliances Wh)",
+    "raw_data_source": "data/raw_data/energydata_complete.csv",
+    "source_population": "artifacts/windows/common_target_population.csv",
+    "split_version": "SPLIT-v1",
+    "temporal_version": "TEMPORAL-v1",
+    "windowpop_version": "WINDOWPOP-v1"
+  },
+  "raw_data_source": "data/raw_data/energydata_complete.csv",
+  "serialization_method": "sorted_utf8_lf_separated_sha256",
+  "source_population_sha256": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "split_version": "SPLIT-v1",
+  "status": "PASS",
+  "target_ids_sha256": "67d1e5dff4395cdcad4175d5e5bb813af928a76037bb9af720185e7122512225",
+  "temporal_version": "TEMPORAL-v1",
+  "version": "REGIME_REFERENCE_TRAIN-v1",
+  "windowpop_version": "WINDOWPOP-v1"
+}

@@ -3,9 +3,11 @@ import math
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from enum import Enum
+from io import BytesIO
 from pathlib import Path
 from typing import Any
 
+import joblib
 import numpy as np
 import pandas as pd
 import torch
@@ -26,6 +28,7 @@ from course_work.data.windows import (
     materialize_phase_10,
     materialize_window,
     transform_feature_timeline,
+    transform_feature_timeline_with_scaler,
 )
 from course_work.utils.artifacts import (
     canonical_json_bytes,
@@ -118,6 +121,7 @@ class TargetAccessMode(str, Enum):
     VALIDATION = "VALIDATION"
     TEST_LOCKED = "TEST_LOCKED"
     TEST_EVALUATION = "TEST_EVALUATION"
+    FINAL_DEV = "FINAL_DEV"
 
 
 @dataclass(frozen=True)
@@ -178,7 +182,19 @@ class SequenceWindowDataset(Dataset):
         if window_records.empty:
             raise ValueError("Window records must not be empty")
         if not window_records["target_split_id"].astype(str).eq(config.split_id).all():
-            raise ValueError("Window records contain a split outside DatasetConfig")
+            # FINAL_DEV accepts combined TRAIN+VALIDATION records.
+            # Train-only and Validation-only datasets still require strict homogeneity.
+            if config.target_access_mode == TargetAccessMode.FINAL_DEV.value:
+                unique_splits = set(window_records["target_split_id"].astype(str).unique())
+                allowed = {"TRAIN", "VALIDATION"}
+                illegal = unique_splits - allowed
+                if illegal:
+                    raise ValueError(
+                        f"FINAL_DEV dataset contains illegal splits: {illegal}. "
+                        f"Only TRAIN and VALIDATION are allowed."
+                    )
+            else:
+                raise ValueError("Window records contain a split outside DatasetConfig")
         if not window_records["lookback_steps"].eq(config.lookback).all():
             raise ValueError("Window records contain a lookback outside DatasetConfig")
         if not window_records["target_timestamp"].is_monotonic_increasing:
@@ -188,6 +204,7 @@ class SequenceWindowDataset(Dataset):
             "TRAIN": TargetAccessMode.TRAIN,
             "VALIDATION": TargetAccessMode.VALIDATION,
             "TEST": TargetAccessMode.TEST_LOCKED,
+            "FINAL_DEV": TargetAccessMode.FINAL_DEV,
         }
         if access_mode == TargetAccessMode.TEST_EVALUATION:
             if config.split_id != "TEST" or target_values is None:
@@ -466,6 +483,7 @@ def build_test_evaluation_dataset(
         scaler_registry["x_bundles"][variant_id],
         locked.config.window_fingerprint,
         locked.config.population_fingerprint,
+        boundary_protocol,
     )
     return SequenceWindowDataset(
         locked._feature_matrix,
@@ -475,6 +493,189 @@ def build_test_evaluation_dataset(
         target_scaler,
         audit_mode,
     )
+
+
+def build_final_dev_dataset(
+    project_root: Path | None = None,
+    variant_id: str = "FS2_TF1",
+    lookback: int = 36,
+    target_option: str = "YS1",
+    boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
+    target_scaler_bundle: dict[str, Any] | None = None,
+    audit_mode: bool = False,
+) -> SequenceWindowDataset:
+    """Build a FINAL_DEV SequenceWindowDataset.
+
+    FINAL_DEV = TRAIN + VALIDATION (excludes TEST).
+    Uses the shared canonical feature timeline so that both TRAIN-origin and
+    VALIDATION-origin windows index their correct backing rows.  The dataset
+    carries a FINAL_DEV config (split_id="FINAL_DEV",
+    target_access_mode=TargetAccessMode.FINAL_DEV) but preserves the original
+    target_split_id per-record so provenance is auditable.
+
+    Args:
+        project_root: COURSE_WORK root.
+        variant_id: Locked feature variant (FS2_TF1 from Phase 45).
+        lookback: Locked lookback steps (36).
+        target_option: Locked target scaling option (YS1).
+        boundary_protocol: Locked boundary protocol (WB0_CONTEXT_CARRY_OVER).
+        target_scaler_bundle: FINAL_SCALING-v1 Y scaler bundle.
+        audit_mode: If True, enable strict finite-checks per item.
+
+    Returns:
+        A SequenceWindowDataset containing all FINAL_DEV windows.
+
+    Invariants:
+        - 16,630 windows (13,670 TRAIN + 2,960 VALIDATION)
+        - 0 TEST windows
+        - No duplicate target IDs
+        - Chronological ordering
+        - Shape [36, 33]
+        - FINAL_SCALING-v1 X/Y scalers applied
+        - Deterministic construction
+    """
+    root = (project_root or get_project_root()).resolve()
+    materialize_phase_10(root)
+    feature_view = load_validated_feature_view(root)
+    feature_registry = load_validated_feature_set_registry(root)
+    if variant_id not in feature_registry["variants"]:
+        raise KeyError(f"Unknown feature variant: {variant_id}")
+    feature_entry = feature_registry["variants"][variant_id]
+
+    # Load FINAL_SCALING-v1 scaler bundle (not Phase 9 scalers).
+    scaler_registry_path = root / "artifacts" / "scaling" / "final_dev" / "final_scaler_registry.json"
+    if not scaler_registry_path.exists():
+        raise FileNotFoundError(
+            f"FINAL_SCALING-v1 registry not found: {scaler_registry_path}. "
+            f"Run Phase 46 preflight to materialize FINAL_SCALING-v1 first."
+        )
+    scaler_registry = read_json(scaler_registry_path)
+    if variant_id not in scaler_registry["x_bundles"]:
+        raise KeyError(
+            f"Variant {variant_id} not in FINAL_SCALING-v1 registry. "
+            f"Available: {list(scaler_registry['x_bundles'].keys())}"
+        )
+    x_entry = scaler_registry["x_bundles"][variant_id]
+    # Load the FULL joblib bundle (contains the fitted scaler).
+    x_bundle = joblib.load(root / x_entry["artifact_path"])
+
+    # Load window index and filter to FINAL_DEV windows.
+    window_index = load_validated_window_index(root)
+    population = load_validated_common_population(root)
+    split_manifest = read_json(root / "artifacts/splits/split_manifest.json")
+    window_fingerprints = read_json(root / "artifacts/windows/window_fingerprints.json")
+    population_fingerprint = compute_population_fingerprint(population)
+
+    if boundary_protocol not in {"WB0_CONTEXT_CARRY_OVER", "WB1_STRICT_ISOLATION"}:
+        raise ValueError(f"Unsupported boundary_protocol: {boundary_protocol}")
+    valid_col = "WB0_valid" if boundary_protocol == "WB0_CONTEXT_CARRY_OVER" else "WB1_valid"
+    active = window_index.loc[
+        window_index["lookback_steps"].eq(lookback)
+        & window_index["target_split_id"].isin(["TRAIN", "VALIDATION"])
+        & window_index["included_common_population"].astype(bool)
+        & window_index[valid_col].astype(bool)
+    ].copy(deep=True)
+
+    train_records = active.loc[active["target_split_id"].eq("TRAIN")].copy(deep=True)
+    val_records = active.loc[active["target_split_id"].eq("VALIDATION")].copy(deep=True)
+
+    combined_records = pd.concat([train_records, val_records], ignore_index=True)
+    combined_records = combined_records.sort_values("target_timestamp").reset_index(drop=True)
+
+    # Invariant: no duplicates.
+    if combined_records["target_sample_id"].nunique() != len(combined_records):
+        raise ValueError("FINAL_DEV contains duplicated target IDs")
+    if combined_records["target_raw_row_index"].nunique() != len(combined_records):
+        raise ValueError("FINAL_DEV contains duplicated raw row indices")
+
+    # Build the shared canonical feature timeline using FINAL_SCALING-v1 X scaler.
+    # This is the SAME transform used by the training pipeline.
+    # Pass the loaded joblib x_bundle (not the registry dict) so the
+    # transform function receives the full bundle with the fitted scaler.
+    split_fingerprint = split_manifest["global_split_fingerprint"]
+    matrix = transform_feature_timeline_with_scaler(
+        feature_view,
+        variant_id,
+        feature_entry,
+        split_fingerprint,
+        root,
+        scaler_bundle=x_bundle,
+    )
+    # Verify matrix shape.
+    if matrix.shape[0] != len(feature_view):
+        raise RuntimeError(
+            f"Feature timeline row count {matrix.shape[0]} != feature_view {len(feature_view)}"
+        )
+    if matrix.shape[1] != feature_entry["feature_count"]:
+        raise RuntimeError(
+            f"Feature timeline col count {matrix.shape[1]} != feature_count {feature_entry['feature_count']}"
+        )
+    if not np.isfinite(matrix).all():
+        raise RuntimeError("Feature timeline contains non-finite values")
+
+    # Build target array — FULL pre-Test target timeline (all TRAIN + VALIDATION rows).
+    # This is indexed by raw_row_index, so TRAIN and VALIDATION targets are both present.
+    if target_option == "YS1" and target_scaler_bundle is None:
+        raise ValueError("FINAL_DEV with YS1 requires target_scaler_bundle (FINAL_SCALING-v1)")
+    target_values = feature_view["Appliances"].to_numpy(dtype=np.float64, copy=True)
+    if not np.isfinite(target_values).all():
+        raise RuntimeError("Target timeline contains non-finite values")
+
+    # FINAL_DEV DatasetConfig.
+    config = _dataset_config(
+        split_id="FINAL_DEV",
+        variant_id=variant_id,
+        lookback=lookback,
+        target_option=target_option,
+        target_access_mode=TargetAccessMode.FINAL_DEV,
+        feature_entry=feature_entry,
+        scaler_entry=x_entry,
+        window_fingerprint=window_fingerprints["window_index_fingerprints"].get(
+            f"L{lookback:03d}_H01_WB0", "WB0"
+        ),
+        population_fingerprint=population_fingerprint,
+        boundary_protocol=boundary_protocol,
+    )
+
+    dataset = SequenceWindowDataset(
+        feature_matrix=matrix,
+        window_records=combined_records,
+        config=config,
+        target_values=target_values,
+        target_scaler=target_scaler_bundle,
+        audit_mode=audit_mode,
+    )
+
+    # Post-construction invariants.
+    if len(dataset) != len(combined_records):
+        raise RuntimeError(
+            f"Dataset length {len(dataset)} != combined_records {len(combined_records)}"
+        )
+    expected_train = len(train_records)
+    expected_val = len(val_records)
+    actual_train = int(
+        (dataset._records["target_split_id"] == "TRAIN").sum()
+    )
+    actual_val = int(
+        (dataset._records["target_split_id"] == "VALIDATION").sum()
+    )
+    actual_test = int(
+        (dataset._records["target_split_id"] == "TEST").sum()
+    )
+    if actual_train != expected_train:
+        raise RuntimeError(
+            f"FINAL_DEV TRAIN count {actual_train} != expected {expected_train}"
+        )
+    if actual_val != expected_val:
+        raise RuntimeError(
+            f"FINAL_DEV VALIDATION count {actual_val} != expected {expected_val}"
+        )
+    if actual_test != 0:
+        raise RuntimeError(
+            f"FINAL_DEV contains {actual_test} TEST windows — TEST access is FORBIDDEN"
+        )
+
+    return dataset
 
 
 def build_split_generator(seed: int, split_id: str) -> torch.Generator:

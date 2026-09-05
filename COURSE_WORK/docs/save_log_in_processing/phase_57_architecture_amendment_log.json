@@ -1,0 +1,105 @@
+{
+  "amendment_id": "phase-57-architecture-amendment-v1.19",
+  "version": "v1.19",
+  "date": "2026-09-05",
+  "phase": 57,
+  "phase_name": "Seed-Stability Attention Check",
+  "affected_phase": "Phase 57 (Seed-Stability Attention Check) and downstream handoffs to Phase 58 / 59",
+  "reason": "Authorize a strictly descriptive seed-stability attention analysis over frozen Phase 52 raw attention NPZ (last-query + dense cases), frozen Phase 54 per-vector metrics + mean temporal profiles + layer head-mean profiles + top1 frequency, frozen Phase 55 head behavior + head-pair + layer diversity (handoff ref only), frozen Phase 56 error-conditioned attention effects, and frozen Phase 48 prediction_seed_spread.csv (secondary diagnostic only). The phase performs two parallel stability views: S57-A permutation-invariant layer head-mean stability and S57-B permutation-aware canonical head matching within each encoder layer using full-Test mean last-query temporal profiles, exhaustive H! enumeration under locked H2/H4 protocol, minimum total JSD cost (natural log), MATCH_TIE_TOL=1e-12, Wasserstein tie-break, lexicographic final tie-break. Three pairwise mappings (42-123, 42-2026, 123-2026) are retained; cycle consistency is audited; Wasserstein-only matching is computed as sensitivity only.",
+  "authorized_paths": [
+    "src/course_work/phase57/",
+    "artifacts/seed_stability_attention/",
+    "artifacts/seed_stability_attention/figures/",
+    "docs/save_log_in_processing/phase_57_seed_stability_attention_log.json",
+    "docs/save_log_in_processing/phase_57_architecture_amendment_log.json",
+    "tests/unit/test_phase57_*.py",
+    "(future) src/course_work/reporting/phase_57_dashboard.py — Phase 57-H deferred, NOT in this run"
+  ],
+  "locked_scientific_contracts": {
+    "three_official_seeds": [42, 123, 2026],
+    "primary_stability_view": "LAYER_HEAD_MEAN (permutation-invariant, computed FIRST)",
+    "matching_representation": "full-Test mean last-query temporal profile per (seed, layer, head)",
+    "matching_cost": "Jensen-Shannon divergence (natural log), range [0, ln(2)]",
+    "matching_scope": "within each encoder layer only",
+    "matching_search": "exhaustive enumeration of all H! permutations under locked H2/H4 (H=2 -> 2 perms, H=4 -> 24 perms)",
+    "matching_objective": "minimum total JSD across matched edges",
+    "match_tie_tol": 1e-12,
+    "tie_break_order": [
+      "minimum total JSD",
+      "if total JSD ties within 1e-12 -> minimum total Wasserstein (minutes)",
+      "if still tied -> lexicographically smallest permutation"
+    ],
+    "anchor_seed": 42,
+    "anchor_reason": "FIRST_PREDECLARED_FINAL_SEED",
+    "performance_based_anchor": false,
+    "fingerprint_written_before_phase56_effects": true,
+    "three_pairwise_mappings_retained": ["42-123", "42-2026", "123-2026"],
+    "cycle_consistency_audit": true,
+    "wasserstein_sensitivity_only": true,
+    "core_attention_metrics_v1": [
+      "normalized_entropy", "expected_lag_minutes", "recent_1h_mass",
+      "recent_6h_mass", "top5_mass", "lag80_minutes"
+    ],
+    "lookback": 72,
+    "lag_step_minutes": 10,
+    "n_test": 2961,
+    "n_layers": 2,
+    "n_heads": 4,
+    "H2_protocol_layer_head_counts": [2, 4]
+  },
+  "forbidden_actions": [
+    "training, fine-tune, optimizer.step, .backward, model.train, scaler.fit, scaler.fit_transform",
+    "new Test inference; new attention extraction",
+    "destructive overwrite of any Phase 47 / 48 / 49 / 50 / 51 / 52 / 53 / 54 / 55 / 56 canonical artifact",
+    "modifying any frozen prediction, frozen attention, frozen target order, frozen position map, frozen per-vector metric, frozen profile, frozen residual, frozen regime label, frozen shared hardness, frozen error-conditioning cohort assignment",
+    "best-seed selection, ensemble, weighted overall stability score",
+    "best-head selection, head ranking, head pruning, head ablation, head clustering",
+    "cross-seed head matching except the deterministic JSD-exhaustive canonical matching defined above",
+    "target-specific rematching, error-specific rematching, regime-specific rematching, case-specific rematching",
+    "anchor change after seeing results",
+    "mismatch-method replacement (Wasserstein never replaces JSD)",
+    "Test error cohort used as deployment regime",
+    "attention labeled as feature importance, causal attribution, predictive head quality",
+    "attention stability labeled as proof of functional equivalence",
+    "cartesian subgroup mining (error x regime x head x time-of-day)",
+    "reading PNG pixels for numeric attention values",
+    "implementing Phase 58 / 59 (handoff files only)",
+    "notebook modification (Phase 57-H deferred)"
+  ],
+  "test_firewall": {
+    "may_read": [
+      "Phase 48 prediction_seed_spread.csv (secondary diagnostic only)",
+      "Phase 52 raw last_query_attention_seed*.npz + dense_case_attention_seed*.npz + raw_attention_checksums.json + attention_test_target_order.csv + attention_dense_case_order.csv",
+      "Phase 54 last_query_metrics_long.csv + last_query_profile_by_lag.csv + last_query_layer_head_mean_profile.csv + last_query_top1_lag_frequency.csv + last_query_lag_bin_mass.csv + last_query_seed_overall_profile.csv",
+      "Phase 55 head_behavior_summary.csv + head_pair_comparison_long.csv + layer_head_diversity_summary.csv + phase57_seed_stability_head_context_handoff.json",
+      "Phase 56 error_attention_*.csv + error_conditioning_assignment.csv + phase57_seed_stability_attention_handoff.json"
+    ],
+    "may_not": [
+      "load model checkpoint",
+      "call model.forward, torch.load, return_attention, materialize_phase52, extract_attention, fit, fit_transform",
+      "modify any Phase 47 / 48 / 49 / 50 / 51 / 52 / 53 / 54 / 55 / 56 frozen artifact",
+      "alter Test predictions",
+      "interpret attention causally",
+      "digitize PNG for numeric attention values",
+      "select best seed/head",
+      "prune/ablate head",
+      "perform post-hoc subgroup mining",
+      "create weighted overall stability score"
+    ]
+  },
+  "minimum_outputs": "O57.1-O57.42 (manifest, contract, preflight audit, source verification, seed-pair manifest, layer head-mean stability + summary, per-target layer stability + three-seed disagreement, layer metric stability, head matching cost matrices + assignments + ambiguity audit + edge margins + cycle consistency + Wasserstein sensitivity, canonical matched groups, matching fingerprint, matching independence audit, matched-head profile stability + summary + consensus profiles, per-target matched-head stability + three-seed disagreement, matched-head metric stability, matched-head top1 stability, dense-case stability + summary, layer error-conditioned seed stability, matched-head error-conditioned stability, prediction-attention disagreement + matched variant, attention stability evidence summary, findings, tests, discrepancies, summary JSON, human-readable report, README, Phase 58 handoff, Phase 59 context handoff, sign-off)",
+  "notebook_status": "NONE in this run; Phase 57-H deferred to a future Human-approved run after Phase 57-G sign-off",
+  "downstream_boundary": {
+    "phase58_authorized": false,
+    "phase59_authorized": false,
+    "phase58_handoff_created": true,
+    "phase59_context_handoff_created": true
+  },
+  "source_plan_reference": [
+    "docs/plan-doc/plan_before_process/phase_57_seed_stability_attention_plan.md (pre-process plan, APPROVED 2026-09-05)",
+    "docs/plan-doc/plan_detail_for_each_phase/Phase_57_Seed-stability_attention_check.md (canonical Phase detail)"
+  ],
+  "human_approval": "APPROVED 2026-09-05",
+  "architecture_strength_preserved": true,
+  "previous_protections_weakened": false
+}

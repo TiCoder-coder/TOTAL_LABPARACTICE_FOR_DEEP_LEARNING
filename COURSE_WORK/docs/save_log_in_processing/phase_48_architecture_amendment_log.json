@@ -1,0 +1,180 @@
+{
+  "log_id": "phase_48_architecture_amendment_log",
+  "log_version": "1.0.0",
+  "log_kind": "architecture_rule_amendment",
+  "task": "PHASE_48_A2_ARCHITECTURE_AMENDMENT",
+  "phase": 48,
+  "phase_name": "Phase 48 - Prediction Analysis",
+  "amendment_id": "phase-48-architecture-amendment-v1.10",
+  "architecture_rule_version_before": "v1.9 (2026-08-24)",
+  "architecture_rule_version_after": "v1.10 (2026-09-04)",
+  "operation_timestamp_utc": "2026-09-04T00:28:00+00:00",
+  "operator_role": "Senior ML Engineer + Scientific Evaluation Auditor",
+  "reason": "Authorize a strictly descriptive prediction-analysis package over frozen Phase 47 prediction bundles. No new Test inference, training, scaler fitting, checkpoint reload, model selection, ensemble metric, prediction shifting/clipping/calibration, or residual/regime/worst-error/attention analysis. Unlock the planning gate identified in Phase 48-A audit (D-01 MAJOR defect).",
+  "rule_sections_reviewed": [
+    "§3 - Canonical project root",
+    "§4 - Single Python source root",
+    "§5 - Canonical architecture tree",
+    "§6.4 - src/course_work responsibilities",
+    "§7.37 - Phase 38+ modules (currently forbids implementation)",
+    "§8 - Dependency direction",
+    "§12.3 - Artifact atomicity",
+    "§14 - Notebook boundary",
+    "§17 - Phase gate",
+    "§19 - Code style (no comments, no icons)",
+    "§24 - Change-control gate",
+    "§25 - Transition state",
+    "§26 - Architecture validation checklist",
+    "§27 - Activation gate",
+    "§28 - Amendment log (added v1.10 entry)"
+  ],
+  "amendment_location": {
+    "file": "COURSE_WORK/docs/RULE_BASE/architecture_rule.md",
+    "section_appended": "§28 (Amendment log) — new entry v1.10",
+    "section_added_subentry": "§7.37.1 (Phase 48 ngoại lệ)",
+    "section_25_addition": "Single-sentence closing paragraph under §25 transition-state listing",
+    "section_26_addition": "Single-line scope-limited amendment acknowledgement under §26 validation checklist",
+    "bytes_added": 5471,
+    "size_before_chars": 75688,
+    "size_after_chars": 81159,
+    "sha256_after": "3cb6cad493db506e"
+  },
+  "authorized_paths": [
+    {
+      "path": "COURSE_WORK/src/course_work/phase48/",
+      "kind": "python_package",
+      "owner": "Phase 48 implementation modules (read-only over Phase 47 frozen predictions)",
+      "created": false,
+      "note": "Implementation not started; created in Phase 48-B only after Human approval."
+    },
+    {
+      "path": "COURSE_WORK/src/course_work/reporting/phase_48_dashboard.py",
+      "kind": "python_module",
+      "owner": "Notebook presentation renderer (sibling of phase_43_47_dashboard.py)",
+      "created": false
+    },
+    {
+      "path": "COURSE_WORK/artifacts/prediction_analysis/",
+      "kind": "artifact_directory",
+      "owner": "Immutable derived Phase 48 artifacts (CSVs, JSONs, PNGs)",
+      "created": false
+    },
+    {
+      "path": "COURSE_WORK/docs/save_log_in_processing/phase_48_prediction_analysis_log.json",
+      "kind": "machine_readable_log",
+      "owner": "Phase 48 processing log (created during Phase 48-B execution)",
+      "created": false
+    },
+    {
+      "path": "COURSE_WORK/docs/save_log_in_processing/phase_48_architecture_amendment_log.json",
+      "kind": "machine_readable_log",
+      "owner": "THIS FILE — governance record for the amendment itself",
+      "created": true
+    }
+  ],
+  "scientific_constraints": {
+    "inputs_only": "frozen Phase 47 prediction bundles under artifacts/final_test/predictions/ and the population manifest at artifacts/final_test/final_test_population_manifest.json",
+    "no_new_test_inference": true,
+    "no_checkpoint_loading_for_new_predictions": true,
+    "no_training": true,
+    "no_optimizer_steps": true,
+    "no_model_train_call": true,
+    "no_backward_call": true,
+    "no_scaler_fitting": true,
+    "no_best_seed_selection": true,
+    "no_ensemble_metric": true,
+    "no_prediction_shifting": true,
+    "no_prediction_clipping": true,
+    "no_post_hoc_calibration": true,
+    "no_test_derived_threshold_tuning": true,
+    "no_residual_histograms": true,
+    "no_residual_qq": true,
+    "no_residual_acf": true,
+    "no_ljung_box": true,
+    "no_heteroskedasticity_tests": true,
+    "no_regime_rmse_by_target_band": true,
+    "no_hourly_rmse_tables": true,
+    "no_weekend_rmse_tables": true,
+    "no_worst_error_ranking_by_absolute_error": true,
+    "no_worst_error_ranking_by_squared_error": true,
+    "no_attention_extraction": true,
+    "no_attention_visualization": true,
+    "notebook_presentation_only": true,
+    "seed_mean_labelled_descriptive_only": true,
+    "seed_spread_labelled_cross_seed_not_confidence_interval": true,
+    "lag_range_locked_to_minus6_to_plus6_steps": true,
+    "peak_timing_window_locked_to_plus_minus_1_step": true,
+    "zoom_windows_locked_to_first24h_middle24h_last24h_deterministic": true,
+    "top_disagreement_K_locked_to_20_by_seed_range_prediction_only": true,
+    "phase49_residual_analysis_scope_kept_exclusive": true,
+    "phase50_regime_scope_kept_train_derived": true,
+    "phase51_worst_error_scope_kept_exclusive": true,
+    "phase52_attention_scope_kept_exclusive": true
+  },
+  "phase48_responsibilities_authorized": [
+    "frozen Phase 47 prediction loading and source-bundle checksum verification",
+    "source verification and prediction alignment audit",
+    "descriptive prediction statistics (distribution, range/compression, gap-safe change, direction agreement)",
+    "temporal prediction diagnostics (lag -6..+6, prediction ACF at registered lags, fixed-definition local extrema, ±1-step peak timing)",
+    "seed agreement and per-target seed spread (K=20 top-disagreement by seed_range_prediction only; NOT worst-error)",
+    "integrity audits (negative values, saturation, optional baseline context)",
+    "deterministic figures (full Test, Z1 first 24h / Z2 middle 24h / Z3 last 24h, scatter per seed, ECDF, change magnitude, lag, ACF, optional heatmaps)",
+    "atomic writers under artifacts/prediction_analysis/ (CSV + JSON, no overwrite of Phase 47 sources)",
+    "findings code registry with safe descriptive wording",
+    "Phase 49 / Phase 50 / Phase 51 handoff JSONs",
+    "phase_48_signoff.json writer and processing log"
+  ],
+  "prior_protections_preserved": {
+    "v1_0_to_v1_9_amendments_intact": true,
+    "section_737_first_paragraph_intact": true,
+    "test_firewall_intact": true,
+    "notebook_boundary_intact": true,
+    "no_comment_no_icon_rule_intact": true,
+    "phase_38_plus_other_phases_still_blocked": true,
+    "phase_49_50_51_52_plus_not_authorized": true
+  },
+  "phase47_modified": false,
+  "phase47_artifact_hashes_unchanged": {
+    "artifacts/final_test/phase_47_signoff.json": "80614523b6091e21",
+    "artifacts/three_seed_final_runs/phase_46_signoff.json": "ef450f820b8b46e9",
+    "artifacts/final_model_lock/phase_45_signoff.json": "464ee2101d91b987",
+    "artifacts/rolling_origin/phase_44_signoff.json": "f1b58ec100c7ce8a",
+    "artifacts/lstm_tuning/phase_43_signoff.json": "b4ab86100366392b",
+    "artifacts/final_test/predictions/final_test_predictions_seed42.csv": "246ee0d725af972b",
+    "artifacts/final_test/predictions/final_test_predictions_seed123.csv": "1bb55c445ffe132d",
+    "artifacts/final_test/predictions/final_test_predictions_seed2026.csv": "bfb575357dd6a8e3",
+    "artifacts/final_test/predictions/final_test_predictions_persistence.csv": "7115af1c479b8957"
+  },
+  "phase47_notebook_unchanged": true,
+  "coursework_1_ipynb_sha256": "dc25c8c2f1f478bb",
+  "training_executed": false,
+  "new_test_inference": false,
+  "phase48_source_implementation_started": false,
+  "phase48_notebook_modified": false,
+  "phase48_src_authorized": true,
+  "phase48_artifact_dir_authorized": true,
+  "phase48_reporting_module_authorized": true,
+  "notebook_presentation_only": true,
+  "source_plan_references": [
+    "COURSE_WORK/docs/plan-doc/plan_before_process/phase_48_prediction_analysis_plan.md",
+    "COURSE_WORK/docs/plan-doc/plan_detail_for_each_phase/Phase_48_Prediction_analysis.md"
+  ],
+  "blocking_conditions_for_phase48_b": [
+    "Human approval of the v1.10 amendment in §28 (pending sign-off from this audit log)",
+    "User-confirmed go-ahead for Phase 48-B implementation"
+  ],
+  "human_approval": {
+    "status": "APPROVED",
+    "required_for_unlocking": "Phase 48-B implementation",
+    "unlocks_paths_above_when_granted": true,
+    "does_not_unlock": [
+      "Phase 49+",
+      "any retraining",
+      "any new Test inference"
+    ],
+    "approved_at_utc": "2026-09-04T00:31:00+00:00",
+    "approver": "Human (project owner)",
+    "note": "User explicitly approved v1.10 amendment; Phase 48-B authorized only. Phase 49+ NOT unlocked."
+  },
+  "status": "PASS"
+}

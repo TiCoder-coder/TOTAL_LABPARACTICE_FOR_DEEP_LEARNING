@@ -1,0 +1,68 @@
+{
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "seed_pairs": [
+    [
+      42,
+      123
+    ],
+    [
+      42,
+      2026
+    ],
+    [
+      123,
+      2026
+    ]
+  ],
+  "primary_view": "layer head-mean permutation-invariant stability",
+  "canonical_matching": {
+    "scope": "within each encoder layer only",
+    "representation": "full-Test mean last-query temporal profile",
+    "cost": "JSD (natural log)",
+    "search": "exhaustive H! permutations under locked H2/H4",
+    "objective": "minimum total JSD",
+    "tie_tol": 1e-12,
+    "tie_break_2": "Wasserstein minutes",
+    "tie_break_3": "lexicographic",
+    "frozen_before_phase56_effects": true
+  },
+  "sensitivity_matching": "minimum total Wasserstein matching only",
+  "anchor": {
+    "seed": 42,
+    "reason": "FIRST_PREDECLARED_FINAL_SEED",
+    "performance_based": false
+  },
+  "matched_head_analyses": [
+    "mean_profile stability",
+    "per_target last-query stability (global mapping reused)",
+    "behavior metric stability (CORE_ATTENTION_METRICS-v1)",
+    "top1-lag stability",
+    "dense case full-map stability",
+    "error-conditioned effect stability"
+  ],
+  "primary_error_robustness_view": "layer head-mean error-conditioned",
+  "secondary_views": [
+    "matched-head error-conditioned",
+    "prediction spread vs attention disagreement"
+  ],
+  "forbidden": [
+    "same-index semantic alignment assumption",
+    "target-specific rematching",
+    "error-specific rematching",
+    "regime-specific rematching",
+    "case-specific rematching",
+    "best seed",
+    "best head",
+    "pruning",
+    "ablation",
+    "retraining",
+    "new Test inference",
+    "new attention extraction",
+    "weighted stability score",
+    "causal claim"
+  ]
+}

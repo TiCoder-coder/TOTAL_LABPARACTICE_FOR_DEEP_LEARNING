@@ -1,0 +1,87 @@
+{
+  "phase": 52,
+  "version": "ATTENTION_EXTRACTION-v1",
+  "phase52_status": "PASS",
+  "ready_for_phase52_notebook_visualization": true,
+  "phase52_notebook_authorized": false,
+  "phase53_authorized": false,
+  "phase54_authorized": false,
+  "phase55_authorized": false,
+  "phase56_authorized": false,
+  "phase57_authorized": false,
+  "checks": [
+    {
+      "check": "three_final_checkpoints_verified",
+      "pass": true
+    },
+    {
+      "check": "prediction_equivalence_verified",
+      "pass": true
+    },
+    {
+      "check": "attention_shape_verified",
+      "pass": true
+    },
+    {
+      "check": "attention_probability_verified",
+      "pass": true
+    },
+    {
+      "check": "position_map_verified",
+      "pass": true
+    },
+    {
+      "check": "dense_case_coverage_complete",
+      "pass": true
+    },
+    {
+      "check": "full_test_last_query_coverage_complete",
+      "pass": true
+    },
+    {
+      "check": "dense_last_query_consistency_verified",
+      "pass": true
+    },
+    {
+      "check": "raw_checksums_verified",
+      "pass": true
+    },
+    {
+      "check": "model_mutation_false",
+      "pass": true
+    },
+    {
+      "check": "new_training_false",
+      "pass": true
+    },
+    {
+      "check": "case_selection_changed_false",
+      "pass": true
+    },
+    {
+      "check": "head_averaging_false",
+      "pass": true
+    },
+    {
+      "check": "layer_averaging_false",
+      "pass": true
+    },
+    {
+      "check": "seed_averaging_false",
+      "pass": true
+    },
+    {
+      "check": "attention_interpretation_false",
+      "pass": true
+    },
+    {
+      "check": "phase53_to_57_handoffs_ready",
+      "pass": true
+    }
+  ],
+  "all_pass": true,
+  "n_artifacts": 37,
+  "expected_artifacts": 37,
+  "raw_checksums_status": "PASS",
+  "approved_at_utc": "2026-09-04"
+}

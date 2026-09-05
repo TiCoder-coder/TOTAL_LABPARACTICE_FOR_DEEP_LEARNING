@@ -1,0 +1,91 @@
+{
+  "final_test_version": "FINAL_TEST_EVAL-v1",
+  "final_lock_hash": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "test_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "three_transformer_prediction_bundle_paths": {
+    "seed_42": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+    "seed_123": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+    "seed_2026": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+    "persistence": "artifacts/final_test/predictions/final_test_predictions_persistence.csv"
+  },
+  "persistence_bundle": "final_test_predictions_PERSISTENCE.csv",
+  "lstm_bundle": null,
+  "per_seed_metrics": [
+    {
+      "model_id": "TRANSFORMER_SEED42",
+      "seed": 42,
+      "run_id": "RUN_TR_FSD_0254_2B11AC68",
+      "checkpoint_sha256": "c3cfad116aa91d47fb2f2950407498901b980a344a99462776e4b90828805b10",
+      "n_samples": 2961,
+      "mae_wh": 29.528646738232613,
+      "rmse_wh": 64.94275370825517,
+      "r2": 0.4892735101282182,
+      "r2_status": "DEFINED",
+      "population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+    },
+    {
+      "model_id": "TRANSFORMER_SEED123",
+      "seed": 123,
+      "run_id": "RUN_TR_FSD_0254_3858DDA9",
+      "checkpoint_sha256": "8a134fec517be0dfcd81ac6f961bf75fa69e8d34666205f731d893969bf01e22",
+      "n_samples": 2961,
+      "mae_wh": 27.11486924829266,
+      "rmse_wh": 61.98608587121866,
+      "r2": 0.5347188997659036,
+      "r2_status": "DEFINED",
+      "population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+    },
+    {
+      "model_id": "TRANSFORMER_SEED2026",
+      "seed": 2026,
+      "run_id": "RUN_TR_FSD_0255_C7E123FB",
+      "checkpoint_sha256": "8753800539f7a617bacbaa541daafbbfaff338a1de38ae1a5146650b4593dc6f",
+      "n_samples": 2961,
+      "mae_wh": 28.94229416815529,
+      "rmse_wh": 64.56013557970728,
+      "r2": 0.4952737966044358,
+      "r2_status": "DEFINED",
+      "population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+    }
+  ],
+  "aggregate_metrics": [
+    {
+      "metric": "mae_wh",
+      "seed42": 29.528646738232613,
+      "seed123": 27.11486924829266,
+      "seed2026": 28.94229416815529,
+      "mean": 28.52860338489352,
+      "sample_sd": 1.258942211085166,
+      "min": 27.11486924829266,
+      "max": 29.528646738232613,
+      "range": 2.413777489939953
+    },
+    {
+      "metric": "rmse_wh",
+      "seed42": 64.94275370825517,
+      "seed123": 61.98608587121866,
+      "seed2026": 64.56013557970728,
+      "mean": 63.8296583863937,
+      "sample_sd": 1.608001514957306,
+      "min": 61.98608587121866,
+      "max": 64.94275370825517,
+      "range": 2.9566678370365054
+    },
+    {
+      "metric": "r2",
+      "seed42": 0.4892735101282182,
+      "seed123": 0.5347188997659036,
+      "seed2026": 0.4952737966044358,
+      "mean": 0.5064220688328526,
+      "sample_sd": 0.024688739135270282,
+      "min": 0.4892735101282182,
+      "max": 0.5347188997659036,
+      "range": 0.04544538963768541
+    }
+  ],
+  "seed_aggregation_semantics": "MEAN_PLUS_SAMPLE_SD",
+  "no_best_seed": true,
+  "no_ensemble": true,
+  "ready_for_phase48": true,
+  "status": "PASS"
+}

@@ -88,6 +88,10 @@ class EvaluationMode(str, Enum):
     TRAIN_DIAGNOSTIC = "TRAIN_DIAGNOSTIC"
     VALIDATION = "VALIDATION"
     FINAL_TEST = "FINAL_TEST"
+    # Phase 46 FINAL_REFIT uses FINAL_DEV (TRAIN+VALIDATION) as the optimization
+    # population.  Post-epoch diagnostic evaluation is over this same population.
+    # It is NOT a selection metric (no BEST, no EarlyStopping).
+    FINAL_DEV_DIAGNOSTIC = "FINAL_DEV_DIAGNOSTIC"
 
 
 @dataclass(frozen=True)
@@ -97,6 +101,113 @@ class EvaluationContext:
     run_id: str
     model_id: str
     model_lock_id: str | None = None
+
+
+@dataclass(frozen=True)
+class MetricPopulationContext:
+    """Phase 44 fold-aware population context.
+
+    Carries an explicit expected population to validate the observed
+    prediction bundle against. The previous default behavior (when
+    `expected_sample_idx` is None and this context is also None) is
+    to derive the population from canonical full-split indices —
+    e.g. `expected_sample_indices("TRAIN", ...)` returns 13670 rows
+    for the canonical full TRAIN.
+
+    Phase 44 fold subsets (inner_train=12683, inner_val=987, ...)
+    are NOT equal to the canonical full splits. To validate Phase 44
+    metric computations without weakening the canonical safety check,
+    pass an explicit `MetricPopulationContext` with the fold-specific
+    expected sample IDs and a deterministic fingerprint.
+
+    The fingerprint MUST match the prediction bundle's
+    `population_fingerprint` (caller is responsible for computing it
+    deterministically from the ordered/normalized target IDs).
+
+    The metric layer still enforces:
+      - no missing IDs (observed must cover expected)
+      - no extra IDs (observed must not introduce new IDs)
+      - no duplicates
+      - population_fingerprint match
+    """
+    split_id: str
+    expected_sample_idx: np.ndarray
+    population_fingerprint: str
+    evaluation_mode: str | None = None  # optional; defaults to TRAIN_DIAGNOSTIC / VALIDATION
+
+    def __post_init__(self):
+        if not self.split_id:
+            raise ValueError("MetricPopulationContext: split_id is required")
+        if self.expected_sample_idx is None or len(self.expected_sample_idx) == 0:
+            raise ValueError("MetricPopulationContext: expected_sample_idx must be non-empty")
+        if not self.population_fingerprint:
+            raise ValueError("MetricPopulationContext: population_fingerprint is required")
+        arr = normalize_sample_indices(self.expected_sample_idx)
+        if len(np.unique(arr)) != len(arr):
+            raise ValueError("MetricPopulationContext: expected_sample_idx contains duplicates")
+
+
+def derive_population_fingerprint(
+    sample_idx: np.ndarray | None = None,
+    split_id: str = "",
+    target_ids: list[str] | tuple[str, ...] | None = None,
+) -> str:
+    """Deterministic fingerprint of a Phase 44 expected population.
+
+    This is the SINGLE canonical fingerprint function for Phase 44 fold
+    role populations (inner_train / inner_val / outer_train / outer_eval).
+
+    Two equivalent input forms are supported:
+
+    1. ``target_ids`` — explicit list of target_id strings (preferred).
+       The fingerprint is ``SHA256(sorted(json_dumped_str_list))``.
+
+    2. ``sample_idx`` — fallback: a numpy array of canonical_sample_idx
+       ints. The fingerprint is ``SHA256(sorted(json_dumped_int_list))``.
+
+    The two forms are NOT guaranteed to be equal because target_ids are
+    string IDs and sample_idx are integer positions. Callers should
+    choose ONE form per role and reuse it everywhere (bundle fingerprint,
+    context fingerprint, fold fingerprint, persistence fingerprint).
+
+    Phase 44 canonical convention (established by
+    ``course_work.rolling_origin.populations.compute_population_fingerprint``
+    and ``course_work.rolling_origin.folds.build_rolling_folds``):
+
+        fingerprint = SHA256 over sorted JSON-encoded target_id strings.
+
+    The result is a bare 64-character hex SHA256 (matching
+    ``FoldDefinition.inner_train_fingerprint`` etc.) so that the
+    bundle fingerprint, the context fingerprint, and the fold's
+    precomputed fingerprint are guaranteed to be byte-equal.
+    """
+    from course_work.utils.artifacts import sha256_bytes
+    import json as _json
+
+    if target_ids is not None:
+        normalized = sorted(str(t) for t in target_ids)
+        blob = _json.dumps(normalized, separators=(",", ":")).encode("utf-8")
+        return sha256_bytes(blob)
+
+    if sample_idx is None:
+        raise ValueError(
+            "derive_population_fingerprint: either sample_idx or target_ids must be provided"
+        )
+    arr = np.asarray(sorted(int(x) for x in np.asarray(sample_idx).reshape(-1).tolist()),
+                     dtype=np.int64)
+    blob = _json.dumps([int(x) for x in arr], separators=(",", ":")).encode("utf-8")
+    return sha256_bytes(blob)
+
+
+# Backwards-compat alias kept for the few callers that still use the
+# short "POP-SPLIT-XXXXXXXXXXXXXXXX" prefix format. New code MUST use
+# ``derive_population_fingerprint`` directly to ensure byte-equality
+# with the fold-level fingerprint.
+def derive_population_fingerprint_legacy(sample_idx: np.ndarray, split_id: str) -> str:
+    arr = np.asarray(sorted(int(x) for x in np.asarray(sample_idx).reshape(-1).tolist()),
+                     dtype=np.int64)
+    digest = sha256_bytes(b"|".join(str(int(x)).encode() for x in arr))
+    return f"POP-{split_id.upper()}-{digest[:16]}"
 
 
 @dataclass(frozen=True)
@@ -188,10 +299,17 @@ def validate_evaluation_access(context: EvaluationContext) -> None:
     if split_id == "TEST":
         if mode != EvaluationMode.FINAL_TEST or not context.model_lock_id:
             raise PermissionError("TEST metrics require FINAL_TEST mode and model_lock_id")
-    if split_id not in {"TRAIN", "VALIDATION", "TEST"}:
-        raise ValueError(f"Unsupported split: {context.split_id}")
+    if split_id == "FINAL_DEV":
+        if mode != EvaluationMode.FINAL_DEV_DIAGNOSTIC:
+            raise PermissionError(
+                f"FINAL_DEV requires FINAL_DEV_DIAGNOSTIC mode, got {mode!r}"
+            )
+    elif split_id not in {"TRAIN", "VALIDATION", "TEST"}:
+        raise ValueError(f"Unsupported split: {context.split_id!r}")
     if mode == EvaluationMode.FINAL_TEST and split_id != "TEST":
         raise PermissionError("FINAL_TEST mode is restricted to TEST")
+    if mode == EvaluationMode.FINAL_DEV_DIAGNOSTIC and split_id != "FINAL_DEV":
+        raise PermissionError("FINAL_DEV_DIAGNOSTIC mode is restricted to FINAL_DEV split")
 
 
 def validate_population_coverage(sample_idx: np.ndarray, expected_sample_idx: np.ndarray) -> None:
@@ -210,6 +328,29 @@ def expected_sample_indices(
     boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
 ) -> np.ndarray:
     root = (project_root or get_project_root()).resolve()
+
+    # Phase 46 FINAL_REFIT: diagnostic evaluation over FINAL_DEV (TRAIN+VALIDATION).
+    # The expected FINAL_DEV population is stored as the canonical sample index
+    # of the materialized FINAL_DEV dataset (window_index row offsets into the
+    # shared underlying timeline).  This ensures strict population coverage
+    # validation: observed predictions must exactly match FINAL_DEV population.
+    if split_id.upper() == "FINAL_DEV":
+        from course_work.data.final_dev import (
+            FINAL_DEV_ARTIFACT_ROOT,
+        )
+
+        sample_index_path = root / FINAL_DEV_ARTIFACT_ROOT / "final_dev_sample_index.csv"
+        if not sample_index_path.exists():
+            raise FileNotFoundError(
+                f"FINAL_DEV sample index not found: {sample_index_path}. "
+                f"Run materialize_final_dev_region() first."
+            )
+        index_df = pd.read_csv(sample_index_path)
+        selected = index_df["sample_idx"].to_numpy(dtype=np.int64, copy=True)
+        if selected.size == 0:
+            raise ValueError("FINAL_DEV expected sample population is empty")
+        return selected
+
     frame = load_validated_window_index(root)
     valid_col = "WB0_valid" if boundary_protocol == "WB0_CONTEXT_CARRY_OVER" else "WB1_valid"
     mask = (
@@ -391,9 +532,20 @@ def compute_regression_metrics(
     model_lock_id: str | None = None,
     project_root: Path | None = None,
     boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
+    population_context: MetricPopulationContext | None = None,
 ) -> MetricResult:
     context = EvaluationContext(split_id.upper(), evaluation_mode, run_id, model_id, model_lock_id)
     validate_evaluation_access(context)
+    # PHASE 44 SINGLE-CANONICAL FINGERPRINT PATH:
+    # When a population_context is provided, the bundle fingerprint is
+    # ALWAYS taken from the context (which is the per-role, target-id-based
+    # fingerprint that matches FoldDefinition inner_*_fingerprint etc.).
+    # The caller-supplied population_fingerprint arg is ignored in this
+    # case, but still enforced equal at the legacy-validation path.
+    if population_context is not None:
+        effective_bundle_fp = population_context.population_fingerprint
+    else:
+        effective_bundle_fp = population_fingerprint
     bundle = PredictionBundle(
         run_id=run_id,
         model_id=model_id,
@@ -402,11 +554,35 @@ def compute_regression_metrics(
         y_true_wh=normalize_regression_vector(y_true_wh, "y_true_wh"),
         y_pred_wh=normalize_regression_vector(y_pred_wh, "y_pred_wh"),
         target_scaling_option=target_scaling_option,
-        population_fingerprint=population_fingerprint,
+        population_fingerprint=effective_bundle_fp,
         lookback_steps=lookback_steps,
         horizon_steps=horizon_steps,
     )
-    expected = expected_sample_indices(split_id, lookback_steps, project_root, boundary_protocol) if expected_sample_idx is None else expected_sample_idx
+    # Resolve expected population with strict precedence:
+    #   1. population_context.expected_sample_idx (Phase 44 explicit fold population)
+    #   2. expected_sample_idx kwarg (legacy explicit path)
+    #   3. canonical full-split via expected_sample_indices() (legacy default)
+    if population_context is not None:
+        # Phase 44 fold-aware path — enforce split_id match AND require
+        # the caller-supplied population_fingerprint to match the
+        # context fingerprint exactly. This guarantees the bundle and
+        # the context always agree at the metric layer.
+        if population_context.split_id.upper() != split_id.upper():
+            raise ValueError(
+                f"MetricPopulationContext.split_id={population_context.split_id!r} "
+                f"does not match compute_regression_metrics split_id={split_id!r}"
+            )
+        if population_context.population_fingerprint != population_fingerprint:
+            raise ValueError(
+                f"Population fingerprint mismatch: "
+                f"caller={population_fingerprint!r} vs "
+                f"context={population_context.population_fingerprint!r}"
+            )
+        expected = population_context.expected_sample_idx
+    elif expected_sample_idx is None:
+        expected = expected_sample_indices(split_id, lookback_steps, project_root, boundary_protocol)
+    else:
+        expected = expected_sample_idx
     aligned = align_prediction_bundle_to_expected_population(bundle, expected)
     mae = compute_mae_wh(aligned.y_true_wh, aligned.y_pred_wh)
     rmse = compute_rmse_wh(aligned.y_true_wh, aligned.y_pred_wh)
@@ -690,7 +866,9 @@ def _prediction_bundle_schema() -> dict[str, Any]:
         "required_fields": {
             "run_id": "non_empty_string",
             "model_id": "non_empty_string",
-            "split_id": ["TRAIN", "VALIDATION", "TEST"],
+            # FINAL_DEV added in Phase 46 for FINAL_REFIT post-epoch diagnostic
+            # evaluation.  TEST remains restricted by FINAL_TEST model_lock_id gate.
+            "split_id": ["TRAIN", "VALIDATION", "FINAL_DEV", "TEST"],
             "sample_idx": "unique_int64_N",
             "y_true_wh": "finite_float64_N",
             "y_pred_wh": "finite_float64_N",

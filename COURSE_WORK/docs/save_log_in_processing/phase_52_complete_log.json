@@ -1,0 +1,243 @@
+{
+  "phase": 52,
+  "phase_name": "Attention Extraction",
+  "version": "ATTENTION_EXTRACTION-v1",
+  "completed_at_utc": "2026-09-04",
+  "human_approval_prompt": "EXECUTE THE ENTIRE SCIENTIFIC PHASE 52 IN ONE RUN: 52-A through 52-G. DO NOT EXECUTE 52-H. DO NOT modify CourseWork_1.ipynb.",
+  "amendment": {
+    "id": "phase-52-architecture-amendment-v1.14",
+    "applied_at_utc": "2026-09-04",
+    "architecture_rule_version_before": "v1.13",
+    "architecture_rule_version_after": "v1.14",
+    "section_added": "§7.37.13"
+  },
+  "plan": {
+    "path": "docs/plan-doc/plan_before_process/phase_52_attention_analysis_plan.md",
+    "created_at_utc": "2026-09-04"
+  },
+  "sub_phases": {
+    "52_a": {
+      "status": "PASS",
+      "completed_at_utc": "2026-09-04",
+      "produced_artifacts": [
+        "phase52_architecture_amendment_log.json",
+        "phase_52_attention_analysis_plan.md",
+        "attention_extraction_contract.json",
+        "phase52_preflight_audit.csv",
+        "attention_source_verification.csv"
+      ],
+      "checks_passed": [
+        "Phase 51 signoff = PASS",
+        "Phase 51 → 52 handoff exists",
+        "case selection contract sha matches",
+        "3 final checkpoints verified",
+        "extraction contract frozen"
+      ]
+    },
+    "52_b": {
+      "status": "PASS",
+      "completed_at_utc": "2026-09-04",
+      "produced_modules": [
+        "src/course_work/phase52/__init__.py",
+        "src/course_work/phase52/sources.py",
+        "src/course_work/phase52/inputs.py",
+        "src/course_work/phase52/model_io.py",
+        "src/course_work/phase52/audits.py",
+        "src/course_work/phase52/summaries.py",
+        "src/course_work/phase52/writers.py",
+        "src/course_work/phase52/extract.py",
+        "src/course_work/phase52/contract.py",
+        "src/course_work/phase52/orchestrator.py",
+        "src/course_work/phase52/finalize_52fg.py"
+      ],
+      "smoke_tests_passed": [
+        "build_all_test_inputs → [2961, 72, 33]",
+        "build_model_from_final_lock → correct architecture",
+        "strict_load_checkpoint → 0 missing, 0 unexpected",
+        "extract_batch → produces [B,H,L,L] per layer",
+        "prediction_equivalence → within rtol/atol"
+      ]
+    },
+    "52_c": {
+      "status": "PASS",
+      "completed_at_utc": "2026-09-04",
+      "extracted": {
+        "seeds": [42, 123, 2026],
+        "n_test_targets": 2961,
+        "k_dense_cases": 44,
+        "raw_dense_files": 3,
+        "raw_last_query_files": 3,
+        "raw_storage_dtype": "float32",
+        "extraction_elapsed_seconds": 8.7
+      },
+      "raw_files": [
+        "raw/dense_case_attention_seed42.npz",
+        "raw/dense_case_attention_seed123.npz",
+        "raw/dense_case_attention_seed2026.npz",
+        "raw/last_query_attention_seed42.npz",
+        "raw/last_query_attention_seed123.npz",
+        "raw/last_query_attention_seed2026.npz"
+      ]
+    },
+    "52_d": {
+      "status": "PASS",
+      "completed_at_utc": "2026-09-04",
+      "audits": {
+        "prediction_equivalence": {
+          "all_seeds_passed": true,
+          "rtol_atol": 1e-5,
+          "max_abs_difference_wh_per_seed": {
+            "42": 2.99e-04,
+            "123": 5.23e-04,
+            "2026": 4.60e-04
+          },
+          "N_checked_per_seed": 2961
+        },
+        "tensor_integrity": {
+          "samples_checked": 2226,
+          "FAILED": 0
+        },
+        "probability": {
+          "samples_checked": 8904,
+          "FAILED": 0
+        },
+        "model_mutation": {
+          "all_seeds_passed": true,
+          "audit_per_seed": {"42": "PASS", "123": "PASS", "2026": "PASS"}
+        },
+        "reproducibility": {
+          "all_seeds_passed": true,
+          "N_probes_per_seed": 2,
+          "audit_per_seed": {"42": "PASS", "123": "PASS", "2026": "PASS"}
+        },
+        "dense_last_query_consistency": {
+          "comparisons": 1056,
+          "all_passed": true
+        }
+      }
+    },
+    "52_e": {
+      "status": "PASS",
+      "completed_at_utc": "2026-09-04",
+      "summaries_written": {
+        "attention_last_query_summary_csv_rows": 71064,
+        "attention_full_matrix_summary_csv_rows": 71064,
+        "attention_recent_mass_summary_csv_rows": 71064,
+        "attention_top_source_summary_csv_rows": 142128
+      }
+    },
+    "52_f": {
+      "status": "PASS",
+      "completed_at_utc": "2026-09-04",
+      "produced_artifacts": [
+        "attention_case_metadata.csv",
+        "attention_extraction_findings.csv",
+        "attention_extraction_discrepancies.json",
+        "phase53_attention_heatmaps_handoff.json",
+        "phase54_last_query_attention_handoff.json",
+        "phase55_head_comparison_handoff.json",
+        "phase56_error_conditioned_attention_handoff.json",
+        "phase57_seed_stability_attention_handoff.json"
+      ],
+      "phase53_to_57_authorized": false
+    },
+    "52_g": {
+      "status": "PASS",
+      "completed_at_utc": "2026-09-04",
+      "produced_artifacts": [
+        "attention_extraction_tests.csv",
+        "attention_extraction_summary.json",
+        "attention_extraction_report.md",
+        "README_ATTENTION_EXTRACTION.md",
+        "o52_inventory.json",
+        "phase_52_signoff.json"
+      ],
+      "tests_count": 39,
+      "o52_artifacts_n": 37
+    },
+    "52_h": {
+      "status": "DEFERRED",
+      "note": "Notebook visualization will receive separate Human approval after Phase52 scientific signoff."
+    }
+  },
+  "deliverables": {
+    "raw_npz_files": {
+      "path_pattern": "artifacts/attention_extraction/raw/*",
+      "count": 6,
+      "total_size_mb": 41.6,
+      "all_chmod_read_only": true,
+      "reload_verify_all_pass": true
+    },
+    "audit_files": {
+      "manifest": "artifacts/attention_extraction/attention_extraction_manifest.json",
+      "checksums": "artifacts/attention_extraction/raw_attention_checksums.json",
+      "summary": "artifacts/attention_extraction/attention_extraction_summary.json",
+      "signoff": "artifacts/attention_extraction/phase_52_signoff.json",
+      "report": "artifacts/attention_extraction/attention_extraction_report.md",
+      "readme": "artifacts/attention_extraction/README_ATTENTION_EXTRACTION.md",
+      "findings": "artifacts/attention_extraction/attention_extraction_findings.csv",
+      "discrepancies": "artifacts/attention_extraction/attention_extraction_discrepancies.json",
+      "tests": "artifacts/attention_extraction/attention_extraction_tests.csv",
+      "inventory": "artifacts/attention_extraction/o52_inventory.json"
+    },
+    "audit_csv_files": [
+      "attention_checkpoint_verification.csv",
+      "attention_environment_audit.csv",
+      "attention_extraction_batch_audit.csv",
+      "attention_prediction_equivalence_audit.csv",
+      "attention_tensor_integrity_audit.csv",
+      "attention_probability_audit.csv",
+      "attention_model_mutation_audit.csv",
+      "attention_reproducibility_audit.csv",
+      "attention_test_target_order.csv",
+      "attention_dense_case_order.csv",
+      "attention_relative_position_map.csv",
+      "attention_case_position_map.csv",
+      "attention_case_metadata.csv",
+      "attention_dense_last_query_consistency.csv",
+      "attention_last_query_summary.csv",
+      "attention_full_matrix_summary.csv",
+      "attention_recent_mass_summary.csv",
+      "attention_top_source_summary.csv",
+      "phase52_preflight_audit.csv",
+      "attention_source_verification.csv"
+    ],
+    "handoff_files": [
+      "phase53_attention_heatmaps_handoff.json",
+      "phase54_last_query_attention_handoff.json",
+      "phase55_head_comparison_handoff.json",
+      "phase56_error_conditioned_attention_handoff.json",
+      "phase57_seed_stability_attention_handoff.json"
+    ]
+  },
+  "safety_checks": {
+    "new_training": false,
+    "scaler_fit": false,
+    "checkpoint_alteration": false,
+    "case_selection_changed": false,
+    "best_seed_selection": false,
+    "ensemble_averaging": false,
+    "attention_interpretation": false,
+    "causal_attribution": false,
+    "feature_importance_claim": false,
+    "phase53_implementation": false,
+    "phase54_implementation": false,
+    "phase55_implementation": false,
+    "phase56_implementation": false,
+    "phase57_implementation": false,
+    "course_work_1_ipynb_modified": false
+  },
+  "discrepancies": {
+    "n": 7,
+    "all_resolved": true,
+    "recorded_in": "attention_extraction_discrepancies.json"
+  },
+  "final_status": "PHASE52_SIGNOFF_READY_FOR_PHASE52_NOTEBOOK_VISUALIZATION",
+  "ready_for_phase52_notebook_visualization": true,
+  "phase52_notebook_authorized": false,
+  "phase53_authorized": false,
+  "phase54_authorized": false,
+  "phase55_authorized": false,
+  "phase56_authorized": false,
+  "phase57_authorized": false
+}

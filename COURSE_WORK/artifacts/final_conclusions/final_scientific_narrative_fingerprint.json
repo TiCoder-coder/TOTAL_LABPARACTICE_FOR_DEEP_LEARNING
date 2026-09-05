@@ -1,0 +1,28 @@
+{
+  "algorithm": "SHA-256",
+  "components": [
+    "final_conclusions_contract",
+    "research_question_conclusion_matrix",
+    "final_claim_strength_ledger",
+    "final_limitation_ledger",
+    "final_future_work_ledger",
+    "final_conclusion_section",
+    "final_conclusions_manifest",
+    "final_lock_sha256",
+    "config_fingerprint_sha256",
+    "final_test_population_sha256"
+  ],
+  "fingerprint": "27635897cea05a46d9d6c953f5b56fa4502a473bff9240431d7853010d650dac",
+  "narrative_version": "FINAL_CONCLUSIONS-v2",
+  "corrective": true,
+  "corrective_from_version": "FINAL_CONCLUSIONS-v1",
+  "lineage": {
+    "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+    "source_phase55_version": "HEAD_COMPARISON-v2",
+    "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v2",
+    "source_phase57_version": "SEED_STABILITY_ATTENTION-v2",
+    "source_phase58_version": "FINAL_TABLES-v2"
+  },
+  "generated_at": "2026-09-05T14:45:32Z",
+  "scientific_narrative_frozen": true
+}

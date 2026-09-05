@@ -1,0 +1,22 @@
+{
+  "refresh_kind": "notebook_dashboard_presentational_refresh",
+  "refreshed_at_utc": "2026-09-05T11:05:00+00:00",
+  "active_phase55_revision": "HEAD_COMPARISON-v2",
+  "active_phase54_revision": "LAST_QUERY_ATTENTION-v2",
+  "active_phase52_revision": "ATTENTION_EXTRACTION-v1",
+  "scope": "notebook_cell_141_output_only",
+  "cell_140_source_changed": false,
+  "cell_141_source_changed": false,
+  "cell_141_output_changed": true,
+  "renderer_used": "course_work.reporting.phase_55_dashboard.render_phase_55_dashboard",
+  "new_html_length": 1214132,
+  "scientific_artifacts_touched": false,
+  "source_code_touched": false,
+  "phase56_executed": false,
+  "phase57_executed": false,
+  "run_all_used": false,
+  "presentation_content_checks_passed": "18/18",
+  "presentation_cleanliness": "no raw JSON, no long paths, no SHA-heavy provenance, no duplicated figures, all guard phrases in negated context",
+  "persisted_html": "artifacts/head_comparison/_persisted_html/phase55_dashboard_v2_refresh.html",
+  "rationale": "Refresh cell 141 dashboard HTML to render the corrected HEAD_COMPARISON-v2 scientific values (non-zero normalized_entropy, head_to_layer_mean distances, valid paired-target N=2961)."
+}

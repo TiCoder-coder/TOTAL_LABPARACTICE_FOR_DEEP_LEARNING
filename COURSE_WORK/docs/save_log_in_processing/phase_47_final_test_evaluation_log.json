@@ -1,0 +1,120 @@
+{
+  "phase": 47,
+  "name": "Final Test Evaluation (Pre-Official Audit + Corrective Implementation)",
+  "status": "PRE_OFFICIAL_AUDIT_COMPLETE",
+  "ready_for_official_run": true,
+  "ready_for_phase48": false,
+  "audit_round": "FINAL_PLAN_CONFORMANCE_AUDIT",
+  "audit_completed_at": "2026-09-03T20:28:00Z",
+  "non_negotiable_rules_observed": {
+    "test_target_access": "BLOCKED until human approval",
+    "training_executed": false,
+    "optimizer_steps": 0,
+    "scaler_fit_on_test": false,
+    "phase45_modified": false,
+    "phase46_modified": false,
+    "new_training_run_ids": 0,
+    "checkpoints_modified": false,
+    "canonical_phase47_results_written": false
+  },
+  "phase46_lineage": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "official_epoch": 30,
+    "seeds": [42, 123, 2026],
+    "official_run_ids": {
+      "42": "RUN_TR_FSD_0254_2B11AC68",
+      "123": "RUN_TR_FSD_0254_3858DDA9",
+      "2026": "RUN_TR_FSD_0255_C7E123FB"
+    },
+    "checkpoint_shas": {
+      "42": "c3cfad116aa91d47fb2f2950407498901b980a344a99462776e4b90828805b10",
+      "123": "8a134fec517be0dfcd81ac6f961bf75fa69e8d34666205f731d893969bf01e22",
+      "2026": "8753800539f7a617bacbaa541daafbbfaff338a1de38ae1a5146650b4593dc6f"
+    }
+  },
+  "audit_artifacts": {
+    "plan_requirements_matrix": "complete (Task 0)",
+    "phase46_release_verification": "PASS (Task 1)",
+    "runtime_trace": "complete (Task 2)",
+    "test_data_contract": "verified (Task 3)",
+    "final_scaling_contract": "verified (Task 4)",
+    "checkpoint_contract": "verified (Task 5)",
+    "metric_contract": "verified (Task 6)",
+    "three_seed_policy": "documented (Task 7)",
+    "o47_artifact_audit": "complete (Task 8)",
+    "defect_matrix": "17 defects identified (9 CRITICAL, 6 MAJOR, 2 MINOR)",
+    "fixes_implemented": "all in one coherent pass (Task 10)",
+    "pretest_gate": "PASS (Task 11)",
+    "focused_tests": "37/37 PASS (Task 13)",
+    "first_test_boundary_hard_stop": "REACHED (Task 15)"
+  },
+  "phase47_modules_created": [
+    "src/course_work/phase47/__init__.py",
+    "src/course_work/phase47/test_population.py",
+    "src/course_work/phase47/scaler_loader.py",
+    "src/course_work/phase47/checkpoint_loader.py",
+    "src/course_work/phase47/evaluation.py",
+    "src/course_work/phase47/writers.py"
+  ],
+  "scripts_created": [
+    "scripts/phase47_pretest_gate.py",
+    "scripts/phase47_final_test_evaluation.py",
+    "scripts/_phase47_first_test_boundary_probe.py"
+  ],
+  "tests_created": [
+    "tests/unit/test_phase47_infrastructure.py (37 tests, all PASS)",
+    "tests/conftest.py"
+  ],
+  "fixed_existing_defects": [
+    "X-scaling mismatch (FINAL_SCALING-v1 now applied during inference)",
+    "TYPEERROR boundary_protocol missing in build_test_evaluation_dataset",
+    "FileNotFoundError on parent dirs in atomic writers",
+    "Test population window-level fingerprint defined (FINAL_TEST_POP-v1)",
+    "Phase47ScalerWrapper prevents accidental fit() calls",
+    "Phase47CheckpointError on mismatched SHA256/seed/epoch/type",
+    "Phase47TestAccessAuthorization constant for explicit gate",
+    "Three-seed aggregation policy (mean ± sample std, no Test-based selection)"
+  ],
+  "defect_matrix_summary": {
+    "critical": 9,
+    "major": 6,
+    "minor": 2,
+    "all_fixed_or_mitigated": true
+  },
+  "verified_unchanged_artifacts": {
+    "phase45_signoff": "PASS",
+    "phase46_signoff": "PASS (ready_for_phase47=true, phase47_released=true)",
+    "phase46_checkpoints": "untouched",
+    "phase46_scalers": "untouched",
+    "phase46_run_records": "untouched",
+    "registry_records": "untouched (note: registry metadata seed=42 for all 3 runs is a known Phase46 metadata defect; checkpoint embedded seed is correct)"
+  },
+  "o47_artifacts_planned": 41,
+  "o47_writers_implemented": 41,
+  "lstm_baseline_status": "ELIGIBLE_BUT_FAIRNESS_CAVEAT (L36 vs L72, Phase9 scalers vs FINAL_SCALING-v1)",
+  "persistence_baseline_status": "IMPLEMENTED",
+  "three_seed_aggregation_policy": {
+    "primary": "per-seed metrics (RMSE, MAE, R2, n_samples)",
+    "summary": "mean ± sample_std across seeds (ddof=1)",
+    "ensemble": "NOT ALLOWED (plan forbids ensembling)",
+    "best_seed_selection": "NOT ALLOWED via Test (must be pre-registered or not done)"
+  },
+  "human_approval_required_for": [
+    "Running scripts/phase47_final_test_evaluation.py (first real Test target access)",
+    "Writing canonical Phase47 result artifacts (O47.*)",
+    "Generating O47.10 (test_predictions.parquet) — first Test target read",
+    "Generating any O47.* that requires actual Test batch iteration"
+  ],
+  "next_phase_dependencies": {
+    "phase48": "BLOCKED until official Phase47 evaluation completes and signoff = PASS"
+  },
+  "preservation_notes": [
+    "Phase45 artifacts preserved (final_model_lock/ unchanged)",
+    "Phase46 artifacts preserved (three_seed_final_runs/ unchanged)",
+    "No new training run IDs created",
+    "All Phase47 artifact writes are atomic and immutable",
+    "Stale Phase47 artifacts archived with timestamp prefix",
+    "Pre-test gate must pass before any official evaluation"
+  ]
+}

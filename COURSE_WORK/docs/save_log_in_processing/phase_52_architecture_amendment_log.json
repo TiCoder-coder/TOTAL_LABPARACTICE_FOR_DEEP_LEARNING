@@ -1,0 +1,169 @@
+{
+  "log_id": "phase_52_architecture_amendment_log",
+  "log_version": "1",
+  "log_kind": "machine_readable_architecture_amendment",
+  "amendment_id": "phase-52-architecture-amendment-v1.14",
+  "target_document": "docs/RULE_BASE/architecture_rule.md",
+  "amendment_version": "v1.14",
+  "phase": 52,
+  "phase_name": "Attention Extraction",
+  "created_at_utc": "2026-09-04T07:00:00+00:00",
+  "status": "HUMAN_APPROVED",
+  "trigger": "Phase 51 signoff PASS with ready_for_phase52=true. Phase 52 was explicitly UNAUTHORIZED under the Phase 51 amendment (v1.13). This amendment authorizes Phase 52 implementation within the strict extraction + integrity boundary described below.",
+  "reason": "Authorize a strictly extraction + integrity phase over the three frozen final Transformer checkpoints (FINAL_TR_SEED42/123/2026) and the frozen Phase51 worst-error case set, reading frozen Phase 47 prediction bundles, frozen Phase 48 seed spread, frozen Phase 49 residuals, and frozen Phase 50 regime assignment. No training, no new Test inference, no model retraining, no scaler fitting, no checkpoint re-creation, no case re-ranking, no attention interpretation, no best-seed selection, no ensemble, no feature importance claim, no causal claim, no Phase 53-57 implementation. Phase 53-57 only receive handoff files.",
+  "amendment_scope": {
+    "phase_authorized": 52,
+    "phase_name": "Attention Extraction",
+    "version": "ATTENTION_EXTRACTION-v1",
+    "sub_phases_authorized": [
+      "52-A",
+      "52-B",
+      "52-C",
+      "52-D",
+      "52-E",
+      "52-F",
+      "52-G"
+    ],
+    "sub_phases_NOT_authorized_in_this_run": [
+      "52-H"
+    ],
+    "upstream_phases": {
+      "17": "ATTENTION_VERIFY-v1 (attention schema, frozen)",
+      "45": "Final model lock (frozen)",
+      "46": "Three-seed final runs (frozen)",
+      "47": "FINAL_TEST_EVAL-v1 (prediction bundles, frozen)",
+      "48": "PREDICTION_ANALYSIS-v1 (seed spread, frozen)",
+      "49": "RESIDUAL_ANALYSIS-v1 (residual long/wide tables, frozen)",
+      "50": "ERROR_BY_REGIME-v1 (regime assignment + thresholds, frozen)",
+      "51": "WORST_ERROR_ANALYSIS-v1 (case set + handoff, frozen)"
+    },
+    "downstream_phases": {
+      "53": "Attention Heatmaps (handoff only, NOT IMPLEMENTED)",
+      "54": "Last-Query Attention (handoff only, NOT IMPLEMENTED)",
+      "55": "Head Comparison (handoff only, NOT IMPLEMENTED)",
+      "56": "Error-Conditioned Attention (handoff only, NOT IMPLEMENTED)",
+      "57": "Seed-Stability Attention Check (handoff only, NOT IMPLEMENTED)"
+    }
+  },
+  "authorized_paths": [
+    "artifacts/attention_extraction/ (new output directory, Phase 52 owned)",
+    "artifacts/attention_extraction/raw/ (raw attention NPZ files)",
+    "src/course_work/phase52/ (new implementation modules, Phase 52 owned)",
+    "src/course_work/reporting/phase_52_dashboard.py (deferred to Phase 52-H)",
+    "docs/save_log_in_processing/phase_52_attention_analysis_log.json",
+    "docs/save_log_in_processing/phase_52_architecture_amendment_log.json",
+    "tests/unit/test_phase52_*.py",
+    "docs/plan-doc/plan_before_process/phase_52_attention_analysis_plan.md"
+  ],
+  "hard_contracts_locked": {
+    "lookback_steps": 72,
+    "feature_count": 33,
+    "feature_set": "FS2_TF1",
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "horizon_steps": 1,
+    "scaling_version": "FINAL_SCALING-v1",
+    "num_layers": 2,
+    "num_heads": 4,
+    "d_model": 64,
+    "ffn_dim": 256,
+    "pooling": "LAST_STEP",
+    "revin_enabled": false,
+    "attention_aware": true,
+    "positional_encoding_type": "SINUSOIDAL",
+    "attention_axes": "B_H_Q_S",
+    "self_attention_shape": "B_H_L_L",
+    "dense_storage_shape": "case_layer_head_query_source",
+    "last_query_storage_shape": "target_layer_head_source",
+    "raw_dtype": "float32",
+    "need_weights": true,
+    "average_attn_weights": false,
+    "causal_mask": null,
+    "padding_mask": null,
+    "forecast_target_is_attention_token": false,
+    "last_query_definition": "A[:, :, L-1, :]",
+    "lag_formula": "LagSteps_p = L - p (H=1)",
+    "default_extraction_batch": 8,
+    "oom_fallback": "8 -> 4 -> 2 -> 1",
+    "model_mode": "eval + torch.inference_mode",
+    "amp": false,
+    "prediction_equivalence_tolerance": {
+      "rtol": 1e-05,
+      "atol": 1e-05
+    },
+    "attention_integrity_tolerance": {
+      "atol": 1e-05,
+      "rtol": 1e-05
+    }
+  },
+  "raw_storage_rules": {
+    "no_head_averaging": true,
+    "no_layer_averaging": true,
+    "no_seed_averaging": true,
+    "no_thresholding": true,
+    "no_smoothing": true,
+    "no_renormalization": true,
+    "no_interpolation": true,
+    "no_log_transform": true,
+    "no_minmax_normalization": true,
+    "no_float16": true,
+    "no_uint8": true,
+    "atomic_writes": true,
+    "checksum_verified": true,
+    "read_only_after_checksum": true
+  },
+  "two_tier_storage": {
+    "tier_a_dense_cases": "artifacts/attention_extraction/raw/dense_case_attention_seed*.npz shape [K,L,H,L,L] float32",
+    "tier_b_all_test_last_query": "artifacts/attention_extraction/raw/last_query_attention_seed*.npz shape [N_test,L,H,L] float32"
+  },
+  "case_selection_contract": {
+    "source": "Phase51 handoff (frozen, not modified in Phase 52)",
+    "case_set_sha": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "case_count": 44,
+    "memberships": 160,
+    "same_case_set_for_all_seeds": true,
+    "case_selection_changed": false
+  },
+  "test_population": {
+    "population_id": "FINAL_TEST_POP-v1",
+    "n_test": 2961,
+    "target_ids_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "same_target_order_across_seeds": true
+  },
+  "forbidden_actions": [
+    {"action": "model training", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "optimizer.step / backward", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "scaler.fit / scaler.fit_transform on Test", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "alter Phase 47 predictions", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "rerank Phase 51 cases", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "select best seed by attention", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "ensemble across seeds", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "interpret attention causally", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "attention = feature importance claim", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "decide best head", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "implement Phase 53/54/55/56/57", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "head-averaging raw storage", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "layer-averaging raw storage", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "seed-averaging raw storage", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "thresholding raw storage", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "smoothing raw storage", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "renormalization raw storage", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "notebook modification in Phase 52", "severity": "CRITICAL", "still_prohibited": true},
+    {"action": "destructive overwrite of any Phase 47/48/49/50/51 canonical artifact", "severity": "CRITICAL", "still_prohibited": true}
+  ],
+  "phase52_sub_phases": {
+    "52-A": "governance + preflight + source verification + architecture amendment",
+    "52-B": "extraction infrastructure + extraction contract freeze",
+    "52-C": "official raw attention extraction (3 seeds, dense + last-query)",
+    "52-D": "integrity / probability / ordering / reproducibility / mutation audits",
+    "52-E": "derived summaries (last-query, full-matrix, recent-mass, top-source)",
+    "52-F": "Phase53-57 handoffs + findings + discrepancies",
+    "52-G": "tests + summary + report + README + signoff",
+    "52-H": "notebook visualization (DEFERRED, not in this run)"
+  },
+  "human_approval": {
+    "approval_status": "APPROVED",
+    "approval_date_utc": "2026-09-04T07:00:00+00:00",
+    "approval_note": "Human approval granted in this run prompt for Phase52 amendment v1.14, pre-process plan, scientific implementation, diagnostic attention forward passes, strict loading of the three frozen final Transformer checkpoints, attention extraction for exactly the frozen Phase51 cases, all-Test last-query attention extraction, creation of all O52.1-O52.37 scientific artifacts, and final Phase52 scientific signoff. Notebook visualization (Phase52-H) NOT approved in this run; deferred."
+  },
+  "architecture_strength_preserved": true
+}

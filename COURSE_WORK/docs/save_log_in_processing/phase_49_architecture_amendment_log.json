@@ -1,0 +1,107 @@
+{
+  "log_id": "phase_49_architecture_amendment_log",
+  "log_version": "1",
+  "log_kind": "governance_log",
+  "task": "PHASE_49_A2_ARCHITECTURE_AMENDMENT",
+  "phase": 49,
+  "phase_name": "Residual analysis",
+  "amendment_id": "phase-49-architecture-amendment-v1.11",
+  "amendment_version": "v1.11",
+  "amendment_date": "2026-09-04",
+  "amendment_target_files": [
+    "docs/RULE_BASE/architecture_rule.md §7.37.2-§7.37.10 (NEW)",
+    "docs/RULE_BASE/architecture_rule.md §25 (Phase 49 entry added)",
+    "docs/RULE_BASE/architecture_rule.md §26 (validation checklist entry added)",
+    "docs/RULE_BASE/architecture_rule.md §27 (PHASE_49_PHASE_A_AUDIT_APPROVED + pending human approval markers added)",
+    "docs/RULE_BASE/architecture_rule.md §28 (v1.11 entry appended; Phase 49 governance preamble added)"
+  ],
+  "amendment_scope": "authorize Phase 49 implementation paths in architecture governance only; no Phase 49 source code; no scientific artifacts",
+  "amendment_authorized_paths": [
+    "src/course_work/phase49/",
+    "src/course_work/reporting/phase_49_dashboard.py",
+    "artifacts/residual_analysis/",
+    "docs/save_log_in_processing/phase_49_residual_analysis_log.json",
+    "docs/save_log_in_processing/phase_49_architecture_amendment_log.json"
+  ],
+  "amendment_explicitly_NOT_authorized": [
+    "Phase 50 implementation",
+    "Phase 51 implementation",
+    "Phase 52+ implementation",
+    "Any new Test inference",
+    "Any training / checkpoint / scaler-fit path",
+    "Any best-seed / ensemble / residual-correction / bias-correction / recalibration / residual forecasting model path",
+    "Any Test-derived target regime threshold",
+    "Any worst-error ranking",
+    "Any attention analysis"
+  ],
+  "amendment_residual_convention_lock": {
+    "residual_definition": "Y_TRUE_MINUS_Y_PRED",
+    "positive_residual_semantics": "UNDERPREDICTION",
+    "negative_residual_semantics": "OVERPREDICTION",
+    "zero_policy": "EXACT_ZERO",
+    "all_three_seeds_retained": true,
+    "seed_pooling_as_3N_iid": false,
+    "seed_mean_residual_semantics": "SEED_MEAN_RESIDUAL_DESCRIPTIVE",
+    "best_seed_selection": false,
+    "ensemble_residual": false,
+    "prediction_correction": false,
+    "bias_correction": false,
+    "residual_model": false,
+    "new_inference": false,
+    "training": false,
+    "target_regime_analysis_deferred_to_phase50": true,
+    "worst_error_ranking_deferred_to_phase51": true,
+    "attention_analysis_deferred_to_phase52_plus": true
+  },
+  "amendment_temporal_contract_lock": {
+    "canonical_cadence_minutes": 10,
+    "acf_registered_lags": [1, 6, 12, 36, 72, 144],
+    "acf_gap_safe": true,
+    "sign_run_gap_safe": true,
+    "sign_run_breaks_at": ["temporal_gap", "sign_change", "ZERO"],
+    "rolling_window_samples": 144,
+    "rolling_no_partial_windows": true,
+    "rolling_no_interpolation": true,
+    "rolling_no_padding": true,
+    "histogram_bins": 50,
+    "histogram_common_range_across_seeds": true
+  },
+  "amendment_statistical_definitions_lock": {
+    "mad_definition": "median(abs(residual - median(residual)))",
+    "skewness_definition": "sample skewness bias=False",
+    "kurtosis_definition": "Fisher excess kurtosis bias=False normal_reference=0",
+    "cross_seed_summary_ddof": 1,
+    "prediction_decile_bins": 10,
+    "decile_basis": "y_pred_wh",
+    "decile_not_phase50_regime": true
+  },
+  "amendment_ljung_box_policy_lock": {
+    "ljung_box_lags": [6, 36, 144],
+    "ljung_box_policy": "SECONDARY_DIAGNOSTIC",
+    "ljung_box_not_used_for_pass_fail": true,
+    "ljung_box_not_applicable_policy": "mark NOT_APPLICABLE if global series disconnected; evaluate per adequate contiguous segment"
+  },
+  "amendment_baseline_eligibility_lock": {
+    "PERSISTENCE": "include if frozen Phase 47 bundle is available on same Test population",
+    "LSTM_TUNED_DEV": "preserve upstream eligibility; do NOT fabricate residuals if NOT_ELIGIBLE_CONFIG_MISMATCH"
+  },
+  "human_approval_state": {
+    "amendment_v1_11": "APPROVED",
+    "pre_process_plan": "APPROVED",
+    "phase_49_b": "ACTIVE_AFTER_HUMAN_APPROVAL"
+  },
+  "human_approval_granted_at_utc": "2026-09-04T01:34:00+00:00",
+  "human_approval_granted_by": "human_owner",
+  "human_approval_scope": "Phase49 implementation ONLY; does NOT authorize Phase50/51/52+, new Test inference, checkpoint loading, training, optimizer, scaler fitting, residual correction, recalibration, best-seed selection, ensemble promotion",
+  "implementation_started": false,
+  "new_inference": false,
+  "training": false,
+  "optimizer_steps": 0,
+  "checkpoint_loading": false,
+  "phase47_modified": false,
+  "phase48_modified": false,
+  "phase50_authorized": false,
+  "phase51_authorized": false,
+  "phase52_plus_authorized": false,
+  "stop_conditions_observed": []
+}

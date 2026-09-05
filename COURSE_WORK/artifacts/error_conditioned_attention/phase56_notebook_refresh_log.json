@@ -1,0 +1,75 @@
+{
+  "refresh_kind": "phase56_notebook_presentation_only_refresh",
+  "refresh_at_utc": "2026-09-05T19:56:00+00:00",
+  "active_revision": "ERROR_CONDITIONED_ATTENTION-v2",
+  "active_state_verified": {
+    "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+    "source_phase55_version": "HEAD_COMPARISON-v2",
+    "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+    "assignment_sha256": "fde852c7a72efe556efa3f6aef22c134694b447be4deb66dfb61f156fa3f28eb",
+    "phase57_authorized": false,
+    "phase58_authorized": false,
+    "overall_status": "PASS",
+    "normalized_entropy_non_zero": true,
+    "normalized_entropy_not_constant_metric_count": 0,
+    "cohort_counts_per_seed": {
+      "LOW": 592,
+      "MID": 1777,
+      "HIGH": 592
+    }
+  },
+  "notebook_changes": {
+    "cell_142_source_changed": false,
+    "cell_142_source_sha256": "a4a60e3bde6f33f531304a8954f8c64706cec65096c34f995c6cc62c1fa63904",
+    "cell_142_source_size": 1566,
+    "cell_143_source_changed": false,
+    "cell_143_source_sha256": "9e9bc7dec1395761cd81a27c8c9de301288a4cbd8aac98b246f82fdaee22344e",
+    "cell_143_source_size": 128,
+    "cell_143_output_changed": true,
+    "cell_143_output_html_size": 845347,
+    "cell_143_execution_count": 2,
+    "cells_0_to_141_source_changed": false,
+    "cells_144_to_149_source_changed": false,
+    "cells_0_to_141_output_changed": false,
+    "cells_144_to_149_output_changed": false,
+    "no_run_all_used": true
+  },
+  "v2_presentation_verification": {
+    "ERROR_CONDITIONED_ATTENTION-v2_present": true,
+    "LAST_QUERY_ATTENTION-v2_present": true,
+    "HEAD_COMPARISON-v2_present": true,
+    "ERROR_CONDITIONED_ATTENTION-v1_absent": true,
+    "LAST_QUERY_ATTENTION-v1_absent": true,
+    "HEAD_COMPARISON-v1_absent": true,
+    "NOT_DEFINED_CONSTANT_METRIC_count": 0,
+    "decile_NE_v2_values_displayed": true,
+    "high_low_NE_v2_values_displayed": true,
+    "signed_NE_v2_values_displayed": true,
+    "spearman_NE_v2_values_displayed": true,
+    "error_group_counts_displayed": true,
+    "N_test_displayed_2961": 45,
+    "seeds_displayed_42_123_2026": true,
+    "descriptive_caveat_displayed": true,
+    "no_causal_caveat_displayed": true,
+    "feature_importance_caveat_displayed": true,
+    "no_best_head_displayed": true,
+    "no_best_seed_displayed": true,
+    "causal_identification_caveat_displayed": true
+  },
+  "presentation_cleanliness": {
+    "embedded_png_count": 10,
+    "filesystem_paths_exposed": 0,
+    "warning_boxes_count": 0,
+    "long_sha_strings_count": 1,
+    "figure_density_acceptable": true,
+    "clutter_assessment": "Clean \u2014 10 curated embedded PNGs, 0 filesystem paths, 0 warning boxes, 31 cards / 18 sections."
+  },
+  "scientific_guards": {
+    "scientific_artifacts_changed": false,
+    "source_code_changed": false,
+    "phase57_executed": false,
+    "phase58_executed": false,
+    "no_run_all": true,
+    "note": "Phase57 directory pre-exists from prior session (mtime 2026-09-04T19:47:26 UTC, source_phase56_version=v1). It was NOT executed during this presentation-only refresh. Phase57 corrective re-run is OUT OF SCOPE for this task and would require explicit Phase57 corrective authorization."
+  }
+}

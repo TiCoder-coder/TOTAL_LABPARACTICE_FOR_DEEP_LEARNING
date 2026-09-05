@@ -11,7 +11,7 @@
       "rows": [
         {
           "Item": "Production runs",
-          "Value": 29
+          "Value": 178
         },
         {
           "Item": "Experiment families",
@@ -19,15 +19,15 @@
         },
         {
           "Item": "Registered sweeps",
-          "Value": 0
+          "Value": 4
         },
         {
           "Item": "Completed runs",
-          "Value": 26
+          "Value": 144
         },
         {
           "Item": "Failed runs",
-          "Value": 0
+          "Value": 12
         }
       ],
       "title": "Registry state"
@@ -66,18 +66,18 @@
     {
       "path": "artifacts/experiments/registry_manifest.json",
       "role": "registry",
-      "sha256": "2f4b47de1243603de6b32f9c9b7d69c986626deb62a45a9b97d4eb75f460fdac"
+      "sha256": "131215d885148708a4abd065e5523187a06290968e8bfc30d2db526d90623887"
     },
     {
       "path": "artifacts/experiments/phase_13_signoff.json",
       "role": "signoff",
-      "sha256": "71b5174d57c4d37ad0af8d4fea987dddacfc492df3d803df6d18fa98e6848655"
+      "sha256": "49553674a8966dd2caf67c5d6c7f1987261f71160f734b038d9b1934b4c90e98"
     }
   ],
   "status": "PASS",
   "summary": {
     "Experiment families": 26,
-    "Production runs": 29,
+    "Production runs": 178,
     "Record schema": 1,
     "Validation": "PASS",
     "Version": "EXPERIMENTS-v1"
@@ -123,7 +123,7 @@
       "artifacts/metrics/phase_12_signoff.json"
     ],
     "output_checksums": {
-      "artifacts/experiments/README_EXPERIMENTS.md": "89dad56cbf018d09143611173256ddc7f107c1860e2666bc57be29305085709c",
+      "artifacts/experiments/README_EXPERIMENTS.md": "5c796f80f7557a69de0f518dcf61c329e3e3ec962ae1af777f17cf332b09dbc5",
       "artifacts/experiments/experiment_families.csv": "f70313e270fa012af64286401b44e339c9928b0df82a1a0309efbf00cb4d0ae0"
     },
     "output_paths": [
@@ -143,7 +143,7 @@
     ],
     "production_registry_empty": false,
     "registry_contract_fingerprint": "124a2edf1dc8a30845f7ffa7e0c46bf8d05a8c7ebe916b539f711e8d9dff36df",
-    "registry_fingerprint": "e9328f18d0b3c700c3f0dadcb7b45d846662a8ee58eceff7c6ab3ce9df47d860",
+    "registry_fingerprint": "3e2ca366ed8d8e4ba0f5e91768da9ef2c7f9b39f98ed42f23b45c3ff39ac1573",
     "synthetic_records_persisted": false,
     "tests": [
       "canonical_config_fingerprint",

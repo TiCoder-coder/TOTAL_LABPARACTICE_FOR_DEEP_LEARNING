@@ -1,0 +1,79 @@
+{
+  "snapshot_kind": "LAST_QUERY_ATTENTION-v2_active_snapshot",
+  "snapshot_at_utc": "2026-09-05T08:59:19.718181+00:00",
+  "phase": 54,
+  "active_version": "LAST_QUERY_ATTENTION-v2",
+  "previous_version_archived": "LAST_QUERY_ATTENTION-v1",
+  "raw_phase52_unchanged": true,
+  "raw_phase52_sha256": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "position_map_sha256": "948bc0dcb56674f7f8c117d7e7050490b391e39225754e8a21861d00e59e5063",
+  "n_test": 2961,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "num_layers": 2,
+  "num_heads": 4,
+  "lookback_steps": 72,
+  "lag_mapping": "position 71 -> lag 1, position 0 -> lag 72 (1-based lag convention)",
+  "corrected_artifact_shas": {
+    "last_query_metric_summary_by_head.csv": "df08ce2c0c89907fbacbdde0e2fc3c0c2df0fc4ba06f6d9f8e00ae3bdb7e6dab",
+    "last_query_metrics_long.csv": "fc2fa821e140af5971acfcf9881c3b0d4f43cc3e7b592a3a3d2535c4ed5e56c5",
+    "last_query_attention_contract.json": "a29e9e867841603ba383d2067526b7d4dba65fb8a25ff0b697489a6e31372b20",
+    "last_query_lag_bin_mass.csv": "ce130031afb4555e7a796c05098647981320a73e092526a30f49ad2f9b210a4f",
+    "phase_54_signoff.json": "2e16ef0b6f0c462071dbff3fc9ef80559637c2b89019c4f182e1b1f37a94b77c",
+    "phase55_head_comparison_handoff.json": "4964533faba6aba5fceabd7b5f68ec48a5009e8634417d07c003ae42a3bb3bb3",
+    "phase56_error_conditioned_attention_context_handoff.json": "9d2f514b828267dcac3627af2fdd87964b8428481e953d41474fc2dc9272e0fe",
+    "phase57_seed_stability_attention_context_handoff.json": "9ee20195b7297791fffb3d99b67a3e5b92288d097ec59464fc51a9b4bb6cbee1"
+  },
+  "normalized_entropy_audit": {
+    "audit_path": "phase54_corrective_independent_normalized_entropy_audit.json",
+    "max_abs_reconstruction_error": 2.19e-09,
+    "tolerance": 1e-06,
+    "all_within_tolerance": true,
+    "validity_range": [
+      6e-06,
+      0.993418
+    ],
+    "non_negative_pass": true,
+    "le_one_pass": true,
+    "no_nan_pass": true,
+    "no_inf_pass": true
+  },
+  "bin_beyond_24h_resolution": {
+    "raw_interval_pre": [
+      145,
+      72
+    ],
+    "raw_interval_post": [
+      145,
+      240
+    ],
+    "applicable_for_L72_pre": true,
+    "applicable_for_L72_post": false,
+    "L72_unreachable": true,
+    "mass_assignments_unaffected": true
+  },
+  "phase55_authorized": false,
+  "phase56_authorized": false,
+  "phase57_authorized": false,
+  "tests_added": [
+    "T54.A01",
+    "T54.A02",
+    "T54.A03",
+    "T54.A04",
+    "T54.R01",
+    "T54.R02",
+    "T54.L01",
+    "T54.L02",
+    "T54.H01"
+  ],
+  "tests_total": 27,
+  "tests_passing": 27
+}

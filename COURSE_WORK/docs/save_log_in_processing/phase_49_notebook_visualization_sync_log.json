@@ -1,0 +1,126 @@
+{
+  "log_id": "phase_49_notebook_visualization_sync_log",
+  "log_version": "1",
+  "log_kind": "machine_readable_processing_log",
+  "task": "PHASE_49_NOTEBOOK_HTML_VISUALIZATION_SYNC",
+  "phase": 49,
+  "phase_sub_letter": "G",
+  "phase_name": "Residual analysis — notebook HTML visualization sync",
+  "plan_file": "docs/plan-doc/plan_detail_for_each_phase/Phase_49_Residual_analysis.md",
+  "scope": "Presentation-only notebook sync; read-only over Phase 47/48/49-B/C/D/E/F canonical artifacts",
+  "notebook": {
+    "path": "notebook_course_work/CourseWork_1.ipynb",
+    "before_sha256": "4abd9a09edcd54b83258cbd324a30301f2573e555d8d53bc5c9890614afb8278",
+    "after_sha256": "e0f3e411a62a46ea998b0041652ad74bfcf3a49f703c082bf3497d1048c585ba",
+    "backup_path": "notebook_course_work/CourseWork_1.ipynb.bak_before_phase49_visualization",
+    "cell_count_before": 128,
+    "cell_count_after": 130,
+    "phase0_48_cell_count": 128,
+    "phase49_cell_count": 2,
+    "phase49_cell_index": 129,
+    "phase49_cell_source_lightweight": "from course_work.reporting.phase_49_dashboard import render_phase_49_dashboard\\ndisplay(render_phase_49_dashboard(PROJECT_ROOT))"
+  },
+  "dashboard_module": {
+    "path": "src/course_work/reporting/phase_49_dashboard.py",
+    "public_function": "render_phase_49_dashboard",
+    "figures_embedded_count": 26,
+    "curated_figure_subset_count": 13,
+    "renderer_is_read_only": true
+  },
+  "phase49_cell_execution": {
+    "executed_via": "real Jupyter kernel (python3, ipykernel 7.3.0)",
+    "kernel_path_setup": "PYTHONPATH=/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src",
+    "ran_only_phase49_cell": true,
+    "ran_run_all": false,
+    "executed_phase0_48_cells": false,
+    "execution_count": 1,
+    "output_count": 1,
+    "output_type": "display_data",
+    "html_bytes_persisted": 2522364
+  },
+  "phase0_48_preserved": true,
+  "preservation_method": "cell-by-cell source + outputs equality (content-level)",
+  "canonical_population_fingerprint": {
+    "expected": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "actual": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "match": true,
+    "phase47_signoff_sha256_first16": "80614523b6091e21"
+  },
+  "phase49_status_in_canonical": {
+    "status": "PASS",
+    "overall_status": "PASS",
+    "ready_for_phase50": true,
+    "ready_for_phase51": true,
+    "n_test": 2961
+  },
+  "safety_invariants": {
+    "training_executed": false,
+    "new_test_inference": false,
+    "checkpoint_loading": false,
+    "model_reconstruction": false,
+    "optimizer_steps": 0,
+    "scaler_fit": false,
+    "correction_or_recalibration": false,
+    "best_seed_selected": false,
+    "ensemble_promoted": false,
+    "three_n_iid_interpretation": false,
+    "worst_error_ranking_executed": false,
+    "attention_analysis_executed": false,
+    "phase50_implementation_started": false,
+    "phase51_implementation_started": false,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_canonical_artifacts_modified": false,
+    "run_all_used": false,
+    "execution_scope": "phase49_cell_only"
+  },
+  "canonical_artifacts_byte_integrity": {
+    "phase47_signoff_sha256_first16": "80614523b6091e21",
+    "phase47_seed42_prediction_sha256_first16": "246ee0d725af972b",
+    "phase47_seed123_prediction_sha256_first16": "1bb55c445ffe132d",
+    "phase47_seed2026_prediction_sha256_first16": "bfb575357dd6a8e3",
+    "phase47_persistence_prediction_sha256_first16": "7115af1c479b8957",
+    "phase48_signoff_sha256_first16": "e8c102d582a35dd2",
+    "phase49_signoff_sha256_first16": "7f6d0bdc1f82c051",
+    "phase49_long_table_sha256_first16": "8418a99110bfda70",
+    "phase49_wide_table_sha256_first16": "931ff9109aef236d"
+  },
+  "new_run_ids": 0,
+  "discrepancies": [],
+  "warnings": [],
+  "defect_matrix": {
+    "defects_audited": 12,
+    "defects_found_in_phase_49_g": 2,
+    "defects_fixed": 2,
+    "defect_list": [
+      {
+        "id": "D49G-1",
+        "category": "fstring",
+        "finding": "Unmatched parenthesis in f-string in render_phase_49_dashboard's missing-signoff branch",
+        "fix": "Refactored to plain string concatenation with + instead of nested f-string interpolation"
+      },
+      {
+        "id": "D49G-2",
+        "category": "kernel_visibility",
+        "finding": "First execution showed FAIL because the kernel's PROJECT_ROOT did not resolve to COURSE_WORK root, so artifacts/residual_analysis/ was not visible",
+        "fix": "Re-executed the cell with explicit PROJECT_ROOT = Path('/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK') injected via stripped notebook preamble"
+      }
+    ]
+  },
+  "forbidden_call_scan": {
+    "materialize_phase49_found": false,
+    "materialize_phase48_found": false,
+    "materialize_phase47_found": false,
+    "model_train_call_found": false,
+    "optimizer_step_call_found": false,
+    "backward_call_found": false,
+    "scaler_fit_call_found": false,
+    "torch_load_call_found": false,
+    "phase50_implementation_found": false,
+    "phase51_implementation_found": false,
+    "run_all_called": false
+  },
+  "test_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "created_at_utc": "2026-09-03T19:43:32+00:00",
+  "overall_status": "PASS"
+}

@@ -1,0 +1,31 @@
+{
+  "phase": 59,
+  "version": "FINAL_CONCLUSIONS-v2",
+  "corrective": true,
+  "corrective_from_version": "FINAL_CONCLUSIONS-v1",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+  "source_phase55_version": "HEAD_COMPARISON-v2",
+  "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v2",
+  "source_phase57_version": "SEED_STABILITY_ATTENTION-v2",
+  "source_phase58_version": "FINAL_TABLES-v2",
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "config_fingerprint_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "final_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "evidence_classes": [
+    "DEVELOPMENT_EVIDENCE",
+    "HELD_OUT_TEST_EVIDENCE",
+    "POST_TEST_DIAGNOSTIC_EVIDENCE"
+  ],
+  "claim_levels": [
+    "LEVEL_0_DESCRIPTIVE_ONLY",
+    "LEVEL_1_OBSERVED_ASSOCIATION",
+    "LEVEL_2_ROBUST_DESCRIPTIVE_PATTERN",
+    "LEVEL_3_FINAL_HELD_OUT_RESULT"
+  ],
+  "level4_status": "NOT_SUPPORTED",
+  "residual_convention": "residual = y_true - y_pred; positive residual = UNDERPREDICTION; negative residual = OVERPREDICTION",
+  "attention_interpretation": "temporal token allocation, NOT raw-feature importance, NOT causal attribution",
+  "error_cohort_interpretation": "HIGH_ERROR / LOW_ERROR are Test-relative diagnostic cohorts, NOT deployment regimes, NOT used for retuning",
+  "cross_seed_head_cue": "Same numeric head indices across seeds were NOT assumed semantically equivalent; Phase 57 used canonical JSD matching within each layer",
+  "created_at": "2026-09-05T14:45:32Z"
+}

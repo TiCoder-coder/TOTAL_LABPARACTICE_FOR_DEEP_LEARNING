@@ -1,0 +1,30 @@
+{
+  "archive_reason": "PRESERVED AS HISTORICAL EVIDENCE BEFORE PHASE 58 SCIENTIFIC CORRECTIVE",
+  "archived_at_utc": "2026-09-05T13:53:40.624549+00:00",
+  "previous_version": "FINAL_TABLES-v1",
+  "previous_source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "previous_source_phase55_version": "HEAD_COMPARISON-v1",
+  "previous_source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v1",
+  "previous_source_phase57_version": "SEED_STABILITY_ATTENTION-v1",
+  "archive_path": "artifacts/final_tables/_history/FINAL_TABLES-v1_ARCHIVED_20260905T135340396+0000",
+  "new_version_after_corrective": "FINAL_TABLES-v2",
+  "corrective_fixes": [
+    "Update source_phase54_version to LAST_QUERY_ATTENTION-v2",
+    "Update source_phase55_version to HEAD_COMPARISON-v2",
+    "Update source_phase56_version to ERROR_CONDITIONED_ATTENTION-v2",
+    "Update source_phase57_version to SEED_STABILITY_ATTENTION-v2",
+    "Correct final_lock_sha256 to canonical 81fb87c4... (separate from config fingerprint)",
+    "Add explicit config_fingerprint_sha256 (585c5e79...) field",
+    "Add test_population_sha256 explicitly",
+    "Rebuild FT01 with full config including optimizer, batch, gradient_clip, LR, WD",
+    "Rebuild FT01 with explicit final_refit_epochs=30 and early_stopping=False",
+    "Rebuild FT01 with final_refit_region=FINAL_DEV_REGION-v1",
+    "Regenerate FT06 layer head-mean from Phase54 v2 metric_summary_by_head",
+    "Regenerate FA06 per-target from Phase54 v2 metrics_long (non-zero NE)",
+    "Regenerate FT08 from Phase56 v2 layer_head_mean_association (non-zero NE)",
+    "Regenerate FA08 from Phase56 v2 association_long (non-zero NE)",
+    "Regenerate FA10 from Phase57 v2 matched_head_metric_seed_stability (non-zero)",
+    "Regenerate Phase59 handoff with v2 lineage and phase59_authorized=false",
+    "Add corrective tests"
+  ]
+}

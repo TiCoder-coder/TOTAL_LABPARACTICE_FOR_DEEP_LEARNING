@@ -58,17 +58,17 @@
     {
       "path": "artifacts/dataloaders/dataloader_manifest.json",
       "role": "dataloaders",
-      "sha256": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041"
+      "sha256": "78ea080982ad3042adda166e3d323de9b13afa76947dba2053c895111f963952"
     },
     {
       "path": "artifacts/dataloaders/device_transfer_policy.json",
       "role": "device_policy",
-      "sha256": "1b0e999a7fb7879116929cdac25130af7e8c04fccf11d841abf323c2b48becf1"
+      "sha256": "a9e771678a776a1aec753698ba89531fe1a1b21056468f461a19af26d33cddd4"
     },
     {
       "path": "artifacts/dataloaders/phase_11_signoff.json",
       "role": "signoff",
-      "sha256": "e43e1ddda073f3f6b870ed0275ff05836344b1b3d2efa71e91324368fab3214a"
+      "sha256": "a22fd0cc14ae8f823994c21388a11bbff28973c89c6fd4a87fa17354932791ee"
     }
   ],
   "status": "PASS",
@@ -131,17 +131,17 @@
     ],
     "lazy_materialization": true,
     "output_checksums": {
-      "artifacts/dataloaders/README_DATALOADERS.md": "e625d7e4aa3bed981ca40f32a55526421c5c84d55474ec4942ac691ddaa95592",
+      "artifacts/dataloaders/README_DATALOADERS.md": "68f5c8e68337021c257172992307b2ef5c9729787d2c8089cc02bab628aefa23",
       "artifacts/dataloaders/dataloader_batch_audit.csv": "da417d93b19bc20083f63a048df02ba493c2320cee1a325a94f91223fbef9851",
-      "artifacts/dataloaders/dataloader_discrepancies.json": "7f580c0f07c390e9cc5665b1ec6299502367d2a753abaf4e40ea95976bfc5a59",
-      "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
-      "artifacts/dataloaders/dataloader_registry.csv": "5775cef21ed997022aa90ac6c404e767c7b451cf842a8f9028a64412488a9886",
+      "artifacts/dataloaders/dataloader_discrepancies.json": "9597f8a76a5f3510caad5861bb18f5086c2682285c0b385e4600af0aa30eb84e",
+      "artifacts/dataloaders/dataloader_manifest.json": "78ea080982ad3042adda166e3d323de9b13afa76947dba2053c895111f963952",
+      "artifacts/dataloaders/dataloader_registry.csv": "00bbe1b60aee5bb714b0a00eb95fc91435c0510a9f78608ece5590b4a7cf0ed6",
       "artifacts/dataloaders/dataloader_sample_coverage.csv": "89f9807b58ac1f4a2748b47d01ecdf281e24d20a7e95da2c66cd10c87c92d576",
       "artifacts/dataloaders/dataloader_test_firewall_audit.csv": "993c6b4a6446d207ae7ac7c77d8ab251173d7b0845cae5b1474d2eb0c9288448",
-      "artifacts/dataloaders/dataset_registry.csv": "77c406cba97e4938feb361dbd8d9e032e5f87242739789920e2a57cd09112751",
-      "artifacts/dataloaders/device_transfer_policy.json": "1b0e999a7fb7879116929cdac25130af7e8c04fccf11d841abf323c2b48becf1",
+      "artifacts/dataloaders/dataset_registry.csv": "442d2434cf6de4e32036b22bd6357a516e9ab777f5e641275196730626eaa253",
+      "artifacts/dataloaders/device_transfer_policy.json": "a9e771678a776a1aec753698ba89531fe1a1b21056468f461a19af26d33cddd4",
       "artifacts/dataloaders/sequential_order_audit.csv": "cc5f7cdcc5292f1df8ac2a25721974bf88e368fdee3a246c206d61dd7a49ece4",
-      "artifacts/dataloaders/shuffle_reproducibility_audit.csv": "150a8c4ca9e3e7cbe0a686e2a2e209ca73bfe78383d9a44aaf6e47d3dc099394",
+      "artifacts/dataloaders/shuffle_reproducibility_audit.csv": "1448d379dd6c69ee9a9f8eb4e1fc297401ea63260afe9b5057d9ef0f0292acf3",
       "artifacts/dataloaders/worker_configuration_audit.csv": "2d301c3391e1e271a4e387cf227802d93695d1af248ca1eb73263f76ef2d6546"
     },
     "output_paths": [

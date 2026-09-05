@@ -1,0 +1,263 @@
+{
+  "created_at_utc": "2026-09-03T19:44:23Z",
+  "discrepancies": [
+    {
+      "blocking": false,
+      "file": "artifacts/residual_analysis/phase49_sign_transitions.csv",
+      "id": "D49F-NaN-1",
+      "note": "9 NaN values in probability_given_from_a (rows where outgoing_total_from_a == 0; EXACT has 0 outgoing in all seeds so probability is undefined). NaN is the mathematically correct value for undefined probability.",
+      "phase": "49-D",
+      "severity": "INFO"
+    },
+    {
+      "blocking": false,
+      "file": "artifacts/residual_analysis/phase49_sign_balance.csv",
+      "id": "D49F-EXACT-1",
+      "note": "EXACT count = 0 in all 3 seeds; EXACT fraction = 0.0. This is expected for continuous-valued Transformer predictions (no exact equality to y_true).",
+      "phase": "49-C",
+      "severity": "INFO"
+    },
+    {
+      "blocking": false,
+      "file": "(no artifact)",
+      "id": "D49F-LSTM-1",
+      "note": "LSTM_TUNED_DEV = NOT_ELIGIBLE_CONFIG_MISMATCH; no LSTM residual table produced. Phase51 may revisit LSTM eligibility.",
+      "phase": "49-E",
+      "severity": "INFO"
+    }
+  ],
+  "gates": [
+    {
+      "detail": {
+        "phase48_overall_status": "PASS"
+      },
+      "gate": "Phase48 PASS",
+      "passed": true
+    },
+    {
+      "detail": {
+        "phase49_residual_convention": "y_true - y_pred"
+      },
+      "gate": "Phase49 handoff from Phase48 valid",
+      "passed": true
+    },
+    {
+      "detail": {
+        "phase47_seed_list": [
+          42,
+          123,
+          2026
+        ]
+      },
+      "gate": "all 3 seeds verified",
+      "passed": true
+    },
+    {
+      "detail": {
+        "phase47_n_test": 2961,
+        "phase49_long_table_rows": 8883,
+        "phase49_wide_table_rows": 2961
+      },
+      "gate": "N_TEST = 2961",
+      "passed": true
+    },
+    {
+      "detail": {
+        "phase49_b_ready_for_phase49_c": true
+      },
+      "gate": "population fingerprint exact",
+      "passed": true
+    },
+    {
+      "detail": {
+        "residual_convention": "y_true - y_pred"
+      },
+      "gate": "residual convention correct",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "Phase47 metric reconstruction PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "field consistency PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "distribution PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "bias PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "tails PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "histogram PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "residual ACF PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "Ljung-Box policy = SECONDARY_DIAGNOSTIC",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "sign runs PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "sign transitions PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "rolling PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "magnitude associations PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "prediction deciles PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "cross-seed agreement PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "sign consensus PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "Persistence context PASS",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "LSTM remains NOT_ELIGIBLE_CONFIG_MISMATCH",
+      "passed": true
+    },
+    {
+      "detail": {
+        "missing": []
+      },
+      "gate": "all O49 artifacts complete",
+      "passed": true
+    },
+    {
+      "detail": {
+        "n_figures": 22
+      },
+      "gate": "all figures complete (22 >= 22)",
+      "passed": true
+    },
+    {
+      "detail": {
+        "n_blocking": 0,
+        "n_discrepancies": 3
+      },
+      "gate": "discrepancies empty or non-blocking",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no new inference",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no checkpoint loading",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no training",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "optimizer_steps = 0",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no scaler fitting",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no correction/recalibration",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no best seed",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no ensemble",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no 3N iid interpretation",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no Test-derived Phase50 regimes",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no worst-error ranking",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "gate": "no attention analysis",
+      "passed": true
+    }
+  ],
+  "n_figures": 22,
+  "n_gates": 38,
+  "n_gates_passed": 38,
+  "n_o49_complete": 33,
+  "n_o49_total": 33,
+  "overall_status": "PASS",
+  "phase": "49",
+  "phase47_persistence_sha256_first16": "7115af1c479b8957",
+  "phase_sub_letter": "F",
+  "ready_for_phase50": true,
+  "ready_for_phase51": true,
+  "ready_for_phase52_plus": false,
+  "residual_convention": "y_true - y_pred",
+  "status": "PASS",
+  "title": "Phase49 Final Strict Signoff",
+  "version": "1.0",
+  "warnings": []
+}

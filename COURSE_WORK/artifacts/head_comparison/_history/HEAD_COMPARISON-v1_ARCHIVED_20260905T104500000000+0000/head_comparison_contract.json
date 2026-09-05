@@ -1,0 +1,129 @@
+{
+  "phase": 55,
+  "phase_name": "Head Comparison Analysis",
+  "version": "HEAD_COMPARISON-v1",
+  "primary_comparison_scope": "WITHIN_SEED_WITHIN_LAYER_ACROSS_HEADS",
+  "head_order": "ARCHITECTURAL",
+  "pair_count_per_layer": 6,
+  "total_pairs": 36,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "n_layers": 2,
+  "n_heads": 4,
+  "lookback": 72,
+  "n_test": 2961,
+  "pairwise_profile_metrics": [
+    "pearson",
+    "spearman",
+    "cosine",
+    "jsd",
+    "l1",
+    "l2",
+    "wasserstein_minutes"
+  ],
+  "pairwise_metric_differences": [
+    "median_normalized_entropy",
+    "median_expected_lag_minutes",
+    "median_recent_1h_mass",
+    "median_recent_6h_mass",
+    "median_recent_12h_mass",
+    "median_recent_24h_mass",
+    "median_lag80_minutes",
+    "median_top5_mass"
+  ],
+  "paired_metrics": [
+    "normalized_entropy",
+    "expected_lag_minutes",
+    "recent_1h_mass",
+    "lag80_minutes"
+  ],
+  "top1_distribution_metrics": [
+    "tvd",
+    "jsd"
+  ],
+  "top1_tie_rule": "NEWEST_SOURCE",
+  "center_metric": "median",
+  "pair_delta_convention": "A_minus_B",
+  "js_metric_bounds": {
+    "jsd": [
+      0.0,
+      0.6931471805599453
+    ],
+    "cosine": [
+      0.0,
+      1.0
+    ],
+    "pearson": [
+      -1.0,
+      1.0
+    ],
+    "spearman": [
+      -1.0,
+      1.0
+    ],
+    "tvd": [
+      0.0,
+      1.0
+    ]
+  },
+  "cosine_bounds": [
+    0.0,
+    1.0
+  ],
+  "wasserstein_bounds_minutes": [
+    0.0,
+    720.0
+  ],
+  "profile_sum_tol": 1e-05,
+  "top1_sum_tol": 1e-06,
+  "forbidden_actions": [
+    "training",
+    "fine_tune",
+    "optimizer_step",
+    "backward",
+    "model_train",
+    "scaler_fit",
+    "new_test_inference",
+    "new_attention_extraction",
+    "checkpoint_loading",
+    "model_forward",
+    "return_attention",
+    "extract_attention",
+    "materialize_phase52",
+    "best_seed_selection",
+    "ensemble",
+    "best_head_selection",
+    "head_pruning",
+    "head_ablation",
+    "head_ranking",
+    "head_clustering_core",
+    "unsupervised_clustering",
+    "kmeans",
+    "spectral_clustering",
+    "hierarchical_clustering",
+    "weighted_head_diversity_score",
+    "post_hoc_redundancy_threshold",
+    "cross_seed_head_matching",
+    "cross_seed_semantic_alignment_assumed",
+    "cross_layer_same_index_identity_assumed",
+    "error_conditioning",
+    "regime_conditioning",
+    "worst_case_statistical_comparison",
+    "iid_significance_test_on_dependent_targets",
+    "feature_importance_claim",
+    "causal_claim",
+    "phase56_implementation",
+    "phase57_implementation",
+    "png_numeric_read",
+    "notebook_modification"
+  ],
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "frozen_at_utc": "2026-09-04T16:17:23+00:00",
+  "p54_signoff_sha256": "9247e0353495c60acc192f87314542d95e4df38fffbb4e0a7b2b6dba75c00340",
+  "handoff_p55_sha256": "dab1d327f589417a6969be4bc33ab55311c83758c05ee5eac52784d79f7f4fcc",
+  "contract_sha256": "c5663f2a21de4985548d8471ad4e87c9e844bd7e81672f2a363c71573f1d9692"
+}

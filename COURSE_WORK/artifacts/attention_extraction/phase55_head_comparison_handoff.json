@@ -1,0 +1,19 @@
+{
+  "phase": 52,
+  "downstream_phase": 55,
+  "downstream_name": "Head Comparison",
+  "ready_for_phase55": true,
+  "phase55_authorized": false,
+  "num_layers": 2,
+  "num_heads": 4,
+  "head_index_semantic_alignment_across_seeds_guaranteed": false,
+  "no_head_averaging_in_raw_storage": true,
+  "raw_files_per_seed": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "safety": {
+    "head_alignment_caveat": "Phase 55 may need to match heads by pattern"
+  }
+}

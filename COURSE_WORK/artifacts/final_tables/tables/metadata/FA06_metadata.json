@@ -1,0 +1,36 @@
+{
+  "table_id": "FA06",
+  "title": "Full Last-Query Head Metrics",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Attention = temporal allocation only. NOT feature importance."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 71064,
+  "csv_path": "artifacts/final_tables/tables/csv/FA06_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA06_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA06_rows.tex",
+  "csv_sha256": "c40ae49ffc6c7a48937d894888daf50a999949f536db06a4c661e84491e664ae",
+  "markdown_sha256": "fe686b3546eaeaf34b65dcf8ea94f41a00a4d6939d47fc929cd86cc3d9208c8a",
+  "latex_sha256": "51b29de11e87e67f75f82b41f2dfd513c2833576db7d656aac8aa95a93b3d53a"
+}

@@ -1,0 +1,45 @@
+{
+  "phase": 56,
+  "downstream_phase": 57,
+  "downstream_name": "Seed-Stability Attention Check",
+  "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v2",
+  "corrective": "scientific_corrective_v2",
+  "corrective_at_utc": "2026-09-05T11:20:00+00:00",
+  "previous_version_archived": "ERROR_CONDITIONED_ATTENTION-v1",
+  "source_phase55_version": "HEAD_COMPARISON-v2",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "raw_last_query_seed42_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "phase47_canonical_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "raw_last_query_shas": {
+    "seed42": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed42.npz",
+    "seed123": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed123.npz",
+    "seed2026": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed2026.npz"
+  },
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "error_conditioning_assignment_sha256": "fde852c7a72efe556efa3f6aef22c134694b447be4deb66dfb61f156fa3f28eb",
+  "shared_error_cohorts_common_across_seeds": true,
+  "error_attention_association_long": "artifacts/error_conditioned_attention/error_attention_association_long.csv",
+  "high_low_metric_comparison": "artifacts/error_conditioned_attention/error_attention_high_low_metric_comparison.csv",
+  "high_low_profile_comparison": "artifacts/error_conditioned_attention/error_attention_high_low_profile_comparison.csv",
+  "layer_head_mean_association": "artifacts/error_conditioned_attention/error_attention_layer_head_mean_association.csv",
+  "shared_cohort_layer_summary": "artifacts/error_conditioned_attention/error_attention_shared_cohort_layer_summary.csv",
+  "raw_last_query_refs": {
+    "seed42": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed42.npz",
+    "seed123": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed123.npz",
+    "seed2026": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/attention_extraction/raw/last_query_attention_seed2026.npz"
+  },
+  "head_behavior_refs": "artifacts/head_comparison/head_behavior_summary.csv",
+  "same_index_head_semantic_alignment_assumed": false,
+  "head_matching_not_performed_in_phase56": true,
+  "best_head_selected": false,
+  "model_retrained": false,
+  "phase57_authorized": false,
+  "ready_for_phase57": true
+}

@@ -1,0 +1,106 @@
+{
+  "source_phase58_version": "FINAL_TABLES-v1",
+  "final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "final_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "main_table_catalog": [
+    "FT01",
+    "FT02",
+    "FT03",
+    "FT04",
+    "FT05",
+    "FT06",
+    "FT07",
+    "FT08",
+    "FT09",
+    "FT10"
+  ],
+  "appendix_table_catalog": [
+    "FA01",
+    "FA02",
+    "FA03",
+    "FA04",
+    "FA05",
+    "FA06",
+    "FA07",
+    "FA08",
+    "FA09",
+    "FA10",
+    "FA11",
+    "FA12"
+  ],
+  "figure_inventory": [
+    {
+      "figure_id": "FF01",
+      "source_phase": 48,
+      "source_artifact": "artifacts/prediction_analysis/figures/"
+    },
+    {
+      "figure_id": "FF02",
+      "source_phase": 49,
+      "source_artifact": "artifacts/residual_analysis/figures/"
+    },
+    {
+      "figure_id": "FF03",
+      "source_phase": 50,
+      "source_artifact": "artifacts/error_by_regime/figures/"
+    },
+    {
+      "figure_id": "FF04",
+      "source_phase": 53,
+      "source_artifact": "artifacts/attention_heatmaps/figures/"
+    },
+    {
+      "figure_id": "FF05",
+      "source_phase": 54,
+      "source_artifact": "artifacts/last_query_attention/figures/"
+    },
+    {
+      "figure_id": "FF06",
+      "source_phase": 55,
+      "source_artifact": "artifacts/head_comparison/figures/"
+    },
+    {
+      "figure_id": "FF07",
+      "source_phase": 56,
+      "source_artifact": "artifacts/error_conditioned_attention/figures/"
+    },
+    {
+      "figure_id": "FF08",
+      "source_phase": 57,
+      "source_artifact": "artifacts/seed_stability_attention/figures/"
+    }
+  ],
+  "table_claim_traceability": "artifacts/final_tables/table_claim_traceability.csv",
+  "final_tables_findings": "artifacts/final_tables/final_tables_findings.csv",
+  "upstream_warnings": "artifacts/final_tables/FA12 (see tables/markdown/FA12_rows.md)",
+  "allowed_claims": [
+    "FINAL_TEST_PERFORMANCE",
+    "LSTM_COMPARISON",
+    "TEMPORAL_ROBUSTNESS",
+    "ERROR_REGIME_BEHAVIOR",
+    "WORST_ERROR_CONCENTRATION",
+    "LAST_QUERY_TEMPORAL_ATTENTION",
+    "HEAD_DIVERSITY",
+    "ERROR_ATTENTION_ASSOCIATION",
+    "ATTENTION_SEED_STABILITY"
+  ],
+  "prohibited_claims": [
+    "CAUSAL_ATTENTION_EXPLANATION",
+    "RAW_FEATURE_IMPORTANCE_FROM_TEMPORAL_ATTENTION",
+    "BEST_SEED_SELECTION",
+    "POST_TEST_RETUNING",
+    "MULTI_HOUSE_GENERALIZATION",
+    "ENSEMBLE_RECONSTRUCTION",
+    "CONFIDENCE_INTERVAL_FROM_THREE_SEEDS",
+    "HYPOTHESIS_TEST_BETWEEN_MODELS",
+    "NEW_MAPE",
+    "HEAD_SEMANTIC_ALIGNMENT_ASSUMPTION"
+  ],
+  "new_analysis_performed": false,
+  "ready_for_phase59": true
+}

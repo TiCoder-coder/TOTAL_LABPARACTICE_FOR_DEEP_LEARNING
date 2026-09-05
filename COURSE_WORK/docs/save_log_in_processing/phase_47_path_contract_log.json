@@ -1,0 +1,109 @@
+{
+  "phase": 47,
+  "task": "FIX_UPSTREAM_PATH_CONTRACT",
+  "audit_date": "2026-09-03",
+  "audit_round": "PATH_CONTRACT_ONE_SHOT",
+  "exact_failed_path": "artifacts/final_model_lock/phase_46_signoff.json",
+  "canonical_path": "artifacts/three_seed_final_runs/phase_46_signoff.json",
+  "root_cause": "phase47_final_test_evaluation.py and _phase47_first_test_boundary_probe.py used hard-coded wrong path 'artifacts/final_model_lock/phase_46_signoff.json' which is NOT the canonical Phase46 signoff location.",
+  "all_phase46_to_phase47_path_consumers": {
+    "phase_46_signoff.json": {
+      "canonical_path": "artifacts/three_seed_final_runs/phase_46_signoff.json",
+      "wrong_paths_found": [
+        "artifacts/final_model_lock/phase_46_signoff.json"
+      ],
+      "consumers_fixed": [
+        "scripts/phase47_final_test_evaluation.py (Step 0)",
+        "scripts/_phase47_first_test_boundary_probe.py (Step 0)",
+        "scripts/phase47_pretest_gate.py (Gate 1)",
+        "tests/unit/test_phase47_infrastructure.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_phase46_signoff_path()",
+      "status": "FIXED"
+    },
+    "phase47_test_release.json": {
+      "canonical_path": "artifacts/three_seed_final_runs/phase47_test_release.json",
+      "wrong_paths_found": [],
+      "consumers_fixed": [
+        "scripts/phase47_final_test_evaluation.py (Step 0)",
+        "scripts/phase47_pretest_gate.py (Gate 2)",
+        "tests/unit/test_phase47_infrastructure.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_phase47_release_path()",
+      "status": "FIXED"
+    },
+    "phase47_final_test_evaluation_handoff.json": {
+      "canonical_path": "artifacts/three_seed_final_runs/phase47_final_test_evaluation_handoff.json",
+      "wrong_paths_found": [],
+      "consumers_fixed": [
+        "scripts/phase47_final_test_evaluation.py (Step 0)",
+        "scripts/phase47_pretest_gate.py",
+        "tests/unit/test_phase47_infrastructure.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_phase47_handoff_path()",
+      "status": "FIXED"
+    },
+    "phase_45_signoff.json": {
+      "canonical_path": "artifacts/final_model_lock/phase_45_signoff.json",
+      "wrong_paths_found": [],
+      "consumers_fixed": [
+        "tests/unit/test_phase47_infrastructure.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_phase45_signoff_path()",
+      "status": "FIXED"
+    },
+    "final_scaler_registry.json": {
+      "canonical_path": "artifacts/scaling/final_dev/final_scaler_registry.json",
+      "consumers_fixed": [
+        "src/course_work/phase47/scaler_loader.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_final_scaling_registry_path()",
+      "status": "REVIEWED (path already correct)"
+    },
+    "transformer_checkpoints": {
+      "canonical_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_*/seed_*_FINAL_REFIT.pt",
+      "consumers_fixed": [
+        "src/course_work/phase47/checkpoint_loader.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_transformer_checkpoint_path()",
+      "status": "REVIEWED (path already correct)"
+    },
+    "window_index.csv": {
+      "canonical_path": "artifacts/windows/window_index.csv",
+      "consumers_fixed": [
+        "src/course_work/phase47/test_population.py",
+        "src/course_work/phase47/evaluation.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_window_index_path()",
+      "status": "REVIEWED (path already correct)"
+    },
+    "feature_set_registry.json": {
+      "canonical_path": "artifacts/feature_sets/feature_set_registry.json",
+      "consumers_fixed": [
+        "src/course_work/phase47/evaluation.py"
+      ],
+      "now_uses_resolver": "course_work.phase47.path_resolver.get_feature_set_registry_path()",
+      "status": "REVIEWED (path already correct)"
+    }
+  },
+  "wrong_paths_found_total": 1,
+  "wrong_paths_fixed": 1,
+  "path_resolver_created": "src/course_work/phase47/path_resolver.py",
+  "path_resolver_uses_canonical_only": true,
+  "path_resolver_fail_fast": true,
+  "path_resolver_no_permissive_fallback": true,
+  "pretest_gate_result": "PASS (16/16 gates including Gate 14b path resolver)",
+  "focused_tests_result": "PASS (41/41 tests including test_phase46_path_resolver)",
+  "first_test_boundary": "REACHED (no Test access occurred)",
+  "phase46_regression_tests": "PASS (48/48 tests, no regressions)",
+  "test_accessed": false,
+  "training_executed": false,
+  "optimizer_steps": 0,
+  "new_run_ids": 0,
+  "canonical_phase47_results_written": false,
+  "caffeinate_buffering_investigation": {
+    "observation": "caffeinate runs the python process with default stdout buffering on stdout (line-buffered if TTY, block-buffered if piped)",
+    "fix": "Recommended human command uses 'python -u' to force unbuffered stdout/stderr so banner and preflight messages are visible immediately"
+  },
+  "ready_for_phase47_human_evaluation": true
+}

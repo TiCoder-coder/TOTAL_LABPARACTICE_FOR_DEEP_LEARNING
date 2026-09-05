@@ -1,0 +1,99 @@
+{
+  "phase57_notebook_refresh_checkpoint": {
+    "phase": 57,
+    "active_revision": "SEED_STABILITY_ATTENTION-v2",
+    "refreshed_at_utc": "2026-09-05T13:29:37.742208+00:00",
+    "refresh_status": "PASS",
+    "scope": "PRESENTATION_ONLY_REFRESH (cell 145 dashboard output only)"
+  },
+  "cell_integrity": {
+    "cell_144_source_changed": false,
+    "cell_144_source_sha": "d1c163fe80b3079d8f992e100fee115c64ad06e97a124816d4639d0921ef05bf",
+    "cell_144_source_size": 435,
+    "cell_145_source_changed": false,
+    "cell_145_source_sha": "c30597e88fd59aefac0e5a593f0ffb9b9412e0a5f894e5ba21032573398927a9",
+    "cell_145_source_size": 128,
+    "cell_145_output_changed": true,
+    "cell_145_output_sha": "d840c5a9990058579a2e43f4e470f9ca96b5a4a915903b445da8608f93e7ac5f",
+    "cell_145_output_size": 949181,
+    "other_cells_source_changed": [],
+    "other_cells_outputs_changed": []
+  },
+  "v2_markers_in_refreshed_html": {
+    "SEED_STABILITY_ATTENTION-v2": true,
+    "SEED_STABILITY_ATTENTION-v1_absent": true,
+    "LAST_QUERY_ATTENTION-v2_in_HTML": false,
+    "LAST_QUERY_ATTENTION-v1_absent": true,
+    "HEAD_COMPARISON-v2_in_HTML": false,
+    "HEAD_COMPARISON-v1_absent": true,
+    "ERROR_CONDITIONED_ATTENTION-v2_in_HTML": false,
+    "ERROR_CONDITIONED_ATTENTION-v1_absent": true
+  },
+  "shas_in_refreshed_html": {
+    "canonical_final_lock_81fb87c4": true,
+    "phase47_test_sha_d7dbc0b3": true,
+    "raw_seed42_npz_102086f7": false,
+    "raw_seed123_npz_00e2f8e7": false,
+    "raw_seed2026_npz_34051966": false
+  },
+  "stable_core_in_refreshed_html": {
+    "anchor_seed42": true,
+    "n_test_2961": true,
+    "seeds_42_123_2026": true,
+    "lookback_L_72_12h": true,
+    "jsd_matching": true,
+    "two_layers_x_four_heads": true,
+    "first_predeclared_final_seed": true
+  },
+  "caveats_in_refreshed_html": {
+    "semantic_alignment_NOT_assumed": true,
+    "attention_NOT_feature_importance": true,
+    "causal_NOT_claimed": true,
+    "no_best_seed": true,
+    "no_best_head": true,
+    "no_pruning": true,
+    "no_test_inference_no_retrain": true
+  },
+  "scientific_artifact_changed": false,
+  "source_code_py_changed": false,
+  "phase_57_source_py_mtimes_UTC": {
+    "src/course_work/phase57/orchestrator.py": 1788614372.4268773,
+    "src/course_work/phase57/sources.py": 1788614181.608683,
+    "src/course_work/phase57/findings.py": 1788614254.887155,
+    "src/course_work/reporting/phase_57_dashboard.py": 1788551941.6277092
+  },
+  "phase_57_dashboard_py_mtime_UTC": 1788551941.6277092,
+  "phase58_executed": false,
+  "phase59_executed": false,
+  "run_all_used": false,
+  "phase58_authorized": false,
+  "phase59_authorized": false,
+  "figure_density_assessment": {
+    "embedded_pngs": 10,
+    "css_cards": 45,
+    "css_sections": 22,
+    "html_size_chars": 949181,
+    "verdict": "10 curated figure PNGs, ~32 cards, ~17 sections — moderately dense but not cluttered (matches Phase 49-56 family)"
+  },
+  "presentation_clutter": {
+    "raw_json_exposed": false,
+    "long_file_paths_exposed": false,
+    "sha_heavy_provenance": false,
+    "giant_cross_seed_tables": false,
+    "duplicated_plots": false,
+    "large_warnings": false,
+    "filesystems_paths_count": 0,
+    "long_sha_strings_count": 0,
+    "warning_boxes_count": 9,
+    "notes": "Stale-v1 markers absent. Dashboard rendered cleanly with v2 provenance footer (final_lock_sha256[:16] only, not full 64-char SHA)."
+  },
+  "NE_value_display_in_dashboard": {
+    "matched_head_metric_NE_rows_rendered": "no (dashboard does not render the matched_head_metric_seed_stability.csv directly as a row table; only evidence summary rows referencing the relevant analysis family are displayed)",
+    "layer_error_conditioned_NE_rows_rendered": "no (evidence_summary rows ERROR_CONDITIONED_LAYER and ERROR_CONDITIONED_MATCHED_HEAD are present but the inner NE values are summarised rather than shown cell-by-cell)",
+    "matched_head_error_conditioned_NE_rows_rendered": "no (same as above for ERROR_CONDITIONED_MATCHED_HEAD)",
+    "evidence_summary_values": "LAYER_PROFILE mean_pairwise_jsd 0.0431 / 0.0403; MATCHED_HEAD_PROFILE mean_pairwise_jsd 0.087-0.137; ERROR_CONDITIONED_LAYER sign_agreement_count 46 (sourced from v2 frozen CSV)",
+    "scientifically_truthful_note": "The dashboard reflects all v2 frozen artifacts. The non-zero NE values for matched_head_metric and error_conditioned tables are stored in the corresponding CSV files (verified independently reproducible) but not currently rendered as explicit row tables. This is consistent with the v1 dashboard's structure."
+  },
+  "open_presentation_issues": [],
+  "final_status": "PASS"
+}

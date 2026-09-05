@@ -1,0 +1,20 @@
+\begin{table}[h!]
+\centering
+\caption{FT02 - Final Held-Out Test Performance}
+\label{tab:ft02\_-\_final\_held-out\_test\_performance}
+\begin{tabular}{lrrrrrr}
+\toprule
+model & seed & mae\_wh & rmse\_wh & r2 & evaluation\_population & notes \\
+\midrule
+Persistence Baseline & single & 26.74 & 66.84 & 0.459 & FINAL\_TEST\_POP-v1 (2961 targets) & single final Test realization; no fake SD \\
+Tuned LSTM Baseline & single & N/A & N/A & N/A & FINAL\_TEST\_POP-v1 (2961 targets) & single final Test realization; no fake SD \\
+Final Transformer — Seed 42 & 42.000 & 29.53 & 64.94 & 0.489 & FINAL\_TEST\_POP-v1 (2961 targets) & checkpoint\_sha256=c3cfad116aa91d47... \\
+Final Transformer — Seed 123 & 123.000 & 27.11 & 61.99 & 0.535 & FINAL\_TEST\_POP-v1 (2961 targets) & checkpoint\_sha256=8a134fec517be0df... \\
+Final Transformer — Seed 2026 & 2026.000 & 28.94 & 64.56 & 0.495 & FINAL\_TEST\_POP-v1 (2961 targets) & checkpoint\_sha256=8753800539f7a617... \\
+Final Transformer — Three-Seed Summary & 42,123,2026 & 28.53 & 63.83 & 0.506 & FINAL\_TEST\_POP-v1 (2961 targets per seed) & mean ± sample SD (ddof=1). Descriptive run-variability; NOT an ensemble forecast. SD on R² refers to variability on raw seed R² values — not pooled over targets. \\
+\bottomrule
+\end{tabular}
+\vspace{4pt}
+\footnotesize{Frozen upstream source. See final\_table\_source\_ledger.csv for cell lineage.}\\
+\footnotesize{Mean ± SD (ddof=1) of seed-level metrics; descriptive only; NOT an ensemble forecast.}\\
+\end{table}

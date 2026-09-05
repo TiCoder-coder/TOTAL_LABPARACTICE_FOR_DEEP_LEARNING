@@ -1,0 +1,36 @@
+{
+  "table_id": "FA12",
+  "title": "Upstream Warnings and Reporting Caveats",
+  "evidence_class": "EVIDENCE_AND_LIMITATION",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Caveats propagated from upstream phases."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 13,
+  "csv_path": "artifacts/final_tables/tables/csv/FA12_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA12_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA12_rows.tex",
+  "csv_sha256": "018d16c7da0cd528f20b8a9ca797c538a352438199beb35ef4805a1b18a741e5",
+  "markdown_sha256": "bf3fc20a7b178eeb449c97feba31e9bef061148c3a934895bb0c83d87a8f9ef8",
+  "latex_sha256": "bb16185467f3d94ffb2f4e72c0f3e2330b770820c2703b1af4acf59fbd261bc2"
+}

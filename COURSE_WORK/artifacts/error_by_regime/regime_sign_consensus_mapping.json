@@ -1,0 +1,23 @@
+{
+  "canonical_aggregated_artifact": "artifacts/residual_analysis/phase49_cross_seed_sign_consensus.csv",
+  "mapping_to_phase50_target_categories": {
+    "ALL_OVER": "ALL_OVER",
+    "ALL_UNDER": "ALL_UNDER",
+    "ALL_ZERO": "ALL_ZERO",
+    "MIXED": "MIXED",
+    "TWO_OVER_ONE_UNDER": "MIXED",
+    "TWO_UNDER_ONE_OVER": "MIXED"
+  },
+  "per_target_method": "deterministic from wide_table seed42/123/2026_residual_wh signs",
+  "source_artifact": "artifacts/residual_analysis/residual_wide_table.csv",
+  "source_class_to_phase50_target_category": {
+    "ALL_EXACT": "ALL_ZERO",
+    "ALL_OVER": "ALL_OVER",
+    "ALL_UNDER": "ALL_UNDER",
+    "ALL_ZERO": "ALL_ZERO",
+    "MIXED": "MIXED",
+    "TWO_OVER_ONE_UNDER": "MIXED",
+    "TWO_UNDER_ONE_OVER": "MIXED"
+  },
+  "source_phase": 49
+}

@@ -1,0 +1,11 @@
+{
+  "no_lstm_or_persistence_in_transformer_shortlist": true,
+  "phase45_handoff_artifact": "artifacts/rolling_origin/phase45_final_model_lock_handoff.json",
+  "rank_1_is_recommended": true,
+  "rolling_origin_fold_metrics_artifact": "artifacts/rolling_origin/rolling_origin_fold_metrics.csv",
+  "rolling_origin_pooled_metrics_artifact": "artifacts/rolling_origin/rolling_origin_pooled_metrics.csv",
+  "rolling_origin_recommended_transformer_artifact": "artifacts/rolling_origin/rolling_origin_recommended_transformer.json",
+  "rolling_origin_summary_artifact": null,
+  "rolling_origin_transformer_ranking_artifact": "artifacts/rolling_origin/rolling_origin_transformer_robustness_ranking.csv",
+  "selection_rule": "pooled_rmse_ascending_then_worst_fold_then_fold_sd"
+}
