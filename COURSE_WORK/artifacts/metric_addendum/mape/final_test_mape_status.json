@@ -1,0 +1,9 @@
+{
+  "artifact_version": "POSTHOC-MAPE-v1",
+  "prediction_sources_expected": 4,
+  "prediction_sources_valid": 0,
+  "reason": "FROZEN_PREDICTION_BUNDLES_MISSING_OR_INVALID",
+  "status": "BLOCKED_SOURCE_UNAVAILABLE",
+  "test_inference_executed": false,
+  "test_mape_computed": false
+}

@@ -10,8 +10,8 @@ from pathlib import Path
 
 import pytest
 
-from course_work.phase51 import materialize_d
-from course_work.phase51 import SEEDS
+from course_work.worst_error_analysis import materialize_d
+from course_work.worst_error_analysis import SEEDS
 
 
 FROZEN_CONTRACT_SHA = (

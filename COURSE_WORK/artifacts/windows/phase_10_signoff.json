@@ -42,15 +42,15 @@
     "configs/base/coursework_contract.json"
   ],
   "output_checksums": {
-    "artifacts/windows/README_WINDOWS.md": "6c2ff6c8ca8209dcff380547f3bf101eb857f1d5f46c740c4fd8ffa5d2faa13f",
+    "artifacts/windows/README_WINDOWS.md": "caa340ecffdcf6c5cc0ddd8da7a4b6bb273580ecae215d6044240632913db335",
     "artifacts/windows/common_target_population.csv": "d854e826ce0da67118e33659d239362213fd6447ffe7cd3aa054c672cf690d61",
     "artifacts/windows/rejected_window_candidates.csv": "af2ad06fa6b92991669a62a70426859cb7712500048b541d1c816aeb68f51dec",
     "artifacts/windows/window_boundary_audit.csv": "99091f1b4adbad720615c73212793a23324c7169bf4ab93ee7c5bb2b41f829bf",
-    "artifacts/windows/window_discrepancies.json": "b626c5e3bdc7d56e10156ba027d58715cf95bb5188373c4b9987bd212a507a37",
-    "artifacts/windows/window_fingerprints.json": "5555086a49efb08bf55acee49e70cc8bf9920af5df9338a71c2f52a09ea4952c",
+    "artifacts/windows/window_discrepancies.json": "82813f2083aa12f51973d27141169bed336bebc3800ab9a4f8ef41c89450fd08",
+    "artifacts/windows/window_fingerprints.json": "c4ef0afcf352a119f03f5d9b86dabe6b5bf0a029afbdb9b29021debb0827468b",
     "artifacts/windows/window_index.csv": "46dee43de6bc950b5cd5719d40e1c8f3680bfe91fd4001e792a40c098a087712",
     "artifacts/windows/window_leakage_audit.csv": "15f57fefb47e7ae842b49e1e7e45b227749900907e7e9c0035d3369f6be65afe",
-    "artifacts/windows/window_manifest.json": "d24053a2acb42cc9cecbbd4aa0ea6d308f47f2c69f82fa91f46456224b54514e",
+    "artifacts/windows/window_manifest.json": "88ba16b5e792ceabfdbc50dcdff83db54750b91743e4bb01f889ae8f5da0164d",
     "artifacts/windows/window_materialization_audit.csv": "f464a4131be980d562f5254f3dc3283561cdf26f579a749ae75194ab255cc6b0",
     "artifacts/windows/window_population_summary.csv": "f4990679f5604e2267ea39c25410c72154b7cf9a9468bbd89ce247e74e90dc95"
   },

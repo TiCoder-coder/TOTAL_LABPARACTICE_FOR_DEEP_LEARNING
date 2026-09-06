@@ -105,7 +105,7 @@ def run_probe() -> int:
 
     # Verify Phase46 release using canonical path resolver
     try:
-        from course_work.phase47.path_resolver import (
+        from course_work.final_test_evaluation.path_resolver import (
             verify_phase46_release_for_phase47,
             Phase46PathError,
         )
@@ -121,8 +121,8 @@ def run_probe() -> int:
 
     # Phase 47 contract freeze (BEFORE Test access)
     print("--- Step 1: Phase 47 contract freeze (before Test access) ---")
-    from course_work.phase47 import writers as o47
-    from course_work.phase47.test_population import materialize_final_test_pop_v1
+    from course_work.final_test_evaluation import writers as o47
+    from course_work.final_test_evaluation.test_population import materialize_final_test_pop_v1
 
     test_pop = materialize_final_test_pop_v1(ROOT)
     print(f"  ✓ Test population materialized: N={test_pop['test_window_count']}")
@@ -157,7 +157,7 @@ def run_probe() -> int:
     print("  ✓ SequenceWindowDataset.__getitem__ monkey-patched for Test access")
 
     # Also patch the Phase47 evaluation entry point to raise sentinel
-    from course_work.phase47 import evaluation as p47_eval
+    from course_work.final_test_evaluation import evaluation as p47_eval
 
     _original_eval_transformer = p47_eval.evaluate_transformer_seed_on_test
 

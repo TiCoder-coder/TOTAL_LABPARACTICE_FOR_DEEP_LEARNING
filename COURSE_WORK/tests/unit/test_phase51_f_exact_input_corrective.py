@@ -14,7 +14,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from course_work.phase51 import materialize_f_exact_input as m
+from course_work.worst_error_analysis import materialize_f_exact_input as m
 
 
 # ── FROZEN UPSTREAM SHAs (must not drift) ────────────────────────────────────
@@ -206,21 +206,21 @@ class TestWindowValues:
         for t in r["manifest"]["per_target" if False else "deliverables"].items():
             pass
         # Directly use the reconstructor.
-        from course_work.phase51 import exact_input_reconstruction as eir
+        from course_work.worst_error_analysis import exact_input_reconstruction as eir
         rec = eir.reconstruct_windows_for_targets()
         for t in rec["per_target"]:
             assert t["_raw_window"].shape == (72, 33)
             assert t["_model_window"].shape == (72, 33)
 
     def test_22_all_values_finite(self):
-        from course_work.phase51 import exact_input_reconstruction as eir
+        from course_work.worst_error_analysis import exact_input_reconstruction as eir
         rec = eir.reconstruct_windows_for_targets()
         for t in rec["per_target"]:
             assert np.isfinite(t["_raw_window"]).all()
             assert np.isfinite(t["_model_window"]).all()
 
     def test_23_deterministic_window_sha(self):
-        from course_work.phase51 import exact_input_reconstruction as eir
+        from course_work.worst_error_analysis import exact_input_reconstruction as eir
         rec1 = eir.reconstruct_windows_for_targets()
         rec2 = eir.reconstruct_windows_for_targets()
         for t1, t2 in zip(rec1["per_target"], rec2["per_target"]):
@@ -228,7 +228,7 @@ class TestWindowValues:
             assert t1["window_checksum_model"] == t2["window_checksum_model"]
 
     def test_24_unique_targets_44(self):
-        from course_work.phase51 import exact_input_reconstruction as eir
+        from course_work.worst_error_analysis import exact_input_reconstruction as eir
         rec = eir.reconstruct_windows_for_targets()
         assert rec["n_targets"] == 44
 

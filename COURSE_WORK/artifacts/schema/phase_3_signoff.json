@@ -17,9 +17,9 @@
   ],
   "output_checksums": {
     "artifacts/schema/schema_comparison.csv": "093a767b0967d2a003f31229dfcb3ce62890801c22a0c0bd5faa1000b0f2c548",
-    "artifacts/schema/schema_discrepancies.json": "9c7c8454324d0daf6dd9eddcbc80944a10bea7cf6fd20cd0ccfff8134ed923ad",
-    "artifacts/schema/schema_fingerprint.txt": "07c9afbaa0ba45620680929e1308f58b57262470e310930307e1a44cdbf3f41e",
-    "artifacts/schema/schema_manifest.json": "8baeb562bc673b3315284f1ac0fbf8e83248e191750e881d97f4df1e823e0709",
+    "artifacts/schema/schema_discrepancies.json": "80f7f886a57c11be48df34be8003b2a0388d2ca5fd222a6b372f13003676bc35",
+    "artifacts/schema/schema_fingerprint.txt": "7e5022d05814329704c15c47511c11439bda5b47ed404c1890b4d19f3ad13f02",
+    "artifacts/schema/schema_manifest.json": "c6701eb9ed48cf30c6a6c8ab2a1d438e4b729ee0f4084ab611e102d7e7242cb2",
     "artifacts/schema/schema_summary.csv": "777bfb5cdc411524891218e4d147297f21d0de936fad84bcb6c092602b065cae",
     "artifacts/schema/variable_dictionary.csv": "e0c59d94a304e9ddd1cf3b7743233f1360716de310e1121e79a3bea748e2b2c3"
   },

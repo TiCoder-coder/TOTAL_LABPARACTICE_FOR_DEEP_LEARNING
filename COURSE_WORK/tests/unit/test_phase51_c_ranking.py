@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from course_work.phase51 import (
+from course_work.worst_error_analysis import (
     SEEDS,
     K_ABS_PER_SEED,
     K_SHARED,
@@ -377,7 +377,7 @@ class TestSafetyAndReproducibility:
         # Phase 51-C is forbidden from producing casebook artifacts.
         # Those belong to Phase 51-F. Verify materialize_c does not produce
         # them by introspecting which artifacts materialize_c wrote.
-        from course_work.phase51 import materialize_c
+        from course_work.worst_error_analysis import materialize_c
         materialize_c.materialize_phase51_c()
         manifest = json.loads(
             Path("artifacts/worst_error_analysis/worst_error_ranking_manifest.json").read_text()
@@ -394,7 +394,7 @@ class TestSafetyAndReproducibility:
         # Phase 51-C is forbidden from producing overlap/Jaccard artifacts.
         # Those belong to Phase 51-D. Verify materialize_c does not produce them
         # by introspecting which artifact files were written just now.
-        from course_work.phase51 import materialize_c
+        from course_work.worst_error_analysis import materialize_c
         import csv
         before = set((Path("artifacts/worst_error_analysis")).glob("*"))
         materialize_c.materialize_phase51_c()
@@ -409,7 +409,7 @@ class TestSafetyAndReproducibility:
 
     def test_45_no_error_concentration_artifact(self):
         # Phase 51-C is forbidden from producing error-concentration artifacts.
-        from course_work.phase51 import materialize_c
+        from course_work.worst_error_analysis import materialize_c
         manifest = json.loads(
             Path("artifacts/worst_error_analysis/worst_error_ranking_manifest.json").read_text()
         )

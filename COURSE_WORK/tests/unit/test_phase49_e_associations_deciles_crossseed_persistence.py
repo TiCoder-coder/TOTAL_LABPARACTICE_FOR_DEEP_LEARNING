@@ -7,27 +7,27 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from course_work.phase49.cross_seed import (
+from course_work.residual_analysis.cross_seed import (
     SEED_PAIRS,
     compute_cross_seed_sign_consensus,
     compute_pair_residual_agreement,
 )
-from course_work.phase49.distributions import (
+from course_work.residual_analysis.distributions import (
     load_phase49_b_long_table,
     residuals_for_seed,
 )
-from course_work.phase49.magnitude_associations import (
+from course_work.residual_analysis.magnitude_associations import (
     compute_magnitude_associations,
     pearson,
     spearman,
 )
-from course_work.phase49.materialize_e import SEED_LIST, materialize_phase49_e
-from course_work.phase49.persistence_context import (
+from course_work.residual_analysis.materialize_e import SEED_LIST, materialize_phase49_e
+from course_work.residual_analysis.persistence_context import (
     compute_persistence_residual_context,
     load_persistence_rows,
     verify_persistence_against_phase47,
 )
-from course_work.phase49.prediction_deciles import (
+from course_work.residual_analysis.prediction_deciles import (
     PHASE49_DECILE_COUNT,
     assign_deciles,
     build_prediction_decile_edges,
@@ -196,7 +196,7 @@ def test_sign_consensus_fractions_sum_to_one(phase49_e_manifest):
 
 def test_persistence_checksum_exact(phase49_e_manifest):
     assert phase49_e_manifest["persistence_context"]["source_sha256_match"] is True
-    from course_work.phase49.sources import load_prediction_checksums, sha256_file as src_sha256_file
+    from course_work.residual_analysis.sources import load_prediction_checksums, sha256_file as src_sha256_file
     checksums = load_prediction_checksums(project_root=PROJECT_ROOT)
     expected = checksums["predictions"]["persistence"]["sha256"]
     observed = src_sha256_file(
@@ -257,7 +257,7 @@ def test_no_phase50_implementation(phase49_e_manifest):
 
 def test_phase47_unchanged(phase49_e_manifest):
     assert phase49_e_manifest["contract_invariants"]["phase47_modified"] is False
-    from course_work.phase49.sources import compute_seed_bundle_sha256, load_prediction_checksums
+    from course_work.residual_analysis.sources import compute_seed_bundle_sha256, load_prediction_checksums
     checksums = load_prediction_checksums(project_root=PROJECT_ROOT)
     for seed in (42, 123, 2026):
         key = {"seed42": "seed_42", "seed123": "seed_123", "seed2026": "seed_2026"}[f"seed{seed}"]

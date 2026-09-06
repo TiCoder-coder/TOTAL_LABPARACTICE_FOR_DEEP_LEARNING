@@ -38,7 +38,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 def test_phase47_module_imports():
     """Phase47 module imports without errors."""
-    from course_work.phase47 import (
+    from course_work.final_test_evaluation import (
         LOCKED_CANDIDATE,
         LOCKED_CONFIG_FP,
         LOCKED_LOOKBACK,
@@ -86,7 +86,7 @@ def test_evaluation_module_no_training():
 
 def test_scaler_loader_forbids_fit():
     """Scaler wrapper raises on fit()."""
-    from course_work.phase47.scaler_loader import (
+    from course_work.final_test_evaluation.scaler_loader import (
         Phase47ScalerWrapper,
         ScalerFitAttemptError,
     )
@@ -120,7 +120,7 @@ def test_scaler_loader_forbids_fit():
 
 def test_final_scaling_v1_x_loader():
     """FINAL_SCALING-v1 X scaler loads with expected checksum."""
-    from course_work.phase47.scaler_loader import (
+    from course_work.final_test_evaluation.scaler_loader import (
         load_final_scaling_v1_x_scaler,
         FINAL_SCALING_CHECKSUMS,
     )
@@ -130,7 +130,7 @@ def test_final_scaling_v1_x_loader():
 
 def test_final_scaling_v1_y_loader():
     """FINAL_SCALING-v1 Y scaler loads with expected checksum."""
-    from course_work.phase47.scaler_loader import (
+    from course_work.final_test_evaluation.scaler_loader import (
         load_final_scaling_v1_y_scaler,
         FINAL_SCALING_CHECKSUMS,
     )
@@ -140,7 +140,7 @@ def test_final_scaling_v1_y_loader():
 
 def test_final_scaling_v1_verification():
     """FINAL_SCALING-v1 overall verification passes."""
-    from course_work.phase47.scaler_loader import verify_final_scaling_v1
+    from course_work.final_test_evaluation.scaler_loader import verify_final_scaling_v1
     result = verify_final_scaling_v1(ROOT)
     assert result["overall"] == "PASS"
     assert result["x_scaler"]["status"] == "PASS"
@@ -149,7 +149,7 @@ def test_final_scaling_v1_verification():
 
 def test_test_population_materialize():
     """Test population materializes to 2961 windows."""
-    from course_work.phase47.test_population import (
+    from course_work.final_test_evaluation.test_population import (
         materialize_final_test_pop_v1,
         EXPECTED_TEST_WINDOW_COUNT,
     )
@@ -167,7 +167,7 @@ def test_test_population_materialize():
 
 def test_test_population_fingerprint_deterministic():
     """Test population fingerprint is deterministic."""
-    from course_work.phase47.test_population import materialize_final_test_pop_v1
+    from course_work.final_test_evaluation.test_population import materialize_final_test_pop_v1
     pop1 = materialize_final_test_pop_v1(ROOT)
     pop2 = materialize_final_test_pop_v1(ROOT)
     assert pop1["test_population_fingerprint"] == pop2["test_population_fingerprint"]
@@ -175,8 +175,8 @@ def test_test_population_fingerprint_deterministic():
 
 def test_checkpoint_strict_load_seed42():
     """Seed 42 checkpoint strict-loads with correct checksums."""
-    from course_work.phase47.checkpoint_loader import load_verified_transformer_checkpoint
-    from course_work.phase47.scaler_loader import FINAL_SCALING_CHECKSUMS
+    from course_work.final_test_evaluation.checkpoint_loader import load_verified_transformer_checkpoint
+    from course_work.final_test_evaluation.scaler_loader import FINAL_SCALING_CHECKSUMS
 
     ckpt = load_verified_transformer_checkpoint(42, ROOT, strict=True)
     assert ckpt.checkpoint_type == "FINAL_REFIT"
@@ -189,7 +189,7 @@ def test_checkpoint_strict_load_seed42():
 
 def test_checkpoint_strict_load_seed123():
     """Seed 123 checkpoint strict-loads with correct checksums."""
-    from course_work.phase47.checkpoint_loader import load_verified_transformer_checkpoint
+    from course_work.final_test_evaluation.checkpoint_loader import load_verified_transformer_checkpoint
 
     ckpt = load_verified_transformer_checkpoint(123, ROOT, strict=True)
     assert ckpt.checkpoint_type == "FINAL_REFIT"
@@ -199,7 +199,7 @@ def test_checkpoint_strict_load_seed123():
 
 def test_checkpoint_strict_load_seed2026():
     """Seed 2026 checkpoint strict-loads with correct checksums."""
-    from course_work.phase47.checkpoint_loader import load_verified_transformer_checkpoint
+    from course_work.final_test_evaluation.checkpoint_loader import load_verified_transformer_checkpoint
 
     ckpt = load_verified_transformer_checkpoint(2026, ROOT, strict=True)
     assert ckpt.checkpoint_type == "FINAL_REFIT"
@@ -209,7 +209,7 @@ def test_checkpoint_strict_load_seed2026():
 
 def test_all_three_checkpoints_load():
     """All three checkpoints load successfully."""
-    from course_work.phase47.checkpoint_loader import load_all_three_checkpoints
+    from course_work.final_test_evaluation.checkpoint_loader import load_all_three_checkpoints
 
     ckpts = load_all_three_checkpoints(ROOT, strict=True)
     assert set(ckpts.keys()) == {42, 123, 2026}
@@ -221,7 +221,7 @@ def test_all_three_checkpoints_load():
 
 def test_lstm_eligibility_gate():
     """LSTM eligibility gate runs and returns proper structure."""
-    from course_work.phase47.checkpoint_loader import verify_lstm_checkpoint
+    from course_work.final_test_evaluation.checkpoint_loader import verify_lstm_checkpoint
 
     result = verify_lstm_checkpoint(ROOT)
     assert "eligibility_status" in result
@@ -234,7 +234,7 @@ def test_lstm_eligibility_gate():
 
 def test_writers_json_serializable():
     """O47 writers produce JSON-serializable output."""
-    from course_work.phase47.writers import _validate_json_serializable
+    from course_work.final_test_evaluation.writers import _validate_json_serializable
 
     # Test serializability of sample payloads
     payloads = [
@@ -250,7 +250,7 @@ def test_writers_json_serializable():
 
 def test_to_jsonable_converts_set():
     """_to_jsonable converts set to sorted list."""
-    from course_work.phase47.writers import _to_jsonable
+    from course_work.final_test_evaluation.writers import _to_jsonable
 
     s = {"z", "a", "m"}
     result = _to_jsonable(s)
@@ -260,7 +260,7 @@ def test_to_jsonable_converts_set():
 
 def test_to_jsonable_converts_path():
     """_to_jsonable converts Path to str."""
-    from course_work.phase47.writers import _to_jsonable
+    from course_work.final_test_evaluation.writers import _to_jsonable
 
     p = Path("/tmp/test")
     result = _to_jsonable(p)
@@ -270,7 +270,7 @@ def test_to_jsonable_converts_path():
 
 def test_evaluation_metrics_compute():
     """Metric computation returns finite values."""
-    from course_work.phase47.evaluation import _compute_metrics
+    from course_work.final_test_evaluation.evaluation import _compute_metrics
     import numpy as np
 
     y_true = np.array([100.0, 200.0, 300.0, 400.0], dtype=np.float64)
@@ -285,7 +285,7 @@ def test_evaluation_metrics_compute():
 
 def test_evaluation_aggregate_deterministic():
     """Seed aggregation is deterministic."""
-    from course_work.phase47.evaluation import aggregate_seed_metrics, MetricBundle
+    from course_work.final_test_evaluation.evaluation import aggregate_seed_metrics, MetricBundle
 
     # Create dummy metric bundles
     metric_bundles = []
@@ -333,7 +333,7 @@ def test_evaluation_no_best_seed_selection():
 
 def test_signoff_writer_serializable():
     """Signoff writer produces JSON-serializable output."""
-    from course_work.phase47.writers import write_signoff, _validate_json_serializable
+    from course_work.final_test_evaluation.writers import write_signoff, _validate_json_serializable
     import tempfile
 
     # Create mock metric data
@@ -370,7 +370,7 @@ def test_signoff_writer_serializable():
 
 def test_phase47_test_release_gate():
     """phase47_test_release has all required fields."""
-    from course_work.phase47.path_resolver import get_phase47_release_path
+    from course_work.final_test_evaluation.path_resolver import get_phase47_release_path
 
     release_path = get_phase47_release_path(ROOT)
     assert release_path.exists(), f"phase47_test_release.json not found at canonical path {release_path}"
@@ -394,7 +394,7 @@ def test_phase46_signoff_unchanged():
     artifacts/three_seed_final_runs/phase_46_signoff.json
     NOT artifacts/final_model_lock/phase_46_signoff.json (which is phase_45_signoff!)
     """
-    from course_work.phase47.path_resolver import get_phase46_signoff_path
+    from course_work.final_test_evaluation.path_resolver import get_phase46_signoff_path
 
     signoff_path = get_phase46_signoff_path(ROOT)
     assert signoff_path.exists(), f"Phase46 signoff not found at canonical path {signoff_path}"
@@ -411,7 +411,7 @@ def test_phase46_signoff_unchanged():
 
 def test_phase45_artifacts_unchanged():
     """Phase45 artifacts remain in place and valid (READ-ONLY from Phase47)."""
-    from course_work.phase47.path_resolver import get_phase45_signoff_path
+    from course_work.final_test_evaluation.path_resolver import get_phase45_signoff_path
 
     p45_signoff = get_phase45_signoff_path(ROOT)
     assert p45_signoff.exists(), f"Phase45 signoff not found at {p45_signoff}"
@@ -425,7 +425,7 @@ def test_phase45_artifacts_unchanged():
 
 def test_phase46_path_resolver():
     """Path resolver returns correct canonical paths."""
-    from course_work.phase47.path_resolver import (
+    from course_work.final_test_evaluation.path_resolver import (
         get_phase46_signoff_path,
         get_phase47_release_path,
         get_phase47_handoff_path,
@@ -482,7 +482,7 @@ def test_phase47_no_new_training_run_ids():
 
 def test_phase47_scaler_wrapper_inverse_transform():
     """Phase47ScalerWrapper supports inverse_transform (Y scaler)."""
-    from course_work.phase47.scaler_loader import Phase47ScalerWrapper
+    from course_work.final_test_evaluation.scaler_loader import Phase47ScalerWrapper
     import numpy as np
 
     class DummyScaler:
@@ -500,7 +500,7 @@ def test_phase47_scaler_wrapper_inverse_transform():
 
 def test_phase47_checkpoint_artifact_paths_distinct():
     """All 3 checkpoint paths are distinct files."""
-    from course_work.phase47 import OFFICIAL_RUNS
+    from course_work.final_test_evaluation import OFFICIAL_RUNS
 
     paths = [OFFICIAL_RUNS[seed]["checkpoint_path"] for seed in [42, 123, 2026]]
     assert len(set(paths)) == 3, "All 3 checkpoint paths must be distinct"
@@ -512,7 +512,7 @@ def test_phase47_checkpoint_artifact_paths_distinct():
 
 def test_phase47_test_population_chronological():
     """Test target IDs are chronological."""
-    from course_work.phase47.test_population import materialize_final_test_pop_v1
+    from course_work.final_test_evaluation.test_population import materialize_final_test_pop_v1
 
     test_pop = materialize_final_test_pop_v1(ROOT)
     timestamps = test_pop["target_timestamps"]
@@ -532,7 +532,7 @@ def test_phase47_no_ensemble_logic():
 
 def test_phase47_metric_validation():
     """Metric validation rejects non-finite predictions."""
-    from course_work.phase47.evaluation import _compute_metrics, Phase47EvaluationError
+    from course_work.final_test_evaluation.evaluation import _compute_metrics, Phase47EvaluationError
     import numpy as np
 
     y_true = np.array([100.0, 200.0, 300.0], dtype=np.float64)
@@ -548,7 +548,7 @@ def test_phase47_metric_validation():
 
 def test_phase47_phase48_handoff_serializable():
     """Phase48 handoff writer produces serializable output."""
-    from course_work.phase47.writers import _validate_json_serializable
+    from course_work.final_test_evaluation.writers import _validate_json_serializable
 
     payload = {
         "final_test_version": "FINAL_TEST_EVAL-v1",
@@ -565,7 +565,7 @@ def test_phase47_phase48_handoff_serializable():
 
 def test_phase47_checkpoint_loader_rejects_wrong_seed():
     """Checkpoint loader rejects seeds that are not canonical."""
-    from course_work.phase47.checkpoint_loader import Phase47CheckpointError, load_verified_transformer_checkpoint
+    from course_work.final_test_evaluation.checkpoint_loader import Phase47CheckpointError, load_verified_transformer_checkpoint
 
     with pytest.raises(Phase47CheckpointError):
         load_verified_transformer_checkpoint(999, ROOT, strict=True)
@@ -585,7 +585,7 @@ def test_phase47_evaluation_no_scaler_fit_in_path():
 
 def test_phase47_idempotent_finalize():
     """Finalize operations are idempotent (can be called multiple times)."""
-    from course_work.phase47.test_population import materialize_final_test_pop_v1
+    from course_work.final_test_evaluation.test_population import materialize_final_test_pop_v1
 
     # Calling materialize twice produces the same fingerprint
     pop1 = materialize_final_test_pop_v1(ROOT)
@@ -596,7 +596,7 @@ def test_phase47_idempotent_finalize():
 
 def test_phase47_evaluation_module_structure():
     """Evaluation module has all required functions."""
-    from course_work.phase47 import evaluation
+    from course_work.final_test_evaluation import evaluation
 
     required = [
         "evaluate_transformer_seed_on_test",
@@ -611,7 +611,7 @@ def test_phase47_evaluation_module_structure():
 
 def test_phase47_writers_module_structure():
     """Writers module has all required writers."""
-    from course_work.phase47 import writers
+    from course_work.final_test_evaluation import writers
 
     required = [
         "write_evaluation_manifest",
@@ -633,7 +633,7 @@ def test_phase47_writers_module_structure():
 
 def test_phase47_test_access_log_serializable():
     """Test access log is JSON-serializable."""
-    from course_work.phase47.writers import _validate_json_serializable
+    from course_work.final_test_evaluation.writers import _validate_json_serializable
 
     actions = [
         {"action": "run_transformer_seed_42_inference", "seed": 42, "status": "PASS"},
@@ -645,7 +645,7 @@ def test_phase47_test_access_log_serializable():
 
 def test_phase47_write_discrepancies():
     """write_discrepancies produces serializable JSON."""
-    from course_work.phase47.writers import write_discrepancies, _validate_json_serializable
+    from course_work.final_test_evaluation.writers import write_discrepancies, _validate_json_serializable
 
     # Empty discrepancies = no problems
     result = write_discrepancies([])
@@ -663,7 +663,7 @@ def test_phase47_write_discrepancies():
 
 def test_phase47_write_tests():
     """write_tests produces valid CSV schema."""
-    from course_work.phase47.writers import write_tests, _validate_json_serializable
+    from course_work.final_test_evaluation.writers import write_tests, _validate_json_serializable
 
     result = write_tests(
         pretest_gate_passed=True,
@@ -679,7 +679,7 @@ def test_phase47_write_tests():
 
 def test_phase47_write_figures_structure():
     """write_figures function exists and has correct structure."""
-    from course_work.phase47.writers import write_figures
+    from course_work.final_test_evaluation.writers import write_figures
     import inspect
     sig = inspect.signature(write_figures)
     # Should accept seed_metrics, aggregates, persistence_metrics
@@ -934,11 +934,11 @@ def test_phase47_no_step1_artifact_treated_as_official_test_evidence():
 
 def test_phase47_checkpoint_input_size_is_33():
     """D-01 FIX: All 3 checkpoints must build TransformerRegressor with input_size=33."""
-    from course_work.phase47.checkpoint_loader import (
+    from course_work.final_test_evaluation.checkpoint_loader import (
         load_verified_transformer_checkpoint,
         build_transformer_model_from_checkpoint,
     )
-    from course_work.phase47 import LOCKED_FEATURES
+    from course_work.final_test_evaluation import LOCKED_FEATURES
 
     for seed in [42, 123, 2026]:
         ckpt = load_verified_transformer_checkpoint(seed, strict=True)
@@ -969,7 +969,7 @@ def test_phase47_feature_registry_path_is_correct():
 
 def test_phase47_checkpoint_csv_field_names_match():
     """D-04 FIX: write_checkpoint_verification CSV fields must match orchestrator dict keys."""
-    from course_work.phase47 import writers as o47
+    from course_work.final_test_evaluation import writers as o47
 
     # Build a minimal row with the correct field names
     row = {
@@ -1003,7 +1003,7 @@ def test_phase47_scaler_transform_33_features():
     has mean_/scale_ for 28 features. transform_only must split the 33-feature
     input into 28 (scaled) + 5 (pass-through) and produce 33 features.
     """
-    from course_work.phase47.scaler_loader import load_final_scaling_v1_x_scaler
+    from course_work.final_test_evaluation.scaler_loader import load_final_scaling_v1_x_scaler
 
     xs = load_final_scaling_v1_x_scaler("FS2_TF1", ROOT)
 
@@ -1024,7 +1024,7 @@ def test_phase47_scaler_transform_33_features():
 
 def test_phase47_scaler_fit_is_forbidden():
     """Phase47 scaler wrapper must raise ScalerFitAttemptError on fit/partial_fit."""
-    from course_work.phase47.scaler_loader import load_final_scaling_v1_x_scaler, ScalerFitAttemptError
+    from course_work.final_test_evaluation.scaler_loader import load_final_scaling_v1_x_scaler, ScalerFitAttemptError
 
     xs = load_final_scaling_v1_x_scaler("FS2_TF1", ROOT)
 
@@ -1052,7 +1052,7 @@ def test_phase47_no_training_in_checkpoint_loader():
 
 def test_phase47_lstm_not_evaluated_on_final_test_pop():
     """LSTM must NOT be evaluated on FINAL_TEST_POP-v1 (L72) because LSTM uses L36."""
-    from course_work.phase47.checkpoint_loader import verify_lstm_checkpoint
+    from course_work.final_test_evaluation.checkpoint_loader import verify_lstm_checkpoint
 
     result = verify_lstm_checkpoint(ROOT)
     assert result.get("eligible") is False, "LSTM should not be eligible for FINAL_TEST_POP-v1"

@@ -104,7 +104,7 @@ def main() -> int:
         files = sorted(f for f in tmp_dir.rglob("*") if f.is_file() and '._' not in f.name)
         print(f"Rehearsal wrote {len(files)} files to {tmp_dir}")
         written_names = {f.name for f in files}
-        from course_work.phase45.consistency import ARTIFACT_NAMES
+        from course_work.final_model_lock.consistency import ARTIFACT_NAMES
         missing = ARTIFACT_NAMES - written_names
         # _archive_manifest.json is created by the rehearsal's own archival logic on
         # the (initially-empty) tmp dir. Allow it as extra.

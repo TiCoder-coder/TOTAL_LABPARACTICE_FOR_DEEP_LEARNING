@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from course_work.phase51 import (
+from course_work.worst_error_analysis import (
     materialize_e,
     SEEDS,
 )

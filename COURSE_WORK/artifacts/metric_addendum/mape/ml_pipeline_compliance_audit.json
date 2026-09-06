@@ -1,0 +1,159 @@
+{
+  "artifact_version": "ML-PIPELINE-COMPLIANCE-v1",
+  "overall_status": "PASS_WITH_LIMITATIONS",
+  "records": [
+    {
+      "area": "Problem definition",
+      "evidence": "artifacts/contracts/coursework_contract.json",
+      "finding": "Supervised multivariate sequence-to-one time-series regression with Appliances[t+1] in Wh",
+      "order": 1,
+      "status": "PASS"
+    },
+    {
+      "area": "Schema and temporal integrity",
+      "evidence": "artifacts/schema/phase_3_signoff.json; artifacts/temporal/phase_4_signoff.json",
+      "finding": "Timestamp order, sampling interval, continuity and target identity are audited before modeling",
+      "order": 2,
+      "status": "PASS"
+    },
+    {
+      "area": "Chronological split",
+      "evidence": "artifacts/splits/split_manifest.json",
+      "finding": "Train, Validation and Test follow time order with 70/15/15 allocation and no shuffle",
+      "order": 3,
+      "status": "PASS"
+    },
+    {
+      "area": "EDA coverage",
+      "evidence": "artifacts/eda/eda_manifest.json; artifacts/eda/tables; artifacts/eda/figures",
+      "finding": "Structure, descriptive statistics, univariate distributions, correlation, lags, rolling summaries and extreme targets are covered",
+      "order": 4,
+      "status": "PASS"
+    },
+    {
+      "area": "EDA decision boundary",
+      "evidence": "artifacts/eda/eda_manifest.json; notebook_course_work/CourseWork_1.ipynb",
+      "finding": "Canonical EDA is Train-only; direct notebook EDA loads the full validated temporal view for display and must remain descriptive only",
+      "order": 5,
+      "status": "PARTIAL"
+    },
+    {
+      "area": "Outlier policy",
+      "evidence": "artifacts/eda/eda_manifest.json; artifacts/eda/tables/extreme_target_samples.csv",
+      "finding": "Extreme energy observations are retained unless independently proven to be data errors",
+      "order": 6,
+      "status": "PASS"
+    },
+    {
+      "area": "Feature engineering",
+      "evidence": "artifacts/features/phase_7_signoff.json",
+      "finding": "Calendar cycles are deterministic and leakage checks preserve raw target and feature lineage",
+      "order": 7,
+      "status": "PASS"
+    },
+    {
+      "area": "Train-only scaling",
+      "evidence": "artifacts/scaling/phase_9_signoff.json; artifacts/scaling/README_SCALING.md",
+      "finding": "Scaler fit policy is Train-only, but the Phase 9 README checksum currently differs from its frozen signoff",
+      "order": 8,
+      "status": "PARTIAL"
+    },
+    {
+      "area": "Windowing and DataLoaders",
+      "evidence": "artifacts/windows/phase_10_signoff.json; artifacts/dataloaders/phase_11_signoff.json",
+      "finding": "Sequence-to-one windows and deterministic non-shuffled Validation/Test loaders preserve population lineage",
+      "order": 9,
+      "status": "PASS"
+    },
+    {
+      "area": "Baseline comparison",
+      "evidence": "artifacts/baselines/persistence; artifacts/lstm_baseline; artifacts/transformer_b0",
+      "finding": "Persistence, LSTM and Transformer Validation baselines are available before controlled sweeps",
+      "order": 10,
+      "status": "PASS"
+    },
+    {
+      "area": "Controlled model selection",
+      "evidence": "artifacts/sweeps; artifacts/sweeps/S19_boundary_protocol/phase_41_signoff.json",
+      "finding": "Validation RMSE remains the sole selection metric through one-factor sweeps; Test is forbidden",
+      "order": 11,
+      "status": "PASS"
+    },
+    {
+      "area": "Rolling-origin robustness",
+      "evidence": "artifacts/rolling_origin/phase_44_signoff.json",
+      "finding": "Three expanding pre-Test folds use fold-local scaling without outer-selection leakage",
+      "order": 12,
+      "status": "PASS"
+    },
+    {
+      "area": "Final model lock and Test firewall",
+      "evidence": "artifacts/final_model_lock/phase_45_signoff.json; artifacts/final_test/final_test_summary.json",
+      "finding": "Model is locked before one-time Test evaluation; no Phase 47 training or post-Test tuning occurred",
+      "order": 13,
+      "status": "PASS"
+    },
+    {
+      "area": "Three-seed reporting",
+      "evidence": "artifacts/final_test/final_test_summary.json",
+      "finding": "Transformer Test performance is reported as mean and sample standard deviation across three fixed seeds without best-seed selection",
+      "order": 14,
+      "status": "PASS"
+    },
+    {
+      "area": "Prediction and error analysis",
+      "evidence": "artifacts/prediction_analysis; artifacts/residual_analysis; artifacts/error_by_regime; artifacts/worst_error_analysis",
+      "finding": "Prediction, residual, regime and worst-error analyses are materialized from frozen Test outputs",
+      "order": 15,
+      "status": "PASS"
+    },
+    {
+      "area": "Attention analysis",
+      "evidence": "artifacts/attention_extraction; artifacts/attention_heatmaps; artifacts/last_query_attention; artifacts/head_comparison; artifacts/error_conditioned_attention; artifacts/seed_stability_attention",
+      "finding": "Attention maps, last-query views, head comparisons and seed stability are descriptive and non-causal",
+      "order": 16,
+      "status": "PASS"
+    },
+    {
+      "area": "MAPE Validation addendum",
+      "evidence": "artifacts/metric_addendum/mape/validation_mape_by_run.csv",
+      "finding": "Standard MAPE is computed once on complete original-Wh Validation populations and remains supplementary",
+      "order": 17,
+      "status": "PASS"
+    },
+    {
+      "area": "MAPE Test addendum",
+      "evidence": "artifacts/metric_addendum/mape/final_test_source_audit.csv",
+      "finding": "Test MAPE is not computed because frozen prediction CSV bundles are unavailable; no Test inference is authorized",
+      "order": 18,
+      "status": "BLOCKED_SOURCE_UNAVAILABLE"
+    },
+    {
+      "area": "LSTM final Test comparison",
+      "evidence": "artifacts/final_test/final_test_summary.json",
+      "finding": "LSTM is compared on Validation but was not eligible for final Test evaluation",
+      "order": 19,
+      "status": "PARTIAL"
+    },
+    {
+      "area": "Inferential statistics",
+      "evidence": "artifacts/final_tables; artifacts/final_conclusions",
+      "finding": "The coursework reports deterministic metrics and three-seed descriptive variability; no new hypothesis test or confidence interval is authorized post hoc",
+      "order": 20,
+      "status": "NOT_APPLICABLE"
+    },
+    {
+      "area": "Final scientific closure",
+      "evidence": "artifacts/final_tables/phase_58_signoff.json; artifacts/final_conclusions/phase_59_signoff.json",
+      "finding": "Final tables and conclusions are frozen and remain unchanged by this supplementary addendum",
+      "order": 21,
+      "status": "PASS"
+    }
+  ],
+  "status_counts": {
+    "BLOCKED_SOURCE_UNAVAILABLE": 1,
+    "NOT_APPLICABLE": 1,
+    "PARTIAL": 3,
+    "PASS": 16
+  }
+}

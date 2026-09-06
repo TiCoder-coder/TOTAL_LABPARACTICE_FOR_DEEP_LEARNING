@@ -45,14 +45,18 @@ from course_work.utils.artifacts import (
 
 
 METRIC_VERSION = "METRICS-v1"
+MAPE_METRIC_VERSION = "METRICS-v2"
 METRIC_ARTIFACT_ROOT = "artifacts/metrics"
 TARGET_UNIT = "Wh"
 REQUIRED_METRICS = ("mae_wh", "rmse_wh", "r2")
+SUPPLEMENTARY_METRICS = ("mape_pct",)
 PRIMARY_SELECTION_METRIC = "rmse_wh"
 PRIMARY_SELECTION_SPLIT = "VALIDATION"
 R2_STATUS_DEFINED = "DEFINED"
 R2_STATUS_CONSTANT = "UNDEFINED_CONSTANT_TARGET"
 R2_STATUS_TOO_FEW = "UNDEFINED_TOO_FEW_SAMPLES"
+MAPE_STATUS_DEFINED = "DEFINED"
+MAPE_STATUS_ZERO_TARGET = "UNDEFINED_ZERO_TARGET"
 TEST_FIREWALL_POLICY = "FINAL_TEST_REQUIRES_MODEL_LOCK_ID"
 AGGREGATION_POLICY = "FULL_SPLIT_CONCATENATE_THEN_COMPUTE_ONCE"
 RESIDUAL_DEFINITION = "y_true_wh_minus_y_pred_wh"
@@ -246,6 +250,19 @@ class MetricResult:
     horizon_steps: int
     status: str
     warnings: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class SupplementaryMapeResult:
+    metric_version: str
+    metric_contract_fingerprint: str
+    n_samples: int
+    mape_pct: float
+    mape_status: str
+    zero_target_count: int
+    target_unit: str
+    direction: str
+    primary_selection: bool
 
 
 def normalize_regression_vector(values: Any, name: str = "values") -> np.ndarray:
@@ -446,6 +463,68 @@ def compute_rmse_wh(y_true_wh: Any, y_pred_wh: Any) -> float:
         raise ValueError("y_true_wh and y_pred_wh lengths differ")
     validate_finite_arrays(y_true, y_pred)
     return float(root_mean_squared_error(y_true, y_pred))
+
+
+def build_mape_metric_contract() -> dict[str, Any]:
+    payload = {
+        "metric_version": MAPE_METRIC_VERSION,
+        "metric_name": "mape_pct",
+        "display_name": "MAPE",
+        "formula_version": "standard_mape_percent_no_epsilon_v1",
+        "formula": "100 * mean(abs((y_true_wh - y_pred_wh) / y_true_wh))",
+        "target_unit": TARGET_UNIT,
+        "result_unit": "percent",
+        "direction": "lower",
+        "primary_selection": False,
+        "role": "SUPPLEMENTARY_REPORTING_ONLY",
+        "zero_target_policy": MAPE_STATUS_ZERO_TARGET,
+        "epsilon_policy": "PROHIBITED",
+        "zero_target_filtering": "PROHIBITED",
+        "aggregation_policy": AGGREGATION_POLICY,
+        "prediction_unit_policy": "ORIGINAL_WH_BEFORE_METRICS",
+        "prediction_clipping": "PROHIBITED",
+        "prediction_rounding_before_metric": "PROHIBITED",
+        "result_precision": "FULL_FLOAT64",
+        "numerical_dtype": "numpy.float64_cpu",
+    }
+    payload["metric_contract_fingerprint"] = sha256_bytes(canonical_json_bytes(payload))
+    return payload
+
+
+def compute_mape_pct(y_true_wh: Any, y_pred_wh: Any) -> SupplementaryMapeResult:
+    y_true = normalize_regression_vector(y_true_wh, "y_true_wh")
+    y_pred = normalize_regression_vector(y_pred_wh, "y_pred_wh")
+    if len(y_true) != len(y_pred):
+        raise ValueError("y_true_wh and y_pred_wh lengths differ")
+    validate_finite_arrays(y_true, y_pred)
+    zero_target_count = int(np.count_nonzero(y_true == 0.0))
+    contract = build_mape_metric_contract()
+    if zero_target_count:
+        return SupplementaryMapeResult(
+            metric_version=MAPE_METRIC_VERSION,
+            metric_contract_fingerprint=contract["metric_contract_fingerprint"],
+            n_samples=len(y_true),
+            mape_pct=float("nan"),
+            mape_status=MAPE_STATUS_ZERO_TARGET,
+            zero_target_count=zero_target_count,
+            target_unit=TARGET_UNIT,
+            direction="lower",
+            primary_selection=False,
+        )
+    value = float(100.0 * np.mean(np.abs((y_true - y_pred) / y_true), dtype=np.float64))
+    if not np.isfinite(value):
+        raise RuntimeError("MAPE is non-finite for a nonzero finite target population")
+    return SupplementaryMapeResult(
+        metric_version=MAPE_METRIC_VERSION,
+        metric_contract_fingerprint=contract["metric_contract_fingerprint"],
+        n_samples=len(y_true),
+        mape_pct=value,
+        mape_status=MAPE_STATUS_DEFINED,
+        zero_target_count=zero_target_count,
+        target_unit=TARGET_UNIT,
+        direction="lower",
+        primary_selection=False,
+    )
 
 
 def compute_r2(y_true_wh: Any, y_pred_wh: Any) -> tuple[float, str]:

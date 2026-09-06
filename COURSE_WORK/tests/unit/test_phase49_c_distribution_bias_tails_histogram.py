@@ -7,32 +7,32 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from course_work.phase49.bias import (
+from course_work.residual_analysis.bias import (
     _sign_label_exact,
     recompute_sign_class,
     sign_balance_rows,
     signed_bias_for_residuals,
 )
-from course_work.phase49.c_writers import snapshot_phase49_b_artifacts
-from course_work.phase49.contract import (
+from course_work.residual_analysis.c_writers import snapshot_phase49_b_artifacts
+from course_work.residual_analysis.contract import (
     assert_best_seed_not_selected,
     assert_ensemble_not_promoted,
     assert_three_n_iid_not_claimed,
 )
-from course_work.phase49.distributions import (
+from course_work.residual_analysis.distributions import (
     compute_distribution_summary,
     distribution_summary_rows,
     load_phase49_b_long_table,
     residuals_for_seed,
 )
-from course_work.phase49.histogram import (
+from course_work.residual_analysis.histogram import (
     PHASE49_HISTOGRAM_BINS,
     compute_common_bin_edges,
     compute_histogram_rows,
     histogram_invariants,
 )
-from course_work.phase49.materialize_c import SEED_LIST, materialize_phase49_c
-from course_work.phase49.tails import compute_tail_diagnostics
+from course_work.residual_analysis.materialize_c import SEED_LIST, materialize_phase49_c
+from course_work.residual_analysis.tails import compute_tail_diagnostics
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -219,7 +219,7 @@ def test_no_three_n_iid_pooling(phase49_c_manifest):
 def test_phase47_source_unchanged(phase49_c_manifest):
     invariants = phase49_c_manifest["contract_invariants"]
     assert invariants["phase47_modified"] is False
-    from course_work.phase49.sources import load_prediction_checksums, compute_seed_bundle_sha256
+    from course_work.residual_analysis.sources import load_prediction_checksums, compute_seed_bundle_sha256
     checksums = load_prediction_checksums(project_root=PROJECT_ROOT)
     for seed in (42, 123, 2026):
         bundle = f"final_test_predictions_seed{seed}.csv"

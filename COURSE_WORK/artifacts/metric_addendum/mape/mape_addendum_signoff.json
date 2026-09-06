@@ -1,0 +1,20 @@
+{
+  "artifact_version": "POSTHOC-MAPE-v1",
+  "discrepancy_count": 4,
+  "frozen_artifacts_modified": false,
+  "output_checksums": {
+    "artifacts/metric_addendum/mape/final_test_mape_status.json": "50169b0352384a032f6a3270226d38bc1446461d5a7a963b5b07c62bb0351015",
+    "artifacts/metric_addendum/mape/final_test_source_audit.csv": "1f31a2c3c465ec5be10dbe65d1d32f54725b90a01f909f24ab70f3b5969173aa",
+    "artifacts/metric_addendum/mape/mape_discrepancies.json": "bb6d8c0fc05c30a94c5767c260ff028e23e853d05423d95dbb26d85ad3d56199",
+    "artifacts/metric_addendum/mape/mape_metric_contract.json": "9433d7100431e76eb4021735f977911a2ecb1a4338a284d4fc53e71c57cff7e0",
+    "artifacts/metric_addendum/mape/validation_mape_by_run.csv": "e7749f3b3468769f83a8801c9623f17f6d99927542d96c911eff0765d863ca7f",
+    "artifacts/metric_addendum/mape/validation_mape_summary.json": "4a4574cd4f498f516cba0e2be87901a8b953a79884bb9b7633c45f41263c964c",
+    "artifacts/metric_addendum/mape/validation_source_audit.csv": "e7749f3b3468769f83a8801c9623f17f6d99927542d96c911eff0765d863ca7f"
+  },
+  "selection_metric_unchanged": "rmse_wh",
+  "status": "PASS_WITH_BLOCKED_TEST_EXTENSION",
+  "test_inference_executed": false,
+  "test_status": "BLOCKED_SOURCE_UNAVAILABLE",
+  "training_executed": false,
+  "validation_status": "PASS"
+}

@@ -248,7 +248,7 @@ class TestDirectionAgreement:
 
     def test_zero_policy_exact_no_epsilon(self):
         # Reconstruct the 3-class on actual and verify counts against a manual impl
-        from course_work.phase48.change_behavior import _sign_class
+        from course_work.prediction_analysis.change_behavior import _sign_class
         assert _sign_class(-1e-12) == "NEGATIVE"
         assert _sign_class(0.0) == "ZERO"
         assert _sign_class(1e-12) == "POSITIVE"
@@ -362,7 +362,7 @@ class TestLocalExtrema:
            y_t < y_{t-1} AND y_t <= y_{t+1} for local min
            Only on contiguous-10-min transitions.
            Edges excluded."""
-        from course_work.phase48.extrema import detect_local_extrema, build_neighbor_mask
+        from course_work.prediction_analysis.extrema import detect_local_extrema, build_neighbor_mask
         timestamps = [r["target_timestamp"] for r in wide_rows]
         nb = build_neighbor_mask(timestamps)
         y = np.array([float(r["y_true_wh"]) for r in wide_rows])
@@ -377,7 +377,7 @@ class TestLocalExtrema:
             assert nb[t] and nb[t - 1] and nb[t + 1]
 
     def test_edges_excluded(self, wide_rows):
-        from course_work.phase48.extrema import detect_local_extrema, build_neighbor_mask
+        from course_work.prediction_analysis.extrema import detect_local_extrema, build_neighbor_mask
         timestamps = [r["target_timestamp"] for r in wide_rows]
         nb = build_neighbor_mask(timestamps)
         y = np.array([float(r["y_true_wh"]) for r in wide_rows])
@@ -386,7 +386,7 @@ class TestLocalExtrema:
         assert not is_max[-1] and not is_min[-1]
 
     def test_true_local_max_count_matches(self, extrema_rows, wide_rows):
-        from course_work.phase48.extrema import detect_local_extrema, build_neighbor_mask
+        from course_work.prediction_analysis.extrema import detect_local_extrema, build_neighbor_mask
         timestamps = [r["target_timestamp"] for r in wide_rows]
         nb = build_neighbor_mask(timestamps)
         y = np.array([float(r["y_true_wh"]) for r in wide_rows])
@@ -414,7 +414,7 @@ class TestPeakTiming:
 
     def test_window_frozen_at_1(self):
         """Peak window is FROZEN at PEAK_TIMING_WINDOW_STEPS = 1 = ±10 min."""
-        from course_work.phase48.contract import PEAK_TIMING_WINDOW_STEPS
+        from course_work.prediction_analysis.contract import PEAK_TIMING_WINDOW_STEPS
         assert PEAK_TIMING_WINDOW_STEPS == 1
 
     def test_within_window_includes_same_step(self, peak_timing_rows):
@@ -506,7 +506,7 @@ class TestForbiddenActions:
 
     def test_no_clipping(self):
         # Direction agreement uses exact 3-class
-        from course_work.phase48.change_behavior import _sign_class
+        from course_work.prediction_analysis.change_behavior import _sign_class
         assert _sign_class(0.0) == "ZERO"
         assert _sign_class(0.0) == "ZERO"  # No epsilon
 

@@ -3133,3 +3133,53 @@ sau khi amendment `phase-59-architecture-amendment-v1.21` ở §28 được Huma
 Phase 59 chỉ thực hiện scientific closure + claim governance dựa trên frozen Phase 58 FINAL_TABLES-v1. Phase 59 closes RQ1–RQ10 using only frozen evidence; emits research_question_conclusion_matrix.csv, final_claim_strength_ledger.csv, final_conclusion_outcome_matrix.csv, final_limitation_ledger.csv, final_future_work_ledger.csv, final_conclusion_sentence_ledger.csv, final_conclusion_language_audit.csv, final_conclusion_numeric_audit.csv, final_conclusion_claim_table_audit.csv, final_limitation_coverage_audit.csv, final_future_work_integrity_audit.csv, final_coursework_objective_closure.csv; emits the canonical submission package (final_conclusion_section.md, final_conclusion_short.md, final_abstract_results_summary.md, final_key_takeaways.md, final_research_question_answers.md, final_limitations.md, final_future_work.md, final_viva_defense_notes.md); emits coursework_completion_manifest.json, final_scientific_narrative_fingerprint.json, FINAL_PROJECT_SUMMARY.md, README_FINAL_CONCLUSIONS.md, findings/tests/discrepancies, and phase_59_signoff.json.
 
 Phase 59 KHÔNG được training, fine-tune, optimizer.step, .backward, model.train, scaler.fit, scaler.fit_transform, new Test inference, new attention extraction, model checkpoint loading, model.forward, return_attention, materialize_phase*, destructive overwrite of any Phase 43–58 canonical artifact, best-seed/head selection, ensemble reconstruction, weighted overall score, Test reranking, MAPE/accuracy %, new hypothesis test, new confidence interval, new cohort/regime/threshold, Phase 50 regime redefinition, Phase 51 worst-case reselection/removal, attention labeled as feature importance or causal contribution, attention stability labeled as functional equivalence proof, cross-seed head semantic alignment by same index, reading numeric attention values from PNG, manual typing of scientific values without source lineage, hay bất kỳ Phase > 59 nào.
+
+v1.22 (2026-09-06) - Supplementary MAPE Metric Addendum amendment
+  - Amendment ID: supplementary-mape-metric-addendum-v1.22
+  - Date: 2026-09-06
+  - Affected scope: shared metric implementation, derived supplementary metric artifacts, process compliance audit and read-only notebook presentation
+  - Reason: authorize standard MAPE as supplementary evidence without changing any Phase 0–59 selection decision, Test access history or frozen scientific narrative
+  - New authorized paths:
+    * `src/course_work/metric_addendum/`
+    * `src/course_work/reporting/mape_addendum.py`
+    * `artifacts/metric_addendum/mape/`
+    * `docs/save_log_in_processing/mape_metric_addendum_log.json`
+    * `docs/save_log_in_processing/ml_pipeline_compliance_audit_log.json`
+    * `tests/unit/test_mape_metric.py`
+    * `tests/integration/test_mape_addendum.py`
+  - MAPE formula: `100 * mean(abs((y_true_wh - y_pred_wh) / y_true_wh))`
+  - MAPE unit: percent
+  - MAPE direction: lower is better
+  - MAPE role: supplementary reporting only
+  - Zero-target policy: no epsilon, no silent filtering, any exact zero target makes population MAPE undefined with status `UNDEFINED_ZERO_TARGET`
+  - Computation policy: original Wh, NumPy float64, full aligned population, no batch-average MAPE, no prediction clipping and no prediction rounding
+  - Selection policy preserved: Validation RMSE Wh remains the only model-selection, early-stopping and BEST-checkpoint metric
+  - Historical contract preservation: `METRICS-v1`, `FINAL_TEST_EVAL-v1`, `FINAL_TABLES-v2` and `FINAL_CONCLUSIONS-v2` remain immutable
+  - Test evidence label: any MAPE derived from already-frozen Test predictions must be labeled `POSTHOC_SUPPLEMENTARY_TEST_METRIC`
+  - Test source gate: frozen Test prediction bundles must exist and match `prediction_checksums.json`; otherwise Test MAPE is `BLOCKED_SOURCE_UNAVAILABLE`
+  - Notebook boundary: the notebook may only import and call the public MAPE addendum renderer; formula, source discovery, validation, computation and serialization remain outside the notebook
+  - Human approval: APPROVED 2026-09-06 through the accepted `mape_metric_addendum_preprocess_plan.md`
+  - Forbidden actions: training, fine-tuning, new Test inference, checkpoint loading, model forward, scaler fitting, winner reselection, best-seed selection, ensemble reconstruction, Phase 23–41 reranking, Phase 45 lock change, destructive overwrite of Phase 0–59 artifacts, mutation of the Phase 59 scientific narrative, manual scientific values and numeric extraction from images
+
+#### 7.37.21. Supplementary MAPE Metric Addendum
+
+The supplementary MAPE addendum is a post-completion derived reporting package and is not Phase 60.
+
+The implementation is separated by responsibility:
+
+```text
+src/course_work/evaluation/metrics.py
+src/course_work/metric_addendum/
+src/course_work/reporting/mape_addendum.py
+artifacts/metric_addendum/mape/
+docs/save_log_in_processing/mape_metric_addendum_log.json
+docs/save_log_in_processing/ml_pipeline_compliance_audit_log.json
+tests/unit/test_mape_metric.py
+tests/integration/test_mape_addendum.py
+```
+
+The evaluation layer owns formula and numerical guards. The metric addendum layer owns frozen-source discovery, checksum verification, population verification and derived artifact creation. The reporting layer owns static HTML only. The notebook owns public renderer invocation only.
+
+Validation MAPE may be derived only from existing prediction artifacts. Test MAPE may be derived only from existing frozen Phase 47 prediction bundles whose SHA-256 values match the frozen checksum registry. Missing Test prediction bundles must remain blocked and must not trigger Test inference.
+
+The addendum may report MAPE per model and per official Transformer seed, and may report mean plus sample standard deviation across seeds. It may not select a seed, create an ensemble, modify rankings or rewrite the frozen Phase 59 conclusion package.

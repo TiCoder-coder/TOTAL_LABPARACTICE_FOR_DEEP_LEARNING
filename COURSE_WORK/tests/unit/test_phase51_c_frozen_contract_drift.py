@@ -13,10 +13,10 @@ from pathlib import Path
 
 import pytest
 
-from course_work.phase51 import (
+from course_work.worst_error_analysis import (
     materialize_c,
 )
-from course_work.phase51.frozen_sort_key_compliance import (
+from course_work.worst_error_analysis.frozen_sort_key_compliance import (
     FORBIDDEN_SORT_KEYS,
     PERMITTED_SORT_KEYS,
     audit_no_forbidden_sort_keys,

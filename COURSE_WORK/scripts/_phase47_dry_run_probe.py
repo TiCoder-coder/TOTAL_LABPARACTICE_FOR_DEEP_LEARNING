@@ -35,24 +35,24 @@ sys.path.insert(0, str(ROOT / "src"))
 # We import the official `main` symbol but NEVER call it directly.
 # Instead we re-execute the same Steps in-process so we can verify
 # every variable lookup succeeds without crossing the Test boundary.
-from course_work.phase47.path_resolver import (
+from course_work.final_test_evaluation.path_resolver import (
     verify_phase46_release_for_phase47,
     Phase46PathError,
 )
-from course_work.phase47 import writers as o47
-from course_work.phase47 import (
+from course_work.final_test_evaluation import writers as o47
+from course_work.final_test_evaluation import (
     LOCKED_CONFIG_FP,
     OFFICIAL_RUNS,
 )
-from course_work.phase47.checkpoint_loader import (
+from course_work.final_test_evaluation.checkpoint_loader import (
     load_verified_transformer_checkpoint,
     verify_lstm_checkpoint,
 )
-from course_work.phase47.scaler_loader import verify_final_scaling_v1
-from course_work.phase47.test_population import (
+from course_work.final_test_evaluation.scaler_loader import verify_final_scaling_v1
+from course_work.final_test_evaluation.test_population import (
     materialize_final_test_pop_v1,
 )
-from course_work.phase47.evaluation import (
+from course_work.final_test_evaluation.evaluation import (
     PredictionBundle,
     MetricBundle,
     aggregate_seed_metrics,

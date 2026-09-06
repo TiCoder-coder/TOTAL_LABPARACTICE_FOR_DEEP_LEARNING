@@ -15,7 +15,7 @@ import sys  # noqa: E402
 
 sys.path.insert(0, str(ROOT / "src"))
 
-from course_work.phase45 import (  # noqa: E402
+from course_work.final_model_lock import (  # noqa: E402
     ARTIFACT_NAMES,
     load_phase44_handoff,
     load_phase44_signoff,

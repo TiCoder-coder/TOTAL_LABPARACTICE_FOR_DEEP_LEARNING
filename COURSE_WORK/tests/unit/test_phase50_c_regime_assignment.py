@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from course_work.phase50 import contract, sources
-from course_work.phase50.regime_assignment import materialize_phase50_c
+from course_work.error_regime_analysis import contract, sources
+from course_work.error_regime_analysis.regime_assignment import materialize_phase50_c
 
 
 def test_c_runs_clean():

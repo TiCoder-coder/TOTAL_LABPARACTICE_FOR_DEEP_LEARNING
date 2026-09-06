@@ -1,0 +1,16 @@
+{
+  "artifact_version": "POSTHOC-MAPE-v1",
+  "cross_configuration_mape_aggregation": "PROHIBITED",
+  "mape_role": "SUPPLEMENTARY_REPORTING_ONLY",
+  "model_families": [
+    "LSTM",
+    "PERSISTENCE",
+    "TRANSFORMER"
+  ],
+  "seed_mean_sd_status": "BLOCKED_SOURCE_UNAVAILABLE",
+  "selection_metric": "rmse_wh",
+  "transformer_run_count": 17,
+  "validation_mape_defined": 19,
+  "validation_mape_undefined": 0,
+  "validation_sources_discovered": 19
+}
