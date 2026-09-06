@@ -277,7 +277,7 @@ class TestRollingTracking:
     def test_invalid_windows_omitted(self, wide_rows):
         """For our perfect-10min-cadence data, all windows are valid.
         If we set a future window that spans a gap, it must be omitted."""
-        from course_work.prediction_analysis.rolling import _is_full_window_contiguous
+        from course_work.analysis.prediction_analysis.rolling import _is_full_window_contiguous
         ts = [r["target_timestamp"] for r in wide_rows]
         # Window [0, 144) should be fully contiguous
         assert _is_full_window_contiguous(ts, 0, 144) is True
@@ -462,7 +462,7 @@ class TestForbiddenAndDeterminism:
 
     def test_outputs_deterministic_idempotent(self, wide_rows):
         """Re-running materialize_phase48d on the canonical dir produces the same row counts."""
-        from course_work.prediction_analysis import materialize_d
+        from course_work.analysis.prediction_analysis import materialize_d
         import csv as csvmod
 
         result = materialize_d.materialize_phase48d()

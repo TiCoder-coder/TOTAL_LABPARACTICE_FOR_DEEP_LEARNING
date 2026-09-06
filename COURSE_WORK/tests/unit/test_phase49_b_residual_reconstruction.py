@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from course_work.residual_analysis.contract import (
+from course_work.analysis.residual_analysis.contract import (
     assert_best_seed_not_selected,
     assert_ensemble_not_promoted,
     assert_residual_sign_semantics,
@@ -16,20 +16,20 @@ from course_work.residual_analysis.contract import (
     contract_test_population_sha256,
     contract_zero_policy,
 )
-from course_work.residual_analysis.materialize_b import materialize_phase49_b
-from course_work.residual_analysis.metrics import (
+from course_work.analysis.residual_analysis.materialize_b import materialize_phase49_b
+from course_work.analysis.residual_analysis.metrics import (
     mae_from_residuals,
     r2_from_residuals_and_y_true,
     reconstruct_seed_metrics,
     rmse_from_residuals,
 )
-from course_work.residual_analysis.residual import reconstruct_residual_row
-from course_work.residual_analysis.sources import (
+from course_work.analysis.residual_analysis.residual import reconstruct_residual_row
+from course_work.analysis.residual_analysis.sources import (
     compute_seed_bundle_sha256,
     load_seed_bundle_rows,
     verify_source_bundles,
 )
-from course_work.residual_analysis.wide_table import (
+from course_work.analysis.residual_analysis.wide_table import (
     build_residual_wide_table_rows,
 )
 

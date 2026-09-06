@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from course_work.worst_error_analysis import (
+from course_work.analysis.worst_error_analysis import (
     SEEDS,
     N_TEST,
     TEST_POPULATION_FINGERPRINT,
@@ -30,9 +30,9 @@ from course_work.worst_error_analysis import (
     TIE_BREAK,
     RANKING_FAMILIES,
 )
-from course_work.worst_error_analysis import alignment
-from course_work.worst_error_analysis import materialize_b
-from course_work.worst_error_analysis import sources
+from course_work.analysis.worst_error_analysis import alignment
+from course_work.analysis.worst_error_analysis import materialize_b
+from course_work.analysis.worst_error_analysis import sources
 
 
 # ── Governance / contract constants ───────────────────────────────────────────

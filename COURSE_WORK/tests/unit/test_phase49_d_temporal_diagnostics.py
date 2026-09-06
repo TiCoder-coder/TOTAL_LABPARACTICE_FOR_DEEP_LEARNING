@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from course_work.residual_analysis.autocorrelation import (
+from course_work.analysis.residual_analysis.autocorrelation import (
     PHASE49_ACF_KEY_LAGS,
     PHASE49_ACF_LAG_RANGE,
     PHASE49_CADENCE_MINUTES,
@@ -17,22 +17,22 @@ from course_work.residual_analysis.autocorrelation import (
     detect_contiguous_segments,
     parse_timestamp,
 )
-from course_work.residual_analysis.distributions import (
+from course_work.analysis.residual_analysis.distributions import (
     load_phase49_b_long_table,
     residuals_for_seed,
 )
-from course_work.residual_analysis.ljung_box import (
+from course_work.analysis.residual_analysis.ljung_box import (
     PHASE49_LJUNG_BOX_LAGS,
     PHASE49_LJUNG_BOX_POLICY,
     ljung_box_for_seed,
 )
-from course_work.residual_analysis.materialize_d import SEED_LIST, materialize_phase49_d
-from course_work.residual_analysis.rolling import (
+from course_work.analysis.residual_analysis.materialize_d import SEED_LIST, materialize_phase49_d
+from course_work.analysis.residual_analysis.rolling import (
     PHASE49_ROLLING_WINDOW_SAMPLES,
     rolling_residual_diagnostics,
 )
-from course_work.residual_analysis.sign_runs import sign_runs_for_seed
-from course_work.residual_analysis.sign_transitions import (
+from course_work.analysis.residual_analysis.sign_runs import sign_runs_for_seed
+from course_work.analysis.residual_analysis.sign_transitions import (
     SIGN_LABELS,
     sign_transitions_for_seed,
 )
@@ -264,7 +264,7 @@ def test_no_training_inference_or_checkpoint_loading(phase49_d_manifest):
 
 def test_phase47_unchanged(phase49_d_manifest):
     assert phase49_d_manifest["contract_invariants"]["phase47_modified"] is False
-    from course_work.residual_analysis.sources import compute_seed_bundle_sha256, load_prediction_checksums
+    from course_work.analysis.residual_analysis.sources import compute_seed_bundle_sha256, load_prediction_checksums
     checksums = load_prediction_checksums(project_root=PROJECT_ROOT)
     for seed in (42, 123, 2026):
         key = {"seed42": "seed_42", "seed123": "seed_123", "seed2026": "seed_2026"}[f"seed{seed}"]

@@ -427,8 +427,8 @@ class TestForbiddenTokens:
     ]
 
     def test_phase57_source_modules_clean(self):
-        from course_work.seed_stability_attention import sources, analyses, figures, findings as F2
-        from course_work.seed_stability_attention import orchestrator
+        from course_work.analysis.seed_stability_attention import sources, analyses, figures, findings as F2
+        from course_work.analysis.seed_stability_attention import orchestrator
         # Token must be in an actual code statement (not inside a docstring/comment/string literal).
         # We use a heuristic: strip docstrings (triple quotes) and comments, then look at each
         # remaining statement for forbidden patterns.

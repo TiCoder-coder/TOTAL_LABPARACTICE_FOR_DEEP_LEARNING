@@ -5,9 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from course_work.residual_analysis.materialize_f import materialize_phase49_f
-from course_work.residual_analysis.o49_inventory import O49_INVENTORY, check_o49_completeness
-from course_work.residual_analysis.sources import (
+from course_work.analysis.residual_analysis.materialize_f import materialize_phase49_f
+from course_work.analysis.residual_analysis.o49_inventory import O49_INVENTORY, check_o49_completeness
+from course_work.analysis.residual_analysis.sources import (
     compute_seed_bundle_sha256,
     load_phase47_signoff,
     load_phase48_signoff,

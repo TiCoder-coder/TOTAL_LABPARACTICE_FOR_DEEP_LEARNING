@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from course_work.error_regime_analysis import contract, sources
-from course_work.error_regime_analysis.materialize_e import main as e_main
+from course_work.analysis.error_regime_analysis import contract, sources
+from course_work.analysis.error_regime_analysis.materialize_e import main as e_main
 
 
 def test_e_runs_clean():

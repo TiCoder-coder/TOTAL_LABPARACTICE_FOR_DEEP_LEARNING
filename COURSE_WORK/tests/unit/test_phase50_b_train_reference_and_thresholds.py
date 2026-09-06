@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from course_work.error_regime_analysis import contract, materialize_b, sources, train_reference, thresholds
+from course_work.analysis.error_regime_analysis import contract, materialize_b, sources, train_reference, thresholds
 
 
 def test_upstream_phase49_signoff_pass():

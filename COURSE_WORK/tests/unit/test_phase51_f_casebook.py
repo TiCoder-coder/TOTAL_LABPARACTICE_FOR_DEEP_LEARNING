@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from course_work.worst_error_analysis import materialize_f, SEEDS
+from course_work.analysis.worst_error_analysis import materialize_f, SEEDS
 
 
 FROZEN_CONTRACT_SHA = (
