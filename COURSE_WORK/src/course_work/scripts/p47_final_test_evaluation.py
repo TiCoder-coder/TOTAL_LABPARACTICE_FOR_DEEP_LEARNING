@@ -55,13 +55,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]  # COURSE_WORK/ (3 levels up from scripts/)
 sys.path.insert(0, str(ROOT / "src"))
 
 from course_work.data.datasets import PHASE_47_AUTHORIZATION
 from course_work.final_test_evaluation import (
     FINAL_SCALING,
-    LOCKED_CONFIG_FP,
+    LOCKED_CONFIG_FP,  # BACKWARD-COMPAT ALIAS — DEPRECATED, prefer LOCKED_CONFIG_FINGERPRINT / LOCKED_FINAL_LOCK_SHA256
+    LOCKED_CONFIG_FINGERPRINT,
+    LOCKED_FINAL_LOCK_SHA256,
     OFFICIAL_RUNS,
     OUTPUT_VERSION,
     PHASE_VERSION,
@@ -186,9 +188,11 @@ def main() -> int:
         return 1
     print("  ✓ FINAL_SCALING-v1 verified")
 
-    # Write evaluation contract (frozen before Test access)
+    # Write evaluation contract (frozen before Test access).
+    # final_lock_sha256 must be the LOCK SHA (81fb87c4...), NOT the config
+    # fingerprint (585c5e79...). See phase_46_47_lineage_drift_audit_2026_09_06.md §6.
     contract = o47.write_evaluation_contract(
-        final_lock_sha256=LOCKED_CONFIG_FP,
+        final_lock_sha256=LOCKED_FINAL_LOCK_SHA256,
         test_pop_sha256=test_pop["test_population_fingerprint"],
         n_test=test_pop["test_window_count"],
     )
@@ -254,8 +258,14 @@ def main() -> int:
             "expected_sha": OFFICIAL_RUNS[seed]["checkpoint_sha256"],
             "checkpoint_type": ckpt.checkpoint_type,
             "official_epoch": ckpt.official_epoch,
-            "lock_hash_match": ckpt.final_lock_sha256 == LOCKED_CONFIG_FP,
-            "config_hash_match": ckpt.config_sha256 == LOCKED_CONFIG_FP,
+            # Split equality checks (Phase 47 corrective):
+            # - lock_hash_match compares ckpt.final_lock_sha256 to the canonical
+            #   LOCK SHA (81fb87c4...), NOT the config fingerprint.
+            # - config_hash_match compares ckpt.config_sha256 to the canonical
+            #   CONFIG FINGERPRINT (585c5e79...).
+            # See phase_46_47_lineage_drift_audit_2026_09_06.md §6.
+            "lock_hash_match": ckpt.final_lock_sha256 == LOCKED_FINAL_LOCK_SHA256,
+            "config_hash_match": ckpt.config_sha256 == LOCKED_CONFIG_FINGERPRINT,
             "recipe_hash_match": True,  # Verified by strict load
             "population_hash_match": True,  # Verified by strict load
             "scaler_ref_match": (ckpt.x_scaler_sha256 == FINAL_SCALING["x_scaler_sha256"] and

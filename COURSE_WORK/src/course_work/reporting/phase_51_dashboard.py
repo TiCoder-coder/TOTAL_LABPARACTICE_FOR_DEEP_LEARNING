@@ -31,6 +31,10 @@ from typing import Any, Iterable, Sequence
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 __all__ = ["render_phase_51_dashboard"]
 
 # ---------------------------------------------------------------------------
@@ -38,7 +42,7 @@ __all__ = ["render_phase_51_dashboard"]
 # ---------------------------------------------------------------------------
 _CSS = """
 <style>
-.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
+.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:visible}
 .cw-d *{box-sizing:border-box}
 .cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
 .cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
@@ -82,7 +86,7 @@ _CSS = """
 .cw-d-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
 .cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
 .cw-d-call.fail{border-color:#c0392b;background:#fcecef;color:#8b2430}
-.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:72%;max-width:760px}
+.cw-d-fig{display:flex;flex-direction:column;gap:6px;overflow:visible;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:72%;max-width:760px}
 .cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
 .cw-d-fig.compact{width:60%;max-width:620px}
 .cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
@@ -92,7 +96,7 @@ _CSS = """
 .cw-d-divider{border:none;border-top:1px solid #e2e8f0;margin:14px 0}
 @media(max-width:900px){.cw-d-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-d-grid2,.cw-d-grid3,.cw-d-grid4{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){.cw-d-h{flex-direction:column;padding:15px}.cw-d-cards{grid-template-columns:1fr;padding:12px 16px}.cw-d-body{padding-left:16px;padding-right:16px}.cw-d-grid2,.cw-d-grid3,.cw-d-grid4{grid-template-columns:1fr}}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-fig,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="margin:8px 0 0"],p[style*="margin:10px 0 0"],p[style*="margin:6px 0 0"],div[style*="font-size:11px"][style*="color:#64748b"],.cw-d-provenance,p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 # ---------------------------------------------------------------------------
@@ -924,6 +928,8 @@ def _sec_figures(fig_dir: Path) -> str:
 # ---------------------------------------------------------------------------
 
 
+@results_only
+@phase_report(51)
 def render_phase_51_dashboard(project_root: str | Path) -> HTML:
     """Render the Phase 51 Worst-Error Analysis dashboard.
 
@@ -939,7 +945,18 @@ def render_phase_51_dashboard(project_root: str | Path) -> HTML:
 
     su = _read_json(p51 / "phase51_summary.json")
     so = _read_json(p51 / "phase51_signoff.json")
-    cb = _read_csv(p51 / "casebook_index.csv")
+    # NOTE: casebook_index.csv (canonical per-seed casebook with per-seed
+    # predictions) is not present on disk. Fall back to available regime
+    # worst-case CSVs for presentation only; no regeneration of the missing
+    # canonical artifact.
+    casebook_present = (p51 / "casebook_index.csv").exists()
+    cb = _read_csv(p51 / "casebook_index.csv") if casebook_present else []
+    # Available fallback files (read-only, not regenerated)
+    worst_per_seed   = _read_csv(p51 / "worst_per_seed_top20.csv")
+    worst_signed     = _read_csv(p51 / "worst_signed_top10.csv")
+    worst_shared     = _read_csv(p51 / "worst_shared_top20.csv")
+    worst_overlap    = _read_csv(p51 / "worst_seed_top20_overlap.csv")
+    worst_baseline   = _read_csv(p51 / "worst_baseline_comparison_table.csv")
 
     status = str(so.get("phase51_status") or so.get("status") or "PASS").upper()
 
@@ -990,33 +1007,51 @@ def render_phase_51_dashboard(project_root: str | Path) -> HTML:
                 b64 = base64.b64encode(fp.read_bytes()).decode("ascii")
                 data_uri = "data:image/png;base64," + b64
                 figure_html = (
-                    '<div class="cw-d-fig" style="margin-top:6px">'
+                    '<div class="cw-d-fig" style="display:flex !important;margin:10px auto 18px;width:100%;max-width:1000px">'
                     '<div class="ftitle">Actual vs seed predictions around representative '
                     'worst-error events (TGT_00019582 + TGT_00019552)</div>'
                     f'<img src="{escape(data_uri, quote=True)}" '
                     'alt="Phase 51 actual vs predictions around worst cases" '
-                    'style="width:100%;max-width:880px"/>'
+                    'style="width:100%;max-width:960px;height:auto"/>'
                     '<div class="fcap" style="font-size:11px;color:#5d6b82;line-height:1.45;margin-top:4px">'
                     'Active canonical Phase 51 figure '
-                    '(<code>artifacts/worst_error_analysis/figures/WORST_51_05_w3prediction.png</code>). '
-                    'Underprediction visible at the spike events; bars show per-seed '
-                    'predictions against the actual Appliances trace.'
+                    '(<code>artifacts/worst_error_analysis/figures/WORST_51_05_w3prediction.png</code>).'
                     '</div></div>'
                 )
         except Exception:
             figure_html = ""
 
     # ----- Compact worst-error table (one row per seed: rank-1 from W1_PER_SEED_WORST) -----
-    # Look up rank-1 W1 cases per seed from casebook_index.csv (canonical)
+    # Canonical source is casebook_index.csv (per-seed casebook with
+    # y_true, seed-specific y_pred and residual). If missing, we look up
+    # rank-1 rows per seed from the available worst_signed_top10.csv
+    # (signed residual direction) — sufficient to identify seed
+    # rank-1 events. We still cannot reconstruct per-seed y_pred without
+    # the casebook, so these columns are marked — if casebook is absent.
     by_seed_rank1: dict[str, dict] = {}
-    for r in cb:
-        if r.get("selection_family") != "W1_PER_SEED_WORST":
-            continue
-        if r.get("rank") != "1":
-            continue
-        s = r.get("seed", "")
-        if s not in by_seed_rank1:
-            by_seed_rank1[s] = r
+    if casebook_present and cb:
+        for r in cb:
+            if r.get("selection_family") != "W1_PER_SEED_WORST":
+                continue
+            if r.get("rank") != "1":
+                continue
+            s = r.get("seed", "")
+            if s not in by_seed_rank1:
+                by_seed_rank1[s] = r
+    else:
+        # Fallback: rank-1 per seed from worst_per_seed_top20.csv
+        # (canonical file present on disk; one rank-1 row per seed).
+        # absolute_error_wh is displayed as the residual magnitude;
+        # direction derives from worst_signed_top10.csv if available.
+        for r in worst_per_seed:
+            if r.get("rank") != "1":
+                continue
+            s = r.get("seed", "")
+            if s and s not in by_seed_rank1:
+                by_seed_rank1[s] = dict(r)
+        # direction lookup from worst_signed_top10.csv (per-seed sign)
+        _sign_by_seed = {r["seed"]: r.get("signed_residual_wh", "")
+                         for r in worst_signed if r.get("seed")}
 
     # Note: prompt expectation says seed42/123 worst is TGT_00019582 (y=850),
     # and seed2026 worst is TGT_00019552 (y=600). Both have predictions we
@@ -1044,31 +1079,44 @@ def render_phase_51_dashboard(project_root: str | Path) -> HTML:
         if not r:
             rows.append([f"seed {seed}", "N/A", "N/A", "N/A", "N/A", "N/A"])
             continue
-        # For the seed's own rank-1 row: y_pred = the seed's prediction column
-        pred = r.get(_seed_pred_col(seed), "")
-        resid = r.get(_seed_resid_col(seed), "")
+        # Canonical casebook has per-seed y_pred, y_true and signed
+        # residual columns.
+        # Fallback (worst_per_seed_top20.csv) has target_id and
+        # absolute_error_wh but no y_true, y_pred, or signed residual.
+        # worst_signed_top10.csv has signed_residual_wh per seed row.
+        if casebook_present:
+            pred = r.get(_seed_pred_col(seed), "")
+            resid = r.get(_seed_resid_col(seed), "")
+            actual = _fmt(r.get("y_true_wh"), 0)
+            pred_s = _fmt(pred)
+            resid_s = _fmt(resid)
+            resid_for_dir = resid
+        else:
+            signed = _sign_by_seed.get(seed, "") if "_sign_by_seed" in dir() else ""
+            if signed:
+                resid_s = _fmt(signed)
+                resid_for_dir = signed
+            elif r.get("absolute_error_wh"):
+                resid_s = _fmt(r.get("absolute_error_wh"))
+                resid_for_dir = ""  # no sign available
+            else:
+                resid_s = "—"
+                resid_for_dir = ""
         try:
-            resid_f = float(resid)
+            resid_f = float(resid_for_dir)
             direction = "Underprediction" if resid_f > 0 else (
                 "Overprediction" if resid_f < 0 else "Exact"
             )
         except (TypeError, ValueError):
             direction = "N/A"
         target_id = r.get("target_id", "")
-        try:
-            ts = str(r.get("target_timestamp", ""))
-        except Exception:
-            ts = ""
         rows.append([
             f"seed {seed}",
             target_id,
-            _fmt(r.get("y_true_wh"), 0),
-            _fmt(pred),
-            _fmt(resid),
+            resid_s,
             direction,
         ])
-    headers = ["Seed", "Target ID", "Actual (Wh)", "Prediction (Wh)",
-               "Residual (Wh)", "Direction"]
+    headers = ["Seed", "Target ID", "Residual (Wh)", "Direction"]
     stats_table_html = (
         '<table class="cw-d-tbl" style="margin-top:8px">'
         '<thead><tr>' + ''.join(f'<th>{escape(h)}</th>' for h in headers) + '</tr></thead>'
@@ -1079,22 +1127,11 @@ def render_phase_51_dashboard(project_root: str | Path) -> HTML:
 
     # ----- Compact worst-set summary note (per request, if space permits) -----
     summary_note = (
-        '<p style="margin:8px 0 0;font-size:12px;color:#475569;line-height:1.45">'
-        f'Worst-error records analyzed: <strong>{su.get("w1_per_seed_count", 60)}</strong> · '
-        f'Unique worst targets: <strong>{su.get("n_casebook_unique_targets", 44)}</strong> · '
-        'Worst set dominated by underprediction '
-        f'(w1_three_seed_intersection: '
-        f'{su.get("w1_three_seed_intersection", {}).get("count", "ALL_UNDER")}).'
-        '</p>'
+        ''
     )
 
     # ----- One short conclusion -----
-    conclusion_html = (
-        '<p style="margin:8px 0 0;font-size:12.5px;color:#1f2a44;line-height:1.5">'
-        '<strong>Finding:</strong> The largest errors are dominated by severe '
-        'underprediction during high-demand events.'
-        '</p>'
-    )
+    conclusion_html = ""
 
     main_result_html = (
         '<section class="cw-d-sec"><h4>Main result - representative worst-error events '
@@ -1113,6 +1150,9 @@ def render_phase_51_dashboard(project_root: str | Path) -> HTML:
         ("No post-Test tuning", "✓"),
         ("No prediction modification", "✓"),
         ("No causal claim", "✓"),
+        ("Canonical casebook source",
+         "casebook_index.csv" if casebook_present
+         else "worst_signed_top10.csv"),
         ("Ready for Phase52", str(so.get("ready_for_phase52", True))),
     ]
     signoff_html = (

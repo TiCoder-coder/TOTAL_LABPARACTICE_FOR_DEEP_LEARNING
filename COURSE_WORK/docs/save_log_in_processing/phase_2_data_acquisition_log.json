@@ -37,12 +37,12 @@
     {
       "path": "data/raw_data/dataset_manifest.json",
       "role": "dataset",
-      "sha256": "b14bdbf58bbaad652294526f1de865d842afd0f5ae7d0eb337492fe1c7e79a98"
+      "sha256": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300"
     },
     {
       "path": "artifacts/acquisition/phase_2_signoff.json",
       "role": "signoff",
-      "sha256": "69631e37d8586a8d09be963c0bb6a7902a0be1137c3ba5a5cfa32150a88b72c3"
+      "sha256": "0ef8d912acc95105816cef20314dc3f8095fab32c68772d931ea11ff93f5eaf6"
     }
   ],
   "status": "PASS",
@@ -63,7 +63,7 @@
     "dataset_revision": "DATA-v1",
     "environment_id": "ENV-v1",
     "input_checksums": {
-      "artifacts/environment/phase_1_signoff.json": "f909c62d3b280c7d8f3c14479fa0366bb87cc97d61c9843e069c76085282546f",
+      "artifacts/environment/phase_1_signoff.json": "db146d0a576aacefcb816667a84abef8e11f727c3ff165cdb20d50d2028fbfbd",
       "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
     },
     "input_paths": [
@@ -71,10 +71,10 @@
       "data/raw_data/energydata_complete.csv"
     ],
     "output_checksums": {
-      "artifacts/acquisition/acquisition_log.json": "f0202f155d2e253ef27c1673cb49d6bb372c87a74fc95832691b8f87626126ad",
-      "data/raw_data/README_SOURCE.md": "0be0f83a76bbecf48764e5749c435f8d04dd6075172380eabcc310e694976814",
+      "artifacts/acquisition/acquisition_log.json": "010695e4487fbd39ea466cdd73bafc2bbd0c6b964f2f688d361076154c5186e7",
+      "data/raw_data/README_SOURCE.md": "83866357c3fbc9ca0b301516aa330f50a9f0b7310023ecb7cbbaa114af89f015",
       "data/raw_data/checksums.sha256": "3dd998be0f1b9e9893042e6833907e2d309016f421325dfb6f93c0716c0d9daa",
-      "data/raw_data/dataset_manifest.json": "b14bdbf58bbaad652294526f1de865d842afd0f5ae7d0eb337492fe1c7e79a98",
+      "data/raw_data/dataset_manifest.json": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300",
       "data/raw_data/source/appliances_energy_prediction.zip": "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a",
       "data/raw_data/source_metadata.json": "9f8a133dfbfd350968fd4171267d706b2e5c3745ef13ac1c0449532e6cde8e0d",
       "data/raw_data/variable_metadata.csv": "e84c1b164bae0ff267e438681b0d9b9d8f6483e61f4dbf1c1ff771e3a2eb3bd3"

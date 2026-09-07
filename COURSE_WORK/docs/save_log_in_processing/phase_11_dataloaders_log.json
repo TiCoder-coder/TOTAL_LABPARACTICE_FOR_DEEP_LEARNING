@@ -58,17 +58,17 @@
     {
       "path": "artifacts/dataloaders/dataloader_manifest.json",
       "role": "dataloaders",
-      "sha256": "78ea080982ad3042adda166e3d323de9b13afa76947dba2053c895111f963952"
+      "sha256": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041"
     },
     {
       "path": "artifacts/dataloaders/device_transfer_policy.json",
       "role": "device_policy",
-      "sha256": "a9e771678a776a1aec753698ba89531fe1a1b21056468f461a19af26d33cddd4"
+      "sha256": "1b0e999a7fb7879116929cdac25130af7e8c04fccf11d841abf323c2b48becf1"
     },
     {
       "path": "artifacts/dataloaders/phase_11_signoff.json",
       "role": "signoff",
-      "sha256": "a22fd0cc14ae8f823994c21388a11bbff28973c89c6fd4a87fa17354932791ee"
+      "sha256": "576ddf0fbba6b61677d07dc5f8c921a2fc3b9b2f130b8d8af343ce31b951670b"
     }
   ],
   "status": "PASS",

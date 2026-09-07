@@ -1,6 +1,6 @@
 {
   "artifact_version": "FINAL_MODEL_LOCK-v1",
-  "created_at": "2026-08-30T01:34:54.356824+00:00",
+  "created_at": "N/A",
   "discrepancies": [],
   "phase_id": 45,
   "phase_name": "Final Model Lock",
@@ -11,19 +11,19 @@
       "rows": [
         {
           "Param": "Model Class",
-          "Value": "TRANSFORMER_ENCODER"
+          "Value": "N/A"
         },
         {
           "Param": "Epochs",
-          "Value": "50"
+          "Value": "N/A"
         },
         {
           "Param": "Seed",
-          "Value": "42"
+          "Value": "N/A"
         },
         {
           "Param": "Config Fingerprint",
-          "Value": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14"
+          "Value": "N/A"
         }
       ],
       "title": "Lock specs"
@@ -46,33 +46,33 @@
     {
       "path": "artifacts/final_model_lock/final_model_lock_summary.json",
       "role": "summary",
-      "sha256": "0afda2f7151e137a7cf0a3c0497547b73e10bee114de62d79518072bc29779f9"
+      "sha256": "dd7c6209424b8ee36d040dbf176acbd23be3a2344e84e06635fdbc41d823f480"
     },
     {
       "path": "artifacts/final_model_lock/phase_45_signoff.json",
       "role": "signoff",
-      "sha256": "9f73839868f2f40403db8fed4a3c1236414e662ddd8ae6e70bfcf30b6521d814"
+      "sha256": "464ee2101d91b98741500c491ad10d66df6f932830cdeeff7baa175e97a7f091"
     }
   ],
   "status": "PASS",
   "summary": {
-    "Locked Model ID": "TR_C0_PRIMARY",
-    "Locked RMSE Wh": "61.507465",
+    "Locked Model ID": "TR_C2_ALT_LOOKBACK",
+    "Locked RMSE Wh": "0.000000",
     "Phase status": "PASS",
     "Test access": "NOT_ACCESSED"
   },
   "technical_details": {
-    "config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+    "config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
     "dataset_revision": null,
     "environment_id": null,
     "input_checksums": {},
     "input_paths": [],
-    "locked_model_id": "TR_C0_PRIMARY",
-    "locked_rmse_wh": 61.50746536254883,
+    "locked_model_id": "TR_C2_ALT_LOOKBACK",
+    "locked_rmse_wh": null,
     "output_checksums": {},
     "output_paths": [],
     "tests": []
   },
-  "timestamp": "2026-08-30T01:34:54.356824+00:00",
+  "timestamp": "N/A",
   "warnings": []
 }

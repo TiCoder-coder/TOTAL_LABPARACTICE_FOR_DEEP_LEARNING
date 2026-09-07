@@ -38,7 +38,9 @@ from course_work.final_test_evaluation import (
     LSTM_TUNED_DEV,
     LOCKED_BOUNDARY_PROTOCOL,
     LOCKED_CANDIDATE,
-    LOCKED_CONFIG_FP,
+    LOCKED_CONFIG_FP,  # BACKWARD-COMPAT ALIAS — DEPRECATED, prefer LOCKED_CONFIG_FINGERPRINT / LOCKED_FINAL_LOCK_SHA256
+    LOCKED_CONFIG_FINGERPRINT,
+    LOCKED_FINAL_LOCK_SHA256,
     LOCKED_FEATURES,
     LOCKED_LOOKBACK,
     LOCKED_SEEDS,
@@ -135,7 +137,12 @@ def _archive_stale(path: Path, archive_root: Path | None = None) -> Path | None:
     return archive_path
 
 
-FINAL_TEST_DIR = Path("artifacts/final_test")
+# Part 2G-P: anchor FINAL_TEST_DIR to COURSE_WORK root via get_project_root.
+# Previously this was a relative Path, causing files to be written under CWD
+# (which was the repo root, not COURSE_WORK).
+from course_work.utils.artifacts import get_project_root
+DEFAULT_PROJECT_ROOT = get_project_root()
+FINAL_TEST_DIR = DEFAULT_PROJECT_ROOT / "artifacts" / "final_test"
 PREDICTIONS_DIR = FINAL_TEST_DIR / "predictions"
 
 
@@ -156,7 +163,7 @@ def write_evaluation_manifest(
         "phase": PHASE_NUM,
         "version": OUTPUT_VERSION,
         "source_phase46_version": "THREE_SEED_FINAL_RUNS-v1",
-        "final_lock_sha256": LOCKED_CONFIG_FP,
+        "final_lock_sha256": LOCKED_FINAL_LOCK_SHA256,
         "evaluation_contract_sha256": evaluation_contract_sha256,
         "authorized_transformer_seeds": LOCKED_SEEDS,
         "authorized_baselines": ["PERSISTENCE", "LSTM_TUNED_DEV_IF_ELIGIBLE"],
@@ -346,7 +353,7 @@ def write_first_test_access_event(
         "event_id": "TEST_FIRST_ACCESS_EVENT",
         "phase": PHASE_NUM,
         "authorized": authorized,
-        "final_lock_sha256": LOCKED_CONFIG_FP,
+        "final_lock_sha256": LOCKED_FINAL_LOCK_SHA256,
         "evaluation_contract_sha256": evaluation_contract_sha256,
         "first_access_timestamp": _utc_now(),
         "access_reason": "FINAL_HELD_OUT_EVALUATION",
@@ -1370,7 +1377,7 @@ def write_phase48_handoff(
     """Write phase48_prediction_analysis_handoff.json (O47.31)."""
     handoff = {
         "final_test_version": OUTPUT_VERSION,
-        "final_lock_hash": LOCKED_CONFIG_FP,
+        "final_lock_hash": LOCKED_FINAL_LOCK_SHA256,
         "test_population_fingerprint": test_pop_sha,
         "three_transformer_prediction_bundle_paths": prediction_bundle_refs,
         "persistence_bundle": "final_test_predictions_PERSISTENCE.csv",
@@ -1503,7 +1510,7 @@ def write_final_summary(
 
     summary = {
         "version": OUTPUT_VERSION,
-        "final_lock_sha256": LOCKED_CONFIG_FP,
+        "final_lock_sha256": LOCKED_FINAL_LOCK_SHA256,
         "test_population_sha256": test_pop_sha,
         "n_test": n_test,
         "transformer_seed_metrics": seed_metrics,
@@ -1576,7 +1583,7 @@ def write_signoff(
         "phase_name": "Final test evaluation",
         "version": OUTPUT_VERSION,
         "source_phase46_version": "THREE_SEED_FINAL_RUNS-v1",
-        "final_lock_sha256": LOCKED_CONFIG_FP,
+        "final_lock_sha256": LOCKED_FINAL_LOCK_SHA256,
         "evaluation_contract_sha256": "",  # Filled after contract is written
         "test_first_access_authorized": True,
         "test_population_sha256": test_pop_sha,

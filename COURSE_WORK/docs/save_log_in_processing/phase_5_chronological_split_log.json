@@ -41,12 +41,12 @@
     {
       "path": "artifacts/splits/split_manifest.json",
       "role": "splits",
-      "sha256": "b8db7d2c7316e623b70314a86b04a1bba6bc78bc09f14734482d6e0287384ba6"
+      "sha256": "cdf1995f5e63bc32b862e02654a70fba60b8126f2dfc9d4d2f177048328e6107"
     },
     {
       "path": "artifacts/splits/phase_5_signoff.json",
       "role": "signoff",
-      "sha256": "ac4a898c1171e10ff9688ac65f4b8b43bab18dae18b5725c70512be7c0c93f93"
+      "sha256": "1560fd78bde5bfa1bd6d0f71a1001506baf206e724a6d1a9598f8fd9ab5c7478"
     }
   ],
   "status": "PASS",
@@ -81,12 +81,12 @@
       "artifacts/splits/figures/SPLIT_01_timeline.png": "b01eb71c6a1d77f32c625f2e319bcae63b1e81ecfc12e8f512ddae7d9960dc60",
       "artifacts/splits/split_boundaries.csv": "c5a04b145a6968ada2fbde7adc193fbf80e80210dd964490c2c033f181cb6f48",
       "artifacts/splits/split_boundary_neighborhood.csv": "565023b4fe052b00b7587930c66a96b2a8ff53b0c1d5d78780c960cc2a690cbf",
-      "artifacts/splits/split_discrepancies.json": "04978de78cedef200bfe6a7889868a186eb1cfcc608d2ccf815951c816b612aa",
+      "artifacts/splits/split_discrepancies.json": "d062f0a5d584ba0a9e932952de4379dfc9c0c4127e158d8bc006480abb7c984c",
       "artifacts/splits/split_leakage_audit.csv": "9871f996feb807739aa69b087ca24a6f4541eb9cd91edea0cab3846c12e37acc",
-      "artifacts/splits/split_manifest.json": "b8db7d2c7316e623b70314a86b04a1bba6bc78bc09f14734482d6e0287384ba6",
+      "artifacts/splits/split_manifest.json": "cdf1995f5e63bc32b862e02654a70fba60b8126f2dfc9d4d2f177048328e6107",
       "artifacts/splits/split_membership.csv": "d2e4f8ab2c3c99104c697ae85dc4e11a9994e6be2d3b05854458a48a52285c2e",
       "artifacts/splits/split_summary.csv": "5f5f9c28d7e7e29760fbbcb761dea2968379fd11fe2b70af55229acc31dca5b1",
-      "artifacts/splits/train_validation_distribution_summary.csv": "3cf2ee5b1324022e8d420950a3db1cb84ec5381af0faf282d152ed00967d859a"
+      "artifacts/splits/train_validation_distribution_summary.csv": "3f9f36bfc447b28ec67f391051ce373b593857b53d94fe8753d2c2844fb084e5"
     },
     "output_paths": [
       "artifacts/splits/split_manifest.json",

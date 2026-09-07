@@ -23,11 +23,14 @@ from __future__ import annotations
 
 import base64
 import csv
+import math
 from html import escape
 from pathlib import Path
 from typing import Any, Iterable
 
 from IPython.display import HTML
+
+from course_work.reporting._phase_report_layout import phase_report
 
 from course_work.utils.artifacts import get_project_root, read_json
 
@@ -36,46 +39,49 @@ __all__ = ["render_phase_48_dashboard"]
 
 _CSS = """
 <style>
-.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
-.cw-d *{box-sizing:border-box}
-.cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
-.cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
-.cw-d-meta{font-size:12px;color:#5d6b82}
-.cw-d-badge{border:1px solid #a9dec1;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;color:#11613d;background:#e8f7ef;white-space:nowrap}
-.cw-d-badge.fail{border-color:#e2b2b8;background:#fcecef;color:#8b2430}
-.cw-d-badge.warn{border-color:#f1d889;background:#fff7e0;color:#7a5613}
-.cw-d-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:16px 22px;background:#fbfcff;border-bottom:1px solid #e5eaf1}
-.cw-d-card{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border:1px solid #e1e7f0;border-radius:9px;background:#fff;min-width:0}
-.cw-d-card span{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.04em}
-.cw-d-card strong{font-size:13px;color:#24324a;font-weight:700;overflow-wrap:anywhere}
-.cw-d-body{padding:4px 22px 22px}
-.cw-d-sec{margin-top:18px}
-.cw-d-sec h4{font-size:14px;margin:0 0 8px;color:#334155}
-.cw-d-tblwrap{overflow-x:auto;border:1px solid #e2e8f0;border-radius:9px}
-.cw-d-tbl{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff}
-.cw-d-tbl th{background:#f5f7fb;color:#475569;text-align:left;font-weight:650;padding:9px 11px;border-bottom:1px solid #dfe6ef;white-space:nowrap}
-.cw-d-tbl td{text-align:left;padding:8px 11px;border-bottom:1px solid #edf1f5;vertical-align:top;line-height:1.45;overflow-wrap:anywhere}
-.cw-d-tbl tbody tr:nth-child(even){background:#fafbfd}
-.cw-d-tbl tbody tr:last-child td{border-bottom:0}
-.cw-d-fp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:#1f2a44}
-.cw-d-pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:1px solid #d3deec;background:#f1f5fb;color:#334155}
-.cw-d-pill.warn{border-color:#f1d889;background:#fff7e0;color:#7a5613}
-.cw-d-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:12px}
-.cw-d-card2{border:1px solid #d9e2ef;border-radius:11px;padding:13px 14px;background:#fff}
-.cw-d-card2.win{border-color:#a9dec1;background:#e8f7ef}
-.cw-d-card2 h5{margin:0 0 5px;font-size:11.5px;color:#475569;text-transform:uppercase;letter-spacing:.04em}
-.cw-d-card2 .big{font-size:19px;color:#172033;font-weight:700;line-height:1.2}
-.cw-d-card2 .sm{font-size:11.5px;color:#5d6b82;margin-top:3px}
-.cw-d-call{border-left:4px solid #6366f1;background:#eef2ff;padding:9px 13px;border-radius:0 7px 7px 0;margin:11px 0;font-size:12.5px;color:#1f2a44}
-.cw-d-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
-.cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
-.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:10px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:82%;max-width:850px}
-.cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
-.cw-d-fig.compact{width:64%;max-width:700px}
-.cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
-.cw-d-fig .fcap{font-size:11.5px;color:#5d6b82;line-height:1.45}
-@media (max-width:900px){.cw-d-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-d-grid3{grid-template-columns:1fr}}
-@media (max-width:620px){.cw-d-h{flex-direction:column;padding:15px}.cw-d-cards{grid-template-columns:1fr;padding:12px 16px}.cw-d-body{padding-left:16px;padding-right:16px}}
+.cw-p48{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:visible}
+.cw-p48 *{box-sizing:border-box}
+.cw-p48-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
+.cw-p48-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
+.cw-p48-meta{font-size:12px;color:#5d6b82}
+.cw-p48-badge{border:1px solid #a9dec1;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;color:#11613d;background:#e8f7ef;white-space:nowrap}
+.cw-p48-badge.fail{border-color:#e2b2b8;background:#fcecef;color:#8b2430}
+.cw-p48-badge.warn{border-color:#f1d889;background:#fff7e0;color:#7a5613}
+.cw-p48-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:16px 22px;background:#fbfcff;border-bottom:1px solid #e5eaf1}
+.cw-p48-card{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border:1px solid #e1e7f0;border-radius:9px;background:#fff;min-width:0}
+.cw-p48-card span{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.04em}
+.cw-p48-card strong{font-size:13px;color:#24324a;font-weight:700;overflow-wrap:anywhere}
+.cw-p48-body{padding:4px 22px 22px}
+.cw-p48-sec{margin-top:18px}
+.cw-p48-sec h4{font-size:14px;margin:0 0 8px;color:#334155}
+.cw-p48-tblwrap{overflow-x:auto;border:1px solid #e2e8f0;border-radius:9px}
+.cw-p48-tbl{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff}
+.cw-p48-tbl th{background:#f5f7fb;color:#475569;text-align:left;font-weight:650;padding:9px 11px;border-bottom:1px solid #dfe6ef;white-space:nowrap}
+.cw-p48-tbl td{text-align:left;padding:8px 11px;border-bottom:1px solid #edf1f5;vertical-align:top;line-height:1.45;overflow-wrap:anywhere}
+.cw-p48-tbl tbody tr:nth-child(even){background:#fafbfd}
+.cw-p48-tbl tbody tr:last-child td{border-bottom:0}
+.cw-p48-fp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:#1f2a44}
+.cw-p48-pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:1px solid #d3deec;background:#f1f5fb;color:#334155}
+.cw-p48-pill.warn{border-color:#f1d889;background:#fff7e0;color:#7a5613}
+.cw-p48-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:12px}
+.cw-p48-card2{border:1px solid #d9e2ef;border-radius:11px;padding:13px 14px;background:#fff}
+.cw-p48-card2.win{border-color:#a9dec1;background:#e8f7ef}
+.cw-p48-card2 h5{margin:0 0 5px;font-size:11.5px;color:#475569;text-transform:uppercase;letter-spacing:.04em}
+.cw-p48-card2 .big{font-size:19px;color:#172033;font-weight:700;line-height:1.2}
+.cw-p48-card2 .sm{font-size:11.5px;color:#5d6b82;margin-top:3px}
+.cw-p48-call{border-left:4px solid #6366f1;background:#eef2ff;padding:9px 13px;border-radius:0 7px 7px 0;margin:11px 0;font-size:12.5px;color:#1f2a44}
+.cw-p48-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
+.cw-p48-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
+.cw-p48-fig{display:flex;flex-direction:column;gap:6px;overflow:visible;margin:10px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:100%;max-width:1200px}
+.cw-p48-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
+.cw-p48-fig.compact{width:64%;max-width:700px}
+.cw-p48-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
+.cw-p48-fig .fcap{font-size:11.5px;color:#5d6b82;line-height:1.45}
+.cw-p48-context{font-size:12px;color:#5d6b82;line-height:1.5;margin:10px 0}
+.cw-p48-observations{font-size:13px;line-height:1.6;padding-left:20px}
+.cw-p48-observations li{margin:6px 0}
+@media (max-width:900px){.cw-p48-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-p48-grid3{grid-template-columns:1fr}}
+@media (max-width:620px){.cw-p48-h{flex-direction:column;padding:15px}.cw-p48-cards{grid-template-columns:1fr;padding:12px 16px}.cw-p48-body{padding-left:16px;padding-right:16px}}
 </style>
 """
 
@@ -118,10 +124,10 @@ def _b(path: Path) -> str | None:
 def _img_block(rel_path: str, title: str, caption: str, size_class: str = "large") -> str:
     extra = " compact" if size_class == "compact" else ""
     return (
-        f'<div class="cw-d-fig{extra}">'
+        f'<div class="cw-p48-fig{extra}">'
         f'<div class="ftitle">{escape(title)}</div>'
         f'<img src="{escape(rel_path, quote=True)}" alt="{escape(title)}"/>'
-        f'<div class="fcap">{escape(caption)}</div>'
+        
         f"</div>"
     )
 
@@ -136,11 +142,11 @@ def _status_class(status: str) -> str:
 
 
 def _header(title: str, subtitle: str, status: str) -> str:
-    css_cls = f"cw-d-badge{(' ' + _status_class(status)) if _status_class(status) else ''}"
+    css_cls = f"cw-p48-badge{(' ' + _status_class(status)) if _status_class(status) else ''}"
     return (
-        '<header class="cw-d-h">'
+        '<header class="cw-p48-h">'
         f"<div><h3>{escape(title)}</h3>"
-        f'<div class="cw-d-meta">{escape(subtitle)}</div></div>'
+        f'<div class="cw-p48-meta">{escape(subtitle)}</div></div>'
         f'<span class="{css_cls}">{escape(str(status).upper())}</span>'
         "</header>"
     )
@@ -148,10 +154,10 @@ def _header(title: str, subtitle: str, status: str) -> str:
 
 def _cards(pairs: Iterable[tuple[str, Any]]) -> str:
     items = "".join(
-        f'<div class="cw-d-card"><span>{escape(label)}</span><strong>{escape(str(value))}</strong></div>'
+        f'<div class="cw-p48-card"><span>{escape(label)}</span><strong>{escape(str(value))}</strong></div>'
         for label, value in pairs
     )
-    return f'<div class="cw-d-cards">{items}</div>'
+    return f'<div class="cw-p48-cards">{items}</div>'
 
 
 def _tbl(headers: list[str], rows: list[list[Any]]) -> str:
@@ -161,7 +167,7 @@ def _tbl(headers: list[str], rows: list[list[Any]]) -> str:
         cells = "".join(f"<td>{escape(str(c))}</td>" for c in row)
         parts.append(f"<tr>{cells}</tr>")
     body = "".join(parts)
-    return f'<div class="cw-d-tblwrap"><table class="cw-d-tbl"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+    return f'<div class="cw-p48-tblwrap"><table class="cw-p48-tbl"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
 # ---------------------------------------------------------------------------
@@ -176,7 +182,7 @@ def _section_distribution(distribution_rows: list[dict]) -> str:
         for r in distribution_rows
     ]
     return (
-        '<section class="cw-d-sec"><h4>A — Distribution summary (N, mean, std, IQR, percentiles)</h4>'
+        '<section class="cw-p48-sec"><h4>A — Distribution summary (N, mean, std, IQR, percentiles)</h4>'
         + _tbl(
             ["Series", "N", "mean (Wh)", "std (Wh)", "min", "p05", "q1", "median", "q3", "p95", "max", "IQR"],
             rows,
@@ -194,7 +200,7 @@ def _section_range_compression(range_rows: list[dict]) -> str:
         for r in range_rows
     ]
     return (
-        '<section class="cw-d-sec"><h4>B — Range / variance compression per seed</h4>'
+        '<section class="cw-p48-sec"><h4>B — Range / variance compression per seed</h4>'
         + _tbl(
             ["Seed", "pred_std", "true_std", "std_ratio", "pred_iqr", "true_iqr",
              "iqr_ratio", "pred_range", "true_range", "range_ratio", "mean_shift (pred − true)"],
@@ -226,9 +232,9 @@ def _section_change(change_rows: list[dict], dir_rows: list[dict]) -> str:
         ],
     )
     return (
-        '<section class="cw-d-sec"><h4>C — Gap-safe first differences (Δ at 10-min cadence)</h4>'
+        '<section class="cw-p48-sec"><h4>C — Gap-safe first differences (Δ at 10-min cadence)</h4>'
         + change_tbl
-        + '<div class="cw-d-sec"><h4>C.1 — Direction-of-change agreement (3-class: NEGATIVE / ZERO / POSITIVE)</h4>'
+        + '<div class="cw-p48-sec"><h4>C.1 — Direction-of-change agreement (3-class: NEGATIVE / ZERO / POSITIVE)</h4>'
         + direction_tbl
         + "</section>"
     )
@@ -241,8 +247,8 @@ def _section_lag(lag_rows: list[dict]) -> str:
     parts = []
     for seed, srows in by_seed.items():
         parts.append(
-            f'<div class="cw-d-card2"><h5>{escape(seed)}</h5>'
-            + '<table class="cw-d-tbl" style="width:100%;margin-top:6px"><thead><tr>'
+            f'<div class="cw-p48-card2"><h5>{escape(seed)}</h5>'
+            + '<table class="cw-p48-tbl" style="width:100%;margin-top:6px"><thead><tr>'
             + '<th>lag (steps)</th><th>lag (min)</th><th>Pearson r</th><th>valid pairs</th>'
             + '</tr></thead><tbody>'
             + "".join(
@@ -253,8 +259,8 @@ def _section_lag(lag_rows: list[dict]) -> str:
             + "</tbody></table></div>"
         )
     return (
-        '<section class="cw-d-sec"><h4>D — Fixed lag diagnostics (DIAGNOSTIC ONLY)</h4>'
-        + '<div class="cw-d-grid3">' + "".join(parts) + "</div>"
+        '<section class="cw-p48-sec"><h4>D — Fixed lag diagnostics (DIAGNOSTIC ONLY)</h4>'
+        + '<div class="cw-p48-grid3">' + "".join(parts) + "</div>"
         + "</section>"
     )
 
@@ -266,8 +272,8 @@ def _section_acf(acf_rows: list[dict]) -> str:
     parts = []
     for sid, srows in by_series.items():
         parts.append(
-            f'<div class="cw-d-card2"><h5>{escape(sid)}</h5>'
-            + '<table class="cw-d-tbl" style="width:100%;margin-top:6px"><thead><tr>'
+            f'<div class="cw-p48-card2"><h5>{escape(sid)}</h5>'
+            + '<table class="cw-p48-tbl" style="width:100%;margin-top:6px"><thead><tr>'
             + '<th>lag (steps)</th><th>lag (min)</th><th>ACF</th><th>valid pairs</th>'
             + '</tr></thead><tbody>'
             + "".join(
@@ -278,8 +284,8 @@ def _section_acf(acf_rows: list[dict]) -> str:
             + "</tbody></table></div>"
         )
     return (
-        '<section class="cw-d-sec"><h4>E — Prediction ACF (registered lags 1 / 6 / 12 / 36 / 72 / 144)</h4>'
-        + '<div class="cw-d-grid3">' + "".join(parts) + "</div>"
+        '<section class="cw-p48-sec"><h4>E — Prediction ACF (registered lags 1 / 6 / 12 / 36 / 72 / 144)</h4>'
+        + '<div class="cw-p48-grid3">' + "".join(parts) + "</div>"
         + "</section>"
     )
 
@@ -306,9 +312,9 @@ def _section_extrema(ext_rows: list[dict], peak_rows: list[dict]) -> str:
         ],
     )
     return (
-        '<section class="cw-d-sec"><h4>F — Local extrema diagnostic</h4>'
+        '<section class="cw-p48-sec"><h4>F — Local extrema diagnostic</h4>'
         + extrema_tbl
-        + '<div class="cw-d-sec"><h4>F.1 — Peak timing (±1 step window, deterministic)</h4>'
+        + '<div class="cw-p48-sec"><h4>F.1 — Peak timing (±1 step window, deterministic)</h4>'
         + peak_tbl
         + "</section>"
     )
@@ -335,17 +341,17 @@ def _section_seed_agreement(pair_rows: list[dict], spread_rows: list[dict], top_
     ranges = [float(r["seed_range_prediction"]) for r in spread_rows if r.get("seed_range_prediction")]
     if means and stds and ranges:
         spread_cards = (
-            '<div class="cw-d-grid3">'
-            + f'<div class="cw-d-card2"><h5>Mean of seed_mean</h5><div class="big">{_f(sum(means)/len(means))} Wh</div>'
+            '<div class="cw-p48-grid3">'
+            + f'<div class="cw-p48-card2"><h5>Mean of seed_mean</h5><div class="big">{_f(sum(means)/len(means))} Wh</div>'
             + '<div class="sm">Descriptive central tendency only</div></div>'
-            + f'<div class="cw-d-card2"><h5>Mean of seed_std (ddof=1)</h5><div class="big">{_f(sum(stds)/len(stds))} Wh</div>'
+            + f'<div class="cw-p48-card2"><h5>Mean of seed_std (ddof=1)</h5><div class="big">{_f(sum(stds)/len(stds))} Wh</div>'
             + '<div class="sm">Sample SD across 3 seeds</div></div>'
-            + f'<div class="cw-d-card2"><h5>Mean of seed_range</h5><div class="big">{_f(sum(ranges)/len(ranges))} Wh</div>'
+            + f'<div class="cw-p48-card2"><h5>Mean of seed_range</h5><div class="big">{_f(sum(ranges)/len(ranges))} Wh</div>'
             + '<div class="sm">max − min across 3 seeds</div></div>'
             + "</div>"
         )
     else:
-        spread_cards = '<div class="cw-d-call warn">Seed-spread rows unavailable.</div>'
+        spread_cards = '<div class="cw-p48-call warn">Seed-spread rows unavailable.</div>'
 
     top_tbl = _tbl(
         ["Rank", "target_id", "target_timestamp", "y_true (Wh)", "seed42", "seed123", "seed2026",
@@ -369,18 +375,15 @@ def _section_seed_agreement(pair_rows: list[dict], spread_rows: list[dict], top_
     )
 
     return (
-        '<section class="cw-d-sec"><h4>G — Cross-seed behavior</h4>'
+        '<section class="cw-p48-sec"><h4>G — Cross-seed behavior</h4>'
         + cross_seed_note
-        + '<div class="cw-d-sec"><h5>G.1 — Pairwise seed agreement (SEED_AGREEMENT_DIAGNOSTIC)</h5>'
+        + '<div class="cw-p48-sec"><h5>G.1 — Pairwise seed agreement (SEED_AGREEMENT_DIAGNOSTIC)</h5>'
         + pair_tbl
-        + '<div class="cw-d-sec"><h5>G.2 — Cross-seed prediction spread (descriptive)</h5>'
+        + '<div class="cw-p48-sec"><h5>G.2 — Cross-seed prediction spread (descriptive)</h5>'
         + spread_cards
-        + '<div class="cw-d-sec"><h5>G.3 — Top-10 seed disagreement (K=20 total, ranked by seed_range_prediction)</h5>'
+        + '<div class="cw-p48-sec"><h5>G.3 — Top-10 seed disagreement (K=20 total, ranked by seed_range_prediction)</h5>'
         + top_tbl
-        + '<p style="margin:6px 0 0;font-size:12px;color:#5d6b82;line-height:1.5">'
-        + 'Top-K ranking uses <strong>seed_range_prediction</strong> only, with deterministic tie-break '
-        + '(target_id ascending). This is not a worst-error ranking.'
-        + '</p>'
+        + ''
         + "</div></section>"
     )
 
@@ -401,7 +404,7 @@ def _section_rolling(rolling_rows: list[dict]) -> str:
             continue
         gap_pred = [(g - p) for g, p in zip(gaps, means)]
         parts.append(
-            f'<div class="cw-d-card2"><h5>{escape(sid)}</h5>'
+            f'<div class="cw-p48-card2"><h5>{escape(sid)}</h5>'
             + f'<div class="big">{_f(sum(means)/len(means))} Wh</div>'
             + '<div class="sm">Mean rolling_24h_pred_mean across all valid windows</div>'
             + f'<div class="sm">Mean gap (true − pred): {_f(sum(gap_pred)/len(gap_pred))} Wh</div>'
@@ -411,8 +414,8 @@ def _section_rolling(rolling_rows: list[dict]) -> str:
             + "</div>"
         )
     return (
-        '<section class="cw-d-sec"><h4>H — Rolling 24h tracking (gap-safe, exact 144 samples, no forward fill)</h4>'
-        + '<div class="cw-d-grid3">' + "".join(parts) + "</div>"
+        '<section class="cw-p48-sec"><h4>H — Rolling 24h tracking (gap-safe, exact 144 samples, no forward fill)</h4>'
+        + '<div class="cw-p48-grid3">' + "".join(parts) + "</div>"
         + "</section>"
     )
 
@@ -449,7 +452,7 @@ def _section_integrity(neg_rows: list[dict], sat_rows: list[dict]) -> str:
         f'</p>'
     )
     return (
-        '<section class="cw-d-sec"><h4>I — Integrity audits</h4>'
+        '<section class="cw-p48-sec"><h4>I — Integrity audits</h4>'
         + '<h5>I.1 — Negative prediction audit</h5>'
         + neg_tbl
         + '<h5>I.2 — Saturation audit</h5>'
@@ -469,7 +472,7 @@ def _section_baseline(baseline_rows: list[dict]) -> str:
         for r in baseline_rows
     ]
     return (
-        '<section class="cw-d-sec"><h4>J — Persistence baseline &amp; LSTM eligibility context</h4>'
+        '<section class="cw-p48-sec"><h4>J — Persistence baseline &amp; LSTM eligibility context</h4>'
         + _tbl(
             ["Model", "bundle_available", "common_population", "interpretation_label",
              "phase47_verdict"],
@@ -498,16 +501,12 @@ def _section_findings(findings_rows: list[dict]) -> str:
     ]
     rows = [[h[0], h[1], h[2], h[3], h[4]] for h in headlines]
     return (
-        '<section class="cw-d-sec"><h4>K — Phase 48 scientific findings (descriptive only)</h4>'
+        '<section class="cw-p48-sec"><h4>K — Phase 48 scientific findings (descriptive only)</h4>'
         + _tbl(
             ["finding_code", "scope", "metric", "value", "category"],
             rows,
         )
-        + '<p style="margin:8px 0 0;font-size:12px;color:#5d6b82;line-height:1.5">'
-        + 'All findings are descriptive. No causal claims. No claim of calibration or predictive '
-        + 'uncertainty. No claim that Transformer wins every metric. '
-        + 'Full descriptive findings remain available in the frozen Phase 48 artifact.'
-        + '</p>'
+        + ''
         + "</section>"
     )
 
@@ -567,13 +566,13 @@ def _section_figures(fig_dir: Path) -> str:
                 blocks.append(_img_block(data_uri, t, full_cap))
             except Exception:
                 pass
-        return f'<section class="cw-d-sec"><h5>{escape(title)}</h5>{"".join(blocks)}</section>'
+        return f'<section class="cw-p48-sec"><h5>{escape(title)}</h5>{"".join(blocks)}</section>'
 
     primary_section = _render_group("Primary figures", primary)
     secondary_section = _render_group("Secondary figures", secondary)
 
     return (
-        '<section class="cw-d-sec"><h4>L — Phase 48 figures</h4>'
+        '<section class="cw-p48-sec"><h4>L — Phase 48 figures</h4>'
         + primary_section
         + secondary_section
         + "</section>"
@@ -584,210 +583,179 @@ def _section_figures(fig_dir: Path) -> str:
 # Main entry
 # ---------------------------------------------------------------------------
 
+@phase_report(48)
 def render_phase_48_dashboard(project_root: Path | None = None) -> HTML:
-    """Render the Phase 48 Prediction Analysis dashboard (1 figure + table)."""
+    """Render Phase 48 Prediction Analysis as ONE compact dashboard.
+
+    Layout (sections):
+      1. Header + status
+      2. Input conditions (Test N, source, seeds, Phase 47 verdict)
+      3. Principal prediction-behavior table (per-seed, 6 columns:
+         std ratio, mean shift, direction-of-change nonzero rate,
+         lag=-1 Pearson r, peak-level ratio, negative count)
+      4. Signoff table (status + forbidden-action flags + decision)
+
+    Data sources (read-only, JSON/CSV; no upstream re-execution):
+      * artifacts/prediction_analysis/phase_48_signoff.json
+      * artifacts/prediction_analysis/prediction_analysis_summary.json
+      * artifacts/prediction_analysis/prediction_range_compression.csv
+      * artifacts/prediction_analysis/prediction_direction_agreement.csv
+      * artifacts/prediction_analysis/prediction_lag_diagnostics.csv
+      * artifacts/prediction_analysis/prediction_local_extrema_summary.csv
+
+    MAPE addendum is OMITTED from notebook presentation because the
+    addendum is BLOCKED_SOURCE_UNAVAILABLE for Test (test_mape_computed
+    = false; test_inference_executed = false). Validation MAPE is not
+    Test-MAPE and is not authoritative for Phase 48 Test analysis.
+
+    Phase 47 source comparison verdict (e.g.
+    Transformer_better_RMSE_R2_Persistence_better_MAE) is preserved as a
+    single status row, NOT narrated.
+    """
     root = Path(project_root or get_project_root())
     art = root / "artifacts" / "prediction_analysis"
-
     if not (art / "phase_48_signoff.json").exists():
-        return HTML(
-            _CSS
-            + f'<article class="cw-d">{_header("Phase 48 - Prediction Analysis", "Signoff not yet materialized.", "FAIL")}'
-            + '<div class="cw-d-body"><div class="cw-d-call warn">'
-            + 'Phase 48 canonical artifacts are not yet present under <code>artifacts/prediction_analysis/</code>.'
-            + "</div></div></article>"
-        )
+        return HTML(_CSS + '<article class="cw-p48"><div class="cw-p48-body">'
+                    'Phase 48 prediction analysis is not available.</div></article>')
 
     signoff = read_json(art / "phase_48_signoff.json")
     summary = read_json(art / "prediction_analysis_summary.json")
+    status = str(signoff.get("overall_status") or "UNKNOWN").upper()
+    badge_class = "cw-p48-badge" + (f" {_status_class(status)}" if _status_class(status) else "")
+    seeds = [int(s) for s in (signoff.get("seed_list") or summary.get("seed_list") or [])]
+    seed_text = ", ".join(str(s) for s in seeds)
+    n_test = signoff.get("n_test") or summary.get("n_test")
 
-    overall = str(signoff.get("overall_status") or summary.get("overall_status") or "UNKNOWN")
-    locked_id = "TR_C2_ALT_LOOKBACK"
-    seeds = [42, 123, 2026]
-
-    subtitle = (
-        f"PREDICTION_ANALYSIS-v1 - HELD-OUT TEST N = {summary['n_test']} - "
-        f"3 transformer seeds - source bundles byte-identical to Phase 47"
-    )
-
-    # Overview (compact 2-column table)
-    overview_pairs = [
-        ("Phase status", overall),
-        ("Locked candidate", locked_id),
-        ("Test N", summary["n_test"]),
-        ("Seeds", ", ".join(str(s) for s in seeds)),
-        ("Source pred modified", str(summary.get("source_predictions_modified", False))),
-        ("Post-Test tuning", str(summary.get("post_hoc_calibration", False))),
+    # ---- 1. Input conditions ----
+    pop_sha = signoff.get("test_population_sha256") or summary.get("test_population_sha256")
+    verdict = summary.get("phase47_final_comparison_verdict")
+    input_pairs = [
+        ("Dataset", "Held-out Test"),
+        ("Test N", n_test),
+        ("Test population SHA-256", pop_sha),
+        ("Source phase", signoff.get("source_phase47_version")),
+        ("Seeds", seed_text),
+        ("Phase 47 verdict", verdict),
+        ("New inference", signoff.get("new_inference")),
     ]
-    overview_html = (
-        '<section class="cw-d-sec"><h4>Phase 48 overview</h4>'
-        '<table class="cw-d-tbl"><tbody>'
-        + ''.join(
-            f'<tr><td style="color:#475569">{escape(label)}</td>'
-            f'<td style="font-weight:600;color:#172033">{escape(str(value))}</td></tr>'
-            for label, value in overview_pairs
-        )
-        + '</tbody></table></section>'
-    )
-
-    # Main result: PRED_48_01 figure + a compact prediction-behavior table
-    figure_path = art / "figures" / "PRED_48_01_full_test_actual_vs_all_seeds.png"
-    figure_html = ""
-    if figure_path.exists() and figure_path.stat().st_size > 1024:
-        # Sanity check: skip if the file is a tiny placeholder PNG
-        try:
-            from PIL import Image
-            w, h = Image.open(figure_path).size
-            if w >= 100 and h >= 100:
-                b = figure_path.read_bytes()
-                data_uri = "data:image/png;base64," + base64.b64encode(b).decode("ascii")
-                figure_html = (
-                    '<div class="cw-d-fig" style="margin-top:6px">'
-                    '<div class="ftitle">Actual vs Predicted (held-out Test, full horizon) — '
-                    '3 Transformer seeds + seed mean</div>'
-                    f'<img src="{escape(data_uri, quote=True)}" '
-                    'alt="Phase 48 Actual vs Predicted over Test" '
-                    'style="max-width:880px;width:90%"/>'
-                    '<div class="fcap" style="font-size:11px;color:#5d6b82;line-height:1.45;margin-top:4px">'
-                    'Active canonical Phase 48 figure '
-                    '(<code>artifacts/prediction_analysis/figures/PRED_48_01_full_test_actual_vs_all_seeds.png</code>). '
-                    'Predictions follow the temporal trend but are smoother than the observed series '
-                    'and have greater difficulty around sharp peaks.'
-                    '</div></div>'
-                )
-        except Exception:
-            figure_html = ""
-
-    # Prediction-behavior table — most useful supporting metrics from canonical P48 artifacts
-    behavior_rows = _phase48_behavior_rows(art, seeds)
-    behavior_table = (
-        '<table class="cw-d-tbl" style="margin-top:8px">'
-        '<thead><tr><th>Metric</th><th>seed42</th><th>seed123</th><th>seed2026</th></tr></thead>'
-        '<tbody>' + ''.join(
-            f'<tr><td style="color:#475569">{escape(metric)}</td>'
-            f'<td>{escape(v0)}</td><td>{escape(v1)}</td><td>{escape(v2)}</td></tr>'
-            for metric, v0, v1, v2 in behavior_rows
-        ) + '</tbody></table>'
-    )
-    main_result_html = (
-        '<section class="cw-d-sec"><h4>Main result - actual vs predicted (Test, full horizon)</h4>'
-        + figure_html + behavior_table
+    input_html = (
+        '<section class="cw-p48-sec"><h4>Prediction analysis conditions</h4>'
+        + _tbl(["Field", "Value"], [[k, str(v)] for k, v in input_pairs if v is not None])
         + '</section>'
     )
 
+    # ---- 2. Principal prediction-behavior table ----
+    rng_rows = {str(r.get("seed", "")).removeprefix("SEED"): r
+                for r in _csv(art / "prediction_range_compression.csv")}
+    dir_rows = {str(r.get("seed", "")).removeprefix("SEED"): r
+                for r in _csv(art / "prediction_direction_agreement.csv")}
+    lag_rows_by_seed: dict[str, dict[int, dict]] = {}
+    for r in _csv(art / "prediction_lag_diagnostics.csv"):
+        sk = str(r.get("seed", "")).removeprefix("SEED")
+        try:
+            lag_rows_by_seed.setdefault(sk, {})[int(r.get("lag_steps"))] = r
+        except Exception:
+            continue
+    ext_rows = {str(r.get("seed", "")).removeprefix("SEED"): r
+                for r in _csv(art / "prediction_local_extrema_summary.csv")}
+
+    behavior_headers = ["Metric", "Seed 42", "Seed 123", "Seed 2026"]
+    behavior_rows: list[list[str]] = []
+
+    # std_ratio (pred / true)
+    behavior_rows.append([
+        "Std ratio (pred / true)",
+        _f(rng_rows.get("42", {}).get("std_ratio"), 3),
+        _f(rng_rows.get("123", {}).get("std_ratio"), 3),
+        _f(rng_rows.get("2026", {}).get("std_ratio"), 3),
+    ])
+    # mean shift (pred - true, Wh)
+    behavior_rows.append([
+        "Mean shift (pred − true, Wh)",
+        _f(rng_rows.get("42", {}).get("mean_shift_pred_minus_true"), 3),
+        _f(rng_rows.get("123", {}).get("mean_shift_pred_minus_true"), 3),
+        _f(rng_rows.get("2026", {}).get("mean_shift_pred_minus_true"), 3),
+    ])
+    # nonzero direction agreement rate (3-class, fraction)
+    behavior_rows.append([
+        "Direction-of-change nonzero agreement rate (fraction)",
+        _f(dir_rows.get("42", {}).get("nonzero_direction_agreement_rate"), 3),
+        _f(dir_rows.get("123", {}).get("nonzero_direction_agreement_rate"), 3),
+        _f(dir_rows.get("2026", {}).get("nonzero_direction_agreement_rate"), 3),
+    ])
+    # Pearson r at lag = -1 (apparent lag diagnostic only)
+    behavior_rows.append([
+        "Pearson r at lag = -1 (DIAGNOSTIC ONLY)",
+        _f(lag_rows_by_seed.get("42", {}).get(-1, {}).get("pearson_correlation"), 3),
+        _f(lag_rows_by_seed.get("123", {}).get(-1, {}).get("pearson_correlation"), 3),
+        _f(lag_rows_by_seed.get("2026", {}).get(-1, {}).get("pearson_correlation"), 3),
+    ])
+    # Peak level ratio (pred_at_peak_mean / actual_peak_mean)
+    behavior_rows.append([
+        "Peak level ratio (pred / actual)",
+        _f(ext_rows.get("42", {}).get("peak_level_ratio"), 3),
+        _f(ext_rows.get("123", {}).get("peak_level_ratio"), 3),
+        _f(ext_rows.get("2026", {}).get("peak_level_ratio"), 3),
+    ])
+    behavior_html = (
+        '<section class="cw-p48-sec"><h4>Principal prediction behavior (per seed)</h4>'
+        + _tbl(behavior_headers, behavior_rows)
+        + '</section>'
+    )
+
+    # ---- 3. Signoff ----
     signoff_pairs = [
-        ("Phase status", overall),
-        ("Seed summary interpreted as ensemble", "NO"),
-        ("Best-seed selection", "NO"),
-        ("Post-Test tuning", "NO"),
-        ("Source predictions modified", str(summary.get("source_predictions_modified", False))),
+        ("Phase status", status),
+        ("Best-seed selection", signoff.get("best_seed_selected")),
+        ("Ensemble used", signoff.get("ensemble_used")),
+        ("Predictions shifted", summary.get("predictions_shifted")),
+        ("Predictions clipped", summary.get("predictions_clipped")),
+        ("Post-hoc calibration", summary.get("post_hoc_calibration")),
+        ("Decision", "PROCEED to Phase 49 / 50 / 51"),
     ]
     signoff_html = (
-        '<section class="cw-d-sec"><h4>Decision &amp; signoff</h4>'
-        '<table class="cw-d-tbl"><tbody>'
-        + ''.join(
-            f'<tr><td style="color:#475569">{escape(label)}</td>'
-            f'<td style="font-weight:600">{escape(str(value))}</td></tr>'
-            for label, value in signoff_pairs
-        )
-        + '</tbody></table>'
-        + '<p style="font-size:11.5px;color:#64748b;margin-top:6px;line-height:1.45">'
-        + 'Predictions broadly follow the temporal pattern but are smoother than the observed '
-        + 'series and have greater difficulty around sharp peaks. Phase 48 consumes the frozen '
-        + 'Phase 47 prediction bundles only - no new inference, training, or retuning.'
-        + '</p>'
+        '<section class="cw-p48-sec"><h4>Signoff</h4>'
+        + _tbl(["Field", "Value"], [[k, str(v)] for k, v in signoff_pairs if v is not None])
         + '</section>'
     )
 
-    body = (
-        '<div class="cw-d-body">'
-        + overview_html + main_result_html + signoff_html
-        + '</div>'
-    )
+    body = '<div class="cw-p48-body">' + input_html + behavior_html + signoff_html + '</div>'
 
     return HTML(
-        _CSS
-        + f'<article class="cw-d">{_header("Phase 48 - Prediction Analysis", subtitle, overall)}{body}</article>'
+        _CSS + '<article class="cw-p48"><header class="cw-p48-h">'
+        '<h3>Phase 48 - Prediction Analysis</h3>'
+        f'<span class="{badge_class}">{escape(status)}</span></header>' + body + '</article>'
     )
 
 
-def _phase48_behavior_rows(art: Path, seeds: list[int]) -> list[tuple[str, str, str, str]]:
-    """Return per-seed (v42, v123, v2026) tuples for the most useful P48 metrics."""
-    rows: list[tuple[str, str, str, str]] = []
-
-    def _lookup_by_seed(csv_name: str) -> dict[str, dict]:
-        out: dict[str, dict] = {}
-        for r in _csv(art / csv_name):
-            s = str(r.get("seed", "")).upper().replace("SEED", "")
-            if s:
-                out[s] = r
-        return out
-
-    def _get(d: dict[str, dict], seed: int, col: str, digits: int = 3) -> str:
-        r = d.get(str(seed), {})
-        v = r.get(col, "")
-        if v in ("", None):
-            return "N/A"
-        try:
-            return f"{float(v):.{digits}f}"
-        except (TypeError, ValueError):
-            return str(v)
-
-    # Range compression
-    compression = _lookup_by_seed("prediction_range_compression.csv")
-    rows.append(("Pred std / true std (ratio)",
-                 _get(compression, 42, "std_ratio"),
-                 _get(compression, 123, "std_ratio"),
-                 _get(compression, 2026, "std_ratio")))
-    rows.append(("Mean shift (pred − true, Wh)",
-                 _get(compression, 42, "mean_shift_pred_minus_true"),
-                 _get(compression, 123, "mean_shift_pred_minus_true"),
-                 _get(compression, 2026, "mean_shift_pred_minus_true")))
-
-    # Direction agreement
-    direction = _lookup_by_seed("prediction_direction_agreement.csv")
-    rows.append(("Nonzero direction agreement",
-                 _get(direction, 42, "nonzero_direction_agreement_rate"),
-                 _get(direction, 123, "nonzero_direction_agreement_rate"),
-                 _get(direction, 2026, "nonzero_direction_agreement_rate")))
-
-    # Peak level ratio
-    peaks = _lookup_by_seed("prediction_local_extrema_summary.csv")
-    rows.append(("Peak level ratio (mean, pred/true)",
-                 _get(peaks, 42, "peak_level_ratio"),
-                 _get(peaks, 123, "peak_level_ratio"),
-                 _get(peaks, 2026, "peak_level_ratio")))
-
-    # Lag diagnostic at -1 (60 min behind)
-    lag = _csv(art / "prediction_lag_diagnostics.csv")
-    lag_at_neg1: dict[str, str] = {}
-    for r in lag:
-        if r.get("lag_steps") == "-1":
-            s = str(r.get("seed", "")).upper().replace("SEED", "")
-            if s:
-                lag_at_neg1[s] = r.get("pearson_correlation", "")
-
-    def _fmt(v) -> str:
-        if v in ("", None):
-            return "N/A"
-        try:
-            return f"{float(v):.3f}"
-        except (TypeError, ValueError):
-            return str(v)
-
-    rows.append(("Pearson at lag=-1 (60 min)",
-                 _fmt(lag_at_neg1.get("42", "")),
-                 _fmt(lag_at_neg1.get("123", "")),
-                 _fmt(lag_at_neg1.get("2026", ""))))
-
-    # Cross-seed pairwise Pearson (average across all 3 seed pairs)
-    pair = _csv(art / "prediction_seed_pairwise_agreement.csv")
-    pair_vals: list[float] = []
-    for r in pair:
-        try:
-            pair_vals.append(float(r.get("pearson_correlation", "")))
-        except (TypeError, ValueError):
-            pass
-    cross = f"{sum(pair_vals)/len(pair_vals):.3f}" if pair_vals else "N/A"
-    rows.append(("Cross-seed pairwise Pearson (avg)", cross, cross, cross))
-    return rows
+def _phase48_behavior_metrics(
+    art: Path, seeds: list[int],
+) -> list[tuple[str, list[float | None], int]]:
+    """Read the four displayed metrics directly from the saved analysis tables."""
+    specs = [
+        ("Prediction / actual standard deviation", "prediction_range_compression.csv",
+         "std_ratio", 1, 3),
+        ("Mean prediction − actual (Wh)", "prediction_range_compression.csv",
+         "mean_shift_pred_minus_true", 1, 3),
+        ("Direction agreement — actual change ≠ 0 (%)", "prediction_direction_agreement.csv",
+         "nonzero_direction_agreement_rate", 100, 2),
+        ("Predicted / actual mean at actual peaks", "prediction_local_extrema_summary.csv",
+         "peak_level_ratio", 1, 3),
+    ]
+    tables = {filename: _csv(art / filename) for _, filename, _, _, _ in specs}
+    metrics = []
+    for label, filename, field, factor, digits in specs:
+        by_seed = {
+            str(row.get("seed", "")).upper().removeprefix("SEED"): row
+            for row in tables[filename]
+        }
+        values = []
+        for seed in seeds:
+            raw = by_seed.get(str(seed), {}).get(field)
+            try:
+                value = float(raw) * factor
+                values.append(value if math.isfinite(value) else None)
+            except (TypeError, ValueError):
+                values.append(None)
+        metrics.append((label, values, digits))
+    return metrics

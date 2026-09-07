@@ -70,12 +70,12 @@
     {
       "path": "artifacts/features/feature_engineering_manifest.json",
       "role": "features",
-      "sha256": "f9c54bbc7a7dcb1ff0c72b913dd8267c3862f828258a6d7c647f82e64b82e0b5"
+      "sha256": "e2f22ab4de9a8c3d1ac187ae8a2908c9fd548ecace3a7901f5a4bd99057be842"
     },
     {
       "path": "artifacts/features/phase_7_signoff.json",
       "role": "signoff",
-      "sha256": "d6cca8e89a2b879dcb5c9e1e09e1e7a738a6cb96229e2f641b8a6277dee97a21"
+      "sha256": "a543b80b3b1997909529e95c3ae043a9a3f4c85c6deafbb1963edd0dc71627f7"
     }
   ],
   "status": "PASS",
@@ -94,7 +94,7 @@
   "technical_details": {
     "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
     "dataset_revision": "DATA-v1",
-    "derived_file_sha256": "2614e13716a7edea0280381758459dcad4b572759c7e80bb8078ec79dd000f6f",
+    "derived_file_sha256": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6",
     "environment_id": "ENV-v1",
     "input_checksums": {
       "artifacts/acquisition/phase_2_signoff.json": "18eb34d3037be9b9b946a90233e66601e61c3d700a9237e37899f36a714dd556",
@@ -120,14 +120,14 @@
     ],
     "output_checksums": {
       "artifacts/features/feature_availability.csv": "3df1713607c8f2ba0bf87e26525f993d1a60a61bc77139ce1b609413a6bd6425",
-      "artifacts/features/feature_engineered_v1.sha256": "510b5788603b08df84fd57f61126c1b434e36f81941f6b0d8114189f1b13ed25",
+      "artifacts/features/feature_engineered_v1.sha256": "1947cac9d85be51269ba57e1e14ce09effdba2d8857fb74a953310d2c00a775a",
       "artifacts/features/feature_engineering_audit.csv": "d2bfdc27d185013efae324a655d59cf1fcb4b0b24ecbb8fdf396cc2ecc8ed2ab",
-      "artifacts/features/feature_engineering_discrepancies.json": "d490bc469a0a8ec586d2e4b56665fd39a5c7c436e9bd74f08f5b8eb7f929d026",
-      "artifacts/features/feature_engineering_manifest.json": "f9c54bbc7a7dcb1ff0c72b913dd8267c3862f828258a6d7c647f82e64b82e0b5",
+      "artifacts/features/feature_engineering_discrepancies.json": "20c887fb48810844305e69734d06b74ba18b3648badb8f5e7cebb7b7fe9bf42a",
+      "artifacts/features/feature_engineering_manifest.json": "e2f22ab4de9a8c3d1ac187ae8a2908c9fd548ecace3a7901f5a4bd99057be842",
       "artifacts/features/feature_leakage_audit.csv": "a8f9a618de79e8756815fb86e6ddce450bc39bda54388f39f45f183c9ff017a6",
       "artifacts/features/feature_lineage.csv": "332209b6b50f8e54f82ad9e08ea49880fbbead5037326b6815a95bd7a49ce4a4",
       "artifacts/features/feature_registry.csv": "e64506ea960c036364903ffdbeb8bf831cc546d0cf4c1f82dfdcac2fbf98417e",
-      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "2614e13716a7edea0280381758459dcad4b572759c7e80bb8078ec79dd000f6f"
+      "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"
     },
     "output_paths": [
       "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv",

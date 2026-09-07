@@ -37,6 +37,10 @@ from pathlib import Path
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 __all__ = ["render_phase_58_dashboard"]
 
 
@@ -45,7 +49,7 @@ __all__ = ["render_phase_58_dashboard"]
 # ---------------------------------------------------------------------------
 _CSS = """
 <style>
-.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
+.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:visible}
 .cw-d *{box-sizing:border-box}
 .cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
 .cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
@@ -92,14 +96,14 @@ _CSS = """
 .cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
 .cw-d-call.strong{border-left:4px solid #dc2626;background:#fcecef;color:#8b2430}
 .cw-d-call.muted{border-color:#94a3b8;background:#f1f5f9;color:#475569}
-.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:75%;max-width:880px}
+.cw-d-fig{display:flex;flex-direction:column;gap:6px;overflow:visible;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:75%;max-width:880px}
 .cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
 .cw-d-fig.compact{width:62%;max-width:720px}
 .cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
 .cw-d-fig .fcap{font-size:11px;color:#64748b;line-height:1.45}
 .cw-d-foot{padding:14px 22px;border-top:1px solid #e5eaf1;background:#fbfcff;font-size:11px;color:#5d6b82;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
 .cw-d-foot code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;background:#eef2ff;color:#3b46c4;padding:2px 6px;border-radius:4px}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-fig,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="margin:8px 0 0"],p[style*="margin:10px 0 0"],p[style*="margin:6px 0 0"],div[style*="font-size:11px"][style*="color:#64748b"],.cw-d-provenance,p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 
@@ -179,6 +183,8 @@ def _callout(kind: str, body: str) -> str:
 # Main renderer
 # ---------------------------------------------------------------------------
 
+@results_only
+@phase_report(58)
 def render_phase_58_dashboard(project_root: Path | str | None = None) -> HTML:
     """Render the Phase 58 Final Tables dashboard (presentation-only).
 
@@ -308,11 +314,6 @@ def render_phase_58_dashboard(project_root: Path | str | None = None) -> HTML:
         '<thead><tr><th>Seed</th><th>MAE (Wh)</th><th>RMSE (Wh)</th>'
         '<th>R^2</th></tr></thead>'
         '<tbody>' + ''.join(test_rows) + '</tbody></table>'
-        '<p style="margin:8px 0 0;font-size:12px;color:#475569;line-height:1.5">'
-        'N = 2961 Test targets per seed. Results are reported across all '
-        'three prespecified final seeds; no best-seed selection or ensemble '
-        'was performed.'
-        '</p>'
     )
 
     # ----- Key analysis findings (synthesis of Phase 48-57) -----
@@ -328,7 +329,7 @@ def render_phase_58_dashboard(project_root: Path | str | None = None) -> HTML:
         ("Attention analysis",
          "Attention allocation varies across historical positions and across heads within each layer."),
         ("Cross-seed attention stability",
-         "Layer-level attention behavior shows measurable cross-seed consistency; matched head indices are structural-only."),
+         "Layer-level attention behavior shows measurable cross-seed consistency."),
     ]
     findings_html = (
         '<table class="cw-d-tbl" style="margin-top:6px">'

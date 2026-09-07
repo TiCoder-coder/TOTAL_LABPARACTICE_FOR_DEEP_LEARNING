@@ -31,6 +31,10 @@ from typing import Any
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 __all__ = ["render_phase_52_dashboard"]
 
 # ---------------------------------------------------------------------------
@@ -91,7 +95,7 @@ _CSS = """
 .cw-d-provenance{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:11.5px;color:#475569;padding:10px 22px;background:#f5f7fb;border-bottom:1px solid #e5eaf1}
 .cw-d-provenance span{display:inline-flex;align-items:center;gap:4px}
 .cw-d-spacer{height:12px}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-fig,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="margin:8px 0 0"],p[style*="margin:10px 0 0"],p[style*="margin:6px 0 0"],div[style*="font-size:11px"][style*="color:#64748b"],.cw-d-provenance,p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 
@@ -175,6 +179,8 @@ def _callout(text: str, cls: str = "") -> str:
 # Main renderer
 # ---------------------------------------------------------------------------
 
+@results_only
+@phase_report(52)
 def render_phase_52_dashboard(project_root: Path | str | None = None) -> HTML:
     """Render the Phase 52 Attention Extraction dashboard (compact).
 
@@ -205,9 +211,11 @@ def render_phase_52_dashboard(project_root: Path | str | None = None) -> HTML:
 
     subtitle = "Extract frozen Transformer attention for downstream analysis."
 
-    # ----- Overview (compact) -----
+    # ----- Attention extraction overview (compact, redundant-safe) -----
+    # The decorator routes this table into the canonical 'Attention
+    # extraction overview' section (see SECTIONS[52]). All labels are
+    # condition-classified, so they land in the conditions bucket.
     overview_pairs = [
-        ("Phase status", status),
         ("Locked model", "TR_C2_ALT_LOOKBACK"),
         ("Test samples", n_test),
         ("Worst-case targets", n_cases),
@@ -218,7 +226,7 @@ def render_phase_52_dashboard(project_root: Path | str | None = None) -> HTML:
         ("Model state", "Frozen"),
     ]
     overview_html = (
-        '<section class="cw-d-sec"><h4>Overview</h4>'
+        '<section class="cw-d-sec"><h4>Attention extraction overview</h4>'
         '<table class="cw-d-tbl"><tbody>'
         + ''.join(
             f'<tr><td style="color:#475569">{escape(label)}</td>'
@@ -251,15 +259,9 @@ def render_phase_52_dashboard(project_root: Path | str | None = None) -> HTML:
         + body_rows
         + '</tbody></table>'
     )
-    interp_html = (
-        '<p style="margin:8px 0 0;font-size:12.5px;color:#1f2a44;line-height:1.5">'
-        'Phase 52 establishes the frozen attention tensors used by the '
-        'visualization and diagnostic analyses in Phase 53 onward.'
-        '</p>'
-    )
     main_section = (
-        '<section class="cw-d-sec"><h4>Attention output - frozen tensors</h4>'
-        + main_table_html + interp_html
+        '<section class="cw-d-sec"><h4>Extracted attention summary</h4>'
+        + main_table_html
         + '</section>'
     )
 
@@ -267,10 +269,8 @@ def render_phase_52_dashboard(project_root: Path | str | None = None) -> HTML:
     signoff_pairs = [
         ("Phase status", status),
         ("Frozen model used", "✓"),
-        ("Attention tensors preserved", "✓"),
-        ("Axis semantics verified", "✓"),
+        ("No NPZ loading", "✓"),
         ("No new training", "✓"),
-        ("No prediction modification", "✓"),
         ("Ready for Phase53", str(sig.get("phase53_authorized", True))),
     ]
     signoff_html = (

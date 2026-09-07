@@ -32,6 +32,10 @@ from typing import Any, Iterable, Sequence
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 from course_work.utils.artifacts import get_project_root, read_json
 
 __all__ = ["render_phase_49_dashboard"]
@@ -40,7 +44,7 @@ __all__ = ["render_phase_49_dashboard"]
 # Reuse the same CSS convention as Phase 43-47 and Phase 48 dashboards.
 _CSS = """
 <style>
-.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
+.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:visible}
 .cw-d *{box-sizing:border-box}
 .cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
 .cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
@@ -72,13 +76,14 @@ _CSS = """
 .cw-d-call{border-left:4px solid #6366f1;background:#eef2ff;padding:9px 13px;border-radius:0 7px 7px 0;margin:11px 0;font-size:12.5px;color:#1f2a44}
 .cw-d-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
 .cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
-.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:10px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:82%;max-width:850px}
+.cw-d-fig{display:flex;flex-direction:column;gap:6px;overflow:visible;margin:10px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:82%;max-width:850px}
 .cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
 .cw-d-fig.compact{width:64%;max-width:700px}
 .cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
 .cw-d-fig .fcap{font-size:11.5px;color:#5d6b82;line-height:1.45}
 @media (max-width:900px){.cw-d-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-d-grid3{grid-template-columns:1fr}}
 @media (max-width:620px){.cw-d-h{flex-direction:column;padding:15px}.cw-d-cards{grid-template-columns:1fr;padding:12px 16px}.cw-d-body{padding-left:16px;padding-right:16px}}
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="font-size:11"],p[style*="font-size:12"],p[style*="font-size:13"]{display:none !important}</style>
 </style>
 """
 
@@ -761,6 +766,8 @@ def _section_figures(fig_dir: Path) -> str:
 # Main entry
 # ---------------------------------------------------------------------------
 
+@results_only
+@phase_report(49)
 def render_phase_49_dashboard(project_root: Path | None = None) -> HTML:
     """Render the Phase 49 Residual Analysis dashboard.
 
@@ -829,17 +836,15 @@ def render_phase_49_dashboard(project_root: Path | None = None) -> HTML:
                 b64 = base64.b64encode(fp.read_bytes()).decode("ascii")
                 data_uri = "data:image/png;base64," + b64
                 figure_html = (
-                    '<div class="cw-d-fig" style="margin-top:6px">'
+                    '<div class="cw-d-fig" style="display:flex !important;margin:10px auto 18px;width:100%;max-width:1000px">'
                     '<div class="ftitle">Residual distribution (histogram + KDE + box) - '
                     'all three Transformer seeds</div>'
                     f'<img src="{escape(data_uri, quote=True)}" '
                     'alt="Phase 49 residual distribution" '
-                    'style="max-width:860px;width:90%"/>'
+                    'style="max-width:960px;width:100%;height:auto"/>'
                     '<div class="fcap" style="font-size:11px;color:#5d6b82;line-height:1.45;margin-top:4px">'
                     'Active canonical Phase 49 figure '
-                    '(<code>artifacts/residual_analysis/figures/phase49_fig02_residual_distribution.png</code>). '
-                    'Residuals are derived from the frozen Phase 47 predictions; no new inference. '
-                    'Heavier right (positive) tail = underprediction in difficult cases.'
+                    '(<code>artifacts/residual_analysis/figures/phase49_fig02_residual_distribution.png</code>).'
                     '</div></div>'
                 )
             else:
@@ -849,11 +854,11 @@ def render_phase_49_dashboard(project_root: Path | None = None) -> HTML:
                     b64 = base64.b64encode(fp2.read_bytes()).decode("ascii")
                     data_uri = "data:image/png;base64," + b64
                     figure_html = (
-                        '<div class="cw-d-fig" style="margin-top:6px">'
+                        '<div class="cw-d-fig" style="display:flex !important;margin:10px auto 18px;width:100%;max-width:1000px">'
                         '<div class="ftitle">Residual time series - 3 Transformer seeds</div>'
                         f'<img src="{escape(data_uri, quote=True)}" '
                         'alt="Phase 49 residual time series" '
-                        'style="max-width:860px;width:90%"/>'
+                        'style="max-width:960px;width:100%;height:auto"/>'
                         '<div class="fcap" style="font-size:11px;color:#5d6b82;line-height:1.45;margin-top:4px">'
                         'Active canonical Phase 49 figure '
                         '(<code>phase49_fig01_residual_time_series.png</code>).</div></div>'
@@ -900,13 +905,7 @@ def render_phase_49_dashboard(project_root: Path | None = None) -> HTML:
     )
 
     # ----- Conclusion (one short sentence) -----
-    conclusion_html = (
-        '<p style="margin:8px 0 0;font-size:12.5px;color:#1f2a44;line-height:1.5">'
-        '<strong>Finding:</strong> The residual distribution is heavy-tailed, '
-        'with the largest errors dominated by positive residuals, '
-        'indicating strong underprediction in difficult cases.'
-        '</p>'
-    )
+    conclusion_html = ""
 
     main_result_html = (
         '<section class="cw-d-sec"><h4>Main result - residual distribution and per-seed statistics</h4>'

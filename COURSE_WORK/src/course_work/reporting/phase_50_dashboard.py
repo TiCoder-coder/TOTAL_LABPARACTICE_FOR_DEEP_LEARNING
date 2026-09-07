@@ -22,6 +22,10 @@ from typing import Any, Iterable, Sequence
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 __all__ = ["render_phase_50_dashboard"]
 
 
@@ -30,7 +34,7 @@ __all__ = ["render_phase_50_dashboard"]
 # ---------------------------------------------------------------------------
 _CSS = """
 <style>
-.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
+.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:visible}
 .cw-d *{box-sizing:border-box}
 .cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
 .cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
@@ -72,7 +76,7 @@ _CSS = """
 .cw-d-call{border-left:4px solid #6366f1;background:#eef2ff;padding:10px 14px;border-radius:0 7px 7px 0;margin:11px 0;font-size:12.5px;color:#1f2a44;line-height:1.5}
 .cw-d-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
 .cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
-.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:72%;max-width:760px}
+.cw-d-fig{display:flex;flex-direction:column;gap:6px;overflow:visible;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:72%;max-width:760px}
 .cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
 .cw-d-fig.compact{width:60%;max-width:620px}
 .cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
@@ -84,7 +88,7 @@ _CSS = """
 .cw-d-conclusion ul{margin:6px 0 0 18px;padding:0;font-size:12.5px;color:#1f2a44;line-height:1.6}
 @media (max-width:900px){.cw-d-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.cw-d-grid2,.cw-d-grid3,.cw-d-grid4{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.cw-d-h{flex-direction:column;padding:15px}.cw-d-cards{grid-template-columns:1fr;padding:12px 16px}.cw-d-body{padding-left:16px;padding-right:16px}.cw-d-grid2,.cw-d-grid3,.cw-d-grid4{grid-template-columns:1fr}}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-fig,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="margin:8px 0 0"],p[style*="margin:10px 0 0"],p[style*="margin:6px 0 0"],div[style*="font-size:11px"][style*="color:#64748b"],.cw-d-provenance,p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 
@@ -670,6 +674,8 @@ def _section_conclusion(findings: dict[str, Any]) -> str:
 # ---------------------------------------------------------------------------
 # Main renderer
 # ---------------------------------------------------------------------------
+@results_only
+@phase_report(50)
 def render_phase_50_dashboard(project_root) -> HTML:
     """Render the Phase 50 Error-by-Regime Analysis dashboard.
 
@@ -685,8 +691,18 @@ def render_phase_50_dashboard(project_root) -> HTML:
     err_dir = root / "artifacts" / "error_by_regime"
 
     so = _read_json(err_dir / "phase_50_signoff.json")
-    cross_seed = _read_csv(err_dir / "regime_cross_seed_summary.csv")
+    # NOTE: regime_cross_seed_summary.csv (named in phase_50_signoff.json
+    # canonical_artifact_sha256) is not present on disk in this snapshot.
+    # We fall back to the per-family canonical regime CSVs that ARE on
+    # disk under artifacts/error_by_regime/. Read-only; no regeneration
+    # of the missing consolidated artifact.
+    cross_seed_present = (err_dir / "regime_cross_seed_summary.csv").exists()
+    cross_seed = _read_csv(err_dir / "regime_cross_seed_summary.csv") if cross_seed_present else []
     long_rows = _read_csv(err_dir / "regime_metrics_long.csv")
+    tl_rmse = _read_csv(err_dir / "target_level_rmse.csv")
+    cm_rmse = _read_csv(err_dir / "change_magnitude_rmse.csv")
+    cd_rmse = _read_csv(err_dir / "change_direction_rmse.csv")
+    eh_rmse = _read_csv(err_dir / "extreme_high_rmse.csv")
 
     status = str(so.get("status", "PASS")).upper()
 
@@ -781,60 +797,103 @@ def render_phase_50_dashboard(project_root) -> HTML:
         "AFTERNOON": "afternoon - elevated error",
         "EVENING": "evening - mid",
     }
-    target_order = [
-        ("TL_LOW", "Target level"),
-        ("TL_MID", "Target level"),
-        ("TL_HIGH", "Target level"),
-        ("EXTREME_HIGH", "Extreme demand"),
-        ("NON_EXTREME", "Extreme demand"),
-        ("CHANGE_RAPID", "Change magnitude"),
-        ("CHANGE_NORMAL", "Change magnitude"),
-        ("DIR_UP", "Change direction"),
-        ("DIR_FLAT", "Change direction"),
-        ("DIR_DOWN", "Change direction"),
-        ("TOD_NIGHT", "Time of day"),
-        ("TOD_MORNING", "Time of day"),
-        ("TOD_AFTERNOON", "Time of day"),
-        ("TOD_EVENING", "Time of day"),
-    ]
+    if cross_seed_present and cross_seed:
+        target_order = [
+            ("TL_LOW", "Target level"),
+            ("TL_MID", "Target level"),
+            ("TL_HIGH", "Target level"),
+            ("EXTREME_HIGH", "Extreme demand"),
+            ("NON_EXTREME", "Extreme demand"),
+            ("CHANGE_RAPID", "Change magnitude"),
+            ("CHANGE_NORMAL", "Change magnitude"),
+            ("DIR_UP", "Change direction"),
+            ("DIR_FLAT", "Change direction"),
+            ("DIR_DOWN", "Change direction"),
+            ("TOD_NIGHT", "Time of day"),
+            ("TOD_MORNING", "Time of day"),
+            ("TOD_AFTERNOON", "Time of day"),
+            ("TOD_EVENING", "Time of day"),
+        ]
+    else:
+        # Per-family fallback: only include regimes that the available
+        # per-family CSVs actually cover.
+        target_order = [
+            ("TL_LOW", "Target level"),
+            ("TL_HIGH", "Target level"),
+            ("EXTREME_HIGH", "Extreme demand"),
+            ("NON_EXTREME", "Extreme demand"),
+            ("CHANGE_RAPID", "Change magnitude"),
+            ("CHANGE_NORMAL", "Change magnitude"),
+            ("DIR_UP", "Change direction"),
+            ("DIR_DOWN", "Change direction"),
+        ]
     # Build lookup: regime_label -> {rmse_mean, n_total_across_seeds}
+    # If regime_cross_seed_summary.csv is present, use it (canonical
+    # consolidated). Otherwise fall back to per-family canonical CSVs.
     rmse_by_label: dict[str, tuple[str, str]] = {}
     n_by_label: dict[str, str] = {}
-    for r in cross_seed:
-        if r.get("metric") != "rmse_wh":
-            continue
-        lbl = r.get("regime_label", "")
-        m = r.get("mean", "")
-        if m in ("", None):
-            rmse_by_label[lbl] = ("N/A", "")
-        else:
-            try:
-                rmse_by_label[lbl] = (f"{float(m):.2f}", r.get("sd_ddof1", ""))
-            except (TypeError, ValueError):
+    if cross_seed_present and cross_seed:
+        for r in cross_seed:
+            if r.get("metric") != "rmse_wh":
+                continue
+            lbl = r.get("regime_label", "")
+            m = r.get("mean", "")
+            if m in ("", None):
                 rmse_by_label[lbl] = ("N/A", "")
-    # N is per-seed from regime_metrics_long.csv; sum across the 3 seeds per regime_label
-    from collections import defaultdict
-    n_total_per_label: dict[str, int] = defaultdict(int)
-    for r in long_rows:
-        lbl = r.get("regime_label", "")
-        try:
-            n_total_per_label[lbl] += int(float(r.get("N") or 0))
-        except (TypeError, ValueError):
-            pass
+            else:
+                try:
+                    rmse_by_label[lbl] = (f"{float(m):.2f}", r.get("sd_ddof1", ""))
+                except (TypeError, ValueError):
+                    rmse_by_label[lbl] = ("N/A", "")
+        from collections import defaultdict
+        n_total_per_label = defaultdict(int)
+        for r in long_rows:
+            lbl = r.get("regime_label", "")
+            try:
+                n_total_per_label[lbl] += int(float(r.get("N") or 0))
+            except (TypeError, ValueError):
+                pass
+        n_lookup = {k: f"{v:,}" for k, v in n_total_per_label.items()}
+    else:
+        # Per-family fallback: read per-seed RMSE and average across
+        # seeds. N is not stored in these per-family CSVs (the
+        # consolidated summary is the canonical source); display "—".
+        def _avg_rmse(rows: list[dict], group_field: str, group_value: str) -> tuple[str, str]:
+            vals: list[float] = []
+            n = 0
+            for r in rows:
+                if r.get(group_field) != group_value:
+                    continue
+                try:
+                    vals.append(float(r.get("rmse") or 0))
+                    n += 1
+                except (TypeError, ValueError):
+                    pass
+            if not vals:
+                return ("N/A", "")
+            mean = sum(vals) / len(vals)
+            return (f"{mean:.2f}", f"n_seeds={n}")
+        rmse_by_label = {
+            "TL_LOW":    _avg_rmse(tl_rmse, "target_level", "low"),
+            "TL_HIGH":   _avg_rmse(tl_rmse, "target_level", "high"),
+            "EXTREME_HIGH": _avg_rmse(eh_rmse, "extreme", "yes"),
+            "NON_EXTREME":  _avg_rmse(eh_rmse, "extreme", "no"),
+            "CHANGE_RAPID":  _avg_rmse(cm_rmse, "magnitude_bin", "high"),
+            "CHANGE_NORMAL": _avg_rmse(cm_rmse, "magnitude_bin", "low"),
+            "DIR_UP":   _avg_rmse(cd_rmse, "direction", "up"),
+            "DIR_DOWN": _avg_rmse(cd_rmse, "direction", "down"),
+        }
+        n_lookup = {}  # N not stored in per-family CSVs
 
     rows = []
     for canonical, family in target_order:
-        mean_str, sd_str = rmse_by_label.get(canonical, ("N/A", ""))
-        n_total = n_total_per_label.get(canonical, 0)
-        n_display = f"{n_total:,}" if n_total else "N/A"
+        mean_str, _sd = rmse_by_label.get(canonical, ("N/A", ""))
         rows.append([
             label_alias.get(canonical, canonical),
-            f"{family} · {label_alias.get(canonical, canonical)}",
-            n_display,
+            family,
             mean_str,
-            interp.get(canonical, ""),
         ])
-    headers = ["Regime", "Family", "N (sum)", "Mean RMSE (Wh)", "Interpretation"]
+    headers = ["Regime", "Family", "Mean RMSE (Wh)"]
     stats_table_html = (
         '<table class="cw-d-tbl" style="margin-top:8px">'
         '<thead><tr>' + ''.join(f'<th>{escape(h)}</th>' for h in headers) + '</tr></thead>'
@@ -844,13 +903,7 @@ def render_phase_50_dashboard(project_root) -> HTML:
     )
 
     # ----- One short conclusion -----
-    conclusion_html = (
-        '<p style="margin:8px 0 0;font-size:12.5px;color:#1f2a44;line-height:1.5">'
-        '<strong>Finding:</strong> Model error increases substantially in '
-        'high-demand, extreme-demand, and rapid-change regimes, with '
-        'rapid changes producing the largest RMSE.'
-        '</p>'
-    )
+    conclusion_html = ""
 
     main_result_html = (
         '<section class="cw-d-sec"><h4>Main result - mean RMSE per regime '
@@ -868,6 +921,10 @@ def render_phase_50_dashboard(project_root) -> HTML:
         ("No post-Test tuning", "✓"),
         ("No best seed / regime / head selection", "✓"),
         ("No causal claim", "✓"),
+        ("Canonical regime table source",
+         "regime_cross_seed_summary.csv" if cross_seed_present
+         else "per-family regime CSVs"),
+        ("RMSE aggregation", "cross-seed mean" if cross_seed_present else "cross-seed mean over 3 seeds"),
         ("Ready for Phase51", str(so.get("ready_for_phase51", True))),
     ]
     signoff_html = (

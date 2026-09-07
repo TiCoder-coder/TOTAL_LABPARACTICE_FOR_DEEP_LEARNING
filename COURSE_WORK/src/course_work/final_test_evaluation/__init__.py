@@ -49,33 +49,52 @@ LOCKED_BOUNDARY_PROTOCOL = "WB0_CONTEXT_CARRY_OVER"
 LOCKED_FEATURE_VARIANT = "FS2_TF1"
 LOCKED_TARGET_SCALING = "YS1"
 LOCKED_SEEDS = [42, 123, 2026]
-LOCKED_CONFIG_FP = "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24"
+# IMPORTANT: LOCKED_CONFIG_FINGERPRINT and LOCKED_FINAL_LOCK_SHA256 are TWO
+# DISTINCT identifiers and MUST be stored and compared separately.
+#   - LOCKED_CONFIG_FINGERPRINT = the config_fingerprint (Phase 45 hash of
+#     the canonical scientific config: candidate + lookback + features + epoch
+#     count + scaler hashes + ...)
+#   - LOCKED_FINAL_LOCK_SHA256 = the final_lock_sha256 (Phase 45 hash of the
+#     LOCK itself: candidate_id + FINAL_REFIT_EPOCHS + seeds + ...)
+#
+# Historically a single LOCKED_CONFIG_FP constant was used in BOTH fields,
+# which propagated the config_fingerprint value into final_lock_sha256
+# fields (the documented Phase 47 conflation). Both are exported for
+# backward compatibility but new code MUST use the two distinct names.
+LOCKED_CONFIG_FP = "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24"  # BACKWARD-COMPAT ALIAS — DEPRECATED, use LOCKED_CONFIG_FINGERPRINT
+LOCKED_CONFIG_FINGERPRINT = "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24"
+LOCKED_FINAL_LOCK_SHA256 = "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec"
 
 # Canonical Phase46 checkpoint metadata
+# Part 2G-P: Updated to corrected Phase46 runs (sequence >= 0256).
+# Authoritative source: artifacts/three_seed_final_runs/phase_46_signoff.json
 OFFICIAL_RUNS = {
     42: {
-        "run_id": "RUN_TR_FSD_0254_2B11AC68",
+        "run_id": "RUN_TR_FSD_0256_C2F24D58",
         "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_42/seed_42_FINAL_REFIT.pt",
-        "checkpoint_sha256": "c3cfad116aa91d47fb2f2950407498901b980a344a99462776e4b90828805b10",
+        "checkpoint_sha256": "523d2e98f82f8534782e9364a4fb86e7f9381e33c2abb694921ed1c4b3d3de67",
         "seed": 42,
     },
     123: {
-        "run_id": "RUN_TR_FSD_0254_3858DDA9",
+        "run_id": "RUN_TR_FSD_0256_AA575C42",
         "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_123/seed_123_FINAL_REFIT.pt",
-        "checkpoint_sha256": "8a134fec517be0dfcd81ac6f961bf75fa69e8d34666205f731d893969bf01e22",
+        "checkpoint_sha256": "650637c14f84548237ac0641a880e1b461824643bd276ae9cae0832879204804",
         "seed": 123,
     },
     2026: {
-        "run_id": "RUN_TR_FSD_0255_C7E123FB",
+        "run_id": "RUN_TR_FSD_0256_247AB83A",
         "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_2026/seed_2026_FINAL_REFIT.pt",
-        "checkpoint_sha256": "8753800539f7a617bacbaa541daafbbfaff338a1de38ae1a5146650b4593dc6f",
+        "checkpoint_sha256": "809cfde75611723e774791735c436009ce29d259faf30ab4123a2dc46c84212f",
         "seed": 2026,
     },
 }
 
 # FINAL_SCALING-v1 checksums (from Phase46 handoff)
+# Part 2G-P: x_scaler_sha256 updated to corrected Phase46-locked value
+# (was 7280c166... which is stale Phase 45-audit hash; corrected value
+# 54fbd2ca... matches both phase_46_signoff.json and the .pt envelope)
 FINAL_SCALING = {
-    "x_scaler_sha256": "7280c166232ac53ef5947fa1991a1b38e9f5ec75045711b7092ddba9c53a17fd",
+    "x_scaler_sha256": "54fbd2ca296c4cd4102390e85b5bb10f7b28567f47281ac7dca10719f175e6ff",
     "y_scaler_sha256": "e8c8edb970591afa5c25faf619d2257b544b1b27c0b725b3be376a52a5946cca",
     "x_bundle_id": "XSCALER__FS2_TF1",
     "y_bundle_id": "YSCALER__YS1",

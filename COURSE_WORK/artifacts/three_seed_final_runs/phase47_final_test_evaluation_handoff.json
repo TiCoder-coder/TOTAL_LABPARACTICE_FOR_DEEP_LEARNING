@@ -1,28 +1,35 @@
 {
   "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
   "feature_variant": "FS2_TF1",
+  "final_dev_region": "FINAL_DEV_REGION-v1",
+  "final_dev_window_count": 16630,
   "final_runs": [
     {
       "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_42/seed_42_FINAL_REFIT.pt",
-      "rmse": 41.70568399358886,
-      "run_id": "RUN_TR_FSD_0153_B15A19DC",
+      "checkpoint_sha256": "523d2e98f82f8534782e9364a4fb86e7f9381e33c2abb694921ed1c4b3d3de67",
+      "rmse": 47.85565017942988,
+      "run_id": "RUN_TR_FSD_0256_C2F24D58",
       "seed": 42
     },
     {
       "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_123/seed_123_FINAL_REFIT.pt",
-      "rmse": 39.61544168366244,
-      "run_id": "RUN_TR_FSD_0154_DD82D743",
+      "checkpoint_sha256": "650637c14f84548237ac0641a880e1b461824643bd276ae9cae0832879204804",
+      "rmse": 47.30963619597326,
+      "run_id": "RUN_TR_FSD_0256_AA575C42",
       "seed": 123
     },
     {
       "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_2026/seed_2026_FINAL_REFIT.pt",
-      "rmse": 39.89095324327143,
-      "run_id": "RUN_TR_FSD_0155_59A50ADD",
+      "checkpoint_sha256": "809cfde75611723e774791735c436009ce29d259faf30ab4123a2dc46c84212f",
+      "rmse": 48.501011461966336,
+      "run_id": "RUN_TR_FSD_0256_247AB83A",
       "seed": 2026
     }
   ],
-  "lookback": 36,
+  "lookback": 72,
   "ready_for_phase47": true,
-  "recommended_model_id": "TR_C0_PRIMARY",
-  "target_scaling": "YS1"
+  "recommended_model_id": "TR_C2_ALT_LOOKBACK",
+  "target_scaling": "YS1",
+  "x_scaler_sha256": "54fbd2ca296c4cd4102390e85b5bb10f7b28567f47281ac7dca10719f175e6ff",
+  "y_scaler_sha256": "e8c8edb970591afa5c25faf619d2257b544b1b27c0b725b3be376a52a5946cca"
 }

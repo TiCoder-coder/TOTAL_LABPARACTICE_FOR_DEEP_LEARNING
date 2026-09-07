@@ -18,6 +18,10 @@ from pathlib import Path
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 __all__ = ["render_phase_59_dashboard"]
 
 
@@ -78,7 +82,7 @@ _CSS = """
 .cw-d-foot code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;background:#eef2ff;color:#3b46c4;padding:2px 6px;border-radius:4px}
 .cw-d-tak{font-size:12.5px;line-height:1.55;color:#1f2a44;background:#fafbfd;border:1px solid #e2e8f0;border-radius:9px;padding:10px 14px;margin:6px 0}
 .cw-d-tak b{color:#3b46c4}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-fig,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="margin:8px 0 0"],p[style*="margin:10px 0 0"],p[style*="margin:6px 0 0"],div[style*="font-size:11px"][style*="color:#64748b"],.cw-d-provenance,p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 
@@ -206,6 +210,8 @@ def _get_key_takeaways_html(package_dir: Path) -> str:
 # Main renderer
 # ---------------------------------------------------------------------------
 
+@results_only
+@phase_report(59)
 def render_phase_59_dashboard(project_root) -> HTML:
     """Render the Phase 59 Final Conclusions dashboard (presentation-only).
 
@@ -265,29 +271,21 @@ def render_phase_59_dashboard(project_root) -> HTML:
     # RQ8 (seed stability), RQ9 (interpretive boundaries), RQ10 (limitations)
     # Only combine presentation-equivalent ones; scientific meaning preserved.
     grouped_rq = [
-        ("RQ1", "Final Transformer predictive performance on the held-out Test?",
-         "Three-seed mean MAE 28.53 Wh, RMSE 63.83 Wh, R^2 0.506 across seeds 42/123/2026 on the frozen chronological Test (N=2961); mean +/- sample SD (ddof=1), not an ensemble."),
-        ("RQ2", "How does the final Transformer compare to baselines?",
-         "Persistence RMSE 66.84 Wh and MAE 26.74 Wh on the same Test. The Tuned LSTM was not evaluated on FINAL_TEST_POP-v1 due to a lookback mismatch (L36 vs L72)."),
-        ("RQ3", "Is performance robust under temporal rolling-origin evaluation?",
-         "Rolling-origin development evidence is reported in FT03. It is development-only evidence, not a second Held-Out Test."),
-        ("RQ4", "In which regimes are forecast errors concentrated?",
-         "Errors are larger in high-consumption and rapid-change regimes; worst-error cases remain valid frozen Test observations."),
-        ("RQ5 / RQ6", "Where does last-query attention concentrate, and do heads differ?",
-         "Last-query attention emphasises recent temporal lags; head profiles within each layer are non-identical. Similarity does not imply functional redundancy."),
-        ("RQ7", "Does attention behavior co-vary with realized forecast error?",
-         "Attention metrics show associations with error magnitude (Spearman rho, HIGH vs LOW cohorts). Associations are descriptive; HIGH/LOW are diagnostic cohorts, not deployment regimes."),
-        ("RQ8", "Are attention findings consistent across the three final seeds?",
-         "Layer head-mean attention is more reproducible than individual matched heads. Same head indices across seeds are not assumed to represent the same learned role."),
-        ("RQ9 / RQ10", "What can and cannot be concluded from the attention analysis?",
-         "Attention describes temporal token allocation only, not raw-feature importance and not causality. All limitations (dataset, scope, tuning, three seeds, time-series dependence, attention diagnostic-only) are propagated forward."),
+        ("RQ1", "Transformer Test", "MAE 28.53 Wh; RMSE 63.83 Wh; R² 0.506; 3-seed mean; N=2961"),
+        ("RQ2", "Baselines", "Persistence: RMSE 66.84 Wh; MAE 26.74 Wh. LSTM: NOT_ELIGIBLE (L36 ≠ L72)"),
+        ("RQ3", "Rolling-origin", "Development results: FT03"),
+        ("RQ4", "Larger errors", "High consumption; rapid changes; peak underprediction"),
+        ("RQ5 / RQ6", "Attention patterns", "Recent-lag emphasis; distinct head profiles"),
+        ("RQ7", "Attention / error", "Descriptive association; HIGH / LOW error cohorts"),
+        ("RQ8", "Cross-seed stability", "Layer head-mean > individual matched heads"),
+        ("RQ9 / RQ10", "Interpretation scope", "Temporal attention; non-causal; single household; 3 seeds"),
     ]
 
     rq_table_html = (
         '<table class="cw-d-tbl" style="margin-top:6px">'
         '<thead><tr><th style="width:8%">RQ</th>'
-        '<th style="width:38%">Research question</th>'
-        '<th>Final answer</th></tr></thead>'
+        '<th style="width:38%">Category</th>'
+        '<th>Result</th></tr></thead>'
         '<tbody>'
         + ''.join(
             f'<tr><td style="font-weight:600;color:#475569">{escape(rid)}</td>'
@@ -325,13 +323,7 @@ def render_phase_59_dashboard(project_root) -> HTML:
     )
 
     # Compact neutral caveat for attention (replaces repeated disclaimers)
-    caveat_html = (
-        '<p style="margin:8px 0 0;font-size:11.5px;color:#475569;line-height:1.55">'
-        '<em>Caveat.</em> Attention findings are descriptive only. Attention is '
-        'not feature importance and does not establish causality. Matched heads '
-        'across seeds do not imply semantic identity.'
-        '</p>'
-    )
+    caveat_html = ""
 
     # ----- Limitations (compact grouped) -----
     limitations = [
@@ -403,15 +395,13 @@ def render_phase_59_dashboard(project_root) -> HTML:
             for label, value in status_pairs
         )
         + '</tbody></table>'
-        '<p style="margin:10px 0 0;font-size:13px;color:#1f2a44;line-height:1.55">'
-        'Coursework experimental pipeline completed.'
-        '</p>'
+        ''
         '</section>'
     )
 
     # ----- Assemble sections -----
     rq_section = (
-        '<section class="cw-d-sec"><h4>Research questions and answers</h4>'
+        '<section class="cw-d-sec"><h4>Final results</h4>'
         + rq_table_html
         + '</section>'
     )
@@ -435,9 +425,6 @@ def render_phase_59_dashboard(project_root) -> HTML:
     body = (
         '<div class="cw-d-body">'
         + rq_section
-        + conclusions_section
-        + limitations_section
-        + future_section
         + status_html
         + '</div>'
     )

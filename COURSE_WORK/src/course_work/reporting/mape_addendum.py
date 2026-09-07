@@ -126,7 +126,7 @@ def render_mape_addendum(project_root: Path | None = None) -> HTML:
 .mape-blocked{{color:#8f2430;background:#fdecef;border:1px solid #efb3ba}}
 .mape-note{{border-left:3px solid #d09a2d;background:#fffaf0;padding:10px 12px;border-radius:0 8px 8px 0}}
 @media (max-width:720px){{.mape-header{{flex-direction:column}}.mape-body{{padding-left:12px;padding-right:12px}}}}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,.mape-note,.mape-cards,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="font-size:11"],p[style*="font-size:12"],p[style*="font-size:13"]{{display:none !important}}</style>
 <article class="mape-dashboard">
 <header class="mape-header"><div><h3>Supplementary MAPE Metric Addendum</h3><p>{escape(str(signoff["artifact_version"]))} | Validation evidence only where signed sources exist</p></div><span class="mape-badge">{escape(str(signoff["status"]))}</span></header>
 <div class="mape-body">

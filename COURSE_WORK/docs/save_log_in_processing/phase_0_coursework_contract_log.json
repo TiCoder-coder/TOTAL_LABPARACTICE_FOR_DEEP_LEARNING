@@ -61,12 +61,12 @@
     {
       "path": "artifacts/contracts/coursework_contract.json",
       "role": "contract",
-      "sha256": "1f9298c92265fb6e02a61272caa1dd151e2372e829c69b2e91f6d2fa22fb84f8"
+      "sha256": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7"
     },
     {
       "path": "artifacts/contracts/phase_0_signoff.json",
       "role": "signoff",
-      "sha256": "f9d5e35215a75655e11d5c25356bf2386335cc712bda80247286366bc564b5aa"
+      "sha256": "3a4a09d8174aa7ed244fbe313b8b4b57c6eceee5b3cd956fc4c6895d87c11033"
     }
   ],
   "status": "PASS",

@@ -34,6 +34,10 @@ from pathlib import Path
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 __all__ = ["render_phase_54_dashboard"]
 
 
@@ -42,7 +46,7 @@ __all__ = ["render_phase_54_dashboard"]
 # ---------------------------------------------------------------------------
 _CSS = """
 <style>
-.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
+.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:visible}
 .cw-d *{box-sizing:border-box}
 .cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
 .cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
@@ -87,7 +91,7 @@ _CSS = """
 .cw-d-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
 .cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
 .cw-d-call.strong{border-left:4px solid #dc2626;background:#fcecef;color:#8b2430}
-.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:75%;max-width:880px}
+.cw-d-fig{display:flex;flex-direction:column;gap:6px;overflow:visible;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:75%;max-width:880px}
 .cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
 .cw-d-fig.compact{width:62%;max-width:720px}
 .cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
@@ -95,7 +99,7 @@ _CSS = """
 .cw-d-provenance{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:11.5px;color:#475569;padding:10px 22px;background:#f5f7fb;border-bottom:1px solid #e5eaf1}
 .cw-d-provenance span{display:inline-flex;align-items:center;gap:4px}
 .cw-d-spacer{height:12px}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-fig,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="margin:8px 0 0"],p[style*="margin:10px 0 0"],p[style*="margin:6px 0 0"],div[style*="font-size:11px"][style*="color:#64748b"],.cw-d-provenance,p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 
@@ -214,6 +218,8 @@ def _figure(png_path: Path, title: str, caption: str, compact: bool = False) -> 
 
 
 
+@results_only
+@phase_report(54)
 def render_phase_54_dashboard(project_root: Path | str | None = None) -> HTML:
     """Render the Phase 54 Last-Query Attention Analysis dashboard (compact).
 
@@ -295,21 +301,14 @@ def render_phase_54_dashboard(project_root: Path | str | None = None) -> HTML:
                     'line-height:1.5;margin-top:6px;text-align:center">'
                     'Phase 54-v2 canonical figure: layer/head mean last-query '
                     'attention profile across all Test samples (N = 2961) and '
-                    'all 72 history positions. Selected as a single '
-                    'representative profile; no head is labelled best.'
+                    'all 72 history positions.'
                     '</div></div>'
                 )
         except Exception:
             figure_html = ""
 
     # Brief entropy explanation
-    entropy_expl_html = (
-        '<p style="margin:10px 0 0;font-size:12px;color:#475569;line-height:1.5">'
-        '<em>Normalized entropy</em>: lower values \u2192 more concentrated '
-        'attention distribution; higher values \u2192 more diffuse. This is '
-        'a distributional description only.'
-        '</p>'
-    )
+    entropy_expl_html = ""
 
     # ----- Compact layer-level summary table (NO head ranking) -----
     # Group by layer (across all seeds + heads), read corrected v2 normalized entropy.
@@ -362,9 +361,7 @@ def render_phase_54_dashboard(project_root: Path | str | None = None) -> HTML:
         '<p style="margin:10px 0 0;font-size:12.5px;color:#1f2a44;line-height:1.55">'
         'The final query does not distribute attention uniformly across the '
         'full history; different attention groups show different degrees of '
-        'concentration.<br>'
-        '<em>These patterns are descriptive and should not be interpreted '
-        'as feature importance or causal influence.</em>'
+        'concentration.'
         '</p>'
     )
 

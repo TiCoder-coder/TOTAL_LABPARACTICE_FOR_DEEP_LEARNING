@@ -47,7 +47,9 @@ from course_work.final_test_evaluation.path_resolver import (
 )
 from course_work.final_test_evaluation import (
     FINAL_SCALING,
-    LOCKED_CONFIG_FP,
+    LOCKED_CONFIG_FP,  # BACKWARD-COMPAT ALIAS — DEPRECATED, prefer LOCKED_CONFIG_FINGERPRINT / LOCKED_FINAL_LOCK_SHA256
+    LOCKED_CONFIG_FINGERPRINT,
+    LOCKED_FINAL_LOCK_SHA256,
     LOCKED_FEATURES,
     LOCKED_LOOKBACK,
     OFFICIAL_RUNS,
@@ -104,7 +106,9 @@ def main() -> int:
         all_passed &= gate("ready_for_phase47 == True", s.get("ready_for_phase47") is True)
         all_passed &= gate("phase47_released == True", s.get("phase47_released") is True)
         all_passed &= gate("candidate == TR_C2_ALT_LOOKBACK", s.get("candidate_id") == "TR_C2_ALT_LOOKBACK")
-        all_passed &= gate("config_sha256 matches", s.get("config_sha256") == LOCKED_CONFIG_FP)
+        # config_fingerprint field of phase46_signoff — compare to config fingerprint,
+        # NOT to the final_lock_sha256 (Phase 47 conflation fix).
+        all_passed &= gate("config_sha256 matches LOCKED_CONFIG_FINGERPRINT", s.get("config_sha256") == LOCKED_CONFIG_FINGERPRINT)
         all_passed &= gate("completed_run_count == 3", s.get("completed_run_count") == 3)
         all_passed &= gate("test_status == NOT_ACCESSED", s.get("test_status") == "NOT_ACCESSED")
     print()
@@ -165,8 +169,8 @@ def main() -> int:
                 checkpoint_data[seed] = ckpt
                 all_passed &= gate(f"Seed {seed}: type == FINAL_REFIT", ckpt.checkpoint_type == "FINAL_REFIT")
                 all_passed &= gate(f"Seed {seed}: epoch == 30", ckpt.official_epoch == 30)
-                all_passed &= gate(f"Seed {seed}: final_lock_sha == LOCKED_CONFIG_FP",
-                                 ckpt.final_lock_sha256 == LOCKED_CONFIG_FP)
+                all_passed &= gate(f"Seed {seed}: final_lock_sha == LOCKED_FINAL_LOCK_SHA256",
+                                 ckpt.final_lock_sha256 == LOCKED_FINAL_LOCK_SHA256)
                 all_passed &= gate(f"Seed {seed}: seed embedded matches", ckpt.seed == seed)
                 all_passed &= gate(f"Seed {seed}: x_scaler_sha matches",
                                  ckpt.x_scaler_sha256 == FINAL_SCALING_CHECKSUMS["x_bundle"])

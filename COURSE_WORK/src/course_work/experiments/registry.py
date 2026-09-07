@@ -74,6 +74,26 @@ LOSS_OPTIONS = {"MSE", "HUBER"}
 METRIC_UNITS = {"mae_wh": "Wh", "rmse_wh": "Wh", "r2": "dimensionless"}
 REQUIRED_METRICS = {"mae_wh", "rmse_wh", "r2"}
 
+# ---------------------------------------------------------------------------
+# Phase 46 Corrective Run-ID Namespace Floor
+# ---------------------------------------------------------------------------
+# The canonical Phase 46 corrective plan
+# (COURSE_WORK/docs/plan/plan_before_process/phase_46_corrective_post_audit_reimplementation_plan.md)
+# §2.3 ("Hard required behaviors") requires: "Generate a new run_id from a
+# `RUN_TR_FSD_0256+` prefix — never reuse 0153/0154/0155." Earlier corrected
+# attempts produced RUN_TR_FSD_0181_..., RUN_TR_FSD_0182_..., and the
+# interrupted-persistence-failed RUN_TR_FSD_0183_..., none of which satisfy
+# the 0256+ prefix requirement.
+#
+# The MIN_CORRECTIVE_PHASE46_SEQUENCE constant encodes this requirement
+# as a registry-level floor that the corrected Phase 46 runner can request
+# at run-id allocation time via the new `min_sequence` parameter on
+# `allocate_run_id` / `register_run`. Non-corrective callers (everything
+# else in the codebase) are unaffected: they do not pass `min_sequence`,
+# so the allocator's default behavior is preserved.
+MIN_CORRECTIVE_PHASE46_SEQUENCE = 256
+
+
 
 class RunStatus(str, Enum):
     PLANNED = "PLANNED"
@@ -985,12 +1005,41 @@ class ExperimentRegistry:
             raise ValueError(f"Unknown experiment family: {family_id}")
         return matches[0]
 
-    def allocate_run_id(self, model_family: str, experiment_family: str, config_fingerprint: str) -> str:
+    def allocate_run_id(
+        self,
+        model_family: str,
+        experiment_family: str,
+        config_fingerprint: str,
+        min_sequence: int | None = None,
+    ) -> str:
+        """Allocate a unique run_id with optional minimum-sequence floor.
+
+        Without `min_sequence`, the allocator behaves exactly as before:
+        it scans existing records and the on-disk run_root, computes a
+        base sequence from `len(records) + 1`, then advances on conflict.
+
+        When `min_sequence` is provided, the allocator enforces a minimum
+        sequence number — the base candidate becomes
+        `max(len(records) + 1, min_sequence)`. This is the canonical
+        mechanism for enforcing the Phase 46 corrective-run prefix
+        requirement (RUN_TR_FSD_0256+) without renaming or modifying
+        any existing run.
+
+        The `min_sequence` argument is opt-in: existing callers that do
+        not pass it see no behavioral change.
+        """
         model_codes = {"PERSISTENCE": "PS", "LSTM": "LS", "TRANSFORMER_ENCODER": "TR"}
         model_code = model_codes[model_family]
         family_code = self._family(experiment_family)["family_code"]
         records = self._load_records()
-        sequence = len(records) + 1
+        base_seq = len(records) + 1
+        if min_sequence is not None:
+            # Enforce the namespace floor: never allocate a sequence below
+            # the floor. Other run_ids in the registry are NEVER modified
+            # or renamed; we only constrain where the NEXT newly-allocated
+            # run_id will land.
+            base_seq = max(base_seq, int(min_sequence))
+        sequence = base_seq
         while True:
             run_id = f"RUN_{model_code}_{family_code}_{sequence:04d}_{config_fingerprint[:8].upper()}"
             if not any(record["run_id"] == run_id for record in records) and not (self.run_root / run_id).exists():
@@ -1060,7 +1109,22 @@ class ExperimentRegistry:
         test_access_authorized: bool = False,
         rerun_reason: str | None = None,
         notes: str | None = None,
+        min_sequence: int | None = None,
     ) -> dict[str, Any]:
+        """Register a new run.
+
+        Parameters
+        ----------
+        ...
+        min_sequence : int | None
+            Optional minimum-sequence floor for the allocated run_id.
+            Forwarded to `allocate_run_id`. Opt-in; default `None` preserves
+            pre-fix behavior (sequence = len(records) + 1). The Phase 46
+            corrective runner passes
+            `min_sequence=MIN_CORRECTIVE_PHASE46_SEQUENCE` (256) so the
+            generated run_id satisfies the canonical plan §2.3 prefix
+            requirement (`RUN_TR_FSD_0256+`).
+        """
         normalized = validate_run_config(config, self.upstream_context)
         family = self._family(experiment_family)
         execution = ExecutionType(execution_type).value
@@ -1092,7 +1156,12 @@ class ExperimentRegistry:
                 raise ValueError("Duplicate config requires a canonical rerun reason")
         elif rerun_reason is not None and rerun_reason not in RERUN_REASONS:
             raise ValueError("Invalid rerun reason")
-        run_id = self.allocate_run_id(model_family, experiment_family, fingerprint)
+        run_id = self.allocate_run_id(
+            model_family,
+            experiment_family,
+            fingerprint,
+            min_sequence=min_sequence,
+        )
         now = self.clock()
         record = {
             "registry_version": EXPERIMENT_VERSION,

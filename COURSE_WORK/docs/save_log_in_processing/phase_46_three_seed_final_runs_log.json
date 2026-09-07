@@ -1,6 +1,6 @@
 {
   "artifact_version": "THREE_SEED_FINAL_RUNS-v1",
-  "created_at": "2026-08-30T01:28:40.079854+00:00",
+  "created_at": "2026-09-06T20:09:56.144554+00:00",
   "discrepancies": [],
   "phase_id": 46,
   "phase_name": "Three-seed Final Runs",
@@ -10,17 +10,17 @@
     {
       "rows": [
         {
-          "RMSE Wh": "0.000000",
+          "RMSE Wh": "47.855650",
           "Run ID": "N/A",
           "Seed": "42"
         },
         {
-          "RMSE Wh": "0.000000",
+          "RMSE Wh": "47.309636",
           "Run ID": "N/A",
           "Seed": "123"
         },
         {
-          "RMSE Wh": "0.000000",
+          "RMSE Wh": "48.501011",
           "Run ID": "N/A",
           "Seed": "2026"
         }
@@ -49,21 +49,21 @@
     {
       "path": "artifacts/three_seed_final_runs/three_seed_final_runs_summary.json",
       "role": "summary",
-      "sha256": "77be86f29dd4fd285417402f472d8fd092e6078c746a31a3292f05a7acd97d57"
+      "sha256": "cad2c4099f04bb51fadb388761dea9b43ad484da35621a7afc219cf1cb887ad5"
     },
     {
       "path": "artifacts/three_seed_final_runs/phase_46_signoff.json",
       "role": "signoff",
-      "sha256": "d8a9d54830d0891a39c6bdf917bf44bbf9868051ed761117e261f2a5ab33c52e"
+      "sha256": "c6c25a32c0190225d46e447f3faa92c7db9f8c402e4487baea69691b6620f8e9"
     }
   ],
   "status": "PASS",
   "summary": {
     "Mean RMSE Wh": "0.000000",
     "Phase status": "PASS",
-    "Seed 123 RMSE": "0.000000",
-    "Seed 2026 RMSE": "0.000000",
-    "Seed 42 RMSE": "0.000000",
+    "Seed 123 RMSE": "47.309636",
+    "Seed 2026 RMSE": "48.501011",
+    "Seed 42 RMSE": "47.855650",
     "Sweep code": "THREE_SEED_RUNS",
     "Test access": "NOT_ACCESSED"
   },
@@ -78,6 +78,6 @@
     "output_paths": [],
     "tests": []
   },
-  "timestamp": "2026-08-30T01:28:40.079854+00:00",
+  "timestamp": "2026-09-06T20:09:56.144554+00:00",
   "warnings": []
 }

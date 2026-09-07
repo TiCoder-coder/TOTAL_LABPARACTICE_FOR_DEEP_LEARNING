@@ -49,12 +49,12 @@
     {
       "path": "artifacts/temporal/temporal_manifest.json",
       "role": "temporal",
-      "sha256": "83719d55142dec332a8bf56065126859cf57ec3d72092500c23101e156199e34"
+      "sha256": "fe423a921811c6582bca4eb93af9555d75876ee8a3dbf92e4733fbba3eaf0183"
     },
     {
       "path": "artifacts/temporal/phase_4_signoff.json",
       "role": "signoff",
-      "sha256": "827ed0127d4a36608845f275387f1c8be4586d252842feddbff4e233d28ea202"
+      "sha256": "da404fd5f86684386c501236e9502811371c8869007447f5a520b28c8e872dae"
     }
   ],
   "status": "PASS",
@@ -85,8 +85,8 @@
       "artifacts/temporal/duplicate_timestamps.csv": "9b1883b806ef5eb6ed6fb4b87c6d4adf39cfb63d8d84ff5e31a01753cb0f056d",
       "artifacts/temporal/interval_distribution.csv": "5ce44210bfb17139fa13a20953a7ddbd441eba6d98cf9a80402a466b085a1316",
       "artifacts/temporal/missing_timestamps.csv": "713e1c555ddcbc3cda36df2296fa3f6bc6b2f378643c742b7ac26b29832dce01",
-      "artifacts/temporal/temporal_discrepancies.json": "5b1b12b177437c7c6f2a5c9c6f12091c1b31841e0c0983fef507f6ddc4752651",
-      "artifacts/temporal/temporal_manifest.json": "83719d55142dec332a8bf56065126859cf57ec3d72092500c23101e156199e34",
+      "artifacts/temporal/temporal_discrepancies.json": "308f33d442580352aafc368a7da1ec0e50503c53f7d614b3d5438a97d58d95eb",
+      "artifacts/temporal/temporal_manifest.json": "fe423a921811c6582bca4eb93af9555d75876ee8a3dbf92e4733fbba3eaf0183",
       "artifacts/temporal/temporal_summary.csv": "6bf9a9ce6a1a2bb80e53142b13f4f116abc251d6174526063c07ba088d22eef3",
       "artifacts/temporal/timestamp_gaps.csv": "00b0a6ceb58bf64be767f7beb1ae9c3228cee20442ce2db928e3e4ccbc932e2d"
     },

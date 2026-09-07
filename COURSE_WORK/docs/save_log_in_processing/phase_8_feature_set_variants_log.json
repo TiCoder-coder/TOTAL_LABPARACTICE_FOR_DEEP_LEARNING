@@ -53,12 +53,12 @@
     {
       "path": "artifacts/feature_sets/feature_set_manifest.json",
       "role": "feature_sets",
-      "sha256": "1ed85056b683cb30fe8eb6f26028332de1c15c80b87f88d8144f8e1439dce2a0"
+      "sha256": "239b9142032a9ed02ab389075ded5c5dd1b4dbffa5f4abe2312168a45120d5d1"
     },
     {
       "path": "artifacts/feature_sets/phase_8_signoff.json",
       "role": "signoff",
-      "sha256": "d1239ff66133246c95148513e71f58d52a22fa65177a07649d51e5e3ec9eeda0"
+      "sha256": "566f6328495c6410f5a509421b38faaadf9f334f594d18d3de8924061180400e"
     }
   ],
   "status": "PASS",
@@ -106,15 +106,15 @@
       "configs/base/coursework_contract.json"
     ],
     "output_checksums": {
-      "artifacts/feature_sets/README_FEATURE_SETS.md": "a198add3f4ff177841f0033bc483b10db3665f3eb708da6a7e705b4634b2c739",
-      "artifacts/feature_sets/feature_components.json": "b81e9016608d03a7959f236c2a8a9541dc4432fd98860dea2b9255bb68c1840b",
+      "artifacts/feature_sets/README_FEATURE_SETS.md": "e26bdd8e3908a87fb4464c26236a817d9250f2b2e591084970d79a5d009323dd",
+      "artifacts/feature_sets/feature_components.json": "f7ed449ba72840fb2efe6987c2daf8dd6b1b83530e59119adc58cebc348955a4",
       "artifacts/feature_sets/feature_order_checks.csv": "7e75c39fc3188e9572be954ba886a5d9a9c243bf29e4012ea6436fcd2916c1c6",
-      "artifacts/feature_sets/feature_set_discrepancies.json": "fae132e21090a8d197428bbf8e68630bbeb244a837a7f18b2f4bae7c31d406c3",
+      "artifacts/feature_sets/feature_set_discrepancies.json": "0cbd7b245e36f63a5c4df3459ab9f77cfe732b4bc63942b3c335efd844f07669",
       "artifacts/feature_sets/feature_set_leakage_audit.csv": "d7e2ae5a8413d17dcf301f09646702b5f217c424144db53b3fff5d525bbc950a",
       "artifacts/feature_sets/feature_set_lineage.csv": "ac38fd21e609e0855eddc03419e659c0a4b98a1544fb2b16a84e784545b84bcc",
-      "artifacts/feature_sets/feature_set_manifest.json": "1ed85056b683cb30fe8eb6f26028332de1c15c80b87f88d8144f8e1439dce2a0",
+      "artifacts/feature_sets/feature_set_manifest.json": "239b9142032a9ed02ab389075ded5c5dd1b4dbffa5f4abe2312168a45120d5d1",
       "artifacts/feature_sets/feature_set_registry.csv": "ac0752f9d701dac0bbbf9c15022b537f1058843d0bbad6ab63f43b41698419b1",
-      "artifacts/feature_sets/feature_set_registry.json": "1b6df420437ff73e2faa4bea37b4765500ab18898ad9813792d9f33b056f7da8",
+      "artifacts/feature_sets/feature_set_registry.json": "03885a997d33c9b9270dcc82e396c7bc02c860bcffc50a41f1514e0c59aac067",
       "artifacts/feature_sets/feature_set_variants.csv": "b03a4e137034be0b5903c42ff58216cbca27222f296e285938a4d77c38aa1725"
     },
     "output_paths": [

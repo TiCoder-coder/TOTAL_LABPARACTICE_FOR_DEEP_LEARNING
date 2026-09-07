@@ -25,7 +25,8 @@ FINAL_SCALING_VERSION = "FINAL_SCALING-v1"
 
 # Canonical checksums from Phase46 handoff
 FINAL_SCALING_CHECKSUMS = {
-    "x_bundle": "7280c166232ac53ef5947fa1991a1b38e9f5ec75045711b7092ddba9c53a17fd",
+    # Part 2G-P: Updated to corrected Phase46-locked value.
+    "x_bundle": "54fbd2ca296c4cd4102390e85b5bb10f7b28567f47281ac7dca10719f175e6ff",
     "y_bundle": "e8c8edb970591afa5c25faf619d2257b544b1b27c0b725b3be376a52a5946cca",
 }
 

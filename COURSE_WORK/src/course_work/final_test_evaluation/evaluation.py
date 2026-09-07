@@ -43,7 +43,9 @@ from course_work.models.transformer_regressor import TransformerRegressor, Trans
 from course_work.final_test_evaluation import (
     LOCKED_BOUNDARY_PROTOCOL,
     LOCKED_CANDIDATE,
-    LOCKED_CONFIG_FP,
+    LOCKED_CONFIG_FP,  # BACKWARD-COMPAT ALIAS — DEPRECATED
+    LOCKED_CONFIG_FINGERPRINT,
+    LOCKED_FINAL_LOCK_SHA256,
     LOCKED_FEATURES,
     LOCKED_LOOKBACK,
     LOCKED_TARGET_SCALING,

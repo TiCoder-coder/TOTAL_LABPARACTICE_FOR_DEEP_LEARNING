@@ -45,7 +45,7 @@ _CSS = """
 .cw-d-overview .row .v{color:#172033;font-weight:600;text-align:right;overflow-wrap:anywhere}
 .cw-d-note{font-size:12px;color:#475569;margin-top:10px;line-height:1.5;padding:9px 12px;background:#fbfcff;border-left:3px solid #cbd5e1;border-radius:0 7px 7px 0}
 @media (max-width:720px){.cw-d-h{flex-direction:column;padding:15px}.cw-d-body{padding:14px 16px 18px}.cw-d-overview{grid-template-columns:1fr}}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,.mape-note,.mape-cards,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="font-size:11"],p[style*="font-size:12"],p[style*="font-size:13"],p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 

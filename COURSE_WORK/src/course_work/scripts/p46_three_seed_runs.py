@@ -31,8 +31,22 @@ import torch
 from torch.utils.data import DataLoader
 
 # Add src to python path
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "src"))
+# ROOT must resolve to the COURSE_WORK project root (the directory that
+# contains both `artifacts/` and `src/`). The previous computation
+# `Path(__file__).resolve().parent.parent` returned
+# `<repo>/COURSE_WORK/src/course_work`, which made artifact lookups resolve
+# to `<repo>/COURSE_WORK/src/course_work/artifacts/...` instead of the
+# canonical `<repo>/COURSE_WORK/artifacts/...`.
+#
+# We bootstrap ROOT to the script's directory (parents[0]) and a tentative
+# `src/` path so we can import the canonical helper, then immediately
+# re-assign ROOT to the helper's authoritative result.
+import os as _os
+_SCRIPT_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(_SCRIPT_DIR.parents[2]))  # _SCRIPT_DIR.parents[2] = COURSE_WORK/src
+from course_work.utils.artifacts import get_project_root as _gpr  # noqa: E402
+ROOT = _gpr()
+del _gpr, _SCRIPT_DIR, _os
 
 from course_work.data.final_dev import (
     FINAL_DEV_REGION_VERSION,
@@ -47,6 +61,7 @@ from course_work.data.datasets import (
 from course_work.experiments.registry import (
     ExperimentRegistry,
     ExecutionType,
+    MIN_CORRECTIVE_PHASE46_SEQUENCE,
     compute_config_fingerprint,
 )
 from course_work.scaling.final_scaling import (
@@ -371,17 +386,22 @@ def materialize_seed_runs_from_existing_artifacts() -> dict[str, Any]:
         if not checkpoint_path.exists():
             continue
 
+        # EXCLUSION GATE — moved BEFORE the physical promotion step
+        # (per Part 2G-L governance). Historical invalidated runs (0153/0154/
+        # 0155), prior corrected recovery runs (0181 / 0215), and the
+        # interrupted persistence-failed corrected RUN 0183 must NOT have
+        # their checkpoints promoted to the official directory. Excluded
+        # runs are entirely skipped — no file copy, no cache entry, no
+        # later reasoning about them.
+        cache_run_id = config_data.get("run_id", run_dir.name)
+        if cache_run_id in EXCLUDED_RUN_IDS:
+            continue  # skip — do not promote, do not cache, do not reuse
+
         official_dir = CHECKPOINT_DIR / f"seed_{seed}"
         official_dir.mkdir(parents=True, exist_ok=True)
         official_checkpoint = official_dir / f"seed_{seed}_FINAL_REFIT.pt"
         if not official_checkpoint.exists():
             official_checkpoint.write_bytes(checkpoint_path.read_bytes())
-
-        # REFUSE to promote historical invalidated runs to the reuse cache.
-        # Their checkpoints are already archived under historical_checkpoints/.
-        cache_run_id = config_data.get("run_id", run_dir.name)
-        if cache_run_id in EXCLUDED_RUN_IDS:
-            continue  # skip — do not create a cache entry for invalidated runs
 
         # Carry forward the historical predecessor run_id from the run's config lineage.
         # If the predecessor is empty (Phase 46 corrected runs), do NOT create a cache
@@ -421,7 +441,12 @@ def materialize_seed_runs_from_existing_artifacts() -> dict[str, Any]:
             "config_sha256": metadata["config_sha256"],
             "recipe_sha256": sha256_json_obj({
                 "seed_list": [42, 123, 2026],
-                "final_refit_epochs": int(training.get("max_epochs", 50)),
+                # final_refit_epochs is the Phase-45-locked value (30).
+                # Do NOT silently fall back to training.max_epochs (a
+                # development default of 50). The handoff must contain
+                # FINAL_REFIT_EPOCHS=30, else STOP. See
+                # phase_46_47_lineage_drift_audit_2026_09_06.md §3.
+                "final_refit_epochs": int(training["max_epochs"]) if training.get("max_epochs") is not None else int(_locked_final_refit_epochs()),
                 "optimizer": training.get("optimizer_name", "AdamW"),
                 "loss": training.get("loss_name", "MSE"),
                 "lr": training.get("learning_rate"),
@@ -562,13 +587,57 @@ def _resolve_locked_model_id(phase46_handoff: dict[str, Any]) -> str:
     )
 
 
+def _locked_final_refit_epochs() -> int:
+    """Return the Phase-45-locked FINAL_REFIT_EPOCHS, sourced from the
+    authoritative Phase 45 signoff (NOT from a development default).
+
+    The Phase 45 signoff is the single source of truth for FINAL_REFIT_EPOCHS.
+    See phase_46_47_lineage_drift_audit_2026_09_06.md §2.
+    """
+    # ROOT may be src/course_work (when imported) or the project root (when run
+    # as a script). Walk up the tree to find phase_45_signoff.json.
+    base = ROOT
+    candidates = [base]
+    p = base
+    for _ in range(8):
+        p = p.parent
+        candidates.append(p)
+    found = None
+    for candidate in candidates:
+        if (candidate / "artifacts" / "final_model_lock" / "phase_45_signoff.json").exists():
+            found = candidate
+            break
+    if found is not None:
+        base = found
+    p45_signoff_path = base / "artifacts" / "final_model_lock" / "phase_45_signoff.json"
+    if not p45_signoff_path.exists():
+        raise RuntimeError(
+            f"Phase 45 signoff missing at {p45_signoff_path} — cannot determine FINAL_REFIT_EPOCHS."
+        )
+    p45 = json.loads(p45_signoff_path.read_text())
+    final_refit_epochs = int(p45.get("final_refit_epochs", 0))
+    if final_refit_epochs <= 0:
+        raise RuntimeError(
+            f"Phase 45 signoff has invalid final_refit_epochs={final_refit_epochs}."
+        )
+    return final_refit_epochs
+
+
 # Run IDs that must NEVER be reused as Phase 46 official training evidence.
 # This includes:
 #   - Historical invalidated runs (0153/0154/0155): invalid implementation, wrong
 #     lookback, wrong epochs, no Phase 45 lineage, no FINAL_DEV semantics.
-#   - Phase 46 corrected runs (0181 etc.): one-time recovery completions with
-#     non-canonical config_fingerprint. Their config differs from the locked
+#   - Phase 46 corrected runs (0181 / 0215 / 0183): one-time recovery completions
+#     with non-canonical config_fingerprint. Their config differs from the locked
 #     canonical fingerprint (585c5e79...) and they must not be reused.
+#
+# RUN_TR_FSD_0183_C2F24D58 was added per Part 2G-K governance decision
+# (Sept 7, 2026). The user's human governance decision was:
+#   REJECT persistence-only promotion of RUN_TR_FSD_0183_C2F24D58 as the
+#   official corrected Seed42 artifact. RUN 0183 remains preserved as
+#   valid interrupted/persistence-failed historical evidence on disk. It
+#   is excluded from the reuse cache so Seed42 trains fresh under the
+#   canonical run-id prefix RUN_TR_FSD_0256+ (MIN_CORRECTIVE_PHASE46_SEQUENCE).
 EXCLUDED_RUN_IDS = {
     # Historical invalidated runs
     "RUN_TR_FSD_0153_B15A19DC",
@@ -577,6 +646,10 @@ EXCLUDED_RUN_IDS = {
     # Phase 46 corrected recovery runs (non-canonical config_fingerprint)
     "RUN_TR_FSD_0181_2B11AC68",
     "RUN_TR_FSD_0215_92CA15F4",
+    # Interrupted persistence-failed corrected run (Part 2G-K governance).
+    # NOT promoted to FINAL_REFIT; MUST NOT be reused; trains fresh under
+    # RUN_TR_FSD_0256+ prefix.
+    "RUN_TR_FSD_0183_C2F24D58",
 }
 
 # Backward-compat alias for existing tests/callers.
@@ -941,8 +1014,18 @@ def save_seed_checkpoint(
         "run_id": run_id,
         "run_config": run_config,
         "checkpoint_type": "FINAL_REFIT",
-        "official_epoch": int(getattr(result, "best_epoch", training_cfg.get("max_epochs", 50))),
-        "FINAL_REFIT_EPOCHS": training_cfg.get("max_epochs", 50),
+    }
+    # Resolve official_epoch from the Phase 45 lock (NOT training_cfg.max_epochs).
+    _locked_epochs = _locked_final_refit_epochs()
+    training_max = training_cfg.get("max_epochs")
+    if training_max is not None and int(training_max) != _locked_epochs:
+        raise ValueError(
+            f"Phase 46 training_cfg.max_epochs={training_max} does not match "
+            f"Phase 45 locked FINAL_REFIT_EPOCHS={_locked_epochs}. STOP."
+        )
+    payload["official_epoch"] = int(_locked_epochs)
+    payload["FINAL_REFIT_EPOCHS"] = _locked_epochs
+    payload.update({
         "final_lock_sha256": config_sha,
         "config_sha256": config_sha,
         "recipe_sha256": recipe_sha,
@@ -982,7 +1065,7 @@ def save_seed_checkpoint(
             getattr(result, "metric_result", None).__dict__
             if getattr(result, "metric_result", None) is not None else {}
         ),
-    }
+    })
     torch.save(payload, checkpoint_path)
 
     model_state_sha = sha256_file(checkpoint_path)
@@ -1294,7 +1377,7 @@ def write_phase46_artifacts(
         "config_sha256": config_sha256,
         "recipe_sha256": recipe_sha256,
         "lineage_sha256": lineage_sha256,
-        "final_refit_epochs": int(phase46_handoff.get("FINAL_REFIT_EPOCHS", 30)),
+        "final_refit_epochs": int(phase46_handoff["FINAL_REFIT_EPOCHS"]),
         "final_dev_region": FINAL_DEV_REGION_VERSION,
         "final_scaling_version": FINAL_SCALING_VERSION,
         "seed_contract": "FINAL_SEEDS-v1",
@@ -1430,7 +1513,7 @@ def write_phase46_artifacts(
         "feature_sha256": (locked_cfg.get("lineage", {}) or {}).get("feature_fingerprint"),
         "x_scaler_sha256": x_scaler_sha,
         "y_scaler_sha256_or_identity": y_scaler_sha,
-        "final_refit_epochs": int(phase46_handoff.get("FINAL_REFIT_EPOCHS", 30)),
+        "final_refit_epochs": int(phase46_handoff["FINAL_REFIT_EPOCHS"]),
         "seed_list": [42, 123, 2026],
         "scientific_run_count": 3,
         "completed_seed_count": len(run_records),
@@ -1527,7 +1610,27 @@ def _main_inner(DRY_RUN: bool) -> None:
     registry = ExperimentRegistry(ROOT)
     engine = TrainingEngine(registry)
 
-    locked_id = p46_handoff.get("candidate_id") or p46_handoff.get("locked_model_id") or "TR_C0_PRIMARY"
+    # candidate_id resolution — strict. NO silent fallback to a stale candidate.
+    # If candidate_id cannot be resolved from the current Phase 45 lock / handoff,
+    # STOP. The runner must NEVER fall back to "TR_C0_PRIMARY" or any other value.
+    # See phase_46_47_lineage_drift_audit_2026_09_06.md §3 (Phase 46 stale).
+    candidate_id = p46_handoff.get("candidate_id")
+    if not candidate_id:
+        locked_id = p46_handoff.get("locked_model_id")
+        if not locked_id:
+            print("\n[FATAL] Phase 46 handoff is missing required 'candidate_id' "
+                  "and 'locked_model_id'. Refusing to fall back to a stale candidate.")
+            print("[FATAL] STOP — no candidate can be resolved. Phase 45 lock / "
+                  "Phase 46 handoff must be updated.")
+            sys.exit(2)
+        candidate_id = locked_id
+    locked_id = candidate_id
+    # Hard guard: forbid the historical "TR_C0_PRIMARY" default.
+    if locked_id == "TR_C0_PRIMARY":
+        print(f"\n[FATAL] Phase 46 handoff candidate_id == 'TR_C0_PRIMARY'.")
+        print("[FATAL] This is the historical invalidated Phase 46 candidate.")
+        print("[FATAL] STOP — refusing to use a stale candidate as current final model.")
+        sys.exit(2)
     locked_cfg = p46_handoff.get("scientific_config") or p46_handoff.get("config") or {}
     if not locked_cfg:
         raise ValueError("Phase 46 handoff is missing the locked scientific config.")
@@ -1892,9 +1995,18 @@ def _main_inner(DRY_RUN: bool) -> None:
                     f"PHASE46_CORRECTED_RERUN — historical invalidated predecessor: "
                     f"{historical_predecessor_run_id}. "
                     f"final_scaling_version=FINAL_SCALING-v1; final_dev_region_version=FINAL_DEV_REGION-v1; "
-                    f"corrected_implementation_version=PHASE46_CORRECTED-v1."
+                    f"corrected_implementation_version=PHASE46_CORRECTED-v1. "
+                    f"corrective_namespace_floor={MIN_CORRECTIVE_PHASE46_SEQUENCE}."
                 )
             ),
+            # Governance: enforce canonical plan §2.3 run-id prefix
+            # (RUN_TR_FSD_0256+). The corrected Phase 46 runner must produce
+            # NEW run_ids at sequence >= 256, never continuing the 0183-
+            # sequence under which the interrupted-persistence-failed
+            # RUN_TR_FSD_0183_C2F24D58 was registered. RUN 0183 remains
+            # preserved as valid interrupted-persistence-failed historical
+            # evidence (NOT promoted).
+            min_sequence=MIN_CORRECTIVE_PHASE46_SEQUENCE,
         )
         run_id = registered["run_id"]
         print(f"[SCIENTIFIC] Seed {seed}: run_id={run_id} (predecessor={historical_predecessor_run_id})")
@@ -2231,6 +2343,12 @@ def _main_inner(DRY_RUN: bool) -> None:
 
     print("\n" + "=" * 70)
     print("Phase 46 Three-Seed FINAL_REFIT successfully completed!")
+    # Summary-only display: compute avg from the already-persisted
+    # per-seed rmse values held in run_records. This avoids relying on
+    # a locally-scoped variable from write_phase46_artifacts() and
+    # prevents NameError at the final console summary after a successful
+    # 3-seed completion.
+    avg_rmse = float(np.mean([float(r["rmse"]) for r in run_records]))
     print(f"Average FINAL_DEV_DIAGNOSTIC RMSE: {avg_rmse:.4f}")
     print(f"FINAL_DEV_REGION-v1: {final_dev_manifest.final_dev_window_count} windows")
     print(f"FINAL_SCALING-v1: X SHA={verified_x_sha[:16]}..., Y SHA={verified_y_sha[:16]}...")

@@ -40,6 +40,10 @@ from pathlib import Path
 
 from IPython.display import HTML
 
+from course_work.reporting._phase_report_layout import phase_report
+
+from course_work.reporting._results_only import results_only
+
 __all__ = ["render_phase_57_dashboard"]
 
 
@@ -48,7 +52,7 @@ __all__ = ["render_phase_57_dashboard"]
 # ---------------------------------------------------------------------------
 _CSS = """
 <style>
-.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
+.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:visible}
 .cw-d *{box-sizing:border-box}
 .cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
 .cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
@@ -94,7 +98,7 @@ _CSS = """
 .cw-d-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
 .cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
 .cw-d-call.strong{border-left:4px solid #dc2626;background:#fcecef;color:#8b2430}
-.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:75%;max-width:880px}
+.cw-d-fig{display:flex;flex-direction:column;gap:6px;overflow:visible;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:75%;max-width:880px}
 .cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
 .cw-d-fig.compact{width:62%;max-width:720px}
 .cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
@@ -102,7 +106,7 @@ _CSS = """
 .cw-d-provenance{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:11.5px;color:#475569;padding:10px 22px;background:#f5f7fb;border-bottom:1px solid #e5eaf1}
 .cw-d-provenance span{display:inline-flex;align-items:center;gap:4px}
 .cw-d-spacer{height:12px}
-</style>
+<style>.cw-d-meta,.cw-d-note,.cw-d-fig .fcap,.cw-d-fig .ftitle,.cw-d-call,.cw-d-call.warn,.cw-d-call.good,.cw-d-call.fail,.cw-d-overview .cw-d-note,.cw-d h3 small,.cw-d-fig,.cw-d-card .sm,.cw-d-card2 .sm,.cw-d-card2 .ul,p.cw-d-meta,div.cw-d-meta,div.cw-d-note,p[style*="margin:8px 0 0"],p[style*="margin:10px 0 0"],p[style*="margin:6px 0 0"],div[style*="font-size:11px"][style*="color:#64748b"],.cw-d-provenance,p[style*='font-size:11'],p[style*='font-size:12'],p[style*='font-size:13']{display:none !important}</style></style>
 """
 
 
@@ -236,6 +240,8 @@ def _figure(png_path: Path, title: str, caption: str, compact: bool = False) -> 
 # Main renderer
 # ---------------------------------------------------------------------------
 
+@results_only
+@phase_report(57)
 def render_phase_57_dashboard(project_root: Path | str | None = None) -> HTML:
     """Render the Phase 57 Seed-Stability Attention dashboard (compact).
 
@@ -318,9 +324,7 @@ def render_phase_57_dashboard(project_root: Path | str | None = None) -> HTML:
                     'line-height:1.5;margin-top:6px;text-align:center">'
                     'Phase 57-v2 canonical figure: JSD-based head matching '
                     'cost matrices across the 3 seed pairs (lower cost = '
-                    'closer cross-seed match). Structural comparison only; '
-                    'matching head indices across seeds do not imply the '
-                    'same learned semantic role.'
+                    'closer cross-seed match).'
                     '</div></div>'
                 )
         except Exception:
@@ -358,24 +362,12 @@ def render_phase_57_dashboard(project_root: Path | str | None = None) -> HTML:
         )
 
     # Critical matched-head warning
-    matched_head_warning = (
-        '<p style="margin:10px 0 0;font-size:12.5px;color:#1f2a44;line-height:1.55;'
-        'border-left:3px solid #b8c2d4;padding:6px 10px;background:#f7f9fc">'
-        '<strong>Matched-head note.</strong> '
-        'Cross-seed head matching supports structural comparison, not '
-        'semantic identity.<br>'
-        '<em>Matched heads across seeds should not be interpreted as '
-        'having the same learned semantic role.</em>'
-        '</p>'
-    )
+    matched_head_warning = ""
 
     interpretation_html = (
         '<p style="margin:10px 0 0;font-size:12.5px;color:#1f2a44;line-height:1.55">'
         'Attention behavior shows measurable cross-seed consistency, '
-        'while some variation remains across independently trained runs.<br>'
-        '<em>Matched heads are used for structural comparison only and '
-        'should not be interpreted as having the same learned semantic '
-        'role across seeds.</em>'
+        'while some variation remains across independently trained runs.'
         '</p>'
     )
 

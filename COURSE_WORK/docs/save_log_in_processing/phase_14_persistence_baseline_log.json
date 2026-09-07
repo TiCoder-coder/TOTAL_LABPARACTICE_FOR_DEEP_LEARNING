@@ -66,27 +66,27 @@
     {
       "path": "artifacts/baselines/persistence/persistence_manifest.json",
       "role": "manifest",
-      "sha256": "bc8d4fa29d6d64236d75a85a018a385eb4f531cfcb5f1e0d1b74ad892d7db716"
+      "sha256": "e8138c6b3c38a26cf29624e4c24f6699141d5349d3e1b871c870ae399d1cbef1"
     },
     {
       "path": "artifacts/baselines/persistence/persistence_baseline_summary.json",
       "role": "summary",
-      "sha256": "dc69ec6f3beecdf4b8a9e5eb184e6aec542ccbb3e6f6a90136db1403883f858b"
+      "sha256": "a03989f58a66d28ae367708c7d2cbbdfd509384f70f4c9029bbec49d69972979"
     },
     {
       "path": "artifacts/baselines/persistence/persistence_validation_metrics.json",
       "role": "metrics",
-      "sha256": "c8e9e09788057c6cbdc6f8410e5741aea8c2a136ef5246084960266132b0a795"
+      "sha256": "970637688fdf94da94fc44f2087f1f020379cdb83e783853039bcc7d25d078ca"
     },
     {
       "path": "artifacts/baselines/persistence/persistence_discrepancies.json",
       "role": "discrepancies",
-      "sha256": "a5a80241d09cca2fb80588c6557479d5d30f883bcfb8bd85610be9af655b282c"
+      "sha256": "3b8de77957af7c5446d0854b33efd2f56ac8782bd59ee1e231c3db9e2fc03d16"
     },
     {
       "path": "artifacts/baselines/persistence/phase_14_signoff.json",
       "role": "signoff",
-      "sha256": "22230d911b2735cedeb42d0589c5294321188b920ef4e2ebfef29a82a3482b98"
+      "sha256": "f9591a2c4415ba90b056c569d1cee244c7ac1b23315f1c6a7dfc42ab88e63489"
     }
   ],
   "status": "PASS",
