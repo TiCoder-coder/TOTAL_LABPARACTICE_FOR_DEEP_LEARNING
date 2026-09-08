@@ -1,0 +1,19 @@
+{
+  "all_seeds_required": true,
+  "run_order": [
+    42,
+    123,
+    2026
+  ],
+  "same_config_all_seeds": true,
+  "same_data_all_seeds": true,
+  "same_epochs_all_seeds": true,
+  "same_scalers_all_seeds": true,
+  "seed_replacement_forbidden": true,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "version": "FINAL_SEEDS-v1"
+}

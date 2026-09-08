@@ -1,0 +1,36 @@
+{
+  "artifact_version": "ENV-v1",
+  "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+  "created_at": "2026-08-23T18:06:27.112977+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "environment_revision_id": "ENV-R-20260823T180627111716Z",
+  "input_checksums": {
+    "artifacts/contracts/phase_0_signoff.json": "daa032591e5f6e4024e32aa49ecb1e7391e9c6cbabb951801a7ca10e7f1bd155"
+  },
+  "input_paths": [
+    "artifacts/contracts/phase_0_signoff.json"
+  ],
+  "output_checksums": {
+    "artifacts/environment/environment_report.json": "ebc3af1a9555f1f5543bca94db38037ec9c852e1691b74acd1849cf07c7fedf5",
+    "artifacts/environment/requirements_freeze.txt": "395381b424655ace22a41f89880eb9384df9d6665f91fbca51d0d147802db2c5",
+    "artifacts/environment/smoke_test_report.json": "90ddf8824fc4c093abdcafd9a9c328d956c42af9327d896b15740259341d63e6"
+  },
+  "output_paths": [
+    "artifacts/environment/environment_report.json",
+    "artifacts/environment/requirements_freeze.txt",
+    "artifacts/environment/smoke_test_report.json"
+  ],
+  "phase_id": 1,
+  "phase_version": "PHASE-1-v1",
+  "status": "PASS",
+  "tests": [
+    "interpreter_kernel_contract",
+    "automatic_accelerator_selection",
+    "device_smoke_test",
+    "dependency_freeze",
+    "historical_environment_preservation"
+  ],
+  "warnings": []
+}

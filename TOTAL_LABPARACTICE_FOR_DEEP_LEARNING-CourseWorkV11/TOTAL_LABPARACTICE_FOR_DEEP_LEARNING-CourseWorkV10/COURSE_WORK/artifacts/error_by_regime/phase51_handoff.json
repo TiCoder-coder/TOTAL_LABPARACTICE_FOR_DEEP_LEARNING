@@ -1,0 +1,33 @@
+{
+  "created_at_utc": "2026-09-03T20:23:01.771809+00:00",
+  "forbidden_in_phase51": [
+    "Test-derived threshold tuning",
+    "best-seed selection",
+    "ensemble",
+    "3N iid pooling",
+    "prediction correction",
+    "retrain any model"
+  ],
+  "from_phase": 50,
+  "frozen_test_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+  "frozen_train_thresholds_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+  "n_test": 2961,
+  "phase50_did_not_modify_phase47_48_49": true,
+  "phase50_worst_error_ranking_executed": false,
+  "phase51_first_authorized_phase_for_worst_error_ranking": true,
+  "phase51_inherits_frozen_test_assignment": true,
+  "phase51_inherits_frozen_train_thresholds": true,
+  "regime_families": [
+    "R1_TARGET_LEVEL",
+    "R2_EXTREME_HIGH",
+    "R3_CHANGE_MAGNITUDE",
+    "R4_CHANGE_DIRECTION",
+    "R5_TIME_OF_DAY",
+    "R6_DAY_TYPE"
+  ],
+  "residual_convention": "y_true - y_pred",
+  "status": "PASS",
+  "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "to_phase": 51,
+  "version": "PHASE51_HANDOFF-v1"
+}

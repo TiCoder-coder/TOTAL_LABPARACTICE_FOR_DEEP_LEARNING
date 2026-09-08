@@ -1,0 +1,29 @@
+{
+  "sweep_id": "S16_EPOCH_CAP",
+  "sweep_version": "SWEEP_S16_EPOCHCAP-v1",
+  "phase_id": 38,
+  "created_at": "2026-08-24T09:32:11.492546+00:00",
+  "reference_update": {
+    "previous_reference": {
+      "run_id": "RUN_TR_S14_0023_A711A9B8",
+      "phase": 37,
+      "factor": "loss",
+      "selected_condition": "MSE"
+    },
+    "current_reference": {
+      "run_id": "RUN_TR_S14_0023_A711A9B8",
+      "phase": 38,
+      "factor": "max_epochs",
+      "selected_condition": "E50",
+      "selected_max_epochs": 50,
+      "validation_rmse_wh": 57.69679988114431
+    },
+    "phase39_handoff": {
+      "approved": true,
+      "factor": "max_epochs",
+      "selected_value": 50,
+      "note": "Phase 39 (S17 Gradient-clipping) will use max_epochs=50 from Phase 38 winner"
+    }
+  },
+  "test_status": "FORBIDDEN"
+}

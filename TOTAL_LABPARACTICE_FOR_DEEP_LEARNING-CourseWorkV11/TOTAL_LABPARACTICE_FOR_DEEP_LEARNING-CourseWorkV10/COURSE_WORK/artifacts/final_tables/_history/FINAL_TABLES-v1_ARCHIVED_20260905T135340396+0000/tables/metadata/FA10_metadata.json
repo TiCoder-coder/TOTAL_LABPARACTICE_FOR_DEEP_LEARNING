@@ -1,0 +1,36 @@
+{
+  "table_id": "FA10",
+  "title": "Attention Seed-Stability Details",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "No target-specific rematch; consensus profiles computed AFTER matching."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 168,
+  "csv_path": "artifacts/final_tables/tables/csv/FA10_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA10_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA10_rows.tex",
+  "csv_sha256": "9906c2cd894a93a5c2191194c0c1899beba7fb86c9ac48ffc129ddf8031a1a1f",
+  "markdown_sha256": "e384102952423a2347105b08e1bd4cef2236923a9d3b642b1bca981224f13066",
+  "latex_sha256": "e078a02e3089509bf2bd833daaccceba0226f495b862873fe3660a129e6166e8"
+}

@@ -1,0 +1,36 @@
+{
+  "table_id": "FT04",
+  "title": "Final Prediction and Residual Diagnostics",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Post-Test diagnostics only. No ensemble residual."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 30,
+  "csv_path": "artifacts/final_tables/tables/csv/FT04_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT04_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT04_rows.tex",
+  "csv_sha256": "30bf5c2661bbc956c6b87b2c4eb2e8dea799bed999c074f4fb5ec69f79e591f1",
+  "markdown_sha256": "df6da4765bdb04ab8a8a1243672fbd9b3d88f77db23ae876c2095d68f9a65c0d",
+  "latex_sha256": "c54a46df1ddc4e7e933640f9db8474b42817c1b71fd944fb955f613d5cafffa2"
+}

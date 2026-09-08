@@ -1,0 +1,63 @@
+{
+  "phase": 55,
+  "version": "HEAD_COMPARISON-v2",
+  "corrective": "scientific_corrective_HEAD_COMPARISON_v2",
+  "corrective_at_utc": "2026-09-05T10:45:00+00:00",
+  "previous_version_archived": "HEAD_COMPARISON-v1",
+  "corrective_fixes": [
+    "head_to_layer_mean_distance.csv: fixed column-name bug (mean_weight \u2192 head_mean_weight)",
+    "head_pair_paired_difference_summary.csv: fixed target_id parsing (int() fail on TGT_xxxxx \u2192 deterministic hash)",
+    "head_behavior_summary.csv: regenerated against LAST_QUERY_ATTENTION-v2 (non-zero normalized_entropy)",
+    "metadata: source_phase54_version \u2192 LAST_QUERY_ATTENTION-v2",
+    "metadata: final_lock_sha256 \u2192 81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec (canonical Phase45 lock)",
+    "metadata: raw_last_query_seed42_sha256 \u2192 102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff (separate field)",
+    "metadata: phase47_canonical_test_population_sha256 \u2192 d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+  ],
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "contract_sha256": "a7379e8f25b410e89193596281636d18cd72df9dd334d32b0713db725a1bc4b7",
+  "p54_signoff_sha256": "9ced5179a017ebf94f9bb75827a67e95c0482653d6da01fb58ebea32f0f4823f",
+  "handoff_p55_sha256": "939621c952f668c19b9f9a74e078fd547416b1449459d70ee53af335984c8609",
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "raw_last_query_seed42_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "phase47_canonical_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "raw_last_query_shas": {
+    "seed42": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "seed123": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "seed2026": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "lookback_steps": 72,
+  "num_layers": 2,
+  "num_heads": 4,
+  "n_test": 2961,
+  "expected_pair_count_per_layer": 6,
+  "actual_pair_count_per_layer": 6,
+  "total_pair_count": 36,
+  "primary_comparison_scope": "WITHIN_SEED_WITHIN_LAYER_ACROSS_HEADS",
+  "pairwise_metrics": [
+    "pearson",
+    "spearman",
+    "cosine",
+    "jsd",
+    "l1",
+    "l2",
+    "wasserstein_minutes"
+  ],
+  "best_head_selection": false,
+  "head_pruning": false,
+  "error_conditioning": false,
+  "cross_seed_head_matching": false,
+  "feature_importance_claim": false,
+  "causal_claim": false,
+  "status": "PASS",
+  "created_at_utc": "2026-09-05T09:49:58+00:00",
+  "summary_sha256": "fb239437febab4aa420f8afe826cac99cd3730a11c3fde48aae83c4eab263e02",
+  "signoff_sha256": "c720e1da7965a25e07a8d530d681facf8c85eeae2746aab3673cec6f858b8b65",
+  "end_to_end_duration_seconds": 5.103
+}

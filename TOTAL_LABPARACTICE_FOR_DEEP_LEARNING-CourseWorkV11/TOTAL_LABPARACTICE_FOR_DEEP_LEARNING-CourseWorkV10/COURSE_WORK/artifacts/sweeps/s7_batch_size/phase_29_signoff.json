@@ -1,0 +1,50 @@
+{
+  "approved_for_phase30": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s7_batch_size/_history/phase_29/20260822T154430814612Z/sweep_manifest.json",
+    "artifacts/sweeps/s7_batch_size/_history/phase_29/20260822T154430814612Z/phase_29_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S7-v1",
+  "created_at": "2026-08-22T15:44:30.814416+00:00",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+    "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json": "193cc6883ca3bbdb9c5cd32b8668af66b23c8c7a2247f4a31afda8436086a7c3",
+    "artifacts/sweeps/s6_activation/phase_28_signoff.json": "0ec21076b945c54a216d5998ea33e38fcbd348f0593d86806687878890c8ed9b",
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json",
+    "artifacts/runs/RUN_TR_S07_0012_D99B2B4F/config.json",
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s7_batch_size/results.csv": "294a563bfd5c2eac0b0576a9ee8e9e0e415649b92d4a93b99e8fa93f8707839e",
+    "artifacts/sweeps/s7_batch_size/s7_batch_winner.json": "33f9882088a80288a0626b554b71ca728c99bf41d9aedbadd975914706b53400",
+    "artifacts/sweeps/s7_batch_size/s7_reference_update.json": "a2c4efdedf9f806ad4ce9a672b6395de895fccfb7c70ffa59c93c1f9bf966e32",
+    "artifacts/sweeps/s7_batch_size/sweep_manifest.json": "4722b42f136081ad1d8fbd421b3b7242d1ff42bee2dabeaf541279d4bc8f95b6"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s7_batch_size/results.csv",
+    "artifacts/sweeps/s7_batch_size/sweep_manifest.json",
+    "artifacts/sweeps/s7_batch_size/s7_batch_winner.json",
+    "artifacts/sweeps/s7_batch_size/s7_reference_update.json"
+  ],
+  "phase_id": 29,
+  "phase_version": "PHASE-29-v1",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": []
+}

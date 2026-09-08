@@ -1,0 +1,7 @@
+{
+  "gc0_rmse": 58.87856773160628,
+  "gc1_rmse": 57.69679988114431,
+  "hypothesis": "gradient clipping with max_norm=1.0 improves Validation RMSE",
+  "interpretation": "Clipping at max_norm=1.0 improves Validation RMSE over no clipping under frozen configuration",
+  "outcome": "ACCEPTED"
+}

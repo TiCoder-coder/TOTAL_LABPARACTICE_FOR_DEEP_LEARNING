@@ -1,0 +1,31 @@
+{
+  "WB0": true,
+  "WB1": false,
+  "WINDOWPOP_v1_policy": "preserved",
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "continuity": "strict",
+  "excluded_splits": [
+    "TEST"
+  ],
+  "first_allowed_timestamp": "2016-01-11 17:00:00",
+  "first_test_target_timestamp_metadata": "2016-05-07 04:40:00",
+  "hard_assertion": "last_target_timestamp < first_test_target_timestamp",
+  "horizon": 1,
+  "included_splits": [
+    "TRAIN",
+    "VALIDATION"
+  ],
+  "last_allowed_training_target_timestamp": "2016-05-07 04:30:00",
+  "last_target_timestamp_before_test": "2016-05-07 04:30:00",
+  "lineage": {},
+  "lookback": 72,
+  "no_candidate_specific_expansion": true,
+  "no_test_expansion": true,
+  "region_id": "FINAL_DEV_REGION-v1",
+  "split_version": "SPLIT-v1",
+  "status": "PASS",
+  "target_count": 16774,
+  "target_ids_fingerprint": "552e6895dbc6f7a93b0ea9a2ab4de77abd58d8780ad4bc85b697a485ccbc31a9",
+  "target_population_rule": "WB0_CONTEXT_CARRY_OVER",
+  "test_target_values_accessed": false
+}

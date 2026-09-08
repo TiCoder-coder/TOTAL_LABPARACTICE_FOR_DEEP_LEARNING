@@ -1,0 +1,124 @@
+{
+  "source_phase58_version": "FINAL_TABLES-v2",
+  "source_phase58_revision": "FINAL_TABLES-v2",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+  "source_phase55_version": "HEAD_COMPARISON-v2",
+  "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v2",
+  "source_phase57_version": "SEED_STABILITY_ATTENTION-v2",
+  "previous_phase58_version": "FINAL_TABLES-v1",
+  "previous_phase58_archived_path": "artifacts/final_tables/_history/FINAL_TABLES-v1_ARCHIVED_20260905T135340396+0000",
+  "corrective": true,
+  "corrective_at_utc": "2026-09-05T13:53:40Z",
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "config_fingerprint_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "final_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "canonical_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "canonical_final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "canonical_config_fingerprint_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "seed42_checkpoint_sha256": "c3cfad116aa91d47fb2f2950407498901b980a344a99462776e4b90828805b10",
+  "seed123_checkpoint_sha256": "8a134fec517be0dfcd81ac6f961bf75fa69e8d34666205f731d893969bf01e22",
+  "seed2026_checkpoint_sha256": "8753800539f7a617bacbaa541daafbbfaff338a1de38ae1a5146650b4593dc6f",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "main_table_catalog": [
+    "FT01",
+    "FT02",
+    "FT03",
+    "FT04",
+    "FT05",
+    "FT06",
+    "FT07",
+    "FT08",
+    "FT09",
+    "FT10"
+  ],
+  "appendix_table_catalog": [
+    "FA01",
+    "FA02",
+    "FA03",
+    "FA04",
+    "FA05",
+    "FA06",
+    "FA07",
+    "FA08",
+    "FA09",
+    "FA10",
+    "FA11",
+    "FA12"
+  ],
+  "figure_inventory": [
+    {
+      "figure_id": "FF01",
+      "source_phase": 48,
+      "source_artifact": "artifacts/prediction_analysis/figures/"
+    },
+    {
+      "figure_id": "FF02",
+      "source_phase": 49,
+      "source_artifact": "artifacts/residual_analysis/figures/"
+    },
+    {
+      "figure_id": "FF03",
+      "source_phase": 50,
+      "source_artifact": "artifacts/error_by_regime/figures/"
+    },
+    {
+      "figure_id": "FF04",
+      "source_phase": 53,
+      "source_artifact": "artifacts/attention_heatmaps/figures/"
+    },
+    {
+      "figure_id": "FF05",
+      "source_phase": 54,
+      "source_artifact": "artifacts/last_query_attention/figures/"
+    },
+    {
+      "figure_id": "FF06",
+      "source_phase": 55,
+      "source_artifact": "artifacts/head_comparison/figures/"
+    },
+    {
+      "figure_id": "FF07",
+      "source_phase": 56,
+      "source_artifact": "artifacts/error_conditioned_attention/figures/"
+    },
+    {
+      "figure_id": "FF08",
+      "source_phase": 57,
+      "source_artifact": "artifacts/seed_stability_attention/figures/"
+    }
+  ],
+  "table_claim_traceability": "artifacts/final_tables/table_claim_traceability.csv",
+  "final_tables_findings": "artifacts/final_tables/final_tables_findings.csv",
+  "upstream_warnings": "artifacts/final_tables/FA12 (see tables/markdown/FA12_rows.md)",
+  "allowed_claims": [
+    "FINAL_TEST_PERFORMANCE",
+    "LSTM_COMPARISON",
+    "TEMPORAL_ROBUSTNESS",
+    "ERROR_REGIME_BEHAVIOR",
+    "WORST_ERROR_CONCENTRATION",
+    "LAST_QUERY_TEMPORAL_ATTENTION",
+    "HEAD_DIVERSITY",
+    "ERROR_ATTENTION_ASSOCIATION",
+    "ATTENTION_SEED_STABILITY"
+  ],
+  "prohibited_claims": [
+    "CAUSAL_ATTENTION_EXPLANATION",
+    "RAW_FEATURE_IMPORTANCE_FROM_TEMPORAL_ATTENTION",
+    "BEST_SEED_SELECTION",
+    "POST_TEST_RETUNING",
+    "MULTI_HOUSE_GENERALIZATION",
+    "ENSEMBLE_RECONSTRUCTION",
+    "CONFIDENCE_INTERVAL_FROM_THREE_SEEDS",
+    "HYPOTHESIS_TEST_BETWEEN_MODELS",
+    "NEW_MAPE",
+    "HEAD_SEMANTIC_ALIGNMENT_ASSUMPTION"
+  ],
+  "new_analysis_performed": false,
+  "ready_for_phase59": true,
+  "phase59_authorized": false,
+  "authorization_note": "READY and AUTHORIZED are distinct fields. READY only indicates the final tables are semantically prepared; AUTHORIZATION to execute Phase 59 must be granted separately by the user."
+}

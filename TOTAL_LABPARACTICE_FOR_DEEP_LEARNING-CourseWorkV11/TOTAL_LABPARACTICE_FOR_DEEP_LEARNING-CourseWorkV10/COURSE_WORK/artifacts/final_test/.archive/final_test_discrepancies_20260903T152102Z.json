@@ -1,0 +1,14 @@
+{
+  "phase": 47,
+  "version": "FINAL_TEST_EVAL-v1",
+  "discrepancy_count": 1,
+  "discrepancies": [
+    {
+      "code": "TEST_ROWS_DROPPED",
+      "detail": "One row dropped",
+      "severity": "MAJOR"
+    }
+  ],
+  "status": "DISCREPANCIES_FOUND",
+  "created_at": "2026-09-03T15:09:34.750985+00:00"
+}

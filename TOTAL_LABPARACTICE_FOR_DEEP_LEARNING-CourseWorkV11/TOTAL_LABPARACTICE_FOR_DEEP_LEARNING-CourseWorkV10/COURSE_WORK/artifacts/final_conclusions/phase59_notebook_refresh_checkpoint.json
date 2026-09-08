@@ -1,0 +1,149 @@
+{
+  "audit": {
+    "phase": 59,
+    "scope": "PHASE 59 NOTEBOOK PRESENTATION-ONLY REFRESH",
+    "audit_at_utc": "2026-09-05T22:05:00+00:00",
+    "audit_status": "PASS"
+  },
+
+  "active_state_pre_refresh": {
+    "phase59_revision": "FINAL_CONCLUSIONS-v2",
+    "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+    "source_phase55_version": "HEAD_COMPARISON-v2",
+    "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v2",
+    "source_phase57_version": "SEED_STABILITY_ATTENTION-v2",
+    "source_phase58_version": "FINAL_TABLES-v2",
+    "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+    "config_fingerprint_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "final_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "narrative_fingerprint": "27635897cea05a46d9d6c953f5b56fa4502a473bff9240431d7853010d650dac",
+    "overall_status": "PASS"
+  },
+
+  "frozen_conclusion_state": {
+    "claim_count": 10,
+    "limitation_count": 14,
+    "future_work_count": 10,
+    "finding_count": 8,
+    "rq_count": 10,
+    "sentence_ledger_count": 39,
+    "outcome_matrix_count": 12
+  },
+
+  "cell_changes": {
+    "cell_148_phase58_dashboard": {
+      "type": "code",
+      "source_changed": false,
+      "outputs_changed": false,
+      "status": "UNTOUCHED"
+    },
+    "cell_149_phase59_markdown": {
+      "type": "markdown",
+      "source_sha_before": "9a859d7d9de0acb48c6110c51bc957d517ce307d7ac9ecd0566523512ad7cd91",
+      "source_sha_after": "9a859d7d9de0acb48c6110c51bc957d517ce307d7ac9ecd0566523512ad7cd91",
+      "source_changed": false,
+      "outputs_changed": false,
+      "status": "BYTE_IDENTICAL"
+    },
+    "cell_150_phase59_dashboard_renderer": {
+      "type": "code",
+      "source_sha_before": "37dda54613517ad0a4352c63052473827b92b805891d7be9ef669f9dc1ce819a",
+      "source_sha_after": "37dda54613517ad0a4352c63052473827b92b805891d7be9ef669f9dc1ce819a",
+      "source_changed": false,
+      "outputs_changed": true,
+      "outputs_count": 1,
+      "output_size_chars": 33619,
+      "status": "OUTPUT_REFRESHED"
+    },
+    "other_cells": {
+      "total_count": 149,
+      "source_mismatches": 0,
+      "output_mismatches": 0,
+      "status": "ALL_BYTE_IDENTICAL"
+    }
+  },
+
+  "v2_presentation_verification": {
+    "FINAL_CONCLUSIONS_v2_in_output": true,
+    "FINAL_TABLES_v2_in_output": true,
+    "final_lock_81fb87c4_in_output": true,
+    "test_pop_d7dbc0b3_in_output": true,
+    "narrative_fingerprint_27635897_in_output": true,
+    "RQ1_to_RQ10_all_visible": true,
+    "claim_count_10_visible": true,
+    "limitation_count_14_visible": true,
+    "future_work_count_10_visible": true,
+    "finding_count_8_visible": true,
+    "phase_0_to_59_complete_visible": true,
+    "three_seed_mean_visible": true,
+    "seed_list_42_123_2026_visible": true,
+    "Persistence_mentioned": true,
+    "LSTM_mentioned": true,
+    "attention_mentioned": true,
+    "matched_head_mentioned": true,
+    "cycle_consistency_mentioned": true,
+    "descriptive_only_caveat": true,
+    "mean_sample_SD_ddof_1_mentioned": true,
+    "no_best_seed_caveat": true,
+    "no_ensemble_caveat": true,
+    "no_causal_claim_caveat": true
+  },
+
+  "stale_label_audit": {
+    "FINAL_CONCLUSIONS_v1_in_cell150_output": false,
+    "FINAL_TABLES_v1_in_cell150_output": false,
+    "Phase_59_v1_label_in_cell150_output": false,
+    "config_fingerprint_585c5e79_in_cell150_output": false,
+    "zero_entropy_stale_narrative_in_output": false,
+    "NOT_DEFINED_CONSTANT_in_output": false,
+    "NO_COMMON_TARGETS_in_output": false
+  },
+
+  "presentation_quality": {
+    "stale_version_labels": "ABSENT",
+    "wrong_final_lock_label": "ABSENT (81fb87c4 correctly displayed)",
+    "duplicated_conclusion_blocks": "ABSENT",
+    "overly_large_provenance_sections": "ABSENT",
+    "raw_filesystem_paths": "ABSENT",
+    "excessive_warning_boxes": "ABSENT",
+    "conclusion_repetition": "MINIMAL (header + RQ matrix)"
+  },
+
+  "scientific_guards": {
+    "NO_TRAINING": true,
+    "NO_NEW_TEST_INFERENCE": true,
+    "NO_ATTENTION_REEXTRACTION": true,
+    "NO_SCALER_FIT": true,
+    "NO_CHECKPOINT_MUTATION": true,
+    "NO_PREDICTION_MUTATION": true,
+    "NO_RESIDUAL_MUTATION": true,
+    "NO_CASE_RESELECTION": true,
+    "NO_ENSEMBLE_RECONSTRUCTED": true,
+    "NO_BEST_SEED_SELECTED": true,
+    "NO_BEST_HEAD_SELECTED": true,
+    "NO_POST_TEST_TUNING": true,
+    "PHASE_GREATER_THAN_59_EXECUTED": false,
+    "RUN_ALL_USED": false
+  },
+
+  "scientific_artifacts_changed": false,
+  "scientific_source_changed": false,
+  "scientific_artifacts_modified_in_refresh": false,
+
+  "execution_method": {
+    "method": "dashboard_render_inject_into_cell150_outputs",
+    "reason": "nbclient/jupyter kernel could not be reliably started in sandbox; used direct standalone render and injected the resulting HTML output into cell 150 outputs structure while preserving cell 150 source code byte-identical",
+    "kernel_execution_used": false,
+    "run_all_used": false
+  },
+
+  "presentation_density": "OPTIMAL — header banner (Phase 59 / v2 labels) + completion status cards (RQ closed, claims, limitations, future work) + RQ1-RQ10 matrix table + claim-level legend",
+  "presentation_clutter": "MINIMAL — clean two-row layout, no excessive provenance blocks",
+  "open_presentation_issues": [
+    "Cell 149 markdown source still contains 'FINAL_CONCLUSIONS-v1' hardcoded text — preserved byte-identical per user instruction (cell 149 source must remain byte-identical)",
+    "Cell 149 markdown source still references 'signoff = PASS, scientific_narrative_frozen = true' — preserved byte-identical per user instruction; the actual signoff is PASS"
+  ],
+
+  "final_status": "PASS",
+  "stop": true
+}

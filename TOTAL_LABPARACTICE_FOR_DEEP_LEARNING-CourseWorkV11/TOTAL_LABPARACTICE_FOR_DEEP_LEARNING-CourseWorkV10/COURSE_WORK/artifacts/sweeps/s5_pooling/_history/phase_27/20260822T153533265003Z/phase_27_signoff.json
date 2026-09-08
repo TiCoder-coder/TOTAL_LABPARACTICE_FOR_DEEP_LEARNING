@@ -1,0 +1,51 @@
+{
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S5",
+  "created_at": "2026-08-21T15:48:18.522793+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/sweeps/s5_pooling/results.csv": "370f9df1bcf522e60e054afa4196ca6892a47d894669545a29cdfdb96f7b2949"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s5_pooling/results.csv"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s5_pooling/results.csv": "370f9df1bcf522e60e054afa4196ca6892a47d894669545a29cdfdb96f7b2949",
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json": "13b73ef22dea663107f4e2aa9de8d1ae4d8f1628c735c3dbfdfb008daaa0b1cc"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+    "artifacts/sweeps/s5_pooling/results.csv"
+  ],
+  "phase_id": 27,
+  "phase_version": "PHASE-27-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "LAST_STEP",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S5_POOLING",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "sweep_code": "S5",
+    "sweep_name": "S5 Pooling Sweep",
+    "variant_count": 3
+  },
+  "tests": [
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
+}

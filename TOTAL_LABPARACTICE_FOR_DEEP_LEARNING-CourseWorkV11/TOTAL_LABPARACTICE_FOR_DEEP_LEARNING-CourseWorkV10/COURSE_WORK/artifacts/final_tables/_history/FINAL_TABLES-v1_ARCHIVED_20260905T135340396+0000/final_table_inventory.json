@@ -1,0 +1,121 @@
+{
+  "phase": 58,
+  "version": "FINAL_TABLES-v1",
+  "main_table_ids": [
+    "FT01",
+    "FT02",
+    "FT03",
+    "FT04",
+    "FT05",
+    "FT06",
+    "FT07",
+    "FT08",
+    "FT09",
+    "FT10"
+  ],
+  "appendix_table_ids": [
+    "FA01",
+    "FA02",
+    "FA03",
+    "FA04",
+    "FA05",
+    "FA06",
+    "FA07",
+    "FA08",
+    "FA09",
+    "FA10",
+    "FA11",
+    "FA12"
+  ],
+  "all_table_ids": [
+    "FT01",
+    "FT02",
+    "FT03",
+    "FT04",
+    "FT05",
+    "FT06",
+    "FT07",
+    "FT08",
+    "FT09",
+    "FT10",
+    "FA01",
+    "FA02",
+    "FA03",
+    "FA04",
+    "FA05",
+    "FA06",
+    "FA07",
+    "FA08",
+    "FA09",
+    "FA10",
+    "FA11",
+    "FA12"
+  ],
+  "model_order": [
+    "Persistence Baseline",
+    "Tuned LSTM Baseline",
+    "Final Transformer — Seed 42",
+    "Final Transformer — Seed 123",
+    "Final Transformer — Seed 2026",
+    "Final Transformer — Three-Seed Summary"
+  ],
+  "seed_order": [
+    42,
+    123,
+    2026
+  ],
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "mean_sd_ddof": 1,
+  "missing_label": "N/A",
+  "best_value_highlighting": true,
+  "source_authority_precedence": [
+    [
+      "FT01",
+      "Phase 45 final model lock"
+    ],
+    [
+      "FT02",
+      "Phase 47 final Test metrics"
+    ],
+    [
+      "FT03",
+      "Phase 44 rolling-origin robustness"
+    ],
+    [
+      "FT04",
+      "Phase 48 prediction spread + Phase 49 residuals"
+    ],
+    [
+      "FT05",
+      "Phase 50 error regimes + Phase 51 worst cases"
+    ],
+    [
+      "FT06",
+      "Phase 54 last-query attention"
+    ],
+    [
+      "FT07",
+      "Phase 55 head comparison diversity"
+    ],
+    [
+      "FT08",
+      "Phase 56 layer head-mean error-conditioned attention"
+    ],
+    [
+      "FT09",
+      "Phase 57 layer head-mean stability + matching"
+    ],
+    [
+      "FT10",
+      "upstream-supported claim trace"
+    ]
+  ],
+  "frozen_at": "2026-09-04T20:33:13Z"
+}

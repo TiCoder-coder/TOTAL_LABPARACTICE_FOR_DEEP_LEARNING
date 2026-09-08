@@ -1,0 +1,10 @@
+{
+  "S19_root": "artifacts/sweeps/S19_boundary_protocol",
+  "protocol_amendment_required": false,
+  "s19_decision_artifact": "artifacts/sweeps/S19_boundary_protocol/phase_41_signoff.json",
+  "wb0_primary": true,
+  "wb0_rmse_wh": 57.69679988114431,
+  "wb1_rmse_wh": null,
+  "wb1_sensitivity_carried_only": true,
+  "wb1_status": "COMPLETED"
+}

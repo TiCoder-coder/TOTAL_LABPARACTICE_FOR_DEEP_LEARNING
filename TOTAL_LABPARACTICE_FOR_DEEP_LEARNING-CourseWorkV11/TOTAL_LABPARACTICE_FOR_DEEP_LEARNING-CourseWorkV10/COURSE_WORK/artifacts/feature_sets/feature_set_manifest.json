@@ -1,0 +1,69 @@
+{
+  "all_variants_valid": true,
+  "audit_status": "PASS",
+  "baseline_variant": "FS1_TF1",
+  "component_counts": {
+    "EXOGENOUS": 25,
+    "HISTORICAL_TARGET": 1,
+    "METADATA": 4,
+    "RANDOM_CONTROLS": 2,
+    "TIME_FEATURES": 5
+  },
+  "created_at": "2026-08-20T16:15:37.498059+00:00",
+  "dataset_revision": "DATA-v1",
+  "environment_id": "ENV-v1",
+  "feature_set_version": "FEATURESETS-v1",
+  "feature_version": "FEATURES-v1",
+  "historical_target_channel": "Appliances",
+  "leakage_audit_passed": true,
+  "metadata_columns": [
+    "raw_row_index",
+    "date",
+    "timestamp",
+    "continuity_segment_id"
+  ],
+  "order_audit_passed": true,
+  "random_controls": [
+    "rv1",
+    "rv2"
+  ],
+  "schema_version": "SCHEMA-v1",
+  "source_feature_checksum": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6",
+  "split_version": "SPLIT-v1",
+  "target_column": "Appliances",
+  "temporal_version": "TEMPORAL-v1",
+  "time_features": [
+    "hour_sin",
+    "hour_cos",
+    "dow_sin",
+    "dow_cos",
+    "weekend"
+  ],
+  "train_only_scope": false,
+  "train_rows_used": 19735,
+  "variant_feature_counts": {
+    "FS0_TF0": 25,
+    "FS0_TF1": 30,
+    "FS1_TF0": 26,
+    "FS1_TF1": 31,
+    "FS2_TF0": 28,
+    "FS2_TF1": 33
+  },
+  "variant_fingerprints": {
+    "FS0_TF0": "18f004e8ed5d6366f9996fd01394d25da54a374f57198a7c5b9dfc7320f11a94",
+    "FS0_TF1": "acb1330254f9e4166e6978acf751468cb8a467c90f8339b98ff72e9c6200459e",
+    "FS1_TF0": "2a0cacd68ce18045d646fbae007275a536fe07bd2859aec334de1bf0ca073fe7",
+    "FS1_TF1": "d71b18329bb63223681e9a3f2505bd206fd8a851151c790cd1ac16db48ae2bad",
+    "FS2_TF0": "a96d6a7ba3a7f9a3629a732a5bc685be7039d35b265d25f76553da492d659cf9",
+    "FS2_TF1": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee"
+  },
+  "variant_ids": [
+    "FS0_TF0",
+    "FS0_TF1",
+    "FS1_TF0",
+    "FS1_TF1",
+    "FS2_TF0",
+    "FS2_TF1"
+  ],
+  "warnings": []
+}

@@ -1,0 +1,36 @@
+{
+  "table_id": "FA07",
+  "title": "Full Head Pairwise Comparison",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "No composite diversity score; no head pruning implication."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 36,
+  "csv_path": "artifacts/final_tables/tables/csv/FA07_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA07_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA07_rows.tex",
+  "csv_sha256": "f369d5d0e275b4b76dae200ab5d68d7f5bf25c4f87391ef544ba7af22ae29045",
+  "markdown_sha256": "5f3f62950d4c23e72b8ad0beedf279ce3794f1373f213a909a2f9cf7c1853b72",
+  "latex_sha256": "3fdbe5a51ac6c2f57cca971d2ee8605875688baeb517ce094d9a103e4b3dc513"
+}

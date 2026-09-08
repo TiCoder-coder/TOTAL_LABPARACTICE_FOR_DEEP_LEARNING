@@ -1,0 +1,94 @@
+{
+  "attention_analysis_executed": false,
+  "final_candidate_lineage": {
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "feature_count": 33,
+    "feature_set": "FS2_TF1",
+    "feature_set_registry": "artifacts/final_model_lock/final_feature_contract.json",
+    "lookback": 72,
+    "model_family": "Transformer (FS2_TF1)",
+    "n_test": 2961,
+    "scaling_contract": "artifacts/final_model_lock/final_scaling_contract.json",
+    "seeds": [
+      "42",
+      "123",
+      "2026"
+    ],
+    "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "test_population_fingerprint_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "wb0_protocol_document": "artifacts/final_model_lock/final_boundary_contract.json"
+  },
+  "input_window_reconstruction": {
+    "feature_count": 33,
+    "feature_set": "FS2_TF1",
+    "lookback": 72,
+    "schema": "exact_input_window_reconstruction.csv",
+    "schema_record_count": 44
+  },
+  "kind": "read_only_attention_handoff_context",
+  "lstm_eligibility": {
+    "canonical_reason_verbatim": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+    "status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+    "verbatim_source": "artifacts/final_test/final_test_lstm_eligibility.json"
+  },
+  "n_case_memberships": 160,
+  "n_unique_targets": 44,
+  "phase": 51,
+  "phase50_regime_context_reference": {
+    "phase50_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+    "regime_families": [
+      "R1_TARGET_LEVEL",
+      "R2_EXTREME_HIGH",
+      "R3_CHANGE_MAGNITUDE",
+      "R4_CHANGE_DIRECTION",
+      "R5_TIME_OF_DAY",
+      "R6_DAY_TYPE"
+    ],
+    "regime_labels_are_frozen": true
+  },
+  "phase51_artifact_shas": {
+    "baseline_context.csv": "365b98dce4a32494871850bbb6d1bdcf59a3ecadccd880cfa071b9e7a3f9f86a",
+    "casebook_index.csv": "f1fd25bc53cbd754c5db229c1de5ac7d2e2b50bc8bd68e896a4e8211b5ee8d0e",
+    "casebook_unique_case_master.csv": "9fed07e90ca27db636034866528fd8659b96a5128b4ec74b5ce1fdab91aa1f4e",
+    "error_concentration_table.csv": "8913a7dd1d43f5f58b1d0db86900ccf0815504fd087e9669dcff26678781565e",
+    "exact_input_window_reconstruction.csv": "bff04e59043cc492eeb3a63dc6e155fb05dc2fa5fadfcf16db3d4322472aa2c8",
+    "hardness_vs_seed_disagreement.csv": "33052a40551e28c91762ea4fff28975edb027ade0fecdef47b63be13e6baa9aa",
+    "input_window_manifest.csv": "281215ac4230942ef2a7df8c6fbd8662fa92ac0482addfce96c3e0a1d0682a0e",
+    "lstm_eligibility_context.json": "e5cf64f1e4c59d6fe088ef6bbabf66fa28a4710a81114c14a578ebb956e8c882",
+    "phase51_findings.json": "c84bbbf055175805d2cca6061338211d310d79ccaf31f24d780a1fa4efecbd5d",
+    "regime_overrepresentation.csv": "dfcd4a0d69957e4249d41d382a0118342f8464281a3c88486d46a61a3fa3bafe",
+    "seed_overlap_table.csv": "6fb4c9cd5055763ae77cad6af2627c7439295d7eda084c55b41688076f3c402e",
+    "shared_all_over_top10.csv": "a43b0f0a46c284e7949c2025bd5a8574af25b1215a886629a891fa7f14bdf3be",
+    "shared_all_under_top10.csv": "0b4bf8cb1e4f21c0bcf8f45cbe912b525d9f998f85849f2d954a533e66912637",
+    "worst_case_membership_matrix.csv": "036442da9f282b7e9008304672da25c25470e4443ff130f4dc1065636e60db3e",
+    "worst_error_selection_contract.json": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "worst_overprediction_top10.csv": "a325c870d68d39a208797cf8349fd57aeec1b60a42a0b51ce40aab05115c7cfa",
+    "worst_per_seed_top20.csv": "28c91ab02876e4c2533f811cd87a524c36f2e0b113ac118d7c32bf2fe9f9b716",
+    "worst_shared_top20.csv": "e551d14870992ec1739b5ae6d8bf403e551b8f6598e72462188eded01d0c678a",
+    "worst_underprediction_top10.csv": "9a0e4bb2eab97084bff8197c1251a0e9bd7a0abb627dc45439e0cb43d52e29d8"
+  },
+  "phase51_status": "PASS_AFTER_ALL_CORRECTIVES",
+  "phase51_subphase_status": {
+    "51-A": "PASS",
+    "51-B": "PASS",
+    "51-C": "PASS",
+    "51-C frozen-contract corrective": "PASS",
+    "51-D": "PASS",
+    "51-E": "PASS",
+    "51-F": "PASS",
+    "51-F exact-input corrective": "PASS",
+    "51-G finalization": "PASS"
+  },
+  "phase52_authorized": false,
+  "ready_for_phase52_consumption": true,
+  "ready_for_phase52_execution": false,
+  "residual_convention": {
+    "definition": "residual = y_true - y_pred",
+    "negative": "OVERPREDICTION",
+    "positive": "UNDERPREDICTION",
+    "zero": "EXACT_ZERO"
+  },
+  "safety_statement": "The handoff is read-only. No attention weights, attention maps, SHAP values, or causal claims have been computed. Execution of Phase 52 attention analysis REQUIRES a separate human authorization gate per architecture_rule.md.",
+  "subphase": "51-G",
+  "version": "PHASE52_HANDOFF-v1"
+}

@@ -1,0 +1,23 @@
+{
+  "best_epoch": null,
+  "best_validation_rmse_wh": null,
+  "completed_at": null,
+  "created_at": "2026-08-25T04:52:13.314401+00:00",
+  "failure": {
+    "created_at": "2026-08-25T05:08:05.416817+00:00",
+    "exception_class": "ValueError",
+    "failure_message": "Observed WB1 Validation sample population (2924) does not match the expected WB0 population (2960). The metrics expected_sample_indices was hardcoded to WB0_CONTEXT_CARRY_OVER. Fix applied: expected_sample_indices now accepts boundary_protocol parameter for protocol-aware population validation.",
+    "failure_stage": "training_evaluation_epoch1",
+    "failure_type": "METRIC_ERROR",
+    "recoverable": true,
+    "rerun_recommended": true,
+    "run_id": "RUN_TR_S19_0033_CF8C1FE8",
+    "traceback_path": null
+  },
+  "invalidation": null,
+  "registered_at": "2026-08-25T04:52:13.314401+00:00",
+  "run_id": "RUN_TR_S19_0033_CF8C1FE8",
+  "started_at": "2026-08-25T04:52:13.322945+00:00",
+  "status": "FAILED",
+  "updated_at": "2026-08-25T05:08:05.418405+00:00"
+}

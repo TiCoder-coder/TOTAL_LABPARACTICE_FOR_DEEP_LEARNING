@@ -1,0 +1,9 @@
+{
+  "config_fingerprint": "082f7ff5bd98b214b3da68bfd516969c723dd53faa489289a9248c18de240823",
+  "device": "mps",
+  "execution_mode": "TRAIN_NEW",
+  "run_id": "RUN_TR_S17_0029_082F7FF5",
+  "seed": 42,
+  "sweep_id": "S17_GRADIENT_CLIPPING",
+  "training_log": "artifacts/sweeps/logs/phase_39_gc0_RUN_TR_S17_0029_082F7FF5_terminal.log"
+}

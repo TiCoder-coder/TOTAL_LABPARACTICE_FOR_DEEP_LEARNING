@@ -1,0 +1,32 @@
+{
+  "artifact_version": "LEARN-DIAG-v1",
+  "config_fingerprint": "PHASE-22-v1",
+  "created_at": "2026-08-22T13:14:08.419214+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {},
+  "input_paths": [
+    "artifacts/runs"
+  ],
+  "output_checksums": {
+    "artifacts/learning_diagnostics/learning_diagnostics_manifest.json": "75a6d100664edf264844bb250727fbd7b550ac0f4849465c78640e14b9a87aa2",
+    "artifacts/learning_diagnostics/learning_diagnostics_summary.csv": "dc632a6e34279c936d56a2d1ea96e14d017d58db3799d26451c3def2ff58751b"
+  },
+  "output_paths": [
+    "artifacts/learning_diagnostics/learning_diagnostics_manifest.json",
+    "artifacts/learning_diagnostics/learning_diagnostics_summary.csv"
+  ],
+  "phase_id": 22,
+  "phase_version": "PHASE-22-v1",
+  "status": "PASS",
+  "summary": {
+    "finding_count": 2,
+    "model_count": 2
+  },
+  "tests": [
+    "history_load",
+    "diagnostic_findings_written"
+  ],
+  "warnings": []
+}

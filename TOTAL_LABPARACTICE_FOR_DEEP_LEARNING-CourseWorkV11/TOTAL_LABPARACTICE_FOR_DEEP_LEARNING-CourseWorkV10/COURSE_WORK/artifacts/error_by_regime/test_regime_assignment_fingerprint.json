@@ -1,0 +1,9 @@
+{
+  "assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+  "created_before_error_join": true,
+  "n_rows": 2961,
+  "status": "PASS",
+  "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "threshold_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+  "version": "TEST_REGIME_ASSIGNMENT_FINGERPRINT-v1"
+}

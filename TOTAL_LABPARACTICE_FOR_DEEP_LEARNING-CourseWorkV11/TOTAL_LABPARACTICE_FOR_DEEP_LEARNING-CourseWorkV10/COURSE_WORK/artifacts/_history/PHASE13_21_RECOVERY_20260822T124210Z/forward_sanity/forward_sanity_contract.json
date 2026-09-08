@@ -1,0 +1,20 @@
+{
+  "approved_for_phase19": true,
+  "attention_smoke_mode": "EVAL",
+  "canonical_dtype": "float32",
+  "forward_sanity_version": "FORWARD_SANITY-v1",
+  "input_layout": "B_L_F",
+  "optimizer_step_allowed": false,
+  "prediction_layout": "B_1",
+  "reference_batch_size": 64,
+  "reference_boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "reference_feature_variant": "FS1_TF1",
+  "reference_horizon": 1,
+  "reference_lookback": 144,
+  "reference_target_scaling": "YS1",
+  "sanity_loaders_disposable": true,
+  "sanity_models_disposable": true,
+  "scientific_metric_selection_allowed": false,
+  "target_layout": "B_1",
+  "test_access": "FORBIDDEN"
+}

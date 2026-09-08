@@ -1,0 +1,75 @@
+{
+  "boundary_protocol": "WB0",
+  "boundary_sensitivity_context_ref": "artifacts/candidate_synthesis/boundary_sensitivity_context.json",
+  "candidate_config_fingerprints": {
+    "TR_C0_PRIMARY": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+    "TR_C1_ALT_WEIGHT_DECAY": "3b08be3ddd51e22ad350dcededcd6f242518a1d2214f0cd634d424ac82920d28",
+    "TR_C2_ALT_LOOKBACK": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24"
+  },
+  "candidate_specs": [
+    {
+      "candidate_config_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+      "candidate_id": "TR_C0_PRIMARY",
+      "candidate_role": "PRIMARY",
+      "changed_factor": "NONE",
+      "changed_from": "NONE",
+      "changed_to": "NONE",
+      "evidence_class": "PRIMARY_EXISTING",
+      "exact_existing_run_id": "RUN_TR_S14_0023_A711A9B8",
+      "ready_for_phase44": true,
+      "shortlist_position": 0,
+      "source_local_regret_pct": 0.0,
+      "source_local_regret_wh": 0.0,
+      "source_phase": 41,
+      "source_sweep": "S19",
+      "status": "PASS"
+    },
+    {
+      "candidate_config_fingerprint": "3b08be3ddd51e22ad350dcededcd6f242518a1d2214f0cd634d424ac82920d28",
+      "candidate_id": "TR_C1_ALT_WEIGHT_DECAY",
+      "candidate_role": "LOCAL_ALTERNATIVE",
+      "changed_factor": "weight_decay",
+      "changed_from": "N/A",
+      "changed_to": "WD1",
+      "evidence_class": "LOCAL_ALT_SYNTHESIZED",
+      "exact_existing_run_id": "N/A",
+      "ready_for_phase44": true,
+      "shortlist_position": 1,
+      "source_local_regret_pct": 0.0034892566217627503,
+      "source_local_regret_wh": 0.002026626561459466,
+      "source_phase": 31,
+      "source_sweep": "S9",
+      "status": "PASS"
+    },
+    {
+      "candidate_config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "candidate_role": "LOCAL_ALTERNATIVE",
+      "changed_factor": "lookback",
+      "changed_from": "N/A",
+      "changed_to": "L72",
+      "evidence_class": "LOCAL_ALT_SYNTHESIZED",
+      "exact_existing_run_id": "N/A",
+      "ready_for_phase44": true,
+      "shortlist_position": 2,
+      "source_local_regret_pct": 0.25519472314904534,
+      "source_local_regret_wh": 0.15064877806919696,
+      "source_phase": 26,
+      "source_sweep": "S4",
+      "status": "PASS"
+    }
+  ],
+  "metric_version": "METRICS-v1",
+  "persistence_anchor_ref": "artifacts/baselines/persistence/persistence_baseline_summary.json",
+  "phase42_signoff_ref": "artifacts/candidate_synthesis/phase_42_signoff.json",
+  "primary_candidate_id": "TR_C0_PRIMARY",
+  "requires_phase43_tuned_lstm": true,
+  "shared_forecasting_task": "UCI Appliances Energy Prediction, Sequence-to-One",
+  "test_locked": true,
+  "transformer_candidate_ids": [
+    "TR_C0_PRIMARY",
+    "TR_C1_ALT_WEIGHT_DECAY",
+    "TR_C2_ALT_LOOKBACK"
+  ],
+  "transformer_shortlist_frozen": true
+}

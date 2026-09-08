@@ -1,0 +1,41 @@
+{
+  "approval_state": "CONTEXT_READY",
+  "context": {
+    "phase53_case_scale_count": 44,
+    "phase53_catalog_summary": {
+      "image_shas_present": true,
+      "n_mode_a_grids": 10,
+      "n_total_images": 392,
+      "n_v1_grids": 132,
+      "n_v2_grids": 10,
+      "n_v3_images": 240
+    },
+    "phase53_fixed_prob_view_count": 10,
+    "phase53_image_checksums_present": true,
+    "phase53_n_images": 392,
+    "phase53_orientation_passed": true,
+    "phase53_report_case_count": 5,
+    "phase53_v1_grid_count": 132,
+    "phase53_v2_grid_count": 10
+  },
+  "context_ready": true,
+  "do_not_extract_last_query_from_png": true,
+  "downstream_name": "Last-Query Attention Analysis",
+  "downstream_phase": 54,
+  "phase": 53,
+  "phase52_last_query_files": {
+    "42": "artifacts/attention_extraction/raw/last_query_attention_seed42.npz",
+    "123": "artifacts/attention_extraction/raw/last_query_attention_seed123.npz",
+    "2026": "artifacts/attention_extraction/raw/last_query_attention_seed2026.npz"
+  },
+  "phase53_status": "PASS",
+  "phase54_authorized": false,
+  "phase54_hard_reminders": [
+    "Phase54 numeric source = Phase52 RAW LAST_QUERY NPZ (NOT PNG)",
+    "do_not_extract_last_query_from_png = true",
+    "Phase54 implementation requires separate Human approval",
+    "phase54_authorized = false"
+  ],
+  "phase54_numeric_source": "PHASE52_RAW_LAST_QUERY_NPZ",
+  "phase54_numeric_source_detail": "Phase54 last-query numeric analysis MUST be computed from the frozen Phase52 raw last-query attention NPZ (`last_query_attention_seed42.npz`, `last_query_attention_seed123.npz`, `last_query_attention_seed2026.npz`) \u2014 shape [2961, 2, 4, 72] per seed. PNG pixels MUST NOT be used as numerical input, even though the heatmap bottom row is q=L-1."
+}

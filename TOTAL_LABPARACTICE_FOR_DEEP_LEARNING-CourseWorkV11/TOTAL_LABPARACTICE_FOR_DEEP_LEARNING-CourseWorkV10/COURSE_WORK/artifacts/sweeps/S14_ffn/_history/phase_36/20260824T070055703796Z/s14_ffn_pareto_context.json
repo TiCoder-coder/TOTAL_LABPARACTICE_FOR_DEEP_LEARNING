@@ -1,0 +1,15 @@
+{
+  "accuracy_efficiency_tradeoffs": true,
+  "accuracy_metric": "VALIDATION_RMSE_WH",
+  "context_only": true,
+  "cost_metrics": [
+    "trainable_parameters",
+    "checkpoint_bytes",
+    "runtime"
+  ],
+  "dominated_candidates": [],
+  "official_winner": "F256",
+  "relationship": "ACCURACY_CAPACITY_TRADEOFF",
+  "status": "PASS_WITH_WARNING",
+  "tie_rule_used": false
+}

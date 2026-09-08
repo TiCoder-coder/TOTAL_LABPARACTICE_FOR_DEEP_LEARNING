@@ -1,0 +1,52 @@
+{
+  "refresh_at_utc": "2026-09-05T09:30:00+00:00",
+  "active_scientific_revision": "LAST_QUERY_ATTENTION-v2",
+  "refresh_kind": "notebook_presentation_only",
+  "notebook_path": "notebook_course_work/CourseWork_1.ipynb",
+  "refreshed_cells": [
+    138,
+    139
+  ],
+  "cell_138_change": "Added single-line note: 'Active scientific revision: LAST_QUERY_ATTENTION-v2 (corrective applied to normalized_entropy and non_overlap_bins; raw Phase 52 NPZ unchanged)'",
+  "cell_139_change": "Replaced display_data output[0].text/html with freshly rendered dashboard from v2 corrected artifacts",
+  "execution_count_after": 1,
+  "dashboard_html_size_chars": 778544,
+  "dashboard_n_sections": 46,
+  "dashboard_n_embedded_figures": 9,
+  "dashboard_n_warn_callouts": 6,
+  "dashboard_n_fail_callouts": 0,
+  "scientific_values_changed": false,
+  "raw_npz_changed": false,
+  "phase55_executed": false,
+  "phase56_executed": false,
+  "phase57_executed": false,
+  "run_all_used": false,
+  "all_other_cells_byte_identical": true,
+  "micro_cleanup": {
+    "cleanup_at_utc": "2026-09-05T09:40:00+00:00",
+    "scope": "notebook_cell_138_source_only",
+    "rationale": "Revert the ~143-char v2 corrective note appended to cell 138 markdown during the previous refresh. Approved refresh scope was cell 139 output only. Cell 138 source returned to pre-refresh state.",
+    "cell_138_before_cleanup": {
+      "lines": 11,
+      "jupyter_display_chars": 1533,
+      "v2_note_present": true,
+      "v2_note_text": "Active scientific revision: LAST_QUERY_ATTENTION-v2 (corrective applied to normalized_entropy and non_overlap_bins; raw Phase 52 NPZ unchanged)."
+    },
+    "cell_138_after_cleanup": {
+      "lines": 11,
+      "jupyter_display_chars": 1389,
+      "v2_note_present": false,
+      "v2_note_text": null
+    },
+    "cell_139": {
+      "touched": false,
+      "v2_html_preserved": true,
+      "v2_html_size": 778544
+    },
+    "scientific_artifacts_touched": false,
+    "source_code_touched": false,
+    "phase55_executed": false,
+    "run_all_used": false,
+    "persisted_html_file": "artifacts/last_query_attention/figures/phase54_refreshed_dashboard/phase54_dashboard_v2_refresh.html"
+  }
+}

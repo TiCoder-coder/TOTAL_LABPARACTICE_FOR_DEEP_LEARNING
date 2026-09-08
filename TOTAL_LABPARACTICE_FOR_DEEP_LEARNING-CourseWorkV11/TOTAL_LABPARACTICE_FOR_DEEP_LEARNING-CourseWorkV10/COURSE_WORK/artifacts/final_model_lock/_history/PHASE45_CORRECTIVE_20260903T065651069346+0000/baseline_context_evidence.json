@@ -1,0 +1,9 @@
+{
+  "lstm_fingerprint": null,
+  "lstm_pooled_rmse_wh": null,
+  "lstm_tuned_context_present": true,
+  "no_lstm_promotion_in_phase45": true,
+  "persistence_evidence_role": "BASELINE_ONLY",
+  "persistence_pooled_rmse_wh": 66.42970273458556,
+  "transformer_role": "FINAL_MODEL"
+}

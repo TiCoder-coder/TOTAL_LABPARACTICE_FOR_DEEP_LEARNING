@@ -1,0 +1,12 @@
+{
+  "citation": "Candanedo, L. (2017). Appliances Energy Prediction [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5VC8G.",
+  "creator": "Luis Candanedo",
+  "dataset_name": "Appliances Energy Prediction",
+  "dataset_page": "https://archive.ics.uci.edu/dataset/374/appliances+energy+prediction",
+  "doi": "10.24432/C5VC8G",
+  "download_url": "https://archive.ics.uci.edu/static/public/374/appliances%2Benergy%2Bprediction.zip",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "metadata_source": "official_uci_dataset_page",
+  "uci_id": 374
+}

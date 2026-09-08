@@ -1,0 +1,36 @@
+{
+  "final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "n_test": 2961,
+  "source_prediction_files": {
+    "transformer_seed42": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+    "transformer_seed123": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+    "transformer_seed2026": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+    "persistence": "artifacts/final_test/predictions/final_test_predictions_persistence.csv"
+  },
+  "source_prediction_sha256s": {
+    "transformer_seed42": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+    "transformer_seed123": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+    "transformer_seed2026": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+    "persistence": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b"
+  },
+  "wide_table_path": "artifacts/prediction_analysis/prediction_wide_table.csv",
+  "long_table_path": "artifacts/prediction_analysis/prediction_long_table.csv",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "source_phase47_version": "FINAL_TEST_EVAL-v1",
+  "phase48_version": "PREDICTION_ANALYSIS-v1",
+  "prediction_distribution_findings_path": "artifacts/prediction_analysis/prediction_distribution_summary.csv",
+  "change_behavior_findings_path": "artifacts/prediction_analysis/prediction_change_summary.csv",
+  "seed_spread_refs_path": "artifacts/prediction_analysis/prediction_seed_spread.csv",
+  "prediction_distribution_table_path": "artifacts/prediction_analysis/prediction_distribution_summary.csv",
+  "test_derived_threshold_authorization": false,
+  "train_derived_threshold_requirement": true,
+  "phase50_threshold_policy": "TRAIN_DERIVED_ONLY",
+  "ready_for_phase50_context": true,
+  "status": "PASS",
+  "frozen_at": "2026-09-03T18:02:15.380094+00:00"
+}

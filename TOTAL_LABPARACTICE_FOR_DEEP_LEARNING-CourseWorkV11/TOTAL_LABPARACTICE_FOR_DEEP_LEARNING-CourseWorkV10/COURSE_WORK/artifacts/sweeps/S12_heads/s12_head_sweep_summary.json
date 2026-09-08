@@ -1,0 +1,42 @@
+{
+  "approved_for_phase35": true,
+  "artifact_version": "S12-HEAD-SUMMARY-v1",
+  "created_at": "2026-08-23T19:16:19.370760+00:00",
+  "historical_reference_missing_artifacts": [
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/training.log",
+      "expected_sha256": "f709354699e8fb103b226fbae64ac2d2611fd80854ae1342246e86c94415d5d7",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    },
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/checkpoints/best_checkpoint.pt",
+      "expected_sha256": "3ccf735488336340275a4dccf040fcd17b98a4fa4746d3e665cf14f97428d75d",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    },
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/predictions/best_validation_predictions.csv",
+      "expected_sha256": "9bb212edb469f8fac02cf9179a401fec04d27487131a1e17a5e14179b94a5a4e",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    },
+    {
+      "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/training_history.csv",
+      "expected_sha256": "635e00dfcd032c3664c5e031b13f38d94caa3f73c4c6bf142eb0d6883d9eb43b",
+      "retention_status": "MISSING_UNRECOVERABLE"
+    }
+  ],
+  "historical_reference_mode": "HISTORICAL_REFERENCE_WITH_INCOMPLETE_ARTIFACT_RETENTION",
+  "phase_id": 34,
+  "rmse_delta_h2_minus_h4": 0.5776883515403171,
+  "runner_up_condition_id": "H2",
+  "runner_up_rmse_wh": 58.65958891509437,
+  "status": "PASS_WITH_WARNING",
+  "test_status": "FORBIDDEN",
+  "warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ],
+  "winner_condition_id": "H4",
+  "winner_head_dim": 16,
+  "winner_num_heads": 4,
+  "winner_rmse_wh": 58.08190056355405,
+  "winner_run_id": "RUN_TR_S09_0016_AE0FB819"
+}

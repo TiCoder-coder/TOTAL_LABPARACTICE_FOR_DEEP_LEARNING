@@ -1,0 +1,57 @@
+{
+  "created_at_utc": "2026-09-04T07:12:37.183726+00:00",
+  "deliverables": {
+    "O51.15_seed_overlap_table": {
+      "path": "artifacts/worst_error_analysis/seed_overlap_table.csv",
+      "sha256": "6fb4c9cd5055763ae77cad6af2627c7439295d7eda084c55b41688076f3c402e"
+    },
+    "O51.16_worst_case_membership_matrix": {
+      "path": "artifacts/worst_error_analysis/worst_case_membership_matrix.csv",
+      "sha256": "036442da9f282b7e9008304672da25c25470e4443ff130f4dc1065636e60db3e"
+    },
+    "O51.17_error_concentration_table": {
+      "path": "artifacts/worst_error_analysis/error_concentration_table.csv",
+      "sha256": "8913a7dd1d43f5f58b1d0db86900ccf0815504fd087e9669dcff26678781565e"
+    },
+    "O51.20_hardness_group_summary": {
+      "path": "artifacts/worst_error_analysis/hardness_group_summary.csv",
+      "sha256": "98a2da44cdf059e35d852139fff9af3f2a06bc0dfc5158919b4667f51afbb3e4"
+    },
+    "O51.20_hardness_vs_seed_disagreement": {
+      "path": "artifacts/worst_error_analysis/hardness_vs_seed_disagreement.csv",
+      "sha256": "33052a40551e28c91762ea4fff28975edb027ade0fecdef47b63be13e6baa9aa"
+    }
+  },
+  "forbidden_actions_status": {
+    "best_seed_selected": false,
+    "casebook_created": false,
+    "checkpoint_loading": false,
+    "ensemble": false,
+    "error_concentration_executed": true,
+    "figures_created": false,
+    "individual_case_inspection_executed": false,
+    "input_context_executed": false,
+    "new_test_inference": false,
+    "overlap_analysis_executed": true,
+    "prediction_correction": false,
+    "regime_enrichment_executed": false,
+    "scaler_fit": false,
+    "temporal_context_executed": false,
+    "three_n_iid_interpretation": false,
+    "training": false
+  },
+  "phase": 51,
+  "phase51_c_canonical_sha256s": {
+    "shared_all_over_top10.csv": "a43b0f0a46c284e7949c2025bd5a8574af25b1215a886629a891fa7f14bdf3be",
+    "shared_all_under_top10.csv": "0b4bf8cb1e4f21c0bcf8f45cbe912b525d9f998f85849f2d954a533e66912637",
+    "worst_overprediction_top10.csv": "a325c870d68d39a208797cf8349fd57aeec1b60a42a0b51ce40aab05115c7cfa",
+    "worst_per_seed_top20.csv": "28c91ab02876e4c2533f811cd87a524c36f2e0b113ac118d7c32bf2fe9f9b716",
+    "worst_shared_top20.csv": "e551d14870992ec1739b5ae6d8bf403e551b8f6598e72462188eded01d0c678a",
+    "worst_underprediction_top10.csv": "9a0e4bb2eab97084bff8197c1251a0e9bd7a0abb627dc45439e0cb43d52e29d8"
+  },
+  "ready_for_phase51_e": false,
+  "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+  "source_working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f",
+  "subphase": "51-D",
+  "version": "WORST_ERROR_ANALYSIS_DIAGNOSTICS-v1"
+}

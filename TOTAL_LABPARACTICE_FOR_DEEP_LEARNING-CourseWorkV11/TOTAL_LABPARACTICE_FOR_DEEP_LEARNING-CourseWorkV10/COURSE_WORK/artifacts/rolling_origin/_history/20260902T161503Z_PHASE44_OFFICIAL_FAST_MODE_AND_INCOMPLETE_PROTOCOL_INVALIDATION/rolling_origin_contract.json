@@ -1,0 +1,27 @@
+{
+  "K": 3,
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "created_at": "2026-09-02T15:25:34+00:00",
+  "fold_local_scaling": "RO_SCALING-v1",
+  "full_history_refit": true,
+  "models_evaluated": [
+    "TR_C0_PRIMARY",
+    "TR_C1_ALT_WEIGHT_DECAY",
+    "TR_C2_ALT_LOOKBACK",
+    "LSTM_TUNED",
+    "PERSISTENCE_LAST_VALUE"
+  ],
+  "nested_epoch_selection": true,
+  "outer_eval_used_for_selection": false,
+  "phase": 44,
+  "pooled_metric_definition": "concatenated_residuals_then_compute",
+  "protocol": "RO3_EXPANDING_PRETEST-v1",
+  "stages": [
+    "A",
+    "B",
+    "C"
+  ],
+  "test_locked": true,
+  "tie_break_rule": "ascending(pooled_outer_rmse_wh, worst_fold_rmse_wh, fold_rmse_sd_wh, shortlist_position)",
+  "version": "ROLLING_ORIGIN_CONTRACT-v1"
+}

@@ -1,0 +1,10 @@
+{
+  "affine": false,
+  "bridge_to_scaler": "not_applicable",
+  "centering": false,
+  "enabled": false,
+  "eps": 1e-05,
+  "fit_on_final_dev": true,
+  "scope": "none",
+  "variance_convention": "none"
+}

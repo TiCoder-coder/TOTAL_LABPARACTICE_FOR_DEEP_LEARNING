@@ -1,0 +1,72 @@
+{
+  "corrective_kind": "scientific_corrective_HEAD_COMPARISON_v2",
+  "corrective_at_utc": "2026-09-05T11:00:00+00:00",
+  "corrected_revision": "HEAD_COMPARISON-v2",
+  "previous_revision_archived": "HEAD_COMPARISON-v1",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "corrective_root_causes": {
+    "normalized_entropy_v1_zero": {
+      "root_cause": "Phase55-v1 consumed LAST_QUERY_ATTENTION-v1 artifacts where normalized_entropy was incorrectly normalized to 0 (Phase54 v1 metadata bug). Phase54 v2 corrective restored non-zero values.",
+      "fix": "Phase55 regenerated head_behavior_summary.csv and head_pair_metric_difference.csv against LAST_QUERY_ATTENTION-v2. median_normalized_entropy range [0.7377, 0.9054] (was 0.0). mean_normalized_entropy also populated."
+    },
+    "head_to_layer_mean_distance_empty": {
+      "root_cause": "behavior_cards.py pivot_layer_head_mean_profiles() used column 'mean_weight' but the Phase54 schema has 'head_mean_weight'. All rows skipped \u2192 empty file.",
+      "fix": "Renamed column lookup from 'mean_weight' to 'head_mean_weight'. 24 rows regenerated with finite JSD/L1/Cosine/Wasserstein distances to layer mean."
+    },
+    "paired_difference_NO_COMMON_TARGETS": {
+      "root_cause": "metric_diffs.py _pivot_metric_long() used int(r['target_id']) which raises ValueError on TGT_xxxxx format. Pivot returned empty dict \u2192 all 144 paired-difference rows marked NO_COMMON_TARGETS.",
+      "fix": "Added _target_id_key() helper that returns int(TGT_id) or deterministic hash for non-numeric. All 144 paired-difference rows now OK with N=2961."
+    },
+    "metadata_lineage_mislabels": {
+      "root_cause": "v1 manifest/contract/summary read p54_signoff key 'phase_version' (not 'version'). Result: source_phase54_version defaulted to v1 string. v1 final_lock_sha256 was seed42 NPZ SHA (102086f7) instead of canonical Phase45 combined lock (81fb87c4).",
+      "fix": "Use 'version' key for source_phase54_version (now LAST_QUERY_ATTENTION-v2). final_lock_sha256 = 81fb87c4 (canonical Phase45 combined lock). raw_last_query_seed42_sha256 = 102086f7 stored separately. phase47_canonical_test_population_sha256 = d7dbc0b3 stored separately."
+    }
+  },
+  "corrective_scope": {
+    "training": false,
+    "test_inference": false,
+    "attention_reextraction": false,
+    "scaler_fit": false,
+    "checkpoint_mutation": false,
+    "prediction_mutation": false,
+    "residual_mutation": false,
+    "case_reselection": false,
+    "best_seed_selection": false,
+    "ensemble": false,
+    "phase56_executed": false,
+    "phase57_executed": false
+  },
+  "corrective_artifacts": {
+    "active_artifacts_dir": "artifacts/head_comparison/",
+    "v1_archived_dir": "artifacts/head_comparison/_history/HEAD_COMPARISON-v1_ARCHIVED_20260905T104500000000+0000",
+    "corrective_artifacts": [
+      "phase_55_signoff.json (HEAD_COMPARISON-v2)",
+      "head_comparison_manifest.json (HEAD_COMPARISON-v2)",
+      "head_comparison_summary.json (HEAD_COMPARISON-v2)",
+      "head_comparison_contract.json (HEAD_COMPARISON-v2)",
+      "head_behavior_summary.csv (corrected normalized_entropy)",
+      "head_pair_comparison_long.csv (entropy fields corrected)",
+      "head_pair_paired_difference_summary.csv (144 OK rows, N=2961)",
+      "head_to_layer_mean_distance.csv (24 OK rows)",
+      "phase56_error_conditioned_attention_handoff.json (v2 lineage)",
+      "phase57_seed_stability_head_context_handoff.json (v2 lineage)",
+      "phase55_corrective_independent_tests.json (19/19 PASS)"
+    ]
+  },
+  "regression_drift": {
+    "profile_similarity_metrics": "byte-identical (Wasserstein/Cosine/JSD/Pearson/Spearman/L1/L2)",
+    "normalized_entropy_fields_only": "intentional drift: 0.0 \u2192 [0.7377, 0.9054] (matches Phase54 v2 source)",
+    "raw_npz_shas": "unchanged (3/3 verified)"
+  },
+  "tests": {
+    "tests_pass": 19,
+    "tests_total": 19,
+    "test_report": "artifacts/head_comparison/phase55_corrective_independent_tests.json"
+  },
+  "open_discrepancies": [],
+  "next_steps": [
+    "Phase55 corrective PASSED. Downstream Phase56/57 may proceed IF authorized (currently phase56_authorized=False, phase57_authorized=False).",
+    "Notebook Phase55 dashboard will require a presentation-only refresh to render the corrected normalized_entropy values. Do not modify the dashboard source code; do not retrain; do not recompute."
+  ]
+}

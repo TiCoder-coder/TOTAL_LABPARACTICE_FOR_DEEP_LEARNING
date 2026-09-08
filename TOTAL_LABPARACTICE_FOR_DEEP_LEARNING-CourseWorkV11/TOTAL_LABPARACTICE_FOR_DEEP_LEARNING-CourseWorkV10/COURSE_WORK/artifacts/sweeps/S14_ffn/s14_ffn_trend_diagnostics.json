@@ -1,0 +1,11 @@
+{
+  "best_ffn_dim": 256,
+  "best_ffn_id": "F256",
+  "interpretation": "Validation-only single-seed FFN-width response; no causal or Test claim",
+  "pattern": "MONOTONIC_GAIN_WITH_WIDTH",
+  "rmse_f128": 58.08190056355405,
+  "rmse_f256": 57.69679988114431,
+  "rmse_f64": 58.39803077736952,
+  "status": "PASS_WITH_WARNING",
+  "winner_is_boundary": true
+}

@@ -1,0 +1,6 @@
+{
+  "dataloader_seed": 42,
+  "global_seed": 42,
+  "status": "PASS",
+  "worker_seed_policy": "torch_initial_seed_mod_2_32_numpy_python"
+}

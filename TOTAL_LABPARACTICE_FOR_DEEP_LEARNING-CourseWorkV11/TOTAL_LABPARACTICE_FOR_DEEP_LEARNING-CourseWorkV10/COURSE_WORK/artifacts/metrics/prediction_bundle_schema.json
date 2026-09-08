@@ -1,0 +1,26 @@
+{
+  "canonical_order": "expected_WINDOWPOP_v1_sample_order",
+  "contains_actual_test_predictions": false,
+  "required_fields": {
+    "horizon_steps": "positive_integer",
+    "lookback_steps": "positive_integer",
+    "model_id": "non_empty_string",
+    "population_fingerprint": "sha256",
+    "run_id": "non_empty_string",
+    "sample_idx": "unique_int64_N",
+    "split_id": [
+      "TRAIN",
+      "VALIDATION",
+      "TEST"
+    ],
+    "target_scaling_option": [
+      "YS0",
+      "YS1"
+    ],
+    "y_pred_wh": "finite_float64_N",
+    "y_true_wh": "finite_float64_N"
+  },
+  "residual_definition": "y_true_wh_minus_y_pred_wh",
+  "schema_version": "PREDICTION-BUNDLE-v1",
+  "test_access_policy": "FINAL_TEST_REQUIRES_MODEL_LOCK_ID"
+}

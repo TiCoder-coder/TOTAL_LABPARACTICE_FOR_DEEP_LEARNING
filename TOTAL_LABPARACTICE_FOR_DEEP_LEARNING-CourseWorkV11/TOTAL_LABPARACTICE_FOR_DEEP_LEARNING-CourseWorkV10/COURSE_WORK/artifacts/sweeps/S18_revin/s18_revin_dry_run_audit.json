@@ -1,0 +1,26 @@
+{
+  "criterion_builds": true,
+  "dispatch_works": true,
+  "dry_run_pass": true,
+  "feature_channel_mapping_resolves": true,
+  "model_builds": true,
+  "model_summary": {
+    "delta": 56,
+    "expected_delta": 56,
+    "rn0_trainable_params": 102209,
+    "rn1_trainable_params": 102265
+  },
+  "no_scientific_checkpoint_created": true,
+  "no_scientific_metrics_created": true,
+  "no_scientific_run_persisted": true,
+  "optimizer_builds": true,
+  "phase_39_reference_resolves": true,
+  "registry_config_validation_passes": true,
+  "revin_adapter_builds": true,
+  "rn1_applicability_resolves": true,
+  "rn1_config_builds": true,
+  "scaler_bridge_resolves": true,
+  "selected_gc_resolves": true,
+  "stopped_at_training_boundary": true,
+  "test_remains_untouched": true
+}

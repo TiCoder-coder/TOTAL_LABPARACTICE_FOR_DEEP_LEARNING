@@ -1,0 +1,533 @@
+{
+  "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+  "quarantined_at": "2026-09-02T16:16:54+00:00",
+  "quarantined_by": "phase44_quarantine_invalid_official.py",
+  "n_files_archived": 58,
+  "preserve_run_dirs": true,
+  "do_not_reuse_runs": true,
+  "scientific_evidence_status": "PRESERVED_NONCANONICAL",
+  "files": [
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/phase_44_signoff.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/phase_44_signoff.json",
+      "sha256": "7e5efc042db3c7fc5d2d25a2f2eda34cc6c3402dfdc09bb31bdb149d2a640c9d",
+      "size": 1837,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/phase45_final_model_lock_handoff.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/phase45_final_model_lock_handoff.json",
+      "sha256": "dd0e847b99ee7e3ac38b41c1f5029784c5310b6069ba30ae5e1b768ef8c2841c",
+      "size": 11663,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_summary.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_summary.json",
+      "sha256": "039a59239ad23812b3781b466ee0209b0bbd00d362a4560cf553b33c93c03d03",
+      "size": 228,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_findings.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_findings.csv",
+      "sha256": "acdbe0700bfd5f974d53e2299f20b5df63c3a0544c52724eb679cbc700e74e9c",
+      "size": 572,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_pooled_metrics.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_pooled_metrics.csv",
+      "sha256": "248777e9b22cb93e2a0d6177a398c81397bdce2d7f4bf58cfb5ac6f9fafecfc8",
+      "size": 262,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_transformer_robustness_ranking.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_transformer_robustness_ranking.csv",
+      "sha256": "9ae6f202324c98a63e27598f0799a96bc1ae9f6be0235d69cd891af2ebc7647d",
+      "size": 246,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_recommended_transformer.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_recommended_transformer.json",
+      "sha256": "0cc9c13fd6c6908b524c16551f763b3a08a91a809298e7ea0777041fe67d8f5f",
+      "size": 735,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_manifest.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_manifest.json",
+      "sha256": "46714be47819997091ea6f69062ef701ba27b6576bd06bc1eb64ea9e5adfa669",
+      "size": 854,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_contract.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_contract.json",
+      "sha256": "292e13597d512e12fa251fb751680a515f41208b7557e4e946aa5312fa753fa0",
+      "size": 756,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_fold_manifest.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_fold_manifest.json",
+      "sha256": "9843454df6d2568f4bc122a2bce6899ab612a356b0d9ca722ad715294ecde545",
+      "size": 2184085,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_fold_table.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_fold_table.csv",
+      "sha256": "f681e4d9d20deae78651c109ca1d4c8de4bdf0c0d82e05816f9d141ee254309a",
+      "size": 1627,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_discrepancies.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_discrepancies.json",
+      "sha256": "fc48f795c0e0644f91694b5380a846f969b98a1452085ce017ae36c8f8fc3af2",
+      "size": 74,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_pairwise_effects.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_pairwise_effects.csv",
+      "sha256": "4e4d13dcf301b9a9e0dfefc9de527f14f499e2384be6ece5cf8fa17cab247d93",
+      "size": 835,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_candidate_compatibility_audit.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_candidate_compatibility_audit.csv",
+      "sha256": "086918c40d3560ccc5970e640674bc0fc3403975dbf5929fd6551dabc4509982",
+      "size": 857,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_candidate_matrix.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_candidate_matrix.csv",
+      "sha256": "7f273c3797fb743f5a35d161311d206ca1ff9aae490c15a3c84bdd590d20c0a1",
+      "size": 807,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_common_target_audit.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_common_target_audit.csv",
+      "sha256": "5045599aca1e08363da06b475e35cfb7013522201f98faa7a16932ee3fa47697",
+      "size": 314,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_fold_local_scaling_contract.json",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_fold_local_scaling_contract.json",
+      "sha256": "f5e4f9e508869bf6b1e8c6bd7d4c558b370d9f840f1518b53dba413a6b960ece",
+      "size": 422,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_fold_metrics.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_fold_metrics.csv",
+      "sha256": "fece91a30665baa744bc6832fd526c62c52495be95cfebcdb02c28e707888f16",
+      "size": 1213,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_fold_ranks.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_fold_ranks.csv",
+      "sha256": "cf89a44e1e47e44d2d8adf367fcc66c7e007db7ccb1147dafcdb66c0b03ab597",
+      "size": 514,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_gradient_diagnostics.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_gradient_diagnostics.csv",
+      "sha256": "03077b5370e772922b55853cabafba25b5663062144baa80a46b3f33c2b756b2",
+      "size": 1237,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_inner_best_epochs.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_inner_best_epochs.csv",
+      "sha256": "667d8cf7b5a74bda2170455fb2c43c6c5a71f01b6f72f26b3d0fbea4f9217ada",
+      "size": 547,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_inner_selection_run_registry.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_inner_selection_run_registry.csv",
+      "sha256": "c79dc194511ca554ba9d259c9433eff7f009c9a356025ade8736eebbd96f8a60",
+      "size": 1049,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_macro_robustness_metrics.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_macro_robustness_metrics.csv",
+      "sha256": "5947eb4b7ed6a667502c0459a1bece1220b453889c7e193059b7f9a3d3a6726a",
+      "size": 283,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_model_family_robustness_comparison.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_model_family_robustness_comparison.csv",
+      "sha256": "fe6eea490262482b8c81a3f87d679085e506020a07e8e7110a85fb2315132d8f",
+      "size": 281,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_population_audit.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_population_audit.csv",
+      "sha256": "afe96b291bf68fc871e8a86cbe02b56ab5303ba18872599d8ae7357c6169d755",
+      "size": 5335,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_refit_epoch_audit.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_refit_epoch_audit.csv",
+      "sha256": "c76d4e1e745882844bbb761a7e125f7d17db213e57753a4acfd30be8fd956f19",
+      "size": 597,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_refit_run_registry.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_refit_run_registry.csv",
+      "sha256": "3b551d1e62ef5e3caef0193b1786323eee38ee81759a101f120816589c4476a1",
+      "size": 1071,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_results.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_results.csv",
+      "sha256": "16d1424ea66bd184d6a28d9564e1112be1c723f89d2ddd4a537394de232c82c2",
+      "size": 809,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_runtime_diagnostics.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_runtime_diagnostics.csv",
+      "sha256": "f77d4887770307ba3ae7bb42a83b95072f9b93511f8e7331cf9800532b5fbc89",
+      "size": 448,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_sample_order_audit.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_sample_order_audit.csv",
+      "sha256": "63ab40e80e9d61020fe073a3a6becdf41b04c3d23258281532df2247bd05cae6",
+      "size": 2558,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_scaler_fit_audit.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_scaler_fit_audit.csv",
+      "sha256": "f2d020e31ba85601cc9601860db5d503db200788d2b65700458c49e897d57036",
+      "size": 1440,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_temporal_leakage_tests.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_temporal_leakage_tests.csv",
+      "sha256": "31a50af072e0bb993ed9906dc769aa0aed5e28aeafce5ccdb0d7933155be846b",
+      "size": 327,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/rolling_origin_tests.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/rolling_origin_tests.csv",
+      "sha256": "d4b3aefb337cf8e4b1f2547a52bbd9c4c8c5a92174cea79b7c4c3fd3d1b4b0ca",
+      "size": 252,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/phase44_preflight_audit.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/phase44_preflight_audit.csv",
+      "sha256": "842eaf6c6d6d16fd3297f0f1e0af51512a612183ebbb9f1ce654a09f6192f512",
+      "size": 96,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C0_PRIMARY_RO3.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C0_PRIMARY_RO3.csv",
+      "sha256": "896695509349839db2c3bc571e8f8180a292d2bd0fb0358eb9523ef09d083962",
+      "size": 73577,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/pooled_outer_predictions.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/pooled_outer_predictions.csv",
+      "sha256": "05c47749907a5bb06037e777dbc94baab762447fa326704638f7a6b30b3bce24",
+      "size": 936145,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C0_PRIMARY_RO2.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C0_PRIMARY_RO2.csv",
+      "sha256": "ed0a676f925beede22c1c059c9b1afc7572176c4036e3700e92992263c227d5a",
+      "size": 73598,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C0_PRIMARY_RO1.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C0_PRIMARY_RO1.csv",
+      "sha256": "1edf9cc9b1da7cc85fd658bd7f66a45be961f9c321e1df99e085a0845f831db5",
+      "size": 73686,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C2_ALT_LOOKBACK_RO3.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C2_ALT_LOOKBACK_RO3.csv",
+      "sha256": "486cef4913d43992a3a5da16693ebdcbbc7dd6e6065f18b97161bea2bc1e0687",
+      "size": 78533,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C2_ALT_LOOKBACK_RO2.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C2_ALT_LOOKBACK_RO2.csv",
+      "sha256": "5e3d1051a1439019c0740016b5aa4ba406bc396a9ac91cbc6ea3c9d5014f4f52",
+      "size": 78600,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C2_ALT_LOOKBACK_RO1.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C2_ALT_LOOKBACK_RO1.csv",
+      "sha256": "512cb823d6f1906d32cb3f0432d887eb5a97de3b06a746d009798300b8f2ebc7",
+      "size": 78634,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_LSTM_TUNED_WINNER_RO3.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_LSTM_TUNED_WINNER_RO3.csv",
+      "sha256": "41955c5c764988980fff74ce10c8bd7e1473d71dfd86261e2feb7461ebcdcfc2",
+      "size": 77494,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_LSTM_TUNED_WINNER_RO2.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_LSTM_TUNED_WINNER_RO2.csv",
+      "sha256": "20b351b18acebcdcc67595e6f4119967a27e0abe5d137dd7d4174a1d558f3605",
+      "size": 77585,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_LSTM_TUNED_WINNER_RO1.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_LSTM_TUNED_WINNER_RO1.csv",
+      "sha256": "a0321e3f542b1f3ddc56caa125a9fcc96b6dd2f291a6609d5d707cf989eba50a",
+      "size": 77654,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C1_ALT_WEIGHT_DECAY_RO2.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C1_ALT_WEIGHT_DECAY_RO2.csv",
+      "sha256": "71fac0b4185c279661d181e1332fb810056acaf58a3bc74068328472939b406b",
+      "size": 82495,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C1_ALT_WEIGHT_DECAY_RO3.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C1_ALT_WEIGHT_DECAY_RO3.csv",
+      "sha256": "44a9f64d19161167f9352d232693f39ce64b00e3a1edb9529be4b213fddd2e98",
+      "size": 82429,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/predictions/outer_predictions_TR_C1_ALT_WEIGHT_DECAY_RO1.csv",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/predictions/outer_predictions_TR_C1_ALT_WEIGHT_DECAY_RO1.csv",
+      "sha256": "7b126df991b673261313361e9c4f45cc55279c01a702e7e050f7f65a9be1d86d",
+      "size": 82564,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_PREDICTIONS",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_02_fold_rmse_by_model.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_02_fold_rmse_by_model.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_09_runtime_by_model_fold.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_09_runtime_by_model_fold.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_08_paired_error_deltas.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_08_paired_error_deltas.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_04_transformer_candidate_ranking.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_04_transformer_candidate_ranking.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_10_baseline_delta_by_fold.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_10_baseline_delta_by_fold.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_07_pooled_prediction_scatter.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_07_pooled_prediction_scatter.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_06_inner_best_epoch_by_fold.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_06_inner_best_epoch_by_fold.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_01_model_comparison.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_01_model_comparison.png",
+      "sha256": "0b649e570d09ddb386c8241556a13660b21f380d5ecffd99c2e4a39c779dd8ae",
+      "size": 49505,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_03_pooled_rmse_comparison.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_03_pooled_rmse_comparison.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_01_fold_timeline.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_01_fold_timeline.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    },
+    {
+      "source": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/figures/RO_44_05_fold_rmse_variability.png",
+      "archive_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/rolling_origin/_history/20260902T161654Z_PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION/figures/RO_44_05_fold_rmse_variability.png",
+      "sha256": "56f8210984a09ab9951e7b353179a652c42019af95a2eb94d45e30aa75f47c3f",
+      "size": 69,
+      "reason": "PHASE44_OFFICIAL_FAST_MODE_AND_INCOMPLETE_PROTOCOL_INVALIDATION_SYNTHETIC_FIGURES",
+      "archived_at": "2026-09-02T16:16:54+00:00",
+      "status": "QUARANTINED"
+    }
+  ]
+}

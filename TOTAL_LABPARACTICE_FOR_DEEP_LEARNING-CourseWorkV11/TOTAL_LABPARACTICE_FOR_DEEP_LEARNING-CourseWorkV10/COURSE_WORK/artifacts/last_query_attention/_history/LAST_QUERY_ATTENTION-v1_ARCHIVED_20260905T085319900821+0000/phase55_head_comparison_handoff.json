@@ -1,0 +1,36 @@
+{
+  "phase": 54,
+  "downstream_phase": 55,
+  "downstream_name": "Head Comparison",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "final_lock_sha256": "71075d9cc639c3f08a2a7ef571d7e14260254d5fd12d5f1d7159cd88aa35e23a",
+  "test_population_sha256": "1838136207e20f55780e29a6a1c79b23893660f1247ed60504cd2b1fb476e82c",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "lookback": 72,
+  "layers": 2,
+  "heads": 4,
+  "last_query_metrics_long": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metrics_long.csv",
+  "metric_summary_by_head": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metric_summary_by_head.csv",
+  "profile_by_lag": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_profile_by_lag.csv",
+  "lag_bin_mass": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_lag_bin_mass.csv",
+  "recent_mass_summary": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_recent_mass_summary.csv",
+  "coverage_radius_summary": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_coverage_radius_summary.csv",
+  "top1_lag_frequency": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_top1_lag_frequency.csv",
+  "head_order": "ARCHITECTURAL_INDEX",
+  "head_semantic_alignment_across_seeds": false,
+  "head_ranking_performed": false,
+  "ready_for_phase55": true,
+  "phase55_authorized": false,
+  "n_metrics_rows": 71064,
+  "raw_last_query_sha256": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "contract_sha256": "df6870f62d3c55d06b3c716c3a666ca43ef9bebc39d0583e79490ff1453fe8d0"
+}

@@ -1,0 +1,6 @@
+{
+  "dtype": "float32",
+  "probability_axis": "key",
+  "schema_version": "ATTN_SER-v1",
+  "tensor_layout": "B_H_L_L"
+}

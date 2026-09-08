@@ -1,0 +1,5 @@
+{
+  "canonical_json_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "canonicalization_rules": "canonical_json_bytes",
+  "source_config_file": "phase45_final_model_lock_handoff.json"
+}

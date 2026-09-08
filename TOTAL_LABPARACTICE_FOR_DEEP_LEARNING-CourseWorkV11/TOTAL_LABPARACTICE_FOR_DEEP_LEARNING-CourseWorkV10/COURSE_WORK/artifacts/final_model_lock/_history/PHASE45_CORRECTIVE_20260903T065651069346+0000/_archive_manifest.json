@@ -1,0 +1,306 @@
+[
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/README_FINAL_MODEL_LOCK.md",
+    "byte_size": 1195,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "17794288c5d129cbec3a86e31fa983128f7df43889929326186f90143f71c630",
+    "source_path": "README_FINAL_MODEL_LOCK.md",
+    "timestamp": "2026-09-03T06:56:51.070235+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/baseline_context_evidence.json",
+    "byte_size": 276,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "99b2c48480d22aa3be753eccc32fd4123f6331552430590e6aa73d0bf4e9fd40",
+    "source_path": "baseline_context_evidence.json",
+    "timestamp": "2026-09-03T06:56:51.070524+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/boundary_sensitivity_evidence.json",
+    "byte_size": 341,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "0c53573ba13a20350cba46c0e45ad2d037b226044cb603de190a603db1675783",
+    "source_path": "boundary_sensitivity_evidence.json",
+    "timestamp": "2026-09-03T06:56:51.070773+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_attention_compatibility_audit.csv",
+    "byte_size": 283,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "f24e8b98765d6feee26553504a6d850eb0d0e5945c400efd246de29ef44039a9",
+    "source_path": "final_attention_compatibility_audit.csv",
+    "timestamp": "2026-09-03T06:56:51.071033+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_boundary_contract.json",
+    "byte_size": 425,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "9c9a8e76ab302010b89c0c4a5e1972317e261f39ad9b584f7610620890e2930b",
+    "source_path": "final_boundary_contract.json",
+    "timestamp": "2026-09-03T06:56:51.071356+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_candidate_source_audit.csv",
+    "byte_size": 1317,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "b2c71c41c321537e380bbbdcfd7fe72f990d400dc9081f723d9e5c705bf4f8a8",
+    "source_path": "final_candidate_source_audit.csv",
+    "timestamp": "2026-09-03T06:56:51.071652+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_checkpoint_contract.json",
+    "byte_size": 997,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "5d0a14429e12f3578f4b96c30f158c52e4f3fa1cea4d70eb1d4c9dec9329024e",
+    "source_path": "final_checkpoint_contract.json",
+    "timestamp": "2026-09-03T06:56:51.071901+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_data_region_contract.json",
+    "byte_size": 992,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "24530edb9eea47a053c3a69927c2839da0d3b39126b66452818014f271889d38",
+    "source_path": "final_data_region_contract.json",
+    "timestamp": "2026-09-03T06:56:51.072153+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_environment_contract.json",
+    "byte_size": 543,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "5fec80c569e71fa3a2bab5e137fe8c9d71f6bee8221b49e625e9345edf8589f1",
+    "source_path": "final_environment_contract.json",
+    "timestamp": "2026-09-03T06:56:51.072395+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_epoch_policy.json",
+    "byte_size": 792,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "bad6f2b082b5297b11c59e387f4d59de064036eebe899c0b1f4246d6f246047d",
+    "source_path": "final_epoch_policy.json",
+    "timestamp": "2026-09-03T06:56:51.072691+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_epoch_source_audit.csv",
+    "byte_size": 278,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "4fe795f23af55c4d1ee55242d621f7ff6909b5fc65b7bd2490286f64dd88770f",
+    "source_path": "final_epoch_source_audit.csv",
+    "timestamp": "2026-09-03T06:56:51.072945+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_feature_contract.json",
+    "byte_size": 991,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "79f6edb82257ee9e8ec7e2236f99550db71063a0bc007eae7602f83a72d04b75",
+    "source_path": "final_feature_contract.json",
+    "timestamp": "2026-09-03T06:56:51.073219+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_lineage_audit.csv",
+    "byte_size": 2501,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "900aad6bd0e74147a807409ed021338c9b4a0ca7fcb029bf4690b7908f5e8ac9",
+    "source_path": "final_lineage_audit.csv",
+    "timestamp": "2026-09-03T06:56:51.073490+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_lineage_fingerprint.json",
+    "byte_size": 436,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "8be2141aaa4a11afd8236befccefc2a48d4b07e9d75cc37f4c095e0c92231e47",
+    "source_path": "final_lineage_fingerprint.json",
+    "timestamp": "2026-09-03T06:56:51.073750+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_loss_contract.json",
+    "byte_size": 162,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "871f9530aa5f3ee66b84fe0c32fe5955cfcf660b029844cf34c92d1b9785d8de",
+    "source_path": "final_loss_contract.json",
+    "timestamp": "2026-09-03T06:56:51.074001+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_config_fingerprint.json",
+    "byte_size": 215,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "9222266afb1595be416f87b34ddc901d58c82b3232059a8c8852c6e191fa81ef",
+    "source_path": "final_model_config_fingerprint.json",
+    "timestamp": "2026-09-03T06:56:51.074287+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_contract.json",
+    "byte_size": 389,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "0e1d1d4b6088c2a0375c620def7b75729f74b736caa3148e60cd4b38981c4f58",
+    "source_path": "final_model_lock_contract.json",
+    "timestamp": "2026-09-03T06:56:51.074550+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_discrepancies.json",
+    "byte_size": 3,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "source_path": "final_model_lock_discrepancies.json",
+    "timestamp": "2026-09-03T06:56:51.074788+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_findings.csv",
+    "byte_size": 840,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "e99739c29f14577b06c7956f503478fef4a8d9288718b0c56f575b2966a378dd",
+    "source_path": "final_model_lock_findings.csv",
+    "timestamp": "2026-09-03T06:56:51.075056+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_fingerprint.json",
+    "byte_size": 417,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "9e178d8dbd6aa8540ee29ed0b4473e98970d40a31baaf64937647cf3787f431d",
+    "source_path": "final_model_lock_fingerprint.json",
+    "timestamp": "2026-09-03T06:56:51.075304+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_manifest.json",
+    "byte_size": 547,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "7e8a53755b95f295b673cebba923bf1aa1205285e04c1e6c7103a2eadf507a80",
+    "source_path": "final_model_lock_manifest.json",
+    "timestamp": "2026-09-03T06:56:51.075563+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_report.md",
+    "byte_size": 3269,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "0caf65370cccbb58c2ac2d53c85c177584bc59d01aa180684667612772ca03bd",
+    "source_path": "final_model_lock_report.md",
+    "timestamp": "2026-09-03T06:56:51.075848+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_summary.json",
+    "byte_size": 1285,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "dd7c6209424b8ee36d040dbf176acbd23be3a2344e84e06635fdbc41d823f480",
+    "source_path": "final_model_lock_summary.json",
+    "timestamp": "2026-09-03T06:56:51.076128+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_lock_tests.csv",
+    "byte_size": 3116,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "04033a469ce4fe104114ecb6ed6885a37f0a8a85472fdd4a4f43fb8b8a9d0b30",
+    "source_path": "final_model_lock_tests.csv",
+    "timestamp": "2026-09-03T06:56:51.076410+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_model_scientific_config.json",
+    "byte_size": 3573,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "source_path": "final_model_scientific_config.json",
+    "timestamp": "2026-09-03T06:56:51.076713+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_optimizer_contract.json",
+    "byte_size": 326,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "b90abcb195df78fb21cf84c2247b7d3c580d8e89d0e49c1b393d39a9a6e17c71",
+    "source_path": "final_optimizer_contract.json",
+    "timestamp": "2026-09-03T06:56:51.076976+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_preprocessing_contract.json",
+    "byte_size": 671,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "db5540a5e68a1757d6757f1cd02ca27721cf9e739dcea3cfa0ac0958ffdee8a4",
+    "source_path": "final_preprocessing_contract.json",
+    "timestamp": "2026-09-03T06:56:51.077244+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_revin_contract.json",
+    "byte_size": 200,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "057bbb6e0acf9f52f076e01305117f91c869153d2dd5fd94e669f7f4bba4c8ff",
+    "source_path": "final_revin_contract.json",
+    "timestamp": "2026-09-03T06:56:51.077506+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_scaling_contract.json",
+    "byte_size": 759,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "81287106390f757df16a396411e7b07c8a924e425f0374719e78b4bf463817b3",
+    "source_path": "final_scaling_contract.json",
+    "timestamp": "2026-09-03T06:56:51.077808+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_seed_contract.json",
+    "byte_size": 701,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "1f941605a8d9677fbdcf4e2a5db85a60dab99645cf92108538ce63208c91fecb",
+    "source_path": "final_seed_contract.json",
+    "timestamp": "2026-09-03T06:56:51.078041+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_three_seed_run_matrix.csv",
+    "byte_size": 1337,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "23d06269253ab8d6d25ca63b7f681906551faf0850c79f1fec9314d92dbb92a9",
+    "source_path": "final_three_seed_run_matrix.csv",
+    "timestamp": "2026-09-03T06:56:51.078292+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_training_recipe.json",
+    "byte_size": 1586,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "857dbaf7903792cdba3e126a50d8919992f02e0fff838cba86180026c9e0220c",
+    "source_path": "final_training_recipe.json",
+    "timestamp": "2026-09-03T06:56:51.078538+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/final_training_recipe_fingerprint.json",
+    "byte_size": 152,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "33ba6146998d4e62ac268e775ccf34657ab82e0eaaf4919c867495b608965487",
+    "source_path": "final_training_recipe_fingerprint.json",
+    "timestamp": "2026-09-03T06:56:51.078802+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/phase45_preflight_audit.csv",
+    "byte_size": 755,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "9abcd4de5f93a23eb78f86f1b5f55a9cff317a0afbca6824583a4eeb7b20d629",
+    "source_path": "phase45_preflight_audit.csv",
+    "timestamp": "2026-09-03T06:56:51.079043+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/phase46_three_seed_handoff.json",
+    "byte_size": 9878,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "dde0228562359af48515b2f78ff58fb8002b0670e82a959ddda8c3b99e6add93",
+    "source_path": "phase46_three_seed_handoff.json",
+    "timestamp": "2026-09-03T06:56:51.079357+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/phase47_test_evaluation_guard.json",
+    "byte_size": 529,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "462eff1f1ff75f33e9bb668d175903c3bc85f571029d9bba263e73bb381a3825",
+    "source_path": "phase47_test_evaluation_guard.json",
+    "timestamp": "2026-09-03T06:56:51.079629+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/phase_45_signoff.json",
+    "byte_size": 1327,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "464ee2101d91b98741500c491ad10d66df6f932830cdeeff7baa175e97a7f091",
+    "source_path": "phase_45_signoff.json",
+    "timestamp": "2026-09-03T06:56:51.079911+00:00"
+  },
+  {
+    "archive_path": "_history/PHASE45_CORRECTIVE_20260903T065651069346+0000/rolling_origin_selection_evidence.json",
+    "byte_size": 768,
+    "reason": "PHASE45_CORRECTIVE_PRE_ARCHIVE",
+    "sha256": "65d16c2714943b5fe73e00cbdffb3865262d7aa284fda0af86413f0f185533f0",
+    "source_path": "rolling_origin_selection_evidence.json",
+    "timestamp": "2026-09-03T06:56:51.080170+00:00"
+  }
+]

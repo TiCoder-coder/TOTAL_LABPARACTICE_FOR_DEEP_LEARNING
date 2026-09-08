@@ -1,0 +1,66 @@
+{
+  "artifact_version": "TRANSFORMER_B0-v1",
+  "created_at": "2026-08-22T13:09:29.686637+00:00",
+  "dataloader_version": "DATALOADERS-v1",
+  "dataset_revision": "DATA-v1",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/baselines/persistence/persistence_validation_metrics.json": "970637688fdf94da94fc44f2087f1f020379cdb83e783853039bcc7d25d078ca",
+    "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
+    "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
+    "artifacts/lstm_baseline/phase_20_signoff.json": "58da9a7185acadd147535b5849bb16ee8e60fe420befca7aef5c18597a3a1f90",
+    "artifacts/training_engine/phase_19_signoff.json": "3645bcb46d86504b6214efd2f9d1b2e50c66365428163f7586a3f79eed643620"
+  },
+  "input_paths": [
+    "artifacts/training_engine/phase_19_signoff.json",
+    "artifacts/lstm_baseline/phase_20_signoff.json",
+    "artifacts/baselines/persistence/persistence_validation_metrics.json",
+    "artifacts/dataloaders/dataloader_manifest.json",
+    "artifacts/environment/environment_report.json"
+  ],
+  "metric_version": "METRICS-v1",
+  "output_checksums": {
+    "artifacts/runs/RUN_TR_B0_0003_44457570/checkpoints/best_checkpoint.pt": "6b6375b66c433455ea9d3a7b45862df1e5be5eeb8f14ecd24a2ad8e55fa7d18a",
+    "artifacts/runs/RUN_TR_B0_0003_44457570/metrics/best_validation_metrics.json": "da8239772799afc7f06711177f1d5b0ac3082ac9a1aa7e14a521a6c9b8942e4e",
+    "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md": "21d8889053d81a2251c6951a9812adf26cdf81e15750de895288e651005d0d66",
+    "artifacts/transformer_b0/baseline_comparison_population_audit.csv": "dc7dbe57f2f8fb4a7339562a908a2d95298906a67cb3592ac2afc8393e94ee2c",
+    "artifacts/transformer_b0/transformer_b0_audit.csv": "a160f69c9fbf4a3f2bfec7b20949618c7df5842be6999e0b38f6ff454a0d4db3",
+    "artifacts/transformer_b0/transformer_b0_discrepancies.json": "c021b154678c0bef310a1f7aea49e4e13bc400ee703d40eb3d1fb169ad1d62f1",
+    "artifacts/transformer_b0/transformer_b0_run_contract.json": "4ab3a8da4d08069c5a01b52324915c996ce239f83942f7680866b09da8660a3d",
+    "artifacts/transformer_b0/transformer_b0_run_summary.csv": "8d5477db3bfa5d208c0814d9cc1feaf42d9d12da3528936b9b2f7ea89ec73cb1",
+    "artifacts/transformer_b0/transformer_b0_summary.json": "3b78173962d4f31308fb977a64d708b18fd3ef5aceca049057bc5e6209af0428",
+    "artifacts/transformer_b0/transformer_b0_vs_baselines_validation.csv": "a1c1515953e21b7ad996584fceb9c79cf7b9ce6693203d5c3f73d89c98c80bfb"
+  },
+  "output_paths": [
+    "artifacts/transformer_b0/transformer_b0_run_contract.json",
+    "artifacts/transformer_b0/transformer_b0_summary.json",
+    "artifacts/transformer_b0/transformer_b0_run_summary.csv",
+    "artifacts/transformer_b0/transformer_b0_vs_baselines_validation.csv",
+    "artifacts/transformer_b0/baseline_comparison_population_audit.csv",
+    "artifacts/transformer_b0/transformer_b0_audit.csv",
+    "artifacts/transformer_b0/transformer_b0_discrepancies.json",
+    "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md",
+    "artifacts/transformer_b0/phase_21_signoff.json",
+    "artifacts/runs/RUN_TR_B0_0003_44457570/metrics/best_validation_metrics.json",
+    "artifacts/runs/RUN_TR_B0_0003_44457570/checkpoints/best_checkpoint.pt"
+  ],
+  "phase_id": 21,
+  "phase_version": "PHASE-21-v1",
+  "population_version": "WINDOWPOP-v1",
+  "run_id": "RUN_TR_B0_0003_44457570",
+  "scaling_version": "SCALING-v1",
+  "status": "PASS",
+  "tests": [
+    "official_transformer_training",
+    "three_way_comparison",
+    "registry_completion"
+  ],
+  "validation_metrics": {
+    "mae_wh": 29.262829318060334,
+    "r2": 0.5622083770499726,
+    "rmse_wh": 61.03075968917456
+  },
+  "warnings": [],
+  "window_version": "WINDOWS-v1"
+}

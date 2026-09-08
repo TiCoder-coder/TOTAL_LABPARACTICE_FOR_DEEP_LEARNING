@@ -1,0 +1,7 @@
+{
+  "created_before_render": true,
+  "frozen_at_utc": "2026-09-04",
+  "render_config_path": "artifacts/attention_heatmaps/attention_heatmap_render_config.json",
+  "render_config_sha256": "cd437644a9d7de147b8cb5ed78f08e0e1da459e45b92c78a3cc55d771dbb2bb8",
+  "status": "FROZEN"
+}

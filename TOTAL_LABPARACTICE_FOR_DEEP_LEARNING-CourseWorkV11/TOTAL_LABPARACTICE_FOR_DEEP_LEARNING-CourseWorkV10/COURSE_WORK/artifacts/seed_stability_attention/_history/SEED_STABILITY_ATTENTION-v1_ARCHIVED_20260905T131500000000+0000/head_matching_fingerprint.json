@@ -1,0 +1,24 @@
+{
+  "source_profile_sha256": "382ae0b5802a8fadc10fa89eb950010f61aae3012160f2be865047051528295e",
+  "final_lock_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "layers": 2,
+  "heads": 4,
+  "cost_metric": "JSD_NATURAL_LOG",
+  "matching_method": "EXHAUSTIVE_PERMUTATION",
+  "tie_tolerance": 1e-12,
+  "tie_break_2": "WASSERSTEIN_MINUTES",
+  "tie_break_3": "LEXICOGRAPHIC",
+  "anchor_seed": 42,
+  "anchor_reason": "FIRST_PREDECLARED_FINAL_SEED",
+  "performance_based_anchor": false,
+  "pairwise_assignment_sha256": "034f288bd3de9f6b89cf623d19b6360190fb00f2b8611be3ea16cdc4c8b83d03",
+  "canonical_group_sha256": "12de6e976d15a605c2be7d7224b7eb443c3d4ce9b3782ff4811c25f545561548",
+  "created_before_error_effect_mapping": true,
+  "status": "OK"
+}

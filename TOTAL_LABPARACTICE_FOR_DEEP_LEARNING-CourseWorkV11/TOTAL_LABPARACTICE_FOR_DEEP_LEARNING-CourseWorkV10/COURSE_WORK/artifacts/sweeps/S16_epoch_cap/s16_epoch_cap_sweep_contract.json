@@ -1,0 +1,157 @@
+{
+  "sweep_id": "S16_EPOCH_CAP",
+  "sweep_version": "SWEEP_S16_EPOCHCAP-v1",
+  "phase_id": 38,
+  "artifact_version": "SWEEP_S16_EPOCHCAP-CONTRACT-v1",
+  "created_at": "2026-08-24T08:50:00.000000+00:00",
+  "contract_version": "1.0",
+  "description": "Phase 38 sweep contract defining the scientific rules for S16 Epoch-cap sweep",
+
+  "factor_definition": {
+    "field": "training.max_epochs",
+    "description": "Maximum training epoch cap",
+    "unit": "epochs",
+    "note": "max_epochs is a CEILING, not a guaranteed budget"
+  },
+
+  "conditions": {
+    "E50": {
+      "condition_id": "E50",
+      "max_epochs": 50,
+      "patience": 10,
+      "min_delta": 0,
+      "early_stop_metric": "validation_rmse_wh",
+      "source_type": "REUSE_REFERENCE",
+      "source_run_id": "RUN_TR_S14_0023_A711A9B8",
+      "requires_new_training": false
+    },
+    "E100": {
+      "condition_id": "E100",
+      "max_epochs": 100,
+      "patience": 10,
+      "min_delta": 0,
+      "early_stop_metric": "validation_rmse_wh",
+      "source_type": "TRAIN_NEW",
+      "requires_new_training": true
+    }
+  },
+
+  "frozen_configuration": {
+    "description": "All fields below are frozen and must NOT differ between E50 and E100",
+    "fields": {
+      "feature_variant_id": "FS2_TF1",
+      "target_scaling_id": "YS1",
+      "lookback_steps": 36,
+      "pooling": "LAST_STEP",
+      "activation": "GELU",
+      "d_model": 64,
+      "num_heads": 4,
+      "num_layers": 2,
+      "ffn_dim": 256,
+      "dropout": 0.1,
+      "batch_size": 32,
+      "learning_rate": 0.0003,
+      "weight_decay": 0.001,
+      "loss": "MSE",
+      "gradient_clip": 1.0,
+      "scheduler": null,
+      "warmup": null,
+      "optimizer": "AdamW",
+      "seed": 42,
+      "patience": 10,
+      "min_delta": 0,
+      "population": "WINDOWPOP-v1"
+    }
+  },
+
+  "only_max_epochs_differs": {
+    "value": true,
+    "description": "Only max_epochs may differ between E50 and E100"
+  },
+
+  "early_stopping_unchanged": {
+    "patience": 10,
+    "min_delta": 0,
+    "monitor": "validation_rmse_wh",
+    "mode": "MIN"
+  },
+
+  "scheduler_independence": {
+    "scheduler": null,
+    "warmup": null,
+    "note": "No scheduler depends on max_epochs"
+  },
+
+  "selection_rules": {
+    "primary_metric": "validation_rmse_wh",
+    "direction": "MIN",
+    "winner": "minimum full-precision Validation RMSE Wh",
+    "exact_tie_rule": "E50 wins on exact RMSE tie",
+    "no_runtime_override": "Runtime does not override RMSE comparison"
+  },
+
+  "prefix_equivalence": {
+    "expected": true,
+    "description": "Under scheduler=None and full reproducibility, E50 and E100 should share identical trajectories before epoch 50"
+  },
+
+  "cap_binding_rules": {
+    "e50_cap_binding": {
+      "description": "Classify whether E50 cap is binding",
+      "NON_BINDING_EARLY_STOP": "E50 early-stopped before epoch 50",
+      "REACHED_CAP_BEST_EARLY": "E50 hit cap but BEST was early",
+      "REACHED_CAP_BEST_NEAR_BOUNDARY": "E50 hit cap and BEST was near boundary",
+      "REACHED_CAP_BEST_AT_BOUNDARY": "E50 hit cap and BEST was at boundary"
+    },
+    "e100_budget_utilization": {
+      "description": "Classify how much of E100 extra budget was used",
+      "NO_EXTRA_BUDGET_USED": "E100 early-stopped at or before epoch 50",
+      "PARTIAL_EXTRA_BUDGET_USED": "E100 trained 51-99 epochs",
+      "FULL_EXTRA_BUDGET_USED": "E100 completed all 100 epochs"
+    }
+  },
+
+  "post50_improvement": {
+    "description": "Analyze whether E100 found new BEST after epoch 50",
+    "POST50_NOT_OBSERVED": "E100 did not train past epoch 50",
+    "POST50_NO_NEW_GLOBAL_BEST": "E100 trained past 50 but found no new global BEST",
+    "POST50_NEW_GLOBAL_BEST": "E100 found new global BEST after epoch 50"
+  },
+
+  "test_policy": {
+    "access": "FORBIDDEN",
+    "note": "Test set must not be accessed during Phase 38"
+  },
+
+  "prohibited_actions": [
+    "E50 retraining",
+    "E100 continuation from E50 BEST checkpoint",
+    "Patience reset at epoch 50",
+    "Optimizer reset at epoch 50",
+    "RNG/DataLoader reset at epoch 50",
+    "BEST checkpoint reset at epoch 50",
+    "Scheduler tied to max_epochs",
+    "Hidden E150/E200 extension",
+    "Score-based rerun",
+    "Test access"
+  ],
+
+  "required_outputs": [
+    "s16_epoch_cap_sweep_manifest.json",
+    "s16_epoch_cap_sweep_contract.json",
+    "s16_run_matrix.csv",
+    "s16_epoch_cap_metrics.csv",
+    "s16_epoch_cap_effect.csv",
+    "s16_epoch_cap_winner.json",
+    "s16_reference_update.json",
+    "phase_38_signoff.json",
+    "README_S16_EPOCH_CAP_SWEEP.md"
+  ],
+
+  "phase39_handoff": {
+    "factor": "gradient_clipping",
+    "gc0": "gradient clipping OFF",
+    "gc1": "max_norm = 1.0 (reference)",
+    "note": "Phase 39 will use S16 winner's max_epochs setting"
+  }
+}

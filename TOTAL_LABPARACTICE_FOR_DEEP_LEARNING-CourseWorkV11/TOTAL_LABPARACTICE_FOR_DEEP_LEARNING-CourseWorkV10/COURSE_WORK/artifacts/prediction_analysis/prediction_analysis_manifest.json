@@ -1,0 +1,43 @@
+{
+  "phase": 48,
+  "phase_name": "Prediction analysis",
+  "version": "PREDICTION_ANALYSIS-v1",
+  "source_phase47_version": "FINAL_TEST_EVAL-v1",
+  "source_phase47_signoff_sha256": "80614523b6091e2159dd1013e32781165914b015bb1c4b612814c77b926e2929",
+  "final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "test_population_id": "FINAL_TEST_POP-v1",
+  "n_test": 2961,
+  "first_target_id": "TGT_00016774",
+  "last_target_id": "TGT_00019734",
+  "first_target_timestamp": "2016-05-07 04:40:00",
+  "last_target_timestamp": "2016-05-27 18:00:00",
+  "source_prediction_files": {
+    "transformer_seed42": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+    "transformer_seed123": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+    "transformer_seed2026": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+    "persistence": "artifacts/final_test/predictions/final_test_predictions_persistence.csv"
+  },
+  "source_prediction_sha256s": {
+    "transformer_seed42": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+    "transformer_seed123": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+    "transformer_seed2026": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+    "persistence": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b"
+  },
+  "checksum_registry_sha256": "20c1ddec303fbd8035dad8502e053668e909ab9d833e132544bc372fd9122e63",
+  "transformer_seeds": [
+    42,
+    123,
+    2026
+  ],
+  "new_inference": false,
+  "new_training": false,
+  "model_selection": false,
+  "seed_selection": false,
+  "ensemble": false,
+  "seed_std_ddof": 1,
+  "lag_sign_convention": "lag_k_positive_means_prediction_compared_to_truth_shifted_k_future_steps",
+  "primary_scope": "DESCRIPTIVE_PREDICTION_BEHAVIOR",
+  "status": "PASS",
+  "created_at": "2026-09-03T17:32:54.467472+00:00"
+}

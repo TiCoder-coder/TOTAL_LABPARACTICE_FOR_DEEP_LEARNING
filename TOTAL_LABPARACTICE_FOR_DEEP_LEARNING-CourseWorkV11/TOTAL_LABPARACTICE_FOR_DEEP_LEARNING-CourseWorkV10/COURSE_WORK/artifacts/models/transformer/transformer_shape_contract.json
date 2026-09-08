@@ -1,0 +1,12 @@
+{
+  "attention_layout": "B_H_L_L",
+  "canonical_dtype": "float32",
+  "implementation_version": "TRANSFORMER_IMPL-v1",
+  "input_layout": "B_L_F",
+  "output_layout": "B_1",
+  "supported_lookbacks": [
+    36,
+    72,
+    144
+  ]
+}

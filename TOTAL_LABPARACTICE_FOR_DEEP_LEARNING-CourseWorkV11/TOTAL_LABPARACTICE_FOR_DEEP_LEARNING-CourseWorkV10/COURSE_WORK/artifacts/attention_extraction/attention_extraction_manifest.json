@@ -1,0 +1,48 @@
+{
+  "phase": 52,
+  "version": "ATTENTION_EXTRACTION-v1",
+  "source_phase51_version": "WORST_ERROR_ANALYSIS-v1",
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "worst_case_selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "lookback_steps": 72,
+  "feature_count": 33,
+  "num_layers": 2,
+  "num_heads": 4,
+  "pooling": "LAST_STEP",
+  "RevIN_state": "disabled",
+  "attention_tensor_semantics": "B_H_Q_S",
+  "self_attention_shape": "B_H_L_L",
+  "raw_dense_storage_shape": [
+    44,
+    2,
+    4,
+    72,
+    72
+  ],
+  "last_query_storage_shape": [
+    2961,
+    2,
+    4,
+    72
+  ],
+  "raw_dtype": "float32",
+  "default_extraction_batch": 8,
+  "oos_fallback_used": false,
+  "new_training": false,
+  "model_selection": false,
+  "case_selection_changed": false,
+  "attention_interpretation": false,
+  "phase51_case_count_unique": 44,
+  "phase51_memberships_total": 160,
+  "started_at_utc": "2026-09-04T09:16:14+00:00",
+  "elapsed_seconds": 8.70746636390686,
+  "status": "PASS",
+  "k_attn_cases": 44,
+  "n_test": 2961
+}

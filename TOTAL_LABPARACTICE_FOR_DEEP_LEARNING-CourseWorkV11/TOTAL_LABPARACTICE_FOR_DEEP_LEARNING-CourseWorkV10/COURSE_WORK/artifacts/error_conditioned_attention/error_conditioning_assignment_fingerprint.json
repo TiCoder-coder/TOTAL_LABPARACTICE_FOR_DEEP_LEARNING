@@ -1,0 +1,12 @@
+{
+  "assignment_sha256": "fde852c7a72efe556efa3f6aef22c134694b447be4deb66dfb61f156fa3f28eb",
+  "shared_sha256": "c93f6cbd5c7aefd1e700e43a72f3ddaca53d01060eb73601194aa171d67d31bc",
+  "residual_source_sha256": "8418a99110bfda7047bd27c49c1c7a9769313b1ce1fa6dc66925f5286d120038",
+  "shared_hardness_source_sha256": "c93f6cbd5c7aefd1e700e43a72f3ddaca53d01060eb73601194aa171d67d31bc",
+  "test_population_sha256": "c7039090dc4d8168b24de04ebc671728f539fe873e02f1bb87da56e403f91706",
+  "cohort_rule": "RANK_BASED_20_60_20",
+  "decile_rule": "EXACT_RANK_10",
+  "tie_break_rule": "timestamp ASC, target_id ASC",
+  "created_before_attention_join": true,
+  "status": "OK"
+}

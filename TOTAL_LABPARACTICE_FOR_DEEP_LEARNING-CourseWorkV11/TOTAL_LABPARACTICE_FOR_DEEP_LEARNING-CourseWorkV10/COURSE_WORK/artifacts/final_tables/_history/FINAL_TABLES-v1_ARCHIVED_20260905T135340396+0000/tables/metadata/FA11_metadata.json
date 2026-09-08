@@ -1,0 +1,36 @@
+{
+  "table_id": "FA11",
+  "title": "Provenance and Population Audit",
+  "evidence_class": "EVIDENCE_AND_LIMITATION",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Critical for reproducibility."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 19,
+  "csv_path": "artifacts/final_tables/tables/csv/FA11_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA11_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA11_rows.tex",
+  "csv_sha256": "673e11bdc55765c8edb20761c0dffa3974c35d0a152c9f6586ef881c9cec5af8",
+  "markdown_sha256": "c2edf1913403660eb3bac5323e228eaefdaf46f75eee9a30fc475281ea5ff2a3",
+  "latex_sha256": "108b9052322d6dcedff6da5d2f3b18c6af86ec0f5382777226a704a7e1dda1c1"
+}

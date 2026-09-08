@@ -1,0 +1,21 @@
+{
+  "release_artifact_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/three_seed_final_runs/phase47_test_release.json",
+  "released": true,
+  "required_seed_count": 3,
+  "completed_seed_count": 3,
+  "checkpoint_sha256s": {
+    "42": "c3cfad116aa91d47fb2f2950407498901b980a344a99462776e4b90828805b10",
+    "123": "8a134fec517be0dfcd81ac6f961bf75fa69e8d34666205f731d893969bf01e22",
+    "2026": "8753800539f7a617bacbaa541daafbbfaff338a1de38ae1a5146650b4593dc6f"
+  },
+  "same_lock_hash": true,
+  "same_config_hash": true,
+  "same_recipe_hash": true,
+  "same_population_hash": true,
+  "same_scaler_hashes": true,
+  "same_epochs": true,
+  "test_status_before_phase47": "NOT_ACCESSED",
+  "verified": true,
+  "status": "PASS",
+  "checked_at": "2026-09-03T14:24:58.020978+00:00"
+}

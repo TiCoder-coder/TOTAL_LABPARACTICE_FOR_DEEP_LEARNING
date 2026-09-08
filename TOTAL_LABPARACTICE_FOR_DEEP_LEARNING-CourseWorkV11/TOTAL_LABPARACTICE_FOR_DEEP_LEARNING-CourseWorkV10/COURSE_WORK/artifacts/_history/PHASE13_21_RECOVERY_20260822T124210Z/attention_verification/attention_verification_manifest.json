@@ -1,0 +1,17 @@
+{
+  "attention_layout": "B_H_L_L",
+  "audit_status": "PASS",
+  "created_at": "2026-08-21T13:36:10.867175+00:00",
+  "dataloader_version": "DATALOADERS-v1",
+  "dataset_revision": "DATA-v1",
+  "experiment_registry_version": "EXPERIMENTS-v1",
+  "implementation_version": "TRANSFORMER_IMPL-v1",
+  "metric_version": "METRICS-v1",
+  "phase_version": "PHASE-17-v1",
+  "reference_lookback": 144,
+  "reference_model_version": "TRANSFORMER-v1",
+  "unit_test_count": 7,
+  "verification_test_count": 7,
+  "verification_version": "ATTENTION_VERIFY-v1",
+  "warnings": []
+}

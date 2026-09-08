@@ -1,0 +1,25 @@
+{
+  "artifact_version": "POSTHOC-MAPE-v1",
+  "records": [
+    {
+      "code": "FINAL_TEST_PREDICTION_SOURCE_UNAVAILABLE",
+      "detail": "artifacts/final_test/predictions/final_test_predictions_persistence.csv",
+      "severity": "BLOCKING_TEST_EXTENSION"
+    },
+    {
+      "code": "FINAL_TEST_PREDICTION_SOURCE_UNAVAILABLE",
+      "detail": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+      "severity": "BLOCKING_TEST_EXTENSION"
+    },
+    {
+      "code": "FINAL_TEST_PREDICTION_SOURCE_UNAVAILABLE",
+      "detail": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+      "severity": "BLOCKING_TEST_EXTENSION"
+    },
+    {
+      "code": "FINAL_TEST_PREDICTION_SOURCE_UNAVAILABLE",
+      "detail": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+      "severity": "BLOCKING_TEST_EXTENSION"
+    }
+  ]
+}

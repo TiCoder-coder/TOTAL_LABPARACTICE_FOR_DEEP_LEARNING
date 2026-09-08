@@ -1,0 +1,12 @@
+{
+  "WB0_population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "WB1_eligibility_fingerprint": "99047f20d3a47c36cacf301df3502dba9fd65c2e1f5772df766ba872687864ea",
+  "common_population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "population_version": "WINDOWPOP-v1",
+  "window_index_fingerprints": {
+    "L036_H01_WB0": "d4fc515a7f75f108a484e0d10cdf5259370af6181b6b5b88cdb1cdf501fa6bca",
+    "L072_H01_WB0": "259da6410af782bf51aa3d571e09dc65bad956073c4184acdee67349f4a243d8",
+    "L144_H01_WB0": "8dea0fb4f44b7acb264a5d840f0f44c0b2c3481f42e5d459a2294f7572cc6bae"
+  },
+  "window_version": "WINDOWS-v1"
+}

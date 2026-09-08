@@ -1,0 +1,25 @@
+{
+  "predictions": {
+    "seed_42": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+      "sha256": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+      "rows": 2961
+    },
+    "seed_123": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+      "sha256": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+      "rows": 2961
+    },
+    "seed_2026": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+      "sha256": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+      "rows": 2961
+    },
+    "persistence": {
+      "path": "artifacts/final_test/predictions/final_test_predictions_persistence.csv",
+      "sha256": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+      "rows": 2961
+    }
+  },
+  "generated_at": "2026-09-03T15:21:02.252003+00:00"
+}

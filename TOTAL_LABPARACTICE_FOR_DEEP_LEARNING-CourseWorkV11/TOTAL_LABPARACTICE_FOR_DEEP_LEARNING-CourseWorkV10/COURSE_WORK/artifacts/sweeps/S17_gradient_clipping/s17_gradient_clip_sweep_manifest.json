@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    "GC0",
+    "GC1"
+  ],
+  "created_at": "2026-08-24T12:01:33.064515+00:00",
+  "execution_modes": {
+    "GC0": "TRAIN_NEW",
+    "GC1": "REUSE_REFERENCE"
+  },
+  "factor": "gradient_clipping",
+  "fixed_from_phase_38": {
+    "loss": "MSE",
+    "reference_run_id": "RUN_TR_S14_0023_A711A9B8",
+    "selected_max_epochs": 50,
+    "validation_rmse_wh": 57.69679988114431
+  },
+  "phase_id": 39,
+  "phase_name": "S17 Gradient-clipping sweep",
+  "status": "PASS",
+  "sweep_id": "S17_GRADIENT_CLIPPING",
+  "sweep_version": "SWEEP_S17_GRADIENTCLIP-v1"
+}

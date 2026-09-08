@@ -1,0 +1,70 @@
+{
+  "artifact_version": "TRANSFORMER_B0-v1",
+  "created_at": "2026-08-21T15:27:59.736881+00:00",
+  "dataloader_version": "DATALOADERS-v1",
+  "dataset_revision": "DATA-v1",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/baselines/persistence/persistence_validation_metrics.json": "7b716c80c1ce9a2e92e8457b9de7679adb5e7ad9c5dfc1cad6e99b735cc591b9",
+    "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
+    "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+    "artifacts/lstm_baseline/phase_20_signoff.json": "bdac4bba9f2e11623d92cce54d7cb13542a5eb38eb9fc9c5750f775c1d6c3ddd",
+    "artifacts/training_engine/phase_19_signoff.json": "046a6f6a242aab2775c2bfe15bc3901cf10d6f93d58c5f183b7433fa214e003a"
+  },
+  "input_paths": [
+    "artifacts/training_engine/phase_19_signoff.json",
+    "artifacts/lstm_baseline/phase_20_signoff.json",
+    "artifacts/baselines/persistence/persistence_validation_metrics.json",
+    "artifacts/dataloaders/dataloader_manifest.json",
+    "artifacts/environment/environment_report.json"
+  ],
+  "metric_version": "METRICS-v1",
+  "output_checksums": {
+    "artifacts/runs/RUN_TR_B0_0010_1CEB611E/checkpoints/best_checkpoint.pt": "bde19132ac02bf476b09d6fe9c9ec940828147887e54cf01afc9bc9513103b6b",
+    "artifacts/runs/RUN_TR_B0_0010_1CEB611E/metrics/best_validation_metrics.json": "c42bf8dff8f1745c275057e8cd7ebc9f2195a8bc01d833282d7ea190e215826e",
+    "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md": "21d8889053d81a2251c6951a9812adf26cdf81e15750de895288e651005d0d66",
+    "artifacts/transformer_b0/baseline_comparison_population_audit.csv": "dc7dbe57f2f8fb4a7339562a908a2d95298906a67cb3592ac2afc8393e94ee2c",
+    "artifacts/transformer_b0/transformer_b0_audit.csv": "ea4ea7efca672b2aea3e9319c576b7f2f818a1a25f3c6bfcad9c1663643a6a7d",
+    "artifacts/transformer_b0/transformer_b0_discrepancies.json": "c021b154678c0bef310a1f7aea49e4e13bc400ee703d40eb3d1fb169ad1d62f1",
+    "artifacts/transformer_b0/transformer_b0_preflight_audit.csv": "ecf58f53c9a745c7a99fa2bcf56c29ab024663d2be9c6bc7e862bd3f76663b75",
+    "artifacts/transformer_b0/transformer_b0_run_contract.json": "4ab3a8da4d08069c5a01b52324915c996ce239f83942f7680866b09da8660a3d",
+    "artifacts/transformer_b0/transformer_b0_run_summary.csv": "281fd0aec1080c137b31652d3d163ad5c8a7a4a18e3efa8b7f8cff30eaebcda2",
+    "artifacts/transformer_b0/transformer_b0_summary.json": "3b78173962d4f31308fb977a64d708b18fd3ef5aceca049057bc5e6209af0428",
+    "artifacts/transformer_b0/transformer_b0_vs_baselines_validation.csv": "dbe1c3d202736ca5d019580dac21f734524252bb7dc80d9a491c7910312e4435"
+  },
+  "output_paths": [
+    "artifacts/transformer_b0/transformer_b0_run_contract.json",
+    "artifacts/transformer_b0/transformer_b0_summary.json",
+    "artifacts/transformer_b0/transformer_b0_preflight_audit.csv",
+    "artifacts/transformer_b0/transformer_b0_run_summary.csv",
+    "artifacts/transformer_b0/transformer_b0_vs_baselines_validation.csv",
+    "artifacts/transformer_b0/baseline_comparison_population_audit.csv",
+    "artifacts/transformer_b0/transformer_b0_audit.csv",
+    "artifacts/transformer_b0/transformer_b0_discrepancies.json",
+    "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md",
+    "artifacts/transformer_b0/transformer_b0_summary.json",
+    "artifacts/runs/RUN_TR_B0_0010_1CEB611E/metrics/best_validation_metrics.json",
+    "artifacts/runs/RUN_TR_B0_0010_1CEB611E/checkpoints/best_checkpoint.pt",
+    "artifacts/transformer_b0/phase_21_signoff.json"
+  ],
+  "phase_id": 21,
+  "phase_version": "PHASE-21-v1",
+  "population_version": "WINDOWPOP-v1",
+  "run_id": "RUN_TR_B0_0010_1CEB611E",
+  "scaling_version": "SCALING-v1",
+  "status": "PASS",
+  "tests": [
+    "official_transformer_training",
+    "registry_completion",
+    "persistence_comparison",
+    "lstm_comparison"
+  ],
+  "validation_metrics": {
+    "mae_wh": 28.720099614935876,
+    "r2": 0.5660223042358878,
+    "rmse_wh": 60.76433608395864
+  },
+  "warnings": [],
+  "window_version": "WINDOWS-v1"
+}

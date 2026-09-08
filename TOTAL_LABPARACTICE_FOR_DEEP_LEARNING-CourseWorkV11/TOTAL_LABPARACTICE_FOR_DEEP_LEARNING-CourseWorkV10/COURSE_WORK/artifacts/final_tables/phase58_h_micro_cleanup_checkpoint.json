@@ -1,0 +1,75 @@
+{
+  "phase": 58,
+  "phase_name": "Final Tables",
+  "scope": "Notebook presentation-only micro-cleanup of stale footer version label",
+  "active_revision": "FINAL_TABLES-v2",
+  "micro_cleanup_status": "PASS",
+  "cleanup_at_utc": "2026-09-05T14:22:51.870044+00:00",
+  "stale_label": {
+    "label_found": "Phase 58 v1",
+    "previous_location": "src/course_work/reporting/phase_58_dashboard.py line 604 (provenance footer)",
+    "presentation_only": true,
+    "not_used_in": [
+      "artifact identity",
+      "scientific branching",
+      "table generation",
+      "source selection",
+      "validation logic"
+    ]
+  },
+  "fix_applied": {
+    "renderer_file": "src/course_work/reporting/phase_58_dashboard.py",
+    "exact_old_line": "<span><strong>Phase 58 v1</strong> \\u2014 final-tables package</span>",
+    "exact_new_line": "<span><strong>Phase 58 \\u2014 Final Tables</strong> \\u00b7 <code>FINAL_TABLES-v2</code></span>",
+    "lines_modified": "1 line in 1 file (footer label only)",
+    "html_structure_preserved": true,
+    "css_preserved": true,
+    "cards_preserved": true,
+    "tables_preserved": true,
+    "scientific_values_preserved": true,
+    "caveats_preserved": true,
+    "ordering_preserved": true
+  },
+  "final_visible_phase58_label": "Phase 58 — Final Tables · FINAL_TABLES-v2",
+  "stale_phase58_v1_label_found": true,
+  "stale_phase58_v1_label_removed": true,
+  "renderer_files_changed": [
+    "src/course_work/reporting/phase_58_dashboard.py"
+  ],
+  "scientific_source_files_changed": [],
+  "scientific_artifact_changed": false,
+  "cells_modified": {
+    "cell_146": {
+      "type": "markdown",
+      "source_changed": false,
+      "note": "Cell 146 markdown byte-identical; no SHA/version/note/timestamp appended"
+    },
+    "cell_147": {
+      "type": "code",
+      "source_changed": false,
+      "source_preserved": true,
+      "source_sha256_match_pre_refresh": true,
+      "output_changed": true,
+      "output_html_length_bytes": 51664
+    }
+  },
+  "other_notebook_cell_changed": false,
+  "all_other_cells_unchanged": true,
+  "final_config_display_unchanged": true,
+  "final_test_metrics_unchanged": true,
+  "phase54_entropy_display_unchanged": true,
+  "phase56_error_conditioned_display_unchanged": true,
+  "phase57_stability_display_unchanged": true,
+  "stale_upstream_v1_markers_in_dashboard": {
+    "LAST_QUERY_ATTENTION-v1": false,
+    "HEAD_COMPARISON-v1": false,
+    "ERROR_CONDITIONED_ATTENTION-v1": false,
+    "SEED_STABILITY_ATTENTION-v1": false,
+    "FINAL_TABLES-v1": false
+  },
+  "phase59_executed": false,
+  "run_all_used": false,
+  "open_presentation_issues": [],
+  "pre_refresh_checkpoint_reference": "artifacts/final_tables/phase58_h_notebook_refresh_checkpoint.json",
+  "final_status": "PASS"
+}

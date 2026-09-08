@@ -1,0 +1,36 @@
+{
+  "table_id": "FA05",
+  "title": "Shared Worst-Error Cases (Phase 51 frozen)",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Worst-error cases were NOT removed from final Test metrics."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 160,
+  "csv_path": "artifacts/final_tables/tables/csv/FA05_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA05_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA05_rows.tex",
+  "csv_sha256": "9553d67c16a14a213027215448ec31cd84861d81ae9b2ce10e748185d1e57a3a",
+  "markdown_sha256": "02dc2afd817fa7bfdd23d549230ad35dc67c36eb0601e54ce556028edfe85952",
+  "latex_sha256": "dccca4ed48bac02291d0a28296f8be15ab5e47e56f26b59d9f3baaec20bce5e7"
+}

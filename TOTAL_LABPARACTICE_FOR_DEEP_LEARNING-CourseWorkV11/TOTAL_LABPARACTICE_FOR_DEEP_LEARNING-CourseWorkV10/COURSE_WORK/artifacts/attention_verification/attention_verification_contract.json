@@ -1,0 +1,12 @@
+{
+  "attention_layout": "B_H_L_L",
+  "average_attn_weights_policy": "EXPLICIT_AGGREGATION_ONLY",
+  "implementation_version": "TRANSFORMER_IMPL-v1",
+  "inspection_api": "forward_with_attention",
+  "is_causal": false,
+  "mask_policy": "NONE",
+  "probability_semantics": "SOFTMAX_OVER_KEYS",
+  "reference_model_version": "TRANSFORMER-v1",
+  "training_api": "forward",
+  "verification_version": "ATTENTION_VERIFY-v1"
+}

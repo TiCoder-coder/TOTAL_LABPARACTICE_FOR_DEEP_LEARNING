@@ -1,0 +1,40 @@
+{
+  "artifact_version": "PHASE46_REUSE_CACHE-v1",
+  "created_at": "2026-08-30T01:19:53.689434+00:00",
+  "runs": {
+    "123": {
+      "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_123/seed_123_FINAL_REFIT.pt",
+      "checkpoint_sha256": "4d1469be6b0ca78ba19311ed415fc1e011139c51686ad35bac04fd151076c131",
+      "config_sha256": "dd82d7437de4f51f179434b4b3de9f70d73bafeee1474753dcc95e6bb1b2194e",
+      "metadata_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_123/seed_123_FINAL_REFIT_metadata.json",
+      "recipe_sha256": "46d5ab122919bd9d45b659b34e75fb896f3171a42e50db6ee4f3923e44ec4181",
+      "rmse_wh": 0.0,
+      "run_id": "RUN_TR_FSD_0154_DD82D743",
+      "seed": 123,
+      "status": "COMPLETED"
+    },
+    "2026": {
+      "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_2026/seed_2026_FINAL_REFIT.pt",
+      "checkpoint_sha256": "30064f562e0dc9ec8028f627aabb7fdbe51086fbec4216de74b5808182a14f79",
+      "config_sha256": "59a50addd8d282a5b56089dc721da9d88222d9372ddaefe33ea1f9df4932d382",
+      "metadata_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_2026/seed_2026_FINAL_REFIT_metadata.json",
+      "recipe_sha256": "46d5ab122919bd9d45b659b34e75fb896f3171a42e50db6ee4f3923e44ec4181",
+      "rmse_wh": 0.0,
+      "run_id": "RUN_TR_FSD_0155_59A50ADD",
+      "seed": 2026,
+      "status": "COMPLETED"
+    },
+    "42": {
+      "checkpoint_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_42/seed_42_FINAL_REFIT.pt",
+      "checkpoint_sha256": "2a99eab49911c1f47a3355a13f5ccb95a79d0453c4aea3af6689f730f195e638",
+      "config_sha256": "b15a19dc960d2113323b20135ec4067e03b5931daa4c4e4f6e09932a7cea5c05",
+      "metadata_path": "artifacts/three_seed_final_runs/official_checkpoints/seed_42/seed_42_FINAL_REFIT_metadata.json",
+      "recipe_sha256": "46d5ab122919bd9d45b659b34e75fb896f3171a42e50db6ee4f3923e44ec4181",
+      "rmse_wh": 0.0,
+      "run_id": "RUN_TR_FSD_0153_B15A19DC",
+      "seed": 42,
+      "status": "COMPLETED"
+    }
+  },
+  "updated_at": "2026-08-30T01:28:39.991356+00:00"
+}

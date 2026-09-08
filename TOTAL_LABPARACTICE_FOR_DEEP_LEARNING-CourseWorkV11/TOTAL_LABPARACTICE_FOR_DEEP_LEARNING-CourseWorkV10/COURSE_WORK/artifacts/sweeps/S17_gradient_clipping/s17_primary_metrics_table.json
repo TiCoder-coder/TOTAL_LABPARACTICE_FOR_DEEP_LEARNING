@@ -1,0 +1,14 @@
+{
+  "GC0": {
+    "run_id": "RUN_TR_S17_0029_082F7FF5",
+    "validation_mae_wh": 28.660434923796306,
+    "validation_r2": 0.5925405739467269,
+    "validation_rmse_wh": 58.87856773160628
+  },
+  "GC1": {
+    "run_id": "RUN_TR_S14_0023_A711A9B8",
+    "validation_mae_wh": 27.029547974302105,
+    "validation_r2": 0.6087328858180434,
+    "validation_rmse_wh": 57.69679988114431
+  }
+}

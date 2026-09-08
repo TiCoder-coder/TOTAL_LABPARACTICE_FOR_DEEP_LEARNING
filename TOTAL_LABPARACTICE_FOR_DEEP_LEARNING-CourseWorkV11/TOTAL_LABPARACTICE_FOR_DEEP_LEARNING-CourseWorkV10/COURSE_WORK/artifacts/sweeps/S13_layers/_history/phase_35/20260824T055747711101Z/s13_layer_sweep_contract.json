@@ -1,0 +1,43 @@
+{
+  "artifact_version": "S13-LAYER-CONTRACT-v1",
+  "conditions": [
+    {
+      "activation": "GELU",
+      "condition_id": "N1",
+      "d_model": 64,
+      "dropout": 0.1,
+      "evidence_status": "PASS",
+      "execution_mode": "TRAIN_NEW",
+      "expected_attention_tensor_count": 1,
+      "ffn_dim": 128,
+      "head_dim": 16,
+      "num_heads": 4,
+      "num_layers": 1,
+      "pooling": "LAST_STEP",
+      "status": "PASS"
+    },
+    {
+      "activation": "GELU",
+      "condition_id": "N2",
+      "d_model": 64,
+      "dropout": 0.1,
+      "evidence_status": "PASS_WITH_WARNING",
+      "execution_mode": "HISTORICAL_REFERENCE",
+      "expected_attention_tensor_count": 2,
+      "ffn_dim": 128,
+      "head_dim": 16,
+      "num_heads": 4,
+      "num_layers": 2,
+      "pooling": "LAST_STEP",
+      "status": "PASS"
+    }
+  ],
+  "created_at": "2026-08-24T05:15:24.062840+00:00",
+  "phase_id": 35,
+  "selection_direction": "MIN",
+  "selection_metric": "VALIDATION_RMSE_WH",
+  "sweep_id": "S13_LAYERS",
+  "swept_field": "model.num_layers",
+  "test_access": "FORBIDDEN",
+  "tie_rule": "N1_ON_EXACT_RMSE_TIE"
+}

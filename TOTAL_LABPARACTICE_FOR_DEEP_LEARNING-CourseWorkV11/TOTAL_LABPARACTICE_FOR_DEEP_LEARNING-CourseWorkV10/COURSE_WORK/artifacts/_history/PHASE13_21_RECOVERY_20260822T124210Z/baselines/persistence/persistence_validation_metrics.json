@@ -1,0 +1,32 @@
+{
+  "artifact_version": "PERSISTENCE-v1",
+  "created_at": "2026-08-21T13:26:16.836094+00:00",
+  "metric_result": {
+    "finite_status": "PASS",
+    "horizon_steps": 1,
+    "lookback_steps": 144,
+    "mae_wh": 26.16216216216216,
+    "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+    "metric_version": "METRICS-v1",
+    "model_id": "PERSISTENCE_LAST_VALUE",
+    "n_samples": 2960,
+    "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+    "prediction_unit": "Wh",
+    "r2": 0.481325958122121,
+    "r2_status": "DEFINED",
+    "rmse_wh": 66.42970273458556,
+    "run_id": "RUN_PS_PS_0003_373F837B",
+    "selection_metric_name": "rmse_wh",
+    "selection_metric_value": 66.42970273458556,
+    "split_id": "VALIDATION",
+    "status": "PASS",
+    "target_unit": "Wh",
+    "warnings": []
+  },
+  "metric_result_fingerprint": "b39533d72cd5572d3a9371711b12d9b1b7d9905625203b84bbacf7d517fe6dce",
+  "model_id": "PERSISTENCE_LAST_VALUE",
+  "prediction_fingerprint": "9fa47e24545578612f46e81f4f656926be39708dc08505492a4d5099204e29a7",
+  "run_id": "RUN_PS_PS_0003_373F837B",
+  "split_id": "VALIDATION",
+  "test_access_authorized": false
+}

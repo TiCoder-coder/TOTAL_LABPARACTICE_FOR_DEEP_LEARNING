@@ -1,0 +1,64 @@
+{
+  "approved_for_phase40": true,
+  "completed_at": "2026-08-24T12:36:06+00:00",
+  "created_at": "2026-08-24T12:01:33.070024+00:00",
+  "compliance_corrective_completed_at": "2026-08-24T12:36:06+00:00",
+  "gc0_run": {
+    "best_epoch": 12,
+    "epochs_executed": 22,
+    "max_epochs": 50,
+    "run_id": "RUN_TR_S17_0029_082F7FF5",
+    "validation_rmse_wh": 58.87856773160628
+  },
+  "gc1_reference": {
+    "run_id": "RUN_TR_S14_0023_A711A9B8",
+    "validation_rmse_wh": 57.69679988114431
+  },
+  "gradient_diagnostics": {
+    "gc0_clipping_fraction": 0.0,
+    "gc0_nonfinite_events": 0,
+    "gc1_clipping_fraction": 0.929375531011045
+  },
+  "inherited_warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ],
+  "output_completeness": {
+    "o39_outputs_required": 44,
+    "o39_outputs_materialized": 44,
+    "optional_omissions_allowed": [
+      "O39.19_prefix_before_first_clip_audit",
+      "O39.33_generalization_diagnostics"
+    ],
+    "compliance_corrective_artifacts": [
+      "s17_preflight_audit.json",
+      "s17_run_matrix.csv",
+      "s17_gradient_clip_unit_tests.csv",
+      "s17_gradient_mutation_tests.csv",
+      "s17_nonfinite_guard_tests.csv"
+    ]
+  },
+  "overall_status": "PASS_WITH_WARNING",
+  "phase40_handoff": {
+    "approved": true,
+    "factor": "gradient_clipping",
+    "selected_value": "GLOBAL_L2_MAX_NORM_1.0"
+  },
+  "phase_id": 39,
+  "phase_name": "S17 Gradient-clipping sweep",
+  "phase_version": "PHASE-39-v1",
+  "status": "PASS",
+  "strict_best_verification": {
+    "gc0_recomputed_rmse_wh": 58.878567640388276,
+    "gc0_rmse_delta": 9.121800559341864e-08,
+    "gc0_status": "PASS",
+    "gc0_stored_rmse_wh": 58.87856773160628,
+    "tolerance": 1e-06
+  },
+  "test_access": "NOT_ACCESSED",
+  "test_status": "FORBIDDEN",
+  "winner": {
+    "condition_id": "GC1",
+    "run_id": "RUN_TR_S14_0023_A711A9B8",
+    "validation_rmse_wh": 57.69679988114431
+  }
+}

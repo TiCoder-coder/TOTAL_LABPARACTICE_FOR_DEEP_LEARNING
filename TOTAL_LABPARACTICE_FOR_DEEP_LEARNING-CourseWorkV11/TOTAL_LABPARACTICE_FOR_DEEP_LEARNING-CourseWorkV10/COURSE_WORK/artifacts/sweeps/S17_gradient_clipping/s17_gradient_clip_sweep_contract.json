@@ -1,0 +1,42 @@
+{
+  "GC0_execution": "FRESH_SEED42_TRAIN_NEW",
+  "GC1_execution": "REUSE_REFERENCE",
+  "artifact_version": "S17-GRADIENT-CLIP-CONTRACT-v1",
+  "conditions": {
+    "GC0": "OFF",
+    "GC1": "GLOBAL_L2_MAX_NORM_1.0"
+  },
+  "created_at": "2026-08-24T12:01:33.064974+00:00",
+  "fixed_architecture": {
+    "activation": "GELU",
+    "d_model": 64,
+    "dropout": 0.1,
+    "ffn_dim": 256,
+    "head_dim": 16,
+    "norm_policy": "POST_NORM",
+    "num_heads": 4,
+    "num_layers": 2,
+    "pe_policy": "SINUSOIDAL_ONCE",
+    "pooling": "LAST_STEP"
+  },
+  "prohibited": [
+    "mixed_clipping",
+    "clip_by_value",
+    "per_layer_clipping",
+    "gradient_clipping_for_gc0",
+    "early_stop_relaxation",
+    "warm_start",
+    "weight_slicing",
+    "weight_padding",
+    "optimizer_state_reuse",
+    "Test"
+  ],
+  "selection_direction": "MIN",
+  "selection_metric": "VALIDATION_RMSE_WH",
+  "status": "PASS",
+  "sweep_id": "S17_GRADIENT_CLIPPING",
+  "sweep_version": "SWEEP_S17_GRADIENTCLIP-v1",
+  "swept_field": "training.gradient_clipping",
+  "test_access": "FORBIDDEN",
+  "tie_rule": "GC0_WINS_ON_EXACT_RMSE_TIE"
+}

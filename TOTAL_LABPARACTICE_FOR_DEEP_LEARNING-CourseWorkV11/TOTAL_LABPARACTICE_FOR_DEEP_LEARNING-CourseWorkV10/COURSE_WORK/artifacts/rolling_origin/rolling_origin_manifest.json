@@ -1,0 +1,23 @@
+{
+  "K": 3,
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "created_at": "2026-09-03T05:54:35.205134+00:00",
+  "fold_local_scaling": true,
+  "fold_protocol": "RO3_EXPANDING_PRETEST-v1",
+  "full_history_refit": true,
+  "initial_history": "original Train",
+  "lstm_winner_fingerprint": "bce5a2cd6ba86435b7c02a1f1a9d25a6e214493dbd8d6da22886e328287f8593",
+  "nested_epoch_selection": true,
+  "outer_eval_region": "original Validation",
+  "outer_eval_used_for_selection": false,
+  "persistence_version": "WB0_LAST_STEP_v1",
+  "phase": 44,
+  "population_base": "WINDOWPOP-v1",
+  "primary_metric": "pooled_outer_rmse_wh",
+  "seed": 42,
+  "status": "PASS",
+  "test_region_used": false,
+  "test_status": "NOT_ACCESSED",
+  "transformer_shortlist_fingerprint": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "version": "ROLLING_ORIGIN-v1"
+}

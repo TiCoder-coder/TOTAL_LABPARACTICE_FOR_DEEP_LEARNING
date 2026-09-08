@@ -1,0 +1,63 @@
+{
+  "locked_before_test_access": true,
+  "phase": 47,
+  "version": "FINAL_TEST_EVAL-v1",
+  "final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "models": {
+    "transformers": [
+      {
+        "seed": 42,
+        "run_id": "RUN_TR_FSD_0254_2B11AC68"
+      },
+      {
+        "seed": 123,
+        "run_id": "RUN_TR_FSD_0254_3858DDA9"
+      },
+      {
+        "seed": 2026,
+        "run_id": "RUN_TR_FSD_0255_C7E123FB"
+      }
+    ],
+    "persistence": true,
+    "lstm_tuned_dev_if_eligible": true
+  },
+  "test_population": {
+    "policy": "WINDOWPOP-v1",
+    "split": "TEST",
+    "lookback": 72,
+    "horizon": 1,
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "population_id": "FINAL_TEST_POP-v1",
+    "population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "n_test": 2961
+  },
+  "transformer_inference": {
+    "checkpoint_type": "FINAL_REFIT",
+    "scaling": "FINAL_SCALING-v1",
+    "eval_mode": true,
+    "inference_mode": true,
+    "standard_forward": true,
+    "no_attention_extraction": true
+  },
+  "metrics": {
+    "mae_wh": true,
+    "rmse_wh": true,
+    "r2": true
+  },
+  "seed_summary": {
+    "per_seed_metrics": true,
+    "arithmetic_mean": true,
+    "sample_sd_ddof_1": true,
+    "min_max_range": true
+  },
+  "forbidden": {
+    "best_seed_selection": true,
+    "ensemble": true,
+    "training": true,
+    "scaler_refit": true,
+    "candidate_testing": true,
+    "post_test_tuning": true
+  },
+  "status": "FROZEN",
+  "frozen_at": "2026-09-03T15:17:56.071746+00:00"
+}

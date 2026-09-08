@@ -1,0 +1,13 @@
+{
+  "feature_count": 33,
+  "no_test_access": true,
+  "no_validation_stats_fit": true,
+  "status": "PASS",
+  "target_index": 25,
+  "x_scaler_bundle_id": "XSCALER__FS2_TF1",
+  "x_to_y_bridge": "X-target coord -> inverse X-target transform -> raw Wh -> frozen Y target transform -> y_model",
+  "y_scaler_bundle_id": "YSCALER__YS1",
+  "ys0_means_identity": false,
+  "ys1_uses_train_only_scaler": true,
+  "ys_option": "YS1"
+}

@@ -1,0 +1,8 @@
+{
+  "all_other_fields_identical": true,
+  "status": "PASS",
+  "training_fields_differing": [
+    "gradient_clipping_enabled",
+    "gradient_clip_max_norm"
+  ]
+}

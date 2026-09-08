@@ -1,0 +1,36 @@
+{
+  "table_id": "FT06",
+  "title": "Last-Query Temporal Attention Summary",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Attention values describe temporal allocation, not raw feature importance."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 6,
+  "csv_path": "artifacts/final_tables/tables/csv/FT06_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT06_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT06_rows.tex",
+  "csv_sha256": "d594801f5c8c06df2505f732f1c81ac14d6c4dc2fda9700cbdb1539e20d0ec57",
+  "markdown_sha256": "cbf0560dc14386a6242ab043b0600b03524770a9fa35dc08eb0d0c99800c1cba",
+  "latex_sha256": "2cdb17c4ee701ebc86d9f217ad3d0422710f004780596f64056e9f9fe00e59f5"
+}

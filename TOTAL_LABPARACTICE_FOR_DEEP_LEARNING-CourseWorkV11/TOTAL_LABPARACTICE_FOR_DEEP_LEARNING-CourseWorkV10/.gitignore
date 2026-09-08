@@ -1,0 +1,107 @@
+# ─── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+dist/
+build/
+eggs/
+.eggs/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+*.cover
+.hypothesis/
+*.log
+local_settings.py
+db.sqlite3
+*.sqlite3
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pyre/
+
+# ─── Jupyter Notebook ─────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+checkpoint-*
+
+# ─── Data & Downloads ────────────────────────────────────────────────────────
+/data/
+/COURSE_WORK/data/
+raw/
+processed/
+external/
+*.csv
+*.gz
+*.zip
+*.tar
+*.tar.gz
+*.pth
+*.pt
+*.onnx
+*.h5
+*.pkl
+*.pickle
+
+# ─── Model outputs & logs ────────────────────────────────────────────────────
+outputs/
+logs/
+*.pth
+*.pt
+checkpoints/
+*.ckpt
+wandb/
+tensorboard/
+*.pth.log
+
+# ─── Virtual environments ────────────────────────────────────────────────────
+venv/
+.venv/
+.venv310/
+ENV/
+env/
+.conda/
+
+# ─── IDE & Editor ────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-*
+
+# ─── Secrets & Credentials ───────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+secrets.json
+token
+*.token
+
+# ─── Misc ───────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*.temp
+.cache/
+vscode-notebook-cell:/
+practice_1.ipynb#Y116sZmlsZQ%3D%3D
+
+# ─── Log ───────────────────────────────────────────────────────────────────
+COURSE_WORK/docs/save_log_in_processing/phase_36_s14_ffn_log.json
+COURSE_WORK/docs/save_log_in_processing

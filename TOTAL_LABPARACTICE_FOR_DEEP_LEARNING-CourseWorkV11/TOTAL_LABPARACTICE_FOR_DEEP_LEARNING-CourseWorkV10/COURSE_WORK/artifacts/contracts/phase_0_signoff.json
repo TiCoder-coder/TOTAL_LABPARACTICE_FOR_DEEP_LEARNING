@@ -1,0 +1,33 @@
+{
+  "artifact_version": "COURSEWORK-CONTRACT-v1",
+  "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+  "created_at": "2026-08-20T14:59:46.470404+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": null,
+  "input_checksums": {
+    "configs/base/coursework_contract.json": "09a3e13a1481c96a005670d0ef0cfe989410e42da78fec735b6d69b445b5d66f"
+  },
+  "input_paths": [
+    "configs/base/coursework_contract.json"
+  ],
+  "output_checksums": {
+    "artifacts/contracts/coursework_contract.json": "1f9298c92265fb6e02a61272caa1dd151e2372e829c69b2e91f6d2fa22fb84f8",
+    "artifacts/contracts/coursework_contract.sha256": "fedce134ac201b3744853d6907f0067f5341992409dd6258bcd74cf399ee93e4"
+  },
+  "output_paths": [
+    "artifacts/contracts/coursework_contract.json",
+    "artifacts/contracts/coursework_contract.sha256"
+  ],
+  "phase_id": 0,
+  "phase_version": "PHASE-0-v1",
+  "status": "PASS",
+  "tests": [
+    "contract_schema",
+    "option_registry_completeness",
+    "chronological_split_sum",
+    "forecast_target_unambiguous",
+    "data_independence"
+  ],
+  "warnings": []
+}

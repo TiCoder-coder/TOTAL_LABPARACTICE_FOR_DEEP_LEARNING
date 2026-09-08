@@ -1,0 +1,19 @@
+{
+  "actual_pin_memory": false,
+  "cpu": {
+    "non_blocking_transfer": false,
+    "pin_memory": false
+  },
+  "cuda": {
+    "non_blocking_transfer": true,
+    "pin_memory": true
+  },
+  "dataset_output_device": "cpu",
+  "device_transfer_owner": "training_engine",
+  "mps": {
+    "non_blocking_transfer": false,
+    "pin_memory": false
+  },
+  "selected_device": "mps",
+  "status": "PASS"
+}

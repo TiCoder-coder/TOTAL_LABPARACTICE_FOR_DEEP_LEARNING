@@ -1,0 +1,24 @@
+{
+  "metric_result": {
+    "finite_status": "PASS",
+    "horizon_steps": 1,
+    "lookback_steps": 36,
+    "mae_wh": 27.41859357267982,
+    "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+    "metric_version": "METRICS-v1",
+    "model_id": "Transformer Encoder Regressor",
+    "n_samples": 2960,
+    "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+    "prediction_unit": "Wh",
+    "r2": 0.5904020802432752,
+    "r2_status": "DEFINED",
+    "rmse_wh": 59.03287348979047,
+    "run_id": "RUN_TR_S04_0008_133EF4E3",
+    "selection_metric_name": "rmse_wh",
+    "selection_metric_value": 59.03287348979047,
+    "split_id": "VALIDATION",
+    "status": "PASS",
+    "target_unit": "Wh",
+    "warnings": []
+  }
+}

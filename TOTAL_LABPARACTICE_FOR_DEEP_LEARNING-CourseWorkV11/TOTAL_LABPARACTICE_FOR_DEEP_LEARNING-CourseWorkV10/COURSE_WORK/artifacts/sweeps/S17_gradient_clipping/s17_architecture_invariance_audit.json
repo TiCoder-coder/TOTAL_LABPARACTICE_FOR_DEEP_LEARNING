@@ -1,0 +1,11 @@
+{
+  "gc0_d_model": 64,
+  "gc0_ffn_dim": 256,
+  "gc0_num_heads": 4,
+  "gc0_num_layers": 2,
+  "gc1_d_model": 64,
+  "gc1_ffn_dim": 256,
+  "gc1_num_heads": 4,
+  "gc1_num_layers": 2,
+  "status": "PASS"
+}

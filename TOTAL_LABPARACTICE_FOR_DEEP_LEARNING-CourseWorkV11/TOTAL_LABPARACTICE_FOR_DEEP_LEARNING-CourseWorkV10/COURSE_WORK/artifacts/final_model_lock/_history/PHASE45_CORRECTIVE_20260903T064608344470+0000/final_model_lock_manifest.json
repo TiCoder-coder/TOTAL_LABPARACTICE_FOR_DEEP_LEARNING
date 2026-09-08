@@ -1,0 +1,10 @@
+{
+  "config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "config_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "lineage_sha256": "9ba532539d548156e1d5d933abe8c1463617cdc790741e48d5249b452995d9fe",
+  "phase": 45,
+  "recipe_sha256": "857dbaf7903792cdba3e126a50d8919992f02e0fff838cba86180026c9e0220c",
+  "recommended_model_id": "TR_C2_ALT_LOOKBACK",
+  "version": "FINAL_MODEL_LOCK-v1"
+}

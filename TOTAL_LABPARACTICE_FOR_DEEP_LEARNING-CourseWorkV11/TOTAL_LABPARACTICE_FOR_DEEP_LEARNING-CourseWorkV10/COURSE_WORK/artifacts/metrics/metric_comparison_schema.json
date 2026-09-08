@@ -1,0 +1,24 @@
+{
+  "guards": [
+    "same_metric_contract",
+    "same_split",
+    "same_population",
+    "same_unit",
+    "same_horizon",
+    "same_sample_count"
+  ],
+  "r2_percentage_improvement": "PROHIBITED",
+  "required_fields": {
+    "baseline_run_id": "string",
+    "delta_mae_wh": "baseline_minus_model",
+    "delta_r2": "model_minus_baseline_nullable_when_undefined",
+    "delta_rmse_wh": "baseline_minus_model",
+    "mae_improvement_pct": "nullable_when_baseline_zero",
+    "model_run_id": "string",
+    "population_fingerprint": "matching_sha256",
+    "rmse_improvement_pct": "nullable_when_baseline_zero",
+    "split": "matching_split",
+    "status": "PASS"
+  },
+  "schema_version": "METRIC-COMPARISON-v1"
+}

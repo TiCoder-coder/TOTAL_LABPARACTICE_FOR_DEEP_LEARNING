@@ -1,0 +1,18 @@
+{
+  "ENV-v1_fingerprint": "ENV-v1",
+  "critical_library_versions": {
+    "sklearn_version": "1.7.2",
+    "torch_version": "2.13.0"
+  },
+  "determinism_settings": {
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": true,
+    "torch_deterministic_algorithms": true
+  },
+  "device_policy": "select_device",
+  "environment_drift_policy": "fail_on_mismatch",
+  "precision": "float32",
+  "python_version": "3.10.11",
+  "pytorch_version": "2.13.0",
+  "worker_policy": "torch_initial_seed_mod_2_32_numpy_python"
+}

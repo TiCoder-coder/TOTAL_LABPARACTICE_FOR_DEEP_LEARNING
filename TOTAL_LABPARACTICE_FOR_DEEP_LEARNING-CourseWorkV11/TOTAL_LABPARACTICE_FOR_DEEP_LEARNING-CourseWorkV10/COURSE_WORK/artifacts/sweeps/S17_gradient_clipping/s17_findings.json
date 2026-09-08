@@ -1,0 +1,7 @@
+{
+  "gc0_actual_clipping_fraction": 0.0,
+  "gc0_counterfactual_max_excess": 17.315928813829274,
+  "gc1_actual_clipping_fraction": 0.929375531011045,
+  "selected_policy": "GLOBAL_L2_MAX_NORM_1.0 (GC1)",
+  "winner": "GC1"
+}

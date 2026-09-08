@@ -1,0 +1,24 @@
+{
+  "candidate_id": "TR_C0_PRIMARY",
+  "config_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "created_at": "2026-08-30T01:28:40.075400+00:00",
+  "early_stopping_used": false,
+  "final_dev_region": "FINAL_DEV_REGION-v1",
+  "final_lock_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "final_refit_epochs": 50,
+  "lineage_sha256": "376ae5fcaf05dc61ae2ce523aa60277558a5eff1bf94f0302b4b8990836eab6b",
+  "phase": 46,
+  "planned_scientific_run_count": 3,
+  "recipe_sha256": "46d5ab122919bd9d45b659b34e75fb896f3171a42e50db6ee4f3923e44ec4181",
+  "seed_contract": "FINAL_SEEDS-v1",
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "source_lock_version": "FINAL_MODEL_LOCK-v1",
+  "status": "PASS",
+  "test_access": "forbidden",
+  "validation_used": false,
+  "version": "THREE_SEED_FINAL_RUNS-v1"
+}

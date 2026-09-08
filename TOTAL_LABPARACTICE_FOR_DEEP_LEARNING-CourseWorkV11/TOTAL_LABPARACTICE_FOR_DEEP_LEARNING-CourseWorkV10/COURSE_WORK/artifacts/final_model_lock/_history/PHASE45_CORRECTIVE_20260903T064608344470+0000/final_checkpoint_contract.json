@@ -1,0 +1,26 @@
+{
+  "BEST_semantics": "not_applicable",
+  "LAST_semantics": "final_epoch_state",
+  "attention_inspection_compatibility_required": true,
+  "checkpoint_type": "FINAL_REFIT",
+  "config_fingerprint_required": true,
+  "config_fingerprint_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "lock_fingerprint": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "lock_fingerprint_required": true,
+  "official_epoch": 30,
+  "population_fingerprint": "552e6895dbc6f7a93b0ea9a2ab4de77abd58d8780ad4bc85b697a485ccbc31a9",
+  "population_fingerprint_required": true,
+  "recipe_fingerprint": "857dbaf7903792cdba3e126a50d8919992f02e0fff838cba86180026c9e0220c",
+  "recipe_fingerprint_required": true,
+  "required_metadata": [
+    "seed",
+    "config_fingerprint",
+    "recipe_fingerprint",
+    "lock_fingerprint",
+    "scaler_checksums",
+    "population_fingerprint"
+  ],
+  "scaler_checksums_required": true,
+  "seed_required": true,
+  "strict_load_required": true
+}

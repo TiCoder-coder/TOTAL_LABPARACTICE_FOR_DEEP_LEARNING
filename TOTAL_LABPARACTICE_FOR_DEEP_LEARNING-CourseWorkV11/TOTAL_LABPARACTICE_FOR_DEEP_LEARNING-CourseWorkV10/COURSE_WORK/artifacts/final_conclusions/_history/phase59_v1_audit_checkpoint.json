@@ -1,0 +1,171 @@
+{
+  "audit": {
+    "phase": 59,
+    "scope": "READ-ONLY active-revision + notebook consistency audit",
+    "active_revision": "FINAL_CONCLUSIONS-v1",
+    "audit_at_utc": "2026-09-05T14:33:49.304777+00:00",
+    "audit_status": "DEFECTS_FOUND"
+  },
+  "active_state": {
+    "phase59_revision": "FINAL_CONCLUSIONS-v1",
+    "phase59_status": "PASS (historical)",
+    "phase59_completed": true,
+    "created_at": "2026-09-05T04:03:17Z",
+    "produced_before_v2_corrective_chain": true,
+    "produced_before_v2_chain_at": "2026-09-05T13:53:40Z",
+    "historical_revisions": "(only v1; no _history archived)",
+    "open_discrepancies": [
+      "source_phase58_version = FINAL_TABLES-v1 (stale; current is v2)",
+      "final_lock_sha256 stores config fingerprint (585c5e79...) instead of canonical combined lock (81fb87c4...)",
+      "final_conclusions manifest/signoff do NOT reference Phase54/55/56/57 v2 lineage explicitly"
+    ]
+  },
+  "stale_v1_references_found": {
+    "LAST_QUERY_ATTENTION-v1": "0 files (none)",
+    "HEAD_COMPARISON-v1": "0 files (none)",
+    "ERROR_CONDITIONED_ATTENTION-v1": "0 files (none)",
+    "SEED_STABILITY_ATTENTION-v1": "0 files (none)",
+    "FINAL_TABLES-v1": "6 files: final_conclusions_manifest.json, phase_59_signoff.json, README_FINAL_CONCLUSIONS.md, FINAL_PROJECT_SUMMARY.md, coursework_completion_manifest.json, and persisted cell 149 HTML output"
+  },
+  "stale_narrative_symptoms_found": {
+    "normalized_entropy_described_zero": "none",
+    "NOT_DEFINED_CONSTANT_INPUT": "none",
+    "NOT_DEFINED_CONSTANT_METRIC": "none",
+    "NO_COMMON_TARGETS": "none",
+    "empty_matched_head_stability": "none",
+    "stale_final_lock_identity": "YES — Phase59 manifest stores 585c5e79... (config fingerprint) under field final_lock_sha256",
+    "config_fp_mislabeled_as_final_lock": "YES — both manifest and signoff have this conflation"
+  },
+  "identities": {
+    "canonical_final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+    "canonical_config_fingerprint_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "canonical_phase47_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "phase59_manifest_final_lock_sha256_actual": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24 (= config fp; NOT combined lock)",
+    "phase59_manifest_source_phase58_version": "FINAL_TABLES-v1 (stale)",
+    "phase58_v2_reference_correct_in_phase59": false
+  },
+  "conclusion_inventory": {
+    "claims_count": 10,
+    "limitations_count": 14,
+    "future_work_count": 10,
+    "findings_count": 8,
+    "rq_closure_count": 10,
+    "sentence_ledger_count": 39,
+    "outcome_matrix_count": 12
+  },
+  "claim_strength_audit": {
+    "LEVEL_3_FINAL_HELD_OUT_RESULT": 2,
+    "LEVEL_2_ROBUST_DESCRIPTIVE_PATTERN": 4,
+    "LEVEL_1_OBSERVED_ASSOCIATION": 3,
+    "LEVEL_4_CAUSAL_REJECTED": 1,
+    "sentence_levels": "All 39 sentences at LEVEL_0_DESCRIPTIVE_ONLY (no overclaim)",
+    "verdict": "WELL_CALIBRATED — strongest claims (LEVEL_3) are Test-evidenced; level-4 claim is REJECTED"
+  },
+  "test_metrics": {
+    "phase47_test_match_in_conclusion_section": "PRESENT in rounded form (28.53 / 63.83 / 0.506); full precision values from FT02 of Phase58-v2 confirm match",
+    "three_seed_summary": "PRESENT (mean ± sample SD, ddof=1, NOT ensemble)",
+    "persistence_comparison": "PRESENT (MAE 26.74, RMSE 66.84, R² 0.459)",
+    "lstm_test_limitation": "PRESENT ('Tuned LSTM was not evaluated on FINAL_TEST_POP-v1 due to lookback mismatch L36 vs L72')",
+    "transformer_dominance_overclaim": "ABSENT — wording is 'Transformer obtained three-seed mean...' (neutral)",
+    "best_seed_claim": "ABSENT",
+    "ensemble_claim": "ABSENT (negative: 'do not represent an ensemble prediction')"
+  },
+  "performance_interpretation": {
+    "transformer_improves_persistence_rmse_r2": "true via FT02",
+    "persistence_may_have_better_mae": "true (Pers MAE 26.74 < Transformer mean 28.53)",
+    "lstm_protocol_mismatch": "documented",
+    "phase44_robustness_caveat": "explicit ('is not a second Held-Out Test')",
+    "phase44_development_evidence_only": "explicit"
+  },
+  "error_regime_findings": {
+    "high_consumption_regime": "present",
+    "rapid_change_regime": "present",
+    "worst_cases_retained": "present",
+    "diagnostic_only": "present",
+    "post_test_tuning": "absent (correct)",
+    "matches_phase50_51": true
+  },
+  "attention_conclusions": {
+    "phase54_v2_normalized_entropy_supported": "implicit (Conclusion C05 references FT06; FT06 values now non-zero in Phase58-v2)",
+    "phase55_v2_head_diversity": "supported (C06 references FT07)",
+    "phase56_v2_error_conditioned": "supported (C07 references FT08)",
+    "phase57_v2_seed_stability": "supported (C08 references FT09)",
+    "zero_entropy_stale_narrative": "absent (no zero-entropy narrative found)",
+    "semantic_identity_overclaim": "absent (conclusion states 'not assumed')",
+    "matched_head_functional_overclaim": "absent ('does not prove functional redundancy')",
+    "causal_claim": "absent (negative: 'is not ... causal attribution')",
+    "best_head_claim": "absent (negative: 'No head-pruning recommendation')",
+    "attention_not_feature_importance_caveat": "present",
+    "attention_not_causal_caveat": "present",
+    "error_conditioned_descriptive_only_caveat": "present (HIGH/LOW are post-hoc test-relative cohorts)"
+  },
+  "limitations": {
+    "single_dataset": "present (L1A_DATASET_SINGLE_HOUSE)",
+    "single_test_population": "implicit (single FINAL_TEST_POP-v1)",
+    "three_seeds_only": "present (L3B_THREE_SEEDS)",
+    "temporal_attention_limitation": "present (L5A_ATTENTION_TEMPORAL_ALLOCATION, L5C_LAST_QUERY_ONE_VIEW)",
+    "no_feature_causal_attribution": "present (L5A, L5B)",
+    "lstm_final_test_protocol_mismatch": "implicit (FT02 notes LSTM not evaluated on FINAL_TEST_POP-v1)",
+    "hardest_regimes_challenging": "present (C04)",
+    "post_test_descriptive_only": "present",
+    "unsupported_limitations_found": false
+  },
+  "scientific_guards_confirmed": {
+    "NO_TRAINING": true,
+    "NO_NEW_TEST_INFERENCE": true,
+    "NO_ATTENTION_REEXTRACTION": true,
+    "NO_SCALER_FIT": true,
+    "NO_CHECKPOINT_MUTATION": true,
+    "NO_PREDICTION_MUTATION": true,
+    "NO_RESIDUAL_MUTATION": true,
+    "NO_CASE_RESELECTION": true,
+    "NO_BEST_SEED_SELECTION": true,
+    "NO_BEST_HEAD_SELECTION": true,
+    "NO_ENSEMBLE": true,
+    "NO_POST_TEST_MODEL_TUNING": true
+  },
+  "phase58_numeric_consistency": {
+    "test_metrics_match": "values in conclusion (28.53/63.83/0.506) round correctly from FT02",
+    "phase58_v2_actual_data_matches_conclusion": "true (rounded display; full precision in FT02 confirms)",
+    "mismatch_with_phase58_v2": "no numeric mismatch; only lineage/version label mismatch"
+  },
+  "notebook_consistency": {
+    "phase59_cells_exist": true,
+    "phase59_cells": "cell 148 (markdown) + cell 149 (code/dashboard)",
+    "cell148_source": "byte-identical header markdown",
+    "cell149_source": "byte-identical: from course_work.reporting.phase_59_dashboard import render_phase_59_dashboard\ndisplay(render_phase_59_dashboard(PROJECT_ROOT))",
+    "cell149_current_output": "33,565 bytes HTML; STALE: shows FINAL_CONCLUSIONS-v1 + FINAL_TABLES-v1 + 'Phase 59 v1' + FINAL_LOCK=585c5e79 (config fp)",
+    "notebook_matches_active_revision": "NO — cell 149 output reflects pre-v2-corrective Phase59 state",
+    "presentation_refresh_needed": true
+  },
+  "presentation_density": {
+    "total_artifacts": 32,
+    "claims": 10,
+    "limitations": 14,
+    "future_work": 10,
+    "sentence_ledger": 39,
+    "outcome_matrix": 12,
+    "rq_matrix": 10,
+    "tests": 22,
+    "passes": 22,
+    "verdict": "Comprehensive but well-structured via ledgers; reader can identify core findings via outcome matrix and claim strength ledger"
+  },
+  "presentation_clutter": [
+    "Some repetition between abstract/section/short conclusion (acceptable redundancy for different reader paths)",
+    "5 language-audit phrases flagged for REVIEW (causal x3, feature importance x2, generalize x1, guarantee x1, prove x1) — all in legitimate negative contexts"
+  ],
+  "scientific_protocol_issues": [
+    "Phase59 manifest stores config fingerprint as final_lock_sha256 (must be corrected to canonical combined lock 81fb87c4...)",
+    "Phase59 manifest declares source_phase58_version = FINAL_TABLES-v1 (must be updated to v2)",
+    "Phase59 frozen at 2026-09-05T04:03:17Z (BEFORE the v2 corrective chain applied to Phase54-58 at 2026-09-05T13:53:40Z)",
+    "Phase59 frozen scientific narrative references pre-v2 source revision labels"
+  ],
+  "presentation_issues": [
+    "Notebook cell 149 currently displays 'FINAL_CONCLUSIONS-v1', 'FINAL_TABLES-v1', and 'Phase 59 v1' labels (stale)",
+    "Notebook cell 149 footer shows FINAL_LOCK=585c5e79... (config fingerprint, not canonical combined lock)"
+  ],
+  "repair_required": "YES — scientific corrective needed to realign Phase59 with current Phase58-v2 state (correct identities + lineage) AND presentation refresh to update notebook cell 149",
+  "conclusion_narrative_quality": "WELL-CALIBRATED narrative: claim levels properly graded, interpretation boundaries explicit, language audit clean, scientific guards honored, all 22 tests pass, no overclaim of best seed/head/ensemble/causal mechanism",
+  "summary_status": "NARRATIVE_AND_NUMERICS_PRESERVED — but LINEAGE_AND_IDENTITY_STALE",
+  "final_status": "REPAIR_REQUIRED"
+}

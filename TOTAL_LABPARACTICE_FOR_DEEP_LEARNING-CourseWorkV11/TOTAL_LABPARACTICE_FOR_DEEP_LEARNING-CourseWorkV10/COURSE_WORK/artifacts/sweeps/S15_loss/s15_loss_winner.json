@@ -1,0 +1,92 @@
+{
+  "sweep_id": "S15_LOSS",
+  "sweep_version": "SWEEP_S15_LOSS-v1",
+  "phase_id": 37,
+  "artifact_version": "SWEEP_S15_LOSS-WINNER-v1",
+  "created_at": "2026-08-24T08:50:00.000000+00:00",
+  "source_s14_winner_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "selected_architecture": {
+    "feature_variant_id": "FS2_TF1",
+    "target_scaling_id": "YS1",
+    "target_model_space": "STANDARDIZED",
+    "lookback_id": "L36",
+    "pooling_id": "LAST_STEP",
+    "activation_id": "GELU",
+    "batch_id": "B32",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.001,
+    "dropout_probability": 0.1,
+    "d_model": 64,
+    "num_heads": 4,
+    "head_dim": 16,
+    "num_layers": 2,
+    "ffn_dim": 256
+  },
+  "candidate_losses": [
+    "MSE",
+    "HUBER"
+  ],
+  "huber_delta_model_space": 1.0,
+  "huber_delta_raw_wh_equivalent": 106.853424078282,
+  "huber_delta_tuned": false,
+  "loss_reduction": "mean",
+  "selection_metric": "VALIDATION_RMSE_WH",
+  "selection_direction": "MIN",
+  "tie_rule": "MSE_ON_EXACT_RMSE_TIE",
+  "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "metric_version": "METRICS-v1",
+  "mse_reference_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "huber_run_id": "RUN_TR_S15_0024_9420CDD7",
+  "strict_best_verification": {
+    "huber_run_id": "RUN_TR_S15_0024_9420CDD7",
+    "status": "PASS",
+    "stored_rmse_wh": 58.680985170839044,
+    "recomputed_rmse_wh": 58.680985170839044,
+    "rmse_delta": 0.0,
+    "stored_mae_wh": 26.97820227679493,
+    "recomputed_mae_wh": 26.97820227679493,
+    "mae_delta": 0.0,
+    "stored_r2": 0.5952706605937734,
+    "recomputed_r2": 0.5952706605937734,
+    "r2_delta": 0.0,
+    "tolerance": 1e-9
+  },
+  "winner_loss_id": "L0",
+  "winner_loss_name": "MSE",
+  "winner_huber_delta_if_applicable": null,
+  "winner_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "winner_rmse_wh": 57.69679988114431,
+  "winner_mae_wh": 27.029547974302105,
+  "winner_r2": 0.6087328858180434,
+  "runner_up_loss_id": "L1",
+  "runner_up_loss_name": "Huber",
+  "runner_up_rmse_wh": 58.680985170839044,
+  "runner_up_mae_wh": 26.97820227679493,
+  "runner_up_r2": 0.5952706605937734,
+  "rmse_margin_wh": 0.9841852896947139,
+  "rmse_margin_pct": 1.705747,
+  "metric_ranking_divergence": false,
+  "rmse_r2_ranking_consistent": true,
+  "huber_regime_diagnostics": {
+    "target_model_space": "STANDARDIZED",
+    "delta_model_space": 1.0,
+    "delta_raw_wh_equivalent": 106.853424078282,
+    "validation": {
+      "sample_count": 2960,
+      "fraction_quadratic": null,
+      "fraction_linear": null
+    }
+  },
+  "gradient_diagnostics": {
+    "huber_mean_clipping_fraction": null,
+    "huber_max_preclip_grad_norm": null,
+    "mse_mean_clipping_fraction": null
+  },
+  "initialization_audit_status": "NOT_VERIFIABLE",
+  "sample_order_match_status": "NOT_VERIFIABLE",
+  "inherited_warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ],
+  "test_status": "FORBIDDEN",
+  "overall_status": "PASS"
+}

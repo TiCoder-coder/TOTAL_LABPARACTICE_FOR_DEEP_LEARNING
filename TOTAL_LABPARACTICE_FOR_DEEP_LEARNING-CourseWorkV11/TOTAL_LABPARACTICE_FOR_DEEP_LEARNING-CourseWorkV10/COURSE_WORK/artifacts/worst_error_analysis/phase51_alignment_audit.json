@@ -1,0 +1,37 @@
+{
+  "abs_error_verified": true,
+  "all_pass": true,
+  "created_at_utc": "2026-09-04T07:12:36.112403+00:00",
+  "defects": [],
+  "n_residual_long": 8883,
+  "n_seeds": 3,
+  "n_test": 2961,
+  "no_forbidden_columns": true,
+  "no_ranking_executed": true,
+  "phase": 51,
+  "phase48_seed_spread_join_lossless": true,
+  "phase50_assignment_join_lossless": true,
+  "phase50_regime_labels_unchanged": true,
+  "ranking_executed": false,
+  "residual_convention_verified": true,
+  "residual_rows_per_seed": {
+    "123": 2961,
+    "2026": 2961,
+    "42": 2961
+  },
+  "residual_sign_verified": true,
+  "seeds": [
+    "123",
+    "2026",
+    "42"
+  ],
+  "squared_error_verified": true,
+  "subphase": "51-B",
+  "target_ids_unique_per_seed": {
+    "123": 2961,
+    "2026": 2961,
+    "42": 2961
+  },
+  "timestamps_exact": true,
+  "y_true_exact": true
+}

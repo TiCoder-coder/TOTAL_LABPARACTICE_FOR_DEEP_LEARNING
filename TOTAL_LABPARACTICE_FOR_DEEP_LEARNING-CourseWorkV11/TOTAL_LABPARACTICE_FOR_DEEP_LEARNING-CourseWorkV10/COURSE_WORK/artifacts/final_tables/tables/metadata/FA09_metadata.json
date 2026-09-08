@@ -1,0 +1,37 @@
+{
+  "table_id": "FA09",
+  "title": "Head Matching and Ambiguity Details",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Anchor = seed42 (first predeclared final seed, NOT performance-based).",
+    "Same-index heads NOT assumed semantically aligned."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 24,
+  "csv_path": "artifacts/final_tables/tables/csv/FA09_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA09_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA09_rows.tex",
+  "csv_sha256": "b22ed345f689783c3bba84d05e80098b2ef5eb853a6d685cf1b0229c2dc69142",
+  "markdown_sha256": "9e83363c846bb598499de8b8395810d5eb21deb91e488a094aa4a3cc45b5727c",
+  "latex_sha256": "03401b5a47bf6edda721920b0e509de7b37d74d2ea8c3982800f0dfe66428bfc"
+}

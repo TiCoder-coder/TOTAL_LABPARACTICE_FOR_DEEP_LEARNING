@@ -1,0 +1,102 @@
+{
+  "phase": 52,
+  "version": "ATTENTION_EXTRACTION-v1",
+  "phase52_a": "PASS",
+  "phase52_b": "PASS",
+  "phase52_c": "PASS",
+  "phase52_d": "PASS",
+  "phase52_e": "PASS",
+  "phase52_f": "PASS",
+  "phase52_g": "PASS",
+  "phase52_h": "DEFERRED",
+  "ready_for_phase52_notebook_visualization": true,
+  "phase52_notebook_authorized": false,
+  "phase53_authorized": false,
+  "phase54_authorized": false,
+  "phase55_authorized": false,
+  "phase56_authorized": false,
+  "phase57_authorized": false,
+  "manifest_k_attn_cases": 44,
+  "manifest_n_test": 2961,
+  "prediction_equivalence_per_seed": {
+    "42": {
+      "max_abs_difference": 0.00029863625479720213,
+      "all_pass": "True",
+      "status": "PASS"
+    },
+    "123": {
+      "max_abs_difference": 0.0005226134459803689,
+      "all_pass": "True",
+      "status": "PASS"
+    },
+    "2026": {
+      "max_abs_difference": 0.0004603975595500742,
+      "all_pass": "True",
+      "status": "PASS"
+    }
+  },
+  "model_mutation_per_seed": {
+    "42": {
+      "status": "PASS"
+    },
+    "123": {
+      "status": "PASS"
+    },
+    "2026": {
+      "status": "PASS"
+    }
+  },
+  "reproducibility_per_seed": {
+    "42": {
+      "status": "PASS"
+    },
+    "123": {
+      "status": "PASS"
+    },
+    "2026": {
+      "status": "PASS"
+    }
+  },
+  "raw_checksums_status": "PASS",
+  "o52_artifacts_n": 37,
+  "o52_artifacts_expected": 37,
+  "o52_status": {
+    "O52.01": "PASS",
+    "O52.02": "PASS",
+    "O52.03": "PASS",
+    "O52.04": "PASS",
+    "O52.05": "PASS",
+    "O52.06": "PASS",
+    "O52.07": "PASS",
+    "O52.08": "PASS",
+    "O52.09": "PASS",
+    "O52.10": "PASS",
+    "O52.11": "PASS",
+    "O52.12": "PASS",
+    "O52.13": "PASS",
+    "O52.14": "PASS",
+    "O52.15": "PASS",
+    "O52.16": "PASS",
+    "O52.17": "PASS",
+    "O52.18": "PASS",
+    "O52.19": "PASS",
+    "O52.20": "PASS",
+    "O52.21": "PASS",
+    "O52.22": "PASS",
+    "O52.23": "PASS",
+    "O52.24": "PASS",
+    "O52.25": "PASS",
+    "O52.26": "PASS",
+    "O52.27": "PASS",
+    "O52.28": "PASS",
+    "O52.29": "PASS",
+    "O52.30": "PASS",
+    "O52.31": "PASS",
+    "O52.32": "PASS",
+    "O52.33": "PASS",
+    "O52.34": "PASS",
+    "O52.35": "PASS",
+    "O52.36": "PASS",
+    "O52.37": "PASS"
+  }
+}

@@ -1,0 +1,89 @@
+## FT09 - Seed-Stability Attention Summary (S57-A + S57-B + S57-C)
+
+_Phase 57 layer head-mean stability + canonical matching + error-effect seed consistency._
+
+| panel | layer_idx0 | pair_count | mean_pairwise_jsd | max_pairwise_jsd | mean_pairwise_wasserstein_minutes | max_pairwise_wasserstein_minutes | mean_pairwise_cosine | min_pairwise_cosine | evidence_class |
+|---|---|---|---|---|---|---|---|---|---|
+| A_permutation_invariant_layer_stability | 0.000 | 3.000 | 0.043 | 0.057 | 53.1 | 76.7 | 0.841 | 0.792 | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| A_permutation_invariant_layer_stability | 1.000 | 3.000 | 0.040 | 0.042 | 46.2 | 61.7 | 0.877 | 0.874 | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| B_head_matching_robustness | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| B_head_matching_robustness | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 0.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+| C_error_effect_seed_consistency | 1.000 | N/A | N/A | N/A | N/A | N/A | N/A | N/A | POST_TEST_DIAGNOSTIC_EVIDENCE |
+
+> Same-index heads NOT assumed semantically aligned (Phase 57 canonical JSD matching).
+> Layer 0 cycle consistency 1/4; Layer 1 4/4 (descriptive).

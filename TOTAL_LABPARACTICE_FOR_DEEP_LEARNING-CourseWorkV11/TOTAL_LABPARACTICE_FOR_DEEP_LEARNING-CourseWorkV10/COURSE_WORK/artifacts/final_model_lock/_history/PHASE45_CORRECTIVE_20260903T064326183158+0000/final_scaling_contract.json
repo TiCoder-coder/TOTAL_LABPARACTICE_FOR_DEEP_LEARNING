@@ -1,0 +1,23 @@
+{
+  "RevIN_fold_independent_global_scaler_bridge_if_active": false,
+  "Test_rows_used": false,
+  "X_scaler_semantics": "SCALING-v1",
+  "Y_scaler_semantics": "YS1",
+  "binary_passthrough": true,
+  "checksum_resolution_phase": "PHASE46",
+  "expected_checksum_fields": [
+    "x_scaler_bundle_checksum",
+    "y_scaler_bundle_checksum"
+  ],
+  "fit_once": true,
+  "fit_region": "FINAL_DEV_REGION-v1",
+  "reuse_all_seeds": true,
+  "revin_bridge_rule": "not_applicable_revin_disabled",
+  "status": "PASS",
+  "time_features_passthrough": true,
+  "version": "FINAL_SCALING-v1",
+  "x_scaler_bundle_checksum": "REQUIRED_AT_PHASE46",
+  "x_scaler_bundle_id": "XSCALER__FS2_TF1",
+  "y_scaler_bundle_checksum": "REQUIRED_AT_PHASE46",
+  "y_scaler_bundle_id": "YSCALER__YS1"
+}

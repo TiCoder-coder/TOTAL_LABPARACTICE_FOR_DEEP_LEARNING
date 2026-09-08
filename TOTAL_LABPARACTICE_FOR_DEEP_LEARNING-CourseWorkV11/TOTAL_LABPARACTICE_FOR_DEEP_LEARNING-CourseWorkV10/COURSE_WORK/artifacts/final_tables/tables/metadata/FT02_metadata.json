@@ -1,0 +1,37 @@
+{
+  "table_id": "FT02",
+  "title": "Final Held-Out Test Performance",
+  "evidence_class": "HELD_OUT_TEST_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Frozen upstream source. See final_table_source_ledger.csv for cell lineage.",
+    "Mean ± SD (ddof=1) of seed-level metrics; descriptive only; NOT an ensemble forecast."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 6,
+  "csv_path": "artifacts/final_tables/tables/csv/FT02_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT02_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT02_rows.tex",
+  "csv_sha256": "af4cc07cc1f30e53c4aa7d81dab0c7a9bdec0e95fb65de0e2a98378dfda02036",
+  "markdown_sha256": "ef0f33bc4a470c12015ae3c9173ca0eca3bd01b3519aef810f0c9795491d9edd",
+  "latex_sha256": "e0852663b1e5bb4dedbeda8818c958edf047379c7169c11cb3b95060ce453ca3"
+}

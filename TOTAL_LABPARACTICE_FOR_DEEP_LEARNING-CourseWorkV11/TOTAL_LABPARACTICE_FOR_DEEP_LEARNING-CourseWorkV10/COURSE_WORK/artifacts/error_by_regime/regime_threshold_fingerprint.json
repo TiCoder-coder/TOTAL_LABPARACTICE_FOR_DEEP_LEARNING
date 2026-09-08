@@ -1,0 +1,8 @@
+{
+  "quantile_method": "linear",
+  "source_code_version_optional": "phase50-b/v1",
+  "status": "PASS",
+  "threshold_file_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+  "train_target_ids_sha256": "67d1e5dff4395cdcad4175d5e5bb813af928a76037bb9af720185e7122512225",
+  "version": "REGIME_THRESHOLD_FINGERPRINT-v1"
+}

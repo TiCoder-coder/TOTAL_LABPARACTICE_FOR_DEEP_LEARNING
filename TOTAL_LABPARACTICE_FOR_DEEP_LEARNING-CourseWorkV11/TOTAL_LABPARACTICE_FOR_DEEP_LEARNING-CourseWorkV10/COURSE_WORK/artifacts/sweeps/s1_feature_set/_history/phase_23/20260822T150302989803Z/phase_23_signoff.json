@@ -1,0 +1,51 @@
+{
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S1",
+  "created_at": "2026-08-21T15:48:18.517862+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/sweeps/s1_feature_set/results.csv": "d00ecc39c7b26f73f9a8c1f7af3a8e43345606ddce9a5059bc8ca811a39093cd"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s1_feature_set/results.csv"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s1_feature_set/results.csv": "d00ecc39c7b26f73f9a8c1f7af3a8e43345606ddce9a5059bc8ca811a39093cd",
+    "artifacts/sweeps/s1_feature_set/sweep_manifest.json": "e91b8a5c2a640355acf2a240c833c6263cb20493908f60374dd5a7c55e25276e"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s1_feature_set/sweep_manifest.json",
+    "artifacts/sweeps/s1_feature_set/results.csv"
+  ],
+  "phase_id": 23,
+  "phase_version": "PHASE-23-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 14,
+      "condition": "FS2_TF1",
+      "feature_variant_id": "FS2_TF1",
+      "learning_rate": 0.0003,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_S01_0006_FS2TF1",
+      "sweep_id": "S1_FEATURE_SET",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.55,
+      "val_r2": 0.572,
+      "val_rmse": 60.45
+    },
+    "sweep_code": "S1",
+    "sweep_name": "S1 Feature-Set Sweep",
+    "variant_count": 6
+  },
+  "tests": [
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
+}

@@ -1,0 +1,85 @@
+{
+  "discrepancies": [
+    {
+      "description": "First Test target TGT_00016774 has a WB0-authorized predecessor from TGT_00016773 (last Validation target).",
+      "evidence": "test_regime_assignment.csv row 0; SPLIT-v1 context_policy = WB0_CONTEXT_CARRY_OVER.",
+      "id": "D50-01",
+      "impact": "Allows first Test target to receive a classified R3/R4 regime label; otherwise it would be UNCLASSIFIED.",
+      "remaining_status": "RESOLVED",
+      "resolution": "Documented and used exactly as authorized; no threshold derived from Test.",
+      "severity": "INFO"
+    },
+    {
+      "description": "Q25_y and Q75_y fall on discrete Appliances Wh values (50, 100) due to the integer discretization of the dataset.",
+      "evidence": "regime_thresholds_train_only.json shows Q25=50.0, Q75=100.0.",
+      "id": "D50-02",
+      "impact": "Some Test target_ids may share a regime boundary value. We use strict comparison (y < Q25, y < Q75, y >= Q90) consistently.",
+      "remaining_status": "RESOLVED",
+      "resolution": "Frozen; do not perturb thresholds.",
+      "severity": "INFO"
+    },
+    {
+      "description": "LSTM_TUNED_DEV is NOT_ELIGIBLE_CONFIG_MISMATCH per Phase 47 canonical status.",
+      "evidence": "final_test_lstm_eligibility.json, regime_lstm_status.json.",
+      "id": "D50-03",
+      "impact": "No LSTM regime metrics; documented as NOT_APPLICABLE.",
+      "remaining_status": "RESOLVED",
+      "resolution": "No inference, no retrain, no fabrication; canonical status respected.",
+      "severity": "INFO"
+    },
+    {
+      "description": "Q90_abs_delta = 80.0 falls on a discrete Appliances Wh delta.",
+      "evidence": "regime_thresholds_train_only.json change_magnitude section.",
+      "id": "D50-04",
+      "impact": "Same as D50-02; we use strict inequality (abs(delta) < 80.0 for NORMAL, abs(delta) >= 80.0 for RAPID).",
+      "remaining_status": "RESOLVED",
+      "resolution": "Frozen; do not perturb.",
+      "severity": "INFO"
+    },
+    {
+      "description": "Persistence is computed from a single Phase 47 prediction file (no seed diversity).",
+      "evidence": "final_test_predictions_persistence.csv carries one row per target_id with seed=blank.",
+      "id": "D50-05",
+      "impact": "Persistence per-regime metrics are single-point estimates; no seed SD reported.",
+      "remaining_status": "RESOLVED",
+      "resolution": "Documented; no impact on cross-seed Transformer aggregation.",
+      "severity": "INFO"
+    },
+    {
+      "description": "R\u00b2 = NOT_DEFINED for R3 CHANGE_MAGNITUDE because target variance for some sub-regimes may be zero in degenerate cases (rare here but schema preserved).",
+      "evidence": "regime_metrics_long.csv r2_status column shows NOT_DEFINED label; we emit empty r2 cell.",
+      "id": "D50-06",
+      "impact": "R\u00b2 comparison not possible for those rare sub-regimes; not a scientific blocker.",
+      "remaining_status": "RESOLVED",
+      "resolution": "Use approved Phase 50 NOT_DEFINED representation (empty r2 + r2_status=NOT_DEFINED).",
+      "severity": "INFO"
+    },
+    {
+      "description": "Q25=50 and Q75=100 produce a degenerate Train R1 regime split because the distribution of Appliances Wh has heavy mass at low values (60% of Train \u2264 60 Wh).",
+      "evidence": "regime_thresholds_train_only.json + manual inspection of Train raw_appliances distribution.",
+      "id": "D50-07",
+      "impact": "TL_LOW and TL_MID cover roughly 50% / 25% of Test; TL_HIGH covers the upper ~25%. Conclusions about 'target level difficulty' should not be over-interpreted given the skew.",
+      "remaining_status": "DOCUMENTED",
+      "resolution": "Reported in findings with explicit caveat; do NOT modify thresholds post-Stage B.",
+      "severity": "MAJOR"
+    },
+    {
+      "description": "RMSE lift is reported in three forms (Wh, ratio, pct) to avoid conflation.",
+      "evidence": "regime_rmse_lift.csv schema; regime_metrics_long.csv includes rmse_lift_wh, rmse_lift_ratio, rmse_lift_pct.",
+      "id": "D50-08",
+      "impact": "No interpretation ambiguity.",
+      "remaining_status": "RESOLVED",
+      "resolution": "Documented in the Phase 50 plan and C50-I01 contract resolution.",
+      "severity": "INFO"
+    },
+    {
+      "description": "Cross-seed aggregation uses sample SD (ddof=1) over 3 seed-level values, NOT a confidence interval.",
+      "evidence": "regime_cross_seed_summary.csv columns n_seeds=3, sd_ddof1.",
+      "id": "D50-09",
+      "impact": "Per plan \u00a722, seed SD is descriptive only.",
+      "remaining_status": "RESOLVED",
+      "resolution": "Documented in findings.",
+      "severity": "INFO"
+    }
+  ]
+}

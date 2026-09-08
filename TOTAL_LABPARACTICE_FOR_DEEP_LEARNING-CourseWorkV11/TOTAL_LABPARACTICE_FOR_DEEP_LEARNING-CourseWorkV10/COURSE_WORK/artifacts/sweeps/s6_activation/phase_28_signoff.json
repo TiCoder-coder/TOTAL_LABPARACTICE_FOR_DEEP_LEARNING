@@ -1,0 +1,50 @@
+{
+  "approved_for_phase29": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S6-v1",
+  "created_at": "2026-08-22T15:39:01.167241+00:00",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+    "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+    "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s6_activation/results.csv",
+    "artifacts/sweeps/s6_activation/sweep_manifest.json",
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json"
+  ],
+  "phase_id": 28,
+  "phase_version": "PHASE-28-v1",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": []
+}

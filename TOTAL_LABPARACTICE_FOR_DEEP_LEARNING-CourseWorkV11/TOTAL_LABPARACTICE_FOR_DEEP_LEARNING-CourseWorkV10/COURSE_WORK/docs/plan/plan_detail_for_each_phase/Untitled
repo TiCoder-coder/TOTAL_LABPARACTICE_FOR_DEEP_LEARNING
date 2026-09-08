@@ -1,0 +1,1129 @@
+You are acting as a Senior ML Engineer + ML Governance Auditor for the COURSE_WORK project.
+
+Your task is to execute ONLY:
+
+PHASE 50-A — ERROR-BY-REGIME ANALYSIS
+GOVERNANCE + ARCHITECTURE + SOURCE/CONTRACT AUDIT + PRE-PROCESS PLANNING
+
+IMPORTANT:
+This round is AUDIT / GOVERNANCE / PLANNING ONLY.
+
+DO NOT IMPLEMENT PHASE 50-B OR ANY LATER PHASE.
+DO NOT COMPUTE REGIME THRESHOLDS.
+DO NOT CREATE TRAIN/TEST REGIME ASSIGNMENTS.
+DO NOT JOIN RESIDUALS WITH REGIMES.
+DO NOT COMPUTE REGIME METRICS.
+DO NOT GENERATE PHASE 50 FIGURES.
+DO NOT MODIFY THE NOTEBOOK.
+DO NOT START PHASE 51.
+
+==================================================
+0. PROJECT ROOT
+==================================================
+
+Work from the actual COURSE_WORK project root.
+
+First inspect the repository and determine the exact current project structure.
+
+Do not assume filenames or paths from this prompt exist.
+
+Canonical notebook remains presentation-only.
+
+Do not modify or execute the notebook in this round.
+
+==================================================
+1. MANDATORY DOCUMENTS TO READ FIRST
+==================================================
+
+Before changing ANY file, locate and read completely:
+
+1. architecture_rule.md
+2. Phase 50 plan:
+   Phase_50_Error-by-regime_analysis.md
+3. Phase 49 residual-analysis plan, if present
+4. Phase 49 processing/finalization logs
+5. Phase 49 signoff
+6. Phase 49 → Phase 50 handoff
+7. Phase 47 signoff
+8. Phase 47 final Test population manifest
+9. prediction_checksums.json
+10. Phase 48 signoff and relevant seed-spread artifacts
+11. SPLIT-v1 contract/artifacts
+12. WINDOWPOP-v1 contract/artifacts
+13. TEMPORAL-v1 contract/artifacts
+14. FEATURESETS-v1 contract/artifacts
+15. existing docs/rules governing phase planning,
+    architecture amendments,
+    processing logs,
+    artifact creation,
+    notebook boundaries.
+
+Read the FULL Phase 50 plan.
+
+Do not implement based only on filenames or summaries.
+
+==================================================
+2. CURRENT FROZEN UPSTREAM STATE
+==================================================
+
+Treat the following Phase 49 state as frozen unless repository evidence proves otherwise:
+
+PHASE49_SIGNOFF = PASS
+PHASE49_B = PASS
+PHASE49_C = PASS
+PHASE49_D = PASS
+PHASE49_E = PASS
+PHASE49_F = PASS
+PHASE49_NOTEBOOK_VISUALIZATION = PASS
+
+FINAL_TEST_N = 2961
+
+TEST_POPULATION_FINGERPRINT =
+d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87
+
+TRANSFORMER_SEEDS =
+42
+123
+2026
+
+RESIDUAL_CONVENTION =
+y_true - y_pred
+
+POSITIVE_RESIDUAL =
+UNDERPREDICTION
+
+NEGATIVE_RESIDUAL =
+OVERPREDICTION
+
+ZERO_POLICY =
+EXACT_ZERO
+
+Phase 49 policy:
+- no best seed
+- no ensemble
+- no 3N iid interpretation
+- no correction/recalibration
+- no new Test inference
+- no training
+- no checkpoint loading
+- no optimizer steps
+- no worst-error ranking
+- no attention analysis
+
+Phase 50 handoff policy:
+TRAIN_DERIVED_ONLY
+
+Phase 51:
+first phase allowed to perform worst-error ranking.
+
+Verify these against repository artifacts.
+
+Do not merely trust this prompt.
+
+==================================================
+3. PHASE 50 SCIENTIFIC CONTRACT TO AUDIT
+==================================================
+
+Phase 50 must analyze Test error using SIX PREDECLARED
+regime families:
+
+R1 — TARGET_LEVEL
+
+Train-only raw Appliances Wh:
+
+Q25_y
+Q75_y
+
+TL_LOW:
+y_true < Q25_y
+
+TL_MID:
+Q25_y <= y_true < Q75_y
+
+TL_HIGH:
+y_true >= Q75_y
+
+
+R2 — EXTREME_HIGH
+
+Train-only:
+
+Q90_y
+
+EXTREME_HIGH:
+y_true >= Q90_y
+
+NON_EXTREME:
+y_true < Q90_y
+
+
+R3 — CHANGE_MAGNITUDE
+
+delta_y_t = y_t - y_(t-1)
+
+Only when predecessor is exactly 10 minutes earlier
+and continuity-valid.
+
+Train-only:
+
+Q90_abs_delta =
+90th percentile of gap-safe |delta_y|.
+
+CHANGE_NORMAL
+CHANGE_RAPID
+CHANGE_UNCLASSIFIED
+
+
+R4 — CHANGE_DIRECTION
+
+Using the same gap-safe delta_y:
+
+DIR_DOWN:
+delta_y < 0
+
+DIR_FLAT:
+delta_y == 0
+
+DIR_UP:
+delta_y > 0
+
+DIR_UNCLASSIFIED:
+no valid exact 10-minute predecessor
+
+NO EPSILON.
+
+
+R5 — TIME_OF_DAY
+
+Use raw encoded dataset timestamp clock:
+
+TOD_NIGHT:
+00:00–05:59
+
+TOD_MORNING:
+06:00–11:59
+
+TOD_AFTERNOON:
+12:00–17:59
+
+TOD_EVENING:
+18:00–23:59
+
+
+R6 — DAY_TYPE
+
+DAY_WEEKDAY:
+Monday–Friday
+
+DAY_WEEKEND:
+Saturday–Sunday
+
+No holiday regime.
+
+==================================================
+4. MOST IMPORTANT LEAKAGE BOUNDARY
+==================================================
+
+Audit whether the repository can enforce this exact workflow:
+
+STAGE A
+Original Train only
+→ derive thresholds
+
+STAGE B
+Test truth + timestamp/continuity only
+→ assign regime labels
+
+STAGE C
+Freeze:
+test_regime_assignment.csv
++ checksum/fingerprint
+
+STAGE D
+ONLY AFTER STAGE C
+→ join Phase 49 residual/prediction data
+→ compute error metrics
+
+This ordering is HARD.
+
+The agent must design an implementation architecture that makes it
+difficult or impossible for Stage A/B modules to accidentally inspect
+Test residuals or predictions.
+
+Do NOT perform these stages in this round.
+
+Audit and plan them only.
+
+==================================================
+5. ORIGINAL TRAIN REFERENCE AUDIT
+==================================================
+
+A major objective of Phase 50-A is determining exactly how:
+
+REGIME_REFERENCE_TRAIN-v1
+
+can be reconstructed.
+
+Required conceptual definition:
+
+original Train target IDs
+∩ WINDOWPOP-v1
+∩ temporally valid target IDs
+
+Coordinate:
+
+raw Appliances Wh
+
+NOT:
+standardized y_model
+NOT:
+RevIN coordinates
+NOT:
+Train+Validation
+NOT:
+Validation
+NOT:
+Test.
+
+Find the actual canonical repository sources needed to construct this.
+
+Answer with evidence:
+
+1. Where is the original Train split defined?
+2. Where are original Train target IDs stored/reconstructable?
+3. Where is WINDOWPOP-v1 defined?
+4. Where are raw Appliances Wh values available?
+5. Where are timestamps available?
+6. Where is continuity/gap information defined?
+7. Can exact 10-minute predecessor relationships be reconstructed?
+8. Can Train delta_y be computed without crossing split boundaries?
+9. Can Test delta_y use the WB0 contiguous previous actual when authorized?
+10. What source establishes this WB0 behavior?
+
+DO NOT calculate thresholds.
+
+==================================================
+6. CRITICAL UPSTREAM ARTIFACT NAME AUDIT
+==================================================
+
+The Phase 50 plan may contain logical artifact names that do not
+exactly match the files created by Phase 49.
+
+Known examples that MUST be checked include possible references such as:
+
+residual_bias_summary.csv
+residual_acf_diagnostics.csv
+residual_seed_sign_consensus.csv
+
+while actual Phase 49 outputs may instead include names such as:
+
+phase49_signed_bias.csv
+phase49_residual_acf.csv
+phase49_cross_seed_sign_consensus.csv
+
+These examples are NOT authorization to assume the latter are canonical.
+
+Inspect the actual repository.
+
+Create a mapping:
+
+PLAN_LOGICAL_REQUIREMENT
+→ ACTUAL_CANONICAL_ARTIFACT
+→ STATUS
+→ EVIDENCE
+→ ACTION_REQUIRED
+
+Possible status:
+
+EXACT_MATCH
+CANONICAL_EQUIVALENT
+MISSING
+AMBIGUOUS
+STALE
+NOT_REQUIRED_FOR_PHASE50
+CONTRACT_MISMATCH
+
+Do NOT create fake compatibility files merely to satisfy old names.
+
+==================================================
+7. PHASE 47 / 48 / 49 SOURCE INTEGRITY AUDIT
+==================================================
+
+Verify read-only upstream integrity.
+
+At minimum audit:
+
+Phase 47:
+- Transformer seed42 prediction bundle
+- Transformer seed123 prediction bundle
+- Transformer seed2026 prediction bundle
+- Persistence prediction bundle
+- prediction_checksums.json
+- Phase47 signoff
+- FINAL_TEST population fingerprint
+
+Phase 48:
+- signoff
+- prediction seed-spread source needed by Phase 50
+
+Phase 49:
+- signoff
+- residual_long_table.csv
+- residual_wide_table.csv
+- cross-seed sign consensus source
+- Phase50 handoff
+- relevant manifests
+
+Verify checksums where canonical checksum evidence exists.
+
+DO NOT rewrite or regenerate upstream artifacts.
+
+==================================================
+8. LSTM ELIGIBILITY
+==================================================
+
+Phase 49 previously recorded:
+
+LSTM_STATUS =
+NOT_ELIGIBLE_CONFIG_MISMATCH
+
+Verify the current canonical repository state.
+
+Determine exactly what Phase 50 should do.
+
+Expected behavior if this remains true:
+
+- no LSTM inference
+- no LSTM retraining
+- no attempt to repair its protocol
+- no fabricated LSTM residual table
+- Phase 50 records the comparison as NOT_APPLICABLE or
+  NOT_ELIGIBLE_CONFIG_MISMATCH according to project artifact policy.
+
+Do not change the eligibility decision unless upstream canonical
+evidence explicitly authorizes it.
+
+==================================================
+9. PERSISTENCE BASELINE
+==================================================
+
+Verify:
+
+- Persistence prediction bundle exists.
+- Checksum matches canonical source.
+- N matches FINAL_TEST population.
+- target_id alignment is exact.
+- timestamp/y_true alignment is exact where applicable.
+
+Do not compute regime metrics yet.
+
+Only establish that Phase 50 can later use Persistence on the exact
+same frozen regime assignment.
+
+==================================================
+10. QUANTILE CONTRACT AUDIT
+==================================================
+
+Phase 50 requires reproducible Train-only thresholds.
+
+Audit the repository/library conventions and determine whether Phase 50
+must explicitly freeze:
+
+quantile_method = linear
+
+or an equivalent exact NumPy/Pandas definition.
+
+The final Phase 50 plan must specify:
+
+- library/function
+- method/interpolation
+- dtype expectations
+- finite-value requirements
+- deterministic rerun expectations
+
+DO NOT compute Q25/Q75/Q90/Q90_abs_delta now.
+
+==================================================
+11. TEMPORAL / DELTA CONTRACT AUDIT
+==================================================
+
+Audit exactly how Phase 50 should define:
+
+delta_y_t = y_t - y_(t-1)
+
+Hard requirements:
+
+- exact 10-minute cadence
+- same continuity segment
+- no gap crossing
+- no fabricated delta=0
+- first point in a Train continuity segment has no delta
+- Train Q90_abs_delta uses Train-only valid delta pairs
+- no split crossing for Train threshold estimation
+- Test may use pre-Test actual only if existing WB0 contract explicitly
+  authorizes the contiguous predecessor.
+
+Identify canonical functions/artifacts that should be reused if they
+already exist.
+
+Avoid duplicating temporal semantics.
+
+==================================================
+12. ARCHITECTURE AUDIT
+==================================================
+
+Inspect architecture_rule.md.
+
+Determine whether Phase 50 already has explicit authorization for:
+
+src/course_work/phase50/
+
+artifacts/error_by_regime/
+
+src/course_work/reporting/phase_50_dashboard.py
+
+Phase 50 notebook presentation cells
+
+docs/save_log_in_processing/... Phase50 logs
+
+tests/unit/test_phase50_*.py
+
+If not explicitly authorized:
+
+AMENDMENT_REQUIRED = YES
+
+Draft the required architecture amendment.
+
+Do not silently create implementation directories before authorization.
+
+If architecture modification itself is permitted by current governance,
+make ONLY the governance amendment.
+
+If human approval is required before modifying architecture_rule.md,
+do not modify it; create the proposed amendment document instead.
+
+==================================================
+13. PROPOSED MODULE OWNERSHIP
+==================================================
+
+Design, but DO NOT IMPLEMENT, an appropriate Phase 50 source layout.
+
+Consider a structure similar to:
+
+src/course_work/phase50/
+    __init__.py
+    contract.py
+    sources.py
+    train_reference.py
+    thresholds.py
+    continuity.py
+    regime_assignment.py
+    assignment_audit.py
+    error_join.py
+    metrics.py
+    contributions.py
+    cross_seed.py
+    contrasts.py
+    rank_stability.py
+    prevalence.py
+    seed_spread.py
+    sign_consensus.py
+    persistence.py
+    lstm_context.py
+    baseline_deltas.py
+    findings.py
+    figures.py
+    handoff.py
+    signoff.py
+    writers.py
+    materialize_*.py
+
+This is a design suggestion only.
+
+Inspect existing project patterns first.
+
+Do not blindly create all these modules.
+
+The final plan must establish single ownership for each responsibility
+and avoid duplicated computation.
+
+==================================================
+14. ARTIFACT CONTRACT AUDIT
+==================================================
+
+Compare the 39 required O50 outputs in the Phase 50 plan against:
+
+- architecture rules
+- current project artifact conventions
+- actual upstream source availability
+
+Classify each O50 item:
+
+READY
+READY_WITH_MAPPING
+REQUIRES_IMPLEMENTATION
+NOT_APPLICABLE
+BLOCKED
+REQUIRES_ARCHITECTURE_AUTHORIZATION
+
+Do not produce O50 scientific outputs yet.
+
+==================================================
+15. NOTEBOOK BOUNDARY
+==================================================
+
+Phase 49 established a presentation-only notebook pattern.
+
+Phase 50 should preserve it.
+
+Audit and propose the exact notebook boundary.
+
+Preferred final behavior after Phase 50 is complete:
+
+from course_work.reporting.phase_50_dashboard import render_phase_50_dashboard
+display(render_phase_50_dashboard(PROJECT_ROOT))
+
+The notebook must NOT contain:
+
+- threshold computation
+- pd.read_csv processing logic
+- regime assignment logic
+- residual joins
+- metric computation
+- training
+- inference
+- checkpoint loading
+- model.train
+- optimizer.step
+- backward
+- scaler.fit
+- materialize_phase50*
+
+Do not edit notebook now.
+
+==================================================
+16. PHASE 50 SUB-PHASE PLAN
+==================================================
+
+Produce a detailed implementation plan using these gates unless the
+repository architecture provides a stronger reason to adjust them:
+
+Phase 50-A
+Governance + architecture + source/contract audit + pre-process plan
+
+Phase 50-B
+Build REGIME_REFERENCE_TRAIN-v1
++ derive/freeze Train-only thresholds
+
+Phase 50-C
+Train/Test regime assignment
++ audit
++ freeze Test assignment checksum BEFORE error join
+
+Phase 50-D
+Residual join
++ per-seed regime metrics
++ SAE/SSE contributions
++ global reconstruction audits
+
+Phase 50-E
+Cross-seed aggregation
++ RMSE lifts
++ predeclared contrasts
++ rank stability
++ Train-vs-Test prevalence
+
+Phase 50-F
+Persistence comparison
++ LSTM eligibility handling
++ Phase48 seed-spread by regime
++ Phase49 sign-consensus by regime
++ baseline delta summaries
+
+Phase 50-G
+Figures
++ findings
++ discrepancies
++ report
++ README
++ Phase51 handoff
++ final Phase50 signoff
+
+Phase 50-H
+Notebook presentation-only dashboard synchronization
+
+For EVERY sub-phase define:
+
+- inputs
+- modules allowed
+- artifacts produced
+- tests required
+- acceptance gates
+- forbidden actions
+- human approval required before next phase
+
+==================================================
+17. PRE-PROCESS PLAN DOCUMENT
+==================================================
+
+Create/update the required project planning document following existing
+project conventions.
+
+Expected logical document:
+
+phase_50_error_by_regime_analysis_plan.md
+
+but determine the exact correct docs directory from repository rules.
+
+The plan must include:
+
+1. objective
+2. upstream frozen state
+3. source-of-truth mapping
+4. Train-reference construction
+5. threshold derivation contract
+6. quantile method
+7. temporal continuity/delta contract
+8. six regime definitions
+9. Stage A/B/C/D leakage boundary
+10. Test assignment immutability
+11. per-seed metric definitions
+12. contribution reconstruction
+13. cross-seed aggregation
+14. Persistence handling
+15. LSTM eligibility handling
+16. seed-spread/sign-consensus sources
+17. figure/report plan
+18. Phase51 handoff
+19. testing strategy
+20. discrepancy taxonomy
+21. forbidden actions
+22. human approval gates
+23. Definition of Done
+
+Do not replace the original Phase 50 requirement document.
+
+This is an implementation plan derived from it.
+
+==================================================
+18. PROCESSING LOG
+==================================================
+
+Create/update the Phase 50 processing log according to repository
+logging conventions.
+
+It must be machine-readable JSON.
+
+Record at minimum:
+
+phase
+subphase
+timestamp
+documents_read
+architecture_rule_read
+phase50_requirement_read
+source_artifacts_audited
+source_mapping
+test_population_fingerprint
+seed_list
+residual_convention
+train_reference_status
+quantile_contract_status
+temporal_contract_status
+persistence_status
+lstm_status
+architecture_amendment_required
+implementation_started=false
+thresholds_computed=false
+test_regime_assignment_created=false
+residual_join_executed=false
+regime_metrics_computed=false
+new_test_inference=false
+checkpoint_loading=false
+training=false
+optimizer_steps=0
+scaler_fit=false
+best_seed_selected=false
+ensemble=false
+three_n_iid_interpretation=false
+test_derived_threshold_used=false
+cartesian_regime_mining=false
+prediction_correction=false
+worst_error_ranking_executed=false
+attention_analysis_executed=false
+phase47_modified=false
+phase48_modified=false
+phase49_modified=false
+phase51_started=false
+
+Preserve previous log history if the file already exists.
+
+==================================================
+19. TEST / STATIC SAFETY PLAN
+==================================================
+
+Do not implement scientific Phase50 tests yet unless governance rules
+explicitly require audit tests in Phase50-A.
+
+However, define tests for later phases covering at minimum:
+
+TRAIN-ONLY:
+- Validation excluded
+- Test excluded
+- raw Wh used
+- quantile method exact
+
+TEMPORAL:
+- exact 10-min predecessor
+- no gap crossing
+- no Train split crossing
+- Test WB0 predecessor only when authorized
+
+ASSIGNMENT:
+- no prediction fields
+- no residual fields
+- same labels all seeds/models
+- full Test population coverage
+- explicit UNCLASSIFIED
+
+JOIN:
+- many-to-one
+- no row drop
+- no duplicate matches
+
+METRICS:
+- MAE
+- RMSE
+- R2 guard
+- MBE sign semantics
+- exact under/over/zero
+- SAE/SSE
+
+CONTRIBUTION:
+- sample share sums to 1
+- SAE share sums to 1
+- SSE share sums to 1
+- global SSE reconstruction
+
+CROSS-SEED:
+- all 3 seeds
+- ddof=1
+- no 3N iid pooling
+- no best seed
+
+BASELINE:
+- Persistence same target population
+- baseline - Transformer delta convention
+- LSTM remains ineligible if canonical state says so
+
+SCOPE:
+- no Test thresholds
+- no Cartesian mining
+- no correction
+- no training
+- no worst-error ranking
+- no attention analysis
+- no Phase51 implementation
+
+==================================================
+20. IMPORTANT POSSIBLE CONTRACT ISSUE TO AUDIT
+==================================================
+
+Carefully inspect the Phase 50 plan for internal inconsistencies.
+
+Do NOT silently fix them.
+
+Examples to check:
+
+A. The plan defines RMSE lift ratio/percentage:
+
+RMSELift =
+RMSE_regime / RMSE_global - 1
+
+but later the RMSE-lift artifact schema includes:
+
+rmse_lift_wh =
+regime_rmse - global_seed_rmse
+
+These are different quantities but can coexist if explicitly named.
+
+Determine the correct canonical fields and document both semantics
+without conflating them.
+
+B. Check whether all logical Phase49 artifact names in the Phase50 plan
+match actual Phase49 canonical filenames.
+
+C. Check whether the Test first-point WB0 predecessor is actually
+available under existing frozen artifacts/contracts.
+
+D. Check whether Phase48 seed spread has the exact target_id-level data
+needed for regime aggregation.
+
+E. Check whether Phase49 sign consensus taxonomy maps directly to the
+Phase50 requested:
+ALL_UNDER / ALL_OVER / MIXED / ALL_ZERO
+or whether a deterministic aggregation mapping must be predeclared.
+
+F. Check whether train target_id checksum semantics are already defined
+by WINDOWPOP-v1 or require a Phase50-specific canonical serialization.
+
+G. Check how R² NOT_DEFINED should be represented in CSV/JSON without
+breaking deterministic parsing.
+
+List every such issue as:
+
+CONTRACT_ISSUE
+SEVERITY
+EVIDENCE
+PROPOSED_RESOLUTION
+HUMAN_APPROVAL_REQUIRED
+
+Do not hide discrepancies.
+
+==================================================
+21. STRICTLY FORBIDDEN IN PHASE 50-A
+==================================================
+
+DO NOT:
+
+- compute Q25_y
+- compute Q75_y
+- compute Q90_y
+- compute Q90_abs_delta
+- inspect Test error to design thresholds
+- create train_regime_assignment.csv
+- create test_regime_assignment.csv
+- join residuals
+- compute regime MAE/RMSE/R²/MBE
+- compute regime SAE/SSE
+- rank regimes by observed Test error
+- compare regime model performance
+- generate Phase50 scientific figures
+- modify Phase47
+- modify Phase48
+- modify Phase49 canonical artifacts
+- modify Phase49 figures
+- modify Phase49 signoff
+- run new Test inference
+- load model checkpoints
+- train
+- call optimizer.step()
+- call backward()
+- fit scalers
+- select best seed
+- create ensemble
+- pool 3N residuals as iid
+- create regime-specific correction
+- create weighted Test headline metric
+- perform worst-error ranking
+- perform attention analysis
+- implement Phase51
+- modify CourseWork_1.ipynb
+
+==================================================
+22. REQUIRED PHASE 50-A OUTPUT
+==================================================
+
+At completion, return ONE checkpoint in this format:
+
+# PHASE 50-A GOVERNANCE / SOURCE AUDIT CHECKPOINT
+
+ARCHITECTURE_RULE_READ:
+YES / NO
+
+PHASE50_REQUIREMENT_READ:
+YES / NO
+
+PHASE49_SIGNOFF:
+PASS / ...
+
+TEST_POPULATION_FINGERPRINT:
+<full sha>
+
+SEEDS:
+42 / 123 / 2026
+
+RESIDUAL_CONVENTION:
+y_true - y_pred
+
+SOURCE_INTEGRITY:
+PASS / FAIL
+
+ORIGINAL_TRAIN_REFERENCE:
+READY / BLOCKED / AMBIGUOUS
+
+WINDOWPOP_V1:
+FOUND / NOT_FOUND
+
+RAW_APPLIANCES_WH:
+FOUND / NOT_FOUND
+
+TRAIN_TIMESTAMP_SOURCE:
+FOUND / NOT_FOUND
+
+CONTINUITY_SOURCE:
+FOUND / NOT_FOUND
+
+WB0_TEST_PREDECESSOR_POLICY:
+VERIFIED / NOT_VERIFIED / NOT_APPLICABLE
+
+QUANTILE_METHOD_PROPOSED:
+<exact method, but NO thresholds>
+
+THRESHOLDS_COMPUTED:
+NO
+
+TEST_REGIME_ASSIGNMENT_CREATED:
+NO
+
+RESIDUAL_JOIN_EXECUTED:
+NO
+
+REGIME_METRICS_COMPUTED:
+NO
+
+PERSISTENCE_STATUS:
+READY / ...
+
+LSTM_STATUS:
+NOT_ELIGIBLE_CONFIG_MISMATCH / ...
+
+PHASE49_ARTIFACT_NAME_MAPPING:
+PASS / ISSUES_FOUND
+
+CONTRACT_ISSUES_FOUND:
+<count>
+
+ARCHITECTURE_AMENDMENT_REQUIRED:
+YES / NO
+
+ARCHITECTURE_AMENDMENT_CREATED:
+YES / NO / PENDING_HUMAN_APPROVAL
+
+PRE_PROCESS_PLAN_CREATED:
+YES / NO
+
+PROCESSING_LOG_UPDATED:
+YES / NO
+
+NEW_TEST_INFERENCE:
+NO
+
+CHECKPOINT_LOADING:
+NO
+
+TRAINING:
+NO
+
+OPTIMIZER_STEPS:
+0
+
+SCALER_FIT:
+NO
+
+BEST_SEED_SELECTED:
+NO
+
+ENSEMBLE:
+NO
+
+THREE_N_IID_INTERPRETATION:
+NO
+
+TEST_DERIVED_THRESHOLD_USED:
+NO
+
+CARTESIAN_REGIME_MINING:
+NO
+
+PREDICTION_CORRECTION:
+NO
+
+WORST_ERROR_RANKING_EXECUTED:
+NO
+
+ATTENTION_ANALYSIS_EXECUTED:
+NO
+
+PHASE47_MODIFIED:
+NO
+
+PHASE48_MODIFIED:
+NO
+
+PHASE49_MODIFIED:
+NO
+
+PHASE51_STARTED:
+NO
+
+FILES_CREATED_OR_MODIFIED:
+<exact list>
+
+SOURCE_MAPPING:
+<concise canonical mapping>
+
+CONTRACT_ISSUES:
+<list each issue + proposed resolution>
+
+PROPOSED_PHASE50_MODULE_OWNERSHIP:
+<list>
+
+PROPOSED_PHASE50_SUBPHASES:
+50-B ...
+50-C ...
+50-D ...
+50-E ...
+50-F ...
+50-G ...
+50-H ...
+
+READY_FOR_PHASE50_B:
+YES / NO
+
+BLOCKERS:
+<list>
+
+HUMAN_APPROVAL_REQUIRED:
+<exact approvals required>
+
+Then:
+
+STOP.
+
+DO NOT START PHASE 50-B.
+
+WAIT FOR HUMAN APPROVAL.
+
+==================================================
+23. FINAL BEHAVIOR
+==================================================
+
+Be conservative.
+
+If source provenance is ambiguous:
+STOP.
+
+If original Train-only population cannot be proven:
+STOP.
+
+If WINDOWPOP-v1 semantics are ambiguous:
+STOP.
+
+If raw target coordinate cannot be proven:
+STOP.
+
+If WB0 predecessor semantics cannot be proven:
+do not invent them.
+
+If Phase49 logical filenames differ from actual canonical files:
+map them explicitly rather than creating duplicate aliases.
+
+If architecture authorization is missing:
+perform only the governance action allowed by existing rules.
+
+Phase 50-A success means:
+
+we know exactly HOW Phase 50 can be implemented safely.
+
+It does NOT mean Phase 50 scientific analysis has started.

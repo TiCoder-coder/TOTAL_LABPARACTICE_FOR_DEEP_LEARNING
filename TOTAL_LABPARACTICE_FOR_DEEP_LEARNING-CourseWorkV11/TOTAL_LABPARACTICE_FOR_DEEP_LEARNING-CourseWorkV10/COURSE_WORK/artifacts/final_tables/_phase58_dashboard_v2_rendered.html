@@ -1,0 +1,1668 @@
+
+<style>
+.cw-d{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;border:1px solid #d9e2ef;border-radius:14px;background:#fbfcff;box-shadow:0 8px 24px rgba(31,45,61,.08);margin:14px 0 22px;overflow:hidden}
+.cw-d *{box-sizing:border-box}
+.cw-d-h{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 22px;background:linear-gradient(135deg,#eef4ff,#f7f4ff);border-bottom:1px solid #d9e2ef}
+.cw-d-h h3{font-size:20px;line-height:1.25;margin:0 0 5px;color:#172033}
+.cw-d-meta{font-size:12px;color:#5d6b82}
+.cw-d-badge{border:1px solid #a9dec1;border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;color:#11613d;background:#e8f7ef;white-space:nowrap}
+.cw-d-badge.fail{border-color:#e2b2b8;background:#fcecef;color:#8b2430}
+.cw-d-badge.warn{border-color:#f1d889;background:#fff7e0;color:#7a5613}
+.cw-d-badge.info{border-color:#a5b9e6;background:#eef2ff;color:#3b46c4}
+.cw-d-badge.frozen{border-color:#a5b9e6;background:#eef2ff;color:#3b46c4}
+.cw-d-cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;padding:16px 22px;background:#fbfcff;border-bottom:1px solid #e5eaf1}
+.cw-d-card{display:flex;flex-direction:column;gap:4px;padding:10px 12px;border:1px solid #e1e7f0;border-radius:9px;background:#fff;min-width:0}
+.cw-d-card span{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.04em}
+.cw-d-card strong{font-size:15px;color:#24324a;font-weight:700;overflow-wrap:anywhere}
+.cw-d-card .sm{font-size:9px;color:#94a3b8;margin-top:2px}
+.cw-d-body{padding:4px 22px 22px}
+.cw-d-sec{margin-top:18px}
+.cw-d-sec h4{font-size:14px;margin:0 0 8px;color:#334155}
+.cw-d-sec h5{font-size:12.5px;margin:10px 0 6px;color:#475569;font-weight:700}
+.cw-d-tblwrap{overflow-x:auto;border:1px solid #e2e8f0;border-radius:9px}
+.cw-d-tbl{border-collapse:collapse;width:100%;font-size:12.5px;background:#fff}
+.cw-d-tbl th{background:#1f2937;color:#f8fafc;text-align:left;font-weight:650;padding:9px 11px;border-bottom:1px solid #dfe6ef;white-space:nowrap}
+.cw-d-tbl td{text-align:left;padding:8px 11px;border-bottom:1px solid #edf1f5;vertical-align:top;line-height:1.45;overflow-wrap:anywhere;color:#1f2a44}
+.cw-d-tbl tbody tr:nth-child(even){background:#f3f6fb}
+.cw-d-tbl tbody tr:last-child td{border-bottom:0}
+.cw-d-fp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;color:#1f2a44;background:#eef2ff;padding:1px 6px;border-radius:4px}
+.cw-d-pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:1px solid #d3deec;background:#f1f5fb;color:#334155}
+.cw-d-pill.warn{border-color:#f1d889;background:#fff7e0;color:#7a5613}
+.cw-d-pill.good{border-color:#a9dec1;background:#e8f7ef;color:#11613d}
+.cw-d-pill.frozen{border-color:#a5b9e6;background:#eef2ff;color:#3b46c4}
+.cw-d-pill.muted{background:#eef2f7;color:#475569;border-color:#d3deec}
+.cw-d-pill.fail{border-color:#e2b2b8;background:#fcecef;color:#8b2430}
+.cw-d-grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:10px}
+.cw-d-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:10px}
+.cw-d-grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px}
+.cw-d-card2{border:1px solid #d9e2ef;border-radius:11px;padding:13px 14px;background:#fff}
+.cw-d-card2.frozen{border-left:4px solid #3b46c4}
+.cw-d-card2 h5{margin:0 0 5px;font-size:11.5px;color:#475569;text-transform:uppercase;letter-spacing:.04em}
+.cw-d-card2 .big{font-size:22px;color:#172033;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
+.cw-d-card2 .sm{font-size:11.5px;color:#5d6b82;margin-top:3px}
+.cw-d-card2 .ul{margin:4px 0 0 14px;padding:0;font-size:11.5px;color:#1f2a44;line-height:1.55}
+.cw-d-card2 .ul li{margin:1px 0}
+.cw-d-call{border-left:4px solid #6366f1;background:#eef2ff;padding:10px 14px;border-radius:0 7px 7px 0;margin:11px 0;font-size:12.5px;color:#1f2a44;line-height:1.5}
+.cw-d-call.warn{border-color:#d97706;background:#fff7e0;color:#7a5613}
+.cw-d-call.good{border-color:#16a34a;background:#e8f7ef;color:#11613d}
+.cw-d-call.strong{border-left:4px solid #dc2626;background:#fcecef;color:#8b2430}
+.cw-d-call.muted{border-color:#94a3b8;background:#f1f5f9;color:#475569}
+.cw-d-fig{display:flex;flex-direction:column;gap:6px;margin:12px auto 18px auto;padding:12px 14px;border:1px solid #e2e8f0;border-radius:11px;background:#fafbfd;width:75%;max-width:880px}
+.cw-d-fig img{width:100%;max-width:100%;height:auto;border:1px solid #d9e2ef;border-radius:6px;background:#fff;display:block;margin:0 auto}
+.cw-d-fig.compact{width:62%;max-width:720px}
+.cw-d-fig .ftitle{font-size:12px;color:#475569;font-weight:650}
+.cw-d-fig .fcap{font-size:11px;color:#64748b;line-height:1.45}
+.cw-d-foot{padding:14px 22px;border-top:1px solid #e5eaf1;background:#fbfcff;font-size:11px;color:#5d6b82;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+.cw-d-foot code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;background:#eef2ff;color:#3b46c4;padding:2px 6px;border-radius:4px}
+</style>
+<div class="cw-d"><div class="cw-d-h"><div><h3>Phase 58 — Final Tables</h3><div class="cw-d-meta">Frozen reporting synthesis & governance. Built from canonical Phase 43–57 artifacts. No new training, no new Test inference, no new attention extraction, no best-seed selection, no ensemble reconstruction, no causal claim.</div></div><span class="cw-d-badge good">PASS</span></div><div class="cw-d-cards"><div class="cw-d-card"><span>STATUS</span><strong>PASS</strong><div class="sm">overall signoff</div></div><div class="cw-d-card"><span>MAIN TABLES</span><strong>10 / 10</strong><div class="sm">FT01–FT10</div></div><div class="cw-d-card"><span>APPENDIX TABLES</span><strong>12 / 12</strong><div class="sm">FA01–FA12</div></div><div class="cw-d-card"><span>O58 OUTPUTS</span><strong>43 / 43</strong><div class="sm">manifest + tables + audits</div></div><div class="cw-d-card"><span>CSV / MD / LATEX</span><strong>22 / 22 / 22</strong><div class="sm">full precision CSV first</div></div><div class="cw-d-card"><span>TESTS</span><strong>428846 / 428846</strong><div class="sm">pytest focus</div></div></div><div class="cw-d-cards"><div class="cw-d-card"><span>DISCREPANCIES</span><strong><span class="cw-d-badge fail">0</span></strong><div class="sm">critical: 0</div></div><div class="cw-d-card"><span>UPSTREAM CAVEATS</span><strong><span class="cw-d-badge fail">13</span></strong><div class="sm">FA12 propagated</div></div><div class="cw-d-card"><span>CROSS-CONSISTENCY</span><strong><span class="cw-d-badge good">PASS</span></strong><div class="sm">all cross-table checks</div></div><div class="cw-d-card"><span>POPULATION AUDIT</span><strong><span class="cw-d-badge good">PASS</span></strong><div class="sm">FINAL_TEST_POP-v1</div></div><div class="cw-d-card"><span>MODEL-LOCK AUDIT</span><strong><span class="cw-d-badge good">PASS</span></strong><div class="sm">FINAL_MODEL_LOCK_SHA256</div></div><div class="cw-d-card"><span>ROUNDING AUDIT</span><strong><span class="cw-d-badge good">PASS</span></strong><div class="sm">Wh 2dp / R² 3dp / etc.</div></div></div><div class="cw-d-body"><div class="cw-d-sec"><h4>A. Phase 58 overview — evidence-class separation &lt;span class=&quot;cw-d-badge frozen&quot;&gt;FROZEN&lt;/span&gt;</h4><div class="cw-d-grid3"><div class="cw-d-card2 frozen"><h5>locked final configuration</h5><div class="big">Phase 45</div><div class="sm">FT01 reports the exact Phase 45 final scientific configuration. No B0/development setting is presented as final.</div></div><div class="cw-d-card2 frozen"><h5>Held-Out Test evidence</h5><div class="big">Phase 47</div><div class="sm">FT02 is the primary final Test evidence. Population = FINAL_TEST_POP-v1 (N=2961). No inference rerun, no model reload.</div></div><div class="cw-d-card2 frozen"><h5>development evidence</h5><div class="big">Phase 44</div><div class="sm">FT03 presents Phase 44 rolling-origin as DEVELOPMENT_EVIDENCE. Pooled RMSE is the primary criterion; mean fold RMSE is secondary.</div></div><div class="cw-d-card2 frozen"><h5>post-Test diagnostics</h5><div class="big">Phase 48–57</div><div class="sm">FT04–FT09 report post-Test diagnostics. NOT deployment regimes. NOT used for retuning.</div></div><div class="cw-d-card2 frozen"><h5>limitations</h5><div class="big">FA12</div><div class="sm">13 caveats propagated from upstream phases.</div></div><div class="cw-d-card2 frozen"><h5>scope boundary</h5><div class="big">Phase 59</div><div class="sm">Phase 59 ready = YES, authorized = NO. Conclusions phase deferred.</div></div></div><div class="cw-d-call muted"><strong>Evidence-class separation:</strong> development evidence, Held-Out Test evidence, and post-Test diagnostic evidence have different scientific roles and must not be interpreted interchangeably.</div></div><div class="cw-d-sec"><h4>B. FT01 — Final Experimental and Model Configuration &lt;span class=&quot;cw-d-badge frozen&quot;&gt;FROZEN_CONFIG&lt;/span&gt;</h4><div class="cw-d-call muted">Sourced from Phase 45 final lock. Development early-stopping recipe is NOT presented as final. Final refit fixed-epoch recipe is what actually produced Phase 47 Test metrics.</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>category</th>
+<th>final_setting</th>
+<th>source</th>
+</tr></thead><tbody>
+<tr>
+<td>Candidate ID</td>
+<td>TR_C2_ALT_LOOKBACK</td>
+<td>Phase45 signoff</td>
+</tr>
+<tr>
+<td>Model class</td>
+<td>TRANSFORMER_ENCODER</td>
+<td>Phase45 signoff</td>
+</tr>
+<tr>
+<td>Task formulation</td>
+<td>Sequence-to-One, one-step-ahead, multivariate regression (target=Appliances Wh)</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Forecast horizon</td>
+<td>1.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Sampling interval</td>
+<td>10 min</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Final feature variant</td>
+<td>FS2_TF1</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Time-feature setting</td>
+<td>embedded time features (encoded via feature set FS2_TF1)</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Target scaling</td>
+<td>YS1</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Lookback</td>
+<td>72 steps (12h)</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Input feature count</td>
+<td>33.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Train samples</td>
+<td>13670.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Validation samples</td>
+<td>2960.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Test samples</td>
+<td>2961.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Boundary protocol</td>
+<td>WB0 (CONTEXT_CARRY_OVER)</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Window population policy</td>
+<td>VALIDATION (WINDOWPOP-v1)</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Final data region</td>
+<td>FINAL_DEV_REGION-v1</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Target scaling version</td>
+<td>FINAL_SCALING-v1</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Transformer d_model</td>
+<td>64.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Attention heads</td>
+<td>4.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Head dimension</td>
+<td>16.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Encoder layers</td>
+<td>2.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>FFN dimension</td>
+<td>256.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Activation</td>
+<td>GELU</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Dropout</td>
+<td>0.1</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Positional encoding</td>
+<td>SINUSOIDAL</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Normalization style</td>
+<td>post-LN (norm_first = False)</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Pooling</td>
+<td>LAST_STEP</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Loss function</td>
+<td>MSE</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Loss reduction</td>
+<td>mean</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Evaluation space</td>
+<td>Wh</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Optimizer</td>
+<td>AdamW</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Learning rate</td>
+<td>0.0003</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Weight decay (L2)</td>
+<td>0.001</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Optimizer betas</td>
+<td>[0.9, 0.999]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Optimizer eps</td>
+<td>1e-08</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Gradient clipping</td>
+<td>enabled=True, max_norm=1.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td>32.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>RevIN</td>
+<td>OFF</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>--- FINAL REFIT POLICY (vs development recipe) ---</td>
+<td>N/A</td>
+<td>Phase45 signoff</td>
+</tr>
+<tr>
+<td>Development candidate max_epochs</td>
+<td>50 [DEVELOPMENT recipe; NOT applied to final refit]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>FINAL_REFIT_EPOCHS</td>
+<td>30 [FINAL REFIT; frozen]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>EARLY_STOPPING</td>
+<td>False [FINAL REFIT; frozen]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Validation-based stopping</td>
+<td>Forbidden [FINAL REFIT; frozen]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Best-seed selection</td>
+<td>Forbidden [FINAL REFIT; frozen]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Warm-start carry</td>
+<td>Forbidden [FINAL REFIT; frozen]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Optimizer-state reuse</td>
+<td>Forbidden [FINAL REFIT; frozen]</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Aggregation rule for final epoch</td>
+<td>MEDIAN_RO_INNER_BEST_EPOCHS-v1</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Final training region</td>
+<td>FINAL_DEV_REGION-v1</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Checkpoint type</td>
+<td>FINAL_REFIT</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Final seeds</td>
+<td>42, 123, 2026</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>Deterministic dataloader seed</td>
+<td>42.0</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>cudnn.deterministic</td>
+<td>True</td>
+<td>Phase45 final lock</td>
+</tr>
+<tr>
+<td>cudnn.benchmark</td>
+<td>False</td>
+<td>Phase45 final lock</td>
+</tr>
+</tbody></table></div></div><div class="cw-d-sec"><h4>C. FT02 — Final Held-Out Test Performance (HELD_OUT_TEST_EVIDENCE) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 47&lt;/span&gt;</h4><div class="cw-d-call warn"><strong>Three-Seed Summary = mean ± sample SD of the three predefined Transformer seed-level metrics (ddof=1).</strong> It is NOT an ensemble prediction. No best-value highlighting; no color-coded winner; no row-specific emphasis. Persistence and Tuned LSTM are reported as single Test realizations (no fake ±SD).</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>model</th>
+<th>seed</th>
+<th>mae_wh</th>
+<th>rmse_wh</th>
+<th>r2</th>
+<th>evaluation_population</th>
+<th>notes</th>
+</tr></thead><tbody>
+<tr>
+<td>Persistence Baseline</td>
+<td>single</td>
+<td>26.73758865248227</td>
+<td>66.83691534084765</td>
+<td>0.459046692018256</td>
+<td>FINAL_TEST_POP-v1 (2961 targets)</td>
+<td>single final Test realization; no fake SD</td>
+</tr>
+<tr>
+<td>Tuned LSTM Baseline</td>
+<td>single</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>FINAL_TEST_POP-v1 (NOT_EVALUATED_BY_PROTOCOL; L36 vs L72 mismatch)</td>
+<td>Phase 47: LSTM not directly comparable on FINAL_TEST_POP-v1 (Tuned LSTM was trained with lookback=36; Final Transformer uses lookback=72). Per Phase 47 plan §141.</td>
+</tr>
+<tr>
+<td>Final Transformer — Seed 42</td>
+<td>42.0</td>
+<td>29.528646738232613</td>
+<td>64.94275370825517</td>
+<td>0.4892735101282182</td>
+<td>FINAL_TEST_POP-v1 (2961 targets)</td>
+<td>checkpoint_sha256=c3cfad116aa91d47...</td>
+</tr>
+<tr>
+<td>Final Transformer — Seed 123</td>
+<td>123.0</td>
+<td>27.11486924829266</td>
+<td>61.98608587121866</td>
+<td>0.5347188997659036</td>
+<td>FINAL_TEST_POP-v1 (2961 targets)</td>
+<td>checkpoint_sha256=8a134fec517be0df...</td>
+</tr>
+<tr>
+<td>Final Transformer — Seed 2026</td>
+<td>2026.0</td>
+<td>28.94229416815529</td>
+<td>64.56013557970728</td>
+<td>0.4952737966044358</td>
+<td>FINAL_TEST_POP-v1 (2961 targets)</td>
+<td>checkpoint_sha256=8753800539f7a617...</td>
+</tr>
+<tr>
+<td>Final Transformer — Three-Seed Summary</td>
+<td>42,123,2026</td>
+<td>28.528603384893522</td>
+<td>63.8296583863937</td>
+<td>0.5064220688328526</td>
+<td>FINAL_TEST_POP-v1 (2961 targets per seed)</td>
+<td>mean ± sample SD (ddof=1). Descriptive run-variability; NOT an ensemble forecast. SD on R² refers to variability on raw seed R² values — not pooled over targets.</td>
+</tr>
+</tbody></table></div><div class="cw-d-call good">Phase 47 Tuned LSTM row: LSTM was NOT evaluated on FINAL_TEST_POP-v1 due to lookback mismatch (L36 vs L72). Per Phase 47 plan §141. This is upstream-evidence, not a Phase 58 decision.</div></div><div class="cw-d-sec"><h4>D. FT03 — Rolling-Origin Temporal Robustness (DEVELOPMENT_EVIDENCE) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 44&lt;/span&gt;</h4><div class="cw-d-call warn"><strong>Pooled RMSE is the primary Phase 44 robustness quantity.</strong> Mean fold RMSE is secondary and must not be relabeled pooled RMSE. This table is development evidence, NOT a substitute for Held-Out Test.</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>model_candidate</th>
+<th>ro1_rmse_wh</th>
+<th>ro2_rmse_wh</th>
+<th>ro3_rmse_wh</th>
+<th>pooled_rmse_wh</th>
+<th>mean_fold_rmse_wh</th>
+<th>fold_rmse_sd_wh</th>
+<th>worst_fold_rmse_wh</th>
+<th>role</th>
+</tr></thead><tbody>
+<tr>
+<td>PERSISTENCE_LAST_VALUE</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>66.42970273458556</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>LSTM_TUNED_WINNER</td>
+<td>51.899914258791846</td>
+<td>57.62578978188747</td>
+<td>67.17357619576605</td>
+<td>59.236286097375135</td>
+<td>58.89976007881512</td>
+<td>7.716115439736115</td>
+<td>67.17357619576605</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>TR_C0_PRIMARY</td>
+<td>48.30056981126854</td>
+<td>59.87358402709243</td>
+<td>69.9404340851858</td>
+<td>60.02631084640269</td>
+<td>59.371529307848924</td>
+<td>10.828664536969745</td>
+<td>69.9404340851858</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>TR_C1_ALT_WEIGHT_DECAY</td>
+<td>50.26586669269926</td>
+<td>60.50999683447373</td>
+<td>68.49317853909878</td>
+<td>60.22014370275604</td>
+<td>59.75634735542393</td>
+<td>9.136997041666811</td>
+<td>68.49317853909878</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>TR_C2_ALT_LOOKBACK</td>
+<td>49.75998935311664</td>
+<td>59.080688796825</td>
+<td>69.15856291676356</td>
+<td>59.85979463604273</td>
+<td>59.3330803555684</td>
+<td>9.70174933711694</td>
+<td>69.15856291676356</td>
+<td>Final-source candidate (Phase 45)</td>
+</tr>
+</tbody></table></div></div><div class="cw-d-sec"><h4>E. FT04 — Prediction &amp; Residual Diagnostics (POST_TEST_DIAGNOSTIC) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 48+49&lt;/span&gt;</h4><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>panel</th>
+<th>seed</th>
+<th>field</th>
+<th>metric</th>
+<th>value</th>
+<th>unit</th>
+</tr></thead><tbody>
+<tr>
+<td>A_prediction_variability</td>
+<td>42.0</td>
+<td>prediction_spread</td>
+<td>mean_abs_diff_against_seed_mean</td>
+<td>N/A</td>
+<td>Wh</td>
+</tr>
+<tr>
+<td>A_prediction_variability</td>
+<td>123.0</td>
+<td>prediction_spread</td>
+<td>mean_abs_diff_against_seed_mean</td>
+<td>N/A</td>
+<td>Wh</td>
+</tr>
+<tr>
+<td>A_prediction_variability</td>
+<td>2026.0</td>
+<td>prediction_spread</td>
+<td>mean_abs_diff_against_seed_mean</td>
+<td>N/A</td>
+<td>Wh</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>mean_residual</td>
+<td>mean_residual</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>median_residual</td>
+<td>median_residual</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>residual_sd</td>
+<td>residual_sd</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>abs_error_mean</td>
+<td>abs_error_mean</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>mae_compatible</td>
+<td>mae_compatible</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>underprediction_share</td>
+<td>underprediction_share</td>
+<td>N/A</td>
+<td>percent</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>overprediction_share</td>
+<td>overprediction_share</td>
+<td>N/A</td>
+<td>percent</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>quantile_q05</td>
+<td>quantile_q05</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>42.0</td>
+<td>quantile_q95</td>
+<td>quantile_q95</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>mean_residual</td>
+<td>mean_residual</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>median_residual</td>
+<td>median_residual</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>residual_sd</td>
+<td>residual_sd</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>abs_error_mean</td>
+<td>abs_error_mean</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>mae_compatible</td>
+<td>mae_compatible</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>underprediction_share</td>
+<td>underprediction_share</td>
+<td>N/A</td>
+<td>percent</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>overprediction_share</td>
+<td>overprediction_share</td>
+<td>N/A</td>
+<td>percent</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>quantile_q05</td>
+<td>quantile_q05</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>123.0</td>
+<td>quantile_q95</td>
+<td>quantile_q95</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>2026.0</td>
+<td>mean_residual</td>
+<td>mean_residual</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>2026.0</td>
+<td>median_residual</td>
+<td>median_residual</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+<tr>
+<td>B_residual_diagnostics</td>
+<td>2026.0</td>
+<td>residual_sd</td>
+<td>residual_sd</td>
+<td>N/A</td>
+<td>dimensionless</td>
+</tr>
+</tbody></table></div>
+<div style="font-size:11px;color:#64748b;margin-top:6px">_showing first 24 of 30 rows; full table in CSV/Markdown/LaTeX package_</div></div><div class="cw-d-sec"><h4>F. FT05 — Error-by-Regime &amp; Worst-Error Summary (POST_TEST_DIAGNOSTIC) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 50+51&lt;/span&gt;</h4><div class="cw-d-call warn"><strong>Worst-error cases remain valid frozen Test observations and were NOT removed from final metrics.</strong> Phase 50 regime thresholds are FROZEN (no redefinition). Phase 51 worst-case ranks are FROZEN (no reselection).</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>panel</th>
+<th>regime_family</th>
+<th>regime</th>
+<th>N</th>
+<th>share_pct</th>
+<th>mae_wh</th>
+<th>rmse_wh</th>
+<th>r2</th>
+</tr></thead><tbody>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>A_error_by_regime</td>
+<td>R1_TARGET_LEVEL</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody></table></div>
+<div style="font-size:11px;color:#64748b;margin-top:6px">_showing first 24 of 165 rows; full table in CSV/Markdown/LaTeX package_</div></div><div class="cw-d-sec"><h4>G. FT06 — Last-Query Temporal Attention Summary (POST_TEST_DIAGNOSTIC) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 54&lt;/span&gt;</h4><div class="cw-d-call warn"><strong>Attention describes temporal token-to-token allocation.</strong> It is NOT raw-feature importance. It does NOT establish causal contribution. Layer head-mean (per seed, per layer) from Phase 54 frozen artifacts.</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>seed</th>
+<th>layer_idx0</th>
+<th>normalized_entropy</th>
+<th>expected_lag_minutes</th>
+<th>recent_1h_mass</th>
+<th>recent_6h_mass</th>
+<th>top5_mass</th>
+<th>lag80_minutes</th>
+</tr></thead><tbody>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>0.8059403776249999</td>
+<td>372.131671766458</td>
+<td>0.10520384831859572</td>
+<td>0.5049523909279544</td>
+<td>0.4055402938228184</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>1.0</td>
+<td>0.802780395025</td>
+<td>264.6703026890476</td>
+<td>0.17749952047572087</td>
+<td>0.7270592581013512</td>
+<td>0.3960783184033853</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>123.0</td>
+<td>0.0</td>
+<td>0.749061024725</td>
+<td>295.9775378264943</td>
+<td>0.185764989770426</td>
+<td>0.6087534087498747</td>
+<td>0.4709608801800451</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>123.0</td>
+<td>1.0</td>
+<td>0.776147007975</td>
+<td>326.24781347529176</td>
+<td>0.13107025897433278</td>
+<td>0.5700622337170596</td>
+<td>0.43390823342975904</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>2026.0</td>
+<td>0.0</td>
+<td>0.8579523463000001</td>
+<td>361.5245509318511</td>
+<td>0.14549126643300953</td>
+<td>0.4783613838931334</td>
+<td>0.3340654802870833</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>2026.0</td>
+<td>1.0</td>
+<td>0.7734563934500001</td>
+<td>309.9089059317697</td>
+<td>0.19883493747540582</td>
+<td>0.5961655889364734</td>
+<td>0.4352116347812805</td>
+<td>N/A</td>
+</tr>
+</tbody></table></div></div><div class="cw-d-sec"><h4>H. FT07 — Within-Seed Head Comparison Summary (POST_TEST_DIAGNOSTIC) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 55&lt;/span&gt;</h4><div class="cw-d-call muted"><strong>Similarity in attention allocation does NOT prove functional redundancy</strong> (value projections and downstream output projections may differ). No composite diversity score. Architectural ordering only.</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>seed</th>
+<th>layer_idx0</th>
+<th>head_count</th>
+<th>mean_pairwise_jsd</th>
+<th>mean_pairwise_wasserstein_minutes</th>
+<th>mean_pairwise_abs_delta_expected_lag_minutes</th>
+<th>mean_pairwise_top1_tvd</th>
+<th>mean_pairwise_cosine</th>
+</tr></thead><tbody>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>4.0</td>
+<td>0.14149035</td>
+<td>121.76598878</td>
+<td>118.07554919</td>
+<td>0.80851064</td>
+<td>0.5597992</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>1.0</td>
+<td>4.0</td>
+<td>0.12662633</td>
+<td>71.17252205</td>
+<td>53.12327722</td>
+<td>0.77924125</td>
+<td>0.63530291</td>
+</tr>
+<tr>
+<td>123.0</td>
+<td>0.0</td>
+<td>4.0</td>
+<td>0.1597731</td>
+<td>132.05911259</td>
+<td>141.04206504</td>
+<td>0.77862209</td>
+<td>0.53001894</td>
+</tr>
+<tr>
+<td>123.0</td>
+<td>1.0</td>
+<td>4.0</td>
+<td>0.16818233</td>
+<td>102.54654353</td>
+<td>104.61391157</td>
+<td>0.8184172</td>
+<td>0.50650958</td>
+</tr>
+<tr>
+<td>2026.0</td>
+<td>0.0</td>
+<td>4.0</td>
+<td>0.14042745</td>
+<td>134.59798352</td>
+<td>145.09341513</td>
+<td>0.86772487</td>
+<td>0.51310794</td>
+</tr>
+<tr>
+<td>2026.0</td>
+<td>1.0</td>
+<td>4.0</td>
+<td>0.20182039</td>
+<td>144.40702673</td>
+<td>167.5307573</td>
+<td>0.85928177</td>
+<td>0.48524965</td>
+</tr>
+</tbody></table></div></div><div class="cw-d-sec"><h4>I. FT08 — Error-Conditioned Attention Summary (POST_TEST_DIAGNOSTIC) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 56&lt;/span&gt;</h4><div class="cw-d-call warn"><strong>HIGH / LOW are post-hoc Test-relative diagnostic cohorts.</strong> They are NOT deployment regimes. They were NOT used for retuning. Associations are descriptive and non-causal.</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>seed</th>
+<th>layer_idx0</th>
+<th>attention_metric</th>
+<th>analysis_type</th>
+<th>spearman_rho_with_abs_error</th>
+<th>high_minus_low_median_diff</th>
+<th>cliffs_delta</th>
+<th>high_minus_low_profile_jsd</th>
+<th>high_minus_low_profile_wasserstein_minutes</th>
+</tr></thead><tbody>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>normalized_entropy</td>
+<td>CONTINUOUS_ABS_ERROR</td>
+<td>-0.20711953351486734</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>expected_lag_minutes</td>
+<td>CONTINUOUS_ABS_ERROR</td>
+<td>-0.15616253073261707</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>recent_1h_mass</td>
+<td>CONTINUOUS_ABS_ERROR</td>
+<td>0.3468737911886589</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>recent_6h_mass</td>
+<td>CONTINUOUS_ABS_ERROR</td>
+<td>0.09398332260292983</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>top5_mass</td>
+<td>CONTINUOUS_ABS_ERROR</td>
+<td>0.22294052706906298</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>lag80_minutes</td>
+<td>CONTINUOUS_ABS_ERROR</td>
+<td>-0.0011294666671233548</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>normalized_entropy</td>
+<td>CONTINUOUS_SIGNED_RESIDUAL</td>
+<td>0.09194435318316536</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>expected_lag_minutes</td>
+<td>CONTINUOUS_SIGNED_RESIDUAL</td>
+<td>-0.07170738257123248</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>recent_1h_mass</td>
+<td>CONTINUOUS_SIGNED_RESIDUAL</td>
+<td>0.03930201558708749</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>recent_6h_mass</td>
+<td>CONTINUOUS_SIGNED_RESIDUAL</td>
+<td>0.04803171331142656</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>top5_mass</td>
+<td>CONTINUOUS_SIGNED_RESIDUAL</td>
+<td>-0.07492044090374718</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>lag80_minutes</td>
+<td>CONTINUOUS_SIGNED_RESIDUAL</td>
+<td>-0.12640097348083007</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>normalized_entropy</td>
+<td>CONTINUOUS_SHARED_HARDNESS</td>
+<td>-0.23411147571864166</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>expected_lag_minutes</td>
+<td>CONTINUOUS_SHARED_HARDNESS</td>
+<td>-0.21821557364929442</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>recent_1h_mass</td>
+<td>CONTINUOUS_SHARED_HARDNESS</td>
+<td>0.43404838155617537</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>recent_6h_mass</td>
+<td>CONTINUOUS_SHARED_HARDNESS</td>
+<td>0.13788479756701344</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>top5_mass</td>
+<td>CONTINUOUS_SHARED_HARDNESS</td>
+<td>0.25198867926251667</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>42.0</td>
+<td>0.0</td>
+<td>lag80_minutes</td>
+<td>CONTINUOUS_SHARED_HARDNESS</td>
+<td>-0.03943088400051544</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody></table></div>
+<div style="font-size:11px;color:#64748b;margin-top:6px">_showing first 18 of 108 rows; full table in CSV/Markdown/LaTeX package_</div></div><div class="cw-d-sec"><h4>J. FT09 — Seed-Stability Attention Summary (POST_TEST_DIAGNOSTIC) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PHASE 57&lt;/span&gt;</h4><div class="cw-d-call warn"><strong>Same numeric head indices across seeds were NOT assumed semantically equivalent.</strong> Phase 57 used canonical JSD matching (within each layer, exhaustive H! enumeration) to determine head identity. Anchor seed = 42 (first predeclared final seed, NOT performance-based). Layer 0 cycle consistency 1/4, Layer 1 4/4 (descriptive).</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>panel</th>
+<th>layer_idx0</th>
+<th>pair_count</th>
+<th>mean_pairwise_jsd</th>
+<th>max_pairwise_jsd</th>
+<th>mean_pairwise_wasserstein_minutes</th>
+<th>max_pairwise_wasserstein_minutes</th>
+</tr></thead><tbody>
+<tr>
+<td>A_permutation_invariant_layer_stability</td>
+<td>0.0</td>
+<td>3.0</td>
+<td>0.04306145509489384</td>
+<td>0.05689142624003518</td>
+<td>53.07669634459045</td>
+<td>76.70557290088968</td>
+</tr>
+<tr>
+<td>A_permutation_invariant_layer_stability</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>0.04031072780354247</td>
+<td>0.04185553621412107</td>
+<td>46.21129094819039</td>
+<td>61.66902162715063</td>
+</tr>
+<tr>
+<td>B_head_matching_robustness</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>B_head_matching_robustness</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>0.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>C_error_effect_seed_consistency</td>
+<td>1.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody></table></div>
+<div style="font-size:11px;color:#64748b;margin-top:6px">_showing first 24 of 80 rows; full table in CSV/Markdown/LaTeX package_</div></div><div class="cw-d-sec"><h4>K. FT10 — Evidence &amp; Limitation Summary &lt;span class=&quot;cw-d-badge frozen&quot;&gt;EVIDENCE_AND_LIMITATION&lt;/span&gt;</h4><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>question</th>
+<th>primary_evidence</th>
+<th>evidence_class</th>
+<th>what_can_be_concluded</th>
+<th>what_cannot_be_concluded</th>
+<th>source_phase</th>
+</tr></thead><tbody>
+<tr>
+<td>Does Transformer generalize on held-out Test?</td>
+<td>FT02 (Phase 47 final Test metrics)</td>
+<td>HELD_OUT_TEST_EVIDENCE</td>
+<td>Three-seed final Transformer metrics on FINAL_TEST_POP-v1 (N=2961).</td>
+<td>No multi-house generalization. Single-house dataset only.</td>
+<td>Phase 47</td>
+</tr>
+<tr>
+<td>Does Transformer compare with LSTM?</td>
+<td>FT02 + FA01</td>
+<td>HELD_OUT_TEST_EVIDENCE</td>
+<td>Side-by-side metric comparison on shared FINAL_TEST_POP-v1.</td>
+<td>No significance test; no bootstrap CI; no Diebold-Mariano.</td>
+<td>Phase 47</td>
+</tr>
+<tr>
+<td>Is performance temporally robust pre-Test?</td>
+<td>FT03 (Phase 44 pooled rolling-origin RMSE)</td>
+<td>DEVELOPMENT_EVIDENCE</td>
+<td>Pooled outer-fold RMSE only — development evidence, not final generalization.</td>
+<td>No substitution for Held-Out Test evidence.</td>
+<td>Phase 44</td>
+</tr>
+<tr>
+<td>Where are largest errors?</td>
+<td>FT05 + FA05</td>
+<td>POST_TEST_DIAGNOSTIC_EVIDENCE</td>
+<td>Phase 50/51 worst-case concentration.</td>
+<td>Worst cases are not deployment regimes.</td>
+<td>Phase 50/51</td>
+</tr>
+<tr>
+<td>Which regimes are difficult?</td>
+<td>FT05 Panel A</td>
+<td>POST_TEST_DIAGNOSTIC_EVIDENCE</td>
+<td>Frozen Phase 50 regime labels; per-regime MAE/RMSE/R².</td>
+<td>No regime threshold modification.</td>
+<td>Phase 50</td>
+</tr>
+<tr>
+<td>What temporal lags receive attention?</td>
+<td>FT06 + FA06</td>
+<td>POST_TEST_DIAGNOSTIC_EVIDENCE</td>
+<td>Phase 54 quantitative last-query summaries — temporal allocation only.</td>
+<td>Attention is NOT raw-feature importance; NOT causal.</td>
+<td>Phase 54</td>
+</tr>
+<tr>
+<td>Are heads diverse?</td>
+<td>FT07 + FA07</td>
+<td>POST_TEST_DIAGNOSTIC_EVIDENCE</td>
+<td>Phase 55 layer head diversity (no composite score).</td>
+<td>Similarity does NOT prove functional redundancy. No pruning/ablation.</td>
+<td>Phase 55</td>
+</tr>
+<tr>
+<td>Does attention co-vary with error?</td>
+<td>FT08 + FA08</td>
+<td>POST_TEST_DIAGNOSTIC_EVIDENCE</td>
+<td>Phase 56 error-conditioned association (Spearman / Cliff&#x27;s delta).</td>
+<td>No causal interpretation; HIGH/LOW are diagnostic only.</td>
+<td>Phase 56</td>
+</tr>
+<tr>
+<td>Is attention stable across seeds?</td>
+<td>FT09 + FA09/FA10</td>
+<td>POST_TEST_DIAGNOSTIC_EVIDENCE</td>
+<td>Phase 57 stability (S57-A layer head-mean + S57-B canonical matching).</td>
+<td>Same-index heads NOT assumed semantically aligned; no STABLE/UNSTABLE threshold.</td>
+<td>Phase 57</td>
+</tr>
+<tr>
+<td>Can attention be interpreted causally?</td>
+<td>Mandatory caveat in all FT06-FT09</td>
+<td>EVIDENCE_AND_LIMITATION</td>
+<td>Attention is descriptive temporal allocation only.</td>
+<td>Attention does NOT establish causality or feature importance.</td>
+<td>Phase 54-57</td>
+</tr>
+</tbody></table></div></div><div class="cw-d-sec"><h4>L. Provenance &amp; Governance &lt;span class=&quot;cw-d-badge frozen&quot;&gt;COMPLETE&lt;/span&gt;</h4><div class="cw-d-grid3"><div class="cw-d-card2"><h5>SOURCE LEDGER</h5><div class="big">COMPLETE</div><div class="sm">final_table_source_ledger.csv</div></div><div class="cw-d-card2"><h5>CELL LINEAGE</h5><div class="big">COMPLETE</div><div class="sm">final_table_cell_lineage.csv (FT02/FT03/FT06/FT08/FT09 critical)</div></div><div class="cw-d-card2"><h5>CROSS-CONSISTENCY</h5><div class="big"><span class="cw-d-badge good">PASS</span></div><div class="sm">Same metric / lock / pop across tables</div></div><div class="cw-d-card2"><h5>POPULATION AUDIT</h5><div class="big"><span class="cw-d-badge good">PASS</span></div><div class="sm">FINAL_TEST_POP-v1 / rolling-origin folds</div></div><div class="cw-d-card2"><h5>MODEL-LOCK AUDIT</h5><div class="big"><span class="cw-d-badge good">PASS</span></div><div class="sm">FINAL_MODEL_LOCK_SHA256 uniform</div></div><div class="cw-d-card2"><h5>SEED AUDIT</h5><div class="big"><span class="cw-d-badge good">PASS</span></div><div class="sm">seeds exactly {42, 123, 2026}</div></div><div class="cw-d-card2"><h5>UNIT AUDIT</h5><div class="big"><span class="cw-d-badge good">PASS</span></div><div class="sm">Wh / dimensionless / minutes / 0..1</div></div><div class="cw-d-card2"><h5>ROUNDING AUDIT</h5><div class="big"><span class="cw-d-badge good">PASS</span></div><div class="sm">Wh 2dp / R² 3dp / dimensionless 3dp / minutes 1dp / percent 1dp</div></div><div class="cw-d-card2"><h5>COURSEWORK COVERAGE</h5><div class="big"><span class="cw-d-badge good">COMPLETE</span></div><div class="sm">all major requirements mapped to FT/FA</div></div></div><div class="cw-d-call muted"><strong>Final lock SHA256:</strong> <code>81fb87c44b6af31b6f65eff1...</code> <strong>Test population SHA256:</strong> <code>d7dbc0b3cde772dc3f62c181...</code> <strong>Seed set:</strong> <code>[42, 123, 2026]</code></div></div><div class="cw-d-sec"><h4>M. Upstream Warnings &amp; Caveats (FA12) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;PASS_WITH_WARNING&lt;/span&gt;</h4><div class="cw-d-call warn">These caveats are propagated from Phase 44–57 signoffs and are intentionally visible in the final-report view. They must not be hidden.</div><div class="cw-d-tblwrap"><table class="cw-d-tbl">
+<thead><tr>
+<th>caveat_title</th>
+<th>caveat_description</th>
+<th>propagated_to_table</th>
+<th>source_phase</th>
+</tr></thead><tbody>
+<tr>
+<td>Single-house dataset</td>
+<td>No multi-house generalization possible</td>
+<td>FT10</td>
+<td>Phase 0</td>
+</tr>
+<tr>
+<td>Three-seed limit</td>
+<td>Only 3 final seeds (42 / 123 / 2026); SD is descriptive only</td>
+<td>FT10</td>
+<td>Phase 47</td>
+</tr>
+<tr>
+<td>Last-query pooling caveat</td>
+<td>Last-step pooling: last-query corresponds to newest encoded token</td>
+<td>FT06</td>
+<td>Phase 45</td>
+</tr>
+<tr>
+<td>Lookback 12h truncation</td>
+<td>Recent 24h mass truncated because lookback=72 steps=12h</td>
+<td>FT06</td>
+<td>Phase 45</td>
+</tr>
+<tr>
+<td>Attention NOT raw-feature importance</td>
+<td>Temporal allocation only; no causal attribution</td>
+<td>FT06-FT09</td>
+<td>Phase 54-57</td>
+</tr>
+<tr>
+<td>Attention NOT causal explanation</td>
+<td>Descriptive diagnostics only</td>
+<td>FT06-FT09</td>
+<td>Phase 54-57</td>
+</tr>
+<tr>
+<td>Same-index head NOT semantically aligned</td>
+<td>Frozen canonical JSD matching by Phase 57</td>
+<td>FT09</td>
+<td>Phase 57</td>
+</tr>
+<tr>
+<td>Phase 56 HIGH/LOW are diagnostic cohorts only</td>
+<td>NOT deployment regimes</td>
+<td>FT08</td>
+<td>Phase 56</td>
+</tr>
+<tr>
+<td>Pooled vs mean fold RMSE</td>
+<td>FT03 pooled RMSE comes from Phase 44 authoritative output</td>
+<td>FT03</td>
+<td>Phase 44</td>
+</tr>
+<tr>
+<td>Three-seed summary is NOT an ensemble</td>
+<td>Mean ± sample SD of seed-level metrics</td>
+<td>FT02</td>
+<td>Phase 47</td>
+</tr>
+<tr>
+<td>R² not clamped</td>
+<td>Negative R² retained as valid evidence</td>
+<td>FT02</td>
+<td>Phase 47</td>
+</tr>
+<tr>
+<td>Dense-case coverage limited to Phase 51 worst-case set</td>
+<td>Selection-conditioned supplementary analysis</td>
+<td>FT09</td>
+<td>Phase 51/57</td>
+</tr>
+<tr>
+<td>Cycle consistency Layer 0 = 1/4</td>
+<td>Pairwise optimal head identities not fully cycle-consistent</td>
+<td>FT09</td>
+<td>Phase 57</td>
+</tr>
+</tbody></table></div></div><div class="cw-d-sec"><h4>N. Phase 59 Boundary &lt;span class=&quot;cw-d-badge frozen&quot;&gt;READY&lt;/span&gt;</h4><div class="cw-d-grid2"><div class="cw-d-card2 frozen"><h5>phase 59 readiness</h5><div class="big"><span class="cw-d-badge good">YES</span></div><div class="sm">phase59_final_conclusions_handoff.json emitted with allowed-claim and prohibited-claim lists. Source ledger, cell lineage, and full table package are in place.</div></div><div class="cw-d-card2 frozen"><h5>phase 59 authorization</h5><div class="big"><span class="cw-d-badge warn">NO</span></div><div class="sm">Phase 59 substantive conclusions are NOT authorized in this run. No Phase 59 module is created, no Phase 59 notebook cell is added.</div></div></div><div class="cw-d-call muted"><strong>Allowed claims (carry-only):</strong> FINAL_TEST_PERFORMANCE • LSTM_COMPARISON • TEMPORAL_ROBUSTNESS • ERROR_REGIME_BEHAVIOR • WORST_ERROR_CONCENTRATION • LAST_QUERY_TEMPORAL_ATTENTION • HEAD_DIVERSITY • ERROR_ATTENTION_ASSOCIATION • ATTENTION_SEED_STABILITY. <strong>Prohibited:</strong> CAUSAL_ATTENTION_EXPLANATION • RAW_FEATURE_IMPORTANCE_FROM_TEMPORAL_ATTENTION • BEST_SEED_SELECTION • POST_TEST_RETUNING • MULTI_HOUSE_GENERALIZATION • ENSEMBLE_RECONSTRUCTION • HYPOTHESIS_TEST_BETWEEN_MODELS • NEW_MAPE • HEAD_SEMANTIC_ALIGNMENT_ASSUMPTION.</div></div><div class="cw-d-sec"><h4>Safety flags (mandatory) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;FROZEN&lt;/span&gt;</h4><div class="cw-d-grid4"><div class="cw-d-card2 frozen"><h5>three-seed summary is ensemble</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>best seed selected</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>best head selected</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>test reranking</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>new metric</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>new hypothesis test</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>new training</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>new test inference</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>new attention extraction</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div><div class="cw-d-card2 frozen"><h5>causal claim</h5><div class="big"><span class="cw-d-badge good">NO</span></div></div></div><div class="cw-d-call good">All safety flags are anchored on the persisted signoff and on the canonical Phase 58 plan §212 (failure conditions). None of the failure conditions is currently active.</div></div><div class="cw-d-sec"><h4>Appendix Summary (FA01–FA12) &lt;span class=&quot;cw-d-badge frozen&quot;&gt;READ_ONLY&lt;/span&gt;</h4><div class="cw-d-grid4"><div class="cw-d-card2"><h5>FA01</h5><div class="big">3</div><div class="sm">rows in CSV; see tables/csv/FA01_rows.csv</div></div><div class="cw-d-card2"><h5>FA02</h5><div class="big">12</div><div class="sm">rows in CSV; see tables/csv/FA02_rows.csv</div></div><div class="cw-d-card2"><h5>FA03</h5><div class="big">3</div><div class="sm">rows in CSV; see tables/csv/FA03_rows.csv</div></div><div class="cw-d-card2"><h5>FA04</h5><div class="big">54</div><div class="sm">rows in CSV; see tables/csv/FA04_rows.csv</div></div><div class="cw-d-card2"><h5>FA05</h5><div class="big">160</div><div class="sm">rows in CSV; see tables/csv/FA05_rows.csv</div></div><div class="cw-d-card2"><h5>FA06</h5><div class="big">71064</div><div class="sm">rows in CSV; see tables/csv/FA06_rows.csv</div></div><div class="cw-d-card2"><h5>FA07</h5><div class="big">36</div><div class="sm">rows in CSV; see tables/csv/FA07_rows.csv</div></div><div class="cw-d-card2"><h5>FA08</h5><div class="big">432</div><div class="sm">rows in CSV; see tables/csv/FA08_rows.csv</div></div><div class="cw-d-card2"><h5>FA09</h5><div class="big">24</div><div class="sm">rows in CSV; see tables/csv/FA09_rows.csv</div></div><div class="cw-d-card2"><h5>FA10</h5><div class="big">264</div><div class="sm">rows in CSV; see tables/csv/FA10_rows.csv</div></div><div class="cw-d-card2"><h5>FA11</h5><div class="big">19</div><div class="sm">rows in CSV; see tables/csv/FA11_rows.csv</div></div><div class="cw-d-card2"><h5>FA12</h5><div class="big">13</div><div class="sm">rows in CSV; see tables/csv/FA12_rows.csv</div></div></div><div class="cw-d-call muted">Appendix tables are available as full-precision CSV + rounded Markdown + rounded LaTeX under <code>artifacts/final_tables/tables/</code>. They provide full audit detail; the dashboard presents only the main-table summaries to keep the report view compact.</div></div><div class="cw-d-foot"><span><strong>Phase 58 v1</strong> — final-tables package</span><span>read-only renderer — no scientific recomputation</span><span>FINAL_LOCK <code>81fb87c44b6af31b...</code></span><span>FINAL_TEST_POP <code>d7dbc0b3cde772dc...</code></span></div></div></div>

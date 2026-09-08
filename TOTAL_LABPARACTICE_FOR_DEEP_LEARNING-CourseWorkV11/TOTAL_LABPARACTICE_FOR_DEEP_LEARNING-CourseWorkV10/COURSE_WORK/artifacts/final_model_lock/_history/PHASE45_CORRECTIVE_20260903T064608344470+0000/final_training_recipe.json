@@ -1,0 +1,53 @@
+{
+  "LR": 0.0003,
+  "RevIN": false,
+  "WD": 0.001,
+  "accumulation": 1,
+  "attention_retention_during_training": false,
+  "batch": 32,
+  "checkpoint_type": "FINAL_REFIT",
+  "drop_last": false,
+  "early_stopping": false,
+  "epochs": 30,
+  "final_data_region": "FINAL_DEV_REGION-v1",
+  "final_population_fingerprint": "552e6895dbc6f7a93b0ea9a2ab4de77abd58d8780ad4bc85b697a485ccbc31a9",
+  "final_refit_mode": "FINAL_REFIT_MODE-v1",
+  "final_scaling_contract": {
+    "RevIN_fold_independent_global_scaler_bridge_if_active": false,
+    "Test_rows_used": false,
+    "X_scaler_semantics": "SCALING-v1",
+    "Y_scaler_semantics": "YS1",
+    "binary_passthrough": true,
+    "checksum_resolution_phase": "PHASE46",
+    "expected_checksum_fields": [
+      "x_scaler_bundle_checksum",
+      "y_scaler_bundle_checksum"
+    ],
+    "fit_once": true,
+    "fit_region": "FINAL_DEV_REGION-v1",
+    "reuse_all_seeds": true,
+    "revin_bridge_rule": "not_applicable_revin_disabled",
+    "status": "PASS",
+    "time_features_passthrough": true,
+    "version": "FINAL_SCALING-v1",
+    "x_scaler_bundle_checksum": "REQUIRED_AT_PHASE46",
+    "x_scaler_bundle_id": "XSCALER__FS2_TF1",
+    "y_scaler_bundle_checksum": "REQUIRED_AT_PHASE46",
+    "y_scaler_bundle_id": "YSCALER__YS1"
+  },
+  "gradient_clipping": 1.0,
+  "loss": "MSE",
+  "model_config_fingerprint": "",
+  "optimizer": "AdamW",
+  "precision": "fp32",
+  "scheduler": null,
+  "seed_list": [
+    42,
+    123,
+    2026
+  ],
+  "shuffle": true,
+  "validation_loader": null,
+  "warmup": null,
+  "worker_policy": "torch_initial_seed_mod_2_32_numpy_python"
+}

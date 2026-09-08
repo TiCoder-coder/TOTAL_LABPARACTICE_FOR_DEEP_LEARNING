@@ -1,0 +1,13 @@
+{
+  "gc0_run_id": "RUN_TR_S17_0029_082F7FF5",
+  "gc0_validation_rmse_wh": 58.87856773160628,
+  "gc1_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "gc1_validation_rmse_wh": 57.69679988114431,
+  "phase_40_approved": true,
+  "reference_run_id": "RUN_TR_S14_0023_A711A9B8",
+  "selected_gradient_clipping": "GLOBAL_L2_MAX_NORM_1.0",
+  "sweep_id": "S17_GRADIENT_CLIPPING",
+  "sweep_version": "SWEEP_S17_GRADIENTCLIP-v1",
+  "test_status": "FORBIDDEN",
+  "winner": "GC1"
+}

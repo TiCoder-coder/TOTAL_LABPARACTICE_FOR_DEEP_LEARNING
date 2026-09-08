@@ -1,0 +1,46 @@
+{
+  "phase": 58,
+  "figures": [
+    {
+      "figure_id": "FF01",
+      "source_phase": 48,
+      "source_artifact": "artifacts/prediction_analysis/figures/"
+    },
+    {
+      "figure_id": "FF02",
+      "source_phase": 49,
+      "source_artifact": "artifacts/residual_analysis/figures/"
+    },
+    {
+      "figure_id": "FF03",
+      "source_phase": 50,
+      "source_artifact": "artifacts/error_by_regime/figures/"
+    },
+    {
+      "figure_id": "FF04",
+      "source_phase": 53,
+      "source_artifact": "artifacts/attention_heatmaps/figures/"
+    },
+    {
+      "figure_id": "FF05",
+      "source_phase": 54,
+      "source_artifact": "artifacts/last_query_attention/figures/"
+    },
+    {
+      "figure_id": "FF06",
+      "source_phase": 55,
+      "source_artifact": "artifacts/head_comparison/figures/"
+    },
+    {
+      "figure_id": "FF07",
+      "source_phase": 56,
+      "source_artifact": "artifacts/error_conditioned_attention/figures/"
+    },
+    {
+      "figure_id": "FF08",
+      "source_phase": 57,
+      "source_artifact": "artifacts/seed_stability_attention/figures/"
+    }
+  ],
+  "frozen_at": "2026-09-04T20:33:13Z"
+}

@@ -1,0 +1,65 @@
+{
+  "artifact_version": "ATTENTION_VERIFY-v1",
+  "created_at": "2026-08-21T13:36:10.867175+00:00",
+  "dataset_revision": "DATA-v1",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
+    "artifacts/environment/environment_report.json": "43f0bb3a1fb8d165b9c24c9e6101269320a4178383aceac420fe25d9709e8d54",
+    "artifacts/models/transformer/phase_16_signoff.json": "a0d4e022015b62dae9e8f302e6a96a913a5468b110f346026c0d26d820b2000f"
+  },
+  "input_paths": [
+    "artifacts/models/transformer/phase_16_signoff.json",
+    "artifacts/dataloaders/dataloader_manifest.json",
+    "artifacts/environment/environment_report.json"
+  ],
+  "output_checksums": {
+    "artifacts/attention_verification/README_ATTENTION_VERIFICATION.md": "8cac50247e569848465167b2131f8adb675554e87d13e19fa70b2089ca387d1a",
+    "artifacts/attention_verification/attention_aggregation_audit.csv": "0fe94253bacabc637b505ad4ccd5e506b65537d44ce9ffe0f8515156cec08a70",
+    "artifacts/attention_verification/attention_axis_audit.csv": "3d9ac9c11872710cb74ddafc7197618b543b47d8b61609b696b16629df7916f0",
+    "artifacts/attention_verification/attention_batch_independence_audit.csv": "5c5917625876d300befdada3ea07c183c89277de16983885d64f46c46de70512",
+    "artifacts/attention_verification/attention_mask_audit.csv": "5b9acda997f7470dc647434c98c47523093cd723e01cb3f1e18735148625f87f",
+    "artifacts/attention_verification/attention_path_equivalence_audit.csv": "5893aa9e545ba3dd93d7ff38c95cd1ab2c8a78ea54f975485b18408a5a827e97",
+    "artifacts/attention_verification/attention_position_mapping.csv": "e767a47009badd4d9d4a832a5db006ec0c6d5961154ae751badcb089ba737d1b",
+    "artifacts/attention_verification/attention_probability_audit.csv": "5893aa9e545ba3dd93d7ff38c95cd1ab2c8a78ea54f975485b18408a5a827e97",
+    "artifacts/attention_verification/attention_provenance_schema.json": "8f918a098ea6855a690843bc9a6ab19efd9b00869aad844052fe7a0cece2cddc",
+    "artifacts/attention_verification/attention_serialization_schema.json": "f963b26307e867077604d2d01864150803db84de9d006079e527c4c2db7de841",
+    "artifacts/attention_verification/attention_shape_audit.csv": "3d9ac9c11872710cb74ddafc7197618b543b47d8b61609b696b16629df7916f0",
+    "artifacts/attention_verification/attention_verification_contract.json": "5ac8e06540bea45f57b463a88238898d41386cbcb5e29d34f35039d2928743c2",
+    "artifacts/attention_verification/attention_verification_discrepancies.json": "232e3828ba92bc8913504487f9568e58488a850546d8a4bb881f6347bc639a9f",
+    "artifacts/attention_verification/attention_verification_manifest.json": "51d526b492cc56cfa361833f67a9feb5f7a17712ccd0d8f601b36398cc26ca8d",
+    "artifacts/attention_verification/attention_verification_tests.csv": "b93f0294bd00228dd6b3fd316cbebe9a51081e5a6a2029b154c3ca0934a3daca"
+  },
+  "output_paths": [
+    "artifacts/attention_verification/attention_verification_manifest.json",
+    "artifacts/attention_verification/attention_verification_contract.json",
+    "artifacts/attention_verification/attention_shape_audit.csv",
+    "artifacts/attention_verification/attention_probability_audit.csv",
+    "artifacts/attention_verification/attention_mask_audit.csv",
+    "artifacts/attention_verification/attention_path_equivalence_audit.csv",
+    "artifacts/attention_verification/attention_axis_audit.csv",
+    "artifacts/attention_verification/attention_position_mapping.csv",
+    "artifacts/attention_verification/attention_aggregation_audit.csv",
+    "artifacts/attention_verification/attention_batch_independence_audit.csv",
+    "artifacts/attention_verification/attention_serialization_schema.json",
+    "artifacts/attention_verification/attention_provenance_schema.json",
+    "artifacts/attention_verification/attention_verification_tests.csv",
+    "artifacts/attention_verification/attention_verification_discrepancies.json",
+    "artifacts/attention_verification/README_ATTENTION_VERIFICATION.md"
+  ],
+  "phase_id": 17,
+  "phase_version": "PHASE-17-v1",
+  "reference_lookback": 144,
+  "status": "PASS",
+  "tests": [
+    "batch_independence",
+    "layer_count",
+    "attention_shape",
+    "probability_row_sum",
+    "explicit_head_aggregation",
+    "last_query_mapping",
+    "forward_without_attention"
+  ],
+  "warnings": []
+}

@@ -1,0 +1,29 @@
+{
+  "expected_fail": 0,
+  "expected_pass": true,
+  "expected_skipped": 0,
+  "note": "Reproducibility suite: tests introspect producing phase's manifest rather than directory state.",
+  "phase": 51,
+  "scopes": [
+    "Phase51-A preflight",
+    "Phase51-B frozen contract",
+    "Phase51-C ranking correctness",
+    "Phase51-C frozen-contract regression",
+    "Phase51-D diagnostics",
+    "Phase51-E regime/context",
+    "Phase51-F exact-input corrective",
+    "Phase51-G finalization"
+  ],
+  "subphase": "51-G",
+  "test_files": [
+    "tests/unit/test_phase51_a_preflight.py",
+    "tests/unit/test_phase51_b_frozen_contract.py",
+    "tests/unit/test_phase51_c_ranking.py",
+    "tests/unit/test_phase51_c_frozen_contract_drift.py",
+    "tests/unit/test_phase51_d_diagnostics.py",
+    "tests/unit/test_phase51_e_regime_context.py",
+    "tests/unit/test_phase51_f_exact_input_corrective.py",
+    "tests/unit/test_phase51_g_finalization.py"
+  ],
+  "version": "PHASE51_TESTS-v1"
+}

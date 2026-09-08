@@ -1,0 +1,15 @@
+{
+  "baseline_version": "LSTM_BASELINE-v1",
+  "batch_size": 64,
+  "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+  "experiment_family": "LSTM_BASELINE",
+  "feature_variant_id": "FS1_TF1",
+  "horizon_steps": 1,
+  "lookback_steps": 144,
+  "model_family": "LSTM",
+  "seed": 42,
+  "selection_metric": "rmse_wh",
+  "selection_split": "VALIDATION",
+  "target_scaling_option": "YS1",
+  "test_access": "FORBIDDEN"
+}

@@ -1,0 +1,9 @@
+{
+  "selected_lineage_sha256": "9ba532539d548156e1d5d933abe8c1463617cdc790741e48d5249b452995d9fe",
+  "source_artifact_checksums": {
+    "feature_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+    "population_fingerprint": "552e6895dbc6f7a93b0ea9a2ab4de77abd58d8780ad4bc85b697a485ccbc31a9",
+    "scaler_bundle_checksum": "REQUIRED_AT_PHASE46",
+    "target_scaler_checksum": "REQUIRED_AT_PHASE46"
+  }
+}

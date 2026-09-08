@@ -1,0 +1,21 @@
+{
+  "phase": 54,
+  "downstream_phase": 56,
+  "downstream_name": "Error-Conditioned Attention",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+  "last_query_metrics_long": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_metrics_long.csv",
+  "profile_by_lag": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_profile_by_lag.csv",
+  "raw_last_query_refs": "PHASE52_RAW_LAST_QUERY_NPZ",
+  "raw_last_query_sha256": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "phase49_residual_refs": "artifacts/residual_analysis/residual_long_table.csv",
+  "phase50_regime_refs": "artifacts/error_by_regime/test_regime_assignment.csv",
+  "phase51_worst_case_refs": "artifacts/worst_error_analysis/worst_error_analysis_case_selection.csv",
+  "error_conditioning_performed_in_phase54": false,
+  "ready_for_phase56_context": true,
+  "phase56_authorized": false,
+  "phase52_signoff_sha256": "71075d9cc639c3f08a2a7ef571d7e14260254d5fd12d5f1d7159cd88aa35e23a"
+}

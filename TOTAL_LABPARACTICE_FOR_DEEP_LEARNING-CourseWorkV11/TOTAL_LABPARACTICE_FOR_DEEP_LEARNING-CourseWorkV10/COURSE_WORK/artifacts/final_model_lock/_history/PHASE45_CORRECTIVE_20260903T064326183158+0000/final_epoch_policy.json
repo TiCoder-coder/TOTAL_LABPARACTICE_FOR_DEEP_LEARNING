@@ -1,0 +1,33 @@
+{
+  "RO1_inner_best_epoch": 30,
+  "RO2_inner_best_epoch": 37,
+  "RO3_inner_best_epoch": 19,
+  "aggregation_rule": "MEDIAN_RO_INNER_BEST_EPOCHS-v1",
+  "candidate_max_epochs": 50,
+  "final_refit_epochs": 30,
+  "forbidden_fallbacks_rejected": [
+    "fallback_to_50",
+    "mean",
+    "rounded_mean",
+    "lstm_epoch",
+    "outer_eval_epoch",
+    "original_validation_best_epoch",
+    "phase21_epoch",
+    "seed_specific_epoch",
+    "manual_override"
+  ],
+  "no_manual_override": true,
+  "no_seed_dependency": true,
+  "no_test_dependency": true,
+  "no_validation_dependency": true,
+  "policy_id": "MEDIAN_RO_INNER_BEST_EPOCHS-v1",
+  "sorted_epochs": [
+    19,
+    30,
+    37
+  ],
+  "source_candidate_id": "recommended_transformer",
+  "source_phase": 44,
+  "status": "PASS",
+  "within_cap": true
+}

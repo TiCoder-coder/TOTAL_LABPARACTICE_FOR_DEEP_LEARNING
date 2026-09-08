@@ -1,0 +1,9 @@
+{
+  "clip_order_gc0": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_FINITE_GUARD_NORM_MEASURE_OPTIMIZER_STEP",
+  "clip_order_gc1": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_FINITE_GUARD_NORM_MEASURE_CLIP_OPTIMIZER_STEP",
+  "definition": "global L2 norm of all parameters",
+  "finite_guard": "ON for both GC0 and GC1",
+  "gc0_clipping": "OFF",
+  "gc1_clipping": "GLOBAL_L2_MAX_NORM_1.0",
+  "measurement": "non-mutating (computed before optimizer.step)"
+}

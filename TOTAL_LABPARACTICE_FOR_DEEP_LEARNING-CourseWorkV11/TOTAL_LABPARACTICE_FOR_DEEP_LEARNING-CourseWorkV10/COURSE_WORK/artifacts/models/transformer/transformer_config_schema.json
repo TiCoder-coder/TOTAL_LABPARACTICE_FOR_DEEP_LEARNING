@@ -1,0 +1,40 @@
+{
+  "attention_semantics": "PER_HEAD_UNAVERAGED_WHEN_EXTRACTED",
+  "implementation_version": "TRANSFORMER_IMPL-v1",
+  "norm_order": "POST_NORM",
+  "output_activation": "NONE",
+  "positional_encoding_types": [
+    "SINUSOIDAL"
+  ],
+  "required_fields": [
+    "model_family",
+    "model_version",
+    "implementation_version",
+    "input_size",
+    "d_model",
+    "num_heads",
+    "num_layers",
+    "ffn_dim",
+    "dropout",
+    "activation",
+    "pooling",
+    "positional_encoding_type",
+    "attention_aware",
+    "norm_first",
+    "output_size"
+  ],
+  "schema_version": "TRANSFORMER_CFG-v1",
+  "supported_activations": [
+    "GELU",
+    "RELU"
+  ],
+  "supported_lookbacks": [
+    36,
+    72,
+    144
+  ],
+  "supported_poolings": [
+    "LAST_STEP",
+    "MEAN"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "checkpoint_type": "FINAL_REFIT",
+  "epochs": 30,
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "final_refit_mode": "FINAL_REFIT_MODE-v1",
+  "model_family": "TRANSFORMER_ENCODER",
+  "model_id": "TR_C2_ALT_LOOKBACK",
+  "no_early_stopping": true,
+  "no_validation": true,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "test_locked": true
+}

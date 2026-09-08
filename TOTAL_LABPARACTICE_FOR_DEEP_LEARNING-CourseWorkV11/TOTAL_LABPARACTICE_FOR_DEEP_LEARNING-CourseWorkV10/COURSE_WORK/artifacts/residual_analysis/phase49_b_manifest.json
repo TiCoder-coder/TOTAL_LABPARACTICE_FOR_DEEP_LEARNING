@@ -1,0 +1,133 @@
+{
+  "contract_invariants": {
+    "attention_analysis_executed": false,
+    "best_seed_selected": false,
+    "bias_correction_applied": false,
+    "checkpoint_loading": false,
+    "deciles_used_as_phase50_regimes": false,
+    "ensemble_promoted": false,
+    "ljung_box_used_for_pass_fail": false,
+    "new_inference": false,
+    "optimizer_steps": 0,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "residual_correction_applied": false,
+    "scaler_fit": false,
+    "target_regime_analysis_deferred_to_phase50": true,
+    "three_n_iid_interpretation": false,
+    "training": false,
+    "worst_error_ranking_executed": false
+  },
+  "executed_at_utc": "2026-09-03T19:44:21Z",
+  "field_consistency_audit_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_field_consistency_audit.csv",
+  "long_table_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/residual_long_table.csv",
+  "long_table_rows": 8883,
+  "long_table_rows_expected": 8883,
+  "metric_reconstruction_audit_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/phase49_metric_reconstruction_audit.csv",
+  "next_step_letter_after_b": "C (gap-safe ACF / sign runs / rolling 144); requires human approval",
+  "per_seed_metrics": {
+    "123": {
+      "mae_wh": 27.11486924829266,
+      "n": 2961,
+      "r2": 0.5347188997659036,
+      "rmse_wh": 61.98608587121866
+    },
+    "2026": {
+      "mae_wh": 28.94229416815529,
+      "n": 2961,
+      "r2": 0.4952737966044358,
+      "rmse_wh": 64.56013557970728
+    },
+    "42": {
+      "mae_wh": 29.528646738232613,
+      "n": 2961,
+      "r2": 0.4892735101282182,
+      "rmse_wh": 64.94275370825517
+    }
+  },
+  "per_seed_metrics_match_phase47": true,
+  "phase": "49",
+  "phase47_canonical_artifacts_unchanged": true,
+  "phase47_source_sha256_snapshot": {
+    "phase_47_signoff_unchanged_at_phase49_b": "80614523b6091e2159dd1013e32781165914b015bb1c4b612814c77b926e2929",
+    "phase_48_signoff_unchanged_at_phase49_b": "e8c102d582a35dd2d86a8c275f4cb1bf2d24f4f841404aad33c4b0e29161fa9b",
+    "seed123": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+    "seed2026": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+    "seed42": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2"
+  },
+  "phase48_canonical_artifacts_unchanged": true,
+  "phase50_authorized": false,
+  "phase51_authorized": false,
+  "phase52_plus_authorized": false,
+  "phase_sub_letter": "B",
+  "ready_for_phase49_c": true,
+  "scope": "Residual reconstruction + metric reconstruction ONLY",
+  "source_verification": {
+    "cross_seed_alignment": {
+      "cross_seed_alignment_pass": true,
+      "target_id_sets_identical": true,
+      "target_timestamp_order_identical": true,
+      "test_population_sha256_expected": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "y_true_vector_identical": true
+    },
+    "per_seed": {
+      "123": {
+        "all_y_finite": true,
+        "bundle_name": "final_test_predictions_seed123.csv",
+        "bundle_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_test/predictions/final_test_predictions_seed123.csv",
+        "expected_sha256": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+        "first_target_id": "TGT_00016774",
+        "first_timestamp": "2016-05-07 04:40:00",
+        "last_target_id": "TGT_00019734",
+        "last_timestamp": "2016-05-27 18:00:00",
+        "n_rows": 2961,
+        "n_rows_expected": 2961,
+        "n_rows_ok": true,
+        "n_unique_target_id": 2961,
+        "observed_sha256": "1bb55c445ffe132d3cfdc22e09439d77c76a2defd2f918bfb8f47029f666a08b",
+        "sha256_match": true,
+        "target_id_unique_ok": true
+      },
+      "2026": {
+        "all_y_finite": true,
+        "bundle_name": "final_test_predictions_seed2026.csv",
+        "bundle_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_test/predictions/final_test_predictions_seed2026.csv",
+        "expected_sha256": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+        "first_target_id": "TGT_00016774",
+        "first_timestamp": "2016-05-07 04:40:00",
+        "last_target_id": "TGT_00019734",
+        "last_timestamp": "2016-05-27 18:00:00",
+        "n_rows": 2961,
+        "n_rows_expected": 2961,
+        "n_rows_ok": true,
+        "n_unique_target_id": 2961,
+        "observed_sha256": "bfb575357dd6a8e3a23fd08230c69f8e3d3297582ea73c16cf006601fcce79d8",
+        "sha256_match": true,
+        "target_id_unique_ok": true
+      },
+      "42": {
+        "all_y_finite": true,
+        "bundle_name": "final_test_predictions_seed42.csv",
+        "bundle_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_test/predictions/final_test_predictions_seed42.csv",
+        "expected_sha256": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+        "first_target_id": "TGT_00016774",
+        "first_timestamp": "2016-05-07 04:40:00",
+        "last_target_id": "TGT_00019734",
+        "last_timestamp": "2016-05-27 18:00:00",
+        "n_rows": 2961,
+        "n_rows_expected": 2961,
+        "n_rows_ok": true,
+        "n_unique_target_id": 2961,
+        "observed_sha256": "246ee0d725af972bd621ce9cf4dbc550d8c02ec7c9dc1214b373807c99bf73f2",
+        "sha256_match": true,
+        "target_id_unique_ok": true
+      }
+    },
+    "verification_at_utc": "2026-09-03T19:44:21Z",
+    "verification_status": "PASS"
+  },
+  "status": "PASS",
+  "wide_table_path": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/residual_analysis/residual_wide_table.csv",
+  "wide_table_rows": 2961,
+  "wide_table_rows_expected": 2961
+}

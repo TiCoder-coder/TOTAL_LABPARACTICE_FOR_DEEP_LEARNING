@@ -1,0 +1,6 @@
+{
+  "classification": "N2_ACCURACY_GAIN_WITH_COST",
+  "parameter_delta_n2_minus_n1": 33472,
+  "rmse_delta_n1_minus_n2": 1.7007286776587662,
+  "winner_condition_id": "N2"
+}

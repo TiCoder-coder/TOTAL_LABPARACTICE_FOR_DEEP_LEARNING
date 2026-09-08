@@ -1,0 +1,37 @@
+{
+  "table_id": "FT09",
+  "title": "Seed-Stability Attention Summary (S57-A + S57-B + S57-C)",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Same-index heads NOT assumed semantically aligned (Phase 57 canonical JSD matching).",
+    "Layer 0 cycle consistency 1/4; Layer 1 4/4 (descriptive)."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 80,
+  "csv_path": "artifacts/final_tables/tables/csv/FT09_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT09_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT09_rows.tex",
+  "csv_sha256": "cded48173aa1d291cb4528939db00ddbaecce6d8844e00e1104588447e370171",
+  "markdown_sha256": "0791fb8d4c740f1c74ffd32156ae959646578cfa8bc31e7dfdd0daf5d31be02f",
+  "latex_sha256": "91c0d5da9821a0a8eb6d2597f0d1be5351f59e67e652e50a1e1a9667e82beadc"
+}

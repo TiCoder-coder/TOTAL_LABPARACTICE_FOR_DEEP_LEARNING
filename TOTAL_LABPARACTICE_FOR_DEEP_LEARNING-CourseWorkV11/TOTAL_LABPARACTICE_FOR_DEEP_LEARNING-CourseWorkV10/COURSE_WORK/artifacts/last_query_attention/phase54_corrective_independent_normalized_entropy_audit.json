@@ -1,0 +1,68 @@
+{
+  "audit_kind": "phase54_corrective_independent_normalized_entropy_audit",
+  "audit_at_utc": "2026-09-05T08:55:00+00:00",
+  "phase": 54,
+  "raw_source": "artifacts/attention_extraction/raw/last_query_attention_seed{42,123,2026}.npz",
+  "raw_source_sha256": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  },
+  "frozen_phase52_unchanged": true,
+  "independent_module": "inline_pure_numpy (not course_work.phase54.metrics)",
+  "formula": {
+    "H_formula": "-sum_p a_p * ln(a_p + 1e-12)",
+    "H_norm_formula": "H / ln(L)",
+    "L": 72,
+    "log_base": "natural_log",
+    "lookback_steps": 72,
+    "epsilon_H": 1e-12
+  },
+  "validation_results": {
+    "non_negative_pass": true,
+    "le_one_pass": true,
+    "finite_pass": true,
+    "no_nan_pass": true,
+    "no_inf_pass": true
+  },
+  "H_norm_range_per_seed": {
+    "42": {
+      "min": 0.04848868478463899,
+      "max": 0.9934184576800066,
+      "mean": 0.8043603868607635,
+      "std": 0.12484133793772152
+    },
+    "123": {
+      "min": 5.615093138518989e-06,
+      "max": 0.9839712250759287,
+      "mean": 0.7626040172488746,
+      "std": 0.164114880982798
+    },
+    "2026": {
+      "min": 0.00449599961734921,
+      "max": 0.9918273215754803,
+      "mean": 0.8157043707540875,
+      "std": 0.12344373998795373
+    }
+  },
+  "H_norm_range_global": {
+    "min": 5.615093138518989e-06,
+    "max": 0.9934184576800066,
+    "n_vectors": 71064
+  },
+  "stored_vs_reconstruction": {
+    "n_head_groups_validated": 24,
+    "max_abs_error_per_head_mean": 2.1905712799252797e-09,
+    "tolerance": 1e-06,
+    "all_within_tolerance": true
+  },
+  "expected_value_sanity": {
+    "note": "raw entropy mean ~3.295 \u00f7 ln(72)~4.277 \u2248 0.770 expected; corrected v2 mean is in same scale (no hard-coded expected value)",
+    "v2_observed_seed42_l0_h0_mean_H_norm": 0.7704601671705527
+  },
+  "tolerances": {
+    "max_abs_reconstruction_error_tolerance": 1e-06,
+    "neg_tolerance": 0.0,
+    "ln_72_value": 4.276666119016055
+  }
+}

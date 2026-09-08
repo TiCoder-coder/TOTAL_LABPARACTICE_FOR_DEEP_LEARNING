@@ -1,0 +1,12 @@
+{
+  "K_folds": 3,
+  "models_evaluated": [
+    "TR_C0_PRIMARY",
+    "TR_C1_ALT_WEIGHT_DECAY",
+    "TR_C2_ALT_LOOKBACK",
+    "LSTM_TUNED",
+    "PERSISTENCE_LAST_VALUE"
+  ],
+  "protocol": "RO3_EXPANDING_PRETEST-v1",
+  "test_locked": true
+}

@@ -1,0 +1,72 @@
+{
+  "phase": 48,
+  "version": "PREDICTION_ANALYSIS-v1",
+  "uses_only_frozen_phase47_predictions": true,
+  "analyzes_all_three_transformer_seeds": true,
+  "transformer_seeds": [
+    42,
+    123,
+    2026
+  ],
+  "persistence_baseline_label": "PERSISTENCE",
+  "seed_mean_prediction_meaning": "DESCRIPTIVE_CENTRAL_TENDENCY_NOT_ENSEMBLE",
+  "seed_spread_meaning": "CROSS_SEED_PREDICTION_SPREAD_NOT_CONFIDENCE_INTERVAL",
+  "seed_std_ddof": 1,
+  "lag_sign_convention": "lag_k_positive_means_prediction_compared_to_truth_shifted_k_future_steps",
+  "lag_range_steps": [
+    -6,
+    -5,
+    -4,
+    -3,
+    -2,
+    -1,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "acf_registered_lags": [
+    1,
+    6,
+    12,
+    36,
+    72,
+    144
+  ],
+  "peak_timing_window_steps": 1,
+  "top_disagreement_k": 20,
+  "rolling_window_samples": 144,
+  "forbidden_actions": {
+    "new_test_inference": true,
+    "checkpoint_loading_for_new_predictions": true,
+    "training": true,
+    "scaler_fitting": true,
+    "best_seed_selection": true,
+    "ensemble_evaluation": true,
+    "prediction_shifting": true,
+    "prediction_clipping": true,
+    "post_hoc_calibration": true,
+    "test_derived_threshold_tuning": true,
+    "residual_analysis_creep": true,
+    "regime_specific_rmse": true,
+    "worst_error_ranking": true,
+    "attention_extraction": true
+  },
+  "deferred_to_other_phases": {
+    "residual_analysis": 49,
+    "error_regime": 50,
+    "worst_error": 51,
+    "attention": "52+"
+  },
+  "test_population": {
+    "id": "FINAL_TEST_POP-v1",
+    "n": 2961,
+    "sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+  },
+  "final_lock_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "frozen_at": "2026-09-03T17:32:54.467076+00:00",
+  "status": "FROZEN"
+}

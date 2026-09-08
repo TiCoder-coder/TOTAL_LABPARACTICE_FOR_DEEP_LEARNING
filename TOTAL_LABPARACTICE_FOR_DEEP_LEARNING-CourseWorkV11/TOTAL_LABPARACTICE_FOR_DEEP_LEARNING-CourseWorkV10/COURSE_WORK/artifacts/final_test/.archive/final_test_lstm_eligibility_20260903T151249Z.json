@@ -1,0 +1,18 @@
+{
+  "model_id": "LSTM_TUNED_DEV",
+  "source_phase": 43,
+  "source_run_id": "RUN_LS_LST_0175_BCE5A2CD",
+  "checkpoint_exists": true,
+  "checkpoint_frozen_pretest": false,
+  "test_previously_accessed": true,
+  "config_valid": false,
+  "scaler_artifacts_available": false,
+  "FINAL_TEST_POP_supported": false,
+  "common_target_comparison_possible": false,
+  "training_protocol_symmetric_with_transformer": false,
+  "eligible": false,
+  "eligibility_status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+  "reason": "LSTM uses lookback=None, but final Transformer uses lookback=72",
+  "fairness_caveat": "LSTM_TUNED_DEV was tuned on development split (Phase43) and is NOT a Train+Validation final-refit symmetric with the Transformer. Its final training protocol differs. Per Phase47 plan §61, §143, §149.",
+  "status": "PASS"
+}

@@ -1,0 +1,23 @@
+{
+  "continuity_policy": "strict",
+  "continuous_features": "all_except_time_and_binary",
+  "no_interpolation": true,
+  "no_padding": true,
+  "no_test_rows_in_fit": true,
+  "passthrough_binary_features": true,
+  "passthrough_cyclical_features": true,
+  "raw_schema_version": "SCHEMA-v1",
+  "scaling_groups": {
+    "x": "XSCALER__FS2_TF1",
+    "y": "YSCALER__YS1"
+  },
+  "target_scaling": "YS1",
+  "time_feature_formulas": {
+    "dow_cos": "cos(2π*dayofweek/7)",
+    "dow_sin": "sin(2π*dayofweek/7)",
+    "hour_cos": "cos(2π*hour/24)",
+    "hour_sin": "sin(2π*hour/24)",
+    "weekend": "1 if dayofweek in [5,6] else 0"
+  },
+  "window_construction": "rolling_window"
+}

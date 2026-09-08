@@ -1,0 +1,31 @@
+{
+  "created_at_utc": "2026-09-03T19:44:23Z",
+  "forbidden_in_phase49": [
+    "Top-K worst-error ranking",
+    "ranking individual targets by absolute error",
+    "selecting a worst window",
+    "applying residual correction based on worst cases"
+  ],
+  "phase": "51",
+  "phase49_emitted_no_top_k_worst_rows": true,
+  "phase49_n_test": 2961,
+  "phase49_o49_complete": true,
+  "phase49_performed_no_worst_error_ranking": true,
+  "phase49_seed_list": [
+    "42",
+    "123",
+    "2026"
+  ],
+  "phase49_signoff_required_for_phase51_start": true,
+  "phase51_first_phase_allowed_to_rank_worst_errors": true,
+  "ready_for_phase51": true,
+  "required_in_phase51": [
+    "perform worst-error ranking for the first time",
+    "use absolute_error_wh from phase49_residual_long_table.csv",
+    "preserve seed isolation (no cross-seed worst pooling)",
+    "preserve residual convention (y_true - y_pred)",
+    "report top-K with explicit k and selection rule"
+  ],
+  "residual_convention": "y_true - y_pred",
+  "scope": "Phase51 context handoff (consumed by Phase51 implementation)"
+}

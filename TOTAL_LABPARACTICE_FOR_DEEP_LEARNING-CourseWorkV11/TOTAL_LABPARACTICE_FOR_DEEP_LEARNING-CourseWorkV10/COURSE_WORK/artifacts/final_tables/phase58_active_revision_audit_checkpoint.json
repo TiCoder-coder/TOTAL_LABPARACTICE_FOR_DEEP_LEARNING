@@ -1,0 +1,230 @@
+{
+  "phase58_active_revision_audit_checkpoint": {
+    "phase": 58,
+    "phase_name": "Final Tables",
+    "audit_status": "STALE_DEPENDENCY_DETECTED",
+    "audit_completed_at_utc": "2026-09-05T13:44:46.519361+00:00",
+    "scope": "READ_ONLY_AUDIT (no modification)",
+    "ACTIVE_PHASE58_REVISION": "FINAL_TABLES-v1",
+    "PHASE58_STATUS": "PASS",
+    "PHASE58_COMPLETED": true,
+    "CREATED_AT": "2026-09-04T20:33:30Z",
+    "HISTORICAL_REVISIONS": "none (this is the first/only Phase58 revision)",
+    "creation_context": "Phase58 was created at 2026-09-04T20:33:13Z, BEFORE the corrective chain was applied to Phase54/55/56/57 (those were re-corrected to v2 on 2026-09-05).",
+    "SOURCE_REVISIONS": {
+      "source_phase44_version": "ROBASE-v1",
+      "source_phase45_version": "frozen",
+      "source_phase46_version": "THREE_SEED_FINAL_RUNS-v1",
+      "source_phase47_version": "FINAL_TEST_EVAL-v1",
+      "source_phase48_version": "PREDICTION_ANALYSIS-v1",
+      "source_phase49_version": "1.0",
+      "source_phase50_version": "PHASE_50_SIGNOFF-v1",
+      "source_phase51_version": "PHASE51_SIGNOFF-v1",
+      "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+      "source_phase53_version": "ATTENTION_HEATMAPS-v1",
+      "source_phase54_version": "LAST_QUERY_ATTENTION-v1",
+      "source_phase55_version": "HEAD_COMPARISON-v1",
+      "source_phase56_version": "ERROR_CONDITIONED_ATTENTION-v1",
+      "source_phase57_version": "SEED_STABILITY_ATTENTION-v1"
+    },
+    "STALE_V1_REFERENCES_FOUND": {
+      "LAST_QUERY_ATTENTION-v1": "FOUND in final_tables_manifest.json",
+      "HEAD_COMPARISON-v1": "FOUND in final_tables_manifest.json",
+      "ERROR_CONDITIONED_ATTENTION-v1": "FOUND in final_tables_manifest.json",
+      "SEED_STABILITY_ATTENTION-v1": "FOUND in final_tables_manifest.json",
+      "expected": {
+        "Phase54": "LAST_QUERY_ATTENTION-v2",
+        "Phase55": "HEAD_COMPARISON-v2",
+        "Phase56": "ERROR_CONDITIONED_ATTENTION-v2",
+        "Phase57": "SEED_STABILITY_ATTENTION-v2"
+      }
+    },
+    "FINAL_LOCK_SHA_CORRECT": false,
+    "FINAL_LOCK_SHA_ACTUAL": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "FINAL_LOCK_SHA_CANONICAL": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+    "FINAL_LOCK_SHA_DISCREPANCY": "Phase58 signoff/manifest stores final_lock_sha256 = 585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24, which is actually the **config_fingerprint** value (585c5e79...). The canonical Phase45 final_lock_sha256 is 81fb87c44b6af31b6f65eff1... Phase58 conflated the config fingerprint with the canonical model lock.",
+    "CONFIG_FINGERPRINT_CORRECT": true,
+    "PHASE47_TEST_SHA_CORRECT": true,
+    "PHASE47_TEST_SHA_ACTUAL": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "PHASE47_TEST_SHA_CANONICAL": "d7dbc0b3cde772dc3f62c181...",
+    "TABLE_INVENTORY": {
+      "main_table_ids": [
+        "FT01",
+        "FT02",
+        "FT03",
+        "FT04",
+        "FT05",
+        "FT06",
+        "FT07",
+        "FT08",
+        "FT09",
+        "FT10"
+      ],
+      "appendix_table_ids": [
+        "FA01",
+        "FA02",
+        "FA03",
+        "FA04",
+        "FA05",
+        "FA06",
+        "FA07",
+        "FA08",
+        "FA09",
+        "FA10",
+        "FA11",
+        "FA12"
+      ],
+      "table_count": 22
+    },
+    "FINAL_CONFIG_MATCH": "PARTIAL",
+    "FINAL_CONFIG_NOTES": "FT01 (Final config) has 29 rows but is MISSING several required fields:\n- final_refit_epochs = 30\n- early_stopping = False (critical distinction from upstream max_epochs=50)\n- LR = 0.0003\n- WD = 0.001\n- gradient_clip_max_norm = 1.0\n- optimizer = AdamW\n- batch = 32",
+    "FINAL_REFIT_POLICY_MATCH": "NO",
+    "FINAL_REFIT_POLICY_NOTES": "Phase45 final refit is exactly 30 epochs, no early stopping. FT01 does not show this critical refit policy distinction (max_epochs=50 was development only).",
+    "FINAL_TEST_METRICS_MATCH": "YES",
+    "FINAL_TEST_METRICS_DETAIL": {
+      "seed42": {
+        "MAE": 29.528646738232613,
+        "RMSE": 64.94275370825517,
+        "R2": 0.4892735101282182
+      },
+      "seed123": {
+        "MAE": 27.11486924829266,
+        "RMSE": 61.98608587121866,
+        "R2": 0.5347188997659036
+      },
+      "seed2026": {
+        "MAE": 28.94229416815529,
+        "RMSE": 64.56013557970728,
+        "R2": 0.4952737966044358
+      },
+      "mean": {
+        "MAE": 28.528603384893522,
+        "RMSE": 63.8296583863937,
+        "R2": 0.5064220688328526
+      },
+      "all_match_phase47": true
+    },
+    "PHASE48_RESULTS_MATCH": "MATCH (FT04 panel A and B; numerical content is empty in many cells, but structure is correct)",
+    "PHASE49_RESULTS_MATCH": "MATCH (FT04 panel B references Phase49 residual diagnostics; many cells empty)",
+    "PHASE50_RESULTS_MATCH": "MATCH (FT05 panel A uses Phase50 regimes; 1149/1650 cells empty — 69.6%)",
+    "PHASE51_RESULTS_MATCH": "MATCH (FT05 panel B and FA05 use Phase51 worst-case ranks)",
+    "PHASE54_V2_VALUES_USED": "NO",
+    "PHASE55_V2_VALUES_USED": "PARTIAL",
+    "PHASE56_V2_VALUES_USED": "NO",
+    "PHASE57_V2_VALUES_USED": "NO",
+    "NORMALIZED_ENTROPY_STALE_VALUES_FOUND": {
+      "FT06": "432/432 rows empty (0 non-zero normalized_entropy values)",
+      "FA06": "71064/71064 zero normalized_entropy values (entire FA06 table is all zero)",
+      "FA08_NE_zero_Spearman": "72/72 normalized_entropy rows have zero Spearman (Phase56 v2 has 0/72 zeros)",
+      "FA10_empty_matched_head": "168/168 empty mean_pairwise values (entire matched_head stability table is empty)"
+    },
+    "HEAD_LAYER_STALE_VALUES_FOUND": "FA10 (Phase57 matched_head stability) has 168/168 empty mean_pairwise values. Phase57 v2 has non-zero values (e.g., Spearman 0.510488 for L0-G1 42↔123). FA10 was generated against Phase57 v1 which had zero NE.",
+    "ERROR_CONDITIONED_STALE_VALUES_FOUND": "FA08 (Phase56 error-conditioned attention full) has 72/72 NE Spearman = 0.0, while Phase56 v2 has all 72 NE Spearman non-zero (e.g., -0.21, -0.25, 0.01, -0.14).",
+    "SEED_STABILITY_STALE_VALUES_FOUND": "FA10 (Phase57 matched_head metric stability) is entirely empty (168/168 rows blank). Phase57 v2 has 24 NE rows with non-zero Spearman values.",
+    "CROSS_PHASE_NUMERIC_AUDIT": "FT02 final Test metrics match Phase47 exactly. FT03 pooled RMSE matches Phase44 exactly (TR_C2_ALT_LOOKBACK = 59.85979463604273). Attention tables FT06/FA06/FA08/FA10 contain STALE values from v1 sources.",
+    "BEST_SEED_SELECTED": false,
+    "BEST_HEAD_SELECTED": false,
+    "ENSEMBLE_PRESENTED_AS_OFFICIAL": false,
+    "POST_TEST_MODEL_TUNING": false,
+    "NO_TRAINING": true,
+    "NO_NEW_TEST_INFERENCE": true,
+    "NO_ATTENTION_REEXTRACTION": true,
+    "NO_SCALER_FIT": "N/A (Phase58 does not refit scalers; this guard is implicit)",
+    "NO_CHECKPOINT_MUTATION": "PASS (no checkpoint files modified by Phase58)",
+    "NO_PREDICTION_MUTATION": "PASS",
+    "NO_RESIDUAL_MUTATION": "PASS",
+    "NO_CASE_RESELECTION": "PASS",
+    "PHASE59_HANDOFF_VALID": false,
+    "PHASE59_HANDOFF_REASON": "Handoff exists at phase59_final_conclusions_handoff.json but inherits the same STALE v1 source versions and the same SHA conflation. It carries source_phase54_version=LAST_QUERY_ATTENTION-v1 (should be -v2), etc. ready_for_phase59=true is currently set but should be False until Phase58 is re-executed against v2.",
+    "PHASE59_EXECUTED": false,
+    "NOTEBOOK_PHASE58_EXISTS": true,
+    "NOTEBOOK_PHASE58_CELLS": {
+      "cell_146_markdown": "Phase58 markdown header (byte-identical, not modified)",
+      "cell_147_code": "Phase58 dashboard renderer — output size 60,313 bytes, displays FT02 final Test table"
+    },
+    "NOTEBOOK_MATCHES_ACTIVE_REVISION": "MATCHES (renders from current v1 Phase58 active state; does NOT reflect v2 upstream)",
+    "NOTEBOOK_VISIBLE": {
+      "final_model_configuration": "PARTIAL (FT01 rendered; missing final_refit_epochs, LR/WD, early_stopping=False, batch)",
+      "final_Test_metrics": "YES (FT02 displayed; Persistence + 3 Transformer seeds + 3-seed summary)",
+      "three-seed_mean_SD": "YES (in FT02 footer)",
+      "prediction_residual_summary": "PARTIAL (FT04 references panels but most cells empty)",
+      "regime_summary": "PARTIAL (FT05 reference)",
+      "worst-error_summary": "PARTIAL",
+      "attention_summary": "PARTIAL (FT06/FT07/FT08/FT09 referenced)",
+      "head-comparison_summary": "PARTIAL (FT07 referenced)",
+      "error-conditioned_attention_summary": "PARTIAL (FT08 referenced; v1 stale values)",
+      "seed-stability_attention_summary": "PARTIAL (FT09 referenced; v1 stale values)",
+      "limitations": "YES (FT10 rendered with caveats)",
+      "no_causal/feature_importance_overclaim": "YES (caveats visible)",
+      "transition_to_Phase59": "INDIRECT (handoff file exists)"
+    },
+    "NOTEBOOK_PARTIAL": [
+      "final_model_configuration",
+      "prediction_residual_summary",
+      "regime_summary",
+      "worst-error_summary",
+      "attention_summary",
+      "head-comparison_summary",
+      "error-conditioned_attention_summary",
+      "seed-stability_attention_summary"
+    ],
+    "NOTEBOOK_MISSING": [
+      "explicit canonical_final_lock_81fb87c4 in dashboard (only config fingerprint 585c5e79 shown)"
+    ],
+    "TABLE_REDUNDANCY": {
+      "verdict": "Some redundancy: FA06 has 71,064 rows but is essentially a per-target detail dump; FA08 has 432 rows but only 72 carry normalized_entropy data; many FT04-FT05 cells are empty.",
+      "highly_redundant_tables": [
+        "FA06 (71064 rows for last-query detail)",
+        "FA08 (432 rows of which 360 are zero-valued)"
+      ],
+      "empty_heavy_tables": [
+        "FT04 (30 rows, 12.5% empty)",
+        "FT05 (165 rows, 69.6% empty)",
+        "FT06 (432 rows, 60% empty)",
+        "FA03 (3 rows, 80% empty)",
+        "FA05 (160 rows, 75% empty)",
+        "FA07 (36 rows, 58.3% empty)",
+        "FA09 (24 rows, 54.5% empty)",
+        "FA10 (168 rows, 72.7% empty)",
+        "FA11 (19 rows, 18.4% empty)"
+      ]
+    },
+    "PRESENTATION_DENSITY": {
+      "html_size_chars": 50856,
+      "tables": 11,
+      "table_rows": 194,
+      "table_cells": 1192,
+      "embedded_pngs": 0,
+      "cards": 65,
+      "sections": 19,
+      "callouts": 20,
+      "warnings": 7,
+      "verdict": "Moderate (compact for Phase58 scope but not over-dense; no embedded figures since Phase58 is tables-only)"
+    },
+    "PRESENTATION_CLUTTER": {
+      "filesystem_paths_exposed": 0,
+      "long_sha_strings_count": 33,
+      "warning_boxes": 7,
+      "verdict": "Clean (no paths, no giant cross-seed tables, no duplicated plots)"
+    },
+    "SCIENTIFIC_PROTOCOL_ISSUES": [
+      "Phase58 manifest references STALE v1 source versions for Phase54/55/56/57 (must be v2).",
+      "Phase58 signoff final_lock_sha256 stores config_fingerprint (585c5e79...) instead of canonical combined final_lock_sha256 (81fb87c4...). Conflated identity.",
+      "FA06 (Phase58 sourced from Phase54) contains 71,064 zero normalized_entropy values; Phase54 v2 has non-zero values (mean 0.77, sample_sd 0.16).",
+      "FA08 (Phase58 sourced from Phase56) contains 72/72 NE Spearman = 0.0; Phase56 v2 has all 72 NE Spearman non-zero.",
+      "FA10 (Phase58 sourced from Phase57) contains 168/168 empty mean_pairwise values; Phase57 v2 has non-zero Spearman values.",
+      "FT06 main table (Phase54 layer head-mean) has 432/432 empty values; Phase54 v2 has non-zero values.",
+      "FT01 missing critical fields: final_refit_epochs=30, early_stopping=False, LR=0.0003, WD=0.001, optimizer=AdamW, batch=32, gradient_clip_max_norm=1.0.",
+      "Phase59 handoff carries forward the same STALE v1 source versions and SHA conflation."
+    ],
+    "PRESENTATION_ISSUES": [
+      "FT01 missing required optimizer/loss/early-stopping fields.",
+      "Many FT04/FT05/FT09/FA09 cells empty (FT04: 12.5% empty; FT05: 69.6%; FT09: 68.2%).",
+      "FA10 has 168/168 empty matched_head stability values (must be regenerated against Phase57 v2).",
+      "FA08 has 360 zero Spearman values for non-NE metrics (likely empty or stale)."
+    ],
+    "REPAIR_REQUIRED": "YES — SCIENTIFIC CORRECTIVE REQUIRED",
+    "REPAIR_REASON": "Phase58 must be re-executed against Phase54/55/56/57 v2 corrected upstream artifacts. The stale v1 NE values propagate to FT06, FA06, FA08, FA10. The final_lock_sha256 must be corrected to 81fb87c4... The source_phaseXX_version fields must be updated to -v2. FT01 must include final refit recipe fields.",
+    "FINAL_STATUS": "FAIL_PENDING_CORRECTIVE"
+  }
+}

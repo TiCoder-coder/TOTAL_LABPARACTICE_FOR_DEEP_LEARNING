@@ -1,0 +1,18 @@
+{
+  "phase": 52,
+  "downstream_phase": 53,
+  "downstream_name": "Attention Heatmaps",
+  "ready_for_phase53": true,
+  "phase53_authorized": false,
+  "dense_case_count": 44,
+  "raw_files": {
+    "dense_case_attention_seed42.npz": "33d979a1b6b0aa6e1c2af11c88f1ee943a46b4489e849f6675e65a5036de1d3c",
+    "dense_case_attention_seed123.npz": "29b8fdebcfe771f3b0c9e5e215417a37d6dec5ce16b8b6054a60aa21ee2cca25",
+    "dense_case_attention_seed2026.npz": "5d4824a5f2f8b46d1ee8e1b9ba5ad6da43159352e32be121dca4dc2abfbc78bc"
+  },
+  "case_order_sha": "e4fce0fabb9bc264d76e2b3f57682a9cc9b30490a488d70ccb926b4c3b1b62d1",
+  "position_map_sha": "948bc0dcb56674f7f8c117d7e7050490b391e39225754e8a21861d00e59e5063",
+  "safety": {
+    "interpretation_authorized": false
+  }
+}

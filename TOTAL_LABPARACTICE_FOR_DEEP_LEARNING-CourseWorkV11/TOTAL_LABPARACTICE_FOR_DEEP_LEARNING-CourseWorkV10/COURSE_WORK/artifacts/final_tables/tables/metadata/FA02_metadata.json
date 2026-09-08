@@ -1,0 +1,36 @@
+{
+  "table_id": "FA02",
+  "title": "Rolling-Origin Fold-Level Metrics (DEVELOPMENT_EVIDENCE)",
+  "evidence_class": "DEVELOPMENT_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "DEVELOPMENT evidence only."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 12,
+  "csv_path": "artifacts/final_tables/tables/csv/FA02_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FA02_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FA02_rows.tex",
+  "csv_sha256": "018b27dfa6857236f445b215bace5ccca68eb755ceec2c4d507e411ead019a58",
+  "markdown_sha256": "fa6f197a6249054f5f48d5ce0312624dabaeb5c78d82bcfb5a4d7e44a2428652",
+  "latex_sha256": "acaffa02f648eabd34cc7920c60399e14c50d868d0c93bb6eaa25ebe6b5882a5"
+}

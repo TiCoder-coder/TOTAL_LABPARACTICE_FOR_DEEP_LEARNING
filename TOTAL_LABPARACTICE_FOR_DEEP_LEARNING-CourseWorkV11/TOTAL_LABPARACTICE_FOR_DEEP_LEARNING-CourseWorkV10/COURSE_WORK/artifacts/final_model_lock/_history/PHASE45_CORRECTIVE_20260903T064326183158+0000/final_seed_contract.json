@@ -1,0 +1,29 @@
+{
+  "all_seeds_required": true,
+  "early_stopping_forbidden": true,
+  "fresh_model_each_seed": true,
+  "fresh_optimizer_each_seed": true,
+  "no_score_based_rerun": true,
+  "optimizer_state_reuse_forbidden": true,
+  "run_order": [
+    42,
+    123,
+    2026
+  ],
+  "same_config_all_seeds": true,
+  "same_data_all_seeds": true,
+  "same_environment_all_seeds": true,
+  "same_epochs_all_seeds": true,
+  "same_optimizer_loss_clipping_all_seeds": true,
+  "same_scalers_all_seeds": true,
+  "seed_order_dependence_forbidden": true,
+  "seed_replacement_forbidden": true,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "validation_forbidden": true,
+  "version": "FINAL_SEEDS-v1",
+  "warm_start_forbidden": true
+}

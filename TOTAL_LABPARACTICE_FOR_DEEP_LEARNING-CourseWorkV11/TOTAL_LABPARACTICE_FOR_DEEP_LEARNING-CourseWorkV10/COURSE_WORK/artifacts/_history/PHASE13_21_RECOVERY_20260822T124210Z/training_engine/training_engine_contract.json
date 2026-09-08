@@ -1,0 +1,11 @@
+{
+  "checkpoint_policy": "BEST_VALIDATION_RMSE_WH",
+  "early_stopping_metric": "rmse_wh",
+  "early_stopping_mode": "MIN",
+  "gradient_clipping_default": true,
+  "loss_name": "MSE",
+  "optimizer_name": "AdamW",
+  "selection_metric": "rmse_wh",
+  "selection_split": "VALIDATION",
+  "training_engine_version": "TRAINING_ENGINE-v1"
+}

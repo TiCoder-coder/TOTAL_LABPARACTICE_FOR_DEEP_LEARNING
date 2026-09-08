@@ -1,0 +1,16 @@
+{
+  "best_epoch": 12,
+  "epochs_executed": 22,
+  "mae_delta": 3.258444110088021e-07,
+  "r2_delta": 1.2625183121173222e-09,
+  "recomputed_mae": 28.660434597951895,
+  "recomputed_r2": 0.5925405752092452,
+  "recomputed_rmse": 58.878567640388276,
+  "rmse_delta": 9.121800559341864e-08,
+  "run_id": "RUN_TR_S17_0029_082F7FF5",
+  "stored_mae": 28.660434923796306,
+  "stored_r2": 0.5925405739467269,
+  "stored_rmse": 58.87856773160628,
+  "strict_best_verification": "PASS",
+  "tolerance": 1e-06
+}

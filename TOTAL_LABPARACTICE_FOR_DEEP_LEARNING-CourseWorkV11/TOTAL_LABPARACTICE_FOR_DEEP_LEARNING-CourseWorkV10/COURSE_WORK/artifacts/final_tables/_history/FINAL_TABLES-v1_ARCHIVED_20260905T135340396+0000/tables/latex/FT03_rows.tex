@@ -1,0 +1,18 @@
+\begin{table}[h!]
+\centering
+\caption{FT03 - Rolling-Origin Temporal Robustness (DEVELOPMENT\_EVIDENCE)}
+\label{tab:ft03\_-\_rolling-origin\_temporal\_robustness\_(development\_evidence)}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+model\_candidate & ro1\_rmse\_wh & ro2\_rmse\_wh & ro3\_rmse\_wh & pooled\_rmse\_wh & mean\_fold\_rmse\_wh & fold\_rmse\_sd\_wh & worst\_fold\_rmse\_wh & role \\
+\midrule
+PERSISTENCE\_LAST\_VALUE & N/A & N/A & N/A & 66.43 & N/A & N/A & N/A & Baseline \\
+LSTM\_TUNED\_WINNER & 51.90 & 57.63 & 67.17 & 59.24 & 58.90 & 7.72 & 67.17 & Baseline \\
+TR\_C0\_PRIMARY & 48.30 & 59.87 & 69.94 & 60.03 & 59.37 & 10.83 & 69.94 & N/A \\
+TR\_C1\_ALT\_WEIGHT\_DECAY & 50.27 & 60.51 & 68.49 & 60.22 & 59.76 & 9.14 & 68.49 & N/A \\
+TR\_C2\_ALT\_LOOKBACK & 49.76 & 59.08 & 69.16 & 59.86 & 59.33 & 9.70 & 69.16 & Final-source candidate (Phase 45) \\
+\bottomrule
+\end{tabular}
+\vspace{4pt}
+\footnotesize{DEVELOPMENT\_EVIDENCE only. Pooled RMSE is the primary criterion; mean fold RMSE is secondary.}\\
+\end{table}

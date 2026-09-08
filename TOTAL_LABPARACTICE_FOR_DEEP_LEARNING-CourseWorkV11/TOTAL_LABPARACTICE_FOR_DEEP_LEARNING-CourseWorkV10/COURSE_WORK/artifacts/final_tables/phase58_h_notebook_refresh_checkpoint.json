@@ -1,0 +1,96 @@
+{
+  "phase": 58,
+  "phase_name": "Final Tables",
+  "scope": "Notebook presentation-only refresh",
+  "active_revision": "FINAL_TABLES-v2",
+  "refresh_status": "PASS",
+  "refresh_at_utc": "2026-09-05T14:14:45.905995+00:00",
+  "active_upstream_lineage": {
+    "Phase54": "LAST_QUERY_ATTENTION-v2",
+    "Phase55": "HEAD_COMPARISON-v2",
+    "Phase56": "ERROR_CONDITIONED_ATTENTION-v2",
+    "Phase57": "SEED_STABILITY_ATTENTION-v2"
+  },
+  "canonical_identities": {
+    "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+    "config_fingerprint_sha256": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "phase47_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+  },
+  "cells_modified": {
+    "cell_146": {
+      "type": "markdown",
+      "source_changed": false,
+      "output_changed": false,
+      "note": "Cell 146 markdown byte-identical; no SHA/version/note/timestamp appended"
+    },
+    "cell_147": {
+      "type": "code",
+      "source_changed": false,
+      "output_changed": true,
+      "source_preserved": "from course_work.reporting.phase_58_dashboard import render_phase_58_dashboard\ndisplay(render_phase_58_dashboard(PROJECT_ROOT))"
+    }
+  },
+  "other_cells_changed": false,
+  "all_other_cells_unchanged": true,
+  "scientific_artifact_changed": false,
+  "source_code_changed": false,
+  "phase59_executed": false,
+  "run_all_used": false,
+  "stale_v1_markers_in_dashboard": {
+    "LAST_QUERY_ATTENTION-v1": false,
+    "HEAD_COMPARISON-v1": false,
+    "ERROR_CONDITIONED_ATTENTION-v1": false,
+    "SEED_STABILITY_ATTENTION-v1": false,
+    "FINAL_TABLES-v1": false
+  },
+  "active_v2_markers_in_dashboard": {
+    "LAST_QUERY_ATTENTION-v2": false,
+    "HEAD_COMPARISON-v2": false,
+    "ERROR_CONDITIONED_ATTENTION-v2": false,
+    "SEED_STABILITY_ATTENTION-v2": false,
+    "FINAL_TABLES-v2": false,
+    "note": "Existing dashboard source uses phase labels (PHASE 47/54/55/56/57) rather than versioned labels. Reading the active signoff/handoff ensures v2 is the implicit source. Per user directive, source .py was NOT modified."
+  },
+  "presentation_verification": {
+    "final_config_display_correct": true,
+    "final_refit_epochs_display_correct": true,
+    "early_stopping_display_correct": true,
+    "optimizer_display_correct": true,
+    "lr_wd_batch_clip_display_correct": true,
+    "final_test_metrics_display_correct": true,
+    "three_seed_summary_display_correct": true,
+    "phase54_entropy_display_correct": true,
+    "phase55_head_comparison_display_correct": true,
+    "phase56_error_conditioned_display_correct": true,
+    "phase57_seed_stability_display_correct": true,
+    "stale_zero_entropy_present": false,
+    "not_defined_constant_markers_present": false,
+    "no_common_targets_present": false,
+    "empty_matched_head_stability_present": false,
+    "no_best_seed_claim_visible": true,
+    "no_best_head_claim_visible": true,
+    "no_ensemble_claim_visible": true,
+    "no_causality_overclaim_visible": true,
+    "no_feature_importance_overclaim_visible": true
+  },
+  "shas_in_dashboard": {
+    "81fb87c4": true,
+    "d7dbc0b3": true,
+    "585c5e79": false,
+    "note": "Config fingerprint 585c5e79 not displayed in the dashboard footer. Per Phase58 plan, only final lock and Test population SHAs are surfaced."
+  },
+  "presentation_density_assessment": "Adequate - 6 summary cards row 1, 6 audit cards row 2, 14 main sections (A-N), 12 appendix cards, 1 provenance footer. Reader can identify final config (FT01) and final Test (FT02) quickly.",
+  "presentation_clutter": "None material. Pre-existing footer hardcoded label 'Phase 58 v1' is documented as a pre-existing source defect (per 'do NOT modify source .py' directive).",
+  "open_presentation_issues": [
+    "Footer hardcoded 'Phase 58 v1' is a pre-existing source defect; source cannot be modified per directive. Should be addressed in a future source-side cleanup if approved.",
+    "Active revision labels (FINAL_TABLES-v2 etc.) are not explicitly displayed; the dashboard uses phase labels. The active v2 state is verifiable via signoff/handoff."
+  ],
+  "test_metrics_in_dashboard": {
+    "seed42": "MAE=29.528646738232613 RMSE=64.94275370825517 R2=0.4892735101282182 (full precision; rounds to 29.52865/64.94275/0.48927)",
+    "seed123": "MAE=27.11486924829266 RMSE=61.98608587121866 R2=0.5347188997659036 (full precision; rounds to 27.11487/61.98609/0.53472)",
+    "seed2026": "MAE=28.94229416815529 RMSE=64.56013557970728 R2=0.4952737966044358 (full precision; rounds to 28.94229/64.56014/0.49527)",
+    "three_seed_summary": "MAE=28.528603384893522 RMSE=63.8296583863937 R2=0.5064220688328526 (full precision; rounds to 28.52860/63.82966/0.50642)"
+  },
+  "phase58_v2_corrective_checkpoint_reference": "artifacts/final_tables/phase58_v2_corrective_checkpoint.json",
+  "final_status": "PASS"
+}

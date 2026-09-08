@@ -1,0 +1,51 @@
+{
+  "artifact_version": "SWEEP-v1",
+  "config_fingerprint": "S8",
+  "created_at": "2026-08-21T15:48:18.525615+00:00",
+  "dataset_revision": null,
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s8_learning_rate/results.csv"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s8_learning_rate/results.csv": "da6449545b0d6bcc0f1dbb5564c897ae48521d897a4bd60fc0d7a9c1cb4343f8",
+    "artifacts/sweeps/s8_learning_rate/sweep_manifest.json": "04b4d14cb6b5715b008901d0607ca53253412a4b99b767f7b9b049941d038b7a"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s8_learning_rate/sweep_manifest.json",
+    "artifacts/sweeps/s8_learning_rate/results.csv"
+  ],
+  "phase_id": 30,
+  "phase_version": "PHASE-30-v1",
+  "status": "PASS",
+  "summary": {
+    "best_variant": {
+      "activation": "GELU",
+      "batch_size": 32,
+      "best_epoch": 13,
+      "condition": "LR3",
+      "feature_variant_id": "FS1_TF1",
+      "learning_rate": 0.001,
+      "lookback_steps": 144,
+      "pooling": "LAST_STEP",
+      "run_id": "RUN_TR_B0_0010_1CEB611E",
+      "sweep_id": "S8_LEARNING_RATE",
+      "target_scaling_option": "YS1",
+      "val_mae": 28.72,
+      "val_r2": 0.566,
+      "val_rmse": 60.76
+    },
+    "sweep_code": "S8",
+    "sweep_name": "S8 Learning-Rate Sweep",
+    "variant_count": 4
+  },
+  "tests": [
+    "results_csv_load",
+    "best_variant_recorded"
+  ],
+  "warnings": []
+}

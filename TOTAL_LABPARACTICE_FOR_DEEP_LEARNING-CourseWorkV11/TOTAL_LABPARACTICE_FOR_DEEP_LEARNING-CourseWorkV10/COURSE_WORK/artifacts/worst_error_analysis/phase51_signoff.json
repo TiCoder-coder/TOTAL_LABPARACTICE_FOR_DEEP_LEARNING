@@ -1,0 +1,113 @@
+{
+  "all_gates_pass": true,
+  "gates": [
+    {
+      "details": {
+        "checked": 24,
+        "drifted_or_missing": 0,
+        "issues": []
+      },
+      "id": "G1",
+      "name": "frozen_sha_verification",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "checked": 14,
+        "missing": []
+      },
+      "id": "G2",
+      "name": "phase51_f_exact_input_artifacts_complete",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "missing_required": []
+      },
+      "id": "G3",
+      "name": "o51_inventory_complete",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "n_figures_present": 12,
+        "n_figures_required": 12
+      },
+      "id": "G4",
+      "name": "figures_complete",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "n_memberships_actual": 160,
+        "n_memberships_expected": 160,
+        "n_unique_actual": 44,
+        "n_unique_expected": 44
+      },
+      "id": "G5",
+      "name": "casebook_complete",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "n_recon_actual": 44,
+        "n_recon_expected": 44
+      },
+      "id": "G6",
+      "name": "exact_input_reconstruction_complete",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "n_findings": 19
+      },
+      "id": "G7",
+      "name": "findings_created",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "attention_analysis_executed_must_be_false": true,
+        "phase52_authorized_must_be_false": true
+      },
+      "id": "G8",
+      "name": "phase52_handoff_safety",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "critical_or_high_open": 0
+      },
+      "id": "G9",
+      "name": "discrepancies_resolved_or_documented",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "attention_analysis_executed": false,
+        "best_seed_selected": false,
+        "checkpoint_loading": false,
+        "ensemble": false,
+        "new_test_inference": false,
+        "phase47_modified": false,
+        "phase48_modified": false,
+        "phase49_modified": false,
+        "phase50_modified": false,
+        "prediction_correction": false,
+        "scaler_fit": false,
+        "training": false
+      },
+      "id": "G10",
+      "name": "safety_invariants",
+      "status": "PASS"
+    }
+  ],
+  "n_gates": 10,
+  "phase": 51,
+  "phase51_status": "PASS",
+  "phase52_authorized": false,
+  "ready_for_phase51_h": true,
+  "ready_for_phase52": true,
+  "subphase": "51-G",
+  "version": "PHASE51_SIGNOFF-v1"
+}

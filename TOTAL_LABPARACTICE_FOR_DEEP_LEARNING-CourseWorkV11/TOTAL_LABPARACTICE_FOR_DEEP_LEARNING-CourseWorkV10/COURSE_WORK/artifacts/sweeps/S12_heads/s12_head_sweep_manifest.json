@@ -1,0 +1,83 @@
+{
+  "artifact_version": "SWEEP_S12-v1",
+  "best_variant": {
+    "activation_id": "GELU",
+    "batch_id": "B32",
+    "condition_id": "H4",
+    "config_fingerprint": "ae0fb819cd0ecca797892a5f6e2f9758c7809c01f5ab92daaeca21a880d5a6ba",
+    "d_model": 64,
+    "d_model_id": "D64",
+    "dropout": 0.1,
+    "evidence_mode": "HISTORICAL_REFERENCE_WITH_INCOMPLETE_ARTIFACT_RETENTION",
+    "evidence_status": "PASS_WITH_WARNING",
+    "factor_value": 4,
+    "feature_variant_id": "FS2_TF1",
+    "ffn_dim": 128,
+    "geometry_fingerprint": "c2db91d1ffb449fc1ebb8c16f358e4fbc0ae1a604a4d5046eee231b163d58761",
+    "head_dim": 16,
+    "learning_rate": 0.0003,
+    "lookback_id": "L36",
+    "metric_version": "METRICS-v1",
+    "missing_artifacts": [
+      {
+        "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/training.log",
+        "expected_sha256": "f709354699e8fb103b226fbae64ac2d2611fd80854ae1342246e86c94415d5d7",
+        "retention_status": "MISSING_UNRECOVERABLE"
+      },
+      {
+        "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/checkpoints/best_checkpoint.pt",
+        "expected_sha256": "3ccf735488336340275a4dccf040fcd17b98a4fa4746d3e665cf14f97428d75d",
+        "retention_status": "MISSING_UNRECOVERABLE"
+      },
+      {
+        "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/predictions/best_validation_predictions.csv",
+        "expected_sha256": "9bb212edb469f8fac02cf9179a401fec04d27487131a1e17a5e14179b94a5a4e",
+        "retention_status": "MISSING_UNRECOVERABLE"
+      },
+      {
+        "artifact_path": "artifacts/runs/RUN_TR_S09_0016_AE0FB819/training_history.csv",
+        "expected_sha256": "635e00dfcd032c3664c5e031b13f38d94caa3f73c4c6bf142eb0d6883d9eb43b",
+        "retention_status": "MISSING_UNRECOVERABLE"
+      }
+    ],
+    "num_heads": 4,
+    "num_layers": 2,
+    "parameter_schema_fingerprint": "71ea783e1a2ceb722dc927f0e9513d0e9592cc416696fd9eb43f0fece0cc5873",
+    "pooling_id": "LAST_STEP",
+    "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+    "reused_reference": true,
+    "run_id": "RUN_TR_S09_0016_AE0FB819",
+    "state_shape_fingerprint": "fdf9f6a932e188944312ea2421591a1c2d2216c4ebce4fb08a418fb4dc0cad8a",
+    "target_scaling_id": "YS1",
+    "trainable_parameters": 69185,
+    "validation_mae_wh": 27.595002038670813,
+    "validation_r2": 0.6034923842647237,
+    "validation_rmse_wh": 58.08190056355405,
+    "warnings": [
+      "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+    ],
+    "weight_decay": 0.001
+  },
+  "condition_count": 2,
+  "created_at": "2026-08-23T19:16:19.370760+00:00",
+  "expected_conditions": [
+    "H2",
+    "H4"
+  ],
+  "phase_id": 34,
+  "phase_version": "PHASE-34-v1",
+  "reference_condition": "H4",
+  "results_sha256": "8f1c0a58f09c7f5d068d5b0f8b269c19af9e5d3b670b29c4d00bf81643974b74",
+  "row_count": 2,
+  "selection_direction": "MIN",
+  "selection_metric": "VALIDATION_RMSE_WH",
+  "status": "PASS_WITH_WARNING",
+  "sweep_code": "S12",
+  "sweep_id": "S12_HEADS",
+  "sweep_name": "S12 Head Sweep",
+  "test_access": "FORBIDDEN",
+  "tie_rule": "H2_ON_EXACT_RMSE_TIE",
+  "warnings": [
+    "H4_SOURCE_ARTIFACT_RETENTION_INCOMPLETE"
+  ]
+}

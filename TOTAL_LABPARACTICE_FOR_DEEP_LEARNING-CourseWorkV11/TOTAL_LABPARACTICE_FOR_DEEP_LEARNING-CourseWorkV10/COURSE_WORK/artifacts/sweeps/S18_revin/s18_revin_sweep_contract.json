@@ -1,0 +1,42 @@
+{
+  "backbone_invariant": "input_projection, pos_enc, MHA, LN, FFN, activation, dropout, num_layers, pooling, head",
+  "created_at": "2026-08-24T15:09:06.371194+00:00",
+  "external_contract": {
+    "attention_shape": "[B, H*, L*, L*] per encoder layer",
+    "forward(x)": "[B, L, F] -> [B, 1] y_model",
+    "forward_with_attention(x)": "[B, L, F] -> ([B, 1] y_model, list[Tensor])"
+  },
+  "parameter_delta_expected": "2 * C_R (gamma + beta)",
+  "passthrough_channel_count": 5,
+  "revin_channel_count": 28,
+  "revin_contract": {
+    "affine": true,
+    "affine_bias_init": 0.0,
+    "affine_weight_init": 1.0,
+    "centering": "mean",
+    "eps": 1e-05,
+    "revin_enabled": true,
+    "running_stats": false,
+    "statistics_axis": "TIME (dim=1) only",
+    "statistics_detached": true,
+    "statistics_scope": "per-sample, per-feature",
+    "subtract_last": false,
+    "unbiased": false,
+    "variance": "population"
+  },
+  "scope_policy": {
+    "G1_historical_Appliances": true,
+    "G2_raw_continuous_exogenous": true,
+    "G3_rv1_rv2_if_present": true,
+    "G4_time_features_passthrough": true,
+    "time_features_exact_set": [
+      "hour_sin",
+      "hour_cos",
+      "dow_sin",
+      "dow_cos",
+      "weekend"
+    ]
+  },
+  "test_access": "forbidden",
+  "wb_protocol": "WB0"
+}

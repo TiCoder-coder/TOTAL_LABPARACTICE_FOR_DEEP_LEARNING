@@ -1,0 +1,52 @@
+{
+  "approved_for_phase27": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/sweep_manifest.json",
+    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/phase_26_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S4-v1",
+  "created_at": "2026-08-22T15:30:48.515664+00:00",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+    "artifacts/sweeps/s4_lookback/s4_reference_update.json": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+    "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s4_lookback/results.csv",
+    "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+    "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+  ],
+  "phase_id": 26,
+  "phase_version": "PHASE-26-v1",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": []
+}

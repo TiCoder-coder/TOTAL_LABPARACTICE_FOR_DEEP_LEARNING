@@ -1,0 +1,41 @@
+{
+  "criterion_config": {
+    "huber_delta_model_space": null,
+    "loss_id": "L0",
+    "loss_name": "MSELoss",
+    "reduction": "mean",
+    "registry_loss_name": "MSE"
+  },
+  "gradient_diagnostics": {
+    "clip_max_norm": 1.0,
+    "clip_order": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_CLIP_OPTIMIZER_STEP",
+    "clipped_batches": 150,
+    "clipping_fraction": 0.35046728971962615,
+    "max_preclip_global_grad_norm": 2.780042904470381,
+    "mean_preclip_global_grad_norm": 0.9285560401226829,
+    "nonfinite_grad_events": 0,
+    "total_batches": 428
+  },
+  "metric_result": {
+    "finite_status": "PASS",
+    "horizon_steps": 1,
+    "lookback_steps": 144,
+    "mae_wh": 32.326998329368095,
+    "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+    "metric_version": "METRICS-v1",
+    "model_id": "LSTM Regressor",
+    "n_samples": 2960,
+    "population_fingerprint": "8dea0fb4f44b7acb264a5d840f0f44c0b2c3481f42e5d459a2294f7572cc6bae",
+    "prediction_unit": "Wh",
+    "r2": 0.4037092692106291,
+    "r2_status": "DEFINED",
+    "rmse_wh": 71.22690631883825,
+    "run_id": "RUN_LS_LST_0039_E117CD43",
+    "selection_metric_name": "rmse_wh",
+    "selection_metric_value": 71.22690631883825,
+    "split_id": "VALIDATION",
+    "status": "PASS",
+    "target_unit": "Wh",
+    "warnings": []
+  }
+}

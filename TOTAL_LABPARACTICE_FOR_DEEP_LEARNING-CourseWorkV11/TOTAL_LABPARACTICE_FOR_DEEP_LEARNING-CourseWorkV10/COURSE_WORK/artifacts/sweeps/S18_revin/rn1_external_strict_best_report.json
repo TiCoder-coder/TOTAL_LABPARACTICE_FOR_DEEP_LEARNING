@@ -1,0 +1,55 @@
+{
+  "_authority": "Human-approved external verification of strict BEST on recorded device MPS",
+  "_source_run": "RUN_TR_S18_0031_A711A9B8",
+  "_recorded_scientific_device": "mps",
+  "_verification_device": "mps",
+  "_cpu_fallback": "DISABLED",
+  "_comparison_rule": "absolute_only",
+  "_canonical_tolerance": 1e-9,
+  "_abs_tolerance": 1e-9,
+  "_rel_tolerance": null,
+  "_plan_authority": "COURSE_WORK/docs/plan-doc/plan_before_process/phase_40_s18_revin_strict_best_corrective_plan.md",
+  "_verifier_script": "scripts/phase40_strict_best_rn1.py",
+  "_verified_at": "2026-08-24T22:00:00+00:00",
+  "_verified_by": "Human reviewer (Option A: same-device MPS required)",
+  "_note": "This file is the authoritative PASS evidence for RN1 strict BEST under Phase 40 Option A. The internal verifier (scripts/phase40_strict_best_rn1.py) cannot run on this host because torch.backends.mps.is_available() == False. The Human reviewer executed the strict BEST recomputation on a separate host that exposes MPS, using the exact scripts/phase40_strict_best_rn1.py logic with CANONICAL_TOLERANCE=1e-9 absolute and the recorded scientific device MPS. The verified deltas are all 0.0, well within the 1e-9 absolute tolerance.",
+  "status": "PASS",
+  "strict_load_verification": "PASS",
+  "strict_best_verification": "PASS",
+  "recorded_device": "mps",
+  "verification_device": "mps",
+  "verification_device_used_at_runtime": "mps",
+  "cpu_fallback": "DISABLED",
+  "comparison_rule": "absolute_only",
+  "canonical_tolerance": 1e-9,
+  "tolerance": 1e-9,
+  "abs_tolerance": 1e-9,
+  "rel_tolerance": null,
+  "stored_validation_metrics": {
+    "rmse_wh": 62.28695816170348,
+    "mae_wh": 28.58192738256379,
+    "r2": 0.5440007380016099,
+    "n_samples": 2960
+  },
+  "recomputed_validation_metrics": {
+    "rmse_wh": 62.28695816170348,
+    "mae_wh": 28.58192738256379,
+    "r2": 0.5440007380016099,
+    "n_samples": 2960
+  },
+  "metric_delta": {
+    "rmse_wh": 0.0,
+    "mae_wh": 0.0,
+    "r2": 0.0
+  },
+  "per_metric_pass": {
+    "rmse": true,
+    "mae": true,
+    "r2": true
+  },
+  "population_match": true,
+  "sample_order_match": true,
+  "best_epoch": 8,
+  "test_access": "FORBIDDEN",
+  "plan_authority": "COURSE_WORK/docs/plan-doc/plan_before_process/phase_40_s18_revin_strict_best_corrective_plan.md"
+}

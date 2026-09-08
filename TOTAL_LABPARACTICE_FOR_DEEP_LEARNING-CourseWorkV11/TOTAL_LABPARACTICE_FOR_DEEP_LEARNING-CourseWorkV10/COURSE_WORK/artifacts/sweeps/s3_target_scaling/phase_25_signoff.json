@@ -1,0 +1,50 @@
+{
+  "approved_for_phase26": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s3_target_scaling/_history/phase_25/20260822T152415683170Z/sweep_manifest.json",
+    "artifacts/sweeps/s3_target_scaling/_history/phase_25/20260822T152415683170Z/phase_25_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S3-v1",
+  "created_at": "2026-08-22T15:24:15.682695+00:00",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+    "artifacts/runs/RUN_TR_S03_0007_2E1E02EF/config.json": "fb4c4c1a1e25fc5df8b62dad6dd635c0b8ce96b08f3c33af59e0b4e22d48df14",
+    "artifacts/sweeps/s2_time_feature/phase_24_signoff.json": "e67c8d1aaf93af76c1d1806f01d419532e30caffa69d5fcf87f83b181129f477",
+    "artifacts/sweeps/s2_time_feature/s2_reference_update.json": "37a00e97d2e0617e324d6df167ef5cb856e3dc70fa85550610a0de90778d89d8",
+    "artifacts/sweeps/s2_time_feature/s2_time_feature_winner.json": "c723b93c2e6dce8a6375106057bfe8a7f1f8ac7dedb36df0411de1f86eab8201"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s2_time_feature/phase_24_signoff.json",
+    "artifacts/sweeps/s2_time_feature/s2_time_feature_winner.json",
+    "artifacts/sweeps/s2_time_feature/s2_reference_update.json",
+    "artifacts/runs/RUN_TR_S03_0007_2E1E02EF/config.json",
+    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s3_target_scaling/results.csv": "665524c0b332d198718a1f21d76c49ebd1a28814139863c9ae14f91dfa452f09",
+    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "55344c17c6b48da4473e3a8d9ba83e4c2c28ce77c3315459d3a959e9bc084505",
+    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2f8968065267e5d6ace0834070eb635e9ecb512d77e19f8623b27dc4c47ccd78",
+    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json": "ab34f2505a8f167de47c33cd9e8d7943ddcc2ae55df3ac5eb6a811f8bc96f565"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s3_target_scaling/results.csv",
+    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json"
+  ],
+  "phase_id": 25,
+  "phase_version": "PHASE-25-v1",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": []
+}

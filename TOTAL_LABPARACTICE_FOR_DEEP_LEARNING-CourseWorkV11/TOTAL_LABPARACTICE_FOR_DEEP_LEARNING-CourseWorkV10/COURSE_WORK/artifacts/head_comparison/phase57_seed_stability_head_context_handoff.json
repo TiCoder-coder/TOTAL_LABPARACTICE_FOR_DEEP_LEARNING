@@ -1,0 +1,21 @@
+{
+  "phase": 55,
+  "downstream_phase": 57,
+  "downstream_name": "Seed-stability head context",
+  "source_phase55_version": "HEAD_COMPARISON-v2",
+  "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+  "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+  "phase47_canonical_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "within_seed_pairwise_jsd": "see head_similarity_matrix_jsd.csv (architectural order)",
+  "within_seed_pairwise_wasserstein": "see head_distance_matrix_wasserstein.csv (architectural order)",
+  "head_to_layer_mean_distance": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/head_comparison/head_to_layer_mean_distance.csv",
+  "layer_head_diversity_summary": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/head_comparison/layer_head_diversity_summary.csv",
+  "per_seed_head_profiles_ref": "/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/last_query_attention/last_query_profile_by_lag.csv",
+  "head_count": 4,
+  "layer_count": 2,
+  "same_index_semantic_alignment_assumed": false,
+  "head_matching_performed": false,
+  "phase57_authorized": false,
+  "ready_for_phase57_context": true
+}

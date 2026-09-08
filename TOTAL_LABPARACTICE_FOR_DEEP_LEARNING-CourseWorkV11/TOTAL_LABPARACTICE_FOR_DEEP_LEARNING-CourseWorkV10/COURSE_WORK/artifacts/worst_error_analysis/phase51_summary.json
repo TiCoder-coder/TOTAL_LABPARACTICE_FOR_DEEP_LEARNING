@@ -1,0 +1,109 @@
+{
+  "candidate_lineage": {
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "feature_count": 33,
+    "feature_set": "FS2_TF1",
+    "lookback": 72,
+    "model_family": "Transformer (FS2_TF1)",
+    "n_test": 2961,
+    "seeds": [
+      "42",
+      "123",
+      "2026"
+    ],
+    "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "test_population_fingerprint_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87"
+  },
+  "critical_or_high_open": 0,
+  "discrepancies_documented": 1,
+  "discrepancies_open": 0,
+  "discrepancies_resolved": 12,
+  "discrepancies_total": 13,
+  "exact_input_verified_count": 44,
+  "lstm_reason_verbatim": "",
+  "lstm_status": "NOT_ELIGIBLE_CONFIG_MISMATCH",
+  "n_casebook_memberships": 160,
+  "n_casebook_unique_targets": 44,
+  "n_exact_input_reconstructions": 44,
+  "n_figures": 12,
+  "n_findings": 19,
+  "n_local_context_cases": 160,
+  "n_persistence_context_rows": 160,
+  "n_persistence_overprediction": 59,
+  "n_persistence_underprediction": 101,
+  "n_regime_overrepresentation_rows": 216,
+  "o51_found": 38,
+  "o51_missing": 0,
+  "o51_overall_status": "PASS",
+  "o51_required": 38,
+  "phase": 51,
+  "phase50_regime_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+  "phase50_train_threshold_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+  "phase51_status": "PASS_AFTER_ALL_CORRECTIVES",
+  "phase51_subphase_status": {
+    "51-A": "PASS",
+    "51-B": "PASS",
+    "51-C": "PASS (frozen-contract corrective applied)",
+    "51-D": "PASS",
+    "51-E": "PASS",
+    "51-F": "PASS (exact-input corrective applied)",
+    "51-G finalization": "PASS"
+  },
+  "phase52_authorized": false,
+  "ready_for_phase52": true,
+  "residual_convention": {
+    "definition": "residual = y_true - y_pred",
+    "negative": "OVERPREDICTION",
+    "positive": "UNDERPREDICTION",
+    "zero": "EXACT_ZERO"
+  },
+  "safety_invariants": {
+    "attention_analysis_executed": false,
+    "best_seed_selected": false,
+    "checkpoint_loading": false,
+    "ensemble": false,
+    "new_test_inference": false,
+    "optimizer_steps": 0,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_modified": false,
+    "phase50_modified": false,
+    "prediction_correction": false,
+    "scaler_fit": false,
+    "training": false
+  },
+  "subphase": "51-G",
+  "title": "Phase 51 — Worst-Error Analysis (final summary)",
+  "top20_sae_share_seed123": 0.107667535,
+  "top20_sae_share_seed2026": 0.103845031,
+  "top20_sae_share_seed42": 0.102922752,
+  "top20_sse_share_seed123": 0.335476439,
+  "top20_sse_share_seed2026": 0.324793284,
+  "top20_sse_share_seed42": 0.331313367,
+  "version": "PHASE51_SUMMARY-v1",
+  "w1_pairwise_123-2026": {
+    "intersection": 18,
+    "jaccard": 0.818182,
+    "union": 22
+  },
+  "w1_pairwise_123-42": {
+    "intersection": 18,
+    "jaccard": 0.818182,
+    "union": 22
+  },
+  "w1_pairwise_2026-42": {
+    "intersection": 19,
+    "jaccard": 0.904762,
+    "union": 21
+  },
+  "w1_per_seed_count": 60,
+  "w1_three_seed_intersection": {
+    "intersection": 17,
+    "intersection_target_ids": "TGT_00016855,TGT_00017657,TGT_00017677,TGT_00017696,TGT_00017717,TGT_00017860,TGT_00018148,TGT_00018820,TGT_00018829,TGT_00018841,TGT_00019540,TGT_00019541,TGT_00019552,TGT_00019581,TGT_00019582,TGT_00019585,TGT_00019684"
+  },
+  "w2_shared_count": 20,
+  "w3_shared_under_count": 10,
+  "w3_underprediction_count": 30,
+  "w4_overprediction_count": 30,
+  "w4_shared_over_count": 10
+}

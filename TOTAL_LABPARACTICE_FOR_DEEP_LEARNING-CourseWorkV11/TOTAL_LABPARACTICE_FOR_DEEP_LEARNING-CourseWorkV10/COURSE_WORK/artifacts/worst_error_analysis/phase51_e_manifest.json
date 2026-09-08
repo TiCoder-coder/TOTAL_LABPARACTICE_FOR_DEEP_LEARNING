@@ -1,0 +1,93 @@
+{
+  "created_at_utc": "2026-09-04T07:12:37.465840+00:00",
+  "deliverables": {
+    "baseline_context": {
+      "path": "artifacts/worst_error_analysis/baseline_context.csv",
+      "sha256": "365b98dce4a32494871850bbb6d1bdcf59a3ecadccd880cfa071b9e7a3f9f86a"
+    },
+    "baseline_context_summary": {
+      "path": "artifacts/worst_error_analysis/baseline_context_summary.csv",
+      "sha256": "0fe3ab37bf3563122dd64e87ab17edbeabc4b6d646243052bce83b30854bdd89"
+    },
+    "lstm_eligibility_context": {
+      "path": "artifacts/worst_error_analysis/lstm_eligibility_context.json",
+      "sha256": "e5cf64f1e4c59d6fe088ef6bbabf66fa28a4710a81114c14a578ebb956e8c882"
+    },
+    "regime_composition": {
+      "path": "artifacts/worst_error_analysis/regime_composition.csv",
+      "sha256": "2e235a4bc76d9235d2198205b3b812a05597f5edb38b4b0cc01dd0dec4214860"
+    },
+    "regime_context": {
+      "W1_PER_SEED_WORST": {
+        "path": "artifacts/worst_error_analysis/regime_composition.csv",
+        "sha256": "2d431a5a22d00f8fbae9bc8e59447c5c584e81e991a99063472803b5e65dc306"
+      },
+      "W2_SHARED_WORST": {
+        "path": "artifacts/worst_error_analysis/shared_worst_regime_context.csv",
+        "sha256": "cb948de5d37f9bb94902a4a35f7edb8119afa2b097721a0fb31e1edaafbf6889"
+      },
+      "W3_SH_SHARED_ALL_UNDER": {
+        "path": "artifacts/worst_error_analysis/regime_composition.csv",
+        "sha256": "f9d2710379d95ffb08c21806ed7ef475e760fd6a48e5d6adbef29419fc841041"
+      },
+      "W3_UNDERPREDICTION_WORST": {
+        "path": "artifacts/worst_error_analysis/regime_composition.csv",
+        "sha256": "5aaf61e0307e2a391bafba0520949d4073c883157cf6a169783310aca2b7cb55"
+      },
+      "W4_OVERPREDICTION_WORST": {
+        "path": "artifacts/worst_error_analysis/regime_composition.csv",
+        "sha256": "7a9fe4e936373cd6f089e1a2275fd8c53b8b12cd5fdf1f1c0fa41b479338ac49"
+      },
+      "W4_SH_SHARED_ALL_OVER": {
+        "path": "artifacts/worst_error_analysis/regime_composition.csv",
+        "sha256": "1aeeeba40a7201d522944bb76bbf7777f548549eb532a1b5fcbca638576c2f76"
+      }
+    },
+    "regime_overrepresentation": {
+      "path": "artifacts/worst_error_analysis/regime_overrepresentation.csv",
+      "sha256": "dfcd4a0d69957e4249d41d382a0118342f8464281a3c88486d46a61a3fa3bafe"
+    }
+  },
+  "forbidden_actions_status": {
+    "best_seed_selected": false,
+    "casebook_created": false,
+    "checkpoint_loading": false,
+    "ensemble": false,
+    "figures_created": false,
+    "individual_case_inspection_executed": false,
+    "input_context_executed": false,
+    "lstm_context_executed": true,
+    "new_test_inference": false,
+    "persistence_context_executed": true,
+    "prediction_correction": false,
+    "regime_enrichment_executed": true,
+    "scaler_fit": false,
+    "temporal_context_executed": false,
+    "three_n_iid_interpretation": false,
+    "training": false
+  },
+  "phase": 51,
+  "phase47_global_interpretation_preserved": "Persistence better globally on MAE. Transformer better globally on RMSE and R^2.",
+  "phase51_d_canonical_sha256s": {
+    "error_concentration_table.csv": "8913a7dd1d43f5f58b1d0db86900ccf0815504fd087e9669dcff26678781565e",
+    "hardness_group_summary.csv": "98a2da44cdf059e35d852139fff9af3f2a06bc0dfc5158919b4667f51afbb3e4",
+    "hardness_vs_seed_disagreement.csv": "33052a40551e28c91762ea4fff28975edb027ade0fecdef47b63be13e6baa9aa",
+    "seed_overlap_table.csv": "6fb4c9cd5055763ae77cad6af2627c7439295d7eda084c55b41688076f3c402e",
+    "shared_all_over_top10.csv": "a43b0f0a46c284e7949c2025bd5a8574af25b1215a886629a891fa7f14bdf3be",
+    "shared_all_under_top10.csv": "0b4bf8cb1e4f21c0bcf8f45cbe912b525d9f998f85849f2d954a533e66912637",
+    "worst_case_membership_matrix.csv": "036442da9f282b7e9008304672da25c25470e4443ff130f4dc1065636e60db3e",
+    "worst_overprediction_top10.csv": "a325c870d68d39a208797cf8349fd57aeec1b60a42a0b51ce40aab05115c7cfa",
+    "worst_per_seed_top20.csv": "28c91ab02876e4c2533f811cd87a524c36f2e0b113ac118d7c32bf2fe9f9b716",
+    "worst_shared_top20.csv": "e551d14870992ec1739b5ae6d8bf403e551b8f6598e72462188eded01d0c678a",
+    "worst_underprediction_top10.csv": "9a0e4bb2eab97084bff8197c1251a0e9bd7a0abb627dc45439e0cb43d52e29d8"
+  },
+  "ready_for_phase51_f": false,
+  "source_shas": {
+    "persistence_sha256": "7115af1c479b89575f2f7ed6c065a68d214e44d336a0c681c033a8015bd9ee9b",
+    "phase50_assignment_sha256": "e90553cfc747a3f15e0e9ec9e6868ae497e7ade797dc14a81999e416b74219ac",
+    "selection_contract_sha256": "ec798326cb03586e85ce7ba09d53be03016a234fe15e1ba5fb4b3fbf0eb967d4",
+    "working_table_sha256": "81c43b504d932d52e30ae9358b9cfd3f1e125541e4d6fbd5b84927a45c5afc9f"
+  },
+  "subphase": "51-E",
+  "version": "WORST_ERROR_ANALYSIS_REGIME_CONTEXT-v1"
+}

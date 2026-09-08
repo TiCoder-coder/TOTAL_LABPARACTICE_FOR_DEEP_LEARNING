@@ -1,0 +1,12 @@
+{
+  "all_match": true,
+  "recomputed_config_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "recomputed_lineage_sha256": "376ae5fcaf05dc61ae2ce523aa60277558a5eff1bf94f0302b4b8990836eab6b",
+  "recomputed_lock_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "recomputed_recipe_sha256": "46d5ab122919bd9d45b659b34e75fb896f3171a42e50db6ee4f3923e44ec4181",
+  "status": "PASS",
+  "stored_config_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "stored_lineage_sha256": "376ae5fcaf05dc61ae2ce523aa60277558a5eff1bf94f0302b4b8990836eab6b",
+  "stored_lock_sha256": "a711a9b8e2f23c43e3409a5f01bf1946c0a7f292d1028f92df33bee06fbd1b14",
+  "stored_recipe_sha256": "46d5ab122919bd9d45b659b34e75fb896f3171a42e50db6ee4f3923e44ec4181"
+}

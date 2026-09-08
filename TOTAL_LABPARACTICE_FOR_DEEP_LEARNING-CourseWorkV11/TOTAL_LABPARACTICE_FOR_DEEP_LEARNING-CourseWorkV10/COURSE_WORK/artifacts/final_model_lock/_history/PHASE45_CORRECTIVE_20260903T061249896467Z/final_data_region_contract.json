@@ -1,0 +1,21 @@
+{
+  "WB0": true,
+  "continuity": "strict",
+  "excluded_splits": [
+    "TEST"
+  ],
+  "first_allowed_timestamp": null,
+  "first_test_target_timestamp_metadata": null,
+  "horizon": 1,
+  "included_splits": [
+    "TRAIN",
+    "VALIDATION"
+  ],
+  "last_allowed_training_target_timestamp": null,
+  "lookback": 36,
+  "region_id": "FINAL_DEV_REGION-v1",
+  "split_version": "SPLIT-v1",
+  "target_ids_fingerprint": null,
+  "target_population_rule": "WB0",
+  "test_target_values_accessed": false
+}

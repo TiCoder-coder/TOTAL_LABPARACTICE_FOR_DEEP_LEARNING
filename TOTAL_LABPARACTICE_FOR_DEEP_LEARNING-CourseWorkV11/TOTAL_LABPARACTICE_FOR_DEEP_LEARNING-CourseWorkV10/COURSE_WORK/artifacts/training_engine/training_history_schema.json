@@ -1,0 +1,8 @@
+{
+  "columns": [
+    "epoch",
+    "train_loss",
+    "validation_rmse_wh"
+  ],
+  "schema_version": "HIST-v1"
+}

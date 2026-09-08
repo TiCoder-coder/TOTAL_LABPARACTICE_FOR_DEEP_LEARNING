@@ -1,0 +1,27 @@
+{
+  "phase": 52,
+  "downstream_phase": 57,
+  "downstream_name": "Seed Stability Attention Check",
+  "ready_for_phase57": true,
+  "phase57_authorized": false,
+  "seeds": [
+    42,
+    123,
+    2026
+  ],
+  "same_target_order_across_seeds": true,
+  "same_dense_case_order_across_seeds": true,
+  "head_index_semantic_alignment_not_guaranteed": true,
+  "k_dense_cases": 44,
+  "n_test": 2961,
+  "raw_files_dense": {
+    "dense_case_attention_seed42.npz": "33d979a1b6b0aa6e1c2af11c88f1ee943a46b4489e849f6675e65a5036de1d3c",
+    "dense_case_attention_seed123.npz": "29b8fdebcfe771f3b0c9e5e215417a37d6dec5ce16b8b6054a60aa21ee2cca25",
+    "dense_case_attention_seed2026.npz": "5d4824a5f2f8b46d1ee8e1b9ba5ad6da43159352e32be121dca4dc2abfbc78bc"
+  },
+  "raw_files_last_query": {
+    "last_query_attention_seed42.npz": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+    "last_query_attention_seed123.npz": "00e2f8e7852908764b3712d9b172faa644dc69d176241962bc14c68fee31110e",
+    "last_query_attention_seed2026.npz": "34051966fc47bf96f4e288ac5e984815feff217ad65828882383ee4643cc5a19"
+  }
+}

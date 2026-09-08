@@ -1,0 +1,158 @@
+{
+  "phase": 54,
+  "version": "LAST_QUERY_ATTENTION-v2",
+  "created_at_utc": "2026-09-04T13:32:23+00:00",
+  "expected": 31,
+  "actual": 27,
+  "items": [
+    {
+      "id": "O54.01",
+      "filename": "artifacts/last_query_attention/phase54_preflight_audit.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.02",
+      "filename": "artifacts/last_query_attention/last_query_source_verification.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.03",
+      "filename": "artifacts/last_query_attention/last_query_integrity_audit.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.04",
+      "filename": "artifacts/last_query_attention/last_query_target_order_audit.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.05",
+      "filename": "artifacts/last_query_attention/last_query_lag_mapping_audit.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.06",
+      "filename": "artifacts/last_query_attention/last_query_attention_contract.json",
+      "exists": true
+    },
+    {
+      "id": "O54.07",
+      "filename": "artifacts/last_query_attention/last_query_metrics_long.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.08",
+      "filename": "artifacts/last_query_attention/last_query_phase52_summary_reconstruction_audit.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.09",
+      "filename": "artifacts/last_query_attention/last_query_metric_summary_by_head.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.10",
+      "filename": "artifacts/last_query_attention/last_query_profile_by_lag.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.11",
+      "filename": "artifacts/last_query_attention/last_query_layer_head_mean_profile.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.12",
+      "filename": "artifacts/last_query_attention/last_query_seed_overall_profile.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.13",
+      "filename": "artifacts/last_query_attention/last_query_lag_bin_mass.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.14",
+      "filename": "artifacts/last_query_attention/last_query_recent_mass_summary.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.15",
+      "filename": "artifacts/last_query_attention/last_query_coverage_radius_summary.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.16",
+      "filename": "artifacts/last_query_attention/last_query_top1_lag_frequency.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.17",
+      "filename": "artifacts/last_query_attention/last_query_top1_tie_summary.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.18",
+      "filename": "artifacts/last_query_attention/last_query_report_case_manifest.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.19",
+      "filename": "artifacts/last_query_attention/last_query_report_case_metrics.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.20",
+      "filename": "(see figures/*.png)",
+      "exists": false
+    },
+    {
+      "id": "O54.21",
+      "filename": "artifacts/last_query_attention/phase55_head_comparison_handoff.json",
+      "exists": true
+    },
+    {
+      "id": "O54.22",
+      "filename": "artifacts/last_query_attention/phase56_error_conditioned_attention_context_handoff.json",
+      "exists": true
+    },
+    {
+      "id": "O54.23",
+      "filename": "artifacts/last_query_attention/phase57_seed_stability_attention_context_handoff.json",
+      "exists": true
+    },
+    {
+      "id": "O54.24",
+      "filename": "artifacts/last_query_attention/last_query_analysis_findings.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.25",
+      "filename": "artifacts/last_query_attention/last_query_attention_discrepancies.json",
+      "exists": true
+    },
+    {
+      "id": "O54.26",
+      "filename": "artifacts/last_query_attention/last_query_attention_tests.csv",
+      "exists": true
+    },
+    {
+      "id": "O54.27",
+      "filename": "artifacts/last_query_attention/last_query_attention_manifest.json",
+      "exists": true
+    },
+    {
+      "id": "O54.28",
+      "filename": "artifacts/last_query_attention/last_query_attention_summary.json",
+      "exists": true
+    }
+  ],
+  "previous_version": "LAST_QUERY_ATTENTION-v1",
+  "corrective_at_utc": "2026-09-05T08:57:56.384414+00:00",
+  "corrected_artifact_shas": {
+    "last_query_metric_summary_by_head.csv": "df08ce2c0c89907fbacbdde0e2fc3c0c2df0fc4ba06f6d9f8e00ae3bdb7e6dab",
+    "last_query_metrics_long.csv": "fc2fa821e140af5971acfcf9881c3b0d4f43cc3e7b592a3a3d2535c4ed5e56c5",
+    "last_query_attention_contract.json": "a29e9e867841603ba383d2067526b7d4dba65fb8a25ff0b697489a6e31372b20",
+    "last_query_lag_bin_mass.csv": "ce130031afb4555e7a796c05098647981320a73e092526a30f49ad2f9b210a4f",
+    "phase_54_signoff.json": "2e16ef0b6f0c462071dbff3fc9ef80559637c2b89019c4f182e1b1f37a94b77c"
+  }
+}

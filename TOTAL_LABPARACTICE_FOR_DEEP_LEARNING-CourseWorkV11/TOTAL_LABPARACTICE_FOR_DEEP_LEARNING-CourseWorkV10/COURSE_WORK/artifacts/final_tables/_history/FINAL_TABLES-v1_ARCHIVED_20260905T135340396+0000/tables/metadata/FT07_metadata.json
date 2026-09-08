@@ -1,0 +1,36 @@
+{
+  "table_id": "FT07",
+  "title": "Within-Seed Head Comparison Summary",
+  "evidence_class": "POST_TEST_DIAGNOSTIC_EVIDENCE",
+  "source_phases": [
+    "44-57"
+  ],
+  "source_artifacts": [
+    "see final_table_source_ledger.csv"
+  ],
+  "population": "FINAL_TEST_POP-v1",
+  "population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "metric_version": "METRICS-v1",
+  "raw_precision": "full precision preserved in CSV",
+  "display_precision": {
+    "Wh": 2,
+    "r2": 3,
+    "dimensionless": 3,
+    "minutes": 1,
+    "percent": 1,
+    "count": 0
+  },
+  "row_order_rule": "canonical order",
+  "footnotes": [
+    "Similarity does NOT prove functional redundancy."
+  ],
+  "warnings": [],
+  "status": "PASS",
+  "row_count": 6,
+  "csv_path": "artifacts/final_tables/tables/csv/FT07_rows.csv",
+  "markdown_path": "artifacts/final_tables/tables/markdown/FT07_rows.md",
+  "latex_path": "artifacts/final_tables/tables/latex/FT07_rows.tex",
+  "csv_sha256": "8bd4cb9d817315103f8c071bece28f6583a037c04a4e9a1146b5ab96940e4cfd",
+  "markdown_sha256": "4d831d9af5c1337dbd894caa173a6fa9255145af6401ea43749094ad6a8b4930",
+  "latex_sha256": "adf921f55cff057835bee2ce26ad31deb6bf757521229221e49ba9b7018266c2"
+}

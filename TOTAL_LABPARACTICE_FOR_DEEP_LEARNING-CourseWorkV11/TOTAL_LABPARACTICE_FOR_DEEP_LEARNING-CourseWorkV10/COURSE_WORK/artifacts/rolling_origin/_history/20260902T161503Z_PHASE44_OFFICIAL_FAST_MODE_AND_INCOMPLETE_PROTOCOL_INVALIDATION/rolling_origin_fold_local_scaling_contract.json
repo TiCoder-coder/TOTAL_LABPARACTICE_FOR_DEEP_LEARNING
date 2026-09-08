@@ -1,0 +1,15 @@
+{
+  "RevIN_per_window": true,
+  "X_scaler_per_fold_stage": true,
+  "YS0_identity": true,
+  "YS1_standard_per_fold_stage": true,
+  "Y_scaler_per_fold_stage": true,
+  "binary_passthrough": true,
+  "created_at": "2026-09-02T15:25:34+00:00",
+  "cyclical_passthrough": true,
+  "no_global_scaler_reuse": true,
+  "phase": 44,
+  "scaling_version": "RO_SCALING-v1",
+  "test_firewall": true,
+  "version": "RO_SCALING_CONTRACT-v1"
+}

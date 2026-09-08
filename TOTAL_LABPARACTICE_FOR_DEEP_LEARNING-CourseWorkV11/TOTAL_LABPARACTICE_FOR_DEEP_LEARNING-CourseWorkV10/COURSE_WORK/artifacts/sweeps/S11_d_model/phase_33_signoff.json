@@ -1,0 +1,72 @@
+{
+  "approved_for_phase34": true,
+  "architecture_role_audit_status": "PASS",
+  "archived_stale_paths": [],
+  "artifact_version": "SWEEP_S11-v1",
+  "capacity_efficiency_context_status": "PASS",
+  "created_at": "2026-08-22T17:22:10.974341+00:00",
+  "d32_parameter_count": 26529,
+  "d32_run_id": "RUN_TR_S11_0019_193AC913",
+  "d64_parameter_count": 69185,
+  "d64_reference_run_id": "RUN_TR_S09_0016_AE0FB819",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "ffn_geometry_audit_status": "PASS",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json": "d8bcd4ae977a15a6658c5ff969f8ca1eb46c84b03cbaeb02f14a03d000921cd4",
+    "artifacts/runs/RUN_TR_S11_0019_193AC913/config.json": "6ec543a8e6e2cb766d7d35987cfa596fbd06cdce6ab10841d2a2de76530f56ba",
+    "artifacts/sweeps/S10_dropout/phase_32_signoff.json": "bf36b8316fdd5eacc89dfd05311619be510b1438e831d11fa80b9a79edcdfeb4",
+    "artifacts/sweeps/S10_dropout/s10_dropout_winner.json": "e788a47d1b00a1d7f10c86c14656fd50cb8f969276ebf73137a9f3f8ee832da5",
+    "artifacts/sweeps/S10_dropout/s10_reference_update.json": "8efc483d6e0b5701129010d8f00e14e914df97c893b9610a773159993feb619e"
+  },
+  "input_paths": [
+    "artifacts/sweeps/S10_dropout/phase_32_signoff.json",
+    "artifacts/sweeps/S10_dropout/s10_dropout_winner.json",
+    "artifacts/sweeps/S10_dropout/s10_reference_update.json",
+    "artifacts/runs/RUN_TR_S11_0019_193AC913/config.json",
+    "artifacts/runs/RUN_TR_S09_0016_AE0FB819/config.json"
+  ],
+  "metric_version": "METRICS-v1",
+  "mha_geometry_audit_status": "PASS",
+  "new_run_ids": [
+    "RUN_TR_S11_0019_193AC913"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/S11_d_model/s11_d_model_metrics.csv": "aa2332774eb56ad547fd8bcc4c265fdea50e531396c8c2fb0a54dad564bdbefb",
+    "artifacts/sweeps/S11_d_model/s11_d_model_sweep_manifest.json": "90031af5cf34c3ace4b5708bd94baaea26eea7165a3a531d8f7568a0ff0c3a08",
+    "artifacts/sweeps/S11_d_model/s11_d_model_winner.json": "08b49539a0428d84a8cbbe86f1d3674b3e80c8511ba893dfaf2951f4eb00ee88",
+    "artifacts/sweeps/S11_d_model/s11_reference_update.json": "944043e5fe8bbb508d6b85de161b05d12943518f4150a424ff153359f176b933"
+  },
+  "output_paths": [
+    "artifacts/sweeps/S11_d_model/s11_d_model_metrics.csv",
+    "artifacts/sweeps/S11_d_model/s11_d_model_sweep_manifest.json",
+    "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+    "artifacts/sweeps/S11_d_model/s11_reference_update.json"
+  ],
+  "overall_status": "PASS",
+  "phase_id": 33,
+  "phase_version": "PHASE-33-v1",
+  "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+  "positional_encoding_audit_status": "PASS",
+  "reused_run_ids": [
+    "RUN_TR_S09_0016_AE0FB819"
+  ],
+  "shape_delta_audit_status": "PASS",
+  "source_s10_winner_run_id": "RUN_TR_S09_0016_AE0FB819",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": [],
+  "winner_d_model": 64,
+  "winner_d_model_id": "D64",
+  "winner_parameter_count": 69185,
+  "winner_rmse_wh": 58.08190056355405,
+  "winner_run_id": "RUN_TR_S09_0016_AE0FB819"
+}

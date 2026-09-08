@@ -1,0 +1,29 @@
+{
+  "project_id": "UCI_Appliances_Energy_Prediction",
+  "task": "Multivariate Time-Series Regression",
+  "dataset": "UCI Appliances Energy Prediction",
+  "final_model_family": "Transformer Encoder",
+  "baseline_families": [
+    "Persistence Baseline",
+    "Tuned LSTM Baseline"
+  ],
+  "forecast_horizon": "H=1 (10 min)",
+  "final_seeds": [
+    42,
+    123,
+    2026
+  ],
+  "final_lock_sha": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+  "final_test_population_sha": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "phase_0_to_59_completion_status": "COMPLETE",
+  "final_tables_version": "FINAL_TABLES-v1",
+  "final_conclusions_version": "FINAL_CONCLUSIONS-v1",
+  "attention_analysis_completed": true,
+  "error_analysis_completed": true,
+  "rolling_origin_completed": true,
+  "three_seed_final_completed": true,
+  "heldout_test_completed": true,
+  "post_test_retuning": false,
+  "scientific_narrative_frozen": true,
+  "created_at": "2026-09-05T04:03:17Z"
+}

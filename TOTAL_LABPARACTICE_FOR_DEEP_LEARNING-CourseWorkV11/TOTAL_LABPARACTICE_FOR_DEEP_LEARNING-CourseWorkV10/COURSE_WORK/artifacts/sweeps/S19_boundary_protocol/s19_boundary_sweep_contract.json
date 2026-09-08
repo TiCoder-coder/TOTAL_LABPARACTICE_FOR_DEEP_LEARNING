@@ -1,0 +1,23 @@
+{
+  "WB0": "target split determines sample split; past context may originate from previous split if all input timestamps < target timestamp and continuity holds.",
+  "WB0_no_future_leakage": true,
+  "WB0_remains_primary_protocol": true,
+  "WB0_reused": true,
+  "WB1": "all L* input rows and target row must belong to same split; no padding; no short windows; no synthetic history; no boundary interpolation.",
+  "WB1_fresh_seed42": true,
+  "WB1_no_future_leakage": true,
+  "WB1_sensitivity_evidence_only": true,
+  "common_population_required": true,
+  "native_populations_differ": true,
+  "same_features": true,
+  "same_horizon": 1,
+  "same_lookback": 36,
+  "same_model": true,
+  "same_scalers": true,
+  "same_split_cut_points": true,
+  "same_training_budget": true,
+  "sweep_id": "S19_BOUNDARY_PROTOCOL",
+  "sweep_version": "SWEEP_S19_BOUNDARY-v1",
+  "test_labels_prediictions_metrics_forbidden": true,
+  "test_target_values_accessed": false
+}

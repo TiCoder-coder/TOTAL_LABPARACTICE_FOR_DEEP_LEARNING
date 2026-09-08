@@ -1,0 +1,12 @@
+{
+  "N": 2961,
+  "n_edge": 592,
+  "shared_low_count": 592,
+  "shared_mid_count": 1777,
+  "shared_high_count": 592,
+  "decile_min_count": 296,
+  "decile_max_count": 297,
+  "same_target_assignment_all_seeds": true,
+  "coverage_complete": true,
+  "status": "PASS"
+}

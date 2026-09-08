@@ -1,0 +1,254 @@
+{
+  "contract_invariants": {
+    "attention_analysis_executed": false,
+    "best_seed_selected": false,
+    "bias_correction_applied": false,
+    "causal_interpretation_emitted": false,
+    "checkpoint_loading": false,
+    "deciles_used_as_phase50_regimes": false,
+    "ensemble_promoted": false,
+    "ljung_box_used_for_pass_fail": false,
+    "lstm_residual_artifact_created": false,
+    "new_inference": false,
+    "no_epsilon_around_zero": true,
+    "optimizer_steps": 0,
+    "phase47_modified": false,
+    "phase48_modified": false,
+    "phase49_b_modified": false,
+    "phase49_c_modified": false,
+    "phase49_d_modified": false,
+    "phase49_e_modified": false,
+    "phase50_regimes_created": false,
+    "residual_correction_applied": false,
+    "scaler_fit": false,
+    "target_regime_analysis_deferred_to_phase50": true,
+    "three_n_iid_interpretation": false,
+    "training": false,
+    "worst_error_ranking_executed": false
+  },
+  "created_at_utc": "2026-09-03T19:44:23Z",
+  "figures": [
+    "phase49_fig01_residual_time_series.png",
+    "phase49_fig02_residual_distribution.png",
+    "phase49_fig03_residual_ecdf.png",
+    "phase49_fig04_signed_bias.png",
+    "phase49_fig05_sign_balance.png",
+    "phase49_fig06_tail_diagnostics.png",
+    "phase49_fig07_residual_acf.png",
+    "phase49_fig08_key_acf_lags.png",
+    "phase49_fig09_sign_run_distribution.png",
+    "phase49_fig10_sign_transitions.png",
+    "phase49_fig11_rolling_mean.png",
+    "phase49_fig12_rolling_std.png",
+    "phase49_fig13_rolling_mae.png",
+    "phase49_fig14_rolling_rmse.png",
+    "phase49_fig15_abs_residual_vs_y_true.png",
+    "phase49_fig16_abs_residual_vs_y_pred.png",
+    "phase49_fig17_residual_vs_y_true.png",
+    "phase49_fig18_residual_vs_y_pred.png",
+    "phase49_fig19_prediction_deciles.png",
+    "phase49_fig20_cross_seed_agreement.png",
+    "phase49_fig21_cross_seed_sign_consensus.png",
+    "phase49_fig22_persistence_context.png"
+  ],
+  "findings": [
+    {
+      "category": "bias",
+      "claim": "All 3 seeds exhibit a mild net UNDERPREDICTION tendency (positive mean_residual: seed42=5.5590 Wh, seed123=5.8856 Wh, seed2026=3.2074 Wh). This is DESCRIPTIVE only; no causal interpretation.",
+      "id": "F1",
+      "support_metric": "phase49_signed_bias.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "distribution_shape",
+      "claim": "All 3 seeds show a right-skewed, heavy-tailed residual distribution (skewness ≈ 2.79–3.27, excess kurtosis ≈ 21–22). Tail mass is concentrated in the right tail (positive residuals).",
+      "id": "F2",
+      "support_metric": "phase49_residual_distribution_summary.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "tail",
+      "claim": "Maximum absolute errors reach ~535–600 Wh per seed. abs_error p99 ≈ 295–309 Wh across seeds.",
+      "id": "F3",
+      "support_metric": "phase49_tail_diagnostics.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "temporal",
+      "claim": "Residuals are positively autocorrelated at short lags (ACF lag-1 ≈ 0.20 across seeds) and decay toward 0 by lag 144. Ljung-Box p-values at lags {6, 36, 144} are ≈ 0; this is the SECONDARY diagnostic only and does NOT gate Phase49 PASS/FAIL.",
+      "id": "F4",
+      "support_metric": "phase49_residual_acf.csv + phase49_ljung_box.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "sign_runs",
+      "claim": "Sign runs are short (median run length = 1 across seeds), with p95 run length 8–9. No exact-zero runs (EXACT count = 0).",
+      "id": "F5",
+      "support_metric": "phase49_sign_runs.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "magnitude_association",
+      "claim": "|residual| correlates strongly with y_true (Pearson ≈ 0.73–0.79) and moderately with y_pred (Pearson ≈ 0.47–0.50). DESCRIPTIVE ONLY — not causal.",
+      "id": "F6",
+      "support_metric": "phase49_magnitude_associations.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "cross_seed_agreement",
+      "claim": "Residuals agree strongly across seed pairs (Pearson 0.90–0.92; Spearman 0.74–0.78). Cross-seed sign consensus is approximately 70% fully concordant (ALL_UNDER 33.87%, ALL_OVER 36.64%); ~30% split across seeds.",
+      "id": "F7",
+      "support_metric": "phase49_cross_seed_residual_agreement.csv + phase49_cross_seed_sign_consensus.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "persistence_baseline",
+      "claim": "Persistence baseline (N=2961, sha-verified): MAE = 26.74 Wh, RMSE = 66.84 Wh, 29.45% of predictions are EXACT. Transformer beats Persistence on RMSE and R²; Persistence beats Transformer on MAE. This is the Phase47 canonical interpretation and is NOT a Phase49 model ranking.",
+      "id": "F8",
+      "support_metric": "phase49_persistence_context.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "rolling",
+      "claim": "Rolling 144-sample (= 24h) windows produce 2818 windows per seed. Rolling mean drifts near 0 with occasional excursions; Rolling std is approximately stable across the 20-day Test window. No partial / interpolated / padded windows.",
+      "id": "F9",
+      "support_metric": "phase49_rolling_residual_diagnostics.csv",
+      "support_seeds": [
+        "42",
+        "123",
+        "2026"
+      ]
+    },
+    {
+      "category": "lstm_policy",
+      "claim": "LSTM_TUNED_DEV = NOT_ELIGIBLE_CONFIG_MISMATCH; no LSTM residual table was produced and no LSTM placeholder residuals were fabricated.",
+      "id": "F10",
+      "support_metric": "phase47_signoff.json (lstm_eligibility)",
+      "support_seeds": []
+    }
+  ],
+  "n_findings": 10,
+  "o49_completeness": {
+    "all_complete": true,
+    "missing": [],
+    "n_o49_complete": 33,
+    "n_o49_total": 33
+  },
+  "phase": "49",
+  "phase_sub_letter": "F",
+  "sections": [
+    {
+      "body": "Produce the canonical descriptive residual analysis for the Transformer Phase47 predictions on N=2961 Test observations across seeds 42, 123, 2026, then finalize Phase49 with full audit, figures, findings, handoffs, report, README, and strict signoff. NO causal claims, NO correction proposals, NO best-seed selection, NO ensemble promotion, NO Test-derived Phase50 regimes, NO worst-error ranking.",
+      "heading": "1. Objective"
+    },
+    {
+      "body": "Phase47 prediction bundles for seeds 42, 123, 2026 are frozen and immutable. Persistence bundle (sha256 first16 = 7115af1c479b8957) is also frozen. Phase48 artifacts (figures, summary, handoffs) are immutable.",
+      "heading": "2. Frozen prediction lineage"
+    },
+    {
+      "body": "residual_wh = y_true_wh - y_pred_wh. Positive = UNDERPREDICTION, negative = OVERPREDICTION. Zero policy = EXACT_ZERO (no epsilon).",
+      "heading": "3. Residual convention"
+    },
+    {
+      "body": "Per-seed MAE, RMSE, R² reconstructed from Phase49-B long table residuals and verified to match Phase47 signoff values for all 3 seeds.",
+      "heading": "4. Metric reconstruction"
+    },
+    {
+      "body": "All 3 seeds right-skewed with heavy tails. Mean residual (seed42, seed123, seed2026) = (5.5590, 5.8856, 3.2074) Wh; std ≈ 61–65 Wh; MAD ≈ 10.5–12 Wh.",
+      "heading": "5. Residual distribution"
+    },
+    {
+      "body": "Mild net UNDERPREDICTION tendency across seeds. Sign balance ≈ 47–51% across U/O classes; EXACT count = 0 in all seeds.",
+      "heading": "6. Bias / sign balance"
+    },
+    {
+      "body": "max_abs_error 535–601 Wh; abs_error p99 ≈ 294–309 Wh; abs_error p95 ≈ 116–128 Wh; abs_error p90 ≈ 57–64 Wh.",
+      "heading": "7. Tail behavior"
+    },
+    {
+      "body": "Gap-safe ACF, lags 1..144 per seed. Positive short-lag autocorrelation (ACF lag-1 ≈ 0.20) decaying to ~0 by lag 144.",
+      "heading": "8. Temporal ACF"
+    },
+    {
+      "body": "Ljung-Box at lags {6, 36, 144} yields p ≈ 0 across all seeds. Status = SECONDARY_DIAGNOSTIC. NO p-value gates Phase49 PASS/FAIL.",
+      "heading": "9. Ljung-Box as secondary diagnostic"
+    },
+    {
+      "body": "Sign runs break at sign change / EXACT zero / temporal gap. Median run length = 1 across seeds; p95 run length 8–9; max run length 47–60; total runs ~1080–1200 per seed.",
+      "heading": "10. Sign runs"
+    },
+    {
+      "body": "Only consecutive pairs separated by exactly 10 min counted. U→U ≈ 0.60, O→O ≈ 0.59–0.65 within-class probabilities across seeds.",
+      "heading": "11. Sign transitions"
+    },
+    {
+      "body": "Rolling window = 144 exact contiguous observations (= 24h). n_windows = 2818 per seed; total = 8454. No partial / interpolated / padded / forward-filled windows.",
+      "heading": "12. Rolling residual behavior"
+    },
+    {
+      "body": "|residual| vs y_true: Pearson ≈ 0.73–0.79; |residual| vs y_pred: Pearson ≈ 0.47–0.50; DESCRIPTIVE only.",
+      "heading": "13. Magnitude associations"
+    },
+    {
+      "body": "10 equal-frequency bins via np.quantile on y_pred. MAE grows monotonically with prediction magnitude. DESCRIPTIVE ONLY — NOT Phase50 target regimes.",
+      "heading": "14. Prediction-decile diagnostics"
+    },
+    {
+      "body": "Pearson 0.90–0.92; Spearman 0.74–0.78 across seed pairs. Scope = CROSS_SEED_RESIDUAL_AGREEMENT_DIAGNOSTIC — NOT a model-performance comparison.",
+      "heading": "15. Cross-seed residual agreement"
+    },
+    {
+      "body": "ALL_UNDER 33.87%, ALL_OVER 36.64%, TWO_UNDER_ONE_OVER 14.29%, TWO_OVER_ONE_UNDER 15.20%, ALL_EXACT 0%, MIXED 0%.",
+      "heading": "16. Sign consensus"
+    },
+    {
+      "body": "Persistence baseline (N=2961, sha-verified): MAE = 26.7376 Wh, RMSE = 66.8369 Wh, EXACT fraction = 0.2945. Transformer beats Persistence on RMSE/R²; Persistence beats Transformer on MAE. Canonical Phase47 interpretation preserved.",
+      "heading": "17. Persistence context"
+    },
+    {
+      "body": "1) Phase49 uses ONLY the frozen Test predictions and persistence bundle. No training, no checkpoint access, no new inference. 2) Ljung-Box p-values are SECONDARY and do NOT gate PASS/FAIL. 3) Cross-seed residual agreement is DESCRIPTIVE — not a model ranking. 4) All |residual| / residual vs y_true / residual vs y_pred associations are DESCRIPTIVE — not causal. 5) Prediction deciles are DESCRIPTIVE — NOT Phase50 regimes.",
+      "heading": "18. Important limitations"
+    },
+    {
+      "body": "No model retraining. No checkpoint loading. No new Test inference. No bias correction. No residual correction. No recalibration. No best-seed selection. No ensemble promotion. No 3N iid interpretation. No Test-derived Phase50 regimes. No worst-error ranking. No attention analysis.",
+      "heading": "19. What Phase49 intentionally did NOT do"
+    },
+    {
+      "body": "Phase50 handoff (artifacts/residual_analysis/phase50_handoff.json) states: target regimes MUST be TRAIN-derived; phase49 deciles are NOT authorized as Phase50 regimes; no Test-derived thresholds. Phase51 context handoff (artifacts/residual_analysis/phase51_context_handoff.json) states: Phase49 performed no worst-error ranking; Phase51 is the first phase allowed to rank worst errors.",
+      "heading": "20. Handoff to Phase50/51"
+    }
+  ],
+  "title": "Phase49 Residual Analysis — Final Report"
+}

@@ -1,0 +1,9 @@
+{
+  "boundary_protocol": "WB0",
+  "feature_variant_id": "FS2_TF1",
+  "lookback_steps": 144,
+  "population_policy": "WINDOWPOP-v1",
+  "split_version": "SPLIT-v1",
+  "target_scaling_option": "YS1",
+  "test_locked": true
+}

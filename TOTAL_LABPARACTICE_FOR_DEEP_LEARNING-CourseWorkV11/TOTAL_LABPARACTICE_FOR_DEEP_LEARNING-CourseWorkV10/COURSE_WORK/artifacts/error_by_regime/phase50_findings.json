@@ -1,0 +1,178 @@
+{
+  "by_regime_mean_rmse": {
+    "R1_TARGET_LEVEL/TL_HIGH": {
+      "mean_rmse_wh": 116.25705733333332,
+      "per_seed": {
+        "123": 113.352367,
+        "2026": 116.242862,
+        "42": 119.175943
+      },
+      "sd_rmse_wh": 2.9118139513987398
+    },
+    "R1_TARGET_LEVEL/TL_LOW": {
+      "mean_rmse_wh": 20.73049566666667,
+      "per_seed": {
+        "123": 20.633299,
+        "2026": 20.057258,
+        "42": 21.50093
+      },
+      "sd_rmse_wh": 0.726727325001842
+    },
+    "R1_TARGET_LEVEL/TL_MID": {
+      "mean_rmse_wh": 23.497848333333334,
+      "per_seed": {
+        "123": 21.968865,
+        "2026": 26.369384,
+        "42": 22.155296
+      },
+      "sd_rmse_wh": 2.488569256248323
+    },
+    "R2_EXTREME_HIGH/EXTREME_HIGH": {
+      "mean_rmse_wh": 192.02185733333332,
+      "per_seed": {
+        "123": 188.647903,
+        "2026": 189.179893,
+        "42": 198.237776
+      },
+      "sd_rmse_wh": 5.389711216102982
+    },
+    "R2_EXTREME_HIGH/NON_EXTREME": {
+      "mean_rmse_wh": 32.733184333333334,
+      "per_seed": {
+        "123": 30.664974,
+        "2026": 35.74184,
+        "42": 31.792739
+      },
+      "sd_rmse_wh": 2.665890126061151
+    },
+    "R3_CHANGE_MAGNITUDE/CHANGE_NORMAL": {
+      "mean_rmse_wh": 30.578922000000002,
+      "per_seed": {
+        "123": 28.436936,
+        "2026": 30.727321,
+        "42": 32.572509
+      },
+      "sd_rmse_wh": 2.0717764616345544
+    },
+    "R3_CHANGE_MAGNITUDE/CHANGE_RAPID": {
+      "mean_rmse_wh": 201.17133866666666,
+      "per_seed": {
+        "123": 197.565723,
+        "2026": 203.873952,
+        "42": 202.074341
+      },
+      "sd_rmse_wh": 3.24961508330054
+    },
+    "R4_CHANGE_DIRECTION/DIR_DOWN": {
+      "mean_rmse_wh": 54.502888000000006,
+      "per_seed": {
+        "123": 50.890288,
+        "2026": 58.676431,
+        "42": 53.941945
+      },
+      "sd_rmse_wh": 3.9232637549684335
+    },
+    "R4_CHANGE_DIRECTION/DIR_FLAT": {
+      "mean_rmse_wh": 17.294649000000003,
+      "per_seed": {
+        "123": 16.439015,
+        "2026": 16.579739,
+        "42": 18.865193
+      },
+      "sd_rmse_wh": 1.3619497615536342
+    },
+    "R4_CHANGE_DIRECTION/DIR_UP": {
+      "mean_rmse_wh": 92.37467199999999,
+      "per_seed": {
+        "123": 91.081646,
+        "2026": 91.267299,
+        "42": 94.775071
+      },
+      "sd_rmse_wh": 2.0808780066363792
+    },
+    "R5_TIME_OF_DAY/TOD_AFTERNOON": {
+      "mean_rmse_wh": 81.33122733333333,
+      "per_seed": {
+        "123": 79.846315,
+        "2026": 79.771277,
+        "42": 84.37609
+      },
+      "sd_rmse_wh": 2.6371953225929903
+    },
+    "R5_TIME_OF_DAY/TOD_EVENING": {
+      "mean_rmse_wh": 54.129546000000005,
+      "per_seed": {
+        "123": 52.583134,
+        "2026": 54.32766,
+        "42": 55.477844
+      },
+      "sd_rmse_wh": 1.4574887182314638
+    },
+    "R5_TIME_OF_DAY/TOD_MORNING": {
+      "mean_rmse_wh": 79.18926,
+      "per_seed": {
+        "123": 76.312073,
+        "2026": 82.417907,
+        "42": 78.8378
+      },
+      "sd_rmse_wh": 3.068052363892931
+    },
+    "R5_TIME_OF_DAY/TOD_NIGHT": {
+      "mean_rmse_wh": 16.70292166666667,
+      "per_seed": {
+        "123": 14.871349,
+        "2026": 19.164923,
+        "42": 16.072493
+      },
+      "sd_rmse_wh": 2.215124071284797
+    },
+    "R6_DAY_TYPE/DAY_WEEKDAY": {
+      "mean_rmse_wh": 60.50454533333333,
+      "per_seed": {
+        "123": 58.552164,
+        "2026": 61.0516,
+        "42": 61.909872
+      },
+      "sd_rmse_wh": 1.7444203505913758
+    },
+    "R6_DAY_TYPE/DAY_WEEKEND": {
+      "mean_rmse_wh": 71.58669066666666,
+      "per_seed": {
+        "123": 69.959998,
+        "2026": 72.720321,
+        "42": 72.079753
+      },
+      "sd_rmse_wh": 1.4447071033591314
+    }
+  },
+  "persistence_rmse_by_regime": {
+    "R1_TARGET_LEVEL/TL_HIGH": 123.28324202410948,
+    "R1_TARGET_LEVEL/TL_LOW": 16.85724374465371,
+    "R1_TARGET_LEVEL/TL_MID": 21.693978051374458,
+    "R2_EXTREME_HIGH/EXTREME_HIGH": 196.54680145270828,
+    "R2_EXTREME_HIGH/NON_EXTREME": 36.66376246470838,
+    "R3_CHANGE_MAGNITUDE/CHANGE_NORMAL": 17.208957042612937,
+    "R3_CHANGE_MAGNITUDE/CHANGE_RAPID": 229.89359240698127,
+    "R3_CHANGE_MAGNITUDE/CHANGE_UNCLASSIFIED": NaN,
+    "R4_CHANGE_DIRECTION/DIR_DOWN": 71.68326074535503,
+    "R4_CHANGE_DIRECTION/DIR_FLAT": 0.0,
+    "R4_CHANGE_DIRECTION/DIR_UNCLASSIFIED": NaN,
+    "R4_CHANGE_DIRECTION/DIR_UP": 87.27218493281927,
+    "R5_TIME_OF_DAY/TOD_AFTERNOON": 78.22434160188003,
+    "R5_TIME_OF_DAY/TOD_EVENING": 56.89126304955,
+    "R5_TIME_OF_DAY/TOD_MORNING": 89.22580000338124,
+    "R5_TIME_OF_DAY/TOD_NIGHT": 18.494133313917875,
+    "R6_DAY_TYPE/DAY_WEEKDAY": 62.25677378689761,
+    "R6_DAY_TYPE/DAY_WEEKEND": 77.26639433660603
+  },
+  "transformer_global_mae_per_seed": {
+    "123": 27.114869,
+    "2026": 28.942294,
+    "42": 29.528647
+  },
+  "transformer_global_rmse_per_seed": {
+    "123": 61.986086,
+    "2026": 64.560136,
+    "42": 64.942754
+  }
+}

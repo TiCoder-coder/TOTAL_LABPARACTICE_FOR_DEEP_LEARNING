@@ -1,0 +1,10 @@
+{
+  "gc0_actual_clipping_fraction": 0.0,
+  "gc0_clipped_batches": 0,
+  "gc0_max_preclip_norm": 18.315928813829274,
+  "gc0_mean_preclip_norm": 2.65525808196594,
+  "interpretation": "COUNTERFACTUAL - what would have been clipped if GC0 had clipping ON",
+  "note": "Per-batch exceedance count not available from aggregated metrics; mean and max only",
+  "status": "TELEMETRY_AVAILABLE",
+  "threshold": 1.0
+}

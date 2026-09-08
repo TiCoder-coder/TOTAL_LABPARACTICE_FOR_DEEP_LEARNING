@@ -1,0 +1,51 @@
+{
+  "artifact_version": "SCHEMA-v1",
+  "config_fingerprint": "4ec15ffd52092d8f3b9675a1e119afe6af1dab3b9da228d2bb6c4cba14f4b7c7",
+  "created_at": "2026-08-20T16:15:29.321998+00:00",
+  "dataset_revision": "DATA-v1",
+  "discrepancies": [
+    "SD-001"
+  ],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/acquisition/phase_2_signoff.json": "18eb34d3037be9b9b946a90233e66601e61c3d700a9237e37899f36a714dd556",
+    "data/raw_data/energydata_complete.csv": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d"
+  },
+  "input_paths": [
+    "artifacts/acquisition/phase_2_signoff.json",
+    "data/raw_data/energydata_complete.csv"
+  ],
+  "output_checksums": {
+    "artifacts/schema/schema_comparison.csv": "093a767b0967d2a003f31229dfcb3ce62890801c22a0c0bd5faa1000b0f2c548",
+    "artifacts/schema/schema_discrepancies.json": "80f7f886a57c11be48df34be8003b2a0388d2ca5fd222a6b372f13003676bc35",
+    "artifacts/schema/schema_fingerprint.txt": "7e5022d05814329704c15c47511c11439bda5b47ed404c1890b4d19f3ad13f02",
+    "artifacts/schema/schema_manifest.json": "c6701eb9ed48cf30c6a6c8ab2a1d438e4b729ee0f4084ab611e102d7e7242cb2",
+    "artifacts/schema/schema_summary.csv": "777bfb5cdc411524891218e4d147297f21d0de936fad84bcb6c092602b065cae",
+    "artifacts/schema/variable_dictionary.csv": "e0c59d94a304e9ddd1cf3b7743233f1360716de310e1121e79a3bea748e2b2c3"
+  },
+  "output_paths": [
+    "artifacts/schema/schema_summary.csv",
+    "artifacts/schema/variable_dictionary.csv",
+    "artifacts/schema/schema_comparison.csv",
+    "artifacts/schema/schema_manifest.json",
+    "artifacts/schema/schema_fingerprint.txt",
+    "artifacts/schema/schema_discrepancies.json"
+  ],
+  "phase_id": 3,
+  "phase_version": "PHASE-3-v1",
+  "status": "PASS_WITH_WARNING",
+  "tests": [
+    "data_v1_checksum",
+    "raw_shape_and_order",
+    "target_and_timestamp_cardinality",
+    "raw_dtype_audit",
+    "semantic_role_mapping",
+    "null_constant_and_non_finite_audit",
+    "numeric_coercion",
+    "timestamp_parse_probe",
+    "raw_dataframe_immutability"
+  ],
+  "warnings": [
+    "SD-001"
+  ]
+}

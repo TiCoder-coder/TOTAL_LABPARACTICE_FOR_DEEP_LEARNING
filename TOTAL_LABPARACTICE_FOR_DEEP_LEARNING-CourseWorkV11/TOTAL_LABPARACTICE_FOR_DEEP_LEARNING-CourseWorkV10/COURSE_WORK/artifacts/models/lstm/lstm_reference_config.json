@@ -1,0 +1,14 @@
+{
+  "batch_first": true,
+  "bidirectional": false,
+  "dropout": 0.1,
+  "hidden_size": 64,
+  "implementation_version": "LSTM_IMPL-v1",
+  "input_size": 31,
+  "model_family": "LSTM",
+  "model_version": "LSTM-v1",
+  "num_layers": 2,
+  "output_size": 1,
+  "pooling": "LAST_STEP",
+  "proj_size": 0
+}

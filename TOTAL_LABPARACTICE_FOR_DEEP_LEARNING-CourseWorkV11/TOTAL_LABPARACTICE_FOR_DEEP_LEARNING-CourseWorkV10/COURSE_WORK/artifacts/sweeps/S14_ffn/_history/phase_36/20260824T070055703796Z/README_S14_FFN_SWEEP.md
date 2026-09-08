@@ -1,0 +1,3 @@
+# S14 FFN Sweep
+
+Canonical Phase 36 evidence for F64/F128/F256 under fixed D64, H4, head_dim16 and N2. FFN geometry is D→M→D with one global M per active layer. Expansion ratio is derived, not controlled. Parameter counts and FFN-only state-shape deltas are audited; MHA, PE, LayerNorm, pooling, regression head, activation and dropout remain fixed. F128 is the exact reused reference; F64/F256 are fresh seed-42 runs with no warm-start, slicing, padding or optimizer-state reuse. Full-precision Validation RMSE selects the winner, with smaller FFN only on exact tie. Capacity/runtime are context only. F256 is a boundary winner and no adaptive F512 search was performed. Phase 37 reuses the MSE winner and trains Huber only. Test is forbidden.

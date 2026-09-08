@@ -1,0 +1,18 @@
+{
+  "algorithm": "SHA-256",
+  "components": [
+    "final_conclusions_contract",
+    "research_question_conclusion_matrix",
+    "final_claim_strength_ledger",
+    "final_limitation_ledger",
+    "final_future_work_ledger",
+    "final_conclusion_section",
+    "final_conclusions_manifest",
+    "final_lock_sha256",
+    "final_test_population_sha256"
+  ],
+  "fingerprint": "543d1be1908a2905dc9a3229cfc43dc26d26e77788215d8ef0b44cee6ca5c2b5",
+  "narrative_version": "FINAL_CONCLUSIONS-v1",
+  "generated_at": "2026-09-05T04:03:17Z",
+  "scientific_narrative_frozen": true
+}

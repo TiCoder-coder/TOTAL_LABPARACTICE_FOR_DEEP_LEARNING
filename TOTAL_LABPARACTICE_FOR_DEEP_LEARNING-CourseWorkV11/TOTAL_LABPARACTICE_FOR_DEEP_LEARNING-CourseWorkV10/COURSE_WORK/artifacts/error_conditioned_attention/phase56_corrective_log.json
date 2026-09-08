@@ -1,0 +1,159 @@
+{
+  "corrective_kind": "phase56_scientific_corrective",
+  "corrective_at_utc": "2026-09-05T11:20:00+00:00",
+  "previous_version_archived": "ERROR_CONDITIONED_ATTENTION-v1",
+  "active_revision": "ERROR_CONDITIONED_ATTENTION-v2",
+  "previous_archive_path": "artifacts/error_conditioned_attention/_history/ERROR_CONDITIONED_ATTENTION-v1_ARCHIVED_20260905T112000000000+0000",
+  "source_lineage_v2": {
+    "source_phase52_version": "ATTENTION_EXTRACTION-v1",
+    "source_phase54_version": "LAST_QUERY_ATTENTION-v2",
+    "source_phase55_version": "HEAD_COMPARISON-v2",
+    "source_phase49_version": "RESIDUAL_ANALYSIS-v1",
+    "source_phase50_version": "ERROR_BY_REGIME-v1",
+    "source_phase51_version": "WORST_ERROR_ANALYSIS-v1"
+  },
+  "final_lock_sha256": "81fb87c44b6af31b6f65eff13956d9dc94a38dc75731a2c0af088228dd1bd4ec",
+  "raw_last_query_seed42_sha256": "102086f71ed01611b963c44926d7472a3ecc49a0b63f41d79100ef816b52a9ff",
+  "phase47_canonical_test_population_sha256": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "frozen_assignment": {
+    "assignment_sha256": "fde852c7a72efe556efa3f6aef22c134694b447be4deb66dfb61f156fa3f28eb",
+    "v1_assignment_sha256": "fde852c7a72efe556efa3f6aef22c134694b447be4deb66dfb61f156fa3f28eb",
+    "assignment_unchanged": true,
+    "row_count_unchanged": true,
+    "cohort_counts_per_seed": {
+      "42": {
+        "LOW": 592,
+        "MID": 1777,
+        "HIGH": 592
+      },
+      "123": {
+        "LOW": 592,
+        "MID": 1777,
+        "HIGH": 592
+      },
+      "2026": {
+        "LOW": 592,
+        "MID": 1777,
+        "HIGH": 592
+      }
+    },
+    "decile_counts_range": [
+      296,
+      297
+    ],
+    "cohorts_disjoint": true,
+    "deciles_disjoint": true,
+    "tie_break_rule": "timestamp_ASC,target_id_ASC"
+  },
+  "normalized_entropy_root_cause": "Phase56 v1 was computed BEFORE Phase54 v2 corrective. v1 consumed the Phase54 v1 metrics_long CSV which contained zero normalized_entropy values due to the scaling bug fixed in Phase54 v2. When Phase54 v2 updated normalized_entropy to non-zero, Phase56 v1 outputs (aggregated metrics) still held the v1 zero values, creating an internal inconsistency where layer_head_mean_metrics_long.csv has non-zero NE (from current Phase54 v2 file) but aggregated metrics have zero (from v1 input).",
+  "normalized_entropy_regenerated": true,
+  "normalized_entropy_range": {
+    "decile_summary": [
+      0.41,
+      0.9
+    ],
+    "high_low_mean_low": [
+      0.72,
+      0.89
+    ],
+    "high_low_mean_high": [
+      0.49,
+      0.86
+    ],
+    "signed_mean_under": [
+      0.7,
+      0.87
+    ],
+    "signed_mean_over": [
+      0.7,
+      0.89
+    ],
+    "layer_head_mean": [
+      0.48,
+      0.99
+    ]
+  },
+  "corrective_specific_outputs": {
+    "decile_entropy_reconstructed": "PASS (seed=42 L=0 H=0 decile 1/5/10 mean & median independently reconstructed |\u0394|<1e-6)",
+    "high_low_entropy_reconstructed": "PASS (mean_low & mean_high independently reconstructed |\u0394|<1e-6)",
+    "signed_entropy_reconstructed": "PASS (mean_under & mean_over independently reconstructed |\u0394|<1e-6)",
+    "spearman_entropy_recomputed": "PASS (Spearman vs abs_error, signed_residual, shared_hardness matches |\u0394|<1e-3)",
+    "cliffs_delta_entropy_recomputed": "PASS (Cliff's delta matches |\u0394|<1e-3)"
+  },
+  "normalized_entropy_findings_changed": {
+    "v1_findings_count": 251,
+    "v2_findings_count": 292,
+    "delta": 41,
+    "v2_NE_specific_findings": 23,
+    "constant_metric_artifact_removed": true,
+    "previous_NOT_DEFINED_CONSTANT_METRIC_count": 24,
+    "previous_status_OK_for_NE": 0,
+    "current_status_OK_for_NE": 72
+  },
+  "drift_analysis": {
+    "profile_metrics_drift": 0.0,
+    "expected_lag_drift": 0.0,
+    "recent_mass_drift": 0.0,
+    "coverage_radius_drift": 0.0,
+    "error_assignment_drift": 0.0,
+    "other_unexpected_drift": 0.0,
+    "note": "All non-NE metrics are byte-identical between v1 and v2 (max|\u0394|=0e+00 across 1560+ comparison cells). The corrective affected ONLY normalized_entropy values."
+  },
+  "phase55_dependencies": {
+    "phase55_scientific_dependency": "Phase56 uses Phase55 handoff for provenance/context only. The phase55_error_conditioned_attention_handoff.json is referenced, but Phase56 computes its own normalized_entropy values from Phase54 metrics_long (Layer 4-12 dependency chain). Phase55 dependencies updated to HEAD_COMPARISON-v2.",
+    "phase55_context_version": "HEAD_COMPARISON-v2"
+  },
+  "scientific_guards_preserved": {
+    "NO_TRAINING": true,
+    "NO_NEW_TEST_INFERENCE": true,
+    "NO_ATTENTION_REEXTRACTION": true,
+    "NO_SCALER_FIT": true,
+    "NO_CHECKPOINT_MUTATION": true,
+    "NO_PREDICTION_MUTATION": true,
+    "NO_RESIDUAL_MUTATION": true,
+    "NO_CASE_RESELECTION": true,
+    "NO_BEST_SEED_SELECTION": true,
+    "NO_BEST_HEAD_SELECTION": true,
+    "NO_ENSEMBLE": true,
+    "NO_POST_TEST_MODEL_TUNING": true
+  },
+  "downstream_handoff_status": {
+    "phase57_authorized": false,
+    "phase58_authorized": false,
+    "phase57_executed": false,
+    "phase58_executed": false,
+    "phase57_handoff_valid": true,
+    "phase58_handoff_valid": true,
+    "phase57_handoff_path": "artifacts/error_conditioned_attention/phase57_seed_stability_attention_handoff.json",
+    "phase58_handoff_path": "artifacts/error_conditioned_attention/phase58_attention_results_context_handoff.json"
+  },
+  "corrective_tests": {
+    "test_report_path": "artifacts/error_conditioned_attention/phase56_corrective_test_report.json",
+    "overall": "PASS",
+    "n_tests": 34,
+    "n_pass": 34,
+    "categories": {
+      "A_normalized_entropy_source": "2/2 PASS",
+      "B_aggregate_reconstruction": "8/8 PASS",
+      "C_spearman_effect_size": "5/5 PASS",
+      "D_frozen_assignment": "10/10 PASS",
+      "E_lineage": "9/9 PASS",
+      "F_consistency": "7/7 PASS"
+    }
+  },
+  "open_discrepancies": [],
+  "notebook_status": {
+    "notebook_modified": false,
+    "notebook_cached_html_version": "v1 (stale)",
+    "notebook_refresh_required": true,
+    "refresh_kind": "presentation_only_refresh_of_cell_143_dashboard_output",
+    "rationale": "Notebook cell 143 dashboard HTML is still the v1 cached output (805,830 chars) because the corrective rerun produced v2 outputs and v2 dashboard render is required to refresh the cell 143 HTML. Source code (cells 142 + 143 lines) unchanged."
+  },
+  "tests_summary": {
+    "phase56_signoff_tests": "43/43 PASS",
+    "phase56_corrective_tests": "34/34 PASS",
+    "artifacts_emitted": 37,
+    "figures_emitted": 101,
+    "findings_emitted": 292
+  }
+}

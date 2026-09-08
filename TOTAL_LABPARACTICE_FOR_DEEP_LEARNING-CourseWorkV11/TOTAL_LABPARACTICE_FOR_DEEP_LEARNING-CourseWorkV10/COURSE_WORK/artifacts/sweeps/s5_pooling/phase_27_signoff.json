@@ -1,0 +1,50 @@
+{
+  "approved_for_phase28": true,
+  "archived_stale_paths": [
+    "artifacts/sweeps/s5_pooling/_history/phase_27/20260822T153533265003Z/sweep_manifest.json",
+    "artifacts/sweeps/s5_pooling/_history/phase_27/20260822T153533265003Z/phase_27_signoff.json"
+  ],
+  "artifact_version": "SWEEP_S5-v1",
+  "created_at": "2026-08-22T15:35:33.264905+00:00",
+  "discrepancies": [],
+  "environment_id": "ENV-v1",
+  "input_checksums": {
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+    "artifacts/runs/RUN_TR_S05_0010_F74DE9FC/config.json": "27ef4610a83a441261fa80a24d4cbfc3a2bc00f2b7719e572e8dc4d1e1eadf1c",
+    "artifacts/sweeps/s4_lookback/phase_26_signoff.json": "ab3bd8eb42a8cf88d630a61e72c7780cd9b82ac0a79d7d7ce9e436c81b440c7f",
+    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "ddf6be31344bc20105d82695d9390239a9658c55fc36bbf5a6fadf6c0b0efb83",
+    "artifacts/sweeps/s4_lookback/s4_reference_update.json": "623cf2c363f478a625f56753f0037c3f905641a483f58a1b845279218c4652ac"
+  },
+  "input_paths": [
+    "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+    "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+    "artifacts/runs/RUN_TR_S05_0010_F74DE9FC/config.json"
+  ],
+  "output_checksums": {
+    "artifacts/sweeps/s5_pooling/results.csv": "2b1389775490c22357bde8d0626bdbb2ffd7cc18971f0ad86a47941819e71509",
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "b2ce7864b35f590340c03b44ba622018444546adec7fd6cbcfb3b19986339bd1",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1cab8f4f171ff1110021181a4ce7e4aa686303127dffdd1d197b5738e6ecd2e9",
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json": "13b73ef22dea663107f4e2aa9de8d1ae4d8f1628c735c3dbfdfb008daaa0b1cc"
+  },
+  "output_paths": [
+    "artifacts/sweeps/s5_pooling/results.csv",
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json"
+  ],
+  "phase_id": 27,
+  "phase_version": "PHASE-27-v1",
+  "status": "PASS",
+  "test_status": "FORBIDDEN",
+  "tests": [
+    "condition_completeness",
+    "registry_evidence_integrity",
+    "validation_only_selection",
+    "exact_tie_rule",
+    "winner_config_match",
+    "test_firewall"
+  ],
+  "warnings": []
+}
