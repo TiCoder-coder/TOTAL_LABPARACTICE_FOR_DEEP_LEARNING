@@ -1,0 +1,66 @@
+{
+  "challenger_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_A_0001_392BE836",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_A_0002_38C81BC7",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_A_0003_F240E775"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_B_0004_45D82B07",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_B_0005_E0954C08",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_B_0006_2B8CE813"
+    }
+  },
+  "control_policy": "CONTROL_REUSED_FROM_E01",
+  "control_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "experiment_id": "E03",
+  "preflight": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "challenger_config_fingerprint": "19e7f18bd6ecf2f435055a457584f47a09c3d6e29bc04cbe416edf55f2263eca",
+    "challenger_formulation": "RESIDUAL_TO_PERSISTENCE",
+    "changed_config_fields": [
+      "model.prediction_formulation"
+    ],
+    "checkpoint_loaded": false,
+    "control_formulation": "DIRECT",
+    "control_reuse": "CONTROL_REUSED_FROM_E01",
+    "control_reuse_audit": {
+      "metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "run_count": 6,
+      "status": "PASS"
+    },
+    "experiment_id": "E03",
+    "feature_count": 33,
+    "feature_variant": "FS2_TF1",
+    "fresh_initialization": true,
+    "inference_executed": false,
+    "one_primary_change": "PASS",
+    "promotion_rmse_tolerance_wh": 0.1,
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "registry_namespace": "V2_E03",
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidates": [
+      "RESIDUAL_TO_PERSISTENCE"
+    ],
+    "training_executed": false
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E03_EXECUTION-v1",
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

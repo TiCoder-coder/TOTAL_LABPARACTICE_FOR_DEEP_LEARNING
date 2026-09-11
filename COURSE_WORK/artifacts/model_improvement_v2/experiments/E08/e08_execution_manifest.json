@@ -1,0 +1,133 @@
+{
+  "challenger_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO1": "RUN_V2_TR_E08_RO1_A_0003_5F763306",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO2": "RUN_V2_TR_E08_RO2_A_0007_1FF4EB43",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO3": "RUN_V2_TR_E08_RO3_A_0011_672A6827",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO1": "RUN_V2_TR_E08_RO1_A_0001_4DD64CE5",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO2": "RUN_V2_TR_E08_RO2_A_0005_749C9777",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO3": "RUN_V2_TR_E08_RO3_A_0009_3BBDAA18",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO1": "RUN_V2_TR_E08_RO1_A_0004_38A35533",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO2": "RUN_V2_TR_E08_RO2_A_0008_D5C3B704",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO3": "RUN_V2_TR_E08_RO3_A_0012_ED26D180",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO1": "RUN_V2_TR_E08_RO1_A_0002_DF3254E4",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO2": "RUN_V2_TR_E08_RO2_A_0006_0709F859",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO3": "RUN_V2_TR_E08_RO3_A_0010_0909C74B"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO1": "RUN_V2_TR_E08_RO1_B_0015_484B6BE8",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO2": "RUN_V2_TR_E08_RO2_B_0019_A2A2617C",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO3": "RUN_V2_TR_E08_RO3_B_0023_F133D996",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO1": "RUN_V2_TR_E08_RO1_B_0013_E7D5B44D",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO2": "RUN_V2_TR_E08_RO2_B_0017_268BE94C",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO3": "RUN_V2_TR_E08_RO3_B_0021_7FEE93B7",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO1": "RUN_V2_TR_E08_RO1_B_0016_C23ECCD5",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO2": "RUN_V2_TR_E08_RO2_B_0020_14621C9C",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO3": "RUN_V2_TR_E08_RO3_B_0024_37D2569A",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO1": "RUN_V2_TR_E08_RO1_B_0014_30E26DA1",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO2": "RUN_V2_TR_E08_RO2_B_0018_4286334A",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO3": "RUN_V2_TR_E08_RO3_B_0022_BF9BB685"
+    }
+  },
+  "control_policy": "CONTROL_REUSED_FROM_E01_READ_ONLY",
+  "control_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "experiment_id": "E08",
+  "optimizer_policy": "PLAIN_SGD_CONSTANT_LR_FRESH_STATE",
+  "preflight": {
+    "candidate_ids": [
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3",
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3"
+    ],
+    "changed_config_paths": {
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3": [
+        "training.learning_rate",
+        "training.optimizer_config.momentum",
+        "training.optimizer_config.nesterov",
+        "training.optimizer_name"
+      ],
+      "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4": [
+        "training.learning_rate",
+        "training.optimizer_config.momentum",
+        "training.optimizer_config.nesterov",
+        "training.optimizer_name"
+      ],
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3": [
+        "training.learning_rate",
+        "training.optimizer_config.momentum",
+        "training.optimizer_config.nesterov",
+        "training.optimizer_name"
+      ],
+      "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4": [
+        "training.optimizer_config.momentum",
+        "training.optimizer_config.nesterov",
+        "training.optimizer_name"
+      ]
+    },
+    "control_audit": {
+      "metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "run_count": 6,
+      "status": "PASS"
+    },
+    "control_reuse": "CONTROL_REUSED_FROM_E01_READ_ONLY",
+    "expected_stage_a_runs": 12,
+    "expected_stage_b_runs": 12,
+    "experiment_id": "E08",
+    "inference_executed": false,
+    "learning_rates": [
+      0.0001,
+      0.0003,
+      0.001,
+      0.003
+    ],
+    "one_primary_change": "PASS",
+    "optimizer": "SGD",
+    "optimizer_config": {
+      "momentum": 0.0,
+      "nesterov": false
+    },
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "scheduler": "OFF",
+    "shared_pretest_cache": "PASS",
+    "stage_c_flatten_protection": "PASS",
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidate_count": 4,
+    "training_executed": false
+  },
+  "resume_audit": null,
+  "scheduler": "OFF",
+  "schema": "MODEL_IMPROVEMENT_V2_E08_EXECUTION-v1",
+  "selected_best_epochs": {
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO1": 17,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO2": 44,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3:RO3": 49,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO1": 50,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO2": 50,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4:RO3": 50,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO1": 11,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO2": 44,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3:RO3": 41,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO1": 49,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO2": 46,
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4:RO3": 49
+  },
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

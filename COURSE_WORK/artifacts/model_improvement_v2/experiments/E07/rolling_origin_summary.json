@@ -1,0 +1,11 @@
+{
+  "candidate_count": 2,
+  "created_at": "2026-09-10T18:27:52.639918+00:00",
+  "fold_count": 3,
+  "phase_id": 44,
+  "recommended_pooled_rmse_wh": 60.25685882296316,
+  "recommended_transformer_fingerprint": "49ab3e55c68624c68d262ab7cdb94e872d1997a71323e2de87bbbc68bdc60c80",
+  "recommended_transformer_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+  "signoff_status": "PASS_WITH_WARNING",
+  "test_status": "NOT_ACCESSED"
+}

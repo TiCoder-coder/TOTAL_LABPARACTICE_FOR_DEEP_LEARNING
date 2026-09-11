@@ -1,0 +1,75 @@
+{
+  "decision": {
+    "action": "RETAIN_E01_SCHEDULER_OFF",
+    "best_observed_rmse_wh": 59.85291570400546,
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "selected_candidate_id": "TR_C2_ALT_LOOKBACK",
+    "selected_scheduler_name": "OFF"
+  },
+  "experiment_id": "E07",
+  "initial_learning_rate": 0.0003,
+  "optimizer": "AdamW",
+  "primary_change": "TRAINING_SCHEDULER_POLICY",
+  "promotion_rule": "challenger_pooled_rmse_wh <= promotion_threshold_rmse_wh",
+  "promotion_threshold_rmse_wh": 59.75291570400546,
+  "results": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "lr_policy": "STAGE_B_CONSTANT_LR_FROM_CONFIG",
+      "pooled_metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "scheduler_name": "OFF",
+      "source": "CONTROL_REUSED_FROM_E01_READ_ONLY",
+      "stage_a_run_ids": [],
+      "stage_b_run_ids": []
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+      "lr_policy": "STAGE_A_EXACT_TRACE_REPLAY",
+      "pooled_metrics": {
+        "mae_wh": 27.776033625133117,
+        "r2": 0.5732408201644426,
+        "rmse_wh": 60.25685882296316
+      },
+      "scheduler_name": "COSINE",
+      "source": "E07_TRAINED_CHALLENGER",
+      "stage_a_run_ids": [
+        "RUN_V2_TR_E07_RO1_A_0001_F8DEB30C",
+        "RUN_V2_TR_E07_RO2_A_0003_F8DE8E42",
+        "RUN_V2_TR_E07_RO3_A_0005_B107EAAB"
+      ],
+      "stage_b_run_ids": [
+        "RUN_V2_TR_E07_RO1_B_0007_1F0A0158",
+        "RUN_V2_TR_E07_RO2_B_0009_30E30FBD",
+        "RUN_V2_TR_E07_RO3_B_0011_3DAAF081"
+      ]
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU",
+      "lr_policy": "STAGE_A_EXACT_TRACE_REPLAY",
+      "pooled_metrics": {
+        "mae_wh": 27.878657784890517,
+        "r2": 0.572486619672635,
+        "rmse_wh": 60.31008051525662
+      },
+      "scheduler_name": "REDUCE_ON_PLATEAU",
+      "source": "E07_TRAINED_CHALLENGER",
+      "stage_a_run_ids": [
+        "RUN_V2_TR_E07_RO1_A_0002_18C087A8",
+        "RUN_V2_TR_E07_RO2_A_0004_1C3A0028",
+        "RUN_V2_TR_E07_RO3_A_0006_365794B9"
+      ],
+      "stage_b_run_ids": [
+        "RUN_V2_TR_E07_RO1_B_0008_8B34F56F",
+        "RUN_V2_TR_E07_RO2_B_0010_7F9737D7",
+        "RUN_V2_TR_E07_RO3_B_0012_5CF2A4EE"
+      ]
+    }
+  ],
+  "schema": "MODEL_IMPROVEMENT_V2_E07_SCHEDULER_ABLATION-v1",
+  "target_population_policy": "IDENTICAL_PHASE44_RO1_RO2_RO3",
+  "test_status": "NOT_ACCESSED"
+}

@@ -1,0 +1,102 @@
+{
+  "decision": {
+    "action": "RETAIN_E01_ADAMW",
+    "best_observed_rmse_wh": 59.85291570400546,
+    "selected_candidate_id": "TR_C2_ALT_LOOKBACK",
+    "selected_learning_rate": 0.0003,
+    "selected_optimizer": "AdamW"
+  },
+  "experiment_id": "E08",
+  "mae_can_promote": false,
+  "primary_change": "OPTIMIZER_FAMILY_WITH_PREDECLARED_LR",
+  "primary_metric": "pooled_rmse_wh",
+  "promotion_rule": "challenger_pooled_rmse_wh <= 59.75291570400546",
+  "promotion_threshold_rmse_wh": 59.75291570400546,
+  "ranking": [
+    "TR_C2_ALT_LOOKBACK",
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3",
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3",
+    "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4",
+    "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4"
+  ],
+  "results": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "learning_rate": 0.0003,
+      "momentum": null,
+      "nesterov": null,
+      "optimizer_name": "AdamW",
+      "pooled_metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "scheduler": "OFF",
+      "source": "CONTROL_REUSED_FROM_E01_READ_ONLY",
+      "weight_decay": 0.001
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4",
+      "learning_rate": 0.0001,
+      "momentum": 0.0,
+      "nesterov": false,
+      "optimizer_name": "SGD",
+      "pooled_metrics": {
+        "mae_wh": 32.5898484278425,
+        "r2": 0.49883798781998157,
+        "rmse_wh": 65.29863824544968
+      },
+      "scheduler": "OFF",
+      "source": "E08_TRAINED_CHALLENGER",
+      "weight_decay": 0.001
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4",
+      "learning_rate": 0.0003,
+      "momentum": 0.0,
+      "nesterov": false,
+      "optimizer_name": "SGD",
+      "pooled_metrics": {
+        "mae_wh": 27.822472934725184,
+        "r2": 0.5524143924993588,
+        "rmse_wh": 61.709653638255936
+      },
+      "scheduler": "OFF",
+      "source": "E08_TRAINED_CHALLENGER",
+      "weight_decay": 0.001
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3",
+      "learning_rate": 0.001,
+      "momentum": 0.0,
+      "nesterov": false,
+      "optimizer_name": "SGD",
+      "pooled_metrics": {
+        "mae_wh": 26.806234250010828,
+        "r2": 0.5586321300293369,
+        "rmse_wh": 61.27952775348034
+      },
+      "scheduler": "OFF",
+      "source": "E08_TRAINED_CHALLENGER",
+      "weight_decay": 0.001
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3",
+      "learning_rate": 0.003,
+      "momentum": 0.0,
+      "nesterov": false,
+      "optimizer_name": "SGD",
+      "pooled_metrics": {
+        "mae_wh": 26.52493671226425,
+        "r2": 0.5636465473352674,
+        "rmse_wh": 60.9304324745535
+      },
+      "scheduler": "OFF",
+      "source": "E08_TRAINED_CHALLENGER",
+      "weight_decay": 0.001
+    }
+  ],
+  "schema": "MODEL_IMPROVEMENT_V2_E08_SGD_LR_ABLATION-v1",
+  "target_population_policy": "IDENTICAL_PHASE44_RO1_RO2_RO3",
+  "test_status": "NOT_ACCESSED"
+}

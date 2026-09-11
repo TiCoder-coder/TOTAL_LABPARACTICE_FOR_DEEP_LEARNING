@@ -95,6 +95,7 @@ class RefitEngine:
         notes: str = "",
         heartbeat_path: Path | None = None,
         rehearsal_synthetic: bool = False,
+        stage_a_lr_trace: list[float] | tuple[float, ...] | None = None,
     ) -> StageBResult:
         """Train exactly `best_epoch_inner` epochs. Return REFIT_FINAL.
 
@@ -150,6 +151,26 @@ class RefitEngine:
             else 0.0
         )
 
+        # V2 E07-D: Stage-B LR replay from Stage-A trace.
+        # When stage_a_lr_trace is provided, the optimizer LR is set EXPLICITLY
+        # before each Stage-B epoch from the trace. NO scheduler.step() is
+        # called in Stage B. This is mandatory for REDUCE_ON_PLATEAU (no
+        # validation in Stage B) and correct for COSINE (avoids
+        # re-computation of scheduler behavior).
+        if stage_a_lr_trace is not None:
+            from course_work.model_improvement_v2.stage_b_replay import (
+                LR_POLICY_STAGE_A_REPLAY,
+                validate_lr_trace,
+            )
+            validated_trace = validate_lr_trace(stage_a_lr_trace, max_epochs)
+            lr_policy = LR_POLICY_STAGE_A_REPLAY
+        else:
+            from course_work.model_improvement_v2.stage_b_replay import (
+                LR_POLICY_STAGE_B_CONSTANT,
+            )
+            validated_trace = None
+            lr_policy = LR_POLICY_STAGE_B_CONSTANT
+
         # ---- HARD CONTRACT ASSERTIONS ----
         assert (
             training_cfg.get("early_stopping_enabled") is False
@@ -160,8 +181,17 @@ class RefitEngine:
             torch.cuda.manual_seed_all(refit_seed)
 
         model = model.to(device)
-        optimizer = torch.optim.AdamW(
-            model.parameters(), lr=learning_rate, weight_decay=weight_decay
+        # Historical fresh-state construction was ``torch.optim.AdamW(`` with
+        # ``lr=learning_rate`` and ``weight_decay=weight_decay`` here. The
+        # factory preserves that exact default while enabling V2 E08 SGD.
+        from course_work.model_improvement_v2.optimizer import build_optimizer
+
+        optimizer = build_optimizer(
+            model.parameters(),
+            training_cfg.get("optimizer_name"),
+            learning_rate,
+            weight_decay,
+            training_cfg.get("optimizer_config"),
         )
         loss_fn = build_training_criterion(training_cfg)
 
@@ -190,6 +220,17 @@ class RefitEngine:
         )
 
         for epoch in range(1, max_epochs + 1):
+            # V2 E07-D: Set optimizer LR explicitly from Stage-A trace.
+            # This happens BEFORE training each Stage-B epoch.
+            # Stage-B does NOT call scheduler.step() — replay only.
+            current_lr_for_epoch = learning_rate
+            if validated_trace is not None:
+                current_lr_for_epoch = float(validated_trace[epoch - 1])
+                from course_work.model_improvement_v2.stage_b_replay import (
+                    set_optimizer_lr,
+                )
+                set_optimizer_lr(optimizer, current_lr_for_epoch)
+
             model.train()
             epoch_loss = 0.0
             sample_count = 0
@@ -245,13 +286,18 @@ class RefitEngine:
                     "validation_rmse_wh": float("nan"),
                     "validation_mae_wh": float("nan"),
                     "validation_r2": float("nan"),
-                    "learning_rate": learning_rate,
+                    # V2 E07-D: Stage-B LR is the replayed LR for this epoch,
+                    # OR the constant config LR when replay is disabled.
+                    "learning_rate": current_lr_for_epoch,
+                    "lr_used_for_epoch": current_lr_for_epoch,
+                    "next_lr_after_scheduler": current_lr_for_epoch,
                     "epoch_seconds": epoch_seconds,
                     "is_best": False,
                 }
             )
             print(
-                f"  [REFIT] epoch {epoch}/{max_epochs} train_loss={train_loss:.4f}",
+                f"  [REFIT] epoch {epoch}/{max_epochs} "
+                f"lr={current_lr_for_epoch:.6e} train_loss={train_loss:.4f}",
                 flush=True,
             )
 
@@ -276,6 +322,8 @@ class RefitEngine:
             "candidate_id": candidate_id,
             "parent_run_id": parent_run_id,
             "stage": "B",
+            # V2 E07-D: LR replay metadata for checkpoint verification
+            "lr_policy": lr_policy,
         }
         torch.save(payload, refit_final_path)
 
@@ -317,6 +365,17 @@ class RefitEngine:
             "warm_start": False,
             "final_dev_semantics": False,
             "notes": notes,
+            # V2 E07-D: Stage-B LR replay metadata.
+            "lr_policy": lr_policy,
+            "lr_trace_source": (
+                "stage_a_lr_trace_from_history" if validated_trace is not None
+                else "config_constant"
+            ),
+            "lr_trace_length": len(validated_trace) if validated_trace is not None else 0,
+            "lr_used_for_epoch": (
+                [float(x) for x in validated_trace[:max_epochs]] if validated_trace is not None
+                else []
+            ),
         }
         atomic_write_bytes(refit_status_path, json.dumps(refit_status, indent=2).encode("utf-8"))
 

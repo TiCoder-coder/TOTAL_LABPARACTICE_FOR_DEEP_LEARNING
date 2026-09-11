@@ -1,0 +1,25 @@
+{
+  "run_id": "RUN_V2_TR_E07_RO1_B_0007_1F0A0158",
+  "stage": "B",
+  "official_epoch": 2,
+  "best_epoch_inner": 2,
+  "stopped_reason": "EXACT_EPOCHS",
+  "refit_seed": 42,
+  "fold_id": "RO1",
+  "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+  "parent_run_id": "RUN_V2_TR_E07_RO1_A_0001_F8DEB30C",
+  "train_loss_final": 0.43161704385899763,
+  "trainable_parameters": 102209,
+  "early_stopping_enabled": false,
+  "validation_used": false,
+  "warm_start": false,
+  "final_dev_semantics": false,
+  "notes": "Stage B refit using best_epoch_inner=2",
+  "lr_policy": "STAGE_A_EXACT_TRACE_REPLAY",
+  "lr_trace_source": "stage_a_lr_trace_from_history",
+  "lr_trace_length": 2,
+  "lr_used_for_epoch": [
+    0.0003,
+    0.00029971387562209936
+  ]
+}

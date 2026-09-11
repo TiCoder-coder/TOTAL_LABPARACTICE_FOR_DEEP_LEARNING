@@ -1,0 +1,11 @@
+{
+  "candidate_count": 3,
+  "created_at": "2026-09-10T16:12:12.652887+00:00",
+  "fold_count": 3,
+  "phase_id": 44,
+  "recommended_pooled_rmse_wh": 60.43678408180427,
+  "recommended_transformer_fingerprint": "a3e34e5d93cffc0834f4ab746254572427dd3c5609fb9024587e185efacfac6b",
+  "recommended_transformer_id": "TR_C2_ALT_LOOKBACK_LR_2E4",
+  "signoff_status": "PASS_WITH_WARNING",
+  "test_status": "NOT_ACCESSED"
+}

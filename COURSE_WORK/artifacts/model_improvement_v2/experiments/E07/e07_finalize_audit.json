@@ -1,0 +1,32 @@
+{
+  "eligibility_audit": {
+    "mode": "FINALIZE_ONLY_NO_STAGE_C_REEXECUTION",
+    "n_completed_runs": 12,
+    "n_outer_prediction_csvs": 9,
+    "new_refit_run_ids_allowed": false,
+    "new_training_run_ids_allowed": false,
+    "stage_c_reexecution_allowed": false,
+    "status": "PASS",
+    "test_access_authorized": false
+  },
+  "experiment_id": "E07",
+  "mode": "FINALIZE_ONLY_NO_STAGE_C_REEXECUTION",
+  "new_contracts_written": [
+    "e07_execution_manifest.json",
+    "e07_scheduler_ablation_comparison.json"
+  ],
+  "refit_executed": false,
+  "reused_artifacts": [
+    "rolling_origin_pooled_metrics.csv",
+    "rolling_origin_inner_best_epochs.csv",
+    "rolling_origin_fold_metrics.csv",
+    "phase_44_signoff.json",
+    "phase45_final_model_lock_handoff.json",
+    "e07_resume_audit.json",
+    "predictions/outer_predictions_*.csv"
+  ],
+  "schema": "MODEL_IMPROVEMENT_V2_E07_FINALIZE_AUDIT-v1",
+  "stage_c_inference_executed": false,
+  "test_status": "NOT_ACCESSED",
+  "training_executed": false
+}

@@ -1,0 +1,75 @@
+{
+  "schema": "model_improvement_v2_v1_lineage_manifest",
+  "version": "1.0.0",
+  "track": "MODEL_IMPROVEMENT-v2",
+  "experiment_id": "E00",
+  "purpose": "Classify frozen V1 evidence without modifying or repairing it.",
+  "v1_policy": {
+    "mutation_forbidden": true,
+    "overwrite_forbidden": true,
+    "silent_repair_forbidden": true,
+    "known_provenance_debt_must_remain_documented": true,
+    "v2_namespace_isolated": true
+  },
+  "phase_classification": {
+    "Phase44": {
+      "classification": "CANONICAL_DEVELOPMENT_BASELINE",
+      "status": "PASS",
+      "test_status": "NOT_ACCESSED",
+      "source_paths": [
+        "COURSE_WORK/artifacts/rolling_origin/rolling_origin_recommended_transformer.json",
+        "COURSE_WORK/artifacts/rolling_origin/phase_44_signoff.json",
+        "COURSE_WORK/artifacts/rolling_origin/rolling_origin_fold_manifest.json",
+        "COURSE_WORK/artifacts/rolling_origin/rolling_origin_contract.json",
+        "COURSE_WORK/artifacts/rolling_origin/phase45_final_model_lock_handoff.json"
+      ]
+    },
+    "Phase45": {
+      "classification": "FROZEN_HISTORICAL_EVIDENCE_WITH_PROVENANCE_DEBT",
+      "source_root": "COURSE_WORK/artifacts/final_model_lock/",
+      "policy": "READ_ONLY_NO_REPAIR_DURING_V2"
+    },
+    "Phase46": {
+      "classification": "FROZEN_HISTORICAL_EVIDENCE_WITH_PROVENANCE_DEBT",
+      "source_root": "COURSE_WORK/artifacts/three_seed_final_runs/",
+      "policy": "READ_ONLY_NO_REPAIR_DURING_V2"
+    },
+    "Phase47": {
+      "classification": "FROZEN_HISTORICAL_TEST_EVIDENCE",
+      "selection_policy": "NOT_ALLOWED_FOR_V2_SELECTION",
+      "source_root": "COURSE_WORK/artifacts/final_test/",
+      "policy": "READ_ONLY_NO_REPAIR_DURING_V2"
+    }
+  },
+  "known_provenance_debt": [
+    {
+      "debt_id": "V1_PHASE46_PHASE47_MIXED_RUN_LINEAGE",
+      "status": "DOCUMENTED_NOT_REPAIRED",
+      "summary": "Active V1 evidence has mixed lineage: some Phase47 inference/metric evidence references corrected RUN_TR_FSD_0256 runs, while other active report, handoff, or contract metadata retains stale RUN_TR_FSD_0254/RUN_TR_FSD_0255 references.",
+      "corrected_lineage_examples": [
+        "COURSE_WORK/artifacts/three_seed_final_runs/phase_46_signoff.json",
+        "COURSE_WORK/artifacts/three_seed_final_runs/phase47_final_test_evaluation_handoff.json"
+      ],
+      "stale_metadata_examples": [
+        "COURSE_WORK/artifacts/final_test/final_test_evaluation_contract.json",
+        "COURSE_WORK/artifacts/final_test/final_test_report.md",
+        "COURSE_WORK/artifacts/final_test/final_test_summary.json",
+        "COURSE_WORK/artifacts/final_test/phase48_prediction_analysis_handoff.json"
+      ],
+      "interpretation": "PROVENANCE_DEBT_ONLY",
+      "v2_action": "PRESERVE_AND_EXCLUDE_FROM_MODEL_SELECTION"
+    }
+  ],
+  "test_firewall": {
+    "test_access_authorized": false,
+    "test_metrics_copied_into_manifest": false,
+    "phase47_may_select_lr": false,
+    "phase47_may_select_optimizer": false,
+    "phase47_may_select_architecture": false,
+    "phase47_may_select_feature_set": false,
+    "phase47_may_select_scheduler": false,
+    "phase47_may_select_fine_tuning": false,
+    "phase47_may_select_seed": false,
+    "phase47_may_select_model_candidate": false
+  }
+}

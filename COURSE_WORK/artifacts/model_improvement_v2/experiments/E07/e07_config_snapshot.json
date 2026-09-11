@@ -1,0 +1,155 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_E07_CONFIG-v1",
+  "version": "1.0.0",
+  "track": "MODEL_IMPROVEMENT-v2",
+  "experiment_id": "E07",
+  "objective": "ADAMW_SCHEDULER_POLICY_ABLATION",
+  "setup_scope": "CONFIGURATION_AND_CANDIDATE_MATRIX_ONLY",
+  "primary_change": {
+    "factor": "training.scheduler_policy",
+    "approved_config_paths": [
+      "training.scheduler_name",
+      "training.scheduler_config"
+    ],
+    "candidate_values": [
+      "OFF",
+      "COSINE",
+      "REDUCE_ON_PLATEAU"
+    ]
+  },
+  "source_evidence": {
+    "source_plan": "COURSE_WORK/docs/Plan_improve_model.md",
+    "pre_process_plan": "COURSE_WORK/docs/plan/plan_before_process/model_improvement_v2_pre_process_plan.md",
+    "e01_config_snapshot": {
+      "path": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E01/e01_config_snapshot.json",
+      "sha256": "7e3b064e00a3e1148053d798228ce232fc3faa7464a803b697ab4915b0a5a101",
+      "source_field": "v1_config",
+      "config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24"
+    },
+    "e06_lr_audit_comparison": {
+      "path": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E06/e06_lr_audit_comparison.json",
+      "sha256": "dc6c8861235ba0144a794e2c87dd7ddd9f041a597b88566549c6137e7db75ab3",
+      "decision": "RETAIN_E01_LR_3E4",
+      "test_status": "NOT_ACCESSED"
+    }
+  },
+  "control": {
+    "identity": "E01_DIRECT_FS2_TF1_ADAMW_LR_3E4_SCHEDULER_OFF",
+    "source_experiment": "E01",
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "scheduler_name": null,
+    "scheduler_config": null,
+    "scheduler_policy": "OFF",
+    "config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "pooled_metrics": {
+      "rmse_wh": 59.85291570400546,
+      "mae_wh": 26.650501720144604,
+      "r2": 0.5789433617557903
+    },
+    "reuse_policy": "CONTROL_REUSED_FROM_E01_READ_ONLY",
+    "training_required": false,
+    "checkpoint_reuse_for_challengers": false,
+    "test_status": "NOT_ACCESSED"
+  },
+  "challengers": [
+    {
+      "identity": "E07_DIRECT_FS2_TF1_ADAMW_LR_3E4_SCHEDULER_COSINE",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+      "scheduler_name": "COSINE",
+      "scheduler_config": {
+        "class": "torch.optim.lr_scheduler.CosineAnnealingLR",
+        "T_max": 50,
+        "eta_min": 1e-05,
+        "last_epoch": -1
+      },
+      "step_contract": {
+        "cadence": "ONCE_PER_COMPLETED_EPOCH",
+        "metric_argument": null,
+        "validation_frequency": "EVERY_EPOCH",
+        "early_stopping_interaction": "SCHEDULER_AND_EARLY_STOPPING_OBSERVE_THE_SAME_COMPLETED_EPOCH"
+      },
+      "config_fingerprint": "49ab3e55c68624c68d262ab7cdb94e872d1997a71323e2de87bbbc68bdc60c80",
+      "initialization_policy": "FRESH_FROM_SEED_42_NO_CHECKPOINT_LOAD",
+      "training_required": true
+    },
+    {
+      "identity": "E07_DIRECT_FS2_TF1_ADAMW_LR_3E4_SCHEDULER_REDUCE_ON_PLATEAU",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU",
+      "scheduler_name": "REDUCE_ON_PLATEAU",
+      "scheduler_config": {
+        "class": "torch.optim.lr_scheduler.ReduceLROnPlateau",
+        "mode": "min",
+        "factor": 0.5,
+        "patience": 3,
+        "threshold": 0.0,
+        "threshold_mode": "abs",
+        "cooldown": 0,
+        "min_lr": 1e-05,
+        "eps": 1e-08
+      },
+      "step_contract": {
+        "cadence": "AFTER_EACH_INNER_VALIDATION",
+        "metric_argument": "INNER_VALIDATION_RMSE_WH",
+        "validation_frequency": "EVERY_EPOCH",
+        "early_stopping_interaction": "SCHEDULER_AND_EARLY_STOPPING_OBSERVE_THE_SAME_VALIDATION_METRIC"
+      },
+      "config_fingerprint": "879e630bbce95cf7eb5e3d91f953e0e624573c27540c0bd0c38d201d66b36404",
+      "initialization_policy": "FRESH_FROM_SEED_42_NO_CHECKPOINT_LOAD",
+      "training_required": true
+    }
+  ],
+  "fixed_scientific_contract": {
+    "candidate": "TR_C2_ALT_LOOKBACK",
+    "prediction_formulation": "DIRECT",
+    "feature_variant_id": "FS2_TF1",
+    "feature_count": 33,
+    "lookback_steps": 72,
+    "horizon_steps": 1,
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "rolling_origin_protocol": "RO3_EXPANDING_PRETEST-v1",
+    "folds": [
+      "RO1",
+      "RO2",
+      "RO3"
+    ],
+    "fold_local_x_scaling": true,
+    "fold_local_y_scaling": true,
+    "optimizer_name": "AdamW",
+    "initial_learning_rate": 0.0003,
+    "weight_decay": 0.001,
+    "loss_name": "MSE",
+    "seed": 42,
+    "gradient_clip_max_norm": 1.0,
+    "max_epochs": 50,
+    "early_stopping_patience": 10,
+    "early_stopping_min_delta": 0.0,
+    "validation_frequency": "EVERY_EPOCH",
+    "target_population_policy": "IDENTICAL_PHASE44_RO1_RO2_RO3",
+    "warmup": "OFF"
+  },
+  "selection_policy": {
+    "primary_metric": "POOLED_ROLLING_ORIGIN_RMSE_WH",
+    "promotion_rule": "challenger_pooled_rmse_wh <= promotion_threshold_rmse_wh",
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "fallback": "RETAIN_E01_SCHEDULER_OFF",
+    "test_metrics_allowed": false
+  },
+  "v2_orchestration": {
+    "artifact_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E07",
+    "planned_registry_namespace": "MODEL_IMPROVEMENT_V2_E07",
+    "registry_root": "COURSE_WORK/artifacts/model_improvement_v2/registry",
+    "run_root": "COURSE_WORK/artifacts/model_improvement_v2/runs",
+    "control_candidate_count": 1,
+    "training_candidate_count": 2,
+    "control_retraining_allowed": false,
+    "test_access_authorized": false,
+    "training_authorized": false
+  },
+  "implementation_status": {
+    "scheduler_builder": "NOT_IMPLEMENTED_E07_B",
+    "scheduler_step": "NOT_IMPLEMENTED_E07_B",
+    "scheduler_replay": "NOT_IMPLEMENTED_E07_B",
+    "runner_execution": "NOT_IMPLEMENTED_E07_B",
+    "official_training": "NOT_AUTHORIZED"
+  }
+}

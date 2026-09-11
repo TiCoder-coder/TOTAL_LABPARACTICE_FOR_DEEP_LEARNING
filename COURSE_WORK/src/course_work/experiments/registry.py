@@ -94,6 +94,27 @@ REQUIRED_METRICS = {"mae_wh", "rmse_wh", "r2"}
 MIN_CORRECTIVE_PHASE46_SEQUENCE = 256
 
 
+# Allowed V2 rolling-experiment run_id namespaces.
+# Any namespace in this set is treated as a V2 rolling experiment:
+#   - run_id format is RUN_V2_<MODEL>_<EXPERIMENT_ID>_<RO_STAGE>_<SEQ>_<HASH>
+#   - upstream_context_override is permitted
+#   - allocated run_id includes the experiment_id derived from the namespace
+# E01--E09 are V2 rolling experiments and share the same
+# validated V2 behavior. Adding a future E0N requires only adding the
+# namespace string here, with no other code change.
+V2_NAMESPACE_IDS = frozenset({
+    "V2_E01",
+    "V2_E02",
+    "V2_E03",
+    "V2_E04",
+    "V2_E05",
+    "V2_E06",
+    "V2_E07",
+    "V2_E08",
+    "V2_E09",
+})
+
+
 
 class RunStatus(str, Enum):
     PLANNED = "PLANNED"
@@ -767,12 +788,23 @@ class ExperimentRegistry:
         registry_root: Path | None = None,
         run_root: Path | None = None,
         clock: Callable[[], str] = utc_now,
+        run_id_namespace: str | None = None,
+        upstream_context_override: dict[str, Any] | None = None,
     ) -> None:
         self.project_root = (project_root or get_project_root()).resolve()
         self.registry_root = (registry_root or self.project_root / EXPERIMENT_ARTIFACT_ROOT).resolve()
         self.run_root = (run_root or self.project_root / RUN_ARTIFACT_ROOT).resolve()
         self.clock = clock
-        self.upstream_context = load_upstream_context(self.project_root)
+        if run_id_namespace not in (None, *V2_NAMESPACE_IDS):
+            raise ValueError("Unsupported run_id_namespace")
+        self.run_id_namespace = run_id_namespace
+        if upstream_context_override is not None and run_id_namespace not in V2_NAMESPACE_IDS:
+            raise ValueError("upstream_context_override is restricted to V2 rolling experiments")
+        self.upstream_context = (
+            deepcopy(upstream_context_override)
+            if upstream_context_override is not None
+            else load_upstream_context(self.project_root)
+        )
         self.registry_root.mkdir(parents=True, exist_ok=True)
 
     @property
@@ -1011,6 +1043,7 @@ class ExperimentRegistry:
         experiment_family: str,
         config_fingerprint: str,
         min_sequence: int | None = None,
+        run_stage: str | None = None,
     ) -> str:
         """Allocate a unique run_id with optional minimum-sequence floor.
 
@@ -1041,7 +1074,16 @@ class ExperimentRegistry:
             base_seq = max(base_seq, int(min_sequence))
         sequence = base_seq
         while True:
-            run_id = f"RUN_{model_code}_{family_code}_{sequence:04d}_{config_fingerprint[:8].upper()}"
+            if self.run_id_namespace in V2_NAMESPACE_IDS:
+                if run_stage not in {"RO1_A", "RO2_A", "RO3_A", "RO1_B", "RO2_B", "RO3_B"}:
+                    raise ValueError("V2 rolling run IDs require an RO1-RO3 Stage A/B run_stage")
+                experiment_id = self.run_id_namespace.removeprefix("V2_")
+                run_id = (
+                    f"RUN_V2_{model_code}_{experiment_id}_{run_stage}_{sequence:04d}_"
+                    f"{config_fingerprint[:8].upper()}"
+                )
+            else:
+                run_id = f"RUN_{model_code}_{family_code}_{sequence:04d}_{config_fingerprint[:8].upper()}"
             if not any(record["run_id"] == run_id for record in records) and not (self.run_root / run_id).exists():
                 return run_id
             sequence += 1
@@ -1161,6 +1203,7 @@ class ExperimentRegistry:
             experiment_family,
             fingerprint,
             min_sequence=min_sequence,
+            run_stage=sweep_stage,
         )
         now = self.clock()
         record = {
@@ -1221,7 +1264,13 @@ class ExperimentRegistry:
         index = self._record_index(records, run_id)
         record = records[index]
         self._verify_config_immutability(record)
-        validate_status_transition(record["status"], next_status)
+        v2_registered_failure = (
+            self.run_id_namespace in V2_NAMESPACE_IDS
+            and record["status"] == RunStatus.REGISTERED.value
+            and next_status == RunStatus.FAILED.value
+        )
+        if not v2_registered_failure:
+            validate_status_transition(record["status"], next_status)
         record["status"] = RunStatus(next_status).value
         record["updated_at"] = self.clock()
         if update:
@@ -1311,6 +1360,15 @@ class ExperimentRegistry:
             )
         else:
             expected_population = record["config"]["lineage"]["population_fingerprint"]
+        if (
+            self.run_id_namespace in V2_NAMESPACE_IDS
+            and record["config"].get("lineage", {}).get("rolling_origin_stage") == "A"
+        ):
+            expected_population = record["config"]["lineage"].get(
+                "rolling_origin_metric_population_fingerprint"
+            )
+            if not expected_population:
+                raise ValueError("V2 rolling Stage-A metric population fingerprint is missing")
         if population_fingerprint != expected_population:
             raise ValueError(
                 f"Metric population fingerprint mismatch: "
@@ -1343,6 +1401,16 @@ class ExperimentRegistry:
                 "VALIDATION": int(data["validation_sample_count"]),
                 "TEST": int(data["test_sample_count"]),
             }
+        if (
+            self.run_id_namespace in V2_NAMESPACE_IDS
+            and record["config"].get("lineage", {}).get("rolling_origin_stage") == "A"
+            and split == "VALIDATION"
+        ):
+            expected_counts["VALIDATION"] = int(
+                record["config"]["lineage"].get(
+                    "rolling_origin_metric_population_count", -1
+                )
+            )
         if split not in expected_counts:
             raise ValueError(f"Unsupported split: {split}")
         if n_samples != expected_counts[split]:
@@ -1500,6 +1568,37 @@ class ExperimentRegistry:
         records[index] = record
         self._persist(records)
         return deepcopy(record)
+
+    def complete_refit_run(self, run_id: str, refit_epoch: int) -> dict[str, Any]:
+        """Complete a Stage-B refit only after its required evidence exists."""
+
+        record = self.get_run(run_id)
+        if record["status"] != RunStatus.RUNNING.value:
+            raise ValueError("Only RUNNING refit run can complete")
+        if record["config"].get("lineage", {}).get("rolling_origin_stage") != "B":
+            raise ValueError("complete_refit_run requires a Stage-B config")
+        if int(refit_epoch) < 1:
+            raise ValueError("refit_epoch must be positive")
+        required = {
+            ArtifactType.CONFIG.value,
+            ArtifactType.STATUS.value,
+            ArtifactType.TRAIN_LOG.value,
+            ArtifactType.METRICS.value,
+            ArtifactType.BEST_CHECKPOINT.value,
+        }
+        available = {
+            item["artifact_type"]
+            for item in record.get("artifacts", [])
+            if item.get("status") == "PASS"
+        }
+        missing = required - available
+        if missing:
+            raise ValueError(f"Required Stage-B artifacts missing: {sorted(missing)}")
+        return self._transition(
+            run_id,
+            RunStatus.COMPLETED.value,
+            {"best_epoch": int(refit_epoch), "completed_at": self.clock()},
+        )
 
     def recover_wb1_run(
         self,

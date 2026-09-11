@@ -44,6 +44,8 @@ SUPPORTED_LOOKBACKS = (36, 72, 144)
 SUPPORTED_POOLINGS = ("LAST_STEP", "MEAN")
 SUPPORTED_ACTIVATIONS = ("GELU", "RELU")
 SUPPORTED_POSITIONAL_ENCODINGS = ("SINUSOIDAL",)
+SUPPORTED_PREDICTION_HEADS = ("LINEAR", "MLP")
+SUPPORTED_RESIDUAL_GATES = ("OFF", "ON")
 IMPLEMENTATION_AUDIT_COLUMNS = ["check", "expected", "actual", "status", "details"]
 UNIT_TEST_COLUMNS = ["test_id", "description", "expected", "actual", "tolerance", "status"]
 MODULE_AUDIT_COLUMNS = ["module_path", "module_type", "trainable_parameters"]
@@ -117,6 +119,22 @@ def build_reference_transformer_config(feature_count: int) -> TransformerModelCo
 class TransformerRegressor(nn.Module):
     def __init__(self, config: TransformerModelConfig | dict[str, Any]) -> None:
         super().__init__()
+        requested_head = (
+            str(config.get("prediction_head", "LINEAR"))
+            if isinstance(config, dict)
+            else "LINEAR"
+        )
+        requested_gate = (
+            str(config.get("residual_gate", "OFF"))
+            if isinstance(config, dict)
+            else "OFF"
+        )
+        if requested_head not in SUPPORTED_PREDICTION_HEADS:
+            raise ValueError(f"Unsupported prediction_head: {requested_head}")
+        if requested_gate not in SUPPORTED_RESIDUAL_GATES:
+            raise ValueError(f"Unsupported residual_gate: {requested_gate}")
+        self.prediction_head = requested_head
+        self.residual_gate = requested_gate
         self.config = validate_transformer_config(config)
         self.input_projection = nn.Linear(self.config.input_size, self.config.d_model)
         self.positional_encoding = SinusoidalPositionalEncoding(self.config.d_model)
@@ -132,7 +150,23 @@ class TransformerRegressor(nn.Module):
             for _ in range(self.config.num_layers)
         ]
         self.encoder = AttentionAwareTransformerEncoder(layers)
-        self.head = nn.Linear(self.config.d_model, self.config.output_size)
+        if self.prediction_head == "LINEAR":
+            # Preserve the historical module type, parameter names and
+            # construction order for every config that omits prediction_head.
+            self.head = nn.Linear(self.config.d_model, self.config.output_size)
+        else:
+            self.head = nn.Sequential(
+                nn.Linear(self.config.d_model, self.config.d_model),
+                nn.GELU(),
+                nn.Dropout(self.config.dropout),
+                nn.Linear(self.config.d_model, self.config.output_size),
+            )
+        if self.residual_gate == "ON":
+            self.residual_gate_head = nn.Linear(
+                self.config.d_model, self.config.output_size
+            )
+            nn.init.zeros_(self.residual_gate_head.weight)
+            nn.init.zeros_(self.residual_gate_head.bias)
 
     def _encode(self, x: torch.Tensor, return_attention: bool) -> tuple[torch.Tensor, list[torch.Tensor]]:
         if x.ndim != 3:
@@ -155,25 +189,37 @@ class TransformerRegressor(nn.Module):
             raise ValueError(f"Unsupported pooling: {self.config.pooling}")
         return pooled, attention_maps
 
+    def _predict_from_pooled(self, pooled: torch.Tensor) -> torch.Tensor:
+        prediction = self.head(pooled)
+        if self.residual_gate == "ON":
+            gate = torch.sigmoid(self.residual_gate_head(pooled))
+            prediction = gate * prediction
+        return prediction
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         pooled, _ = self._encode(x, return_attention=False)
-        prediction = self.head(pooled)
+        prediction = self._predict_from_pooled(pooled)
         if prediction.shape != (x.shape[0], self.config.output_size):
             raise RuntimeError("Transformer head output shape mismatch")
         return prediction
 
     def forward_with_attention(self, x: torch.Tensor) -> tuple[torch.Tensor, list[torch.Tensor]]:
         pooled, attention_maps = self._encode(x, return_attention=True)
-        prediction = self.head(pooled)
+        prediction = self._predict_from_pooled(pooled)
         return prediction, attention_maps
 
     def checkpoint_metadata(self) -> dict[str, Any]:
+        config = self.config.to_dict()
+        if self.prediction_head != "LINEAR":
+            config["prediction_head"] = self.prediction_head
+        if self.residual_gate != "OFF":
+            config["residual_gate"] = self.residual_gate
         return {
             "model_family": self.config.model_family,
             "model_version": self.config.model_version,
             "implementation_version": self.config.implementation_version,
             "trainable_parameters": count_trainable_parameters(self),
-            "config": self.config.to_dict(),
+            "config": config,
         }
 
 

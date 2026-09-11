@@ -1,0 +1,13 @@
+{
+  "best_epoch": 36,
+  "best_validation_rmse_wh": 67.46342096190926,
+  "completed_at": "2026-09-10T15:10:50.963498+00:00",
+  "created_at": "2026-09-10T15:04:21.937473+00:00",
+  "failure": null,
+  "invalidation": null,
+  "registered_at": "2026-09-10T15:04:21.937473+00:00",
+  "run_id": "RUN_V2_TR_E06_RO2_A_0004_B9533164",
+  "started_at": "2026-09-10T15:04:21.940341+00:00",
+  "status": "COMPLETED",
+  "updated_at": "2026-09-10T15:10:50.963498+00:00"
+}

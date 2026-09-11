@@ -1,0 +1,60 @@
+{
+  "decision": {
+    "action": "RETAIN_E01_LR_3E4",
+    "best_observed_learning_rate": 0.0003,
+    "best_observed_rmse_wh": 59.85291570400546,
+    "selected_candidate_id": "TR_C2_ALT_LOOKBACK",
+    "selected_learning_rate": 0.0003
+  },
+  "experiment_id": "E06",
+  "optimizer": "AdamW",
+  "primary_change": "LEARNING_RATE",
+  "promotion_rule": "candidate_pooled_rmse_wh <= promotion_threshold_rmse_wh",
+  "promotion_threshold_rmse_wh": 59.75291570400546,
+  "results": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_LR_5E5",
+      "learning_rate": 5e-05,
+      "pooled_metrics": {
+        "mae_wh": 27.78531352399795,
+        "r2": 0.570655864180708,
+        "rmse_wh": 60.43907654467613
+      },
+      "source": "E06_TRAINED_CHALLENGER"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_LR_1E4",
+      "learning_rate": 0.0001,
+      "pooled_metrics": {
+        "mae_wh": 28.015714600020083,
+        "r2": 0.5695273305632295,
+        "rmse_wh": 60.518456652424646
+      },
+      "source": "E06_TRAINED_CHALLENGER"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_LR_2E4",
+      "learning_rate": 0.0002,
+      "pooled_metrics": {
+        "mae_wh": 26.726656345884525,
+        "r2": 0.57068843373274,
+        "rmse_wh": 60.43678408180427
+      },
+      "source": "E06_TRAINED_CHALLENGER"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "learning_rate": 0.0003,
+      "pooled_metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "source": "CONTROL_REUSED_FROM_E01"
+    }
+  ],
+  "scheduler": "OFF",
+  "schema": "MODEL_IMPROVEMENT_V2_E06_ADAMW_LR_AUDIT-v1",
+  "target_population_policy": "IDENTICAL_PHASE44_RO1_RO2_RO3",
+  "test_status": "NOT_ACCESSED"
+}

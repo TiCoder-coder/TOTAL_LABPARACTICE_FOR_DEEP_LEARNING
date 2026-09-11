@@ -1,0 +1,47 @@
+{
+  "experiment_id": "E05",
+  "gate_formula": "y_hat = y_context + gate * delta_hat_raw",
+  "global_comparison": {
+    "baseline": "E01_DIRECT_FS2_TF1",
+    "baseline_metrics": {
+      "mae_wh": 26.650501720144604,
+      "r2": 0.5789433617557903,
+      "rmse_wh": 59.85291570400546
+    },
+    "baseline_status": "GLOBAL_BASELINE_REUSED_FROM_E01",
+    "challenger": "E05_RESIDUAL_LINEAR_GATE_ON",
+    "challenger_metrics": {
+      "mae_wh": 26.462655192207436,
+      "r2": 0.5672066581575197,
+      "rmse_wh": 60.681364484407354
+    },
+    "delta_rmse_wh": 0.8284487804018923,
+    "local_win_alone_is_sufficient": false,
+    "promotion_rule": "e05_pooled_rmse_wh <= promotion_threshold_rmse_wh",
+    "promotion_status": "DO_NOT_PROMOTE_E05_GLOBAL",
+    "promotion_threshold_rmse_wh": 59.75291570400546
+  },
+  "local_comparison": {
+    "challenger": "E05_RESIDUAL_LINEAR_GATE_ON",
+    "challenger_metrics": {
+      "mae_wh": 26.462655192207436,
+      "r2": 0.5672066581575197,
+      "rmse_wh": 60.681364484407354
+    },
+    "control": "E03_RESIDUAL_LINEAR_GATE_OFF",
+    "control_metrics": {
+      "mae_wh": 26.74870362368344,
+      "r2": 0.5762147018706287,
+      "rmse_wh": 60.04654108949536
+    },
+    "control_status": "CONTROL_REUSED_FROM_E03",
+    "delta_rmse_wh": 0.6348233949119901
+  },
+  "prediction_formulation": "RESIDUAL_TO_PERSISTENCE",
+  "prediction_head": "LINEAR",
+  "primary_change": "RESIDUAL_GATE",
+  "schema": "MODEL_IMPROVEMENT_V2_E05_GATE_ABLATION-v1",
+  "selection_metric": "pooled_rmse_wh",
+  "target_population_policy": "IDENTICAL_PHASE44_RO1_RO2_RO3",
+  "test_status": "NOT_ACCESSED"
+}

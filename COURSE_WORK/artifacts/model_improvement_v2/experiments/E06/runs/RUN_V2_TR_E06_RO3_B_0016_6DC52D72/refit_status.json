@@ -1,0 +1,18 @@
+{
+  "run_id": "RUN_V2_TR_E06_RO3_B_0016_6DC52D72",
+  "stage": "B",
+  "official_epoch": 5,
+  "best_epoch_inner": 5,
+  "stopped_reason": "EXACT_EPOCHS",
+  "refit_seed": 42,
+  "fold_id": "RO3",
+  "candidate_id": "TR_C2_ALT_LOOKBACK_LR_5E5",
+  "parent_run_id": "RUN_V2_TR_E06_RO3_A_0007_E79B274C",
+  "train_loss_final": 0.4213015021029045,
+  "trainable_parameters": 102209,
+  "early_stopping_enabled": false,
+  "validation_used": false,
+  "warm_start": false,
+  "final_dev_semantics": false,
+  "notes": "Stage B refit using best_epoch_inner=5"
+}

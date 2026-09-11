@@ -1,0 +1,13 @@
+{
+  "best_epoch": 6,
+  "best_validation_rmse_wh": 64.68712080693976,
+  "completed_at": "2026-09-10T23:46:40.560053+00:00",
+  "created_at": "2026-09-10T23:44:43.768117+00:00",
+  "failure": null,
+  "invalidation": null,
+  "registered_at": "2026-09-10T23:44:43.768117+00:00",
+  "run_id": "RUN_V2_TR_E09_RO1_A_0002_C24DB60D",
+  "started_at": "2026-09-10T23:44:43.770665+00:00",
+  "status": "COMPLETED",
+  "updated_at": "2026-09-10T23:46:40.560053+00:00"
+}

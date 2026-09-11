@@ -1,0 +1,8 @@
+{
+  "candidate_id": "TR_C2_ALT_LOOKBACK",
+  "config_fingerprint": "875ee2cf28c494b39b43ee9a85f0b07ab951d2c284520193d269aa63c6305b1f",
+  "created_at": "2026-09-10T06:05:49.865381+00:00",
+  "pooled_mae_wh": 26.51026864445894,
+  "pooled_r2": 0.5750677198503489,
+  "pooled_rmse_wh": 60.127744667414724
+}

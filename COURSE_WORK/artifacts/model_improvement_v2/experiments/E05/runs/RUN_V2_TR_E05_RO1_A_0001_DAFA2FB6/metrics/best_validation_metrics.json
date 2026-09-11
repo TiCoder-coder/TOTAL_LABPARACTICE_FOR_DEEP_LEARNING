@@ -1,0 +1,41 @@
+{
+  "criterion_config": {
+    "huber_delta_model_space": null,
+    "loss_id": "L0",
+    "loss_name": "MSELoss",
+    "reduction": "mean",
+    "registry_loss_name": "MSE"
+  },
+  "gradient_diagnostics": {
+    "clip_max_norm": 1.0,
+    "clip_order": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_CLIP_OPTIMIZER_STEP",
+    "clipped_batches": 6482,
+    "clipping_fraction": 0.6279790738229025,
+    "max_preclip_global_grad_norm": 15.30448021221352,
+    "mean_preclip_global_grad_norm": 1.5779159486356893,
+    "nonfinite_grad_events": 0,
+    "total_batches": 10322
+  },
+  "metric_result": {
+    "finite_status": "PASS",
+    "horizon_steps": 1,
+    "lookback_steps": 72,
+    "mae_wh": 28.83099750880035,
+    "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+    "metric_version": "METRICS-v1",
+    "model_id": "Transformer Encoder Regressor",
+    "n_samples": 987,
+    "population_fingerprint": "5944195e65df80156b233484ca1f16bdbf29beec26b9924abba8a1cb7387db21",
+    "prediction_unit": "Wh",
+    "r2": 0.5685714206055701,
+    "r2_status": "DEFINED",
+    "rmse_wh": 63.748055840882536,
+    "run_id": "RUN_V2_TR_E05_RO1_A_0001_DAFA2FB6",
+    "selection_metric_name": "rmse_wh",
+    "selection_metric_value": 63.748055840882536,
+    "split_id": "VALIDATION",
+    "status": "PASS",
+    "target_unit": "Wh",
+    "warnings": []
+  }
+}

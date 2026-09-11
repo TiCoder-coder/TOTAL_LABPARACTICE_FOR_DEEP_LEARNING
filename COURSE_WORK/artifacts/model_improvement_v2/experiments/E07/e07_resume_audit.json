@@ -1,0 +1,106 @@
+{
+  "experiment_id": "E07",
+  "mode": "NO_RETRAIN_STAGE_C_ONLY",
+  "preflight_status": "PASS",
+  "resume_audit": {
+    "checkpoints": [
+      {
+        "best_epoch": 2,
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+        "run_id": "RUN_V2_TR_E07_RO1_B_0007_1F0A0158",
+        "sha256": "e06a54763626865e8140cb266a5cdd646b58207b3168810d0aba91137a6be63e",
+        "stage": "RO1_B"
+      },
+      {
+        "best_epoch": 2,
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU",
+        "run_id": "RUN_V2_TR_E07_RO1_B_0008_8B34F56F",
+        "sha256": "9b0ffb874e10728767feef61e7a6aeab638bf799ba85c601e2feb1609dde8ac8",
+        "stage": "RO1_B"
+      },
+      {
+        "best_epoch": 8,
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+        "run_id": "RUN_V2_TR_E07_RO2_B_0009_30E30FBD",
+        "sha256": "de301cd9f6a795f8f346b35bbcd7d7639b46e5bb53d987d116f0549e213a15ef",
+        "stage": "RO2_B"
+      },
+      {
+        "best_epoch": 8,
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU",
+        "run_id": "RUN_V2_TR_E07_RO2_B_0010_7F9737D7",
+        "sha256": "fc7a01e658a56dbe88320b83998d6305661e350b319e0311ce133cc96f26d134",
+        "stage": "RO2_B"
+      },
+      {
+        "best_epoch": 12,
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+        "run_id": "RUN_V2_TR_E07_RO3_B_0011_3DAAF081",
+        "sha256": "4bbf0c418cb6b72f0e1912de34f05914a4af05b84df9c6d5f98fce85607c296a",
+        "stage": "RO3_B"
+      },
+      {
+        "best_epoch": 12,
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU",
+        "run_id": "RUN_V2_TR_E07_RO3_B_0012_5CF2A4EE",
+        "sha256": "4bf674eeb85cca06433de58437ec102a2b00c9b760f5fbf19094a7ba5748932b",
+        "stage": "RO3_B"
+      }
+    ],
+    "completed_run_count": 12,
+    "expected_run_count": 12,
+    "locked_best_epochs": {
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO1_A": 2,
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO1_B": 2,
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO2_A": 8,
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO2_B": 8,
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO3_A": 12,
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO3_B": 12,
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO1_A": 2,
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO1_B": 2,
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO2_A": 8,
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO2_B": 8,
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO3_A": 12,
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO3_B": 12
+    },
+    "locked_run_ids": {
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO1_A": "RUN_V2_TR_E07_RO1_A_0001_F8DEB30C",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO1_B": "RUN_V2_TR_E07_RO1_B_0007_1F0A0158",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO2_A": "RUN_V2_TR_E07_RO2_A_0003_F8DE8E42",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO2_B": "RUN_V2_TR_E07_RO2_B_0009_30E30FBD",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO3_A": "RUN_V2_TR_E07_RO3_A_0005_B107EAAB",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO3_B": "RUN_V2_TR_E07_RO3_B_0011_3DAAF081",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO1_A": "RUN_V2_TR_E07_RO1_A_0002_18C087A8",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO1_B": "RUN_V2_TR_E07_RO1_B_0008_8B34F56F",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO2_A": "RUN_V2_TR_E07_RO2_A_0004_1C3A0028",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO2_B": "RUN_V2_TR_E07_RO2_B_0010_7F9737D7",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO3_A": "RUN_V2_TR_E07_RO3_A_0006_365794B9",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO3_B": "RUN_V2_TR_E07_RO3_B_0012_5CF2A4EE"
+    },
+    "new_run_ids_allowed": false,
+    "policy": {
+      "expected_run_count": 12,
+      "expected_stage_b_checkpoint_count": 6,
+      "mode": "NO_RETRAIN_STAGE_C_ONLY",
+      "new_training_run_ids_allowed": false,
+      "stage_a_reexecution_allowed": false,
+      "stage_b_reexecution_allowed": false,
+      "test_access_authorized": false
+    },
+    "stage_a_run_count": 6,
+    "stage_b_checkpoint_count": 6,
+    "stage_b_checkpoint_sha256": {
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO1_B": "e06a54763626865e8140cb266a5cdd646b58207b3168810d0aba91137a6be63e",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO2_B": "de301cd9f6a795f8f346b35bbcd7d7639b46e5bb53d987d116f0549e213a15ef",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO3_B": "4bbf0c418cb6b72f0e1912de34f05914a4af05b84df9c6d5f98fce85607c296a",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO1_B": "9b0ffb874e10728767feef61e7a6aeab638bf799ba85c601e2feb1609dde8ac8",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO2_B": "fc7a01e658a56dbe88320b83998d6305661e350b319e0311ce133cc96f26d134",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO3_B": "4bf674eeb85cca06433de58437ec102a2b00c9b760f5fbf19094a7ba5748932b"
+    },
+    "stage_b_run_count": 6,
+    "status": "PASS",
+    "test_access_authorized": false,
+    "training_reexecution_allowed": false
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E07_RESUME_AUDIT-v1"
+}

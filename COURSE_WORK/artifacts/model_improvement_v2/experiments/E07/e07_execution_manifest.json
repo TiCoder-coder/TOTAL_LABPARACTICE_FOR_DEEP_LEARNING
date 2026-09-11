@@ -1,0 +1,125 @@
+{
+  "challenger_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO1": "RUN_V2_TR_E07_RO1_A_0001_F8DEB30C",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO2": "RUN_V2_TR_E07_RO2_A_0003_F8DE8E42",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO3": "RUN_V2_TR_E07_RO3_A_0005_B107EAAB",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO1": "RUN_V2_TR_E07_RO1_A_0002_18C087A8",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO2": "RUN_V2_TR_E07_RO2_A_0004_1C3A0028",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO3": "RUN_V2_TR_E07_RO3_A_0006_365794B9"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO1": "RUN_V2_TR_E07_RO1_B_0007_1F0A0158",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO2": "RUN_V2_TR_E07_RO2_B_0009_30E30FBD",
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE:RO3": "RUN_V2_TR_E07_RO3_B_0011_3DAAF081",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO1": "RUN_V2_TR_E07_RO1_B_0008_8B34F56F",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO2": "RUN_V2_TR_E07_RO2_B_0010_7F9737D7",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU:RO3": "RUN_V2_TR_E07_RO3_B_0012_5CF2A4EE"
+    }
+  },
+  "control_policy": "CONTROL_REUSED_FROM_E01_READ_ONLY",
+  "control_run_ids": {
+    "source": "e01_execution_manifest_canonical",
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "experiment_id": "E07",
+  "lr_policy_challengers": "STAGE_A_EXACT_TRACE_REPLAY",
+  "lr_policy_control": "STAGE_B_CONSTANT_LR_FROM_CONFIG",
+  "preflight": {
+    "challengers": [
+      {
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+        "changed_fields": [
+          "training.scheduler_config.T_max",
+          "training.scheduler_config.class",
+          "training.scheduler_config.eta_min",
+          "training.scheduler_config.last_epoch",
+          "training.scheduler_name"
+        ],
+        "config_fingerprint": "49ab3e55c68624c68d262ab7cdb94e872d1997a71323e2de87bbbc68bdc60c80",
+        "initial_learning_rate": 0.0003,
+        "optimizer": "AdamW",
+        "scheduler_name": "COSINE"
+      },
+      {
+        "candidate_id": "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU",
+        "changed_fields": [
+          "training.scheduler_config.class",
+          "training.scheduler_config.cooldown",
+          "training.scheduler_config.eps",
+          "training.scheduler_config.factor",
+          "training.scheduler_config.min_lr",
+          "training.scheduler_config.mode",
+          "training.scheduler_config.patience",
+          "training.scheduler_config.threshold",
+          "training.scheduler_config.threshold_mode",
+          "training.scheduler_name"
+        ],
+        "config_fingerprint": "879e630bbce95cf7eb5e3d91f953e0e624573c27540c0bd0c38d201d66b36404",
+        "initial_learning_rate": 0.0003,
+        "optimizer": "AdamW",
+        "scheduler_name": "REDUCE_ON_PLATEAU"
+      }
+    ],
+    "checkpoint_loaded": false,
+    "control": {
+      "audit": {
+        "metrics": {
+          "mae_wh": 26.650501720144604,
+          "r2": 0.5789433617557903,
+          "rmse_wh": 59.85291570400546
+        },
+        "rmse_wh": 59.85291570400546,
+        "source_run_count": 6,
+        "status": "PASS"
+      },
+      "pooled_rmse_wh": 59.85291570400546,
+      "reuse": "CONTROL_REUSED_FROM_E01_READ_ONLY",
+      "scheduler_policy": "OFF"
+    },
+    "control_reuse_status": "PASS",
+    "execution_track": "MODEL_IMPROVEMENT_V2_E07",
+    "experiment_id": "E07",
+    "fixed_scientific_contract_status": "PASS",
+    "inference_executed": false,
+    "initial_learning_rate": 0.0003,
+    "optimizer": "AdamW",
+    "orchestration_status": "PASS",
+    "preflight_no_test_access": true,
+    "preflight_no_training": true,
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "registry_namespace": "V2_E07",
+    "scheduler_off_excluded_from_training": true,
+    "schedulers_trained": [
+      "COSINE",
+      "REDUCE_ON_PLATEAU"
+    ],
+    "selection_policy_status": "PASS",
+    "stage_b_lr_policy": "STAGE_A_EXACT_TRACE_REPLAY",
+    "stage_b_no_scheduler_step": true,
+    "stage_b_no_validation_required": true,
+    "stage_b_replay_enabled": true,
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidate_count": 2,
+    "training_candidate_ids": [
+      "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+      "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU"
+    ],
+    "training_executed": false
+  },
+  "scheduler_step_in_stage_b": "NEVER",
+  "schema": "MODEL_IMPROVEMENT_V2_E07_EXECUTION-v1",
+  "stage_b_validation_required": false,
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

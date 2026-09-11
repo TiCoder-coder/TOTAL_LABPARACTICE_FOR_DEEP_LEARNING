@@ -1,0 +1,37 @@
+{
+  "all_candidates_complete": true,
+  "approved_for_phase45": false,
+  "common_outer_targets_verified": true,
+  "created_at": "2026-09-11T01:09:47.728550+00:00",
+  "fold_count": 3,
+  "fold_local_scaling_verified": true,
+  "fold_manifest_fingerprint": "",
+  "fold_protocol": "RO3_EXPANDING_PRETEST-v1",
+  "lstm_model_id": "LSTM_TUNED_WINNER",
+  "nested_epoch_selection_verified": true,
+  "online_update_used": false,
+  "outer_selection_leakage": false,
+  "overall_status": "PASS_WITH_WARNING",
+  "persistence_id": "PERSISTENCE_LAST_VALUE",
+  "phase": 44,
+  "phase42_shortlist_fingerprint": "",
+  "phase43_lstm_fingerprint": "",
+  "phase_name": "Rolling-origin robustness",
+  "recommended_pooled_rmse_wh": 60.99917864325622,
+  "recommended_transformer_candidate_id": "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_3_WD_1E_MINUS_4",
+  "recommended_transformer_fingerprint": "df861087ed1d2975c5ef2092f4f954ed00802ac05b4b66badc3edee41729c33c",
+  "test_status": "NOT_ACCESSED",
+  "transformer_candidate_ids": [
+    "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_3_WD_0",
+    "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_3_WD_1E_MINUS_4",
+    "TR_C2_ALT_LOOKBACK_SGDM_LR_3E_MINUS_3_WD_0",
+    "TR_C2_ALT_LOOKBACK_SGDM_LR_3E_MINUS_3_WD_1E_MINUS_4",
+    "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_2_WD_0",
+    "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_2_WD_1E_MINUS_4"
+  ],
+  "version": "ROBASE-v1",
+  "warm_start_used": false,
+  "warnings": [
+    "C01_phase43_fingerprint: Corrected Phase 43 winner fingerprint matches LSTM handoff"
+  ]
+}

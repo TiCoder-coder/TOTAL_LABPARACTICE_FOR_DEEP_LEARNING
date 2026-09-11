@@ -1,0 +1,161 @@
+{
+  "challenger_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_LR_1E4:RO1": "RUN_V2_TR_E06_RO1_A_0002_C4BCAEA9",
+      "TR_C2_ALT_LOOKBACK_LR_1E4:RO2": "RUN_V2_TR_E06_RO2_A_0005_874D4630",
+      "TR_C2_ALT_LOOKBACK_LR_1E4:RO3": "RUN_V2_TR_E06_RO3_A_0008_20249960",
+      "TR_C2_ALT_LOOKBACK_LR_2E4:RO1": "RUN_V2_TR_E06_RO1_A_0003_E7DB377E",
+      "TR_C2_ALT_LOOKBACK_LR_2E4:RO2": "RUN_V2_TR_E06_RO2_A_0006_AFE02480",
+      "TR_C2_ALT_LOOKBACK_LR_2E4:RO3": "RUN_V2_TR_E06_RO3_A_0009_9A5635E1",
+      "TR_C2_ALT_LOOKBACK_LR_5E5:RO1": "RUN_V2_TR_E06_RO1_A_0001_E2B5AF4F",
+      "TR_C2_ALT_LOOKBACK_LR_5E5:RO2": "RUN_V2_TR_E06_RO2_A_0004_B9533164",
+      "TR_C2_ALT_LOOKBACK_LR_5E5:RO3": "RUN_V2_TR_E06_RO3_A_0007_E79B274C"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_LR_1E4:RO1": "RUN_V2_TR_E06_RO1_B_0011_0781EB5C",
+      "TR_C2_ALT_LOOKBACK_LR_1E4:RO2": "RUN_V2_TR_E06_RO2_B_0014_7EF15A73",
+      "TR_C2_ALT_LOOKBACK_LR_1E4:RO3": "RUN_V2_TR_E06_RO3_B_0017_E53733EB",
+      "TR_C2_ALT_LOOKBACK_LR_2E4:RO1": "RUN_V2_TR_E06_RO1_B_0012_52F7AAB5",
+      "TR_C2_ALT_LOOKBACK_LR_2E4:RO2": "RUN_V2_TR_E06_RO2_B_0015_E2CF2234",
+      "TR_C2_ALT_LOOKBACK_LR_2E4:RO3": "RUN_V2_TR_E06_RO3_B_0018_1C3555D7",
+      "TR_C2_ALT_LOOKBACK_LR_5E5:RO1": "RUN_V2_TR_E06_RO1_B_0010_84D63C55",
+      "TR_C2_ALT_LOOKBACK_LR_5E5:RO2": "RUN_V2_TR_E06_RO2_B_0013_605404D8",
+      "TR_C2_ALT_LOOKBACK_LR_5E5:RO3": "RUN_V2_TR_E06_RO3_B_0016_6DC52D72"
+    }
+  },
+  "control_policy": "CONTROL_REUSED_FROM_E01",
+  "control_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "experiment_id": "E06",
+  "preflight": {
+    "candidate_ids": [
+      "TR_C2_ALT_LOOKBACK_LR_5E5",
+      "TR_C2_ALT_LOOKBACK_LR_1E4",
+      "TR_C2_ALT_LOOKBACK_LR_2E4"
+    ],
+    "changed_config_fields": [
+      "training.learning_rate"
+    ],
+    "checkpoint_loaded": false,
+    "control_audit": {
+      "learning_rate": 0.0003,
+      "metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "run_count": 6,
+      "status": "PASS"
+    },
+    "control_learning_rate": 0.0003,
+    "control_reuse": "CONTROL_REUSED_FROM_E01",
+    "experiment_id": "E06",
+    "fresh_initialization_per_candidate": true,
+    "inference_executed": false,
+    "one_primary_change": "PASS",
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "registry_namespace": "V2_E06",
+    "rejected_residual_audit": {
+      "returned_to_e01_direct": true,
+      "status": "PASS"
+    },
+    "resume_audit": {
+      "checkpoint_count": 9,
+      "checkpoints": [
+        {
+          "best_epoch": 5,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_1E4",
+          "run_id": "RUN_V2_TR_E06_RO1_B_0011_0781EB5C",
+          "sha256": "f01407282f060f6a9de630f44708e33068f0b8c8f607c54c1bad861369ea75ef",
+          "stage": "RO1_B"
+        },
+        {
+          "best_epoch": 36,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_1E4",
+          "run_id": "RUN_V2_TR_E06_RO2_B_0014_7EF15A73",
+          "sha256": "592f1c4af39e261d1078246dc60121c55f9524c6fbab4f74f514767be76eb714",
+          "stage": "RO2_B"
+        },
+        {
+          "best_epoch": 34,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_1E4",
+          "run_id": "RUN_V2_TR_E06_RO3_B_0017_E53733EB",
+          "sha256": "825aced43feaaf9aef0dcdec7d15a7fbc89438d3a600232879371befd89edd30",
+          "stage": "RO3_B"
+        },
+        {
+          "best_epoch": 2,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_2E4",
+          "run_id": "RUN_V2_TR_E06_RO1_B_0012_52F7AAB5",
+          "sha256": "b1a82c6c5ca375f9b4a30b23988225292d7b7f444ec095f271669fa9a51f10bd",
+          "stage": "RO1_B"
+        },
+        {
+          "best_epoch": 13,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_2E4",
+          "run_id": "RUN_V2_TR_E06_RO2_B_0015_E2CF2234",
+          "sha256": "78f9fae3eb632d49bb74886ce288e0e5df25f7d06d6133db907ec5147b98d6d1",
+          "stage": "RO2_B"
+        },
+        {
+          "best_epoch": 24,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_2E4",
+          "run_id": "RUN_V2_TR_E06_RO3_B_0018_1C3555D7",
+          "sha256": "4110722956aeba38f49bd425479c21b88aabac1be7869d1465e935b6f09fccf5",
+          "stage": "RO3_B"
+        },
+        {
+          "best_epoch": 10,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_5E5",
+          "run_id": "RUN_V2_TR_E06_RO1_B_0010_84D63C55",
+          "sha256": "0dff005d5cf4b3f507e3280022cd0fbf1f93167ea9c1fb696e4a64ea0fe7112f",
+          "stage": "RO1_B"
+        },
+        {
+          "best_epoch": 36,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_5E5",
+          "run_id": "RUN_V2_TR_E06_RO2_B_0013_605404D8",
+          "sha256": "315d18837b1b00a55ad8e729fe026d3de019924659172e3ad66ec2eebb2638b3",
+          "stage": "RO2_B"
+        },
+        {
+          "best_epoch": 5,
+          "candidate_id": "TR_C2_ALT_LOOKBACK_LR_5E5",
+          "run_id": "RUN_V2_TR_E06_RO3_B_0016_6DC52D72",
+          "sha256": "cf3ab20814d9fbb47b8f136790299055ad3db2b90586a022b66fa62083b8d80b",
+          "stage": "RO3_B"
+        }
+      ],
+      "completed_run_count": 18,
+      "new_run_ids_allowed": false,
+      "stage_a_run_count": 9,
+      "stage_b_run_count": 9,
+      "status": "PASS",
+      "training_reexecution_allowed": false
+    },
+    "same_initialization_seed_across_lr": true,
+    "scheduler": "OFF",
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidate_count": 3,
+    "training_candidates": [
+      5e-05,
+      0.0001,
+      0.0002
+    ],
+    "training_executed": false
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E06_EXECUTION-v1",
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

@@ -36,6 +36,8 @@ HISTORY_COLUMNS = [
     "validation_mae_wh",
     "validation_r2",
     "learning_rate",
+    "lr_used_for_epoch",
+    "next_lr_after_scheduler",
     "epoch_seconds",
     "is_best",
 ]
@@ -131,6 +133,7 @@ class TrainingEngine:
         boundary_protocol: str = "WB0_CONTEXT_CARRY_OVER",
         evaluation_mode_override: str | None = None,
         population_context=None,
+        prediction_formulation: str = "DIRECT",
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, Any]:
         model.eval()
         sample_indices: list[int] = []
@@ -145,7 +148,32 @@ class TrainingEngine:
                 predictions = model(x)
                 if predictions.shape != y_model.shape:
                     raise RuntimeError("Prediction and target shape mismatch")
-                pred_wh = _inverse_predictions_to_wh(predictions.cpu().numpy(), target_option, target_scaler_bundle)
+                if prediction_formulation == "RESIDUAL_TO_PERSISTENCE":
+                    from course_work.model_improvement_v2.residual import (
+                        compose_residual_prediction_raw,
+                    )
+
+                    if "y_context_raw_wh" not in batch:
+                        raise RuntimeError(
+                            "Residual evaluation requires explicit y_context_raw_wh"
+                        )
+                    context_raw = batch["y_context_raw_wh"]
+                    if torch.is_tensor(context_raw):
+                        context_raw = context_raw.cpu().numpy()
+                    pred_wh = compose_residual_prediction_raw(
+                        context_raw,
+                        predictions.cpu().numpy(),
+                        target_scaler_bundle,
+                        target_option,
+                    ).reshape(-1)
+                elif prediction_formulation == "DIRECT":
+                    pred_wh = _inverse_predictions_to_wh(
+                        predictions.cpu().numpy(), target_option, target_scaler_bundle
+                    )
+                else:
+                    raise ValueError(
+                        f"Unsupported prediction formulation: {prediction_formulation}"
+                    )
                 true_wh = y_raw.cpu().numpy().reshape(-1)
                 sample_indices.extend(sample_idx.tolist())
                 y_true_wh.extend(true_wh.tolist())
@@ -203,6 +231,7 @@ class TrainingEngine:
         data = config["data"]
         model_id = config["model"].get("model_name", config["model"]["model_family"])
         target_option = data["target_scaling_option"]
+        prediction_formulation = config["model"].get("prediction_formulation", "DIRECT")
         max_epochs = int(training["max_epochs"])
         learning_rate = float(training["learning_rate"])
         weight_decay = float(training["weight_decay"])
@@ -210,7 +239,25 @@ class TrainingEngine:
         clip_norm = float(training["gradient_clip_max_norm"]) if training["gradient_clip_max_norm"] is not None else 0.0
         patience = int(training["early_stopping_patience"])
         model = model.to(device)
-        optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+        from course_work.model_improvement_v2.optimizer import build_optimizer
+
+        optimizer = build_optimizer(
+            model.parameters(),
+            training.get("optimizer_name"),
+            learning_rate,
+            weight_decay,
+            training.get("optimizer_config"),
+        )
+        # V2 E07-B: build optional LR scheduler (OFF / COSINE / REDUCE_ON_PLATEAU)
+        # Fresh per-run: each training invocation creates a brand-new optimizer,
+        # so the scheduler is always fresh with last_epoch=-1.
+        scheduler_name = training.get("scheduler_name")
+        scheduler_config = training.get("scheduler_config")
+        if scheduler_name not in {None, "OFF"}:
+            from course_work.model_improvement_v2.scheduler import build_scheduler
+            _lr_scheduler = build_scheduler(optimizer, scheduler_name, scheduler_config)
+        else:
+            _lr_scheduler = None
         loss_fn = build_training_criterion(training)
         early_stop = EarlyStopping(patience=patience, mode="MIN")
         history_rows: list[dict[str, Any]] = []
@@ -244,6 +291,13 @@ class TrainingEngine:
         print(f"[TRAIN] Heartbeat file: {heartbeat_path}", flush=True)
 
         for epoch in range(1, max_epochs + 1):
+            # V2 E07-C: Capture the optimizer LR that will ACTUALLY be used to
+            # train THIS epoch. This MUST happen BEFORE training starts, so
+            # that lr_used_for_epoch == the LR the optimizer.step() uses.
+            # After the epoch completes, the scheduler may adjust the LR,
+            # but that adjusted value applies to epoch k+1, NOT epoch k.
+            lr_used_for_epoch = float(optimizer.param_groups[0]["lr"])
+
             model.train()
             epoch_loss = 0.0
             sample_count = 0
@@ -341,6 +395,7 @@ class TrainingEngine:
                     "FINAL_DEV_DIAGNOSTIC" if final_refit_mode else None
                 ),
                 population_context=train_population_context,
+                prediction_formulation=prediction_formulation,
             )
             if evaluate_validation:
                 _write_heartbeat(epoch, "eval_val_started")
@@ -358,6 +413,7 @@ class TrainingEngine:
                     data["horizon_steps"],
                     boundary_protocol,
                     population_context=validation_population_context,
+                    prediction_formulation=prediction_formulation,
                 )
             else:
                 sample_idx = np.array([], dtype=np.int64)
@@ -394,6 +450,13 @@ class TrainingEngine:
                 flush=True,
             )
 
+            # V2 E07-C: Append history row BEFORE scheduler step.
+            # The row records lr_used_for_epoch (the LR that trained THIS epoch)
+            # and next_lr_after_scheduler (the LR for the NEXT epoch, or same
+            # if scheduler is OFF / not stepped yet).
+            # CRITICAL: We capture lr_used_for_epoch at the START of the epoch
+            # (above the training loop), NOT after scheduler.step(). The
+            # scheduler step adjusts the LR for epoch k+1, not epoch k.
             history_rows.append(
                 {
                     "epoch": epoch,
@@ -402,11 +465,35 @@ class TrainingEngine:
                     "validation_rmse_wh": val_metric.rmse_wh,
                     "validation_mae_wh": val_metric.mae_wh,
                     "validation_r2": val_metric.r2,
-                    "learning_rate": learning_rate,
+                    # V1 backward-compat: `learning_rate` keeps the same value
+                    # as `lr_used_for_epoch` — it represents the LR used for
+                    # THIS epoch.
+                    "learning_rate": lr_used_for_epoch,
+                    # V2 E07-C contract: lr_used_for_epoch is the optimizer LR
+                    # that trained epoch k.
+                    "lr_used_for_epoch": lr_used_for_epoch,
+                    # next_lr_after_scheduler is filled in below (after step).
+                    "next_lr_after_scheduler": lr_used_for_epoch,
                     "epoch_seconds": epoch_seconds,
                     "is_best": improved,
                 }
             )
+
+            # V2 E07-B: Step LR scheduler after epoch completes (and after
+            # the history row is recorded for THIS epoch).
+            # COSINE: scheduler.step() — no metric.
+            # REDUCE_ON_PLATEAU: scheduler.step(val_rmse) — metric is val RMSE.
+            # OFF: _lr_scheduler is None, no step.
+            if _lr_scheduler is not None:
+                if scheduler_name == "COSINE":
+                    _lr_scheduler.step()
+                elif scheduler_name == "REDUCE_ON_PLATEAU":
+                    _lr_scheduler.step(val_metric.rmse_wh)
+
+                # Fill in next_lr_after_scheduler with the post-step LR.
+                # For OFF, this is identical to lr_used_for_epoch.
+                post_step_lr = float(_lr_scheduler.get_last_lr()[0])
+                history_rows[-1]["next_lr_after_scheduler"] = post_step_lr
             if evaluate_validation and early_stop.should_stop():
                 stopped_reason = "EARLY_STOPPING"
                 break

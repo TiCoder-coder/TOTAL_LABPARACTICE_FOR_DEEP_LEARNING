@@ -1,0 +1,34 @@
+{
+  "all_candidates_complete": true,
+  "approved_for_phase45": false,
+  "common_outer_targets_verified": true,
+  "created_at": "2026-09-10T16:12:12.652887+00:00",
+  "fold_count": 3,
+  "fold_local_scaling_verified": true,
+  "fold_manifest_fingerprint": "",
+  "fold_protocol": "RO3_EXPANDING_PRETEST-v1",
+  "lstm_model_id": "LSTM_TUNED_WINNER",
+  "nested_epoch_selection_verified": true,
+  "online_update_used": false,
+  "outer_selection_leakage": false,
+  "overall_status": "PASS_WITH_WARNING",
+  "persistence_id": "PERSISTENCE_LAST_VALUE",
+  "phase": 44,
+  "phase42_shortlist_fingerprint": "",
+  "phase43_lstm_fingerprint": "",
+  "phase_name": "Rolling-origin robustness",
+  "recommended_pooled_rmse_wh": 60.43678408180427,
+  "recommended_transformer_candidate_id": "TR_C2_ALT_LOOKBACK_LR_2E4",
+  "recommended_transformer_fingerprint": "a3e34e5d93cffc0834f4ab746254572427dd3c5609fb9024587e185efacfac6b",
+  "test_status": "NOT_ACCESSED",
+  "transformer_candidate_ids": [
+    "TR_C2_ALT_LOOKBACK_LR_5E5",
+    "TR_C2_ALT_LOOKBACK_LR_1E4",
+    "TR_C2_ALT_LOOKBACK_LR_2E4"
+  ],
+  "version": "ROBASE-v1",
+  "warm_start_used": false,
+  "warnings": [
+    "C01_phase43_fingerprint: Corrected Phase 43 winner fingerprint matches LSTM handoff"
+  ]
+}

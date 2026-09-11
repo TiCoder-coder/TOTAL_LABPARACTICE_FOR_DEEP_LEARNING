@@ -1,0 +1,289 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_E05_CONFIG-v1",
+  "version": "1.0.0",
+  "track": "MODEL_IMPROVEMENT-v2",
+  "experiment_id": "E05",
+  "objective": "CONTROLLED_RESIDUAL_GATE_ABLATION",
+  "primary_change": {
+    "factor": "model.residual_gate",
+    "control": "OFF",
+    "challenger": "ON"
+  },
+  "local_control": {
+    "source_experiment": "E03",
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "prediction_formulation": "RESIDUAL_TO_PERSISTENCE",
+    "prediction_head": "LINEAR",
+    "residual_gate": "OFF",
+    "reuse_policy": "CONTROL_REUSED_FROM_E03",
+    "test_status": "NOT_ACCESSED",
+    "pooled_metrics": {
+      "mae_wh": 26.74870362368344,
+      "r2": 0.5762147018706287,
+      "rmse_wh": 60.04654108949536
+    },
+    "run_ids": {
+      "stage_a": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_A_0001_392BE836",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_A_0002_38C81BC7",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_A_0003_F240E775"
+      },
+      "stage_b": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_B_0004_45D82B07",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_B_0005_E0954C08",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_B_0006_2B8CE813"
+      }
+    },
+    "artifact_sha256": {
+      "e03_config_snapshot.json": "e1f9b3ba8f7e56d24a4730b30239f2cacaca315c21e00e4eaec00873143f6689",
+      "e03_execution_manifest.json": "e3a8c827b9f3a596780f25eb3a1da7f2f19da569cbe584f834035b41cef4a14f",
+      "e03_prediction_ablation_comparison.json": "67243601ba25f0fbab699a9e2ca41649779ae1e7fc03e76f79237877865b6ce6",
+      "rolling_origin_fold_metrics.csv": "bfa6d4234a989edddd1d710fe83b8e95901a8a77d62ac85f538ea4c886cb9dc0",
+      "rolling_origin_inner_best_epochs.csv": "4dc8f08b2bd0fa0047d1aba5c49cc6a65b95e5007dd788c81d6374686b6a6739",
+      "rolling_origin_pooled_metrics.csv": "06e430255f7b3d3749d9c8726fee470c017f19c12ecbecca99cf2ddc45695f62"
+    }
+  },
+  "global_baseline": {
+    "source_experiment": "E01",
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "prediction_formulation": "DIRECT",
+    "prediction_head": "LINEAR",
+    "residual_gate": "OFF",
+    "reuse_policy": "GLOBAL_BASELINE_REUSED_FROM_E01",
+    "test_status": "NOT_ACCESSED",
+    "pooled_metrics": {
+      "rmse_wh": 59.85291570400546,
+      "mae_wh": 26.650501720144604,
+      "r2": 0.5789433617557903
+    },
+    "run_ids": {
+      "stage_a": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+      },
+      "stage_b": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+      }
+    },
+    "artifact_sha256": {
+      "e01_config_snapshot.json": "7e3b064e00a3e1148053d798228ce232fc3faa7464a803b697ab4915b0a5a101",
+      "e01_execution_manifest.json": "377b50b2230a024c93650dc7f31cb6f06f9a0d55c83869ffc55bddf061c2553a",
+      "e01_reproduction_comparison.json": "a73e94c21acd18195a4350c6ae14d65f84927688bacaeacbc50292b0f07be5e5",
+      "rolling_origin_fold_metrics.csv": "c2689ac895b82f86ab6463d6b4f5a12d46f65215b611e4c8de8c2ada7b0e4c8a",
+      "rolling_origin_inner_best_epochs.csv": "588589913b09069a21fde1f2b175e67c9746b6e8e5448dcf9bd25488ea946394",
+      "rolling_origin_pooled_metrics.csv": "bdfc6ea0f082a0c8376bc11679304e0e42d3d7cd915af55d349032a209b06d58"
+    }
+  },
+  "rejected_predecessor": {
+    "experiment_id": "E04",
+    "variant": "RESIDUAL_TO_PERSISTENCE_MLP",
+    "pooled_metrics": {
+      "mae_wh": 25.581812990028176,
+      "r2": 0.5674495407647432,
+      "rmse_wh": 60.66433497520889
+    },
+    "promotion_status": "DO_NOT_PROMOTE_E04_GLOBAL",
+    "test_status": "NOT_ACCESSED",
+    "policy": "NOT_CARRIED_FORWARD_NOT_A_CONTROL",
+    "artifact_sha256": {
+      "e04_head_ablation_comparison.json": "ae896cc17ebbd64eb29dd83d800c31e01393890ac1cccb0c76585e6ae18ffc48",
+      "e04_execution_manifest.json": "84842bb925b4a2c2517a10ffe5b07aabf75b51787b91b0605003404d769da632"
+    }
+  },
+  "challenger": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "feature_variant_id": "FS2_TF1",
+    "feature_count": 33,
+    "feature_order": [
+      "lights",
+      "T1",
+      "RH_1",
+      "T2",
+      "RH_2",
+      "T3",
+      "RH_3",
+      "T4",
+      "RH_4",
+      "T5",
+      "RH_5",
+      "T6",
+      "RH_6",
+      "T7",
+      "RH_7",
+      "T8",
+      "RH_8",
+      "T9",
+      "RH_9",
+      "T_out",
+      "Press_mm_hg",
+      "RH_out",
+      "Windspeed",
+      "Visibility",
+      "Tdewpoint",
+      "Appliances",
+      "rv1",
+      "rv2",
+      "hour_sin",
+      "hour_cos",
+      "dow_sin",
+      "dow_cos",
+      "weekend"
+    ],
+    "config": {
+      "data": {
+        "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+        "feature_count": 33,
+        "feature_variant_id": "FS2_TF1",
+        "horizon_steps": 1,
+        "lookback_steps": 72,
+        "sampling_interval_minutes": 10,
+        "target_access_mode": "VALIDATION",
+        "target_scaling_option": "YS1",
+        "test_sample_count": 2961,
+        "train_sample_count": 13670,
+        "validation_sample_count": 2960
+      },
+      "lineage": {
+        "dataloader_fingerprint": "48dff0f10ac2165443f3e2ab60f93d3d1ce9149b70c985fbbe31f4059eb4cf7e",
+        "dataloader_version": "DATALOADERS-v1",
+        "dataset_fingerprint": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+        "dataset_revision": "DATA-v1",
+        "eda_version": "EDA-v1",
+        "environment_id": "ENV-v1",
+        "feature_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+        "feature_set_version": "FEATURESETS-v1",
+        "feature_version": "FEATURES-v1",
+        "global_split_fingerprint": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
+        "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+        "metric_version": "METRICS-v1",
+        "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+        "population_version": "WINDOWPOP-v1",
+        "scaler_bundle_checksum": "4e7c96d5accc2917855ed669b33d2666b3aa07f6b83b40097a9690c6a5f5e334",
+        "scaler_bundle_id": "XSCALER__FS2_TF1",
+        "scaling_version": "SCALING-v1",
+        "schema_version": "SCHEMA-v1",
+        "split_version": "SPLIT-v1",
+        "target_scaler_bundle_id": "YSCALER__YS1",
+        "target_scaler_checksum": "b3326a79da81b092460ef8d4a140a101b21f2433ff30c36971d626d2a2491697",
+        "temporal_version": "TEMPORAL-v1",
+        "window_fingerprint": "d4fc515a7f75f108a484e0d10cdf5259370af6181b6b5b88cdb1cdf501fa6bca",
+        "window_version": "WINDOWS-v1"
+      },
+      "model": {
+        "activation": "GELU",
+        "attention_aware": true,
+        "d_model": 64,
+        "dropout": 0.1,
+        "ffn_dim": 256,
+        "implementation_version": "TRANSFORMER_IMPL-v1",
+        "input_size": 33,
+        "model_family": "TRANSFORMER_ENCODER",
+        "model_name": "Transformer Encoder Regressor",
+        "model_version": "TRANSFORMER-v1",
+        "norm_first": false,
+        "num_heads": 4,
+        "num_layers": 2,
+        "output_size": 1,
+        "pooling": "LAST_STEP",
+        "positional_encoding_type": "SINUSOIDAL",
+        "prediction_formulation": "RESIDUAL_TO_PERSISTENCE",
+        "residual_gate": "ON"
+      },
+      "reproducibility": {
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": true,
+        "dataloader_seed": 42,
+        "deterministic_mode": "D0",
+        "global_seed": 42,
+        "seed": 42,
+        "torch_deterministic_algorithms": true,
+        "worker_seed_policy": "torch_initial_seed_mod_2_32_numpy_python"
+      },
+      "runtime": {
+        "device_name": "mps",
+        "device_type": "mps",
+        "dtype": "float32",
+        "mixed_precision": false,
+        "num_workers": 0,
+        "pin_memory": false,
+        "platform": "Darwin",
+        "python_version": "3.10.11",
+        "sklearn_version": "1.7.2",
+        "torch_version": "2.13.0"
+      },
+      "training": {
+        "batch_size": 32,
+        "early_stopping_enabled": true,
+        "early_stopping_metric": "rmse_wh",
+        "early_stopping_mode": "MIN",
+        "early_stopping_patience": 10,
+        "enabled": true,
+        "gradient_clip_max_norm": 1.0,
+        "gradient_clipping_enabled": true,
+        "huber_delta": null,
+        "learning_rate": 0.0003,
+        "loss_name": "MSE",
+        "max_epochs": 50,
+        "optimizer_name": "AdamW",
+        "revin_affine": null,
+        "revin_enabled": false,
+        "revin_eps": null,
+        "revin_target_channels": null,
+        "scheduler_config": null,
+        "scheduler_name": null,
+        "weight_decay": 0.001
+      }
+    },
+    "config_fingerprint": "80d64b4920278981696b7d07dfc196a8eb7c5bb8201a8feb99a2c5f7ea6b9255",
+    "prediction_formulation": "RESIDUAL_TO_PERSISTENCE",
+    "prediction_head": "LINEAR",
+    "residual_gate": "ON",
+    "gate_spec": {
+      "input": "TRANSFORMER_POOLED_LAST_STEP_D64",
+      "logits": "Linear(64,1)",
+      "activation": "sigmoid",
+      "formula": "y_hat = y_context + gate * delta_hat_raw"
+    },
+    "gate_initialization_policy": "ZERO_WEIGHT_ZERO_BIAS_FIXED",
+    "initialization_policy": "FRESH_FROM_SEED_42_NO_CHECKPOINT_LOAD",
+    "residual_scaling_contract": "delta_model=(y_next-y_context)/y_std; delta_raw=delta_model*y_std; y_hat=y_context+gate*delta_raw",
+    "gate_initialization": {
+      "weight": 0.0,
+      "bias": 0.0,
+      "initial_gate": 0.5
+    }
+  },
+  "selection_policy": {
+    "primary_metric": "pooled_rolling_origin_rmse_wh",
+    "local_comparison": "E03_GATE_OFF_VS_E05_GATE_ON_INFORMATIONAL",
+    "global_comparison": "E01_DIRECT_VS_E05_GATE_ON",
+    "global_promotion_threshold_rmse_wh": 59.75291570400546,
+    "global_promotion_rule": "e05_pooled_rmse_wh <= global_promotion_threshold_rmse_wh",
+    "do_not_promote_for_beating_local_control_only": true,
+    "weighted_composite": false,
+    "test_metrics_allowed": false
+  },
+  "v2_orchestration": {
+    "rolling_origin_protocol": "RO3_EXPANDING_PRETEST-v1",
+    "folds": [
+      "RO1",
+      "RO2",
+      "RO3"
+    ],
+    "fold_count": 3,
+    "fold_local_scaling": true,
+    "local_control_retrained": false,
+    "global_baseline_retrained": false,
+    "challenger_only_training": true,
+    "training_authorized": false,
+    "test_access_authorized": false,
+    "preflight_consumes_run_id": false,
+    "registry_namespace": "V2_E05",
+    "artifact_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E05",
+    "registry_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E05/registry",
+    "run_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E05/runs"
+  }
+}

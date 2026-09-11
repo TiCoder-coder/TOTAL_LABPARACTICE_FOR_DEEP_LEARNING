@@ -1,0 +1,103 @@
+{
+  "challenger_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E05_RO1_A_0001_DAFA2FB6",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E05_RO2_A_0002_471D059C",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E05_RO3_A_0003_D1168092"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E05_RO1_B_0004_42F88389",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E05_RO2_B_0005_EB26A7B5",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E05_RO3_B_0006_AC29ED1A"
+    }
+  },
+  "experiment_id": "E05",
+  "global_baseline_policy": "GLOBAL_BASELINE_REUSED_FROM_E01",
+  "global_baseline_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "local_control_policy": "CONTROL_REUSED_FROM_E03",
+  "local_control_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_A_0001_392BE836",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_A_0002_38C81BC7",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_A_0003_F240E775"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_B_0004_45D82B07",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_B_0005_E0954C08",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_B_0006_2B8CE813"
+    }
+  },
+  "preflight": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "challenger_config_fingerprint": "80d64b4920278981696b7d07dfc196a8eb7c5bb8201a8feb99a2c5f7ea6b9255",
+    "challenger_gate": "ON",
+    "changed_config_fields": [
+      "model.residual_gate"
+    ],
+    "checkpoint_loaded": false,
+    "control_gate": "OFF",
+    "deterministic_gate_initialization": true,
+    "experiment_id": "E05",
+    "fresh_initialization": true,
+    "gate_initialization": {
+      "bias": 0.0,
+      "initial_gate": 0.5,
+      "weight": 0.0
+    },
+    "gate_spec": {
+      "activation": "sigmoid",
+      "formula": "y_hat = y_context + gate * delta_hat_raw",
+      "input": "TRANSFORMER_POOLED_LAST_STEP_D64",
+      "logits": "Linear(64,1)"
+    },
+    "global_baseline_audit": {
+      "metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "status": "PASS"
+    },
+    "global_promotion_threshold_rmse_wh": 59.75291570400546,
+    "inference_executed": false,
+    "local_control_audit": {
+      "metrics": {
+        "mae_wh": 26.74870362368344,
+        "r2": 0.5762147018706287,
+        "rmse_wh": 60.04654108949536
+      },
+      "run_count": 6,
+      "status": "PASS"
+    },
+    "local_control_reuse": "CONTROL_REUSED_FROM_E03",
+    "one_primary_change": "PASS",
+    "prediction_formulation": "RESIDUAL_TO_PERSISTENCE",
+    "prediction_head": "LINEAR",
+    "registry_namespace": "V2_E05",
+    "rejected_e04_audit": {
+      "carried_forward": false,
+      "rmse_wh": 60.66433497520889,
+      "status": "PASS"
+    },
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidates": [
+      "RESIDUAL_TO_PERSISTENCE_LINEAR_GATE_ON"
+    ],
+    "training_executed": false
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E05_EXECUTION-v1",
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

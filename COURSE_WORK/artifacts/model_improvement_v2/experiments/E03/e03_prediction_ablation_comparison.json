@@ -1,0 +1,27 @@
+{
+  "challenger_formulation": "RESIDUAL_TO_PERSISTENCE",
+  "challenger_metrics": {
+    "mae_wh": 26.74870362368344,
+    "r2": 0.5762147018706287,
+    "rmse_wh": 60.04654108949536
+  },
+  "control_formulation": "DIRECT",
+  "control_metrics": {
+    "mae_wh": 26.650501720144604,
+    "r2": 0.5789433617557903,
+    "rmse_wh": 59.85291570400546
+  },
+  "control_status": "CONTROL_REUSED_FROM_E01",
+  "delta_rmse_wh": 0.19362538548990216,
+  "experiment_id": "E03",
+  "improvement_rmse_wh": -0.19362538548990216,
+  "primary_change": "PREDICTION_FORMULATION",
+  "promotion_rmse_tolerance_wh": 0.1,
+  "promotion_status": "NO_MEANINGFUL_IMPROVEMENT / TIE",
+  "promotion_threshold_rmse_wh": 59.75291570400546,
+  "residual_identity": "y_hat(t+1) = y(t) + delta_hat(t+1)",
+  "schema": "MODEL_IMPROVEMENT_V2_E03_PREDICTION_ABLATION-v1",
+  "selection_metric": "pooled_rmse_wh",
+  "target_population_policy": "IDENTICAL_PHASE44_RO1_RO2_RO3",
+  "test_status": "NOT_ACCESSED"
+}

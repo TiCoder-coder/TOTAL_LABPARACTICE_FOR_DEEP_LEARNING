@@ -1,0 +1,17 @@
+{
+  "baseline_rmse_wh": 59.85979463604273,
+  "candidate_id": "TR_C2_ALT_LOOKBACK",
+  "delta_rmse_wh": -0.006878932037267305,
+  "experiment_id": "E01",
+  "fold_rmse_sd_wh": 7.543567690454617,
+  "observed_mae_wh": 26.650501720144604,
+  "observed_r2": 0.5789433617557903,
+  "observed_rmse_wh": 59.85291570400546,
+  "promotion_status": "HUMAN_REVIEW_REQUIRED",
+  "promotion_tolerance": "NOT_AUTHORIZED",
+  "schema": "MODEL_IMPROVEMENT_V2_E01_REPRODUCTION_COMPARISON-v1",
+  "structural_config_match": true,
+  "target_population_match": true,
+  "test_status": "NOT_ACCESSED",
+  "worst_fold_rmse_wh": 69.01338295186963
+}

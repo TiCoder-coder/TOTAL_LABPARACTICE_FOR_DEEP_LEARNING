@@ -1,0 +1,229 @@
+{
+  "challenger": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "config": {
+      "data": {
+        "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+        "feature_count": 31,
+        "feature_variant_id": "FS1_TF1",
+        "horizon_steps": 1,
+        "lookback_steps": 72,
+        "sampling_interval_minutes": 10,
+        "target_access_mode": "VALIDATION",
+        "target_scaling_option": "YS1",
+        "test_sample_count": 2961,
+        "train_sample_count": 13670,
+        "validation_sample_count": 2960
+      },
+      "lineage": {
+        "dataloader_fingerprint": "48dff0f10ac2165443f3e2ab60f93d3d1ce9149b70c985fbbe31f4059eb4cf7e",
+        "dataloader_version": "DATALOADERS-v1",
+        "dataset_fingerprint": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+        "dataset_revision": "DATA-v1",
+        "eda_version": "EDA-v1",
+        "environment_id": "ENV-v1",
+        "feature_fingerprint": "d71b18329bb63223681e9a3f2505bd206fd8a851151c790cd1ac16db48ae2bad",
+        "feature_set_version": "FEATURESETS-v1",
+        "feature_version": "FEATURES-v1",
+        "global_split_fingerprint": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
+        "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+        "metric_version": "METRICS-v1",
+        "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+        "population_version": "WINDOWPOP-v1",
+        "scaler_bundle_checksum": "80f6d037320fcac5b2e42846a48a4b8839dce26fd1c7f5fc715f40bf285133b6",
+        "scaler_bundle_id": "XSCALER__FS1_TF1",
+        "scaling_version": "SCALING-v1",
+        "schema_version": "SCHEMA-v1",
+        "split_version": "SPLIT-v1",
+        "target_scaler_bundle_id": "YSCALER__YS1",
+        "target_scaler_checksum": "b3326a79da81b092460ef8d4a140a101b21f2433ff30c36971d626d2a2491697",
+        "temporal_version": "TEMPORAL-v1",
+        "window_fingerprint": "d4fc515a7f75f108a484e0d10cdf5259370af6181b6b5b88cdb1cdf501fa6bca",
+        "window_version": "WINDOWS-v1"
+      },
+      "model": {
+        "activation": "GELU",
+        "attention_aware": true,
+        "d_model": 64,
+        "dropout": 0.1,
+        "ffn_dim": 256,
+        "implementation_version": "TRANSFORMER_IMPL-v1",
+        "input_size": 31,
+        "model_family": "TRANSFORMER_ENCODER",
+        "model_name": "Transformer Encoder Regressor",
+        "model_version": "TRANSFORMER-v1",
+        "norm_first": false,
+        "num_heads": 4,
+        "num_layers": 2,
+        "output_size": 1,
+        "pooling": "LAST_STEP",
+        "positional_encoding_type": "SINUSOIDAL"
+      },
+      "reproducibility": {
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": true,
+        "dataloader_seed": 42,
+        "deterministic_mode": "D0",
+        "global_seed": 42,
+        "seed": 42,
+        "torch_deterministic_algorithms": true,
+        "worker_seed_policy": "torch_initial_seed_mod_2_32_numpy_python"
+      },
+      "runtime": {
+        "device_name": "mps",
+        "device_type": "mps",
+        "dtype": "float32",
+        "mixed_precision": false,
+        "num_workers": 0,
+        "pin_memory": false,
+        "platform": "Darwin",
+        "python_version": "3.10.11",
+        "sklearn_version": "1.7.2",
+        "torch_version": "2.13.0"
+      },
+      "training": {
+        "batch_size": 32,
+        "early_stopping_enabled": true,
+        "early_stopping_metric": "rmse_wh",
+        "early_stopping_mode": "MIN",
+        "early_stopping_patience": 10,
+        "enabled": true,
+        "gradient_clip_max_norm": 1.0,
+        "gradient_clipping_enabled": true,
+        "huber_delta": null,
+        "learning_rate": 0.0003,
+        "loss_name": "MSE",
+        "max_epochs": 50,
+        "optimizer_name": "AdamW",
+        "revin_affine": null,
+        "revin_enabled": false,
+        "revin_eps": null,
+        "revin_target_channels": null,
+        "scheduler_config": null,
+        "scheduler_name": null,
+        "weight_decay": 0.001
+      }
+    },
+    "config_fingerprint": "875ee2cf28c494b39b43ee9a85f0b07ab951d2c284520193d269aa63c6305b1f",
+    "feature_count": 31,
+    "feature_order": [
+      "lights",
+      "T1",
+      "RH_1",
+      "T2",
+      "RH_2",
+      "T3",
+      "RH_3",
+      "T4",
+      "RH_4",
+      "T5",
+      "RH_5",
+      "T6",
+      "RH_6",
+      "T7",
+      "RH_7",
+      "T8",
+      "RH_8",
+      "T9",
+      "RH_9",
+      "T_out",
+      "Press_mm_hg",
+      "RH_out",
+      "Windspeed",
+      "Visibility",
+      "Tdewpoint",
+      "Appliances",
+      "hour_sin",
+      "hour_cos",
+      "dow_sin",
+      "dow_cos",
+      "weekend"
+    ],
+    "feature_variant_id": "FS1_TF1",
+    "initialization_policy": "FRESH_FROM_SEED_42_NO_CHECKPOINT_LOAD"
+  },
+  "control": {
+    "artifact_sha256": {
+      "e01_config_snapshot.json": "7e3b064e00a3e1148053d798228ce232fc3faa7464a803b697ab4915b0a5a101",
+      "e01_execution_manifest.json": "377b50b2230a024c93650dc7f31cb6f06f9a0d55c83869ffc55bddf061c2553a",
+      "e01_reproduction_comparison.json": "a73e94c21acd18195a4350c6ae14d65f84927688bacaeacbc50292b0f07be5e5",
+      "rolling_origin_fold_metrics.csv": "c2689ac895b82f86ab6463d6b4f5a12d46f65215b611e4c8de8c2ada7b0e4c8a",
+      "rolling_origin_inner_best_epochs.csv": "588589913b09069a21fde1f2b175e67c9746b6e8e5448dcf9bd25488ea946394",
+      "rolling_origin_pooled_metrics.csv": "bdfc6ea0f082a0c8376bc11679304e0e42d3d7cd915af55d349032a209b06d58"
+    },
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "feature_count": 33,
+    "feature_variant_id": "FS2_TF1",
+    "pooled_metrics": {
+      "mae_wh": 26.650501720144604,
+      "r2": 0.5789433617557903,
+      "rmse_wh": 59.85291570400546
+    },
+    "reuse_policy": "CONTROL_REUSED_FROM_E01",
+    "run_ids": {
+      "stage_a": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+      },
+      "stage_b": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+      }
+    },
+    "source_experiment": "E01",
+    "test_status": "NOT_ACCESSED"
+  },
+  "experiment_id": "E02",
+  "objective": "CONTROLLED_FEATURE_SET_ABLATION",
+  "primary_change": {
+    "challenger": "FS1_TF1",
+    "control": "FS2_TF1",
+    "factor": "feature_variant",
+    "fs2_only_features": [
+      "rv1",
+      "rv2"
+    ]
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E02_CONFIG-v1",
+  "selection_policy": {
+    "below_tolerance_classification": "NO_MEANINGFUL_IMPROVEMENT / TIE",
+    "guardrails": [
+      "pooled_mae_wh",
+      "worst_fold_rmse_wh",
+      "fold_consistency",
+      "provenance_pass",
+      "leakage_audit_pass"
+    ],
+    "human_locked": true,
+    "primary_metric": "pooled_rolling_origin_rmse_wh",
+    "promotion_rmse_tolerance_wh": 0.1,
+    "promotion_rule": "control_pooled_rmse_wh - challenger_pooled_rmse_wh >= promotion_rmse_tolerance_wh",
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "test_metrics_allowed": false,
+    "threshold_kind": "GOVERNANCE_THRESHOLD_NOT_STATISTICAL_CONFIDENCE_INTERVAL",
+    "weighted_composite": false
+  },
+  "track": "MODEL_IMPROVEMENT-v2",
+  "v2_orchestration": {
+    "artifact_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E02",
+    "challenger_only_training": true,
+    "control_retrained": false,
+    "fold_count": 3,
+    "fold_local_scaling": true,
+    "folds": [
+      "RO1",
+      "RO2",
+      "RO3"
+    ],
+    "preflight_consumes_run_id": false,
+    "registry_namespace": "V2_E02",
+    "registry_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E02/registry",
+    "rolling_origin_protocol": "RO3_EXPANDING_PRETEST-v1",
+    "run_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E02/runs",
+    "test_access_authorized": false,
+    "training_authorized": false
+  },
+  "version": "1.0.0"
+}

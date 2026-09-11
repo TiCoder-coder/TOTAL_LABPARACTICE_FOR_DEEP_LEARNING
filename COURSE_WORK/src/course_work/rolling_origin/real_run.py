@@ -31,6 +31,7 @@ the official path.
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import shutil
 import tempfile
@@ -48,6 +49,7 @@ from course_work.experiments.registry import (
     ArtifactType,
     ExecutionType,
     ExperimentRegistry,
+    FailureType,
     RunStatus,
 )
 from course_work.rolling_origin.appliance_lookup import (
@@ -325,9 +327,44 @@ class RunContext:
     # ranking, O44, signoff, and Phase45 handoff still run. Used by
     # --mode finalize (NO-TRAIN resume).
     reuse_completed_runs: bool = False
+    # Optional V2-owned exact run ledger for a no-train resume. The legacy
+    # Phase 44 finalize path leaves this as None and keeps its historical
+    # canonical-registry discovery behavior unchanged.
+    reuse_completed_run_ids: dict[str, str] | None = None
+    candidate_specs: tuple[CandidateSpec, ...] | None = None
+    registry_namespace: str | None = None
+    seed_before_model_construction: bool = False
+    validated_registry_lifecycle: bool = False
+    execution_track: str = "V1"
+    registry_upstream_context: dict[str, Any] | None = None
+    robase_train_ids: tuple[str, ...] | None = None
+    robase_val_ids: tuple[str, ...] | None = None
+    apply_fold_x_scaling: bool = False
+    # V2 E07-E: when True, the orchestrator loads each candidate/fold
+    # Stage-A training_history.csv after Stage A completes, extracts the
+    # lr_used_for_epoch trace up to selected best_epoch_inner, and passes
+    # it to RefitEngine.refit(stage_a_lr_trace=...). Stage B does NOT
+    # reconstruct scheduler behavior; LR is set explicitly per epoch.
+    # Default False preserves E01/E02/E03/E04/E05/E06 behavior.
+    enable_stage_b_lr_replay: bool = False
 
 
 # ----------------------- Result -----------------------
+V2_DIRECT_METRIC_FLATTEN_TRACKS = frozenset({
+    "MODEL_IMPROVEMENT_V2_E06",
+    "MODEL_IMPROVEMENT_V2_E07",
+    "MODEL_IMPROVEMENT_V2_E08",
+    "MODEL_IMPROVEMENT_V2_E09",
+})
+
+V2_SHARED_PRETEST_CACHE_KEYS = {
+    "MODEL_IMPROVEMENT_V2_E06": "MODEL_IMPROVEMENT_V2_E06_SHARED_PRETEST",
+    "MODEL_IMPROVEMENT_V2_E07": "MODEL_IMPROVEMENT_V2_E07_SHARED_PRETEST",
+    "MODEL_IMPROVEMENT_V2_E08": "MODEL_IMPROVEMENT_V2_E08_SHARED_PRETEST",
+    "MODEL_IMPROVEMENT_V2_E09": "MODEL_IMPROVEMENT_V2_E09_SHARED_PRETEST",
+}
+
+
 @dataclass
 class RealRunResult:
     exit_code: int
@@ -354,6 +391,215 @@ class RealRunResult:
 # ----------------------- Guards -----------------------
 def assert_context_invariants(ctx: RunContext) -> None:
     """Hard guards rejecting fast-mode / rehearsal leakage into official."""
+    v2_experiment = {
+        "MODEL_IMPROVEMENT_V2_E01": ("E01", "V2_E01", "FS2_TF1", 33),
+        "MODEL_IMPROVEMENT_V2_E02": ("E02", "V2_E02", "FS1_TF1", 31),
+        "MODEL_IMPROVEMENT_V2_E03": ("E03", "V2_E03", "FS2_TF1", 33),
+        "MODEL_IMPROVEMENT_V2_E04": ("E04", "V2_E04", "FS2_TF1", 33),
+        "MODEL_IMPROVEMENT_V2_E05": ("E05", "V2_E05", "FS2_TF1", 33),
+        "MODEL_IMPROVEMENT_V2_E06": ("E06", "V2_E06", "FS2_TF1", 33),
+        "MODEL_IMPROVEMENT_V2_E07": ("E07", "V2_E07", "FS2_TF1", 33),
+        "MODEL_IMPROVEMENT_V2_E08": ("E08", "V2_E08", "FS2_TF1", 33),
+        "MODEL_IMPROVEMENT_V2_E09": ("E09", "V2_E09", "FS2_TF1", 33),
+    }.get(ctx.execution_track)
+    if v2_experiment is not None:
+        experiment_id, registry_namespace, feature_variant, feature_count = v2_experiment
+        expected_root = (ctx.project_root / "artifacts" / "model_improvement_v2").resolve()
+        for label, path in (("artifact_dir", ctx.artifact_dir), ("registry_root", ctx.registry_root), ("run_root", ctx.run_root)):
+            try:
+                path.resolve().relative_to(expected_root)
+            except ValueError as exc:
+                raise RuntimeError(
+                    f"{experiment_id} {label} escapes the V2 artifact root: {path}"
+                ) from exc
+        if ctx.registry_namespace != registry_namespace:
+            raise RuntimeError(
+                f"{experiment_id} requires registry_namespace={registry_namespace}"
+            )
+        if ctx.registry_upstream_context is None:
+            raise RuntimeError(f"{experiment_id} requires immutable registry upstream context")
+        if not ctx.seed_before_model_construction or not ctx.validated_registry_lifecycle:
+            raise RuntimeError(
+                f"{experiment_id} requires deterministic initialization and validated lifecycle"
+            )
+        if not ctx.apply_fold_x_scaling:
+            raise RuntimeError(f"{experiment_id} requires fold-local X scaling")
+        if not ctx.robase_train_ids or not ctx.robase_val_ids:
+            raise RuntimeError(f"{experiment_id} requires injected pre-Test ROBASE populations")
+        if ctx.candidate_specs is None:
+            raise RuntimeError(f"{experiment_id} requires injected challenger specs")
+        if experiment_id == "E06":
+            expected_ids = {
+                "TR_C2_ALT_LOOKBACK_LR_5E5",
+                "TR_C2_ALT_LOOKBACK_LR_1E4",
+                "TR_C2_ALT_LOOKBACK_LR_2E4",
+            }
+            if len(ctx.candidate_specs) != 3 or {
+                candidate.candidate_id for candidate in ctx.candidate_specs
+            } != expected_ids:
+                raise RuntimeError("E06 requires exactly the three locked LR challengers")
+        elif experiment_id == "E07":
+            expected_ids = {
+                "TR_C2_ALT_LOOKBACK_SCHED_COSINE",
+                "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU",
+            }
+            if len(ctx.candidate_specs) != 2 or {
+                candidate.candidate_id for candidate in ctx.candidate_specs
+            } != expected_ids:
+                raise RuntimeError(
+                    "E07 requires exactly the two locked scheduler challengers "
+                    "(TR_C2_ALT_LOOKBACK_SCHED_COSINE, "
+                    "TR_C2_ALT_LOOKBACK_SCHED_REDUCE_ON_PLATEAU)"
+                )
+        elif experiment_id == "E08":
+            expected_ids = {
+                "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_4",
+                "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_4",
+                "TR_C2_ALT_LOOKBACK_SGD_LR_1E_MINUS_3",
+                "TR_C2_ALT_LOOKBACK_SGD_LR_3E_MINUS_3",
+            }
+            if len(ctx.candidate_specs) != 4 or {
+                candidate.candidate_id for candidate in ctx.candidate_specs
+            } != expected_ids:
+                raise RuntimeError("E08 requires exactly the four locked plain-SGD challengers")
+        elif experiment_id == "E09":
+            expected_ids = {
+                "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_3_WD_0",
+                "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_3_WD_1E_MINUS_4",
+                "TR_C2_ALT_LOOKBACK_SGDM_LR_3E_MINUS_3_WD_0",
+                "TR_C2_ALT_LOOKBACK_SGDM_LR_3E_MINUS_3_WD_1E_MINUS_4",
+                "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_2_WD_0",
+                "TR_C2_ALT_LOOKBACK_SGDM_LR_1E_MINUS_2_WD_1E_MINUS_4",
+            }
+            if len(ctx.candidate_specs) != 6 or {
+                candidate.candidate_id for candidate in ctx.candidate_specs
+            } != expected_ids:
+                raise RuntimeError("E09 requires exactly the six locked SGDM challengers")
+        elif len(ctx.candidate_specs) != 1:
+            raise RuntimeError(f"{experiment_id} requires exactly one injected challenger")
+        for candidate in ctx.candidate_specs:
+            if experiment_id == "E07":
+                if not (candidate.candidate_id == "TR_C2_ALT_LOOKBACK"
+                        or candidate.candidate_id.startswith("TR_C2_ALT_LOOKBACK_SCHED_")):
+                    raise RuntimeError(
+                        "E07 rejects every architecture except TR_C2_ALT_LOOKBACK "
+                        "and its SCHED_* variants"
+                    )
+            elif experiment_id not in {"E06", "E08", "E09"} and candidate.candidate_id != "TR_C2_ALT_LOOKBACK":
+                raise RuntimeError(
+                    f"{experiment_id} rejects every architecture except TR_C2_ALT_LOOKBACK"
+                )
+            data = candidate.config.get("data", {})
+            model_config = candidate.config.get("model", {})
+            if (
+                candidate.feature_variant_id != feature_variant
+                or data.get("feature_variant_id") != feature_variant
+                or data.get("feature_count") != feature_count
+                or model_config.get("input_size") != feature_count
+            ):
+                raise RuntimeError(f"{experiment_id} feature projection contract mismatch")
+            if data.get("target_access_mode") == "TEST":
+                raise RuntimeError(f"{experiment_id} Test access is forbidden")
+        if experiment_id == "E06":
+            if ctx.reuse_completed_runs:
+                expected_reuse_keys = {
+                    f"{candidate_id}:RO{fold}_{stage}"
+                    for candidate_id in expected_ids
+                    for fold in (1, 2, 3)
+                    for stage in ("A", "B")
+                }
+                if set(ctx.reuse_completed_run_ids or {}) != expected_reuse_keys:
+                    raise RuntimeError(
+                        "E06 no-train resume requires the exact 18 locked Stage A/B run IDs"
+                    )
+            if any(
+                candidate.config.get("model", {}).get("prediction_formulation", "DIRECT") != "DIRECT"
+                or candidate.config.get("training", {}).get("optimizer_name") != "AdamW"
+                or candidate.config.get("training", {}).get("learning_rate") not in {5e-5, 1e-4, 2e-4}
+                for candidate in ctx.candidate_specs
+            ):
+                raise RuntimeError("E06 candidate LR/optimizer/DIRECT contract mismatch")
+        if experiment_id == "E08":
+            if ctx.reuse_completed_runs:
+                expected_reuse_keys = {
+                    f"{candidate_id}:RO{fold}_{stage}"
+                    for candidate_id in expected_ids
+                    for fold in (1, 2, 3)
+                    for stage in ("A", "B")
+                }
+                if set(ctx.reuse_completed_run_ids or {}) != expected_reuse_keys:
+                    raise RuntimeError(
+                        "E08 no-train resume requires the exact 24 locked Stage A/B run IDs"
+                    )
+            if any(
+                candidate.config.get("model", {}).get("prediction_formulation", "DIRECT") != "DIRECT"
+                or candidate.config.get("training", {}).get("optimizer_name") != "SGD"
+                or candidate.config.get("training", {}).get("optimizer_config")
+                != {"momentum": 0.0, "nesterov": False}
+                or candidate.config.get("training", {}).get("learning_rate")
+                not in {1e-4, 3e-4, 1e-3, 3e-3}
+                or candidate.config.get("training", {}).get("weight_decay") != 1e-3
+                or candidate.config.get("training", {}).get("scheduler_name") not in {None, "OFF"}
+                or candidate.config.get("training", {}).get("scheduler_config") is not None
+                for candidate in ctx.candidate_specs
+            ):
+                raise RuntimeError("E08 candidate plain-SGD/DIRECT/constant-LR contract mismatch")
+        if experiment_id == "E09":
+            if ctx.reuse_completed_runs:
+                expected_reuse_keys = {
+                    f"{candidate_id}:RO{fold}_{stage}"
+                    for candidate_id in expected_ids
+                    for fold in (1, 2, 3)
+                    for stage in ("A", "B")
+                }
+                if set(ctx.reuse_completed_run_ids or {}) != expected_reuse_keys:
+                    raise RuntimeError(
+                        "E09 no-train resume requires the exact 36 locked Stage A/B run IDs"
+                    )
+            allowed_pairs = {
+                (1e-3, 0.0), (1e-3, 1e-4),
+                (3e-3, 0.0), (3e-3, 1e-4),
+                (1e-2, 0.0), (1e-2, 1e-4),
+            }
+            actual_pairs = {
+                (
+                    candidate.config.get("training", {}).get("learning_rate"),
+                    candidate.config.get("training", {}).get("weight_decay"),
+                )
+                for candidate in ctx.candidate_specs
+            }
+            if actual_pairs != allowed_pairs or any(
+                candidate.config.get("model", {}).get("prediction_formulation", "DIRECT") != "DIRECT"
+                or candidate.config.get("training", {}).get("optimizer_name") != "SGD"
+                or candidate.config.get("training", {}).get("optimizer_config")
+                != {"momentum": 0.9, "nesterov": False}
+                or candidate.config.get("training", {}).get("scheduler_name") not in {None, "OFF"}
+                or candidate.config.get("training", {}).get("scheduler_config") is not None
+                for candidate in ctx.candidate_specs
+            ):
+                raise RuntimeError("E09 candidate SGDM/DIRECT/constant-LR contract mismatch")
+        if experiment_id == "E01" and ctx.reuse_completed_runs:
+            expected_reuse_keys = {
+                f"RO{fold}_{stage}"
+                for fold in (1, 2, 3)
+                for stage in ("A", "B")
+            }
+            if set(ctx.reuse_completed_run_ids or {}) != expected_reuse_keys:
+                raise RuntimeError(
+                    "E01 no-train resume requires the exact six locked Stage A/B run IDs"
+                )
+        if experiment_id == "E02" and ctx.reuse_completed_runs:
+            raise RuntimeError("E02 challenger must initialize and train from scratch")
+        if experiment_id == "E03" and ctx.reuse_completed_runs:
+            expected_reuse_keys = {
+                f"RO{fold}_{stage}"
+                for fold in (1, 2, 3)
+                for stage in ("A", "B")
+            }
+            if set(ctx.reuse_completed_run_ids or {}) != expected_reuse_keys:
+                raise RuntimeError(
+                    "E03 no-train resume requires the exact six locked Stage A/B run IDs"
+                )
     if ctx.is_rehearsal:
         # Rehearsal is allowed: tiny budget, temp registry.
         if ctx.scientific_max_epochs > 5:
@@ -469,7 +715,8 @@ def fit_fold_local_scaler(
                     f"vs {feature_matrix.shape[0]})"
                 )
             X_fit = np.asarray(feature_matrix[timeline_targets], dtype=np.float64)
-        # Build feature columns list from feature matrix shape
+        # Historical Phase44 intentionally classifies synthetic f0/f1/... names.
+        # E01 reproduces that behavior; feature-group improvements are deferred.
         feature_cols = [f"f{i}" for i in range(X_fit.shape[1])] if X_fit.size > 0 else ["f0"]
         # Phase 44 scientific fix: Y MUST come from the canonical target_values
         # matrix indexed by timeline_target — NOT from window_records (which
@@ -559,6 +806,19 @@ def fit_fold_local_scaler(
     return bundle, audit
 
 
+def _prepare_stage_c_model_for_device(
+    *,
+    model: torch.nn.Module,
+    device: torch.device,
+    execution_track: str,
+) -> torch.nn.Module:
+    """Move V2 rolling models to the eval device while preserving V1."""
+
+    if execution_track in {"MODEL_IMPROVEMENT_V2_E01", "MODEL_IMPROVEMENT_V2_E02", "MODEL_IMPROVEMENT_V2_E03", "MODEL_IMPROVEMENT_V2_E04", "MODEL_IMPROVEMENT_V2_E05", "MODEL_IMPROVEMENT_V2_E06", "MODEL_IMPROVEMENT_V2_E07", "MODEL_IMPROVEMENT_V2_E08", "MODEL_IMPROVEMENT_V2_E09"}:
+        return model.to(device)
+    return model
+
+
 # ----------------------- Real Orchestrator -----------------------
 def run_real_pipeline(ctx: RunContext) -> RealRunResult:
     """The SINGLE Phase 44 real orchestrator. Used by both official and
@@ -566,18 +826,32 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
     """
     assert_context_invariants(ctx)
 
+    registry = None
+    active_run_ids: dict[str, str] = {}
     try:
-        candidates = load_candidates(
-            project_root=ctx.project_root,
-            transformer_shortlist_path=ctx.transformer_shortlist_path,
-            lstm_handoff_path=ctx.lstm_handoff_path,
+        candidates = (
+            list(ctx.candidate_specs)
+            if ctx.candidate_specs is not None
+            else load_candidates(
+                project_root=ctx.project_root,
+                transformer_shortlist_path=ctx.transformer_shortlist_path,
+                lstm_handoff_path=ctx.lstm_handoff_path,
+            )
         )
         n_candidates = len(candidates)
         n_folds = PERSISTENCE_FOLD_COUNT
 
         # Step 1: build ROBASE + 3 folds (real project data).
-        rtrn_ids = extract_robase_train_ids(ctx.project_root)
-        rval_ids = extract_robase_val_ids(ctx.project_root)
+        rtrn_ids = (
+            list(ctx.robase_train_ids)
+            if ctx.robase_train_ids is not None
+            else extract_robase_train_ids(ctx.project_root)
+        )
+        rval_ids = (
+            list(ctx.robase_val_ids)
+            if ctx.robase_val_ids is not None
+            else extract_robase_val_ids(ctx.project_root)
+        )
         folds = build_rolling_folds(rtrn_ids, rval_ids, k=n_folds)
 
         # Step 2: resolve base dataset (real SequenceWindowDataset).
@@ -603,10 +877,56 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
             project_root=ctx.project_root,
             registry_root=ctx.registry_root,
             run_root=ctx.run_root,
+            run_id_namespace=ctx.registry_namespace,
+            upstream_context_override=ctx.registry_upstream_context,
         )
         engine = TrainingEngine(registry)
         refit_engine = RefitEngine(registry)
         device = torch.device(ctx.device)
+
+        def _locked_v2_reuse_record(candidate, fold, stage: str) -> dict[str, Any] | None:
+            """Resolve one explicitly locked V2 run without changing V1 discovery."""
+
+            if ctx.execution_track not in (
+                "MODEL_IMPROVEMENT_V2_E01",
+                "MODEL_IMPROVEMENT_V2_E03",
+                "MODEL_IMPROVEMENT_V2_E06",
+                "MODEL_IMPROVEMENT_V2_E07",
+                "MODEL_IMPROVEMENT_V2_E08",
+                "MODEL_IMPROVEMENT_V2_E09",
+            ):
+                return None
+            ledger = ctx.reuse_completed_run_ids
+            if ledger is None:
+                return None
+            key = (
+                f"{candidate.candidate_id}:{fold.fold_id}_{stage}"
+                if ctx.execution_track in (
+                    "MODEL_IMPROVEMENT_V2_E06",
+                    "MODEL_IMPROVEMENT_V2_E07",
+                    "MODEL_IMPROVEMENT_V2_E08",
+                    "MODEL_IMPROVEMENT_V2_E09",
+                )
+                else f"{fold.fold_id}_{stage}"
+            )
+            run_id = ledger[key]
+            record = registry.get_run(run_id)
+            if record.get("status") != RunStatus.COMPLETED.value:
+                raise RuntimeError(f"V2 RESUME: {run_id} is not COMPLETED")
+            if record.get("candidate_id") != candidate.candidate_id:
+                raise RuntimeError(f"V2 RESUME: candidate mismatch for {run_id}")
+            if record.get("sweep_stage") != f"{fold.fold_id}_{stage}":
+                raise RuntimeError(f"V2 RESUME: stage/fold mismatch for {run_id}")
+            lineage = record.get("config", {}).get("lineage", {})
+            if (
+                lineage.get("rolling_origin_candidate_id") != candidate.candidate_id
+                or lineage.get("rolling_origin_fold_id") != str(fold.fold_id)
+                or lineage.get("rolling_origin_stage") != stage
+            ):
+                raise RuntimeError(f"V2 RESUME: lineage mismatch for {run_id}")
+            if record.get("config", {}).get("data", {}).get("target_access_mode") == "TEST":
+                raise RuntimeError(f"V2 RESUME: Test-scoped run rejected: {run_id}")
+            return record
 
         # Step 4: 12 Stage A runs (4 candidates × 3 folds).
         inner_best_epochs: dict[tuple[str, str], int] = {}
@@ -630,7 +950,17 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                 raise RuntimeError(
                     "PHASE44 GUARD: dataset_factory is required in official mode"
                 )
-            cache_key = candidate.candidate_id
+            cache_key = (
+                "MODEL_IMPROVEMENT_V2_E06_SHARED_PRETEST"
+                if ctx.execution_track == "MODEL_IMPROVEMENT_V2_E06"
+                else "MODEL_IMPROVEMENT_V2_E07_SHARED_PRETEST"
+                if ctx.execution_track == "MODEL_IMPROVEMENT_V2_E07"
+                else "MODEL_IMPROVEMENT_V2_E08_SHARED_PRETEST"
+                if ctx.execution_track == "MODEL_IMPROVEMENT_V2_E08"
+                else "MODEL_IMPROVEMENT_V2_E09_SHARED_PRETEST"
+                if ctx.execution_track == "MODEL_IMPROVEMENT_V2_E09"
+                else candidate.candidate_id
+            )
             if cache_key not in _ds_cache:
                 # Call factory with optional 2-arg support: (candidate, fold)
                 import inspect
@@ -688,6 +1018,8 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                 run_config["lineage"]["rolling_origin_fold_id"] = str(f.fold_id)
                 run_config["lineage"]["rolling_origin_stage"] = "A"
                 run_config["lineage"]["rolling_origin_candidate_id"] = c.candidate_id
+                run_config["lineage"]["rolling_origin_metric_population_fingerprint"] = f.inner_val_fingerprint
+                run_config["lineage"]["rolling_origin_metric_population_count"] = len(f.inner_val_ids)
 
                 # Experiment family is model-family specific.
                 # ROLLING_ORIGIN is mapped to TRANSFORMER_ENCODER only.
@@ -703,18 +1035,36 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                 # skip the optimizer step entirely. The best_epoch_inner is
                 # recovered from the artifact's training_history.csv.
                 if ctx.reuse_completed_runs:
-                    from course_work.rolling_origin.finalize import (
-                        discover_completed_stage_runs_for_pair,
-                    )
-                    existing = discover_completed_stage_runs_for_pair(
-                        ctx.project_root,
-                        candidate_id=c.candidate_id,
-                        fold_id=str(f.fold_id),
-                    )
+                    locked_record = _locked_v2_reuse_record(c, f, "A")
+                    if locked_record is not None:
+                        existing = {
+                            "stage_a_run_id": locked_record["run_id"],
+                            "best_epoch_inner": locked_record.get("best_epoch"),
+                        }
+                    else:
+                        from course_work.rolling_origin.finalize import (
+                            discover_completed_stage_runs_for_pair,
+                        )
+                        existing = discover_completed_stage_runs_for_pair(
+                            ctx.project_root,
+                            candidate_id=c.candidate_id,
+                            fold_id=str(f.fold_id),
+                        )
                     if existing.get("stage_a_run_id") is None:
                         raise RuntimeError(
                             f"PHASE44 RESUME: no COMPLETED Stage A run for "
                             f"({c.candidate_id}, {f.fold_id}). Cannot reuse."
+                        )
+                    if (
+                        locked_record is not None
+                        and (
+                            not isinstance(existing.get("best_epoch_inner"), int)
+                            or existing["best_epoch_inner"] <= 0
+                        )
+                    ):
+                        raise RuntimeError(
+                            f"PHASE44 RESUME: invalid best epoch for "
+                            f"({c.candidate_id}, {f.fold_id})"
                         )
                     run_id_a = existing["stage_a_run_id"]
                     stage_a_run_ids[(c.candidate_id, str(f.fold_id))] = run_id_a
@@ -742,7 +1092,11 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                 run_id_a = reg["run_id"]
                 stage_a_run_ids[(c.candidate_id, str(f.fold_id))] = run_id_a
                 if not ctx.rehearsal_synthetic:
-                    registry._transition(run_id_a, RunStatus.RUNNING.value)
+                    if ctx.validated_registry_lifecycle:
+                        active_run_ids[run_id_a] = "STAGE_A"
+                        registry.start_run(run_id_a)
+                    else:
+                        registry._transition(run_id_a, RunStatus.RUNNING.value)
 
                 inner_train_loader, _ = load_fold_subset_loader_with_y_rescale(
                     base_dataset=fold_dataset,
@@ -751,6 +1105,10 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                     shuffle=True,
                     seed=ctx.seed,
                     fold_stage_target_scaler=scaler_a,
+                    apply_fold_x_scaling=ctx.apply_fold_x_scaling,
+                    prediction_formulation=run_config["model"].get(
+                        "prediction_formulation", "DIRECT"
+                    ),
                 )
                 inner_val_loader, _ = load_fold_subset_loader_with_y_rescale(
                     base_dataset=fold_dataset,
@@ -759,7 +1117,14 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                     shuffle=False,
                     seed=ctx.seed,
                     fold_stage_target_scaler=scaler_a,
+                    apply_fold_x_scaling=ctx.apply_fold_x_scaling,
+                    prediction_formulation=run_config["model"].get(
+                        "prediction_formulation", "DIRECT"
+                    ),
                 )
+                if ctx.seed_before_model_construction:
+                    from course_work.utils.reproducibility import set_seed
+                    set_seed(ctx.seed)
                 model = build_model_from_run_config(run_config)
 
                 # Compute Phase 44 fold-specific expected sample_idx lists for
@@ -809,14 +1174,23 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                     inner_val_expected_sample_idx=inner_val_expected_sample_idx,
                     inner_train_population_fingerprint=f.inner_train_fingerprint,
                     inner_val_population_fingerprint=f.inner_val_fingerprint,
+                    persist_artifacts=ctx.validated_registry_lifecycle,
                 )
                 inner_best_epochs[(c.candidate_id, str(f.fold_id))] = stage_a_result.best_epoch_inner
                 if not ctx.rehearsal_synthetic:
-                    registry._transition(
-                        run_id_a, RunStatus.COMPLETED.value,
-                        update={"best_epoch": stage_a_result.best_epoch_inner,
-                                "best_validation_rmse_wh": stage_a_result.best_inner_rmse_wh},
-                    )
+                    if ctx.validated_registry_lifecycle:
+                        registry.complete_run(
+                            run_id_a,
+                            best_epoch=stage_a_result.best_epoch_inner,
+                            best_validation_rmse_wh=stage_a_result.best_inner_rmse_wh,
+                        )
+                        active_run_ids.pop(run_id_a, None)
+                    else:
+                        registry._transition(
+                            run_id_a, RunStatus.COMPLETED.value,
+                            update={"best_epoch": stage_a_result.best_epoch_inner,
+                                    "best_validation_rmse_wh": stage_a_result.best_inner_rmse_wh},
+                        )
                 stage_a_audit_rows.append({
                     "run_id": run_id_a,
                     "candidate_id": c.candidate_id,
@@ -874,18 +1248,33 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
 
                 # ── PHASE 44 RESUME / FINALIZE MODE — Stage B reuse ──
                 if ctx.reuse_completed_runs:
-                    from course_work.rolling_origin.finalize import (
-                        discover_completed_stage_runs_for_pair,
-                    )
-                    existing = discover_completed_stage_runs_for_pair(
-                        ctx.project_root,
-                        candidate_id=c.candidate_id,
-                        fold_id=str(f.fold_id),
-                    )
+                    locked_record = _locked_v2_reuse_record(c, f, "B")
+                    if locked_record is not None:
+                        existing = {
+                            "stage_b_run_id": locked_record["run_id"],
+                            "best_epoch_inner": locked_record.get("best_epoch"),
+                        }
+                    else:
+                        from course_work.rolling_origin.finalize import (
+                            discover_completed_stage_runs_for_pair,
+                        )
+                        existing = discover_completed_stage_runs_for_pair(
+                            ctx.project_root,
+                            candidate_id=c.candidate_id,
+                            fold_id=str(f.fold_id),
+                        )
                     if existing.get("stage_b_run_id") is None:
                         raise RuntimeError(
                             f"PHASE44 RESUME: no COMPLETED Stage B run for "
                             f"({c.candidate_id}, {f.fold_id}). Cannot reuse."
+                        )
+                    if (
+                        locked_record is not None
+                        and existing.get("best_epoch_inner") != best_epoch
+                    ):
+                        raise RuntimeError(
+                            f"PHASE44 RESUME: Stage-B epoch mismatch for "
+                            f"({c.candidate_id}, {f.fold_id})"
                         )
                     run_id_b = existing["stage_b_run_id"]
                     stage_b_run_ids[(c.candidate_id, str(f.fold_id))] = run_id_b
@@ -915,7 +1304,11 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                 )
                 run_id_b = reg["run_id"]
                 stage_b_run_ids[(c.candidate_id, str(f.fold_id))] = run_id_b
-                registry._transition(run_id_b, RunStatus.RUNNING.value)
+                if ctx.validated_registry_lifecycle:
+                    active_run_ids[run_id_b] = "STAGE_B"
+                    registry.start_run(run_id_b)
+                else:
+                    registry._transition(run_id_b, RunStatus.RUNNING.value)
 
                 outer_train_loader, _ = load_fold_subset_loader_with_y_rescale(
                     base_dataset=fold_dataset,
@@ -924,10 +1317,54 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                     shuffle=True,
                     seed=ctx.seed,
                     fold_stage_target_scaler=scaler_b,
+                    apply_fold_x_scaling=ctx.apply_fold_x_scaling,
+                    prediction_formulation=run_config["model"].get(
+                        "prediction_formulation", "DIRECT"
+                    ),
                 )
+                if ctx.seed_before_model_construction:
+                    from course_work.utils.reproducibility import set_seed
+                    set_seed(ctx.seed)
                 model = build_model_from_run_config(run_config)
 
-                refit_engine.refit(
+                # V2 E07-E: Stage-B LR replay — load Stage-A history and
+                # extract lr_used_for_epoch[1..best_epoch_inner] so Stage B
+                # sets optimizer LR explicitly each epoch instead of
+                # recomputing scheduler behavior.
+                stage_a_lr_trace: list[float] | None = None
+                if (
+                    ctx.enable_stage_b_lr_replay
+                    and not ctx.rehearsal_synthetic
+                ):
+                    from course_work.model_improvement_v2.stage_b_replay import (
+                        extract_lr_trace_from_history,
+                    )
+                    stage_a_run_id = stage_a_run_ids[
+                        (c.candidate_id, str(f.fold_id))
+                    ]
+                    history_path = (
+                        registry.run_root / stage_a_run_id / "training_history.csv"
+                    )
+                    if not history_path.is_file():
+                        raise RuntimeError(
+                            f"V2 E07-E: Stage-A training_history.csv missing for "
+                            f"{stage_a_run_id}: {history_path}"
+                        )
+                    import csv as _csv
+                    with history_path.open("r", encoding="utf-8", newline="") as h:
+                        reader = _csv.DictReader(h)
+                        rows = list(reader)
+                    history_dict = {"records": rows}
+                    full_trace = extract_lr_trace_from_history(history_dict)
+                    if len(full_trace) < best_epoch:
+                        raise RuntimeError(
+                            f"V2 E07-E: Stage-A trace shorter than "
+                            f"best_epoch_inner={best_epoch} for "
+                            f"{stage_a_run_id} (trace_len={len(full_trace)})"
+                        )
+                    stage_a_lr_trace = [float(x) for x in full_trace[:best_epoch]]
+
+                refit_result = refit_engine.refit(
                     run_id=run_id_b,
                     train_loader=outer_train_loader,
                     model=model,
@@ -940,9 +1377,20 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                     parent_run_id=stage_a_run_ids[(c.candidate_id, str(f.fold_id))],
                     notes=f"Stage B refit using best_epoch_inner={best_epoch}",
                     rehearsal_synthetic=ctx.rehearsal_synthetic,
+                    stage_a_lr_trace=stage_a_lr_trace,
                 )
                 if not ctx.rehearsal_synthetic:
-                    registry._transition(run_id_b, RunStatus.COMPLETED.value)
+                    if ctx.validated_registry_lifecycle:
+                        registry.register_artifact(
+                            run_id_b,
+                            ArtifactType.BEST_CHECKPOINT.value,
+                            refit_result.refit_final_checkpoint_path,
+                            required=True,
+                        )
+                        registry.complete_refit_run(run_id_b, best_epoch)
+                        active_run_ids.pop(run_id_b, None)
+                    else:
+                        registry._transition(run_id_b, RunStatus.COMPLETED.value)
                 stage_b_audit_rows.append({
                     "run_id": run_id_b,
                     "candidate_id": c.candidate_id,
@@ -983,21 +1431,70 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                     shuffle=False,
                     seed=ctx.seed,
                     fold_stage_target_scaler=scaler_b,
+                    apply_fold_x_scaling=ctx.apply_fold_x_scaling,
+                    prediction_formulation=c.config["model"].get(
+                        "prediction_formulation", "DIRECT"
+                    ),
                 )
+                if ctx.seed_before_model_construction:
+                    from course_work.utils.reproducibility import set_seed
+                    set_seed(ctx.seed)
                 model = build_model_from_run_config(c.config)
                 run_id_b = stage_b_run_ids[(c.candidate_id, str(f.fold_id))]
                 # When reusing completed runs, checkpoints live in the
                 # canonical registry's run_root (not the temp sandbox root).
                 if ctx.reuse_completed_runs:
                     canonical_run_root = (
-                        ctx.project_root / "artifacts" / "runs"
+                        ctx.run_root
+                        if ctx.reuse_completed_run_ids is not None
+                        else ctx.project_root / "artifacts" / "runs"
                     )
                     ckpt_path = canonical_run_root / run_id_b / "checkpoints" / "refit_final.pt"
                 else:
                     ckpt_path = registry.run_root / run_id_b / "checkpoints" / "refit_final.pt"
                 if ckpt_path.exists():
+                    if ctx.reuse_completed_run_ids is not None:
+                        locked_b = _locked_v2_reuse_record(c, f, "B")
+                        registered = [
+                            artifact
+                            for artifact in locked_b.get("artifacts", [])
+                            if artifact.get("artifact_type") == ArtifactType.BEST_CHECKPOINT.value
+                            and Path(artifact.get("artifact_path", "")).name == "refit_final.pt"
+                        ]
+                        if len(registered) != 1:
+                            raise RuntimeError(
+                                f"V2 RESUME: checkpoint registration mismatch for {run_id_b}"
+                            )
+                        actual_sha = hashlib.sha256(ckpt_path.read_bytes()).hexdigest()
+                        if actual_sha != registered[0].get("sha256"):
+                            raise RuntimeError(
+                                f"V2 RESUME: checkpoint checksum mismatch for {run_id_b}"
+                            )
                     payload = torch.load(ckpt_path, map_location=device)
+                    if ctx.reuse_completed_run_ids is not None:
+                        expected_epoch = inner_best_epochs[(c.candidate_id, str(f.fold_id))]
+                        expected_parent = stage_a_run_ids[(c.candidate_id, str(f.fold_id))]
+                        expected_payload = {
+                            "stage": "B",
+                            "candidate_id": c.candidate_id,
+                            "fold_id": str(f.fold_id),
+                            "official_epoch": expected_epoch,
+                            "best_epoch_inner": expected_epoch,
+                            "parent_run_id": expected_parent,
+                        }
+                        for key, expected in expected_payload.items():
+                            if payload.get(key) != expected:
+                                raise RuntimeError(
+                                    f"V2 RESUME: checkpoint {key} mismatch for {run_id_b}"
+                                )
                     model.load_state_dict(payload["model_state_dict"])
+                elif ctx.reuse_completed_run_ids is not None:
+                    raise FileNotFoundError(f"V2 RESUME checkpoint is missing: {ckpt_path}")
+                model = _prepare_stage_c_model_for_device(
+                    model=model,
+                    device=device,
+                    execution_track=ctx.execution_track,
+                )
                 model.eval()
                 stage_c = evaluate_stage_c(
                     model=model,
@@ -1009,6 +1506,18 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                     model_run_id=run_id_b,
                     refit_epoch=inner_best_epochs[(c.candidate_id, str(f.fold_id))],
                     rehearsal_synthetic=ctx.rehearsal_synthetic,
+                    prediction_formulation=c.config["model"].get(
+                        "prediction_formulation", "DIRECT"
+                    ),
+                    flatten_metric_predictions=(
+                        ctx.execution_track
+                        in {
+                            "MODEL_IMPROVEMENT_V2_E06",
+                            "MODEL_IMPROVEMENT_V2_E07",
+                            "MODEL_IMPROVEMENT_V2_E08",
+                            "MODEL_IMPROVEMENT_V2_E09",
+                        }
+                    ),
                 )
                 learned_predictions[(c.candidate_id, str(f.fold_id))] = {
                     "target_ids": list(stage_c.target_ids),
@@ -1018,7 +1527,17 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
                 }
 
         # Step 7: 3 PERSISTENCE bundles (real prior-history lookup).
-        windowpop_df = build_windowpop_with_appliances(ctx.project_root)
+        if ctx.execution_track in {"MODEL_IMPROVEMENT_V2_E01", "MODEL_IMPROVEMENT_V2_E02", "MODEL_IMPROVEMENT_V2_E03", "MODEL_IMPROVEMENT_V2_E04", "MODEL_IMPROVEMENT_V2_E05", "MODEL_IMPROVEMENT_V2_E06", "MODEL_IMPROVEMENT_V2_E07", "MODEL_IMPROVEMENT_V2_E08", "MODEL_IMPROVEMENT_V2_E09"}:
+            if len(_ds_cache) != 1:
+                raise RuntimeError("V2 rolling experiment requires one cached pre-Test dataset")
+            e01_dataset = next(iter(_ds_cache.values()))
+            windowpop_df = e01_dataset.window_records.copy(deep=True)
+            target_positions = windowpop_df["timeline_target"].astype(int).to_numpy()
+            windowpop_df["Appliances"] = np.asarray(
+                e01_dataset._target_values[target_positions], dtype=np.float64
+            )
+        else:
+            windowpop_df = build_windowpop_with_appliances(ctx.project_root)
         if "Appliances" not in windowpop_df.columns:
             raise RuntimeError(
                 "Persistence requires Appliances values; lookup failed."
@@ -1661,7 +2180,34 @@ def run_real_pipeline(ctx: RunContext) -> RealRunResult:
             signoff_failures=signoff_failures,
             phase45_handoff=phase45_handoff,
         )
+    except KeyboardInterrupt as exc:
+        if ctx.validated_registry_lifecycle and registry is not None:
+            for run_id, stage in tuple(active_run_ids.items()):
+                try:
+                    registry.fail_run(
+                        run_id,
+                        FailureType.INTERRUPTED.value,
+                        stage,
+                        "E01 execution interrupted by the human or operating system",
+                        exception_class=type(exc).__name__,
+                        recoverable=True,
+                    )
+                except Exception:
+                    pass
+        raise
     except Exception as exc:
+        if ctx.validated_registry_lifecycle and registry is not None:
+            for run_id, stage in tuple(active_run_ids.items()):
+                try:
+                    registry.fail_run(
+                        run_id,
+                        FailureType.TRAINING_ERROR.value,
+                        stage,
+                        str(exc),
+                        exception_class=type(exc).__name__,
+                    )
+                except Exception:
+                    pass
         import traceback
         return RealRunResult(
             exit_code=1,

@@ -1,0 +1,92 @@
+{
+  "candidate_id": "TR_C2_ALT_LOOKBACK",
+  "experiment_id": "E01",
+  "initialization_policy": "SET_SEED_BEFORE_EVERY_MODEL_CONSTRUCTION",
+  "output_contract": {
+    "aggregate": [
+      "pooled_rmse_wh",
+      "pooled_mae_wh",
+      "pooled_r2",
+      "worst_fold_rmse_wh",
+      "fold_rmse_sd_wh",
+      "execution_manifest",
+      "reproduction_comparison"
+    ],
+    "per_fold": [
+      "stage_a_selected_epoch",
+      "stage_a_validation_metric",
+      "stage_a_checkpoint",
+      "stage_b_refit_final_checkpoint",
+      "stage_c_predictions",
+      "fold_metrics",
+      "scaler_population_audit"
+    ]
+  },
+  "preflight": {
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "checkpoint_loaded": false,
+    "config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+    "experiment_id": "E01",
+    "feature_count": 33,
+    "feature_order_verified": true,
+    "feature_set": "FS2_TF1",
+    "fold_count": 3,
+    "fold_local_scaling": true,
+    "folds": [
+      "RO1",
+      "RO2",
+      "RO3"
+    ],
+    "inference_executed": false,
+    "initialization_policy": "SET_SEED_BEFORE_EVERY_MODEL_CONSTRUCTION",
+    "learning_rate": 0.0003,
+    "lookback": 72,
+    "loss": "MSE",
+    "optimizer": "AdamW",
+    "preflight_consumes_run_id": false,
+    "registry_namespace": "V2_E01",
+    "reproduction_scope": "STRUCTURAL_CONFIG_REPRODUCTION",
+    "reusable_core_symbols_verified": [
+      "course_work.rolling_origin.real_run.RunContext",
+      "course_work.rolling_origin.real_run.run_real_pipeline",
+      "course_work.model_improvement_v2.pretest_adapter.build_e01_pretest_dataset",
+      "course_work.model_improvement_v2.pretest_adapter.load_phase44_fold_evidence",
+      "course_work.rolling_origin.folds.FoldId",
+      "course_work.rolling_origin.folds.build_rolling_folds",
+      "course_work.rolling_origin.scaling.FoldLocalScalerBundle",
+      "course_work.rolling_origin.scaling.fit_fold_a_x_scaler",
+      "course_work.rolling_origin.scaling.fit_fold_a_y_scaler",
+      "course_work.rolling_origin.scaling.fit_fold_b_x_scaler",
+      "course_work.rolling_origin.scaling.fit_fold_b_y_scaler",
+      "course_work.rolling_origin.refit_engine.RefitEngine",
+      "course_work.rolling_origin.pooling.compute_pooled_metrics",
+      "course_work.rolling_origin.artifacts.Phase44Artifacts",
+      "course_work.rolling_origin.artifacts.write_all_artifacts",
+      "course_work.training.engine.TrainingEngine",
+      "course_work.experiments.registry.ExperimentRegistry",
+      "course_work.experiments.registry.compute_config_fingerprint"
+    ],
+    "rolling_origin_protocol": "RO3_EXPANDING_PRETEST-v1",
+    "status": "PASS",
+    "test_access": "NO",
+    "training_executed": false,
+    "v2_artifact_root": "COURSE_WORK/artifacts/model_improvement_v2"
+  },
+  "reproduction_scope": "STRUCTURAL_CONFIG_REPRODUCTION",
+  "run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E01_EXECUTION-v1",
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

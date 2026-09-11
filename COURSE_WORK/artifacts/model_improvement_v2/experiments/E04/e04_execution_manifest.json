@@ -1,0 +1,91 @@
+{
+  "challenger_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E04_RO1_A_0001_FF1EF136",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E04_RO2_A_0002_30708DF8",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E04_RO3_A_0003_26D044FB"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E04_RO1_B_0004_254A5BE3",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E04_RO2_B_0005_53D4E5AC",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E04_RO3_B_0006_5BA199A0"
+    }
+  },
+  "experiment_id": "E04",
+  "global_baseline_policy": "GLOBAL_BASELINE_REUSED_FROM_E01",
+  "global_baseline_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "local_control_policy": "CONTROL_REUSED_FROM_E03",
+  "local_control_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_A_0001_392BE836",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_A_0002_38C81BC7",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_A_0003_F240E775"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E03_RO1_B_0004_45D82B07",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E03_RO2_B_0005_E0954C08",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E03_RO3_B_0006_2B8CE813"
+    }
+  },
+  "preflight": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "challenger_config_fingerprint": "0a8efd1424b8368dbd97552bee244234c8ce74b86cc6732a37b7642d05737979",
+    "challenger_head": "MLP",
+    "changed_config_fields": [
+      "model.prediction_head"
+    ],
+    "checkpoint_loaded": false,
+    "control_head": "LINEAR",
+    "experiment_id": "E04",
+    "fresh_initialization": true,
+    "global_baseline_audit": {
+      "metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "status": "PASS"
+    },
+    "global_promotion_threshold_rmse_wh": 59.75291570400546,
+    "head_spec": [
+      "Linear(64,64)",
+      "GELU",
+      "Dropout(0.1)",
+      "Linear(64,1)"
+    ],
+    "inference_executed": false,
+    "local_control_audit": {
+      "metrics": {
+        "mae_wh": 26.74870362368344,
+        "r2": 0.5762147018706287,
+        "rmse_wh": 60.04654108949536
+      },
+      "run_count": 6,
+      "status": "PASS"
+    },
+    "local_control_reuse": "CONTROL_REUSED_FROM_E03",
+    "one_primary_change": "PASS",
+    "prediction_formulation": "RESIDUAL_TO_PERSISTENCE",
+    "registry_namespace": "V2_E04",
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidates": [
+      "RESIDUAL_TO_PERSISTENCE_MLP"
+    ],
+    "training_executed": false
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E04_EXECUTION-v1",
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

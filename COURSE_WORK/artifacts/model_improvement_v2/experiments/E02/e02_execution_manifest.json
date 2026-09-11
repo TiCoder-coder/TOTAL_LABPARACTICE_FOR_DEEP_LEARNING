@@ -1,0 +1,75 @@
+{
+  "challenger_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E02_RO1_A_0001_1C0BAB0A",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E02_RO2_A_0002_EB7CC76F",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E02_RO3_A_0003_BA5F4BA5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E02_RO1_B_0004_1A01716A",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E02_RO2_B_0005_3CDADE01",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E02_RO3_B_0006_74F97C4F"
+    }
+  },
+  "control_policy": "CONTROL_REUSED_FROM_E01",
+  "control_run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+    }
+  },
+  "experiment_id": "E02",
+  "preflight": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK",
+    "challenger_config_fingerprint": "875ee2cf28c494b39b43ee9a85f0b07ab951d2c284520193d269aa63c6305b1f",
+    "challenger_feature_count": 31,
+    "challenger_feature_set": "FS1_TF1",
+    "changed_config_fields": [
+      "data.feature_count",
+      "data.feature_variant_id",
+      "lineage.feature_fingerprint",
+      "lineage.scaler_bundle_checksum",
+      "lineage.scaler_bundle_id",
+      "model.input_size"
+    ],
+    "checkpoint_loaded": false,
+    "control_feature_count": 33,
+    "control_feature_set": "FS2_TF1",
+    "control_reuse": "CONTROL_REUSED_FROM_E01",
+    "control_reuse_audit": {
+      "metrics": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "run_count": 6,
+      "status": "PASS"
+    },
+    "experiment_id": "E02",
+    "feature_set_delta": [
+      "rv1",
+      "rv2"
+    ],
+    "fresh_initialization": true,
+    "inference_executed": false,
+    "one_primary_change": "PASS",
+    "promotion_rmse_tolerance_wh": 0.1,
+    "promotion_threshold_rmse_wh": 59.75291570400546,
+    "registry_namespace": "V2_E02",
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidates": [
+      "FS1_TF1"
+    ],
+    "training_executed": false
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E02_EXECUTION-v1",
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

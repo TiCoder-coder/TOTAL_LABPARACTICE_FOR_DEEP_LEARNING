@@ -135,6 +135,8 @@ def load_fold_subset_loader_with_y_rescale(
     batch_size: int,
     shuffle: bool,
     fold_stage_target_scaler,
+    apply_fold_x_scaling: bool = False,
+    prediction_formulation: str = "DIRECT",
     seed: int = 42,
     drop_last: bool = False,
 ) -> tuple[DataLoader, list[int]]:
@@ -212,14 +214,46 @@ def load_fold_subset_loader_with_y_rescale(
         batch["target_id"] = [str(t) for t in resolved_target_ids[start:end]]
         batch["target_timestamp"] = [str(t) for t in resolved_target_ts[start:end]]
         state["cursor"] = end
-        if fold_y_mean is None or fold_y_std is None:
-            return batch
+        if apply_fold_x_scaling:
+            if "x" not in batch:
+                raise RuntimeError("Fold-local X scaling requires batch x")
+            x = batch["x"]
+            original_shape = tuple(x.shape)
+            if len(original_shape) != 3:
+                raise RuntimeError("Fold-local X scaling requires [B,L,F]")
+            flat = x.detach().cpu().numpy().reshape(-1, original_shape[-1])
+            scaled = fold_stage_target_scaler.transform_x(flat).reshape(original_shape)
+            batch["x"] = _torch.as_tensor(scaled, dtype=_torch.float32)
         if "y_model" not in batch or "y_raw_wh" not in batch:
             return batch
         y_raw = batch["y_raw_wh"]
         if not _torch.is_tensor(y_raw):
             y_raw = _torch.as_tensor(y_raw, dtype=_torch.float32)
         y_raw = y_raw.float().reshape(-1)
+        if prediction_formulation == "RESIDUAL_TO_PERSISTENCE":
+            from course_work.model_improvement_v2.residual import residual_raw_to_model
+
+            if "y_context_raw_wh" not in batch:
+                raise RuntimeError(
+                    "Residual prediction requires explicit y_context_raw_wh"
+                )
+            context = batch["y_context_raw_wh"]
+            if not _torch.is_tensor(context):
+                context = _torch.as_tensor(context, dtype=_torch.float32)
+            context = context.float().reshape(-1)
+            delta_model = residual_raw_to_model(
+                (y_raw - context).cpu().numpy(),
+                fold_stage_target_scaler,
+                fold_stage_target_scaler.target_scaling_option,
+            )
+            batch["y_model"] = _torch.as_tensor(
+                delta_model, dtype=_torch.float32
+            ).reshape(-1, 1)
+            return batch
+        if prediction_formulation != "DIRECT":
+            raise ValueError(f"Unsupported prediction formulation: {prediction_formulation}")
+        if fold_y_mean is None or fold_y_std is None:
+            return batch
         y_model_corrected = (y_raw - float(fold_y_mean)) / float(fold_y_std)
         batch["y_model"] = y_model_corrected.reshape(-1, 1).float()
         return batch
@@ -256,6 +290,7 @@ def train_stage_a(
     inner_val_expected_sample_idx=None,
     inner_train_population_fingerprint: str | None = None,
     inner_val_population_fingerprint: str | None = None,
+    persist_artifacts: bool = False,
 ) -> StageAResult:
     """Train Stage A: inner validation epoch selection with fold-local scalers.
 
@@ -361,6 +396,17 @@ def train_stage_a(
         validation_population_fingerprint=val_pop_fp,
     )
 
+    if persist_artifacts:
+        engine.persist_run_artifacts(
+            run_id=run_id,
+            run_directory=registry.run_root / run_id,
+            model=model,
+            result=result,
+            sample_idx=result.best_sample_idx,
+            y_true_wh=result.best_y_true_wh,
+            y_pred_wh=result.best_y_pred_wh,
+        )
+
     # Validate result invariants
     best_epoch = int(result.best_epoch)
     if best_epoch < 1:
@@ -398,6 +444,8 @@ def evaluate_stage_c(
     model_run_id: str,
     refit_epoch: int,
     rehearsal_synthetic: bool = False,
+    prediction_formulation: str = "DIRECT",
+    flatten_metric_predictions: bool = False,
 ) -> StageCResult:
     """Evaluate Stage C on outer block, returning per-target predictions.
 
@@ -405,6 +453,18 @@ def evaluate_stage_c(
     deterministic synthetic prediction set is returned that is consistent
     with the outer_eval_loader's iteration order. Used only for disposable
     rehearsals; blocked by assert_context_invariants in official mode.
+
+    When `prediction_formulation == "RESIDUAL_TO_PERSISTENCE"`, the model
+    predicts delta (change from last observed value) and the final prediction
+    is:  y_hat = y_context_raw_wh + delta_wh
+    where y_context_raw_wh is the last observable Appliances value in raw Wh
+    space and delta_wh = predicted_delta_model * fold_y_std (no y_mean
+    contamination — use `compose_residual_prediction_raw` from
+    `model_improvement_v2.residual`, NOT `scaler_bundle.inverse_transform_y`,
+    because the latter would add y_mean into the centred residual).
+
+    When `prediction_formulation == "DIRECT"`, the model predicts directly
+    in Y space and `scaler_bundle.inverse_transform_y` alone yields y_hat.
     """
     model.eval()
     target_ids: list[int] = []
@@ -468,8 +528,40 @@ def evaluate_stage_c(
         if batch_target_ts is None:
             batch_target_ts = [""] * x.shape[0]
         out = model(x)
-        pred_wh = scaler_bundle.inverse_transform_y(out.cpu().numpy())
-        y_pred.append(pred_wh.flatten())
+        if prediction_formulation == "RESIDUAL_TO_PERSISTENCE":
+            # y_context_raw_wh is the last observable Appliances in raw Wh space
+            context = batch.get("y_context_raw_wh")
+            if context is None:
+                raise RuntimeError(
+                    "evaluate_stage_c: RESIDUAL_TO_PERSISTENCE requires "
+                    "batch['y_context_raw_wh'] from the outer_eval_loader"
+                )
+            ctx_arr = context.cpu().numpy() if hasattr(context, "numpy") else np.asarray(context)
+            # IMPORTANT: do NOT use scaler_bundle.inverse_transform_y here.
+            # inverse_transform_y returns y_std * y_model + y_mean, which would
+            # add y_mean into the residual (a delta is centred at 0 by
+            # construction). Use the residual conversion contract from
+            # model_improvement_v2.residual, which preserves the invariant
+            # delta_raw_wh = predicted_delta_model * y_std (no y_mean).
+            from course_work.model_improvement_v2.residual import (
+                compose_residual_prediction_raw,
+            )
+            pred_wh = compose_residual_prediction_raw(
+                y_context_raw_wh=ctx_arr,
+                predicted_residual_model=out.cpu().numpy(),
+                scaler=scaler_bundle,
+                target_option=scaler_bundle.target_scaling_option,
+            )
+        elif prediction_formulation == "DIRECT":
+            pred_wh = scaler_bundle.inverse_transform_y(out.cpu().numpy())
+        else:
+            raise ValueError(f"evaluate_stage_c: unsupported prediction_formulation={prediction_formulation!r}")
+        if flatten_metric_predictions:
+            # E06 correction: inverse-transform preserves [B, 1], whereas
+            # pooled targets are [B]. Flattening changes shape only, never
+            # order or numeric prediction values. Default callers are untouched.
+            pred_wh = np.asarray(pred_wh).reshape(-1)
+        y_pred.append(pred_wh)
         y_true.append(y_raw.numpy().flatten() if hasattr(y_raw, "numpy") else np.asarray(y_raw).flatten())
         target_ids.extend([str(t) for t in batch_target_ids])
         target_timestamps.extend([str(t) for t in batch_target_ts])

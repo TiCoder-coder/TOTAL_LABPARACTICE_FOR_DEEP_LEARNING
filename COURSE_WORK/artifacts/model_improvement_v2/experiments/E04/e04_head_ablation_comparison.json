@@ -1,0 +1,44 @@
+{
+  "experiment_id": "E04",
+  "global_comparison": {
+    "baseline": "E01_DIRECT_FS2_TF1",
+    "baseline_metrics": {
+      "mae_wh": 26.650501720144604,
+      "r2": 0.5789433617557903,
+      "rmse_wh": 59.85291570400546
+    },
+    "baseline_status": "GLOBAL_BASELINE_REUSED_FROM_E01",
+    "challenger": "E04_RESIDUAL_MLP",
+    "challenger_metrics": {
+      "mae_wh": 25.581812990028176,
+      "r2": 0.5674495407647432,
+      "rmse_wh": 60.66433497520889
+    },
+    "delta_rmse_wh": 0.8114192712034267,
+    "promotion_rule": "e04_pooled_rmse_wh <= promotion_threshold_rmse_wh",
+    "promotion_status": "DO_NOT_PROMOTE_E04_GLOBAL",
+    "promotion_threshold_rmse_wh": 59.75291570400546
+  },
+  "local_comparison": {
+    "challenger": "E04_RESIDUAL_MLP",
+    "challenger_metrics": {
+      "mae_wh": 25.581812990028176,
+      "r2": 0.5674495407647432,
+      "rmse_wh": 60.66433497520889
+    },
+    "control": "E03_RESIDUAL_LINEAR",
+    "control_metrics": {
+      "mae_wh": 26.74870362368344,
+      "r2": 0.5762147018706287,
+      "rmse_wh": 60.04654108949536
+    },
+    "control_status": "CONTROL_REUSED_FROM_E03",
+    "delta_rmse_wh": 0.6177938857135246
+  },
+  "prediction_formulation": "RESIDUAL_TO_PERSISTENCE",
+  "primary_change": "PREDICTION_HEAD",
+  "schema": "MODEL_IMPROVEMENT_V2_E04_HEAD_ABLATION-v1",
+  "selection_metric": "pooled_rmse_wh",
+  "target_population_policy": "IDENTICAL_PHASE44_RO1_RO2_RO3",
+  "test_status": "NOT_ACCESSED"
+}
