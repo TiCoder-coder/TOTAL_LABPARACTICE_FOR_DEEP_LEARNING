@@ -60,7 +60,7 @@
     {
       "path": "artifacts/forward_sanity/phase_18_signoff.json",
       "role": "signoff",
-      "sha256": "35d0537f56717607de4d32acbbb9709e45c53eb82f825b2d3dc5a3e838fd0f84"
+      "sha256": "bf2a056986fda9c674d1599313bea265a79dfcb22199034310ae8cac1bb87302"
     }
   ],
   "status": "PASS",
@@ -90,21 +90,21 @@
       "artifacts/environment/environment_report.json"
     ],
     "output_checksums": {
-      "artifacts/forward_sanity/README_FORWARD_SANITY.md": "3b8a73aa5db5d5716d942f01644ab2b5bb48b7985559a1645ebc82bb52454eb2",
+      "artifacts/forward_sanity/README_FORWARD_SANITY.md": "291f7fdd6c1fe740163a23668e6d68056f8b167d0ac83f3e4465c3027098d822",
       "artifacts/forward_sanity/forward_attention_smoke_audit.csv": "c8cbbbc2f7252d5a20f58897794661bec0f068e6808fe55fc752755a477d2595",
       "artifacts/forward_sanity/forward_batch_audit.csv": "394d64e9c2fa7c30e6c21d1c6583b94eeba69a35d006cada7dabf5d21c78c35d",
       "artifacts/forward_sanity/forward_batch_independence_audit.csv": "7d2f97f5ac413ab6f9d272f8442f9abd4edbbf1a4fe939000a452f8992799cc8",
       "artifacts/forward_sanity/forward_device_audit.csv": "b72be4afa17435e93e3b7a927501a5e9fffc520e9bcb247ffa26b8f7ed4555fb",
       "artifacts/forward_sanity/forward_mode_audit.csv": "eda40ee995976e73b0a0ea82a56827c749aec615a0ee1d5942ca9f902705c7ae",
       "artifacts/forward_sanity/forward_parameter_mutation_audit.csv": "e0011ebcb0cb26bf4aa7ca494332f887806fc6f78d87b052c066a9192852465f",
-      "artifacts/forward_sanity/forward_sanity_contract.json": "bbd1109c6f2557a690ed3dc2791bf99ce14f3632a4d7c3005fdc460eba7f32d6",
-      "artifacts/forward_sanity/forward_sanity_discrepancies.json": "5db79f88afd10b1b52311a7ab1a42c20d04dfc448f360eb9cda904e203940760",
-      "artifacts/forward_sanity/forward_sanity_manifest.json": "dfbd8819ecd98f0165dbd4c4285e9af4bdeca95b2c1b623b65069603f62e5fff",
+      "artifacts/forward_sanity/forward_sanity_contract.json": "3dfb02cb7ce46665e58cda64eab5760f2494115675226fe624550d466a65ea4b",
+      "artifacts/forward_sanity/forward_sanity_discrepancies.json": "2bed4955e4cdadd6b6c785b0f6cd95319d0664271f5f2fa15a909ea5a23f7c00",
+      "artifacts/forward_sanity/forward_sanity_manifest.json": "9fcf122a4fad123ca5cc92fac065a5f06e19eafb55232a1a29971e3cb9dd37c9",
       "artifacts/forward_sanity/forward_sanity_sample_ids.csv": "d869f66c5908153864069b2c3ba54762f082b0f90b41dea0c7036be3b969d36e",
       "artifacts/forward_sanity/forward_sanity_tests.csv": "1be807a9d3852514ab829308ef742f97ee1312e13f8ccb5c83ac35146178d110",
       "artifacts/forward_sanity/forward_scaling_audit.csv": "71980e4459a776f06ca75a87b027159971b401dc50deaa5c53b2b44c8a0791b0",
       "artifacts/forward_sanity/model_forward_audit.csv": "ae4ed9343624d1aefa659ae99de4f6d5d7882e2ecbb9773cc7ae6b1e76c0eeda",
-      "artifacts/forward_sanity/training_engine_handoff.json": "3c001e97df393a147a814a7b74382662b53eadfeaff14d3ee52fd22920be5071"
+      "artifacts/forward_sanity/training_engine_handoff.json": "0911af793e51ca1c1c3156f157915f398a8721eee1c34a2fcc50266b96b9e318"
     },
     "output_paths": [
       "artifacts/forward_sanity/forward_sanity_manifest.json",

@@ -1,0 +1,77 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_STEP17_POST_HOC_BENCHMARK_CONTRACT-v1",
+  "experiment_id": "STEP17",
+  "benchmark_label": "POST_HOC_V2_BENCHMARK",
+  "old_test_interpretation": "POST_HOC_HISTORICAL_BENCHMARK__NOT_UNBIASED_UNSEEN_TEST",
+  "source_plan": "docs/plan/plan_before_process/model_improvement_v2_step17_post_hoc_benchmark_pre_process_plan.md",
+  "final_lock": {
+    "path": "artifacts/model_improvement_v2/final_model_lock/v2_final_model_lock.json",
+    "file_sha256": "95dba2059cc36614890d6d9685f49443e200bba14d5c65896e0809fb36885283",
+    "lock_fingerprint": "7556d06088f051cc4374c4f883e9affbfe26754c139b55677d5554a3d912fe5a",
+    "required_status": "LOCKED",
+    "step17_ready": true
+  },
+  "prediction_policy": {
+    "policy_id": "MEAN_E14_M1_SEEDS_42_123_2026",
+    "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "seeds": [42, 123, 2026],
+    "weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333],
+    "best_seed_selection": "FORBIDDEN"
+  },
+  "data_contract": {
+    "split": "TEST",
+    "feature_variant_id": "FS2_TF1",
+    "feature_count": 33,
+    "lookback": 72,
+    "horizon": 1,
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "expected_target_count": 2961,
+    "expected_first_target_id": "TGT_00016774",
+    "expected_last_target_id": "TGT_00019734",
+    "expected_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "load_policy": "ONE_SOURCE_LOAD_REUSED_IN_MEMORY",
+    "shuffle": false,
+    "drop_last": false
+  },
+  "scaler_contract": {
+    "x_path": "artifacts/model_improvement_v2/final_model_lock/scalers/final_x_scaler.json",
+    "x_sha256": "521df9de48516f4d5d661f76a35c46241a24cd357e66ffab2e1f0695a54c7724",
+    "y_path": "artifacts/model_improvement_v2/final_model_lock/scalers/final_y_scaler.json",
+    "y_sha256": "c572e817ccede5dd5dd481c9f5ab780a45481a256d695680c832f4385cf206f3",
+    "mode": "TRANSFORM_ONLY",
+    "fit_allowed": false
+  },
+  "evaluation_contract": {
+    "metrics": ["RMSE_WH", "MAE_WH", "R2"],
+    "per_seed": true,
+    "ensemble": true,
+    "fixed_persistence": "PERSISTENCE_LAST_VALUE",
+    "parameter_count": true,
+    "inference_runtime_seconds": true,
+    "peak_memory": "NOT_REPORTED_NO_CANONICAL_PORTABLE_CONTRACT",
+    "v1_historical_reference": {
+      "path": "artifacts/final_test/final_test_summary.json",
+      "label": "V1_HISTORICAL_BENCHMARK_READ_ONLY",
+      "selection_use": "FORBIDDEN"
+    }
+  },
+  "selection_contract": {
+    "test_based_model_selection": "FORBIDDEN",
+    "test_based_seed_selection": "FORBIDDEN",
+    "test_based_epoch_selection": "FORBIDDEN",
+    "test_based_alpha_selection": "FORBIDDEN",
+    "post_test_retuning": "FORBIDDEN"
+  },
+  "output_contract": {
+    "root": "artifacts/model_improvement_v2/post_hoc_v2_benchmark",
+    "predictions": "predictions",
+    "metrics": "step17_metrics.json",
+    "summary": "step17_benchmark_summary.json",
+    "manifest": "step17_benchmark_manifest.json",
+    "signoff": "step17_benchmark_signoff.json",
+    "access_event": "step17_test_access_event.json"
+  },
+  "test_access_authorized": false,
+  "benchmark_authorized": false,
+  "training_authorized": false
+}

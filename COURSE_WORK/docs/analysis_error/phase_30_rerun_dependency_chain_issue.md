@@ -94,7 +94,7 @@ Each sweep directory from S1 through S7 is missing its canonical `results.csv` a
 The current signed environment belongs to another filesystem and interpreter:
 
 ```text
-Signed project root = /Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK
+Signed project root = /Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK
 Signed Python = 3.10.21
 Signed executable = /opt/homebrew/Cellar/python@3.10/3.10.21/Frameworks/Python.framework/Versions/3.10/bin/python3.10
 Signed device = mps
@@ -105,7 +105,7 @@ The signed executable no longer exists on the current machine.
 The current project runtime is:
 
 ```text
-Current project root = /Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK
+Current project root = /Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK
 Current venv Python = 3.10.11
 Current executable = /Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10
 ```

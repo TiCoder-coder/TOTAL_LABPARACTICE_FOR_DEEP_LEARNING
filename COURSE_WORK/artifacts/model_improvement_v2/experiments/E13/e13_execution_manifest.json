@@ -1,0 +1,70 @@
+{
+  "preflight": {
+    "accepted_incumbent": "E01_DIRECT_FS2_TF1",
+    "algebra_scaling_audit": "PASS",
+    "candidate_config_fingerprints": {
+      "0.1": "5e018f1c1af68da0f3485e3f7c41e2d204f23b534b232f28ed197f55be032f0b",
+      "0.25": "69e724b52454fd3af9ab0659f8bfee7c19037edfe8e0bec40c83bf4d1f1dfa99",
+      "0.5": "0914ba61542664ea3e0c320f3f1f3f4015508772a3208b6d7807fcac954a2820"
+    },
+    "challenger_lambdas": [
+      0.1,
+      0.25,
+      0.5
+    ],
+    "control_reuse_status": "PASS",
+    "e12_decision_audit": {
+      "comparison_sha256": "732f76b984472a14389ec07b9a71ae1e0142c9cdd48049b7ba15919221e720cb",
+      "decision": "REJECTED",
+      "lag144_carried_forward": false,
+      "status": "PASS"
+    },
+    "expected_new_training_runs": 18,
+    "experiment": "E13",
+    "feature_count": 33,
+    "feature_variant": "FS2_TF1",
+    "population": {
+      "fold_fingerprints": {
+        "RO1": "2474242da40cfbebb33a86ff7d6601d47e03cdc504d8237b0c3fc3e20211a62f",
+        "RO2": "7b81b8d969850e62deec44fee6fabdf45c8e1a9c28d51465ce9036625110e0b1",
+        "RO3": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731"
+      },
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "status": "PASS",
+      "target_count": 16630,
+      "test_rows_read": 0,
+      "test_target_ids_seen": 0
+    },
+    "status": "PASS",
+    "test_rows_read": 0,
+    "test_status": "NOT_ACCESSED",
+    "test_target_ids_seen": 0,
+    "training_executed": false
+  },
+  "run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010:RO1": "RUN_V2_TR_E13_RO1_A_0001_8284EE03",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010:RO2": "RUN_V2_TR_E13_RO2_A_0004_C90FD293",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010:RO3": "RUN_V2_TR_E13_RO3_A_0007_D8654484",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_025:RO1": "RUN_V2_TR_E13_RO1_A_0002_93D8B5A3",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_025:RO2": "RUN_V2_TR_E13_RO2_A_0005_A996ADFC",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_025:RO3": "RUN_V2_TR_E13_RO3_A_0008_3AE71C08",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_050:RO1": "RUN_V2_TR_E13_RO1_A_0003_01CF0F2C",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_050:RO2": "RUN_V2_TR_E13_RO2_A_0006_92D44A8B",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_050:RO3": "RUN_V2_TR_E13_RO3_A_0009_CA4D570C"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010:RO1": "RUN_V2_TR_E13_RO1_B_0013_262193F6",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010:RO2": "RUN_V2_TR_E13_RO2_B_0016_76D03EF2",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010:RO3": "RUN_V2_TR_E13_RO3_B_0019_F17672F8",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_025:RO1": "RUN_V2_TR_E13_RO1_B_0014_0BE0F4C5",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_025:RO2": "RUN_V2_TR_E13_RO2_B_0017_F876E8AC",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_025:RO3": "RUN_V2_TR_E13_RO3_B_0020_DAD031F8",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_050:RO1": "RUN_V2_TR_E13_RO1_B_0015_77C46A1D",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_050:RO2": "RUN_V2_TR_E13_RO2_B_0018_A30BD1EB",
+      "TR_C2_ALT_LOOKBACK_E13_LAMBDA_050:RO3": "RUN_V2_TR_E13_RO3_B_0021_0BE7FD87"
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E13_EXECUTION-v1",
+  "test_status": "NOT_ACCESSED"
+}

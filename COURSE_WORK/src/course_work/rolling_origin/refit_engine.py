@@ -45,6 +45,7 @@ from course_work.training.engine import (
     HISTORY_COLUMNS,
     TrainingResult,
     build_model_from_run_config,
+    history_columns_for_training,
 )
 from course_work.training.losses import (
     build_training_criterion,
@@ -194,6 +195,8 @@ class RefitEngine:
             training_cfg.get("optimizer_config"),
         )
         loss_fn = build_training_criterion(training_cfg)
+        from course_work.model_improvement_v2.hybrid_loss import is_hybrid_policy
+        hybrid_enabled = is_hybrid_policy(training_cfg)
 
         # Heartbeat for watchdog (best-effort, optional)
         hb = heartbeat_path or Path(
@@ -233,6 +236,8 @@ class RefitEngine:
 
             model.train()
             epoch_loss = 0.0
+            component_names = ("level_mse", "delta_smooth_l1", "weighted_delta_loss", "total_loss")
+            epoch_components = {name: 0.0 for name in component_names}
             sample_count = 0
             batch_count = 0
             total_batches = len(train_loader)
@@ -245,7 +250,16 @@ class RefitEngine:
                 optimizer.zero_grad(set_to_none=True)
                 predictions = model(x)
                 validate_criterion_inputs(predictions, y)
-                loss = loss_fn(predictions, y)
+                if hybrid_enabled:
+                    from course_work.model_improvement_v2.hybrid_loss import component_values, compute_hybrid_loss
+                    if "y_context_raw_wh" not in batch:
+                        raise RuntimeError("E13 requires explicit past-only y_context_raw_wh")
+                    components = compute_hybrid_loss(predictions, y, batch["y_context_raw_wh"], config.get("_e13_target_scaler_bundle"), training_cfg)
+                    loss = components.total_loss
+                    values = component_values(components)
+                else:
+                    loss = loss_fn(predictions, y)
+                    values = {}
                 loss.backward()
 
                 # Non-finite gradient guard (mirrors TrainingEngine)
@@ -270,6 +284,8 @@ class RefitEngine:
                 optimizer.step()
                 bsz = x.shape[0]
                 epoch_loss += float(loss.item()) * bsz
+                for name, value in values.items():
+                    epoch_components[name] += value * bsz
                 sample_count += bsz
                 batch_count += 1
 
@@ -277,8 +293,7 @@ class RefitEngine:
             train_losses.append(train_loss)
             epoch_seconds = time.time() - epoch_start
             _hb(epoch, "epoch_completed")
-            history_rows.append(
-                {
+            history_row = {
                     "epoch": epoch,
                     "train_loss": train_loss,
                     # Stage B has no validation: placeholders for schema compat.
@@ -294,7 +309,9 @@ class RefitEngine:
                     "epoch_seconds": epoch_seconds,
                     "is_best": False,
                 }
-            )
+            if hybrid_enabled:
+                history_row.update({name: total / max(sample_count, 1) for name, total in epoch_components.items()})
+            history_rows.append(history_row)
             print(
                 f"  [REFIT] epoch {epoch}/{max_epochs} "
                 f"lr={current_lr_for_epoch:.6e} train_loss={train_loss:.4f}",
@@ -303,7 +320,8 @@ class RefitEngine:
 
         # After exactly `max_epochs` epochs, snapshot REFIT_FINAL.
         refit_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
-        history_df = pd.DataFrame(history_rows, columns=HISTORY_COLUMNS)
+        history_columns = history_columns_for_training(training_cfg)
+        history_df = pd.DataFrame(history_rows, columns=history_columns)
 
         # ---- Persist artifacts ----
         run_dir = self.registry.run_root / run_id
@@ -330,7 +348,7 @@ class RefitEngine:
         history_path = run_dir / "training_history.csv"
         atomic_write_bytes(
             history_path,
-            csv_text(HISTORY_COLUMNS, history_df.to_dict(orient="records")).encode("utf-8"),
+            csv_text(history_columns, history_df.to_dict(orient="records")).encode("utf-8"),
         )
 
         # Training log (human-readable)

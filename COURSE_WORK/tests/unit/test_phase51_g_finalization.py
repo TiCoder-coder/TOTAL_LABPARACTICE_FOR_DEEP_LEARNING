@@ -16,7 +16,7 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2] / "COURSE_WORK"
 if not PROJECT_ROOT.exists():
-    PROJECT_ROOT = Path("/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
+    PROJECT_ROOT = Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
 
 
 PHASE51_DIR = PROJECT_ROOT / "artifacts" / "worst_error_analysis"

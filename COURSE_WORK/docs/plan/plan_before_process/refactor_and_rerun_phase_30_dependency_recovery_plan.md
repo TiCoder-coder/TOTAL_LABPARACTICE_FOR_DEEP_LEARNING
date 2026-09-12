@@ -277,7 +277,7 @@ static HTML = valid
 After the refactor passes tests, the initial safe command will be:
 
 ```bash
-cd /Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK
+cd "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK"
 PYTHONPATH=src ../venv/bin/python scripts/run_all_pending.py --target-phase 30 --with-dependencies --audit-only
 ```
 

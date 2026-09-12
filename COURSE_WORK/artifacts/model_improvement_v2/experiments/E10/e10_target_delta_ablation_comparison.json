@@ -1,0 +1,36 @@
+{
+  "challenger_fold_rmse_wh": [
+    69.27221421737197,
+    47.225570803028475,
+    58.35785444673281
+  ],
+  "challenger_metrics": {
+    "mae_wh": 26.475611855558817,
+    "r2": 0.5911869666883649,
+    "rmse_wh": 58.97628589736524
+  },
+  "control_fold_rmse_wh": [
+    69.01338295186963,
+    50.59540710120016,
+    58.51676739199306
+  ],
+  "control_metrics": {
+    "mae_wh": 26.650501720144604,
+    "r2": 0.5789433617557903,
+    "rmse_wh": 59.85291570400546
+  },
+  "experiment_id": "E10",
+  "primary_change": "CAUSAL_TARGET_DELTA_FEATURE_VARIANT",
+  "promotion_evaluation": {
+    "automatic_promotion": false,
+    "eligible_for_human_promotion": false,
+    "gates": {
+      "fold_rmse_std_guardrail": false,
+      "mae_guardrail": true,
+      "rmse_improvement": true,
+      "worst_fold_rmse_guardrail": true
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E10_DELTA_ABLATION-v1",
+  "test_status": "NOT_ACCESSED"
+}

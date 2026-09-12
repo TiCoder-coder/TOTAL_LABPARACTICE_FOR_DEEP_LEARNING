@@ -1,0 +1,184 @@
+{
+  "expected_total_evidence": 36,
+  "new_runs": 24,
+  "preflight": {
+    "accepted_incumbent": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "all_seeds": [
+      42,
+      123,
+      2026
+    ],
+    "candidate_config_fingerprints": {
+      "CONTROL": {
+        "123": "bbd544add153421ffc45e13c6b5d25cdf250dfeb0ed836ea4b086c344dea35fe",
+        "2026": "f0c3a5d53fa4124435901ae7cd073d964b8ab25dd3443aa0bce744ac1c325cd4"
+      },
+      "FINALIST": {
+        "123": "0b4f1b61cb8400324df51e97e05050ec42b9f74a79a0aa650538c23a6ad6d775",
+        "2026": "aa3d6a5366877f02ce0130020d4ec0bd39ed92677dad4561a7b502252c6e3369"
+      }
+    },
+    "control": "TR_C2_ALT_LOOKBACK",
+    "e19_status": "NOT_TRIGGERED",
+    "expected_new_run_identities": [
+      "seed_123:TR_C2_ALT_LOOKBACK:RO1_A",
+      "seed_123:TR_C2_ALT_LOOKBACK:RO1_B",
+      "seed_123:TR_C2_ALT_LOOKBACK:RO2_A",
+      "seed_123:TR_C2_ALT_LOOKBACK:RO2_B",
+      "seed_123:TR_C2_ALT_LOOKBACK:RO3_A",
+      "seed_123:TR_C2_ALT_LOOKBACK:RO3_B",
+      "seed_123:TR_C2_ALT_LOOKBACK_E14_M1:RO1_A",
+      "seed_123:TR_C2_ALT_LOOKBACK_E14_M1:RO1_B",
+      "seed_123:TR_C2_ALT_LOOKBACK_E14_M1:RO2_A",
+      "seed_123:TR_C2_ALT_LOOKBACK_E14_M1:RO2_B",
+      "seed_123:TR_C2_ALT_LOOKBACK_E14_M1:RO3_A",
+      "seed_123:TR_C2_ALT_LOOKBACK_E14_M1:RO3_B",
+      "seed_2026:TR_C2_ALT_LOOKBACK:RO1_A",
+      "seed_2026:TR_C2_ALT_LOOKBACK:RO1_B",
+      "seed_2026:TR_C2_ALT_LOOKBACK:RO2_A",
+      "seed_2026:TR_C2_ALT_LOOKBACK:RO2_B",
+      "seed_2026:TR_C2_ALT_LOOKBACK:RO3_A",
+      "seed_2026:TR_C2_ALT_LOOKBACK:RO3_B",
+      "seed_2026:TR_C2_ALT_LOOKBACK_E14_M1:RO1_A",
+      "seed_2026:TR_C2_ALT_LOOKBACK_E14_M1:RO1_B",
+      "seed_2026:TR_C2_ALT_LOOKBACK_E14_M1:RO2_A",
+      "seed_2026:TR_C2_ALT_LOOKBACK_E14_M1:RO2_B",
+      "seed_2026:TR_C2_ALT_LOOKBACK_E14_M1:RO3_A",
+      "seed_2026:TR_C2_ALT_LOOKBACK_E14_M1:RO3_B"
+    ],
+    "expected_new_training_runs": 24,
+    "expected_total_evidence": 36,
+    "experiment": "E20",
+    "feature_count": 33,
+    "feature_variant": "FS2_TF1",
+    "fresh_model_optimizer_each_new_run": true,
+    "new_seeds": [
+      123,
+      2026
+    ],
+    "population": {
+      "fold_fingerprints": {
+        "RO1": "2474242da40cfbebb33a86ff7d6601d47e03cdc504d8237b0c3fc3e20211a62f",
+        "RO2": "7b81b8d969850e62deec44fee6fabdf45c8e1a9c28d51465ce9036625110e0b1",
+        "RO3": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731"
+      },
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "status": "PASS",
+      "target_count": 16630
+    },
+    "scaler_lineage": "FOLD_LOCAL_TRAIN_ONLY",
+    "seed42_reuse": {
+      "control": {
+        "checkpoint_sha256": {
+          "RO1_A": "e7a548663f3e842d21b0003b9a35b59f9fceb5901e2e4ab47ceba4d6538329b3",
+          "RO1_B": "6aa201d63388c1922c5190c1869b640e945dc2a95c6a03a69f3307912ba478a3",
+          "RO2_A": "4ffea65aa0b9214c77ae52e2c958669022db5ff7edc08c3484db6f2f34e9843c",
+          "RO2_B": "47a8588f84ad8b1143c317dafe76830c1bfa56aa0ff1e70227b7bbd070df6140",
+          "RO3_A": "db72971f3b1426088db1b3c6193c966bab6c99c42859ba7137f347e7fb8e2d59",
+          "RO3_B": "3f85415a4dc157a552b19bab6c17334420d307cb5b398139a14e5c293312981b"
+        },
+        "run_count": 6,
+        "run_ids": {
+          "RO1_A": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+          "RO1_B": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+          "RO2_A": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+          "RO2_B": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+          "RO3_A": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5",
+          "RO3_B": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+        },
+        "status": "PASS"
+      },
+      "finalist": {
+        "checkpoint_sha256": {
+          "RO1_A": "1cf2e76c618742da9a3d67c7e04d1a7cc01f8a438c90d646715ad83a6ef6c579",
+          "RO1_B": "6b27978c2bf26ef1162a96428d182d4ef88247ef1d70b6fd4443477b89d33cd8",
+          "RO2_A": "733bf5a776c8035d624393db47a3af1814178d108cb697c9060043fa85cb9348",
+          "RO2_B": "f4fcf2adbed0a5ab3b7248b79f280b2ed6c6d5f68d913fed6f294069d7681370",
+          "RO3_A": "7f228c4c6c6ea202f4a63ad6332a8f52a0d67f0a0f1b4c43ae292e56c7caa491",
+          "RO3_B": "c7ad80907f59210d1576cebccc8436116a69468a6066c9a6fa1a23cc7179d35d"
+        },
+        "run_count": 6,
+        "run_ids": {
+          "RO1_A": "RUN_V2_TR_E14_RO1_A_0001_B5DD2C2E",
+          "RO1_B": "RUN_V2_TR_E14_RO1_B_0016_668187E3",
+          "RO2_A": "RUN_V2_TR_E14_RO2_A_0006_EC2A3FCE",
+          "RO2_B": "RUN_V2_TR_E14_RO2_B_0021_AD87B689",
+          "RO3_A": "RUN_V2_TR_E14_RO3_A_0011_DFA1252E",
+          "RO3_B": "RUN_V2_TR_E14_RO3_B_0026_ABCFB6CD"
+        },
+        "status": "PASS"
+      },
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "retrain_allowed": false,
+      "reused_runs": 12,
+      "seed": 42,
+      "status": "PASS"
+    },
+    "status": "PASS",
+    "test_rows_read": 0,
+    "test_status": "NOT_ACCESSED",
+    "test_target_ids_seen": 0,
+    "training_executed": false
+  },
+  "run_ids": {
+    "123": {
+      "stage_a": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E20_RO1_A_0001_160250DE",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E20_RO2_A_0003_C40DB2F7",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E20_RO3_A_0005_505BE6C7",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO1": "RUN_V2_TR_E20_RO1_A_0002_0C6E060D",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO2": "RUN_V2_TR_E20_RO2_A_0004_66B51E2E",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO3": "RUN_V2_TR_E20_RO3_A_0006_3140CF69"
+      },
+      "stage_b": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E20_RO1_B_0007_49FDAF6F",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E20_RO2_B_0009_647E4311",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E20_RO3_B_0011_1E9983C6",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO1": "RUN_V2_TR_E20_RO1_B_0008_06B67064",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO2": "RUN_V2_TR_E20_RO2_B_0010_7B4704A4",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO3": "RUN_V2_TR_E20_RO3_B_0012_7F18AB42"
+      }
+    },
+    "2026": {
+      "stage_a": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E20_RO1_A_0001_E80A1336",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E20_RO2_A_0003_5F6155B4",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E20_RO3_A_0005_B8F13870",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO1": "RUN_V2_TR_E20_RO1_A_0002_3BECAE34",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO2": "RUN_V2_TR_E20_RO2_A_0004_044C34F9",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO3": "RUN_V2_TR_E20_RO3_A_0006_6E2BE134"
+      },
+      "stage_b": {
+        "TR_C2_ALT_LOOKBACK:RO1": "RUN_V2_TR_E20_RO1_B_0007_56252AD0",
+        "TR_C2_ALT_LOOKBACK:RO2": "RUN_V2_TR_E20_RO2_B_0009_717571FA",
+        "TR_C2_ALT_LOOKBACK:RO3": "RUN_V2_TR_E20_RO3_B_0011_0A521484",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO1": "RUN_V2_TR_E20_RO1_B_0008_D3DFB40D",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO2": "RUN_V2_TR_E20_RO2_B_0010_B2BAB4FE",
+        "TR_C2_ALT_LOOKBACK_E14_M1:RO3": "RUN_V2_TR_E20_RO3_B_0012_2F058AB4"
+      }
+    },
+    "42": {
+      "reuse": {
+        "CONTROL": {
+          "RO1_A": "RUN_V2_TR_E01_RO1_A_0001_3B5C1B75",
+          "RO1_B": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+          "RO2_A": "RUN_V2_TR_E01_RO2_A_0002_1EA6841D",
+          "RO2_B": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+          "RO3_A": "RUN_V2_TR_E01_RO3_A_0003_4C4B28D5",
+          "RO3_B": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6"
+        },
+        "FINALIST": {
+          "RO1_A": "RUN_V2_TR_E14_RO1_A_0001_B5DD2C2E",
+          "RO1_B": "RUN_V2_TR_E14_RO1_B_0016_668187E3",
+          "RO2_A": "RUN_V2_TR_E14_RO2_A_0006_EC2A3FCE",
+          "RO2_B": "RUN_V2_TR_E14_RO2_B_0021_AD87B689",
+          "RO3_A": "RUN_V2_TR_E14_RO3_A_0011_DFA1252E",
+          "RO3_B": "RUN_V2_TR_E14_RO3_B_0026_ABCFB6CD"
+        }
+      }
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E20_EXECUTION-v1",
+  "seed42_reused_runs": 12,
+  "test_status": "NOT_ACCESSED"
+}

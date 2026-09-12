@@ -176,7 +176,7 @@ def test_phase49_unchanged_post_50h():
 
 def test_render_works_with_explicit_path():
     """Sanity: renderer returns HTML object with expected structure."""
-    obj = render_phase_50_dashboard("/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
+    obj = render_phase_50_dashboard("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
     assert hasattr(obj, "data")
     assert obj.data.startswith("<style>") or "<style>" in obj.data[:1000]
 

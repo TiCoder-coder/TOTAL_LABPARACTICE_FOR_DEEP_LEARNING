@@ -1,0 +1,78 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_E20_CONFIG-v1",
+  "experiment_id": "E20",
+  "objective": "MATCHED_THREE_SEED_FINALIST_CONFIRMATION",
+  "source_plan": "docs/plan/plan_before_process/model_improvement_v2_e20_pre_process_plan.md",
+  "source_plan_sha256": "8aaf47ca7bacc604c06b8b3f22aea7560a2457db89c06f173664296b4ef8f42a",
+  "finalist_selection": {
+    "status": "PASS",
+    "finalist": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "e19_status": "NOT_TRIGGERED"
+  },
+  "locked_configurations": [
+    {
+      "role": "CONTROL",
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "source_experiment": "E01",
+      "base_config_fingerprint": "585c5e79e6a1c8c49efdd2f7767e6d3d4c628835acfda360a2fa66a2ef5c1e24",
+      "seed_config_fingerprints": {
+        "123": "bbd544add153421ffc45e13c6b5d25cdf250dfeb0ed836ea4b086c344dea35fe",
+        "2026": "f0c3a5d53fa4124435901ae7cd073d964b8ab25dd3443aa0bce744ac1c325cd4"
+      }
+    },
+    {
+      "role": "FINALIST",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "source_experiment": "E14",
+      "base_config_fingerprint": "ff99dba3b57d38308f412a76c936b3a1f2a99ab8835e465417090ebfda49bc77",
+      "seed_config_fingerprints": {
+        "123": "0b4f1b61cb8400324df51e97e05050ec42b9f74a79a0aa650538c23a6ad6d775",
+        "2026": "aa3d6a5366877f02ce0130020d4ec0bd39ed92677dad4561a7b502252c6e3369"
+      }
+    }
+  ],
+  "protocol": {
+    "all_seeds": [42, 123, 2026],
+    "new_seeds": [123, 2026],
+    "folds": ["RO1", "RO2", "RO3"],
+    "stages": ["A", "B"],
+    "fold_local_x_scaling": true,
+    "fold_local_y_scaling": true,
+    "matched_data_order_policy": true,
+    "best_seed_selection_forbidden": true,
+    "hyperparameter_retuning_forbidden": true
+  },
+  "orchestration": {
+    "registry_namespace": "V2_E20",
+    "execution_track": "MODEL_IMPROVEMENT_V2_E20",
+    "expected_total_evidence": 36,
+    "seed42_reused_runs": 12,
+    "expected_new_training_runs": 24,
+    "seed42_retrain": false,
+    "fresh_model_optimizer_each_new_run": true,
+    "seed_roots": {
+      "123": {
+        "artifact_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E20/seed_123",
+        "registry_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E20/seed_123/registry",
+        "run_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E20/seed_123/runs"
+      },
+      "2026": {
+        "artifact_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E20/seed_2026",
+        "registry_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E20/seed_2026/registry",
+        "run_root": "COURSE_WORK/artifacts/model_improvement_v2/experiments/E20/seed_2026/runs"
+      }
+    },
+    "training_authorized": false,
+    "test_access_authorized": false
+  },
+  "promotion_policy": {
+    "best_seed_selection": false,
+    "hyperparameter_retuning": false,
+    "paired_seed_comparison": true,
+    "weighted_composite": false,
+    "automatic_promotion": false,
+    "decision_authority": "HUMAN",
+    "test_metrics_allowed": false
+  },
+  "test_status": "NOT_ACCESSED"
+}

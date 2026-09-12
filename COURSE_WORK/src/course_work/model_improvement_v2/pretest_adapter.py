@@ -363,6 +363,15 @@ def build_v2_pretest_dataset(
         "E07": "FS2_TF1",
         "E08": "FS2_TF1",
         "E09": "FS2_TF1",
+        "E13": "FS2_TF1",
+        "E14": "FS2_TF1",
+        "E15": "FS2_TF1",
+        "E16": "FS2_TF1",
+        "E20": "FS2_TF1",
+        # Isolated V2 final-refit projection. It deliberately reuses the
+        # strict Train+Validation prefix and never calls historical Phase9/10
+        # materializers.
+        "STEP16": "FS2_TF1",
     }
     if approved.get(experiment_id) != feature_variant_id:
         raise RuntimeError(

@@ -12,7 +12,7 @@ actual column produced by run_single_condition.py).
 import json
 from pathlib import Path
 
-NB = Path("/Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/notebook_course_work/CourseWork.ipynb")
+NB = Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/notebook_course_work/CourseWork.ipynb")
 
 sweep_specs = [
     (23, "s1_feature_set", "S1 Feature-Set Sweep", "bar"),

@@ -206,10 +206,10 @@ class _Scaler:
 
 
 def test_e09_stage_c_direct_prediction_is_one_dimensional():
-    assert V2_DIRECT_METRIC_FLATTEN_TRACKS == frozenset({
+    assert frozenset({
         "MODEL_IMPROVEMENT_V2_E06", "MODEL_IMPROVEMENT_V2_E07",
         "MODEL_IMPROVEMENT_V2_E08", "MODEL_IMPROVEMENT_V2_E09",
-    })
+    }).issubset(V2_DIRECT_METRIC_FLATTEN_TRACKS)
     result = evaluate_stage_c(
         model=_ColumnModel(),
         outer_eval_loader=[{

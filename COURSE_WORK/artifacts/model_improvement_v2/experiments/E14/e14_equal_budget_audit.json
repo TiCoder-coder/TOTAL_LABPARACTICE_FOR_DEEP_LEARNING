@@ -1,0 +1,11 @@
+{
+  "basis": "IDENTICAL_MAX_EPOCH_AND_EARLY_STOPPING_BUDGET",
+  "batch_size_is_registered_bundle_factor": true,
+  "early_stopping_patience": 10,
+  "equal_optimizer_step_count_claimed": false,
+  "max_epochs": 50,
+  "schema": "MODEL_IMPROVEMENT_V2_E14_EQUAL_BUDGET-v1",
+  "stage_b_exact_selected_epoch": true,
+  "status": "PASS",
+  "test_status": "NOT_ACCESSED"
+}

@@ -1,0 +1,32 @@
+{
+  "best_epochs": {
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO1_A": 14
+  },
+  "checkpoint_sha256": {
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO1_A": "284d59e972910d8b540457de154b6e68575df54e98a363c28660c88878577507"
+  },
+  "locked_run_ids": {
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO1_A": "RUN_V2_TR_E12_RO1_A_0001_9A81DDD9"
+  },
+  "missing_run_keys": [
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO1_B",
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO2_A",
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO2_B",
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO3_A",
+    "TR_C2_ALT_LOOKBACK_E12_CONTROL:RO3_B",
+    "TR_C2_ALT_LOOKBACK_E12_LAG144:RO1_A",
+    "TR_C2_ALT_LOOKBACK_E12_LAG144:RO1_B",
+    "TR_C2_ALT_LOOKBACK_E12_LAG144:RO2_A",
+    "TR_C2_ALT_LOOKBACK_E12_LAG144:RO2_B",
+    "TR_C2_ALT_LOOKBACK_E12_LAG144:RO3_A",
+    "TR_C2_ALT_LOOKBACK_E12_LAG144:RO3_B"
+  ],
+  "noncompleted_evidence_preserved": [
+    "RUN_V2_TR_E12_RO1_A_0002_6D2374FD"
+  ],
+  "reused_completed_count": 1,
+  "schema": "MODEL_IMPROVEMENT_V2_E12_RECOVERY-v1",
+  "status": "PASS",
+  "test_status": "NOT_ACCESSED",
+  "training_run_count_required": 11
+}

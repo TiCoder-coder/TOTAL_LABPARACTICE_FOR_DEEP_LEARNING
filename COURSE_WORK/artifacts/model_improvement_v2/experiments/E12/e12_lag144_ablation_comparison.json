@@ -1,0 +1,43 @@
+{
+  "challenger_fold_rmse_std_wh": 9.008448899471317,
+  "challenger_fold_rmse_wh": [
+    71.90299892416185,
+    49.87002913825874,
+    61.933349211574075
+  ],
+  "challenger_metrics": {
+    "mae_wh": 31.91482711234289,
+    "r2": 0.5497286275938631,
+    "rmse_wh": 61.89452300489611
+  },
+  "challenger_worst_fold_rmse_wh": 71.90299892416185,
+  "control_fold_rmse_std_wh": 5.593174548845613,
+  "control_fold_rmse_wh": [
+    67.4869143664758,
+    53.812192543738504,
+    59.923127818576674
+  ],
+  "control_metrics": {
+    "mae_wh": 27.816180186236817,
+    "r2": 0.5674251294309445,
+    "rmse_wh": 60.6660467713772
+  },
+  "control_worst_fold_rmse_wh": 67.4869143664758,
+  "decision": "HUMAN_REVIEW_REQUIRED",
+  "delta_rmse_challenger_minus_control": 1.2284762335189114,
+  "experiment_id": "E12",
+  "primary_change": "DAILY_LAG_144_FEATURE",
+  "promotion_evaluation": {
+    "automatic_promotion": false,
+    "eligible_for_human_promotion": false,
+    "gates": {
+      "fold_rmse_std_guardrail": false,
+      "mae_guardrail": false,
+      "rmse_improvement": false,
+      "worst_fold_rmse_guardrail": false
+    },
+    "human_decision_required": true
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E12_LAG144_ABLATION-v1",
+  "test_status": "NOT_ACCESSED"
+}

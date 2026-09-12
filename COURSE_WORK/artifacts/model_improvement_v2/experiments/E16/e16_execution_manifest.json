@@ -1,0 +1,54 @@
+{
+  "preflight": {
+    "accepted_incumbent": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "architecture": {
+      "d_model": 64,
+      "ffn_dim": 256,
+      "norm_order": "POST_LN",
+      "num_heads": 4,
+      "num_layers": 3
+    },
+    "candidate_config_fingerprint": "8fb5d32e73fd41f527182ff0cd714e08f84bf06ad0bf0d94b1a8f60c934560c3",
+    "challenger": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+    "control_reuse_status": "PASS",
+    "e15_human_decision": "REJECT_E15",
+    "expected_new_training_runs": 6,
+    "experiment": "E16",
+    "feature_count": 33,
+    "feature_variant": "FS2_TF1",
+    "parameter_count": 152193,
+    "parameter_gate": "PASS",
+    "population": {
+      "fold_fingerprints": {
+        "RO1": "2474242da40cfbebb33a86ff7d6601d47e03cdc504d8237b0c3fc3e20211a62f",
+        "RO2": "7b81b8d969850e62deec44fee6fabdf45c8e1a9c28d51465ce9036625110e0b1",
+        "RO3": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731"
+      },
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "status": "PASS",
+      "target_count": 16630
+    },
+    "primary_change": "model.num_layers:2->3",
+    "recovery_contract": "NO_RETRAIN_EXACT_COMPLETED_LEDGER_REQUIRED",
+    "scaler_lineage": "FOLD_LOCAL_TRAIN_ONLY",
+    "status": "PASS",
+    "test_rows_read": 0,
+    "test_status": "NOT_ACCESSED",
+    "test_target_ids_seen": 0,
+    "training_executed": false
+  },
+  "run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN:RO1": "RUN_V2_TR_E16_RO1_A_0001_327C1E75",
+      "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN:RO2": "RUN_V2_TR_E16_RO2_A_0002_43FC31BC",
+      "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN:RO3": "RUN_V2_TR_E16_RO3_A_0003_222725EE"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN:RO1": "RUN_V2_TR_E16_RO1_B_0004_2E538775",
+      "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN:RO2": "RUN_V2_TR_E16_RO2_B_0005_E25A6730",
+      "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN:RO3": "RUN_V2_TR_E16_RO3_B_0006_9E92C285"
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E16_EXECUTION-v1",
+  "test_status": "NOT_ACCESSED"
+}

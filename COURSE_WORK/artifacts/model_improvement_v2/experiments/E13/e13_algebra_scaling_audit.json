@@ -1,0 +1,14 @@
+{
+  "fold_local_y_scaling": true,
+  "formula": {
+    "delta": "SmoothL1(delta_pred_model,delta_true_model,beta=1.0)",
+    "delta_pred_model": "y_pred_model-y_context_model",
+    "delta_true_model": "(y_next_raw-y_context_raw)/y_scaler_scale",
+    "level": "MSE(y_pred_model,y_next_model)",
+    "space": "FOLD_LOCAL_Y_STANDARDIZED",
+    "total": "level_mse+lambda_delta*delta_smooth_l1"
+  },
+  "status": "PASS",
+  "test_fitting": false,
+  "validation_fitting": false
+}

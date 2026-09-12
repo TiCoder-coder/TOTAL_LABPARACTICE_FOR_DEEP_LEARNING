@@ -1,0 +1,102 @@
+{
+  "gradient_reporting": "STAGE_A_AGGREGATE_STAGE_B_NOT_CAPTURED_NO_FABRICATION",
+  "parameter_gate": "PASS",
+  "parameter_limit_exclusive": 1000000,
+  "runs": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+      "duration_seconds": 240.669882,
+      "fold": "RO1",
+      "gradient_diagnostics": {
+        "clip_max_norm": 1.0,
+        "clip_order": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_CLIP_OPTIMIZER_STEP",
+        "clipped_batches": 8779,
+        "clipping_fraction": 0.9225514922236234,
+        "max_preclip_global_grad_norm": 22.672800845944675,
+        "mean_preclip_global_grad_norm": 3.308314925649924,
+        "nonfinite_grad_events": 0,
+        "total_batches": 9516
+      },
+      "gradient_scope": "CANONICAL_STAGE_A_AGGREGATE",
+      "parameter_count": 152193,
+      "parameter_memory_estimate_bytes_fp32": 608772,
+      "run_id": "RUN_V2_TR_E16_RO1_A_0001_327C1E75",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+      "duration_seconds": 497.061239,
+      "fold": "RO2",
+      "gradient_diagnostics": {
+        "clip_max_norm": 1.0,
+        "clip_order": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_CLIP_OPTIMIZER_STEP",
+        "clipped_batches": 17788,
+        "clipping_fraction": 0.9045512331553521,
+        "max_preclip_global_grad_norm": 32.12833284212122,
+        "mean_preclip_global_grad_norm": 3.263016017607651,
+        "nonfinite_grad_events": 0,
+        "total_batches": 19665
+      },
+      "gradient_scope": "CANONICAL_STAGE_A_AGGREGATE",
+      "parameter_count": 152193,
+      "parameter_memory_estimate_bytes_fp32": 608772,
+      "run_id": "RUN_V2_TR_E16_RO2_A_0002_43FC31BC",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+      "duration_seconds": 721.449098,
+      "fold": "RO3",
+      "gradient_diagnostics": {
+        "clip_max_norm": 1.0,
+        "clip_order": "ZERO_GRAD_FORWARD_CRITERION_BACKWARD_CLIP_OPTIMIZER_STEP",
+        "clipped_batches": 25368,
+        "clipping_fraction": 0.8923910366904704,
+        "max_preclip_global_grad_norm": 34.039111892130606,
+        "mean_preclip_global_grad_norm": 3.2564060319865007,
+        "nonfinite_grad_events": 0,
+        "total_batches": 28427
+      },
+      "gradient_scope": "CANONICAL_STAGE_A_AGGREGATE",
+      "parameter_count": 152193,
+      "parameter_memory_estimate_bytes_fp32": 608772,
+      "run_id": "RUN_V2_TR_E16_RO3_A_0003_222725EE",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+      "duration_seconds": 27.359775,
+      "fold": "RO1",
+      "gradient_diagnostics": null,
+      "gradient_scope": "NOT_CAPTURED_BY_REFIT_ENGINE",
+      "parameter_count": 152193,
+      "parameter_memory_estimate_bytes_fp32": 608772,
+      "run_id": "RUN_V2_TR_E16_RO1_B_0004_2E538775",
+      "stage": "B"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+      "duration_seconds": 190.420399,
+      "fold": "RO2",
+      "gradient_diagnostics": null,
+      "gradient_scope": "NOT_CAPTURED_BY_REFIT_ENGINE",
+      "parameter_count": 152193,
+      "parameter_memory_estimate_bytes_fp32": 608772,
+      "run_id": "RUN_V2_TR_E16_RO2_B_0005_E25A6730",
+      "stage": "B"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+      "duration_seconds": 328.032102,
+      "fold": "RO3",
+      "gradient_diagnostics": null,
+      "gradient_scope": "NOT_CAPTURED_BY_REFIT_ENGINE",
+      "parameter_count": 152193,
+      "parameter_memory_estimate_bytes_fp32": 608772,
+      "run_id": "RUN_V2_TR_E16_RO3_B_0006_9E92C285",
+      "stage": "B"
+    }
+  ],
+  "schema": "MODEL_IMPROVEMENT_V2_E16_PARAMETER_RUNTIME_GRADIENT-v1",
+  "test_status": "NOT_ACCESSED"
+}

@@ -1,0 +1,12 @@
+{
+  "fit_region": "V2_FINAL_DEV_REGION-v1",
+  "fit_target_count": 16630,
+  "fit_target_ids_fingerprint": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731",
+  "mean": 97.77630787733013,
+  "scaling_version": "V2_FINAL_SCALING-v1",
+  "schema": "MODEL_IMPROVEMENT_V2_FINAL_Y_SCALER-v1",
+  "std": 104.38093651484064,
+  "target": "Appliances",
+  "target_scaling_option": "YS1",
+  "test_rows_used": 0
+}

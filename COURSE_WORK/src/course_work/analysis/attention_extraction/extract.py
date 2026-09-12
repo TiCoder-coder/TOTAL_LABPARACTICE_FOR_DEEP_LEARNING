@@ -425,7 +425,7 @@ def _extract_one_seed(
 
 def run_phase52_extraction(project_root: Path | None = None) -> dict[str, Any]:
     """Run the full Phase 52 extraction pipeline."""
-    root = project_root or Path("/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
+    root = project_root or Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
     sources = load_frozen_sources(root)
 
     # Dense case set

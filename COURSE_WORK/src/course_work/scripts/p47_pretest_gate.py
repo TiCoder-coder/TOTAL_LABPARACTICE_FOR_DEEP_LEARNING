@@ -34,7 +34,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "src"))
 
 from course_work.final_test_evaluation.path_resolver import (
@@ -77,7 +77,8 @@ def run_gate(name: str, fn) -> bool:
     """Run a gate and catch any exceptions."""
     try:
         result = fn()
-        return gate(name, True, str(result))
+        passed = result if isinstance(result, bool) else True
+        return gate(name, passed, str(result))
     except Exception as e:
         return gate(name, False, f"{type(e).__name__}: {e}")
 
@@ -214,11 +215,11 @@ def main() -> int:
     # Gate 7: No training path
     print("--- GATE 7: No-Training Path Verification ---")
     all_passed &= run_gate("phase47 module imports without errors", lambda: (
-        __import__("course_work.phase47.evaluation", fromlist=["evaluate_transformer_seed_on_test"]),
+        __import__("course_work.final_test_evaluation", fromlist=["evaluate_transformer_seed_on_test"]),
         True
     ))
     all_passed &= run_gate("phase47 evaluation module has no train() call", lambda: (
-        eval_code := Path(ROOT / "src" / "course_work" / "phase47" / "evaluation.py").read_text(),
+        eval_code := Path(ROOT / "src" / "course_work" / "final_test_evaluation" / "evaluation.py").read_text(),
         "optimizer.step" not in eval_code.lower() or True,  # Pass even if not found
         "backward()" not in eval_code,
         True
@@ -303,7 +304,7 @@ def main() -> int:
 
     # Gate 12: Test-based seed selection impossible
     print("--- GATE 12: No Test-Based Seed Selection ---")
-    eval_code = Path(ROOT / "src" / "course_work" / "phase47" / "evaluation.py").read_text()
+    eval_code = Path(ROOT / "src" / "course_work" / "final_test_evaluation" / "evaluation.py").read_text()
     forbidden_patterns = [
         "min(seed_metrics", "max(seed_metrics", "argmin", "argmax",
         "best_seed", "select_seed", "choose_seed",

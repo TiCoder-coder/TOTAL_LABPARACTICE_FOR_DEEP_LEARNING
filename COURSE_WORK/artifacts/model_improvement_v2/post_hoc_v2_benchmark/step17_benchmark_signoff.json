@@ -1,0 +1,8 @@
+{
+  "benchmark_label": "POST_HOC_V2_BENCHMARK",
+  "human_interpretation_required": true,
+  "manifest_sha256": "73d07870e1222af0b145f965a832b065fd398655b9716c196519ab11e357f763",
+  "schema": "MODEL_IMPROVEMENT_V2_STEP17_SIGNOFF-v1",
+  "status": "PASS",
+  "unbiased_unseen_test_claim": false
+}

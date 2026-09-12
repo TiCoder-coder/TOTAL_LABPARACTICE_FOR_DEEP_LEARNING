@@ -1,0 +1,8 @@
+{
+  "candidate_id": "TR_C2_ALT_LOOKBACK_E10_DELTA3",
+  "config_fingerprint": "e1b0e45dfd6c47c25acc136164ebc1fc6313d80122c480e6bad52268b59628bb",
+  "created_at": "2026-09-11T03:37:27.521882+00:00",
+  "pooled_mae_wh": 26.475611855558817,
+  "pooled_r2": 0.5911869666883649,
+  "pooled_rmse_wh": 58.97628589736524
+}

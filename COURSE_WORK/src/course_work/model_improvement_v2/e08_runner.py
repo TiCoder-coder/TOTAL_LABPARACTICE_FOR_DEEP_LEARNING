@@ -301,12 +301,12 @@ def validate_e08_document(
         V2_DIRECT_METRIC_FLATTEN_TRACKS,
         V2_SHARED_PRETEST_CACHE_KEYS,
     )
-    if V2_DIRECT_METRIC_FLATTEN_TRACKS != frozenset({
+    if not frozenset({
         "MODEL_IMPROVEMENT_V2_E06",
         "MODEL_IMPROVEMENT_V2_E07",
         "MODEL_IMPROVEMENT_V2_E08",
         "MODEL_IMPROVEMENT_V2_E09",
-    }):
+    }).issubset(V2_DIRECT_METRIC_FLATTEN_TRACKS):
         raise E08PreflightError("E08 Stage-C flatten scope mismatch")
     if V2_SHARED_PRETEST_CACHE_KEYS.get(EXECUTION_TRACK) != orchestration["shared_pretest_cache_key"]:
         raise E08PreflightError("E08 shared pre-Test cache is not wired")

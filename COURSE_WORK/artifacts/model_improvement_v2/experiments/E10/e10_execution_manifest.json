@@ -1,0 +1,71 @@
+{
+  "preflight": {
+    "changed_paths": [
+      "data.feature_count",
+      "data.feature_variant_id",
+      "lineage.feature_fingerprint",
+      "lineage.scaler_bundle_checksum",
+      "lineage.scaler_bundle_id",
+      "model.input_size"
+    ],
+    "expected_total_training_runs": 12,
+    "experiment_id": "E10",
+    "fold_local_x_scaling": true,
+    "fold_local_y_scaling": true,
+    "incumbent_audit": {
+      "accepted_incumbent": "E01",
+      "experiments_audited": [
+        "E02",
+        "E03",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E04",
+        "E05"
+      ],
+      "status": "PASS"
+    },
+    "inference_executed": false,
+    "one_primary_change": "PASS",
+    "population": {
+      "fold_fingerprints": {
+        "RO1": "PASS",
+        "RO2": "PASS",
+        "RO3": "PASS"
+      },
+      "status": "PASS",
+      "target_count": 16630,
+      "test_rows_read": 0,
+      "test_target_ids_seen": 0
+    },
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidates": [
+      "TR_C2_ALT_LOOKBACK_E10_CONTROL",
+      "TR_C2_ALT_LOOKBACK_E10_DELTA3"
+    ],
+    "training_executed": false
+  },
+  "run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_E10_CONTROL:RO1": "RUN_V2_TR_E10_RO1_A_0001_8362D6EC",
+      "TR_C2_ALT_LOOKBACK_E10_CONTROL:RO2": "RUN_V2_TR_E10_RO2_A_0003_1281B3BA",
+      "TR_C2_ALT_LOOKBACK_E10_CONTROL:RO3": "RUN_V2_TR_E10_RO3_A_0005_7FA07523",
+      "TR_C2_ALT_LOOKBACK_E10_DELTA3:RO1": "RUN_V2_TR_E10_RO1_A_0002_2D45BE21",
+      "TR_C2_ALT_LOOKBACK_E10_DELTA3:RO2": "RUN_V2_TR_E10_RO2_A_0004_BAEA7FC4",
+      "TR_C2_ALT_LOOKBACK_E10_DELTA3:RO3": "RUN_V2_TR_E10_RO3_A_0006_FD308BBD"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_E10_CONTROL:RO1": "RUN_V2_TR_E10_RO1_B_0007_B3D2109E",
+      "TR_C2_ALT_LOOKBACK_E10_CONTROL:RO2": "RUN_V2_TR_E10_RO2_B_0009_8FCCFDB9",
+      "TR_C2_ALT_LOOKBACK_E10_CONTROL:RO3": "RUN_V2_TR_E10_RO3_B_0011_AAF70AA1",
+      "TR_C2_ALT_LOOKBACK_E10_DELTA3:RO1": "RUN_V2_TR_E10_RO1_B_0008_96B732BB",
+      "TR_C2_ALT_LOOKBACK_E10_DELTA3:RO2": "RUN_V2_TR_E10_RO2_B_0010_A0FEC31E",
+      "TR_C2_ALT_LOOKBACK_E10_DELTA3:RO3": "RUN_V2_TR_E10_RO3_B_0012_09FA3C9B"
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E10_EXECUTION-v1",
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

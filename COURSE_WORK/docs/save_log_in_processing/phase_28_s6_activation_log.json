@@ -1,7 +1,16 @@
 {
-  "artifact_version": "SWEEP_S6-v1",
-  "created_at": "2026-08-22T15:39:01.167241+00:00",
-  "discrepancies": [],
+  "artifact_version": "SELECTIVE-RESUME-v1",
+  "created_at": "2026-09-12T08:49:34.619962+00:00",
+  "discrepancies": [
+    "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+    "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s6_activation/results.csv: MISSING",
+    "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+  ],
   "phase_id": 28,
   "phase_name": "S6 Activation Sweep",
   "phase_version": "PHASE-28-v1",
@@ -10,196 +19,2170 @@
     {
       "rows": [
         {
-          "Field": "activation_id",
-          "Value": "GELU"
+          "Required artifact": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+          "Validation": "SIGNOFF_ARTIFACT_INVALID"
         },
         {
-          "Field": "batch_id",
-          "Value": "B64"
+          "Required artifact": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+          "Validation": "PASS"
         },
         {
-          "Field": "condition_id",
-          "Value": "GELU"
-        },
-        {
-          "Field": "config_fingerprint",
-          "Value": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f"
-        },
-        {
-          "Field": "d_model",
-          "Value": 64
-        },
-        {
-          "Field": "d_model_id",
-          "Value": "D64"
-        },
-        {
-          "Field": "dropout",
-          "Value": 0.1
-        },
-        {
-          "Field": "factor_value",
-          "Value": "GELU"
-        },
-        {
-          "Field": "feature_variant_id",
-          "Value": "FS2_TF1"
-        },
-        {
-          "Field": "ffn_dim",
-          "Value": 128
-        },
-        {
-          "Field": "learning_rate",
-          "Value": 0.0003
-        },
-        {
-          "Field": "lookback_id",
-          "Value": "L36"
-        },
-        {
-          "Field": "metric_version",
-          "Value": "METRICS-v1"
-        },
-        {
-          "Field": "num_heads",
-          "Value": 4
-        },
-        {
-          "Field": "num_layers",
-          "Value": 2
-        },
-        {
-          "Field": "pooling_id",
-          "Value": "LAST_STEP"
-        },
-        {
-          "Field": "population_fingerprint",
-          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
-        },
-        {
-          "Field": "reused_reference",
-          "Value": true
-        },
-        {
-          "Field": "run_id",
-          "Value": "RUN_TR_S04_0008_133EF4E3"
-        },
-        {
-          "Field": "target_scaling_id",
-          "Value": "YS1"
-        },
-        {
-          "Field": "validation_mae_wh",
-          "Value": 27.41859357267982
-        },
-        {
-          "Field": "validation_r2",
-          "Value": 0.5904020802432752
-        },
-        {
-          "Field": "validation_rmse_wh",
-          "Value": 59.03287348979047
-        },
-        {
-          "Field": "weight_decay",
-          "Value": 0.0001
+          "Required artifact": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+          "Validation": "PASS"
         }
       ],
-      "title": "Best variant details"
-    }
-  ],
-  "source_artifacts": [
-    {
-      "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
-      "role": "manifest",
-      "sha256": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
+      "title": "Prerequisite validation"
     },
     {
-      "path": "artifacts/sweeps/s6_activation/results.csv",
-      "role": "results",
-      "sha256": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec"
-    },
-    {
-      "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
-      "role": "signoff",
-      "sha256": "0ec21076b945c54a216d5998ea33e38fcbd348f0593d86806687878890c8ed9b"
+      "rows": [
+        {
+          "Condition": "RELU",
+          "Evidence": "INVALID",
+          "Evidence mode": null,
+          "Run ID": "RUN_TR_S06_0011_8BB9884C",
+          "Validation RMSE Wh": null,
+          "Value": "RELU"
+        },
+        {
+          "Condition": "GELU",
+          "Evidence": "INVALID",
+          "Evidence mode": null,
+          "Run ID": "RUN_TR_S04_0008_133EF4E3",
+          "Validation RMSE Wh": null,
+          "Value": "GELU"
+        }
+      ],
+      "title": "Condition evidence"
     }
   ],
-  "status": "PASS",
+  "source_artifacts": [],
+  "status": "BLOCKED",
   "summary": {
-    "Best variant": "N/A",
-    "Sweep code": "S6",
-    "Sweep name": "S6 Activation Sweep",
-    "Variant count": 2
+    "Effective action": "BLOCK",
+    "Execution authorized": false,
+    "Resolved action": "BLOCK",
+    "State": "UPSTREAM_INVALID"
   },
   "technical_details": {
-    "best_variant": {
-      "activation_id": "GELU",
-      "batch_id": "B64",
-      "condition_id": "GELU",
-      "config_fingerprint": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f",
-      "d_model": 64,
-      "d_model_id": "D64",
-      "dropout": 0.1,
-      "factor_value": "GELU",
-      "feature_variant_id": "FS2_TF1",
-      "ffn_dim": 128,
-      "learning_rate": 0.0003,
-      "lookback_id": "L36",
-      "metric_version": "METRICS-v1",
-      "num_heads": 4,
-      "num_layers": 2,
-      "pooling_id": "LAST_STEP",
-      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
-      "reused_reference": true,
-      "run_id": "RUN_TR_S04_0008_133EF4E3",
-      "target_scaling_id": "YS1",
-      "validation_mae_wh": 27.41859357267982,
-      "validation_r2": 0.5904020802432752,
-      "validation_rmse_wh": 59.03287348979047,
-      "weight_decay": 0.0001
+    "effective_action": "BLOCK",
+    "execution_authorized": false,
+    "inspection": {
+      "action": "BLOCK",
+      "artifact_root": "artifacts/sweeps/s6_activation",
+      "artifacts": {
+        "records": [
+          {
+            "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s6_activation/results.csv",
+            "status": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": false
+      },
+      "conditions": {
+        "complete": false,
+        "expected_conditions": [
+          "RELU",
+          "GELU"
+        ],
+        "failed_conditions": [],
+        "invalid_conditions": [
+          {
+            "condition_id": "RELU",
+            "reasons": [
+              {
+                "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/training.log",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/checkpoints/best_checkpoint.pt",
+                "reason": "MISSING"
+              }
+            ],
+            "run_id": "RUN_TR_S06_0011_8BB9884C"
+          },
+          {
+            "condition_id": "GELU",
+            "reasons": [
+              {
+                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                "reason": "MISSING"
+              }
+            ],
+            "run_id": "RUN_TR_S04_0008_133EF4E3"
+          }
+        ],
+        "missing_conditions": [
+          "RELU",
+          "GELU"
+        ],
+        "reference_condition": "GELU",
+        "reference_run_id": "RUN_TR_S04_0008_133EF4E3",
+        "registry_issues": [],
+        "running_conditions": [],
+        "verified_conditions": []
+      },
+      "phase_id": 28,
+      "phase_name": "S6 Activation Sweep",
+      "prerequisites": {
+        "records": [
+          {
+            "issues": [
+              {
+                "path": "artifacts/sweeps/s5_pooling/results.csv",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                "reason": "CHECKSUM_MISMATCH"
+              }
+            ],
+            "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+            "status": "SIGNOFF_ARTIFACT_INVALID"
+          },
+          {
+            "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": false
+      },
+      "processing_log": {
+        "issues": [],
+        "path": "docs/save_log_in_processing/phase_28_s6_activation_log.json",
+        "record": {
+          "artifact_version": "SELECTIVE-RESUME-v1",
+          "created_at": "2026-09-12T08:48:23.803809+00:00",
+          "discrepancies": [
+            "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+            "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s6_activation/results.csv: MISSING",
+            "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+          ],
+          "phase_id": 28,
+          "phase_name": "S6 Activation Sweep",
+          "phase_version": "PHASE-28-v1",
+          "presentation_version": "PHASE-PRESENTATION-v2",
+          "sections": [
+            {
+              "rows": [
+                {
+                  "Required artifact": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                  "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                },
+                {
+                  "Required artifact": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                  "Validation": "PASS"
+                },
+                {
+                  "Required artifact": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                  "Validation": "PASS"
+                }
+              ],
+              "title": "Prerequisite validation"
+            },
+            {
+              "rows": [
+                {
+                  "Condition": "RELU",
+                  "Evidence": "INVALID",
+                  "Evidence mode": null,
+                  "Run ID": "RUN_TR_S06_0011_8BB9884C",
+                  "Validation RMSE Wh": null,
+                  "Value": "RELU"
+                },
+                {
+                  "Condition": "GELU",
+                  "Evidence": "INVALID",
+                  "Evidence mode": null,
+                  "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                  "Validation RMSE Wh": null,
+                  "Value": "GELU"
+                }
+              ],
+              "title": "Condition evidence"
+            }
+          ],
+          "source_artifacts": [],
+          "status": "BLOCKED",
+          "summary": {
+            "Effective action": "BLOCK",
+            "Execution authorized": false,
+            "Resolved action": "BLOCK",
+            "State": "UPSTREAM_INVALID"
+          },
+          "technical_details": {
+            "effective_action": "BLOCK",
+            "execution_authorized": false,
+            "inspection": {
+              "action": "BLOCK",
+              "artifact_root": "artifacts/sweeps/s6_activation",
+              "artifacts": {
+                "records": [
+                  {
+                    "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s6_activation/results.csv",
+                    "status": "MISSING"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                    "status": "PASS"
+                  }
+                ],
+                "valid": false
+              },
+              "conditions": {
+                "complete": false,
+                "expected_conditions": [
+                  "RELU",
+                  "GELU"
+                ],
+                "failed_conditions": [],
+                "invalid_conditions": [
+                  {
+                    "condition_id": "RELU",
+                    "reasons": [
+                      {
+                        "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/training.log",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/checkpoints/best_checkpoint.pt",
+                        "reason": "MISSING"
+                      }
+                    ],
+                    "run_id": "RUN_TR_S06_0011_8BB9884C"
+                  },
+                  {
+                    "condition_id": "GELU",
+                    "reasons": [
+                      {
+                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                        "reason": "MISSING"
+                      }
+                    ],
+                    "run_id": "RUN_TR_S04_0008_133EF4E3"
+                  }
+                ],
+                "missing_conditions": [
+                  "RELU",
+                  "GELU"
+                ],
+                "reference_condition": "GELU",
+                "reference_run_id": "RUN_TR_S04_0008_133EF4E3",
+                "registry_issues": [],
+                "running_conditions": [],
+                "verified_conditions": []
+              },
+              "phase_id": 28,
+              "phase_name": "S6 Activation Sweep",
+              "prerequisites": {
+                "records": [
+                  {
+                    "issues": [
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/results.csv",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      }
+                    ],
+                    "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                    "status": "PASS"
+                  }
+                ],
+                "valid": false
+              },
+              "processing_log": {
+                "issues": [],
+                "path": "docs/save_log_in_processing/phase_28_s6_activation_log.json",
+                "record": {
+                  "artifact_version": "SELECTIVE-RESUME-v1",
+                  "created_at": "2026-09-12T08:23:41.722280+00:00",
+                  "discrepancies": [
+                    "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                    "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                    "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                  ],
+                  "phase_id": 28,
+                  "phase_name": "S6 Activation Sweep",
+                  "phase_version": "PHASE-28-v1",
+                  "presentation_version": "PHASE-PRESENTATION-v2",
+                  "sections": [
+                    {
+                      "rows": [
+                        {
+                          "Required artifact": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                          "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                        },
+                        {
+                          "Required artifact": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                          "Validation": "PASS"
+                        },
+                        {
+                          "Required artifact": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                          "Validation": "PASS"
+                        }
+                      ],
+                      "title": "Prerequisite validation"
+                    },
+                    {
+                      "rows": [
+                        {
+                          "Condition": "RELU",
+                          "Evidence": "INVALID",
+                          "Evidence mode": null,
+                          "Run ID": "RUN_TR_S06_0011_8BB9884C",
+                          "Validation RMSE Wh": null,
+                          "Value": "RELU"
+                        },
+                        {
+                          "Condition": "GELU",
+                          "Evidence": "INVALID",
+                          "Evidence mode": null,
+                          "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                          "Validation RMSE Wh": null,
+                          "Value": "GELU"
+                        }
+                      ],
+                      "title": "Condition evidence"
+                    }
+                  ],
+                  "source_artifacts": [],
+                  "status": "BLOCKED",
+                  "summary": {
+                    "Effective action": "BLOCK",
+                    "Execution authorized": false,
+                    "Resolved action": "BLOCK",
+                    "State": "UPSTREAM_INVALID"
+                  },
+                  "technical_details": {
+                    "effective_action": "BLOCK",
+                    "execution_authorized": false,
+                    "inspection": {
+                      "action": "BLOCK",
+                      "artifact_root": "artifacts/sweeps/s6_activation",
+                      "artifacts": {
+                        "records": [
+                          {
+                            "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s6_activation/results.csv",
+                            "status": "MISSING"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                            "status": "PASS"
+                          }
+                        ],
+                        "valid": false
+                      },
+                      "conditions": {
+                        "complete": false,
+                        "expected_conditions": [
+                          "RELU",
+                          "GELU"
+                        ],
+                        "failed_conditions": [],
+                        "invalid_conditions": [
+                          {
+                            "condition_id": "RELU",
+                            "reasons": [
+                              {
+                                "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/training.log",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/checkpoints/best_checkpoint.pt",
+                                "reason": "MISSING"
+                              }
+                            ],
+                            "run_id": "RUN_TR_S06_0011_8BB9884C"
+                          },
+                          {
+                            "condition_id": "GELU",
+                            "reasons": [
+                              {
+                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                "reason": "MISSING"
+                              }
+                            ],
+                            "run_id": "RUN_TR_S04_0008_133EF4E3"
+                          }
+                        ],
+                        "missing_conditions": [
+                          "RELU",
+                          "GELU"
+                        ],
+                        "reference_condition": "GELU",
+                        "reference_run_id": "RUN_TR_S04_0008_133EF4E3",
+                        "registry_issues": [],
+                        "running_conditions": [],
+                        "verified_conditions": []
+                      },
+                      "phase_id": 28,
+                      "phase_name": "S6 Activation Sweep",
+                      "prerequisites": {
+                        "records": [
+                          {
+                            "issues": [
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              }
+                            ],
+                            "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                            "status": "PASS"
+                          }
+                        ],
+                        "valid": false
+                      },
+                      "processing_log": {
+                        "issues": [],
+                        "path": "docs/save_log_in_processing/phase_28_s6_activation_log.json",
+                        "record": {
+                          "artifact_version": "SELECTIVE-RESUME-v1",
+                          "created_at": "2026-09-12T08:23:08.335331+00:00",
+                          "discrepancies": [
+                            "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                            "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                            "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                          ],
+                          "phase_id": 28,
+                          "phase_name": "S6 Activation Sweep",
+                          "phase_version": "PHASE-28-v1",
+                          "presentation_version": "PHASE-PRESENTATION-v2",
+                          "sections": [
+                            {
+                              "rows": [
+                                {
+                                  "Required artifact": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                  "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                                },
+                                {
+                                  "Required artifact": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                  "Validation": "PASS"
+                                },
+                                {
+                                  "Required artifact": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                  "Validation": "PASS"
+                                }
+                              ],
+                              "title": "Prerequisite validation"
+                            },
+                            {
+                              "rows": [
+                                {
+                                  "Condition": "RELU",
+                                  "Evidence": "INVALID",
+                                  "Evidence mode": null,
+                                  "Run ID": "RUN_TR_S06_0011_8BB9884C",
+                                  "Validation RMSE Wh": null,
+                                  "Value": "RELU"
+                                },
+                                {
+                                  "Condition": "GELU",
+                                  "Evidence": "INVALID",
+                                  "Evidence mode": null,
+                                  "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                                  "Validation RMSE Wh": null,
+                                  "Value": "GELU"
+                                }
+                              ],
+                              "title": "Condition evidence"
+                            }
+                          ],
+                          "source_artifacts": [],
+                          "status": "BLOCKED",
+                          "summary": {
+                            "Effective action": "BLOCK",
+                            "Execution authorized": false,
+                            "Resolved action": "BLOCK",
+                            "State": "UPSTREAM_INVALID"
+                          },
+                          "technical_details": {
+                            "effective_action": "BLOCK",
+                            "execution_authorized": false,
+                            "inspection": {
+                              "action": "BLOCK",
+                              "artifact_root": "artifacts/sweeps/s6_activation",
+                              "artifacts": {
+                                "records": [
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/results.csv",
+                                    "status": "MISSING"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                    "status": "PASS"
+                                  }
+                                ],
+                                "valid": false
+                              },
+                              "conditions": {
+                                "complete": false,
+                                "expected_conditions": [
+                                  "RELU",
+                                  "GELU"
+                                ],
+                                "failed_conditions": [],
+                                "invalid_conditions": [
+                                  {
+                                    "condition_id": "RELU",
+                                    "reasons": [
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/training.log",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/checkpoints/best_checkpoint.pt",
+                                        "reason": "MISSING"
+                                      }
+                                    ],
+                                    "run_id": "RUN_TR_S06_0011_8BB9884C"
+                                  },
+                                  {
+                                    "condition_id": "GELU",
+                                    "reasons": [
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                        "reason": "MISSING"
+                                      }
+                                    ],
+                                    "run_id": "RUN_TR_S04_0008_133EF4E3"
+                                  }
+                                ],
+                                "missing_conditions": [
+                                  "RELU",
+                                  "GELU"
+                                ],
+                                "reference_condition": "GELU",
+                                "reference_run_id": "RUN_TR_S04_0008_133EF4E3",
+                                "registry_issues": [],
+                                "running_conditions": [],
+                                "verified_conditions": []
+                              },
+                              "phase_id": 28,
+                              "phase_name": "S6 Activation Sweep",
+                              "prerequisites": {
+                                "records": [
+                                  {
+                                    "issues": [
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      }
+                                    ],
+                                    "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                    "status": "PASS"
+                                  }
+                                ],
+                                "valid": false
+                              },
+                              "processing_log": {
+                                "issues": [],
+                                "path": "docs/save_log_in_processing/phase_28_s6_activation_log.json",
+                                "record": {
+                                  "artifact_version": "SELECTIVE-RESUME-v1",
+                                  "created_at": "2026-09-12T08:22:12.342290+00:00",
+                                  "discrepancies": [
+                                    "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                                    "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                                    "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                                  ],
+                                  "phase_id": 28,
+                                  "phase_name": "S6 Activation Sweep",
+                                  "phase_version": "PHASE-28-v1",
+                                  "presentation_version": "PHASE-PRESENTATION-v2",
+                                  "sections": [
+                                    {
+                                      "rows": [
+                                        {
+                                          "Required artifact": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                          "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                                        },
+                                        {
+                                          "Required artifact": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                          "Validation": "PASS"
+                                        },
+                                        {
+                                          "Required artifact": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                          "Validation": "PASS"
+                                        }
+                                      ],
+                                      "title": "Prerequisite validation"
+                                    },
+                                    {
+                                      "rows": [
+                                        {
+                                          "Condition": "RELU",
+                                          "Evidence": "INVALID",
+                                          "Evidence mode": null,
+                                          "Run ID": "RUN_TR_S06_0011_8BB9884C",
+                                          "Validation RMSE Wh": null,
+                                          "Value": "RELU"
+                                        },
+                                        {
+                                          "Condition": "GELU",
+                                          "Evidence": "INVALID",
+                                          "Evidence mode": null,
+                                          "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                                          "Validation RMSE Wh": null,
+                                          "Value": "GELU"
+                                        }
+                                      ],
+                                      "title": "Condition evidence"
+                                    }
+                                  ],
+                                  "source_artifacts": [],
+                                  "status": "BLOCKED",
+                                  "summary": {
+                                    "Effective action": "BLOCK",
+                                    "Execution authorized": false,
+                                    "Resolved action": "BLOCK",
+                                    "State": "UPSTREAM_INVALID"
+                                  },
+                                  "technical_details": {
+                                    "effective_action": "BLOCK",
+                                    "execution_authorized": false,
+                                    "inspection": {
+                                      "action": "BLOCK",
+                                      "artifact_root": "artifacts/sweeps/s6_activation",
+                                      "artifacts": {
+                                        "records": [
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/results.csv",
+                                            "status": "MISSING"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                            "status": "PASS"
+                                          }
+                                        ],
+                                        "valid": false
+                                      },
+                                      "conditions": {
+                                        "complete": false,
+                                        "expected_conditions": [
+                                          "RELU",
+                                          "GELU"
+                                        ],
+                                        "failed_conditions": [],
+                                        "invalid_conditions": [
+                                          {
+                                            "condition_id": "RELU",
+                                            "reasons": [
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/training.log",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/checkpoints/best_checkpoint.pt",
+                                                "reason": "MISSING"
+                                              }
+                                            ],
+                                            "run_id": "RUN_TR_S06_0011_8BB9884C"
+                                          },
+                                          {
+                                            "condition_id": "GELU",
+                                            "reasons": [
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                                "reason": "MISSING"
+                                              }
+                                            ],
+                                            "run_id": "RUN_TR_S04_0008_133EF4E3"
+                                          }
+                                        ],
+                                        "missing_conditions": [
+                                          "RELU",
+                                          "GELU"
+                                        ],
+                                        "reference_condition": "GELU",
+                                        "reference_run_id": "RUN_TR_S04_0008_133EF4E3",
+                                        "registry_issues": [],
+                                        "running_conditions": [],
+                                        "verified_conditions": []
+                                      },
+                                      "phase_id": 28,
+                                      "phase_name": "S6 Activation Sweep",
+                                      "prerequisites": {
+                                        "records": [
+                                          {
+                                            "issues": [
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              }
+                                            ],
+                                            "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                            "status": "PASS"
+                                          }
+                                        ],
+                                        "valid": false
+                                      },
+                                      "processing_log": {
+                                        "issues": [],
+                                        "path": "docs/save_log_in_processing/phase_28_s6_activation_log.json",
+                                        "record": {
+                                          "artifact_version": "SELECTIVE-RESUME-v1",
+                                          "created_at": "2026-09-12T08:21:45.358110+00:00",
+                                          "discrepancies": [
+                                            "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                                            "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                                            "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                                          ],
+                                          "phase_id": 28,
+                                          "phase_name": "S6 Activation Sweep",
+                                          "phase_version": "PHASE-28-v1",
+                                          "presentation_version": "PHASE-PRESENTATION-v2",
+                                          "sections": [
+                                            {
+                                              "rows": [
+                                                {
+                                                  "Required artifact": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                                  "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                                                },
+                                                {
+                                                  "Required artifact": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                  "Validation": "PASS"
+                                                },
+                                                {
+                                                  "Required artifact": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                  "Validation": "PASS"
+                                                }
+                                              ],
+                                              "title": "Prerequisite validation"
+                                            },
+                                            {
+                                              "rows": [
+                                                {
+                                                  "Condition": "RELU",
+                                                  "Evidence": "INVALID",
+                                                  "Evidence mode": null,
+                                                  "Run ID": "RUN_TR_S06_0011_8BB9884C",
+                                                  "Validation RMSE Wh": null,
+                                                  "Value": "RELU"
+                                                },
+                                                {
+                                                  "Condition": "GELU",
+                                                  "Evidence": "INVALID",
+                                                  "Evidence mode": null,
+                                                  "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                                                  "Validation RMSE Wh": null,
+                                                  "Value": "GELU"
+                                                }
+                                              ],
+                                              "title": "Condition evidence"
+                                            }
+                                          ],
+                                          "source_artifacts": [],
+                                          "status": "BLOCKED",
+                                          "summary": {
+                                            "Effective action": "BLOCK",
+                                            "Execution authorized": false,
+                                            "Resolved action": "BLOCK",
+                                            "State": "UPSTREAM_INVALID"
+                                          },
+                                          "technical_details": {
+                                            "effective_action": "BLOCK",
+                                            "execution_authorized": false,
+                                            "inspection": {
+                                              "action": "BLOCK",
+                                              "artifact_root": "artifacts/sweeps/s6_activation",
+                                              "artifacts": {
+                                                "records": [
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/results.csv",
+                                                    "status": "MISSING"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                                    "status": "PASS"
+                                                  }
+                                                ],
+                                                "valid": false
+                                              },
+                                              "conditions": {
+                                                "complete": false,
+                                                "expected_conditions": [
+                                                  "RELU",
+                                                  "GELU"
+                                                ],
+                                                "failed_conditions": [],
+                                                "invalid_conditions": [
+                                                  {
+                                                    "condition_id": "RELU",
+                                                    "reasons": [
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/training.log",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S06_0011_8BB9884C/checkpoints/best_checkpoint.pt",
+                                                        "reason": "MISSING"
+                                                      }
+                                                    ],
+                                                    "run_id": "RUN_TR_S06_0011_8BB9884C"
+                                                  },
+                                                  {
+                                                    "condition_id": "GELU",
+                                                    "reasons": [
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                                        "reason": "MISSING"
+                                                      }
+                                                    ],
+                                                    "run_id": "RUN_TR_S04_0008_133EF4E3"
+                                                  }
+                                                ],
+                                                "missing_conditions": [
+                                                  "RELU",
+                                                  "GELU"
+                                                ],
+                                                "reference_condition": "GELU",
+                                                "reference_run_id": "RUN_TR_S04_0008_133EF4E3",
+                                                "registry_issues": [],
+                                                "running_conditions": [],
+                                                "verified_conditions": []
+                                              },
+                                              "phase_id": 28,
+                                              "phase_name": "S6 Activation Sweep",
+                                              "prerequisites": {
+                                                "records": [
+                                                  {
+                                                    "issues": [
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      }
+                                                    ],
+                                                    "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                    "status": "PASS"
+                                                  }
+                                                ],
+                                                "valid": false
+                                              },
+                                              "processing_log": {
+                                                "issues": [
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/results.csv",
+                                                    "reason": "MISSING"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  }
+                                                ],
+                                                "path": "docs/save_log_in_processing/phase_28_s6_activation_log.json",
+                                                "record": {
+                                                  "artifact_version": "SWEEP_S6-v1",
+                                                  "created_at": "2026-08-22T15:39:01.167241+00:00",
+                                                  "discrepancies": [],
+                                                  "phase_id": 28,
+                                                  "phase_name": "S6 Activation Sweep",
+                                                  "phase_version": "PHASE-28-v1",
+                                                  "presentation_version": "PHASE-PRESENTATION-v2",
+                                                  "sections": [
+                                                    {
+                                                      "rows": [
+                                                        {
+                                                          "Field": "activation_id",
+                                                          "Value": "GELU"
+                                                        },
+                                                        {
+                                                          "Field": "batch_id",
+                                                          "Value": "B64"
+                                                        },
+                                                        {
+                                                          "Field": "condition_id",
+                                                          "Value": "GELU"
+                                                        },
+                                                        {
+                                                          "Field": "config_fingerprint",
+                                                          "Value": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f"
+                                                        },
+                                                        {
+                                                          "Field": "d_model",
+                                                          "Value": 64
+                                                        },
+                                                        {
+                                                          "Field": "d_model_id",
+                                                          "Value": "D64"
+                                                        },
+                                                        {
+                                                          "Field": "dropout",
+                                                          "Value": 0.1
+                                                        },
+                                                        {
+                                                          "Field": "factor_value",
+                                                          "Value": "GELU"
+                                                        },
+                                                        {
+                                                          "Field": "feature_variant_id",
+                                                          "Value": "FS2_TF1"
+                                                        },
+                                                        {
+                                                          "Field": "ffn_dim",
+                                                          "Value": 128
+                                                        },
+                                                        {
+                                                          "Field": "learning_rate",
+                                                          "Value": 0.0003
+                                                        },
+                                                        {
+                                                          "Field": "lookback_id",
+                                                          "Value": "L36"
+                                                        },
+                                                        {
+                                                          "Field": "metric_version",
+                                                          "Value": "METRICS-v1"
+                                                        },
+                                                        {
+                                                          "Field": "num_heads",
+                                                          "Value": 4
+                                                        },
+                                                        {
+                                                          "Field": "num_layers",
+                                                          "Value": 2
+                                                        },
+                                                        {
+                                                          "Field": "pooling_id",
+                                                          "Value": "LAST_STEP"
+                                                        },
+                                                        {
+                                                          "Field": "population_fingerprint",
+                                                          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
+                                                        },
+                                                        {
+                                                          "Field": "reused_reference",
+                                                          "Value": true
+                                                        },
+                                                        {
+                                                          "Field": "run_id",
+                                                          "Value": "RUN_TR_S04_0008_133EF4E3"
+                                                        },
+                                                        {
+                                                          "Field": "target_scaling_id",
+                                                          "Value": "YS1"
+                                                        },
+                                                        {
+                                                          "Field": "validation_mae_wh",
+                                                          "Value": 27.41859357267982
+                                                        },
+                                                        {
+                                                          "Field": "validation_r2",
+                                                          "Value": 0.5904020802432752
+                                                        },
+                                                        {
+                                                          "Field": "validation_rmse_wh",
+                                                          "Value": 59.03287348979047
+                                                        },
+                                                        {
+                                                          "Field": "weight_decay",
+                                                          "Value": 0.0001
+                                                        }
+                                                      ],
+                                                      "title": "Best variant details"
+                                                    }
+                                                  ],
+                                                  "source_artifacts": [
+                                                    {
+                                                      "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                                      "role": "manifest",
+                                                      "sha256": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
+                                                    },
+                                                    {
+                                                      "path": "artifacts/sweeps/s6_activation/results.csv",
+                                                      "role": "results",
+                                                      "sha256": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec"
+                                                    },
+                                                    {
+                                                      "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                                      "role": "signoff",
+                                                      "sha256": "0ec21076b945c54a216d5998ea33e38fcbd348f0593d86806687878890c8ed9b"
+                                                    }
+                                                  ],
+                                                  "status": "PASS",
+                                                  "summary": {
+                                                    "Best variant": "N/A",
+                                                    "Sweep code": "S6",
+                                                    "Sweep name": "S6 Activation Sweep",
+                                                    "Variant count": 2
+                                                  },
+                                                  "technical_details": {
+                                                    "best_variant": {
+                                                      "activation_id": "GELU",
+                                                      "batch_id": "B64",
+                                                      "condition_id": "GELU",
+                                                      "config_fingerprint": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f",
+                                                      "d_model": 64,
+                                                      "d_model_id": "D64",
+                                                      "dropout": 0.1,
+                                                      "factor_value": "GELU",
+                                                      "feature_variant_id": "FS2_TF1",
+                                                      "ffn_dim": 128,
+                                                      "learning_rate": 0.0003,
+                                                      "lookback_id": "L36",
+                                                      "metric_version": "METRICS-v1",
+                                                      "num_heads": 4,
+                                                      "num_layers": 2,
+                                                      "pooling_id": "LAST_STEP",
+                                                      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+                                                      "reused_reference": true,
+                                                      "run_id": "RUN_TR_S04_0008_133EF4E3",
+                                                      "target_scaling_id": "YS1",
+                                                      "validation_mae_wh": 27.41859357267982,
+                                                      "validation_r2": 0.5904020802432752,
+                                                      "validation_rmse_wh": 59.03287348979047,
+                                                      "weight_decay": 0.0001
+                                                    },
+                                                    "config_fingerprint": null,
+                                                    "dataset_revision": null,
+                                                    "environment_id": "ENV-v1",
+                                                    "input_checksums": {
+                                                      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                                      "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+                                                      "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+                                                      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+                                                      "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+                                                    },
+                                                    "input_paths": [
+                                                      "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                                      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                      "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                      "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+                                                      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+                                                    ],
+                                                    "output_checksums": {
+                                                      "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+                                                      "artifacts/sweeps/s6_activation/s6_activation_winner.json": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
+                                                      "artifacts/sweeps/s6_activation/s6_reference_update.json": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d",
+                                                      "artifacts/sweeps/s6_activation/sweep_manifest.json": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
+                                                    },
+                                                    "output_paths": [
+                                                      "artifacts/sweeps/s6_activation/results.csv",
+                                                      "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                                      "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                                      "artifacts/sweeps/s6_activation/s6_reference_update.json"
+                                                    ],
+                                                    "sweep_code": "S6",
+                                                    "tests": [
+                                                      "condition_completeness",
+                                                      "registry_evidence_integrity",
+                                                      "validation_only_selection",
+                                                      "exact_tie_rule",
+                                                      "winner_config_match",
+                                                      "test_firewall"
+                                                    ],
+                                                    "variant_count": 2
+                                                  },
+                                                  "timestamp": "2026-08-22T15:39:01.167241+00:00",
+                                                  "warnings": []
+                                                },
+                                                "status": "PASS",
+                                                "valid": false
+                                              },
+                                              "signoff": {
+                                                "issues": [
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/results.csv",
+                                                    "reason": "MISSING"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  }
+                                                ],
+                                                "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                                "record": {
+                                                  "approved_for_phase29": true,
+                                                  "archived_stale_paths": [
+                                                    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+                                                    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+                                                  ],
+                                                  "artifact_version": "SWEEP_S6-v1",
+                                                  "created_at": "2026-08-22T15:39:01.167241+00:00",
+                                                  "discrepancies": [],
+                                                  "environment_id": "ENV-v1",
+                                                  "input_checksums": {
+                                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                                    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+                                                    "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+                                                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+                                                    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+                                                  },
+                                                  "input_paths": [
+                                                    "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                    "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+                                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+                                                  ],
+                                                  "output_checksums": {
+                                                    "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+                                                    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+                                                    "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+                                                    "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
+                                                  },
+                                                  "output_paths": [
+                                                    "artifacts/sweeps/s6_activation/results.csv",
+                                                    "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                                    "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                                    "artifacts/sweeps/s6_activation/s6_reference_update.json"
+                                                  ],
+                                                  "phase_id": 28,
+                                                  "phase_version": "PHASE-28-v1",
+                                                  "status": "PASS",
+                                                  "test_status": "FORBIDDEN",
+                                                  "tests": [
+                                                    "condition_completeness",
+                                                    "registry_evidence_integrity",
+                                                    "validation_only_selection",
+                                                    "exact_tie_rule",
+                                                    "winner_config_match",
+                                                    "test_firewall"
+                                                  ],
+                                                  "warnings": []
+                                                },
+                                                "status": "PASS",
+                                                "valid": false
+                                              },
+                                              "state": "UPSTREAM_INVALID"
+                                            },
+                                            "phase_31_preflight": null,
+                                            "phase_32_preflight": null,
+                                            "phase_33_preflight": null,
+                                            "phase_34_preflight": null,
+                                            "phase_35_preflight": null,
+                                            "phase_36_preflight": null,
+                                            "phase_37_preflight": null,
+                                            "phase_id": 28,
+                                            "readiness": {
+                                              "environment": {
+                                                "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                                                "current_python_version": "3.10.11",
+                                                "issues": [],
+                                                "valid": true
+                                              },
+                                              "prerequisites": {
+                                                "records": [
+                                                  {
+                                                    "issues": [
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      }
+                                                    ],
+                                                    "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                    "status": "PASS"
+                                                  }
+                                                ],
+                                                "valid": false
+                                              },
+                                              "ready": false,
+                                              "state": "UPSTREAM_INVALID"
+                                            },
+                                            "reasons": [
+                                              "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                                              "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                                              "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                                            ],
+                                            "resolved_action": "BLOCK",
+                                            "state": "UPSTREAM_INVALID"
+                                          },
+                                          "warnings": []
+                                        },
+                                        "status": "BLOCKED",
+                                        "valid": true
+                                      },
+                                      "signoff": {
+                                        "issues": [
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/results.csv",
+                                            "reason": "MISSING"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                            "reason": "CHECKSUM_MISMATCH"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                            "reason": "CHECKSUM_MISMATCH"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                                            "reason": "CHECKSUM_MISMATCH"
+                                          }
+                                        ],
+                                        "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                        "record": {
+                                          "approved_for_phase29": true,
+                                          "archived_stale_paths": [
+                                            "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+                                            "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+                                          ],
+                                          "artifact_version": "SWEEP_S6-v1",
+                                          "created_at": "2026-08-22T15:39:01.167241+00:00",
+                                          "discrepancies": [],
+                                          "environment_id": "ENV-v1",
+                                          "input_checksums": {
+                                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                            "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+                                            "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+                                            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+                                            "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+                                          },
+                                          "input_paths": [
+                                            "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                            "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                            "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+                                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+                                          ],
+                                          "output_checksums": {
+                                            "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+                                            "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+                                            "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+                                            "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
+                                          },
+                                          "output_paths": [
+                                            "artifacts/sweeps/s6_activation/results.csv",
+                                            "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                            "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                            "artifacts/sweeps/s6_activation/s6_reference_update.json"
+                                          ],
+                                          "phase_id": 28,
+                                          "phase_version": "PHASE-28-v1",
+                                          "status": "PASS",
+                                          "test_status": "FORBIDDEN",
+                                          "tests": [
+                                            "condition_completeness",
+                                            "registry_evidence_integrity",
+                                            "validation_only_selection",
+                                            "exact_tie_rule",
+                                            "winner_config_match",
+                                            "test_firewall"
+                                          ],
+                                          "warnings": []
+                                        },
+                                        "status": "PASS",
+                                        "valid": false
+                                      },
+                                      "state": "UPSTREAM_INVALID"
+                                    },
+                                    "phase_31_preflight": null,
+                                    "phase_32_preflight": null,
+                                    "phase_33_preflight": null,
+                                    "phase_34_preflight": null,
+                                    "phase_35_preflight": null,
+                                    "phase_36_preflight": null,
+                                    "phase_37_preflight": null,
+                                    "phase_id": 28,
+                                    "readiness": {
+                                      "environment": {
+                                        "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                                        "current_python_version": "3.10.11",
+                                        "issues": [],
+                                        "valid": true
+                                      },
+                                      "prerequisites": {
+                                        "records": [
+                                          {
+                                            "issues": [
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              }
+                                            ],
+                                            "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                            "status": "PASS"
+                                          }
+                                        ],
+                                        "valid": false
+                                      },
+                                      "ready": false,
+                                      "state": "UPSTREAM_INVALID"
+                                    },
+                                    "reasons": [
+                                      "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                                      "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                                      "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                                    ],
+                                    "resolved_action": "BLOCK",
+                                    "state": "UPSTREAM_INVALID"
+                                  },
+                                  "warnings": []
+                                },
+                                "status": "BLOCKED",
+                                "valid": true
+                              },
+                              "signoff": {
+                                "issues": [
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/results.csv",
+                                    "reason": "MISSING"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                    "reason": "CHECKSUM_MISMATCH"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                    "reason": "CHECKSUM_MISMATCH"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                                    "reason": "CHECKSUM_MISMATCH"
+                                  }
+                                ],
+                                "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                                "record": {
+                                  "approved_for_phase29": true,
+                                  "archived_stale_paths": [
+                                    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+                                    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+                                  ],
+                                  "artifact_version": "SWEEP_S6-v1",
+                                  "created_at": "2026-08-22T15:39:01.167241+00:00",
+                                  "discrepancies": [],
+                                  "environment_id": "ENV-v1",
+                                  "input_checksums": {
+                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+                                    "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+                                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+                                    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+                                  },
+                                  "input_paths": [
+                                    "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                    "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+                                  ],
+                                  "output_checksums": {
+                                    "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+                                    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+                                    "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+                                    "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
+                                  },
+                                  "output_paths": [
+                                    "artifacts/sweeps/s6_activation/results.csv",
+                                    "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                                    "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                                    "artifacts/sweeps/s6_activation/s6_reference_update.json"
+                                  ],
+                                  "phase_id": 28,
+                                  "phase_version": "PHASE-28-v1",
+                                  "status": "PASS",
+                                  "test_status": "FORBIDDEN",
+                                  "tests": [
+                                    "condition_completeness",
+                                    "registry_evidence_integrity",
+                                    "validation_only_selection",
+                                    "exact_tie_rule",
+                                    "winner_config_match",
+                                    "test_firewall"
+                                  ],
+                                  "warnings": []
+                                },
+                                "status": "PASS",
+                                "valid": false
+                              },
+                              "state": "UPSTREAM_INVALID"
+                            },
+                            "phase_31_preflight": null,
+                            "phase_32_preflight": null,
+                            "phase_33_preflight": null,
+                            "phase_34_preflight": null,
+                            "phase_35_preflight": null,
+                            "phase_36_preflight": null,
+                            "phase_37_preflight": null,
+                            "phase_id": 28,
+                            "readiness": {
+                              "environment": {
+                                "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                                "current_python_version": "3.10.11",
+                                "issues": [],
+                                "valid": true
+                              },
+                              "prerequisites": {
+                                "records": [
+                                  {
+                                    "issues": [
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      }
+                                    ],
+                                    "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                    "status": "PASS"
+                                  }
+                                ],
+                                "valid": false
+                              },
+                              "ready": false,
+                              "state": "UPSTREAM_INVALID"
+                            },
+                            "reasons": [
+                              "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                              "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                              "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                            ],
+                            "resolved_action": "BLOCK",
+                            "state": "UPSTREAM_INVALID"
+                          },
+                          "warnings": []
+                        },
+                        "status": "BLOCKED",
+                        "valid": true
+                      },
+                      "signoff": {
+                        "issues": [
+                          {
+                            "path": "artifacts/sweeps/s6_activation/results.csv",
+                            "reason": "MISSING"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                            "reason": "CHECKSUM_MISMATCH"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                            "reason": "CHECKSUM_MISMATCH"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                            "reason": "CHECKSUM_MISMATCH"
+                          }
+                        ],
+                        "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                        "record": {
+                          "approved_for_phase29": true,
+                          "archived_stale_paths": [
+                            "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+                            "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+                          ],
+                          "artifact_version": "SWEEP_S6-v1",
+                          "created_at": "2026-08-22T15:39:01.167241+00:00",
+                          "discrepancies": [],
+                          "environment_id": "ENV-v1",
+                          "input_checksums": {
+                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                            "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+                            "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+                            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+                            "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+                          },
+                          "input_paths": [
+                            "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                            "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                            "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+                          ],
+                          "output_checksums": {
+                            "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+                            "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+                            "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+                            "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
+                          },
+                          "output_paths": [
+                            "artifacts/sweeps/s6_activation/results.csv",
+                            "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                            "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                            "artifacts/sweeps/s6_activation/s6_reference_update.json"
+                          ],
+                          "phase_id": 28,
+                          "phase_version": "PHASE-28-v1",
+                          "status": "PASS",
+                          "test_status": "FORBIDDEN",
+                          "tests": [
+                            "condition_completeness",
+                            "registry_evidence_integrity",
+                            "validation_only_selection",
+                            "exact_tie_rule",
+                            "winner_config_match",
+                            "test_firewall"
+                          ],
+                          "warnings": []
+                        },
+                        "status": "PASS",
+                        "valid": false
+                      },
+                      "state": "UPSTREAM_INVALID"
+                    },
+                    "phase_31_preflight": null,
+                    "phase_32_preflight": null,
+                    "phase_33_preflight": null,
+                    "phase_34_preflight": null,
+                    "phase_35_preflight": null,
+                    "phase_36_preflight": null,
+                    "phase_37_preflight": null,
+                    "phase_id": 28,
+                    "readiness": {
+                      "environment": {
+                        "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                        "current_python_version": "3.10.11",
+                        "issues": [],
+                        "valid": true
+                      },
+                      "prerequisites": {
+                        "records": [
+                          {
+                            "issues": [
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/results.csv",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              }
+                            ],
+                            "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                            "status": "PASS"
+                          }
+                        ],
+                        "valid": false
+                      },
+                      "ready": false,
+                      "state": "UPSTREAM_INVALID"
+                    },
+                    "reasons": [
+                      "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+                      "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s6_activation/results.csv: MISSING",
+                      "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+                    ],
+                    "resolved_action": "BLOCK",
+                    "state": "UPSTREAM_INVALID"
+                  },
+                  "warnings": []
+                },
+                "status": "BLOCKED",
+                "valid": true
+              },
+              "signoff": {
+                "issues": [
+                  {
+                    "path": "artifacts/sweeps/s6_activation/results.csv",
+                    "reason": "MISSING"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                    "reason": "CHECKSUM_MISMATCH"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                    "reason": "CHECKSUM_MISMATCH"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+                    "reason": "CHECKSUM_MISMATCH"
+                  }
+                ],
+                "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+                "record": {
+                  "approved_for_phase29": true,
+                  "archived_stale_paths": [
+                    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+                    "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+                  ],
+                  "artifact_version": "SWEEP_S6-v1",
+                  "created_at": "2026-08-22T15:39:01.167241+00:00",
+                  "discrepancies": [],
+                  "environment_id": "ENV-v1",
+                  "input_checksums": {
+                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+                    "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+                    "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+                  },
+                  "input_paths": [
+                    "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                    "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                    "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                    "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+                  ],
+                  "output_checksums": {
+                    "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+                    "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+                    "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+                    "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
+                  },
+                  "output_paths": [
+                    "artifacts/sweeps/s6_activation/results.csv",
+                    "artifacts/sweeps/s6_activation/sweep_manifest.json",
+                    "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+                    "artifacts/sweeps/s6_activation/s6_reference_update.json"
+                  ],
+                  "phase_id": 28,
+                  "phase_version": "PHASE-28-v1",
+                  "status": "PASS",
+                  "test_status": "FORBIDDEN",
+                  "tests": [
+                    "condition_completeness",
+                    "registry_evidence_integrity",
+                    "validation_only_selection",
+                    "exact_tie_rule",
+                    "winner_config_match",
+                    "test_firewall"
+                  ],
+                  "warnings": []
+                },
+                "status": "PASS",
+                "valid": false
+              },
+              "state": "UPSTREAM_INVALID"
+            },
+            "phase_31_preflight": null,
+            "phase_32_preflight": null,
+            "phase_33_preflight": null,
+            "phase_34_preflight": null,
+            "phase_35_preflight": null,
+            "phase_36_preflight": null,
+            "phase_37_preflight": null,
+            "phase_id": 28,
+            "readiness": {
+              "environment": {
+                "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                "current_python_version": "3.10.11",
+                "issues": [],
+                "valid": true
+              },
+              "prerequisites": {
+                "records": [
+                  {
+                    "issues": [
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/results.csv",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      }
+                    ],
+                    "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                    "status": "PASS"
+                  }
+                ],
+                "valid": false
+              },
+              "ready": false,
+              "state": "UPSTREAM_INVALID"
+            },
+            "reasons": [
+              "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+              "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s6_activation/results.csv: MISSING",
+              "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
+            ],
+            "resolved_action": "BLOCK",
+            "state": "UPSTREAM_INVALID"
+          },
+          "warnings": []
+        },
+        "status": "BLOCKED",
+        "valid": true
+      },
+      "signoff": {
+        "issues": [
+          {
+            "path": "artifacts/sweeps/s6_activation/results.csv",
+            "reason": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+            "reason": "CHECKSUM_MISMATCH"
+          },
+          {
+            "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+            "reason": "CHECKSUM_MISMATCH"
+          },
+          {
+            "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+            "reason": "CHECKSUM_MISMATCH"
+          }
+        ],
+        "path": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+        "record": {
+          "approved_for_phase29": true,
+          "archived_stale_paths": [
+            "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/sweep_manifest.json",
+            "artifacts/sweeps/s6_activation/_history/phase_28/20260822T153901167313Z/phase_28_signoff.json"
+          ],
+          "artifact_version": "SWEEP_S6-v1",
+          "created_at": "2026-08-22T15:39:01.167241+00:00",
+          "discrepancies": [],
+          "environment_id": "ENV-v1",
+          "input_checksums": {
+            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+            "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
+            "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
+            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+            "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+          },
+          "input_paths": [
+            "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+            "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+            "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+            "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
+            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+          ],
+          "output_checksums": {
+            "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
+            "artifacts/sweeps/s6_activation/s6_activation_winner.json": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+            "artifacts/sweeps/s6_activation/s6_reference_update.json": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+            "artifacts/sweeps/s6_activation/sweep_manifest.json": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5"
+          },
+          "output_paths": [
+            "artifacts/sweeps/s6_activation/results.csv",
+            "artifacts/sweeps/s6_activation/sweep_manifest.json",
+            "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+            "artifacts/sweeps/s6_activation/s6_reference_update.json"
+          ],
+          "phase_id": 28,
+          "phase_version": "PHASE-28-v1",
+          "status": "PASS",
+          "test_status": "FORBIDDEN",
+          "tests": [
+            "condition_completeness",
+            "registry_evidence_integrity",
+            "validation_only_selection",
+            "exact_tie_rule",
+            "winner_config_match",
+            "test_firewall"
+          ],
+          "warnings": []
+        },
+        "status": "PASS",
+        "valid": false
+      },
+      "state": "UPSTREAM_INVALID"
     },
-    "config_fingerprint": null,
-    "dataset_revision": null,
-    "environment_id": "ENV-v1",
-    "input_checksums": {
-      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
-      "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json": "6b281faf96ad0a27cddddfc8b90e0970d51c2ced6ee21aaca1be6b6668acd690",
-      "artifacts/sweeps/s5_pooling/phase_27_signoff.json": "0b2edb2090bdf4e4ac72986e7cd8b432c20b11af4b7565e00b0afa01bb3b8916",
-      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
-      "artifacts/sweeps/s5_pooling/s5_reference_update.json": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d"
+    "phase_31_preflight": null,
+    "phase_32_preflight": null,
+    "phase_33_preflight": null,
+    "phase_34_preflight": null,
+    "phase_35_preflight": null,
+    "phase_36_preflight": null,
+    "phase_37_preflight": null,
+    "phase_id": 28,
+    "readiness": {
+      "environment": {
+        "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+        "current_python_version": "3.10.11",
+        "issues": [],
+        "valid": true
+      },
+      "prerequisites": {
+        "records": [
+          {
+            "issues": [
+              {
+                "path": "artifacts/sweeps/s5_pooling/results.csv",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+                "reason": "CHECKSUM_MISMATCH"
+              }
+            ],
+            "path": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+            "status": "SIGNOFF_ARTIFACT_INVALID"
+          },
+          {
+            "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": false
+      },
+      "ready": false,
+      "state": "UPSTREAM_INVALID"
     },
-    "input_paths": [
-      "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
-      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
-      "artifacts/sweeps/s5_pooling/s5_reference_update.json",
-      "artifacts/runs/RUN_TR_S06_0011_8BB9884C/config.json",
-      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json"
+    "reasons": [
+      "artifacts/sweeps/s5_pooling/results.csv: MISSING",
+      "artifacts/sweeps/s5_pooling/sweep_manifest.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s5_pooling/s5_pooling_winner.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s5_pooling/s5_reference_update.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s6_activation/results.csv: MISSING",
+      "artifacts/sweeps/s6_activation/sweep_manifest.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s6_activation/s6_activation_winner.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s6_activation/s6_reference_update.json: CHECKSUM_MISMATCH"
     ],
-    "output_checksums": {
-      "artifacts/sweeps/s6_activation/results.csv": "6bf7b56fc59eaf8aca895af8a079eb9f0060973df82e53c476486686302736ec",
-      "artifacts/sweeps/s6_activation/s6_activation_winner.json": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
-      "artifacts/sweeps/s6_activation/s6_reference_update.json": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d",
-      "artifacts/sweeps/s6_activation/sweep_manifest.json": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c"
-    },
-    "output_paths": [
-      "artifacts/sweeps/s6_activation/results.csv",
-      "artifacts/sweeps/s6_activation/sweep_manifest.json",
-      "artifacts/sweeps/s6_activation/s6_activation_winner.json",
-      "artifacts/sweeps/s6_activation/s6_reference_update.json"
-    ],
-    "sweep_code": "S6",
-    "tests": [
-      "condition_completeness",
-      "registry_evidence_integrity",
-      "validation_only_selection",
-      "exact_tie_rule",
-      "winner_config_match",
-      "test_firewall"
-    ],
-    "variant_count": 2
+    "resolved_action": "BLOCK",
+    "state": "UPSTREAM_INVALID"
   },
-  "timestamp": "2026-08-22T15:39:01.167241+00:00",
   "warnings": []
 }

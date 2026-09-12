@@ -63,7 +63,10 @@ RERUN_REASONS = {
     # case the registry sees an exact-match duplicate.
     "PHASE44_CORRECTIVE_RERUN",
 }
-FEATURE_VARIANTS = {"FS0_TF0", "FS0_TF1", "FS1_TF0", "FS1_TF1", "FS2_TF0", "FS2_TF1"}
+FEATURE_VARIANTS = {
+    "FS0_TF0", "FS0_TF1", "FS1_TF0", "FS1_TF1", "FS2_TF0", "FS2_TF1",
+    "FS2_TF1_DELTA3", "FS2_TF1_ROLL7", "FS2_TF1_LAG144",
+}
 LOOKBACK_OPTIONS = {36, 72, 144}
 TARGET_SCALING_OPTIONS = {"YS0", "YS1"}
 BOUNDARY_PROTOCOLS = {"WB0_CONTEXT_CARRY_OVER", "WB1_STRICT_ISOLATION"}
@@ -112,6 +115,14 @@ V2_NAMESPACE_IDS = frozenset({
     "V2_E07",
     "V2_E08",
     "V2_E09",
+    "V2_E10",
+    "V2_E11",
+    "V2_E12",
+    "V2_E13",
+    "V2_E14",
+    "V2_E15",
+    "V2_E16",
+    "V2_E20",
 })
 
 
@@ -665,7 +676,11 @@ def _validate_positive(value: Any, name: str) -> None:
         raise ValueError(f"{name} must be positive")
 
 
-def validate_run_config(config: dict[str, Any], upstream_context: dict[str, Any]) -> dict[str, Any]:
+def validate_run_config(
+    config: dict[str, Any],
+    upstream_context: dict[str, Any],
+    run_id_namespace: str | None = None,
+) -> dict[str, Any]:
     normalized = canonicalize_config(config)
     required_groups = {"lineage", "data", "model", "training", "reproducibility", "runtime"}
     if set(normalized) != required_groups:
@@ -749,7 +764,12 @@ def validate_run_config(config: dict[str, Any], upstream_context: dict[str, Any]
         if any(value is not None for key, value in training.items() if key != "enabled"):
             raise ValueError("Persistence training fields must be null")
     elif training.get("enabled"):
-        if training.get("batch_size") not in {32, 64}:
+        # Historical/V1 registry governance supports B32/B64. E14 introduced
+        # the pre-registered B16 bundle; E15/E16 inherit the Human-accepted M1
+        # batch size. Keep that allowance namespace-scoped so every other
+        # V1/V2 caller retains the canonical legacy contract.
+        allowed_batch_sizes = {16, 32, 64} if run_id_namespace in {"V2_E14", "V2_E15", "V2_E16", "V2_E20"} else {32, 64}
+        if training.get("batch_size") not in allowed_batch_sizes:
             raise ValueError("Invalid batch size")
         _validate_positive(training.get("learning_rate"), "learning_rate")
         if training.get("weight_decay") is None or training["weight_decay"] < 0:
@@ -1106,7 +1126,9 @@ class ExperimentRegistry:
             raise ValueError("sweep_id must be uppercase alphanumeric with underscores")
         if not factor_name or len(factor_values) < 2:
             raise ValueError("Sweep requires a factor and at least two values")
-        normalized_reference = validate_run_config(reference_config, self.upstream_context)
+        normalized_reference = validate_run_config(
+            reference_config, self.upstream_context, self.run_id_namespace
+        )
         _get_path(normalized_reference, factor_name)
         family = self._family(experiment_family)
         if normalized_reference["model"]["model_family"] != family["model_family"]:
@@ -1167,7 +1189,9 @@ class ExperimentRegistry:
             generated run_id satisfies the canonical plan §2.3 prefix
             requirement (`RUN_TR_FSD_0256+`).
         """
-        normalized = validate_run_config(config, self.upstream_context)
+        normalized = validate_run_config(
+            config, self.upstream_context, self.run_id_namespace
+        )
         family = self._family(experiment_family)
         execution = ExecutionType(execution_type).value
         model_family = normalized["model"]["model_family"]
@@ -1997,7 +2021,9 @@ class ExperimentRegistry:
         sweep_references_valid = True
         for record in records:
             try:
-                validate_run_config(record["config"], self.upstream_context)
+                validate_run_config(
+                    record["config"], self.upstream_context, self.run_id_namespace
+                )
                 self._verify_config_immutability(record)
                 config_valid = config_valid and compute_config_fingerprint(record["config"]) == record["config_fingerprint"]
             except (KeyError, TypeError, ValueError, RuntimeError):

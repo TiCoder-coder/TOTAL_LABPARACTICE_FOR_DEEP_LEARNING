@@ -1,0 +1,56 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_E15_HUMAN_DECISION-v1",
+  "experiment_id": "E15",
+  "decision": "REJECT_E15",
+  "accepted_incumbent": "TR_C2_ALT_LOOKBACK_E14_M1",
+  "accepted_config_fingerprint": "ff99dba3b57d38308f412a76c936b3a1f2a99ab8835e465417090ebfda49bc77",
+  "accepted_architecture": {
+    "d_model": 64,
+    "num_heads": 4,
+    "ffn_dim": 256,
+    "num_layers": 2,
+    "norm_order": "POST_LN"
+  },
+  "accepted_training": {
+    "learning_rate": 0.0002,
+    "batch_size": 16,
+    "dropout": 0.1,
+    "gradient_clip_max_norm": 1.0,
+    "optimizer": "AdamW",
+    "weight_decay": 0.001,
+    "scheduler": "OFF",
+    "loss_policy": "HYBRID_LEVEL_PLUS_DELTA",
+    "lambda_delta": 0.1
+  },
+  "challengers": {
+    "W96": {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "decision": "REJECT",
+      "rmse_degradation_wh": 3.135847155495746,
+      "mae_degradation_wh": 1.3616911511708132,
+      "worst_fold_rmse_degradation_wh": 7.682286496830969,
+      "fold_rmse_sd_degradation_wh": 3.2475349964500984
+    },
+    "W128": {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "decision": "REJECT",
+      "rmse_degradation_wh": 2.1368643657444792,
+      "mae_degradation_wh": 1.3776933007456407,
+      "worst_fold_rmse_degradation_wh": 7.73435831715625,
+      "fold_rmse_sd_degradation_wh": 3.698310653422273
+    }
+  },
+  "scientific_data_gates": {
+    "provenance_checksum": "PASS",
+    "population_equality": "PASS",
+    "fold_local_scaling": "PASS",
+    "leakage_audit": "PASS",
+    "test_firewall": "PASS"
+  },
+  "source_comparison_sha256": "4e90276e905b119b7dcf887b79e9c5a380398c64978e1adf91d07bfc24838a2e",
+  "source_config_snapshot_sha256": "6f7fbfb1c3dee47071260ae07a05d67c1d2af8b732b0826c15538f9e03c122a8",
+  "previous_incumbent_preserved": true,
+  "automatic_promotion": false,
+  "decision_authority": "HUMAN",
+  "test_status": "NOT_ACCESSED"
+}

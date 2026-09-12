@@ -41,6 +41,14 @@ HISTORY_COLUMNS = [
     "epoch_seconds",
     "is_best",
 ]
+E13_HISTORY_COLUMNS = [
+    "level_mse", "delta_smooth_l1", "weighted_delta_loss", "total_loss"
+]
+
+
+def history_columns_for_training(training: dict[str, Any]) -> list[str]:
+    from course_work.model_improvement_v2.hybrid_loss import is_hybrid_policy
+    return HISTORY_COLUMNS + (E13_HISTORY_COLUMNS if is_hybrid_policy(training) else [])
 
 
 @dataclass(frozen=True)
@@ -259,6 +267,8 @@ class TrainingEngine:
         else:
             _lr_scheduler = None
         loss_fn = build_training_criterion(training)
+        from course_work.model_improvement_v2.hybrid_loss import is_hybrid_policy
+        hybrid_enabled = is_hybrid_policy(training)
         early_stop = EarlyStopping(patience=patience, mode="MIN")
         history_rows: list[dict[str, Any]] = []
         best_state: dict[str, torch.Tensor] | None = None
@@ -300,6 +310,7 @@ class TrainingEngine:
 
             model.train()
             epoch_loss = 0.0
+            epoch_components = {name: 0.0 for name in E13_HISTORY_COLUMNS}
             sample_count = 0
             batch_count = 0
             total_batches = len(train_loader)
@@ -313,7 +324,16 @@ class TrainingEngine:
                 optimizer.zero_grad(set_to_none=True)
                 predictions = model(x)
                 validate_criterion_inputs(predictions, y)
-                loss = loss_fn(predictions, y)
+                if hybrid_enabled:
+                    from course_work.model_improvement_v2.hybrid_loss import component_values, compute_hybrid_loss
+                    if "y_context_raw_wh" not in batch:
+                        raise RuntimeError("E13 requires explicit past-only y_context_raw_wh")
+                    components = compute_hybrid_loss(predictions, y, batch["y_context_raw_wh"], target_scaler_bundle, training)
+                    loss = components.total_loss
+                    values = component_values(components)
+                else:
+                    loss = loss_fn(predictions, y)
+                    values = {}
                 loss.backward()
 
                 # Phase 39: Non-finite gradient guard
@@ -357,6 +377,8 @@ class TrainingEngine:
                 optimizer.step()
                 batch_size = x.shape[0]
                 epoch_loss += float(loss.item()) * batch_size
+                for name, value in values.items():
+                    epoch_components[name] += value * batch_size
                 sample_count += batch_size
                 batch_count += 1
 
@@ -457,8 +479,7 @@ class TrainingEngine:
             # CRITICAL: We capture lr_used_for_epoch at the START of the epoch
             # (above the training loop), NOT after scheduler.step(). The
             # scheduler step adjusts the LR for epoch k+1, not epoch k.
-            history_rows.append(
-                {
+            history_row = {
                     "epoch": epoch,
                     "train_loss": train_loss,
                     "train_rmse_wh": train_metric.rmse_wh,
@@ -477,7 +498,9 @@ class TrainingEngine:
                     "epoch_seconds": epoch_seconds,
                     "is_best": improved,
                 }
-            )
+            if hybrid_enabled:
+                history_row.update({name: total / max(sample_count, 1) for name, total in epoch_components.items()})
+            history_rows.append(history_row)
 
             # V2 E07-B: Step LR scheduler after epoch completes (and after
             # the history row is recorded for THIS epoch).
@@ -500,7 +523,7 @@ class TrainingEngine:
         if best_state is None or best_metric_result is None:
             raise RuntimeError("Training did not produce a best checkpoint")
         model.load_state_dict(best_state)
-        history = pd.DataFrame(history_rows, columns=HISTORY_COLUMNS)
+        history = pd.DataFrame(history_rows, columns=history_columns_for_training(training))
 
         # FINAL_REFIT semantics: when evaluate_validation=False, official_epoch
         # equals the final epoch (max_epochs), not the early-stop best_epoch.
@@ -565,7 +588,8 @@ class TrainingEngine:
         torch.save(payload, best_path)
         torch.save(payload, last_path)
         history_path = run_directory / "training_history.csv"
-        atomic_write_bytes(history_path, csv_text(HISTORY_COLUMNS, result.history.to_dict(orient="records")).encode("utf-8"))
+        columns = history_columns_for_training(self.registry.get_run(run_id)["config"]["training"])
+        atomic_write_bytes(history_path, csv_text(columns, result.history.to_dict(orient="records")).encode("utf-8"))
         log_path = run_directory / "training.log"
         log_path.write_text(f"best_epoch={result.best_epoch}\nstopped_reason={result.stopped_reason}\n", encoding="utf-8")
         metrics_dir = run_directory / "metrics"

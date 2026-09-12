@@ -1,7 +1,16 @@
 {
-  "artifact_version": "SWEEP_S4-v1",
-  "created_at": "2026-08-22T15:30:48.515664+00:00",
-  "discrepancies": [],
+  "artifact_version": "SELECTIVE-RESUME-v1",
+  "created_at": "2026-09-12T08:49:34.574831+00:00",
+  "discrepancies": [
+    "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+    "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+    "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+  ],
   "phase_id": 26,
   "phase_name": "S4 Lookback Sweep",
   "phase_version": "PHASE-26-v1",
@@ -10,198 +19,2328 @@
     {
       "rows": [
         {
-          "Field": "activation_id",
-          "Value": "GELU"
+          "Required artifact": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+          "Validation": "SIGNOFF_ARTIFACT_INVALID"
         },
         {
-          "Field": "batch_id",
-          "Value": "B64"
+          "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+          "Validation": "PASS"
         },
         {
-          "Field": "condition_id",
-          "Value": "L36"
-        },
+          "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+          "Validation": "PASS"
+        }
+      ],
+      "title": "Prerequisite validation"
+    },
+    {
+      "rows": [
         {
-          "Field": "config_fingerprint",
-          "Value": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f"
-        },
-        {
-          "Field": "d_model",
-          "Value": 64
-        },
-        {
-          "Field": "d_model_id",
-          "Value": "D64"
-        },
-        {
-          "Field": "dropout",
-          "Value": 0.1
-        },
-        {
-          "Field": "factor_value",
+          "Condition": "L36",
+          "Evidence": "INVALID",
+          "Evidence mode": null,
+          "Run ID": "RUN_TR_S04_0008_133EF4E3",
+          "Validation RMSE Wh": null,
           "Value": 36
         },
         {
-          "Field": "feature_variant_id",
-          "Value": "FS2_TF1"
+          "Condition": "L72",
+          "Evidence": "INVALID",
+          "Evidence mode": null,
+          "Run ID": "RUN_TR_S04_0009_7DCE8B09",
+          "Validation RMSE Wh": null,
+          "Value": 72
         },
         {
-          "Field": "ffn_dim",
-          "Value": 128
-        },
-        {
-          "Field": "learning_rate",
-          "Value": 0.0003
-        },
-        {
-          "Field": "lookback_id",
-          "Value": "L36"
-        },
-        {
-          "Field": "metric_version",
-          "Value": "METRICS-v1"
-        },
-        {
-          "Field": "num_heads",
-          "Value": 4
-        },
-        {
-          "Field": "num_layers",
-          "Value": 2
-        },
-        {
-          "Field": "pooling_id",
-          "Value": "LAST_STEP"
-        },
-        {
-          "Field": "population_fingerprint",
-          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
-        },
-        {
-          "Field": "reused_reference",
-          "Value": false
-        },
-        {
-          "Field": "run_id",
-          "Value": "RUN_TR_S04_0008_133EF4E3"
-        },
-        {
-          "Field": "target_scaling_id",
-          "Value": "YS1"
-        },
-        {
-          "Field": "validation_mae_wh",
-          "Value": 27.41859357267982
-        },
-        {
-          "Field": "validation_r2",
-          "Value": 0.5904020802432752
-        },
-        {
-          "Field": "validation_rmse_wh",
-          "Value": 59.03287348979047
-        },
-        {
-          "Field": "weight_decay",
-          "Value": 0.0001
+          "Condition": "L144",
+          "Evidence": "INVALID",
+          "Evidence mode": null,
+          "Run ID": "RUN_TR_S01_0005_57E974CF",
+          "Validation RMSE Wh": null,
+          "Value": 144
         }
       ],
-      "title": "Best variant details"
+      "title": "Condition evidence"
     }
   ],
-  "source_artifacts": [
-    {
-      "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
-      "role": "manifest",
-      "sha256": "46a5ceeb18d6f7ed08b69a6cff6a293088bb7e0bb2c3789d217dae4a5ac84c17"
-    },
-    {
-      "path": "artifacts/sweeps/s4_lookback/results.csv",
-      "role": "results",
-      "sha256": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0"
-    },
-    {
-      "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
-      "role": "signoff",
-      "sha256": "ab3bd8eb42a8cf88d630a61e72c7780cd9b82ac0a79d7d7ce9e436c81b440c7f"
-    }
-  ],
-  "status": "PASS",
+  "source_artifacts": [],
+  "status": "BLOCKED",
   "summary": {
-    "Best variant": "N/A",
-    "Sweep code": "S4",
-    "Sweep name": "S4 Lookback Sweep",
-    "Variant count": 3
+    "Effective action": "BLOCK",
+    "Execution authorized": false,
+    "Resolved action": "BLOCK",
+    "State": "UPSTREAM_INVALID"
   },
   "technical_details": {
-    "best_variant": {
-      "activation_id": "GELU",
-      "batch_id": "B64",
-      "condition_id": "L36",
-      "config_fingerprint": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f",
-      "d_model": 64,
-      "d_model_id": "D64",
-      "dropout": 0.1,
-      "factor_value": 36,
-      "feature_variant_id": "FS2_TF1",
-      "ffn_dim": 128,
-      "learning_rate": 0.0003,
-      "lookback_id": "L36",
-      "metric_version": "METRICS-v1",
-      "num_heads": 4,
-      "num_layers": 2,
-      "pooling_id": "LAST_STEP",
-      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
-      "reused_reference": false,
-      "run_id": "RUN_TR_S04_0008_133EF4E3",
-      "target_scaling_id": "YS1",
-      "validation_mae_wh": 27.41859357267982,
-      "validation_r2": 0.5904020802432752,
-      "validation_rmse_wh": 59.03287348979047,
-      "weight_decay": 0.0001
+    "effective_action": "BLOCK",
+    "execution_authorized": false,
+    "inspection": {
+      "action": "BLOCK",
+      "artifact_root": "artifacts/sweeps/s4_lookback",
+      "artifacts": {
+        "records": [
+          {
+            "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s4_lookback/results.csv",
+            "status": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": false
+      },
+      "conditions": {
+        "complete": false,
+        "expected_conditions": [
+          "L36",
+          "L72",
+          "L144"
+        ],
+        "failed_conditions": [],
+        "invalid_conditions": [
+          {
+            "condition_id": "L36",
+            "reasons": [
+              {
+                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                "reason": "MISSING"
+              }
+            ],
+            "run_id": "RUN_TR_S04_0008_133EF4E3"
+          },
+          {
+            "condition_id": "L72",
+            "reasons": [
+              {
+                "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/training.log",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/checkpoints/best_checkpoint.pt",
+                "reason": "MISSING"
+              }
+            ],
+            "run_id": "RUN_TR_S04_0009_7DCE8B09"
+          },
+          {
+            "condition_id": "L144",
+            "reasons": [
+              {
+                "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/training.log",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/checkpoints/best_checkpoint.pt",
+                "reason": "MISSING"
+              }
+            ],
+            "run_id": "RUN_TR_S01_0005_57E974CF"
+          }
+        ],
+        "missing_conditions": [
+          "L36",
+          "L72",
+          "L144"
+        ],
+        "reference_condition": "L144",
+        "reference_run_id": "RUN_TR_S01_0005_57E974CF",
+        "registry_issues": [],
+        "running_conditions": [],
+        "verified_conditions": []
+      },
+      "phase_id": 26,
+      "phase_name": "S4 Lookback Sweep",
+      "prerequisites": {
+        "records": [
+          {
+            "issues": [
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                "reason": "CHECKSUM_MISMATCH"
+              }
+            ],
+            "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+            "status": "SIGNOFF_ARTIFACT_INVALID"
+          },
+          {
+            "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": false
+      },
+      "processing_log": {
+        "issues": [],
+        "path": "docs/save_log_in_processing/phase_26_s4_lookback_log.json",
+        "record": {
+          "artifact_version": "SELECTIVE-RESUME-v1",
+          "created_at": "2026-09-12T08:48:23.761173+00:00",
+          "discrepancies": [
+            "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+            "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+            "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+            "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+          ],
+          "phase_id": 26,
+          "phase_name": "S4 Lookback Sweep",
+          "phase_version": "PHASE-26-v1",
+          "presentation_version": "PHASE-PRESENTATION-v2",
+          "sections": [
+            {
+              "rows": [
+                {
+                  "Required artifact": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                  "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                },
+                {
+                  "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                  "Validation": "PASS"
+                },
+                {
+                  "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                  "Validation": "PASS"
+                }
+              ],
+              "title": "Prerequisite validation"
+            },
+            {
+              "rows": [
+                {
+                  "Condition": "L36",
+                  "Evidence": "INVALID",
+                  "Evidence mode": null,
+                  "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                  "Validation RMSE Wh": null,
+                  "Value": 36
+                },
+                {
+                  "Condition": "L72",
+                  "Evidence": "INVALID",
+                  "Evidence mode": null,
+                  "Run ID": "RUN_TR_S04_0009_7DCE8B09",
+                  "Validation RMSE Wh": null,
+                  "Value": 72
+                },
+                {
+                  "Condition": "L144",
+                  "Evidence": "INVALID",
+                  "Evidence mode": null,
+                  "Run ID": "RUN_TR_S01_0005_57E974CF",
+                  "Validation RMSE Wh": null,
+                  "Value": 144
+                }
+              ],
+              "title": "Condition evidence"
+            }
+          ],
+          "source_artifacts": [],
+          "status": "BLOCKED",
+          "summary": {
+            "Effective action": "BLOCK",
+            "Execution authorized": false,
+            "Resolved action": "BLOCK",
+            "State": "UPSTREAM_INVALID"
+          },
+          "technical_details": {
+            "effective_action": "BLOCK",
+            "execution_authorized": false,
+            "inspection": {
+              "action": "BLOCK",
+              "artifact_root": "artifacts/sweeps/s4_lookback",
+              "artifacts": {
+                "records": [
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/results.csv",
+                    "status": "MISSING"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                    "status": "PASS"
+                  }
+                ],
+                "valid": false
+              },
+              "conditions": {
+                "complete": false,
+                "expected_conditions": [
+                  "L36",
+                  "L72",
+                  "L144"
+                ],
+                "failed_conditions": [],
+                "invalid_conditions": [
+                  {
+                    "condition_id": "L36",
+                    "reasons": [
+                      {
+                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                        "reason": "MISSING"
+                      }
+                    ],
+                    "run_id": "RUN_TR_S04_0008_133EF4E3"
+                  },
+                  {
+                    "condition_id": "L72",
+                    "reasons": [
+                      {
+                        "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/training.log",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/checkpoints/best_checkpoint.pt",
+                        "reason": "MISSING"
+                      }
+                    ],
+                    "run_id": "RUN_TR_S04_0009_7DCE8B09"
+                  },
+                  {
+                    "condition_id": "L144",
+                    "reasons": [
+                      {
+                        "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/training.log",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/checkpoints/best_checkpoint.pt",
+                        "reason": "MISSING"
+                      }
+                    ],
+                    "run_id": "RUN_TR_S01_0005_57E974CF"
+                  }
+                ],
+                "missing_conditions": [
+                  "L36",
+                  "L72",
+                  "L144"
+                ],
+                "reference_condition": "L144",
+                "reference_run_id": "RUN_TR_S01_0005_57E974CF",
+                "registry_issues": [],
+                "running_conditions": [],
+                "verified_conditions": []
+              },
+              "phase_id": 26,
+              "phase_name": "S4 Lookback Sweep",
+              "prerequisites": {
+                "records": [
+                  {
+                    "issues": [
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      }
+                    ],
+                    "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                    "status": "PASS"
+                  }
+                ],
+                "valid": false
+              },
+              "processing_log": {
+                "issues": [],
+                "path": "docs/save_log_in_processing/phase_26_s4_lookback_log.json",
+                "record": {
+                  "artifact_version": "SELECTIVE-RESUME-v1",
+                  "created_at": "2026-09-12T08:23:41.678463+00:00",
+                  "discrepancies": [
+                    "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                    "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                    "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                  ],
+                  "phase_id": 26,
+                  "phase_name": "S4 Lookback Sweep",
+                  "phase_version": "PHASE-26-v1",
+                  "presentation_version": "PHASE-PRESENTATION-v2",
+                  "sections": [
+                    {
+                      "rows": [
+                        {
+                          "Required artifact": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                          "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                        },
+                        {
+                          "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                          "Validation": "PASS"
+                        },
+                        {
+                          "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                          "Validation": "PASS"
+                        }
+                      ],
+                      "title": "Prerequisite validation"
+                    },
+                    {
+                      "rows": [
+                        {
+                          "Condition": "L36",
+                          "Evidence": "INVALID",
+                          "Evidence mode": null,
+                          "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                          "Validation RMSE Wh": null,
+                          "Value": 36
+                        },
+                        {
+                          "Condition": "L72",
+                          "Evidence": "INVALID",
+                          "Evidence mode": null,
+                          "Run ID": "RUN_TR_S04_0009_7DCE8B09",
+                          "Validation RMSE Wh": null,
+                          "Value": 72
+                        },
+                        {
+                          "Condition": "L144",
+                          "Evidence": "INVALID",
+                          "Evidence mode": null,
+                          "Run ID": "RUN_TR_S01_0005_57E974CF",
+                          "Validation RMSE Wh": null,
+                          "Value": 144
+                        }
+                      ],
+                      "title": "Condition evidence"
+                    }
+                  ],
+                  "source_artifacts": [],
+                  "status": "BLOCKED",
+                  "summary": {
+                    "Effective action": "BLOCK",
+                    "Execution authorized": false,
+                    "Resolved action": "BLOCK",
+                    "State": "UPSTREAM_INVALID"
+                  },
+                  "technical_details": {
+                    "effective_action": "BLOCK",
+                    "execution_authorized": false,
+                    "inspection": {
+                      "action": "BLOCK",
+                      "artifact_root": "artifacts/sweeps/s4_lookback",
+                      "artifacts": {
+                        "records": [
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/results.csv",
+                            "status": "MISSING"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                            "status": "PASS"
+                          }
+                        ],
+                        "valid": false
+                      },
+                      "conditions": {
+                        "complete": false,
+                        "expected_conditions": [
+                          "L36",
+                          "L72",
+                          "L144"
+                        ],
+                        "failed_conditions": [],
+                        "invalid_conditions": [
+                          {
+                            "condition_id": "L36",
+                            "reasons": [
+                              {
+                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                "reason": "MISSING"
+                              }
+                            ],
+                            "run_id": "RUN_TR_S04_0008_133EF4E3"
+                          },
+                          {
+                            "condition_id": "L72",
+                            "reasons": [
+                              {
+                                "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/training.log",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/checkpoints/best_checkpoint.pt",
+                                "reason": "MISSING"
+                              }
+                            ],
+                            "run_id": "RUN_TR_S04_0009_7DCE8B09"
+                          },
+                          {
+                            "condition_id": "L144",
+                            "reasons": [
+                              {
+                                "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/training.log",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/checkpoints/best_checkpoint.pt",
+                                "reason": "MISSING"
+                              }
+                            ],
+                            "run_id": "RUN_TR_S01_0005_57E974CF"
+                          }
+                        ],
+                        "missing_conditions": [
+                          "L36",
+                          "L72",
+                          "L144"
+                        ],
+                        "reference_condition": "L144",
+                        "reference_run_id": "RUN_TR_S01_0005_57E974CF",
+                        "registry_issues": [],
+                        "running_conditions": [],
+                        "verified_conditions": []
+                      },
+                      "phase_id": 26,
+                      "phase_name": "S4 Lookback Sweep",
+                      "prerequisites": {
+                        "records": [
+                          {
+                            "issues": [
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              }
+                            ],
+                            "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                            "status": "PASS"
+                          }
+                        ],
+                        "valid": false
+                      },
+                      "processing_log": {
+                        "issues": [],
+                        "path": "docs/save_log_in_processing/phase_26_s4_lookback_log.json",
+                        "record": {
+                          "artifact_version": "SELECTIVE-RESUME-v1",
+                          "created_at": "2026-09-12T08:23:08.292140+00:00",
+                          "discrepancies": [
+                            "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                            "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                            "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                            "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                          ],
+                          "phase_id": 26,
+                          "phase_name": "S4 Lookback Sweep",
+                          "phase_version": "PHASE-26-v1",
+                          "presentation_version": "PHASE-PRESENTATION-v2",
+                          "sections": [
+                            {
+                              "rows": [
+                                {
+                                  "Required artifact": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                  "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                                },
+                                {
+                                  "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                  "Validation": "PASS"
+                                },
+                                {
+                                  "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                  "Validation": "PASS"
+                                }
+                              ],
+                              "title": "Prerequisite validation"
+                            },
+                            {
+                              "rows": [
+                                {
+                                  "Condition": "L36",
+                                  "Evidence": "INVALID",
+                                  "Evidence mode": null,
+                                  "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                                  "Validation RMSE Wh": null,
+                                  "Value": 36
+                                },
+                                {
+                                  "Condition": "L72",
+                                  "Evidence": "INVALID",
+                                  "Evidence mode": null,
+                                  "Run ID": "RUN_TR_S04_0009_7DCE8B09",
+                                  "Validation RMSE Wh": null,
+                                  "Value": 72
+                                },
+                                {
+                                  "Condition": "L144",
+                                  "Evidence": "INVALID",
+                                  "Evidence mode": null,
+                                  "Run ID": "RUN_TR_S01_0005_57E974CF",
+                                  "Validation RMSE Wh": null,
+                                  "Value": 144
+                                }
+                              ],
+                              "title": "Condition evidence"
+                            }
+                          ],
+                          "source_artifacts": [],
+                          "status": "BLOCKED",
+                          "summary": {
+                            "Effective action": "BLOCK",
+                            "Execution authorized": false,
+                            "Resolved action": "BLOCK",
+                            "State": "UPSTREAM_INVALID"
+                          },
+                          "technical_details": {
+                            "effective_action": "BLOCK",
+                            "execution_authorized": false,
+                            "inspection": {
+                              "action": "BLOCK",
+                              "artifact_root": "artifacts/sweeps/s4_lookback",
+                              "artifacts": {
+                                "records": [
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                    "status": "MISSING"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                    "status": "PASS"
+                                  }
+                                ],
+                                "valid": false
+                              },
+                              "conditions": {
+                                "complete": false,
+                                "expected_conditions": [
+                                  "L36",
+                                  "L72",
+                                  "L144"
+                                ],
+                                "failed_conditions": [],
+                                "invalid_conditions": [
+                                  {
+                                    "condition_id": "L36",
+                                    "reasons": [
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                        "reason": "MISSING"
+                                      }
+                                    ],
+                                    "run_id": "RUN_TR_S04_0008_133EF4E3"
+                                  },
+                                  {
+                                    "condition_id": "L72",
+                                    "reasons": [
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/training.log",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/checkpoints/best_checkpoint.pt",
+                                        "reason": "MISSING"
+                                      }
+                                    ],
+                                    "run_id": "RUN_TR_S04_0009_7DCE8B09"
+                                  },
+                                  {
+                                    "condition_id": "L144",
+                                    "reasons": [
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/training.log",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/checkpoints/best_checkpoint.pt",
+                                        "reason": "MISSING"
+                                      }
+                                    ],
+                                    "run_id": "RUN_TR_S01_0005_57E974CF"
+                                  }
+                                ],
+                                "missing_conditions": [
+                                  "L36",
+                                  "L72",
+                                  "L144"
+                                ],
+                                "reference_condition": "L144",
+                                "reference_run_id": "RUN_TR_S01_0005_57E974CF",
+                                "registry_issues": [],
+                                "running_conditions": [],
+                                "verified_conditions": []
+                              },
+                              "phase_id": 26,
+                              "phase_name": "S4 Lookback Sweep",
+                              "prerequisites": {
+                                "records": [
+                                  {
+                                    "issues": [
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      }
+                                    ],
+                                    "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                    "status": "PASS"
+                                  }
+                                ],
+                                "valid": false
+                              },
+                              "processing_log": {
+                                "issues": [],
+                                "path": "docs/save_log_in_processing/phase_26_s4_lookback_log.json",
+                                "record": {
+                                  "artifact_version": "SELECTIVE-RESUME-v1",
+                                  "created_at": "2026-09-12T08:22:12.298425+00:00",
+                                  "discrepancies": [
+                                    "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                                    "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                                    "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                                    "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                                  ],
+                                  "phase_id": 26,
+                                  "phase_name": "S4 Lookback Sweep",
+                                  "phase_version": "PHASE-26-v1",
+                                  "presentation_version": "PHASE-PRESENTATION-v2",
+                                  "sections": [
+                                    {
+                                      "rows": [
+                                        {
+                                          "Required artifact": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                          "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                                        },
+                                        {
+                                          "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                          "Validation": "PASS"
+                                        },
+                                        {
+                                          "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                          "Validation": "PASS"
+                                        }
+                                      ],
+                                      "title": "Prerequisite validation"
+                                    },
+                                    {
+                                      "rows": [
+                                        {
+                                          "Condition": "L36",
+                                          "Evidence": "INVALID",
+                                          "Evidence mode": null,
+                                          "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                                          "Validation RMSE Wh": null,
+                                          "Value": 36
+                                        },
+                                        {
+                                          "Condition": "L72",
+                                          "Evidence": "INVALID",
+                                          "Evidence mode": null,
+                                          "Run ID": "RUN_TR_S04_0009_7DCE8B09",
+                                          "Validation RMSE Wh": null,
+                                          "Value": 72
+                                        },
+                                        {
+                                          "Condition": "L144",
+                                          "Evidence": "INVALID",
+                                          "Evidence mode": null,
+                                          "Run ID": "RUN_TR_S01_0005_57E974CF",
+                                          "Validation RMSE Wh": null,
+                                          "Value": 144
+                                        }
+                                      ],
+                                      "title": "Condition evidence"
+                                    }
+                                  ],
+                                  "source_artifacts": [],
+                                  "status": "BLOCKED",
+                                  "summary": {
+                                    "Effective action": "BLOCK",
+                                    "Execution authorized": false,
+                                    "Resolved action": "BLOCK",
+                                    "State": "UPSTREAM_INVALID"
+                                  },
+                                  "technical_details": {
+                                    "effective_action": "BLOCK",
+                                    "execution_authorized": false,
+                                    "inspection": {
+                                      "action": "BLOCK",
+                                      "artifact_root": "artifacts/sweeps/s4_lookback",
+                                      "artifacts": {
+                                        "records": [
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                            "status": "MISSING"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                            "status": "PASS"
+                                          }
+                                        ],
+                                        "valid": false
+                                      },
+                                      "conditions": {
+                                        "complete": false,
+                                        "expected_conditions": [
+                                          "L36",
+                                          "L72",
+                                          "L144"
+                                        ],
+                                        "failed_conditions": [],
+                                        "invalid_conditions": [
+                                          {
+                                            "condition_id": "L36",
+                                            "reasons": [
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                                "reason": "MISSING"
+                                              }
+                                            ],
+                                            "run_id": "RUN_TR_S04_0008_133EF4E3"
+                                          },
+                                          {
+                                            "condition_id": "L72",
+                                            "reasons": [
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/training.log",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/checkpoints/best_checkpoint.pt",
+                                                "reason": "MISSING"
+                                              }
+                                            ],
+                                            "run_id": "RUN_TR_S04_0009_7DCE8B09"
+                                          },
+                                          {
+                                            "condition_id": "L144",
+                                            "reasons": [
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/training.log",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/checkpoints/best_checkpoint.pt",
+                                                "reason": "MISSING"
+                                              }
+                                            ],
+                                            "run_id": "RUN_TR_S01_0005_57E974CF"
+                                          }
+                                        ],
+                                        "missing_conditions": [
+                                          "L36",
+                                          "L72",
+                                          "L144"
+                                        ],
+                                        "reference_condition": "L144",
+                                        "reference_run_id": "RUN_TR_S01_0005_57E974CF",
+                                        "registry_issues": [],
+                                        "running_conditions": [],
+                                        "verified_conditions": []
+                                      },
+                                      "phase_id": 26,
+                                      "phase_name": "S4 Lookback Sweep",
+                                      "prerequisites": {
+                                        "records": [
+                                          {
+                                            "issues": [
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              }
+                                            ],
+                                            "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                            "status": "PASS"
+                                          }
+                                        ],
+                                        "valid": false
+                                      },
+                                      "processing_log": {
+                                        "issues": [],
+                                        "path": "docs/save_log_in_processing/phase_26_s4_lookback_log.json",
+                                        "record": {
+                                          "artifact_version": "SELECTIVE-RESUME-v1",
+                                          "created_at": "2026-09-12T08:21:45.311797+00:00",
+                                          "discrepancies": [
+                                            "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                                            "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                                            "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                                            "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                                          ],
+                                          "phase_id": 26,
+                                          "phase_name": "S4 Lookback Sweep",
+                                          "phase_version": "PHASE-26-v1",
+                                          "presentation_version": "PHASE-PRESENTATION-v2",
+                                          "sections": [
+                                            {
+                                              "rows": [
+                                                {
+                                                  "Required artifact": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                                  "Validation": "SIGNOFF_ARTIFACT_INVALID"
+                                                },
+                                                {
+                                                  "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                  "Validation": "PASS"
+                                                },
+                                                {
+                                                  "Required artifact": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                  "Validation": "PASS"
+                                                }
+                                              ],
+                                              "title": "Prerequisite validation"
+                                            },
+                                            {
+                                              "rows": [
+                                                {
+                                                  "Condition": "L36",
+                                                  "Evidence": "INVALID",
+                                                  "Evidence mode": null,
+                                                  "Run ID": "RUN_TR_S04_0008_133EF4E3",
+                                                  "Validation RMSE Wh": null,
+                                                  "Value": 36
+                                                },
+                                                {
+                                                  "Condition": "L72",
+                                                  "Evidence": "INVALID",
+                                                  "Evidence mode": null,
+                                                  "Run ID": "RUN_TR_S04_0009_7DCE8B09",
+                                                  "Validation RMSE Wh": null,
+                                                  "Value": 72
+                                                },
+                                                {
+                                                  "Condition": "L144",
+                                                  "Evidence": "INVALID",
+                                                  "Evidence mode": null,
+                                                  "Run ID": "RUN_TR_S01_0005_57E974CF",
+                                                  "Validation RMSE Wh": null,
+                                                  "Value": 144
+                                                }
+                                              ],
+                                              "title": "Condition evidence"
+                                            }
+                                          ],
+                                          "source_artifacts": [],
+                                          "status": "BLOCKED",
+                                          "summary": {
+                                            "Effective action": "BLOCK",
+                                            "Execution authorized": false,
+                                            "Resolved action": "BLOCK",
+                                            "State": "UPSTREAM_INVALID"
+                                          },
+                                          "technical_details": {
+                                            "effective_action": "BLOCK",
+                                            "execution_authorized": false,
+                                            "inspection": {
+                                              "action": "BLOCK",
+                                              "artifact_root": "artifacts/sweeps/s4_lookback",
+                                              "artifacts": {
+                                                "records": [
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                                    "status": "MISSING"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                                    "status": "PASS"
+                                                  }
+                                                ],
+                                                "valid": false
+                                              },
+                                              "conditions": {
+                                                "complete": false,
+                                                "expected_conditions": [
+                                                  "L36",
+                                                  "L72",
+                                                  "L144"
+                                                ],
+                                                "failed_conditions": [],
+                                                "invalid_conditions": [
+                                                  {
+                                                    "condition_id": "L36",
+                                                    "reasons": [
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/training.log",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S04_0008_133EF4E3/checkpoints/best_checkpoint.pt",
+                                                        "reason": "MISSING"
+                                                      }
+                                                    ],
+                                                    "run_id": "RUN_TR_S04_0008_133EF4E3"
+                                                  },
+                                                  {
+                                                    "condition_id": "L72",
+                                                    "reasons": [
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/training.log",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/checkpoints/best_checkpoint.pt",
+                                                        "reason": "MISSING"
+                                                      }
+                                                    ],
+                                                    "run_id": "RUN_TR_S04_0009_7DCE8B09"
+                                                  },
+                                                  {
+                                                    "condition_id": "L144",
+                                                    "reasons": [
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/training.log",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/runs/RUN_TR_S01_0005_57E974CF/checkpoints/best_checkpoint.pt",
+                                                        "reason": "MISSING"
+                                                      }
+                                                    ],
+                                                    "run_id": "RUN_TR_S01_0005_57E974CF"
+                                                  }
+                                                ],
+                                                "missing_conditions": [
+                                                  "L36",
+                                                  "L72",
+                                                  "L144"
+                                                ],
+                                                "reference_condition": "L144",
+                                                "reference_run_id": "RUN_TR_S01_0005_57E974CF",
+                                                "registry_issues": [],
+                                                "running_conditions": [],
+                                                "verified_conditions": []
+                                              },
+                                              "phase_id": 26,
+                                              "phase_name": "S4 Lookback Sweep",
+                                              "prerequisites": {
+                                                "records": [
+                                                  {
+                                                    "issues": [
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      }
+                                                    ],
+                                                    "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                    "status": "PASS"
+                                                  }
+                                                ],
+                                                "valid": false
+                                              },
+                                              "processing_log": {
+                                                "issues": [
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                                    "reason": "MISSING"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  }
+                                                ],
+                                                "path": "docs/save_log_in_processing/phase_26_s4_lookback_log.json",
+                                                "record": {
+                                                  "artifact_version": "SWEEP_S4-v1",
+                                                  "created_at": "2026-08-22T15:30:48.515664+00:00",
+                                                  "discrepancies": [],
+                                                  "phase_id": 26,
+                                                  "phase_name": "S4 Lookback Sweep",
+                                                  "phase_version": "PHASE-26-v1",
+                                                  "presentation_version": "PHASE-PRESENTATION-v2",
+                                                  "sections": [
+                                                    {
+                                                      "rows": [
+                                                        {
+                                                          "Field": "activation_id",
+                                                          "Value": "GELU"
+                                                        },
+                                                        {
+                                                          "Field": "batch_id",
+                                                          "Value": "B64"
+                                                        },
+                                                        {
+                                                          "Field": "condition_id",
+                                                          "Value": "L36"
+                                                        },
+                                                        {
+                                                          "Field": "config_fingerprint",
+                                                          "Value": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f"
+                                                        },
+                                                        {
+                                                          "Field": "d_model",
+                                                          "Value": 64
+                                                        },
+                                                        {
+                                                          "Field": "d_model_id",
+                                                          "Value": "D64"
+                                                        },
+                                                        {
+                                                          "Field": "dropout",
+                                                          "Value": 0.1
+                                                        },
+                                                        {
+                                                          "Field": "factor_value",
+                                                          "Value": 36
+                                                        },
+                                                        {
+                                                          "Field": "feature_variant_id",
+                                                          "Value": "FS2_TF1"
+                                                        },
+                                                        {
+                                                          "Field": "ffn_dim",
+                                                          "Value": 128
+                                                        },
+                                                        {
+                                                          "Field": "learning_rate",
+                                                          "Value": 0.0003
+                                                        },
+                                                        {
+                                                          "Field": "lookback_id",
+                                                          "Value": "L36"
+                                                        },
+                                                        {
+                                                          "Field": "metric_version",
+                                                          "Value": "METRICS-v1"
+                                                        },
+                                                        {
+                                                          "Field": "num_heads",
+                                                          "Value": 4
+                                                        },
+                                                        {
+                                                          "Field": "num_layers",
+                                                          "Value": 2
+                                                        },
+                                                        {
+                                                          "Field": "pooling_id",
+                                                          "Value": "LAST_STEP"
+                                                        },
+                                                        {
+                                                          "Field": "population_fingerprint",
+                                                          "Value": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987"
+                                                        },
+                                                        {
+                                                          "Field": "reused_reference",
+                                                          "Value": false
+                                                        },
+                                                        {
+                                                          "Field": "run_id",
+                                                          "Value": "RUN_TR_S04_0008_133EF4E3"
+                                                        },
+                                                        {
+                                                          "Field": "target_scaling_id",
+                                                          "Value": "YS1"
+                                                        },
+                                                        {
+                                                          "Field": "validation_mae_wh",
+                                                          "Value": 27.41859357267982
+                                                        },
+                                                        {
+                                                          "Field": "validation_r2",
+                                                          "Value": 0.5904020802432752
+                                                        },
+                                                        {
+                                                          "Field": "validation_rmse_wh",
+                                                          "Value": 59.03287348979047
+                                                        },
+                                                        {
+                                                          "Field": "weight_decay",
+                                                          "Value": 0.0001
+                                                        }
+                                                      ],
+                                                      "title": "Best variant details"
+                                                    }
+                                                  ],
+                                                  "source_artifacts": [
+                                                    {
+                                                      "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                                      "role": "manifest",
+                                                      "sha256": "46a5ceeb18d6f7ed08b69a6cff6a293088bb7e0bb2c3789d217dae4a5ac84c17"
+                                                    },
+                                                    {
+                                                      "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                                      "role": "results",
+                                                      "sha256": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0"
+                                                    },
+                                                    {
+                                                      "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                                      "role": "signoff",
+                                                      "sha256": "ab3bd8eb42a8cf88d630a61e72c7780cd9b82ac0a79d7d7ce9e436c81b440c7f"
+                                                    }
+                                                  ],
+                                                  "status": "PASS",
+                                                  "summary": {
+                                                    "Best variant": "N/A",
+                                                    "Sweep code": "S4",
+                                                    "Sweep name": "S4 Lookback Sweep",
+                                                    "Variant count": 3
+                                                  },
+                                                  "technical_details": {
+                                                    "best_variant": {
+                                                      "activation_id": "GELU",
+                                                      "batch_id": "B64",
+                                                      "condition_id": "L36",
+                                                      "config_fingerprint": "133ef4e3802d589dc00dc882f1b6195fd8c70fcd0ac1e73418e6fa7c5c23d40f",
+                                                      "d_model": 64,
+                                                      "d_model_id": "D64",
+                                                      "dropout": 0.1,
+                                                      "factor_value": 36,
+                                                      "feature_variant_id": "FS2_TF1",
+                                                      "ffn_dim": 128,
+                                                      "learning_rate": 0.0003,
+                                                      "lookback_id": "L36",
+                                                      "metric_version": "METRICS-v1",
+                                                      "num_heads": 4,
+                                                      "num_layers": 2,
+                                                      "pooling_id": "LAST_STEP",
+                                                      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+                                                      "reused_reference": false,
+                                                      "run_id": "RUN_TR_S04_0008_133EF4E3",
+                                                      "target_scaling_id": "YS1",
+                                                      "validation_mae_wh": 27.41859357267982,
+                                                      "validation_r2": 0.5904020802432752,
+                                                      "validation_rmse_wh": 59.03287348979047,
+                                                      "weight_decay": 0.0001
+                                                    },
+                                                    "config_fingerprint": null,
+                                                    "dataset_revision": null,
+                                                    "environment_id": "ENV-v1",
+                                                    "input_checksums": {
+                                                      "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+                                                      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                                      "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+                                                      "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+                                                      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+                                                      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+                                                    },
+                                                    "input_paths": [
+                                                      "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                                      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+                                                      "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+                                                      "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+                                                    ],
+                                                    "output_checksums": {
+                                                      "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+                                                      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "ddf6be31344bc20105d82695d9390239a9658c55fc36bbf5a6fadf6c0b0efb83",
+                                                      "artifacts/sweeps/s4_lookback/s4_reference_update.json": "623cf2c363f478a625f56753f0037c3f905641a483f58a1b845279218c4652ac",
+                                                      "artifacts/sweeps/s4_lookback/sweep_manifest.json": "46a5ceeb18d6f7ed08b69a6cff6a293088bb7e0bb2c3789d217dae4a5ac84c17"
+                                                    },
+                                                    "output_paths": [
+                                                      "artifacts/sweeps/s4_lookback/results.csv",
+                                                      "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                                      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                                      "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+                                                    ],
+                                                    "sweep_code": "S4",
+                                                    "tests": [
+                                                      "condition_completeness",
+                                                      "registry_evidence_integrity",
+                                                      "validation_only_selection",
+                                                      "exact_tie_rule",
+                                                      "winner_config_match",
+                                                      "test_firewall"
+                                                    ],
+                                                    "variant_count": 3
+                                                  },
+                                                  "timestamp": "2026-08-22T15:30:48.515664+00:00",
+                                                  "warnings": []
+                                                },
+                                                "status": "PASS",
+                                                "valid": false
+                                              },
+                                              "signoff": {
+                                                "issues": [
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                                    "reason": "MISSING"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                                                    "reason": "CHECKSUM_MISMATCH"
+                                                  }
+                                                ],
+                                                "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                                "record": {
+                                                  "approved_for_phase27": true,
+                                                  "archived_stale_paths": [
+                                                    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/sweep_manifest.json",
+                                                    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/phase_26_signoff.json"
+                                                  ],
+                                                  "artifact_version": "SWEEP_S4-v1",
+                                                  "created_at": "2026-08-22T15:30:48.515664+00:00",
+                                                  "discrepancies": [],
+                                                  "environment_id": "ENV-v1",
+                                                  "input_checksums": {
+                                                    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+                                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                                    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+                                                    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+                                                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+                                                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+                                                  },
+                                                  "input_paths": [
+                                                    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+                                                    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+                                                    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+                                                  ],
+                                                  "output_checksums": {
+                                                    "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+                                                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+                                                    "artifacts/sweeps/s4_lookback/s4_reference_update.json": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+                                                    "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
+                                                  },
+                                                  "output_paths": [
+                                                    "artifacts/sweeps/s4_lookback/results.csv",
+                                                    "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                                    "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+                                                  ],
+                                                  "phase_id": 26,
+                                                  "phase_version": "PHASE-26-v1",
+                                                  "status": "PASS",
+                                                  "test_status": "FORBIDDEN",
+                                                  "tests": [
+                                                    "condition_completeness",
+                                                    "registry_evidence_integrity",
+                                                    "validation_only_selection",
+                                                    "exact_tie_rule",
+                                                    "winner_config_match",
+                                                    "test_firewall"
+                                                  ],
+                                                  "warnings": []
+                                                },
+                                                "status": "PASS",
+                                                "valid": false
+                                              },
+                                              "state": "UPSTREAM_INVALID"
+                                            },
+                                            "phase_31_preflight": null,
+                                            "phase_32_preflight": null,
+                                            "phase_33_preflight": null,
+                                            "phase_34_preflight": null,
+                                            "phase_35_preflight": null,
+                                            "phase_36_preflight": null,
+                                            "phase_37_preflight": null,
+                                            "phase_id": 26,
+                                            "readiness": {
+                                              "environment": {
+                                                "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                                                "current_python_version": "3.10.11",
+                                                "issues": [],
+                                                "valid": true
+                                              },
+                                              "prerequisites": {
+                                                "records": [
+                                                  {
+                                                    "issues": [
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                                        "reason": "MISSING"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      },
+                                                      {
+                                                        "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                        "reason": "CHECKSUM_MISMATCH"
+                                                      }
+                                                    ],
+                                                    "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                    "status": "PASS"
+                                                  },
+                                                  {
+                                                    "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                    "status": "PASS"
+                                                  }
+                                                ],
+                                                "valid": false
+                                              },
+                                              "ready": false,
+                                              "state": "UPSTREAM_INVALID"
+                                            },
+                                            "reasons": [
+                                              "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                                              "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                                              "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                                              "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                                            ],
+                                            "resolved_action": "BLOCK",
+                                            "state": "UPSTREAM_INVALID"
+                                          },
+                                          "warnings": []
+                                        },
+                                        "status": "BLOCKED",
+                                        "valid": true
+                                      },
+                                      "signoff": {
+                                        "issues": [
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                            "reason": "MISSING"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                            "reason": "CHECKSUM_MISMATCH"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                            "reason": "CHECKSUM_MISMATCH"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                                            "reason": "CHECKSUM_MISMATCH"
+                                          }
+                                        ],
+                                        "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                        "record": {
+                                          "approved_for_phase27": true,
+                                          "archived_stale_paths": [
+                                            "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/sweep_manifest.json",
+                                            "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/phase_26_signoff.json"
+                                          ],
+                                          "artifact_version": "SWEEP_S4-v1",
+                                          "created_at": "2026-08-22T15:30:48.515664+00:00",
+                                          "discrepancies": [],
+                                          "environment_id": "ENV-v1",
+                                          "input_checksums": {
+                                            "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+                                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                            "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+                                            "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+                                            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+                                            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+                                          },
+                                          "input_paths": [
+                                            "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+                                            "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+                                            "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+                                          ],
+                                          "output_checksums": {
+                                            "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+                                            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+                                            "artifacts/sweeps/s4_lookback/s4_reference_update.json": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+                                            "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
+                                          },
+                                          "output_paths": [
+                                            "artifacts/sweeps/s4_lookback/results.csv",
+                                            "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                            "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+                                          ],
+                                          "phase_id": 26,
+                                          "phase_version": "PHASE-26-v1",
+                                          "status": "PASS",
+                                          "test_status": "FORBIDDEN",
+                                          "tests": [
+                                            "condition_completeness",
+                                            "registry_evidence_integrity",
+                                            "validation_only_selection",
+                                            "exact_tie_rule",
+                                            "winner_config_match",
+                                            "test_firewall"
+                                          ],
+                                          "warnings": []
+                                        },
+                                        "status": "PASS",
+                                        "valid": false
+                                      },
+                                      "state": "UPSTREAM_INVALID"
+                                    },
+                                    "phase_31_preflight": null,
+                                    "phase_32_preflight": null,
+                                    "phase_33_preflight": null,
+                                    "phase_34_preflight": null,
+                                    "phase_35_preflight": null,
+                                    "phase_36_preflight": null,
+                                    "phase_37_preflight": null,
+                                    "phase_id": 26,
+                                    "readiness": {
+                                      "environment": {
+                                        "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                                        "current_python_version": "3.10.11",
+                                        "issues": [],
+                                        "valid": true
+                                      },
+                                      "prerequisites": {
+                                        "records": [
+                                          {
+                                            "issues": [
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                                "reason": "MISSING"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              },
+                                              {
+                                                "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                                "reason": "CHECKSUM_MISMATCH"
+                                              }
+                                            ],
+                                            "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                            "status": "PASS"
+                                          },
+                                          {
+                                            "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                            "status": "PASS"
+                                          }
+                                        ],
+                                        "valid": false
+                                      },
+                                      "ready": false,
+                                      "state": "UPSTREAM_INVALID"
+                                    },
+                                    "reasons": [
+                                      "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                                      "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                                      "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                                      "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                                    ],
+                                    "resolved_action": "BLOCK",
+                                    "state": "UPSTREAM_INVALID"
+                                  },
+                                  "warnings": []
+                                },
+                                "status": "BLOCKED",
+                                "valid": true
+                              },
+                              "signoff": {
+                                "issues": [
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/results.csv",
+                                    "reason": "MISSING"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                    "reason": "CHECKSUM_MISMATCH"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                    "reason": "CHECKSUM_MISMATCH"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                                    "reason": "CHECKSUM_MISMATCH"
+                                  }
+                                ],
+                                "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                                "record": {
+                                  "approved_for_phase27": true,
+                                  "archived_stale_paths": [
+                                    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/sweep_manifest.json",
+                                    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/phase_26_signoff.json"
+                                  ],
+                                  "artifact_version": "SWEEP_S4-v1",
+                                  "created_at": "2026-08-22T15:30:48.515664+00:00",
+                                  "discrepancies": [],
+                                  "environment_id": "ENV-v1",
+                                  "input_checksums": {
+                                    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                                    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+                                    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+                                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+                                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+                                  },
+                                  "input_paths": [
+                                    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+                                    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+                                    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+                                  ],
+                                  "output_checksums": {
+                                    "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+                                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+                                    "artifacts/sweeps/s4_lookback/s4_reference_update.json": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+                                    "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
+                                  },
+                                  "output_paths": [
+                                    "artifacts/sweeps/s4_lookback/results.csv",
+                                    "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                                    "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+                                  ],
+                                  "phase_id": 26,
+                                  "phase_version": "PHASE-26-v1",
+                                  "status": "PASS",
+                                  "test_status": "FORBIDDEN",
+                                  "tests": [
+                                    "condition_completeness",
+                                    "registry_evidence_integrity",
+                                    "validation_only_selection",
+                                    "exact_tie_rule",
+                                    "winner_config_match",
+                                    "test_firewall"
+                                  ],
+                                  "warnings": []
+                                },
+                                "status": "PASS",
+                                "valid": false
+                              },
+                              "state": "UPSTREAM_INVALID"
+                            },
+                            "phase_31_preflight": null,
+                            "phase_32_preflight": null,
+                            "phase_33_preflight": null,
+                            "phase_34_preflight": null,
+                            "phase_35_preflight": null,
+                            "phase_36_preflight": null,
+                            "phase_37_preflight": null,
+                            "phase_id": 26,
+                            "readiness": {
+                              "environment": {
+                                "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                                "current_python_version": "3.10.11",
+                                "issues": [],
+                                "valid": true
+                              },
+                              "prerequisites": {
+                                "records": [
+                                  {
+                                    "issues": [
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                        "reason": "MISSING"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      },
+                                      {
+                                        "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                        "reason": "CHECKSUM_MISMATCH"
+                                      }
+                                    ],
+                                    "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                    "status": "PASS"
+                                  },
+                                  {
+                                    "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                    "status": "PASS"
+                                  }
+                                ],
+                                "valid": false
+                              },
+                              "ready": false,
+                              "state": "UPSTREAM_INVALID"
+                            },
+                            "reasons": [
+                              "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                              "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                              "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                              "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                            ],
+                            "resolved_action": "BLOCK",
+                            "state": "UPSTREAM_INVALID"
+                          },
+                          "warnings": []
+                        },
+                        "status": "BLOCKED",
+                        "valid": true
+                      },
+                      "signoff": {
+                        "issues": [
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/results.csv",
+                            "reason": "MISSING"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                            "reason": "CHECKSUM_MISMATCH"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                            "reason": "CHECKSUM_MISMATCH"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                            "reason": "CHECKSUM_MISMATCH"
+                          }
+                        ],
+                        "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                        "record": {
+                          "approved_for_phase27": true,
+                          "archived_stale_paths": [
+                            "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/sweep_manifest.json",
+                            "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/phase_26_signoff.json"
+                          ],
+                          "artifact_version": "SWEEP_S4-v1",
+                          "created_at": "2026-08-22T15:30:48.515664+00:00",
+                          "discrepancies": [],
+                          "environment_id": "ENV-v1",
+                          "input_checksums": {
+                            "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                            "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+                            "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+                            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+                            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+                          },
+                          "input_paths": [
+                            "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+                            "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+                            "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+                          ],
+                          "output_checksums": {
+                            "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+                            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+                            "artifacts/sweeps/s4_lookback/s4_reference_update.json": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+                            "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
+                          },
+                          "output_paths": [
+                            "artifacts/sweeps/s4_lookback/results.csv",
+                            "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                            "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+                          ],
+                          "phase_id": 26,
+                          "phase_version": "PHASE-26-v1",
+                          "status": "PASS",
+                          "test_status": "FORBIDDEN",
+                          "tests": [
+                            "condition_completeness",
+                            "registry_evidence_integrity",
+                            "validation_only_selection",
+                            "exact_tie_rule",
+                            "winner_config_match",
+                            "test_firewall"
+                          ],
+                          "warnings": []
+                        },
+                        "status": "PASS",
+                        "valid": false
+                      },
+                      "state": "UPSTREAM_INVALID"
+                    },
+                    "phase_31_preflight": null,
+                    "phase_32_preflight": null,
+                    "phase_33_preflight": null,
+                    "phase_34_preflight": null,
+                    "phase_35_preflight": null,
+                    "phase_36_preflight": null,
+                    "phase_37_preflight": null,
+                    "phase_id": 26,
+                    "readiness": {
+                      "environment": {
+                        "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                        "current_python_version": "3.10.11",
+                        "issues": [],
+                        "valid": true
+                      },
+                      "prerequisites": {
+                        "records": [
+                          {
+                            "issues": [
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                                "reason": "MISSING"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              },
+                              {
+                                "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                                "reason": "CHECKSUM_MISMATCH"
+                              }
+                            ],
+                            "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                            "status": "SIGNOFF_ARTIFACT_INVALID"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                            "status": "PASS"
+                          },
+                          {
+                            "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                            "status": "PASS"
+                          }
+                        ],
+                        "valid": false
+                      },
+                      "ready": false,
+                      "state": "UPSTREAM_INVALID"
+                    },
+                    "reasons": [
+                      "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+                      "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+                      "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+                      "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+                    ],
+                    "resolved_action": "BLOCK",
+                    "state": "UPSTREAM_INVALID"
+                  },
+                  "warnings": []
+                },
+                "status": "BLOCKED",
+                "valid": true
+              },
+              "signoff": {
+                "issues": [
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/results.csv",
+                    "reason": "MISSING"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                    "reason": "CHECKSUM_MISMATCH"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                    "reason": "CHECKSUM_MISMATCH"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+                    "reason": "CHECKSUM_MISMATCH"
+                  }
+                ],
+                "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+                "record": {
+                  "approved_for_phase27": true,
+                  "archived_stale_paths": [
+                    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/sweep_manifest.json",
+                    "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/phase_26_signoff.json"
+                  ],
+                  "artifact_version": "SWEEP_S4-v1",
+                  "created_at": "2026-08-22T15:30:48.515664+00:00",
+                  "discrepancies": [],
+                  "environment_id": "ENV-v1",
+                  "input_checksums": {
+                    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+                    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+                    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+                  },
+                  "input_paths": [
+                    "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                    "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                    "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                    "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+                    "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+                    "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+                  ],
+                  "output_checksums": {
+                    "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+                    "artifacts/sweeps/s4_lookback/s4_reference_update.json": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+                    "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
+                  },
+                  "output_paths": [
+                    "artifacts/sweeps/s4_lookback/results.csv",
+                    "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+                    "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+                    "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+                  ],
+                  "phase_id": 26,
+                  "phase_version": "PHASE-26-v1",
+                  "status": "PASS",
+                  "test_status": "FORBIDDEN",
+                  "tests": [
+                    "condition_completeness",
+                    "registry_evidence_integrity",
+                    "validation_only_selection",
+                    "exact_tie_rule",
+                    "winner_config_match",
+                    "test_firewall"
+                  ],
+                  "warnings": []
+                },
+                "status": "PASS",
+                "valid": false
+              },
+              "state": "UPSTREAM_INVALID"
+            },
+            "phase_31_preflight": null,
+            "phase_32_preflight": null,
+            "phase_33_preflight": null,
+            "phase_34_preflight": null,
+            "phase_35_preflight": null,
+            "phase_36_preflight": null,
+            "phase_37_preflight": null,
+            "phase_id": 26,
+            "readiness": {
+              "environment": {
+                "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+                "current_python_version": "3.10.11",
+                "issues": [],
+                "valid": true
+              },
+              "prerequisites": {
+                "records": [
+                  {
+                    "issues": [
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                        "reason": "MISSING"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      },
+                      {
+                        "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                        "reason": "CHECKSUM_MISMATCH"
+                      }
+                    ],
+                    "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+                    "status": "SIGNOFF_ARTIFACT_INVALID"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                    "status": "PASS"
+                  },
+                  {
+                    "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                    "status": "PASS"
+                  }
+                ],
+                "valid": false
+              },
+              "ready": false,
+              "state": "UPSTREAM_INVALID"
+            },
+            "reasons": [
+              "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+              "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+              "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+              "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
+            ],
+            "resolved_action": "BLOCK",
+            "state": "UPSTREAM_INVALID"
+          },
+          "warnings": []
+        },
+        "status": "BLOCKED",
+        "valid": true
+      },
+      "signoff": {
+        "issues": [
+          {
+            "path": "artifacts/sweeps/s4_lookback/results.csv",
+            "reason": "MISSING"
+          },
+          {
+            "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+            "reason": "CHECKSUM_MISMATCH"
+          },
+          {
+            "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+            "reason": "CHECKSUM_MISMATCH"
+          },
+          {
+            "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+            "reason": "CHECKSUM_MISMATCH"
+          }
+        ],
+        "path": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+        "record": {
+          "approved_for_phase27": true,
+          "archived_stale_paths": [
+            "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/sweep_manifest.json",
+            "artifacts/sweeps/s4_lookback/_history/phase_26/20260822T153048515745Z/phase_26_signoff.json"
+          ],
+          "artifact_version": "SWEEP_S4-v1",
+          "created_at": "2026-08-22T15:30:48.515664+00:00",
+          "discrepancies": [],
+          "environment_id": "ENV-v1",
+          "input_checksums": {
+            "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
+            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
+            "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
+            "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
+            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+          },
+          "input_paths": [
+            "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+            "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+            "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+            "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
+            "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
+            "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+          ],
+          "output_checksums": {
+            "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
+            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+            "artifacts/sweeps/s4_lookback/s4_reference_update.json": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+            "artifacts/sweeps/s4_lookback/sweep_manifest.json": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b"
+          },
+          "output_paths": [
+            "artifacts/sweeps/s4_lookback/results.csv",
+            "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+            "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+            "artifacts/sweeps/s4_lookback/s4_reference_update.json"
+          ],
+          "phase_id": 26,
+          "phase_version": "PHASE-26-v1",
+          "status": "PASS",
+          "test_status": "FORBIDDEN",
+          "tests": [
+            "condition_completeness",
+            "registry_evidence_integrity",
+            "validation_only_selection",
+            "exact_tie_rule",
+            "winner_config_match",
+            "test_firewall"
+          ],
+          "warnings": []
+        },
+        "status": "PASS",
+        "valid": false
+      },
+      "state": "UPSTREAM_INVALID"
     },
-    "config_fingerprint": null,
-    "dataset_revision": null,
-    "environment_id": "ENV-v1",
-    "input_checksums": {
-      "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json": "565907cc7be498bc8f29aeac200453cd0639f4b0701672491df9bdfc1c119791",
-      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json": "39adb3e7fb2e3a01074fa3ef34e255a1d1f0dc5528d082c8f5fe4954fef19418",
-      "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json": "5801332ad77dad2358abb87bacaab8d898c2e7e9fbaeb94f4c7c15366b16491a",
-      "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json": "37088907af409d9797cbf643fb0dc5f76d5220530fdb8d176a57559a8a0c0713",
-      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
-      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5"
+    "phase_31_preflight": null,
+    "phase_32_preflight": null,
+    "phase_33_preflight": null,
+    "phase_34_preflight": null,
+    "phase_35_preflight": null,
+    "phase_36_preflight": null,
+    "phase_37_preflight": null,
+    "phase_id": 26,
+    "readiness": {
+      "environment": {
+        "current_python_executable": "/Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10",
+        "current_python_version": "3.10.11",
+        "issues": [],
+        "valid": true
+      },
+      "prerequisites": {
+        "records": [
+          {
+            "issues": [
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/results.csv",
+                "reason": "MISSING"
+              },
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+                "reason": "CHECKSUM_MISMATCH"
+              },
+              {
+                "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+                "reason": "CHECKSUM_MISMATCH"
+              }
+            ],
+            "path": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+            "status": "SIGNOFF_ARTIFACT_INVALID"
+          },
+          {
+            "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+            "status": "PASS"
+          },
+          {
+            "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+            "status": "PASS"
+          }
+        ],
+        "valid": false
+      },
+      "ready": false,
+      "state": "UPSTREAM_INVALID"
     },
-    "input_paths": [
-      "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
-      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
-      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
-      "artifacts/runs/RUN_TR_S04_0008_133EF4E3/config.json",
-      "artifacts/runs/RUN_TR_S04_0009_7DCE8B09/config.json",
-      "artifacts/runs/RUN_TR_S01_0005_57E974CF/config.json"
+    "reasons": [
+      "artifacts/sweeps/s3_target_scaling/results.csv: MISSING",
+      "artifacts/sweeps/s3_target_scaling/sweep_manifest.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s3_target_scaling/s3_reference_update.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s4_lookback/results.csv: MISSING",
+      "artifacts/sweeps/s4_lookback/sweep_manifest.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json: CHECKSUM_MISMATCH",
+      "artifacts/sweeps/s4_lookback/s4_reference_update.json: CHECKSUM_MISMATCH"
     ],
-    "output_checksums": {
-      "artifacts/sweeps/s4_lookback/results.csv": "a08ea20b74668216d0e4df0ba679c268cd01b26b21fbea7fd79b4e054b61b1c0",
-      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json": "ddf6be31344bc20105d82695d9390239a9658c55fc36bbf5a6fadf6c0b0efb83",
-      "artifacts/sweeps/s4_lookback/s4_reference_update.json": "623cf2c363f478a625f56753f0037c3f905641a483f58a1b845279218c4652ac",
-      "artifacts/sweeps/s4_lookback/sweep_manifest.json": "46a5ceeb18d6f7ed08b69a6cff6a293088bb7e0bb2c3789d217dae4a5ac84c17"
-    },
-    "output_paths": [
-      "artifacts/sweeps/s4_lookback/results.csv",
-      "artifacts/sweeps/s4_lookback/sweep_manifest.json",
-      "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
-      "artifacts/sweeps/s4_lookback/s4_reference_update.json"
-    ],
-    "sweep_code": "S4",
-    "tests": [
-      "condition_completeness",
-      "registry_evidence_integrity",
-      "validation_only_selection",
-      "exact_tie_rule",
-      "winner_config_match",
-      "test_firewall"
-    ],
-    "variant_count": 3
+    "resolved_action": "BLOCK",
+    "state": "UPSTREAM_INVALID"
   },
-  "timestamp": "2026-08-22T15:30:48.515664+00:00",
   "warnings": []
 }

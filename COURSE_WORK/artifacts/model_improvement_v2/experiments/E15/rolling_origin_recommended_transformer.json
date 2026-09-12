@@ -1,0 +1,8 @@
+{
+  "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+  "config_fingerprint": "91183901a9014f5a3d1ec8c6d46c2ed2a0f4c0abc67c0cc8e55348c794b6f109",
+  "created_at": "2026-09-11T17:20:20.502861+00:00",
+  "pooled_mae_wh": 27.715492374997062,
+  "pooled_r2": 0.5670789388918365,
+  "pooled_rmse_wh": 60.690317496006095
+}

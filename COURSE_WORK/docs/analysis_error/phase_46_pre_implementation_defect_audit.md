@@ -82,31 +82,31 @@
 
 ## Audit Source-of-Truth Files Inspected
 
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/docs/plan-doc/plan_detail_for_each_phase/Phase_46_Three-seed_final_runs.md`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/phase_45_signoff.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/phase46_three_seed_handoff.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_lock_manifest.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_lock_contract.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_scientific_config.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_seed_contract.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_training_recipe.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_epoch_policy.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_data_region_contract.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_scaling_contract.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_checkpoint_contract.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_lock_fingerprint.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/phase47_test_evaluation_guard.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/scaling/final_dev/final_scaling_manifest.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/scaling/final_dev/final_scaler_registry.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_dev_region/final_dev_region_manifest.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/three_seed_final_runs/phase_46_signoff.json`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_three_seed_runs.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_pre_train_schema_simulation.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_registration_preflight.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_archive_historical_checkpoints.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_final_dev_metric_smoke_test.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/data/final_dev.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/scaling/final_scaling.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/training/engine.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/data/datasets.py`
-- `/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/experiments/registry.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/docs/plan-doc/plan_detail_for_each_phase/Phase_46_Three-seed_final_runs.md`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/phase_45_signoff.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/phase46_three_seed_handoff.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_lock_manifest.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_lock_contract.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_scientific_config.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_seed_contract.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_training_recipe.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_epoch_policy.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_data_region_contract.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_scaling_contract.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_checkpoint_contract.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/final_model_lock_fingerprint.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_model_lock/phase47_test_evaluation_guard.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/scaling/final_dev/final_scaling_manifest.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/scaling/final_dev/final_scaler_registry.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/final_dev_region/final_dev_region_manifest.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/artifacts/three_seed_final_runs/phase_46_signoff.json`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_three_seed_runs.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_pre_train_schema_simulation.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_registration_preflight.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_archive_historical_checkpoints.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/scripts/phase46_final_dev_metric_smoke_test.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/data/final_dev.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/scaling/final_scaling.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/training/engine.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/data/datasets.py`
+- `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/experiments/registry.py`

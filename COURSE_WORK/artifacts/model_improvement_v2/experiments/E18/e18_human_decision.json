@@ -1,0 +1,42 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_E18_HUMAN_DECISION-v1",
+  "experiment_id": "E18",
+  "decision": "ACCEPT_FINETUNING_ELIGIBILITY",
+  "eligibility_status": "READY_FOR_SEPARATE_FT_PLAN",
+  "active_incumbent": "TR_C2_ALT_LOOKBACK_E14_M1",
+  "active_incumbent_config_fingerprint": "ff99dba3b57d38308f412a76c936b3a1f2a99ab8835e465417090ebfda49bc77",
+  "checkpoint_reuse_classification": "EXACT_REUSE_ALLOWED",
+  "source_checkpoints": {
+    "RO1": {
+      "run_id": "RUN_V2_TR_E01_RO1_B_0004_533B5F33",
+      "epoch": 2,
+      "sha256": "6aa201d63388c1922c5190c1869b640e945dc2a95c6a03a69f3307912ba478a3"
+    },
+    "RO2": {
+      "run_id": "RUN_V2_TR_E01_RO2_B_0005_19A72D17",
+      "epoch": 8,
+      "sha256": "47a8588f84ad8b1143c317dafe76830c1bfa56aa0ff1e70227b7bbd070df6140"
+    },
+    "RO3": {
+      "run_id": "RUN_V2_TR_E01_RO3_B_0006_AA5D66A6",
+      "epoch": 21,
+      "sha256": "3f85415a4dc157a552b19bab6c17334420d307cb5b398139a14e5c293312981b"
+    }
+  },
+  "eligibility_gates": {
+    "checkpoint_provenance": "PASS",
+    "state_dict_compatibility": "EXACT",
+    "architecture_compatibility": "EXACT",
+    "feature_input_projection_compatibility": "EXACT",
+    "fold_mapping": "PASS",
+    "exact_scratch_control": "PASS",
+    "selection_leakage": "PASS",
+    "test_firewall": "PASS"
+  },
+  "ft_a_b_c_status": "DEFERRED_NO_PROMOTED_NEW_HEAD",
+  "expected_new_runs": 0,
+  "fine_tuning_training_authorized": false,
+  "automatic_execution": false,
+  "decision_authority": "HUMAN",
+  "test_status": "NOT_ACCESSED"
+}

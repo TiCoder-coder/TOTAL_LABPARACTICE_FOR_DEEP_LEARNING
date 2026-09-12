@@ -168,7 +168,7 @@ def write_processing_log(
             safety_result["all_clean"],
         ]) else "FAIL",
     }
-    fp = Path("/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/docs/save_log_in_processing/phase_54_last_query_attention_analysis_log.json")
+    fp = Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/docs/save_log_in_processing/phase_54_last_query_attention_analysis_log.json")
     fp.parent.mkdir(parents=True, exist_ok=True)
     write_json_atomic(fp, payload)
     return fp
@@ -494,7 +494,7 @@ def finalize_phase54(
     results: dict,
 ) -> dict:
     """Generate report, README, static safety scan, processing log."""
-    safety = static_safety_scan(Path("/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/phase54"))
+    safety = static_safety_scan(Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/src/course_work/phase54"))
     paths["O54.29"] = write_human_readable_report(out_dir, src, results, paths)
     paths["O54.30"] = write_readme(out_dir, src, paths)
     log_fp = write_processing_log(out_dir, None, paths, safety, results)

@@ -1,0 +1,83 @@
+{
+  "accepted_incumbent_at_entry": "E01_DIRECT_FS2_TF1",
+  "e10_human_decision": "REJECTED",
+  "preflight": {
+    "accepted_incumbent": "E01_DIRECT_FS2_TF1",
+    "changed_paths": [
+      "data.feature_count",
+      "data.feature_variant_id",
+      "lineage.feature_fingerprint",
+      "lineage.scaler_bundle_checksum",
+      "lineage.scaler_bundle_id",
+      "model.input_size"
+    ],
+    "expected_total_training_runs": 12,
+    "experiment_id": "E11",
+    "fold_local_x_scaling": true,
+    "fold_local_y_scaling": true,
+    "inference_executed": false,
+    "one_primary_change": "PASS",
+    "population": {
+      "fold_fingerprints": {
+        "RO1": "2474242da40cfbebb33a86ff7d6601d47e03cdc504d8237b0c3fc3e20211a62f",
+        "RO2": "7b81b8d969850e62deec44fee6fabdf45c8e1a9c28d51465ce9036625110e0b1",
+        "RO3": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731"
+      },
+      "population_fingerprint": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731",
+      "status": "PASS",
+      "target_count": 16630,
+      "test_rows_read": 0,
+      "test_target_ids_seen": 0
+    },
+    "predecessor_audit": {
+      "accepted_incumbent": "E01",
+      "e10_artifact_sha256": "71ca5c5e283ed5810bc81fe67577c82cb1538b2def64b02fa28d58bea7d8b998",
+      "human_decision": "E10_REJECTED",
+      "reporting_gaps_preserved": true,
+      "status": "PASS"
+    },
+    "status": "PASS",
+    "test_access": "NO",
+    "training_candidates": [
+      "TR_C2_ALT_LOOKBACK_E11_CONTROL",
+      "TR_C2_ALT_LOOKBACK_E11_ROLL7"
+    ],
+    "training_executed": false
+  },
+  "required_e11_audits": {
+    "causal_audit": "e11_causal_audit.json",
+    "feature_contract": "e11_feature_contract.json",
+    "population_audit": "e11_common_population_audit.json",
+    "recovery_contract": "e11_no_retrain_recovery_contract.json",
+    "scaler_audit": "e11_scaler_lineage_audit.json"
+  },
+  "run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO1": "RUN_V2_TR_E11_RO1_A_0002_11B8DF31",
+      "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO2": "RUN_V2_TR_E11_RO2_A_0004_21C95DD5",
+      "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO3": "RUN_V2_TR_E11_RO3_A_0006_F497B317",
+      "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO1": "RUN_V2_TR_E11_RO1_A_0003_D6221011",
+      "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO2": "RUN_V2_TR_E11_RO2_A_0005_0699541F",
+      "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO3": "RUN_V2_TR_E11_RO3_A_0007_51F691A7"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO1": "RUN_V2_TR_E11_RO1_B_0008_F96C0B79",
+      "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO2": "RUN_V2_TR_E11_RO2_B_0011_045D488C",
+      "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO3": "RUN_V2_TR_E11_RO3_B_0013_AA7AD0C5",
+      "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO1": "RUN_V2_TR_E11_RO1_B_0010_D6ADAE8C",
+      "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO2": "RUN_V2_TR_E11_RO2_B_0012_0CF9C006",
+      "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO3": "RUN_V2_TR_E11_RO3_B_0014_07ACE1B5"
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E11_EXECUTION-v1",
+  "selected_best_epochs": {
+    "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO1": 2,
+    "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO2": 8,
+    "TR_C2_ALT_LOOKBACK_E11_CONTROL:RO3": 21,
+    "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO1": 10,
+    "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO2": 8,
+    "TR_C2_ALT_LOOKBACK_E11_ROLL7:RO3": 9
+  },
+  "status": "SCIENTIFIC_EXECUTION_COMPLETE_HUMAN_REVIEW_REQUIRED",
+  "test_status": "NOT_ACCESSED"
+}

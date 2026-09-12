@@ -1,0 +1,95 @@
+{
+  "challengers": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010",
+      "fold_rmse_wh": [
+        69.03091214638307,
+        50.53768355426747,
+        57.78210074486984
+      ],
+      "lambda_delta": 0.1,
+      "metrics": {
+        "mae_wh": 26.612618306519018,
+        "r2": 0.5824225085537367,
+        "rmse_wh": 59.60512359272541
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": true,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": true,
+          "rmse_improvement": true,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E13_LAMBDA_025",
+      "fold_rmse_wh": [
+        69.06433964535313,
+        50.46636298911411,
+        57.96535412100353
+      ],
+      "lambda_delta": 0.25,
+      "metrics": {
+        "mae_wh": 26.50478693699165,
+        "r2": 0.5816934572022101,
+        "rmse_wh": 59.65713339469348
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": true,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": true,
+          "rmse_improvement": true,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E13_LAMBDA_050",
+      "fold_rmse_wh": [
+        69.13117348554333,
+        50.38688571553518,
+        58.15006946778877
+      ],
+      "lambda_delta": 0.5,
+      "metrics": {
+        "mae_wh": 26.36806521875836,
+        "r2": 0.5808058737610073,
+        "rmse_wh": 59.72039157948573
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": true,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": true,
+          "rmse_improvement": true,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    }
+  ],
+  "control": {
+    "fold_rmse_wh": [
+      69.01338295186963,
+      50.59540710120016,
+      58.51676739199306
+    ],
+    "metrics": {
+      "mae_wh": 26.650501720144604,
+      "r2": 0.5789433617557903,
+      "rmse_wh": 59.85291570400546
+    },
+    "source": "E01_REUSED_READ_ONLY"
+  },
+  "decision": "HUMAN_REVIEW_REQUIRED",
+  "schema": "MODEL_IMPROVEMENT_V2_E13_COMPARISON-v1",
+  "test_status": "NOT_ACCESSED"
+}

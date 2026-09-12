@@ -1,0 +1,99 @@
+{
+  "preflight": {
+    "accepted_incumbent": "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010",
+    "bundle_ids": [
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5"
+    ],
+    "candidate_config_fingerprints": {
+      "M1": "ff99dba3b57d38308f412a76c936b3a1f2a99ab8835e465417090ebfda49bc77",
+      "M2": "2974ccab1d8ba27e727bde5be7025f9b04585713636e35e4cff4934927eea6c4",
+      "M3": "92b1ced8569026e0a590e94ff43eddbfff768f83771650332b0a4d1ebcd0ea5c",
+      "M4": "529e0d7f42d8d44f6b0cebb65bb8847db6c72ebf06ad58e26eea3cd39307b0e5",
+      "M5": "61744db21ab9416bcb2b517bc67260623765ea71cad923014343488b7f680eab"
+    },
+    "control_reuse_status": "PASS",
+    "equal_budget_audit": {
+      "basis": "IDENTICAL_MAX_EPOCH_AND_EARLY_STOPPING_BUDGET",
+      "batch_size_is_registered_bundle_factor": true,
+      "max_epochs": 50,
+      "patience": 10,
+      "status": "PASS"
+    },
+    "expected_new_training_runs": 30,
+    "expected_outputs": [
+      "rolling_origin_results.csv",
+      "rolling_origin_inner_best_epochs.csv",
+      "rolling_origin_fold_metrics.csv",
+      "rolling_origin_pooled_metrics.csv",
+      "e14_bundle_comparison.json",
+      "e14_execution_manifest.json",
+      "e14_equal_budget_audit.json",
+      "e14_parameter_runtime_report.json",
+      "e14_lr_gradient_trace_audit.json",
+      "e14_ranking_guardrails.json"
+    ],
+    "experiment": "E14",
+    "feature_count": 33,
+    "feature_variant": "FS2_TF1",
+    "population": {
+      "fold_fingerprints": {
+        "RO1": "2474242da40cfbebb33a86ff7d6601d47e03cdc504d8237b0c3fc3e20211a62f",
+        "RO2": "7b81b8d969850e62deec44fee6fabdf45c8e1a9c28d51465ce9036625110e0b1",
+        "RO3": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731"
+      },
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "status": "PASS",
+      "target_count": 16630
+    },
+    "promotion_policy_status": "PASS",
+    "recovery_contract": "NO_RETRAIN_EXACT_COMPLETED_LEDGER_REQUIRED",
+    "scaler_lineage": "FOLD_LOCAL_TRAIN_ONLY",
+    "status": "PASS",
+    "test_rows_read": 0,
+    "test_status": "NOT_ACCESSED",
+    "test_target_ids_seen": 0,
+    "training_executed": false
+  },
+  "run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_E14_M1:RO1": "RUN_V2_TR_E14_RO1_A_0001_B5DD2C2E",
+      "TR_C2_ALT_LOOKBACK_E14_M1:RO2": "RUN_V2_TR_E14_RO2_A_0006_EC2A3FCE",
+      "TR_C2_ALT_LOOKBACK_E14_M1:RO3": "RUN_V2_TR_E14_RO3_A_0011_DFA1252E",
+      "TR_C2_ALT_LOOKBACK_E14_M2:RO1": "RUN_V2_TR_E14_RO1_A_0002_2734D90C",
+      "TR_C2_ALT_LOOKBACK_E14_M2:RO2": "RUN_V2_TR_E14_RO2_A_0007_6C24FAD8",
+      "TR_C2_ALT_LOOKBACK_E14_M2:RO3": "RUN_V2_TR_E14_RO3_A_0012_05C68969",
+      "TR_C2_ALT_LOOKBACK_E14_M3:RO1": "RUN_V2_TR_E14_RO1_A_0003_CD808150",
+      "TR_C2_ALT_LOOKBACK_E14_M3:RO2": "RUN_V2_TR_E14_RO2_A_0008_F427C958",
+      "TR_C2_ALT_LOOKBACK_E14_M3:RO3": "RUN_V2_TR_E14_RO3_A_0013_42F9FCAE",
+      "TR_C2_ALT_LOOKBACK_E14_M4:RO1": "RUN_V2_TR_E14_RO1_A_0004_B86E5E8F",
+      "TR_C2_ALT_LOOKBACK_E14_M4:RO2": "RUN_V2_TR_E14_RO2_A_0009_DB0C3ECC",
+      "TR_C2_ALT_LOOKBACK_E14_M4:RO3": "RUN_V2_TR_E14_RO3_A_0014_36B40435",
+      "TR_C2_ALT_LOOKBACK_E14_M5:RO1": "RUN_V2_TR_E14_RO1_A_0005_DF93FE2C",
+      "TR_C2_ALT_LOOKBACK_E14_M5:RO2": "RUN_V2_TR_E14_RO2_A_0010_38836327",
+      "TR_C2_ALT_LOOKBACK_E14_M5:RO3": "RUN_V2_TR_E14_RO3_A_0015_3E808923"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_E14_M1:RO1": "RUN_V2_TR_E14_RO1_B_0016_668187E3",
+      "TR_C2_ALT_LOOKBACK_E14_M1:RO2": "RUN_V2_TR_E14_RO2_B_0021_AD87B689",
+      "TR_C2_ALT_LOOKBACK_E14_M1:RO3": "RUN_V2_TR_E14_RO3_B_0026_ABCFB6CD",
+      "TR_C2_ALT_LOOKBACK_E14_M2:RO1": "RUN_V2_TR_E14_RO1_B_0017_F839A93C",
+      "TR_C2_ALT_LOOKBACK_E14_M2:RO2": "RUN_V2_TR_E14_RO2_B_0022_BB34FE6C",
+      "TR_C2_ALT_LOOKBACK_E14_M2:RO3": "RUN_V2_TR_E14_RO3_B_0027_AA04F20D",
+      "TR_C2_ALT_LOOKBACK_E14_M3:RO1": "RUN_V2_TR_E14_RO1_B_0018_4166D966",
+      "TR_C2_ALT_LOOKBACK_E14_M3:RO2": "RUN_V2_TR_E14_RO2_B_0023_974526AF",
+      "TR_C2_ALT_LOOKBACK_E14_M3:RO3": "RUN_V2_TR_E14_RO3_B_0028_323ED9A5",
+      "TR_C2_ALT_LOOKBACK_E14_M4:RO1": "RUN_V2_TR_E14_RO1_B_0019_E3B7A70C",
+      "TR_C2_ALT_LOOKBACK_E14_M4:RO2": "RUN_V2_TR_E14_RO2_B_0024_32F339F6",
+      "TR_C2_ALT_LOOKBACK_E14_M4:RO3": "RUN_V2_TR_E14_RO3_B_0029_2DFF5817",
+      "TR_C2_ALT_LOOKBACK_E14_M5:RO1": "RUN_V2_TR_E14_RO1_B_0020_BD184866",
+      "TR_C2_ALT_LOOKBACK_E14_M5:RO2": "RUN_V2_TR_E14_RO2_B_0025_7AB9CBDE",
+      "TR_C2_ALT_LOOKBACK_E14_M5:RO3": "RUN_V2_TR_E14_RO3_B_0030_51BD9059"
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E14_EXECUTION-v1",
+  "test_status": "NOT_ACCESSED"
+}

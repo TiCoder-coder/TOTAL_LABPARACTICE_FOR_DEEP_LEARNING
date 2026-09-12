@@ -119,7 +119,7 @@ The signed environment requires:
 ```text
 Python version: 3.10.11
 Python executable: /Library/Frameworks/Python.framework/Versions/3.10/bin/python3.10
-Project root: /Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK
+Project root: /Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK
 Selected device: mps
 ```
 

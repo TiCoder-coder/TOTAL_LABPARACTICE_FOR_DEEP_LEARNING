@@ -1,0 +1,146 @@
+{
+  "challengers": [
+    {
+      "bundle_id": "M1",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "fold_rmse_wh": [
+        65.37273386173845,
+        50.772406234902675,
+        58.601149429283645
+      ],
+      "metrics": {
+        "mae_wh": 26.33779907425144,
+        "r2": 0.5970279545320498,
+        "rmse_wh": 58.5534531302616
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": true,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": true,
+          "rmse_improvement": true,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    },
+    {
+      "bundle_id": "M2",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "fold_rmse_wh": [
+        67.44409226519225,
+        51.326382172513384,
+        58.3309356862186
+      ],
+      "metrics": {
+        "mae_wh": 26.783090128725565,
+        "r2": 0.5852662223834705,
+        "rmse_wh": 59.401820637829054
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": true,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": true,
+          "rmse_improvement": true,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    },
+    {
+      "bundle_id": "M3",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "fold_rmse_wh": [
+        68.20507287755561,
+        49.959879351874676,
+        60.65245263823993
+      ],
+      "metrics": {
+        "mae_wh": 27.733247547262938,
+        "r2": 0.5758303816564662,
+        "rmse_wh": 60.07376226728755
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    },
+    {
+      "bundle_id": "M4",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "fold_rmse_wh": [
+        67.97875803106882,
+        51.365822112925116,
+        58.12726857892959
+      ],
+      "metrics": {
+        "mae_wh": 28.179645523905798,
+        "r2": 0.583198405117,
+        "rmse_wh": 59.54972200327084
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    },
+    {
+      "bundle_id": "M5",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "fold_rmse_wh": [
+        67.29562990193695,
+        50.97784265779872,
+        59.346416751389754
+      ],
+      "metrics": {
+        "mae_wh": 26.98630740522127,
+        "r2": 0.5827690295951191,
+        "rmse_wh": 59.58038720648464
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      }
+    }
+  ],
+  "control": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK_E13_LAMBDA_010",
+    "fold_rmse_wh": [
+      69.03091214638307,
+      50.53768355426747,
+      57.78210074486984
+    ],
+    "metrics": {
+      "mae_wh": 26.612618306519018,
+      "r2": 0.5824225085537367,
+      "rmse_wh": 59.60512359272541
+    },
+    "source": "E13_REUSED_READ_ONLY"
+  },
+  "decision": "HUMAN_REVIEW_REQUIRED",
+  "schema": "MODEL_IMPROVEMENT_V2_E14_COMPARISON-v1",
+  "test_status": "NOT_ACCESSED"
+}

@@ -13,7 +13,7 @@ import csv
 import json
 from pathlib import Path
 
-ROOT = Path("/Users/mac/Documents/study/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
+ROOT = Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
 SWEEP_ROOT = ROOT / "artifacts/sweeps"
 
 # Baseline: FS1_TF1, lookback 144, YS1, LAST_STEP, GELU, B32, lr=3e-4 -> RMSE 60.76

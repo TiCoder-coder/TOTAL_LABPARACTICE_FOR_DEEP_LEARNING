@@ -1,0 +1,12 @@
+{
+  "checkpoint_path": "artifacts/model_improvement_v2/final_model_lock/runs/RUN_V2_TR_STEP16_SEED42_FINAL_A01_A86FBFB4/checkpoints/final_refit.pt",
+  "checkpoint_sha256": "5cf30c81a92abf27522cf592eebb53410a12b3d90e5f3ab8785305d48174a8f6",
+  "config_fingerprint": "a86fbfb4a6eb97cafb4ce93e15027b2eeeca4462252e72e11a283eb474cc8c9b",
+  "official_epoch": 16,
+  "run_id": "RUN_V2_TR_STEP16_SEED42_FINAL_A01_A86FBFB4",
+  "seed": 42,
+  "status": "COMPLETED",
+  "test_status": "NOT_ACCESSED",
+  "x_scaler_sha256": "521df9de48516f4d5d661f76a35c46241a24cd357e66ffab2e1f0695a54c7724",
+  "y_scaler_sha256": "c572e817ccede5dd5dd481c9f5ab780a45481a256d695680c832f4385cf206f3"
+}

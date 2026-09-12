@@ -1,0 +1,118 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_STEP16_FINAL_REFIT_CONTRACT-v1",
+  "experiment_id": "STEP16",
+  "source_plan": "docs/plan/plan_before_process/model_improvement_v2_step16_final_refit_lock_pre_process_plan.md",
+  "source_plan_sha256": "95bb118c304ff41c8ccb457cefcb9c2341d0b048a9ba64cc3c21b0e1142be315",
+  "human_governance": {
+    "e20_finalist_confirmation": "REJECT",
+    "step14a_seed_ensemble": "SELECT_FINALIST_ENSEMBLE",
+    "step14b_persistence_blend": "KEEP_NEURAL_ENSEMBLE",
+    "test_status": "NOT_ACCESSED"
+  },
+  "final_prediction_policy": {
+    "policy_id": "MEAN_E14_M1_SEEDS_42_123_2026",
+    "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "seeds": [42, 123, 2026],
+    "weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
+  },
+  "final_development_metrics": {
+    "pooled_rmse_wh": 58.57180673355406,
+    "pooled_mae_wh": 25.545269885543682,
+    "pooled_r2": 0.5967752914420708,
+    "worst_fold_rmse_wh": 67.53675009939884,
+    "fold_rmse_sd_wh": 8.879494624591965
+  },
+  "final_refit_epoch_policy": {
+    "policy_id": "MEDIAN_RO_INNER_BEST_EPOCHS-v1",
+    "source_candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "source_seed": 42,
+    "fold_best_epochs": {"RO1": 16, "RO2": 13, "RO3": 23},
+    "median": 16,
+    "epochs_by_seed": {"42": 16, "123": 16, "2026": 16},
+    "seed_specific_epoch_selection": "FORBIDDEN",
+    "test_dependency": false
+  },
+  "final_data_contract": {
+    "region": "V2_FINAL_DEV_REGION-v1",
+    "included_splits": ["TRAIN", "VALIDATION"],
+    "excluded_splits": ["TEST"],
+    "feature_variant_id": "FS2_TF1",
+    "feature_count": 33,
+    "lookback": 72,
+    "horizon": 1,
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "target_count": 16630,
+    "first_target_id": "TGT_00000144",
+    "last_target_id": "TGT_00016773",
+    "target_ids_fingerprint": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731"
+  },
+  "final_scaler_lock": {
+    "version": "V2_FINAL_SCALING-v1",
+    "fit_region": "V2_FINAL_DEV_REGION-v1",
+    "fit_target_count": 16630,
+    "fit_once_reuse_all_seeds": true,
+    "scaled_feature_count": 28,
+    "passthrough_features": ["hour_sin", "hour_cos", "dow_sin", "dow_cos", "weekend"],
+    "x_scaler_sha256": "521df9de48516f4d5d661f76a35c46241a24cd357e66ffab2e1f0695a54c7724",
+    "y_scaler_sha256": "c572e817ccede5dd5dd481c9f5ab780a45481a256d695680c832f4385cf206f3",
+    "bundle_sha256": "3bc45337ec85c4eaa82c2126971f269266a262ca4db5998fd5c4270404708a22",
+    "test_rows_used": 0
+  },
+  "locked_scientific_config": {
+    "model": {"d_model": 64, "num_heads": 4, "ffn_dim": 256, "num_layers": 2, "norm_first": false, "dropout": 0.1},
+    "training": {"optimizer": "AdamW", "learning_rate": 0.0002, "weight_decay": 0.001, "batch_size": 16, "gradient_clip": 1.0, "scheduler": "OFF", "loss_policy": "HYBRID_LEVEL_PLUS_DELTA", "lambda_delta": 0.1, "delta_beta_model_space": 1.0, "epochs": 16, "validation_used": false, "early_stopping": false},
+    "fresh_model_each_seed": true,
+    "fresh_optimizer_each_seed": true,
+    "checkpoint_warm_start": false
+  },
+  "dataloader_lock": {
+    "version": "V2_FINAL_REFIT_DATALOADER-v1",
+    "fingerprint": "ab0acbeb791ad4ad83c4cc362397f70b02f7a42efff36b88d6930ed2867cb604",
+    "shuffle": true,
+    "batch_size": 16,
+    "generator_seed_equals_run_seed": true,
+    "num_workers": 0,
+    "pin_memory": false
+  },
+  "final_refit_config_fingerprints": {
+    "42": "a86fbfb4a6eb97cafb4ce93e15027b2eeeca4462252e72e11a283eb474cc8c9b",
+    "123": "e6361049496614c7ae85043888eeeb0fb3d6c6fe4c2d1f4cb9a70ba77a7092d0",
+    "2026": "fa2be43f1471a71c2cf173a2dbb62344cc1f2971043293b5cff7c90a9bcd67d0"
+  },
+  "ensemble_source_checkpoints": {
+    "42": {
+      "RO1": {"run_id": "RUN_V2_TR_E14_RO1_B_0016_668187E3", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E14/runs/RUN_V2_TR_E14_RO1_B_0016_668187E3/checkpoints/refit_final.pt", "checkpoint_sha256": "6b27978c2bf26ef1162a96428d182d4ef88247ef1d70b6fd4443477b89d33cd8"},
+      "RO2": {"run_id": "RUN_V2_TR_E14_RO2_B_0021_AD87B689", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E14/runs/RUN_V2_TR_E14_RO2_B_0021_AD87B689/checkpoints/refit_final.pt", "checkpoint_sha256": "f4fcf2adbed0a5ab3b7248b79f280b2ed6c6d5f68d913fed6f294069d7681370"},
+      "RO3": {"run_id": "RUN_V2_TR_E14_RO3_B_0026_ABCFB6CD", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E14/runs/RUN_V2_TR_E14_RO3_B_0026_ABCFB6CD/checkpoints/refit_final.pt", "checkpoint_sha256": "c7ad80907f59210d1576cebccc8436116a69468a6066c9a6fa1a23cc7179d35d"}
+    },
+    "123": {
+      "RO1": {"run_id": "RUN_V2_TR_E20_RO1_B_0008_06B67064", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E20/seed_123/runs/RUN_V2_TR_E20_RO1_B_0008_06B67064/checkpoints/refit_final.pt", "checkpoint_sha256": "1980b8ae9dca7f7b2bde58f499b2cf9718dff26125240b57e39f2afdd21414af"},
+      "RO2": {"run_id": "RUN_V2_TR_E20_RO2_B_0010_7B4704A4", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E20/seed_123/runs/RUN_V2_TR_E20_RO2_B_0010_7B4704A4/checkpoints/refit_final.pt", "checkpoint_sha256": "6940fe67ea6885d089ed929a8bdc3cd0b4c4b0ad00733a9268b607ef69108260"},
+      "RO3": {"run_id": "RUN_V2_TR_E20_RO3_B_0012_7F18AB42", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E20/seed_123/runs/RUN_V2_TR_E20_RO3_B_0012_7F18AB42/checkpoints/refit_final.pt", "checkpoint_sha256": "2a3a5a33cf02b349367f3c44920c7ea542c0b22392835cfcf0ba407bfb8186bc"}
+    },
+    "2026": {
+      "RO1": {"run_id": "RUN_V2_TR_E20_RO1_B_0008_D3DFB40D", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E20/seed_2026/runs/RUN_V2_TR_E20_RO1_B_0008_D3DFB40D/checkpoints/refit_final.pt", "checkpoint_sha256": "c6091e7863990836c7b767c5f1c8ec299b609b204c678aca498ef6f10137482d"},
+      "RO2": {"run_id": "RUN_V2_TR_E20_RO2_B_0010_B2BAB4FE", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E20/seed_2026/runs/RUN_V2_TR_E20_RO2_B_0010_B2BAB4FE/checkpoints/refit_final.pt", "checkpoint_sha256": "765bccfce967ed4ce64160fb6a68dc11c787894480c34458a2b5aba88c051a2d"},
+      "RO3": {"run_id": "RUN_V2_TR_E20_RO3_B_0012_2F058AB4", "checkpoint_path": "artifacts/model_improvement_v2/experiments/E20/seed_2026/runs/RUN_V2_TR_E20_RO3_B_0012_2F058AB4/checkpoints/refit_final.pt", "checkpoint_sha256": "b869ce7f7f347376a4f0fb47fb8ff9e93f2d7cc1177afd94a22264c8f54cfb84"}
+    }
+  },
+  "output_contract": {
+    "artifact_root": "artifacts/model_improvement_v2/final_model_lock",
+    "scaler_paths": ["scalers/final_x_scaler.json", "scalers/final_y_scaler.json"],
+    "per_run_required": ["config.json", "status.json", "training_history.csv", "training.log", "checkpoints/final_refit.pt"],
+    "final_manifest": "step16_final_refit_manifest.json",
+    "checkpoint_sha256_lock_timing": "AFTER_SUCCESSFUL_TRAINING",
+    "fold_specific_stage_b_checkpoint_reuse": false
+  },
+  "recovery_contract": {
+    "official_requires_empty_namespace": true,
+    "reuse_verified_completed_seeds": true,
+    "train_only_missing_seeds": true,
+    "preserve_failed_evidence": true,
+    "running_record_requires_audit": true,
+    "overwrite_completed_checkpoint": false
+  },
+  "expected_new_runs": 3,
+  "training_authorized": false,
+  "test_status": "NOT_ACCESSED"
+}

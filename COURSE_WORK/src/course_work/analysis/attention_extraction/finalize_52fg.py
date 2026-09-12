@@ -33,7 +33,7 @@ from course_work.analysis.attention_extraction.contract import write_dense_case_
 
 
 def main() -> None:
-    root = Path("/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
+    root = Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
     started_at = time.time()
     sources = load_frozen_sources(root)
 

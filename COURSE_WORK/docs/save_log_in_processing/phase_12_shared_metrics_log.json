@@ -77,7 +77,7 @@
     {
       "path": "artifacts/metrics/phase_12_signoff.json",
       "role": "signoff",
-      "sha256": "08dee71be6db46b0b95837f0ea2976e86adf0bbf8b2b7aa8ede7a6db87d74fcc"
+      "sha256": "0a631815cdb9c4f31ad6f41f79f17a53cdfd068ee31961d5d366a16ac3b971b0"
     }
   ],
   "status": "PASS",
@@ -124,17 +124,17 @@
     ],
     "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
     "output_checksums": {
-      "artifacts/metrics/README_METRICS.md": "21ee1793a26567bfe1930bff1aabbebfd02a4e1d1e5c9824f873b0fe549eb032",
-      "artifacts/metrics/metric_comparison_schema.json": "90dee420c4eb2c0d03d24dc502b751b746bbcad7dca819276d0e6a9bb619c03d",
-      "artifacts/metrics/metric_contract.json": "cd0de59f9d0283b83c802ebaeea166eb9f9bb6e6208f1f29a2085e4684e563a8",
-      "artifacts/metrics/metric_discrepancies.json": "d0895f985e0c1e08266e0deec52304c10c192b722848a2e92bb9b95ed14fa145",
+      "artifacts/metrics/README_METRICS.md": "9e6b2e75da3c9c07e862227fab063907c0af522979579213a91e98e9a3f8ca35",
+      "artifacts/metrics/metric_comparison_schema.json": "f91df02fa92fdcfc8a81fc9c572af923456d2ab154f52a596091bb8879384cb6",
+      "artifacts/metrics/metric_contract.json": "0f22a841a2fc1e5a220c9c5692e184c1fae99429b28ac9a9bd357a40dc64da32",
+      "artifacts/metrics/metric_discrepancies.json": "33795cbc6ae848843eed22749d9a27874efec5ce7f04c33173602956fa07c197",
       "artifacts/metrics/metric_implementation_audit.csv": "7a593dfa0f85d6b67b53703ef37713363da1edee0c14663a06d2e9d7677bcbf5",
-      "artifacts/metrics/metric_manifest.json": "dee2183887266553165652f266f5255f8fff68a793447d254d7e1edbc5b7af58",
+      "artifacts/metrics/metric_manifest.json": "5f2d39dd0fb53b55fd992cd6d3de514d0005f22f42363b00db12ae1b06d7ff97",
       "artifacts/metrics/metric_reference_examples.csv": "5da113cb9ace898c56807bfa4a47907ed0a70a8f6e31083aa023fdfa840a0c90",
       "artifacts/metrics/metric_registry.csv": "80d3ff7bf3bfb7b68b16563b3c4a5f0d06b683db3241a330d1eac6f4e4090bf0",
       "artifacts/metrics/metric_test_firewall_audit.csv": "ae00c64a1e864efe7ccd66c94c6173cd92bea388c02d4b0b6ef2f6e1b8476222",
       "artifacts/metrics/metric_unit_tests.csv": "8fc2924659df175c601d81894b8062fd1b9feeae2672a2811c8facc05dd11e88",
-      "artifacts/metrics/prediction_bundle_schema.json": "3ff106e36dd9119fdeaa09cd7d6cd76d3c4afb7b8b16c6163742adfa21c91721"
+      "artifacts/metrics/prediction_bundle_schema.json": "0ce2f40af3f58d32a0baa915e78336d71345159780c8be1a9ce2911862697307"
     },
     "output_paths": [
       "artifacts/metrics/metric_manifest.json",

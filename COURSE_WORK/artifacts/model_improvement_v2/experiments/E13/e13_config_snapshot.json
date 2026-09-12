@@ -1,0 +1,18 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_E13_CONFIG-v1",
+  "experiment_id": "E13",
+  "objective": "HYBRID_LEVEL_PLUS_DELTA_LOSS",
+  "accepted_incumbent": "E01_DIRECT_FS2_TF1",
+  "e12_human_decision": {"decision":"REJECTED","challenger":"TR_C2_ALT_LOOKBACK_E12_LAG144","carry_forward_lag144":false,"incumbent_retained":"E01_DIRECT_FS2_TF1","test_status":"NOT_ACCESSED"},
+  "control_reuse": {
+    "source":"E01","candidate_id":"E01_DIRECT_FS2_TF1","reuse_only":true,
+    "metrics":{"rmse_wh":59.85291570400546,"mae_wh":26.650501720144604,"r2":0.5789433617557903},
+    "test_status":"NOT_ACCESSED",
+    "artifact_sha256":{"e01_config_snapshot.json":"7e3b064e00a3e1148053d798228ce232fc3faa7464a803b697ab4915b0a5a101","e01_execution_manifest.json":"377b50b2230a024c93650dc7f31cb6f06f9a0d55c83869ffc55bddf061c2553a","e01_reproduction_comparison.json":"a73e94c21acd18195a4350c6ae14d65f84927688bacaeacbc50292b0f07be5e5"}
+  },
+  "feature_order":["lights","T1","RH_1","T2","RH_2","T3","RH_3","T4","RH_4","T5","RH_5","T6","RH_6","T7","RH_7","T8","RH_8","T9","RH_9","T_out","Press_mm_hg","RH_out","Windspeed","Visibility","Tdewpoint","Appliances","rv1","rv2","hour_sin","hour_cos","dow_sin","dow_cos","weekend"],
+  "challenger_lambdas":[0.10,0.25,0.50],
+  "loss_contract":{"level":"MSE(y_pred_model,y_next_model)","delta_true_model":"(y_next_raw-y_context_raw)/y_scaler_scale","delta_pred_model":"y_pred_model-y_context_model","delta":"SmoothL1(delta_pred_model,delta_true_model,beta=1.0)","total":"level_mse+lambda_delta*delta_smooth_l1","space":"FOLD_LOCAL_Y_STANDARDIZED"},
+  "promotion_policy":{"rmse_min_improvement_wh":0.10,"mae_max_degradation_wh":0.25,"worst_fold_rmse_max_degradation_wh":0.50,"fold_rmse_std_max_degradation_wh":0.50,"lower_mae_alone_can_promote":false,"automatic_promotion":false,"decision_authority":"HUMAN","test_metrics_allowed":false},
+  "orchestration":{"registry_namespace":"V2_E13","execution_track":"MODEL_IMPROVEMENT_V2_E13","artifact_root":"COURSE_WORK/artifacts/model_improvement_v2/experiments/E13","registry_root":"COURSE_WORK/artifacts/model_improvement_v2/experiments/E13/registry","run_root":"COURSE_WORK/artifacts/model_improvement_v2/experiments/E13/runs","control_retrained":false,"expected_new_training_runs":18,"fresh_model_optimizer_each_run":true,"recovery_policy":"EXACT_COMPLETED_RUN_LEDGER_NO_RETRAIN_STAGE_C","training_authorized":false,"test_access_authorized":false}
+}

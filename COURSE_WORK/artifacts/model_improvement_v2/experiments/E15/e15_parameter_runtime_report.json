@@ -1,0 +1,129 @@
+{
+  "memory_reporting": "STATIC_PARAMETER_BYTES_ONLY_NO_FABRICATED_PEAK_MEMORY",
+  "parameter_gate": "PASS",
+  "parameter_limit_exclusive": 1000000,
+  "runs": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "duration_seconds": 215.28161,
+      "fold": "RO1",
+      "parameter_count": 227041,
+      "parameter_memory_estimate_bytes_fp32": 908164,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO1_A_0001_99033952",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "duration_seconds": 216.258483,
+      "fold": "RO1",
+      "parameter_count": 401025,
+      "parameter_memory_estimate_bytes_fp32": 1604100,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO1_A_0002_AE335BC5",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "duration_seconds": 417.370228,
+      "fold": "RO2",
+      "parameter_count": 227041,
+      "parameter_memory_estimate_bytes_fp32": 908164,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO2_A_0003_E33F4EAC",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "duration_seconds": 428.150201,
+      "fold": "RO2",
+      "parameter_count": 401025,
+      "parameter_memory_estimate_bytes_fp32": 1604100,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO2_A_0004_F7893230",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "duration_seconds": 381.561137,
+      "fold": "RO3",
+      "parameter_count": 227041,
+      "parameter_memory_estimate_bytes_fp32": 908164,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO3_A_0005_34792CCD",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "duration_seconds": 601.975568,
+      "fold": "RO3",
+      "parameter_count": 401025,
+      "parameter_memory_estimate_bytes_fp32": 1604100,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO3_A_0006_DE3B1316",
+      "stage": "A"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "duration_seconds": 21.61615,
+      "fold": "RO1",
+      "parameter_count": 227041,
+      "parameter_memory_estimate_bytes_fp32": 908164,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO1_B_0007_573E5F65",
+      "stage": "B"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "duration_seconds": 22.501286,
+      "fold": "RO1",
+      "parameter_count": 401025,
+      "parameter_memory_estimate_bytes_fp32": 1604100,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO1_B_0008_F914E979",
+      "stage": "B"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "duration_seconds": 138.284286,
+      "fold": "RO2",
+      "parameter_count": 227041,
+      "parameter_memory_estimate_bytes_fp32": 908164,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO2_B_0009_9B7CAB18",
+      "stage": "B"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "duration_seconds": 145.949649,
+      "fold": "RO2",
+      "parameter_count": 401025,
+      "parameter_memory_estimate_bytes_fp32": 1604100,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO2_B_0010_74FF6E50",
+      "stage": "B"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "duration_seconds": 113.221694,
+      "fold": "RO3",
+      "parameter_count": 227041,
+      "parameter_memory_estimate_bytes_fp32": 908164,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO3_B_0011_43EABEC3",
+      "stage": "B"
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "duration_seconds": 253.943273,
+      "fold": "RO3",
+      "parameter_count": 401025,
+      "parameter_memory_estimate_bytes_fp32": 1604100,
+      "peak_runtime_memory": "NOT_CAPTURED_BY_CANONICAL_ENGINE",
+      "run_id": "RUN_V2_TR_E15_RO3_B_0012_B64AB677",
+      "stage": "B"
+    }
+  ],
+  "schema": "MODEL_IMPROVEMENT_V2_E15_PARAMETER_RUNTIME-v1",
+  "test_status": "NOT_ACCESSED"
+}

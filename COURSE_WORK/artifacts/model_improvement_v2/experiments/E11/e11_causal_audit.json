@@ -1,0 +1,60 @@
+{
+  "centered_rolling": false,
+  "challenger": {
+    "feature_order_status": "PASS",
+    "first_timestamp": "2016-01-11 17:00:00",
+    "fold_fingerprint_status": {
+      "RO1": "PASS",
+      "RO2": "PASS",
+      "RO3": "PASS"
+    },
+    "last_timestamp": "2016-05-07 04:30:00",
+    "phase9_scaler_provenance_status": "PASS_NOT_USED_FOR_TRAINING",
+    "population_status": "PASS",
+    "rows_loaded": 16774,
+    "source_kind": "COURSE_WORK_FINAL.zip!/COURSE_WORK/link/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv",
+    "test_rows_read": 0,
+    "test_start_timestamp": "2016-05-07 04:40:00",
+    "test_target_ids_seen": 0,
+    "train_rows_loaded": 13814,
+    "validation_rows_loaded": 2960
+  },
+  "common_ordered_target_ids": true,
+  "common_population_fingerprint": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731",
+  "common_target_count": 16630,
+  "control": {
+    "feature_order_status": "PASS",
+    "first_timestamp": "2016-01-11 17:00:00",
+    "fold_fingerprint_status": {
+      "RO1": "PASS",
+      "RO2": "PASS",
+      "RO3": "PASS"
+    },
+    "last_timestamp": "2016-05-07 04:30:00",
+    "phase9_scaler_provenance_status": "PASS_NOT_USED_FOR_TRAINING",
+    "population_status": "PASS",
+    "rows_loaded": 16774,
+    "source_kind": "COURSE_WORK_FINAL.zip!/COURSE_WORK/link/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv",
+    "test_rows_read": 0,
+    "test_start_timestamp": "2016-05-07 04:40:00",
+    "test_target_ids_seen": 0,
+    "train_rows_loaded": 13814,
+    "validation_rows_loaded": 2960
+  },
+  "ddof": 0,
+  "imputation": "NONE",
+  "no_future_target_access": true,
+  "partial_windows": false,
+  "rolling_definitions": {
+    "appliances_roll_max_12": "max(y[s-11:s+1])",
+    "appliances_roll_mean_12": "mean(y[s-11:s+1])",
+    "appliances_roll_mean_3": "mean(y[s-2:s+1])",
+    "appliances_roll_mean_6": "mean(y[s-5:s+1])",
+    "appliances_roll_min_12": "min(y[s-11:s+1])",
+    "appliances_roll_std_12": "std(y[s-11:s+1], ddof=0)",
+    "appliances_roll_std_6": "std(y[s-5:s+1], ddof=0)"
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E11_CAUSAL_AUDIT-v1",
+  "status": "PASS",
+  "trailing_includes_current_observation": true
+}

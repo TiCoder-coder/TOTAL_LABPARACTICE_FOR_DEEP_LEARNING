@@ -1,0 +1,120 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_FINAL_CLOSURE-v1",
+  "status": "COMPLETE",
+  "final_policy": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "policy_id": "MEAN_E14_M1_SEEDS_42_123_2026",
+    "seeds": [42, 123, 2026],
+    "weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333],
+    "best_seed_selection": false
+  },
+  "final_development_metrics": {
+    "pooled_rmse_wh": 58.57180673355406,
+    "pooled_mae_wh": 25.545269885543682,
+    "pooled_r2": 0.5967752914420708,
+    "worst_fold_rmse_wh": 67.53675009939884,
+    "fold_rmse_sd_wh": 8.879494624591965
+  },
+  "post_hoc_benchmark": {
+    "label": "POST_HOC_V2_BENCHMARK",
+    "interpretation": "POST_HOC_HISTORICAL_BENCHMARK__NOT_UNBIASED_UNSEEN_TEST",
+    "test_status": "ACCESSED_ONCE_FOR_POST_HOC_V2_BENCHMARK",
+    "sample_count": 2961,
+    "population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+    "ensemble_metrics": {
+      "rmse_wh": 61.608936806100665,
+      "mae_wh": 25.897129774085265,
+      "r2": 0.5403636015384808
+    },
+    "persistence_metrics": {
+      "rmse_wh": 66.83691534084765,
+      "mae_wh": 26.73758865248227,
+      "r2": 0.459046692018256
+    },
+    "v1_historical_transformer_mean": {
+      "rmse_wh": 63.8296583863937,
+      "mae_wh": 28.52860338489352,
+      "r2": 0.5064220688328526
+    }
+  },
+  "deltas": {
+    "v2_minus_v1_historical_mean": {
+      "rmse_wh": -2.220721580293038,
+      "mae_wh": -2.6314736108082535,
+      "r2": 0.033941532705628275,
+      "interpretation": "V2 lower RMSE/MAE and higher R2; contextual post-hoc comparison only"
+    },
+    "v2_minus_persistence": {
+      "rmse_wh": -5.227978534746988,
+      "mae_wh": -0.8404588783970048,
+      "r2": 0.08131690952022486,
+      "interpretation": "V2 lower RMSE/MAE and higher R2 on the same ordered population"
+    }
+  },
+  "locked_config": {
+    "feature_variant_id": "FS2_TF1",
+    "feature_count": 33,
+    "lookback": 72,
+    "horizon": 1,
+    "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+    "model": {"d_model": 64, "num_heads": 4, "ffn_dim": 256, "num_layers": 2, "norm_first": false, "dropout": 0.1},
+    "training": {"optimizer": "AdamW", "learning_rate": 0.0002, "weight_decay": 0.001, "batch_size": 16, "scheduler": "OFF", "loss_policy": "HYBRID_LEVEL_PLUS_DELTA", "lambda_delta": 0.1, "epochs": 16}
+  },
+  "provenance": {
+    "status": "PASS",
+    "final_lock": {
+      "path": "artifacts/model_improvement_v2/final_model_lock/v2_final_model_lock.json",
+      "sha256": "95dba2059cc36614890d6d9685f49443e200bba14d5c65896e0809fb36885283"
+    },
+    "step17_manifest": {
+      "path": "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_benchmark_manifest.json",
+      "sha256": "73d07870e1222af0b145f965a832b065fd398655b9716c196519ab11e357f763"
+    },
+    "step17_config_snapshot": {
+      "path": "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_benchmark_config_snapshot.json",
+      "sha256": "7f0c339e38bba212bb59569d9957988dbc5d899e45390f46fb37d2c657e6fa67"
+    },
+    "step17_source_plan": {
+      "path": "docs/plan/plan_before_process/model_improvement_v2_step17_post_hoc_benchmark_pre_process_plan.md",
+      "sha256": "b43313175f734e13fb6fec9ee8ce2805371311ee925538c7e8bf4916880b6ad0"
+    },
+    "step17_summary_sha256": "8d229f97321801151f7c5d95d81818b745b888970df1ab89d85fd7b0c528c99e",
+    "step17_metrics_sha256": "31325099247246a9143af8f0b814aa5e863f31953d846f30246b8bbde9786642",
+    "step17_signoff_sha256": "670348cd8e17c29eb2d573ba9608b1807cd163bc37f4bd154c2c8db9d3865960",
+    "step17_access_event_sha256": "9e37cdbf672a7016b69ea0e98c349cbfbd89819e66040a90cd70c77a060f89f0",
+    "checkpoint_sha256": {
+      "42": "5cf30c81a92abf27522cf592eebb53410a12b3d90e5f3ab8785305d48174a8f6",
+      "123": "dfbdc6473e144fa315d54c80c063884ffe3f6d3df3997e0f1847f0a814297766",
+      "2026": "8eb9d9f0f7a14061218c06c391b7698c14033cd19576db3a7d1718f9516941c4"
+    },
+    "x_scaler_sha256": "521df9de48516f4d5d661f76a35c46241a24cd357e66ffab2e1f0695a54c7724",
+    "y_scaler_sha256": "c572e817ccede5dd5dd481c9f5ab780a45481a256d695680c832f4385cf206f3",
+    "prediction_checksums": {
+      "ensemble.csv": "ef46e006e1701589d5a73c4575371b118ce73716612c97ef5c1aefa9e0771fee",
+      "persistence.csv": "42efbf4d1773e512904bd2bb95516ad1dc5a2847790a663344557f6149654251",
+      "seed_42.csv": "de4ad810faf18465b51907a0f814cb0e65ae032a63c818ade75e62d2bedc9b84",
+      "seed_123.csv": "bd3169ff9845d825742230ed5b7d32091d04d870d4963a1248078e90a15a7d77",
+      "seed_2026.csv": "23db16c69dc0d70ab37c6093dc814a014d8433635eac7ccfe55b00cb4374b908"
+    },
+    "ordered_population_equality": "PASS",
+    "ensemble_arithmetic_max_abs_error_wh": 1.1368683772161603e-13,
+    "metric_recomputation": "PASS"
+  },
+  "governance": {
+    "training_during_step17": false,
+    "post_test_retuning": false,
+    "best_seed_selected": false,
+    "ensemble_weights_changed": false,
+    "scaler_fit_during_step17": false,
+    "scientific_conclusion_changed_after_test": false
+  },
+  "reporting_debt": [
+    "The old Test was already observed in V1; Step 17 is post-hoc historical evidence and not an unbiased unseen-Test estimate.",
+    "The V1 comparator is the mean of three per-seed metrics, while the V2 number is the metric of an equal-weight prediction ensemble; the delta is contextual rather than a matched policy comparison.",
+    "The generic E20 rolling-origin manifest records seed 42 for seed-123/2026 branches; run-level provenance and checksums passed, so this remains non-blocking reporting debt.",
+    "Portable peak-memory evidence was not recorded; no memory conclusion is claimed.",
+    "Legacy Phase 58/59 artifacts remain frozen V1 reporting and are not rewritten; the notebook appends a separate V2 closure section."
+  ],
+  "remaining_blockers": [],
+  "model_improvement_v2_status": "COMPLETE"
+}

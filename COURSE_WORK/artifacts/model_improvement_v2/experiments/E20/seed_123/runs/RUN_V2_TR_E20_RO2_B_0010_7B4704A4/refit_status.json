@@ -1,0 +1,22 @@
+{
+  "run_id": "RUN_V2_TR_E20_RO2_B_0010_7B4704A4",
+  "stage": "B",
+  "official_epoch": 11,
+  "best_epoch_inner": 11,
+  "stopped_reason": "EXACT_EPOCHS",
+  "refit_seed": 123,
+  "fold_id": "RO2",
+  "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+  "parent_run_id": "RUN_V2_TR_E20_RO2_A_0004_66B51E2E",
+  "train_loss_final": 0.39577433831891656,
+  "trainable_parameters": 102209,
+  "early_stopping_enabled": false,
+  "validation_used": false,
+  "warm_start": false,
+  "final_dev_semantics": false,
+  "notes": "Stage B refit using best_epoch_inner=11",
+  "lr_policy": "STAGE_B_CONSTANT_LR_FROM_CONFIG",
+  "lr_trace_source": "config_constant",
+  "lr_trace_length": 0,
+  "lr_used_for_epoch": []
+}

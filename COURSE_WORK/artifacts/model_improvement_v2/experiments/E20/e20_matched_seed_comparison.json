@@ -1,0 +1,60 @@
+{
+  "across_seed_summary": {
+    "CONTROL": {
+      "mean_rmse_wh": 60.01942098825528,
+      "sd_rmse_wh": 0.5388562185503559
+    },
+    "FINALIST": {
+      "mean_rmse_wh": 60.04405270342824,
+      "sd_rmse_wh": 1.0756587253611456
+    }
+  },
+  "best_seed_selection": "FORBIDDEN",
+  "decision": "HUMAN_REVIEW_REQUIRED",
+  "hyperparameter_retuning": "FORBIDDEN",
+  "metrics_by_seed": {
+    "123": {
+      "CONTROL": {
+        "mae_wh": 27.595866822628537,
+        "r2": 0.5662743353061974,
+        "rmse_wh": 60.7466891807695
+      },
+      "FINALIST": {
+        "mae_wh": 27.23619411176936,
+        "r2": 0.5694144067132818,
+        "rmse_wh": 60.526393891511866
+      }
+    },
+    "2026": {
+      "CONTROL": {
+        "mae_wh": 25.52291536680761,
+        "r2": 0.5844721832702793,
+        "rmse_wh": 59.458658079990876
+      },
+      "FINALIST": {
+        "mae_wh": 27.041774936512997,
+        "r2": 0.5618991333831782,
+        "rmse_wh": 61.05231108851125
+      }
+    },
+    "42": {
+      "CONTROL": {
+        "mae_wh": 26.650501720144604,
+        "r2": 0.5789433617557903,
+        "rmse_wh": 59.85291570400546
+      },
+      "FINALIST": {
+        "mae_wh": 26.33779907425144,
+        "r2": 0.5970279545320498,
+        "rmse_wh": 58.5534531302616
+      }
+    }
+  },
+  "paired_finalist_minus_control_rmse_wh": {
+    "123": -0.22029528925763486,
+    "2026": 1.593653008520377,
+    "42": -1.2994625737438597
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E20_MATCHED_SEED_COMPARISON-v1",
+  "test_status": "NOT_ACCESSED"
+}

@@ -79,7 +79,7 @@
     {
       "path": "artifacts/transformer_b0/phase_21_signoff.json",
       "role": "signoff",
-      "sha256": "99f382139d9f5e99c43a4243bd71e77d324fe1f6c5525b41b4e177330c84897e"
+      "sha256": "9a937671ee176f5d8833600799b52ea764e897ae632f6ccd1929f6c10b91d96e"
     }
   ],
   "status": "PASS",
@@ -116,14 +116,14 @@
     ],
     "output_checksums": {
       "artifacts/runs/RUN_TR_B0_0003_44457570/checkpoints/best_checkpoint.pt": "6b6375b66c433455ea9d3a7b45862df1e5be5eeb8f14ecd24a2ad8e55fa7d18a",
-      "artifacts/runs/RUN_TR_B0_0003_44457570/metrics/best_validation_metrics.json": "d41219986c1aec26ae59ca58823fdf6e8636f5920e8eedc05eea2edd79755e62",
-      "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md": "b2675bca3520c9db96bd3cc59a50360f98e827f45379b869a4d256d2c69ceace",
+      "artifacts/runs/RUN_TR_B0_0003_44457570/metrics/best_validation_metrics.json": "da8239772799afc7f06711177f1d5b0ac3082ac9a1aa7e14a521a6c9b8942e4e",
+      "artifacts/transformer_b0/README_TRANSFORMER_B0_RUN.md": "21d8889053d81a2251c6951a9812adf26cdf81e15750de895288e651005d0d66",
       "artifacts/transformer_b0/baseline_comparison_population_audit.csv": "dc7dbe57f2f8fb4a7339562a908a2d95298906a67cb3592ac2afc8393e94ee2c",
       "artifacts/transformer_b0/transformer_b0_audit.csv": "a160f69c9fbf4a3f2bfec7b20949618c7df5842be6999e0b38f6ff454a0d4db3",
-      "artifacts/transformer_b0/transformer_b0_discrepancies.json": "92a3d1b89397d47c61a2d25c3a6152e1158179c3afe29dcae94ea4c1fe81ac8c",
-      "artifacts/transformer_b0/transformer_b0_run_contract.json": "510b022688c5fb77ae29d82e57ed7e1138fb01f8b4cf2c8f158f2be95cc2e2fe",
+      "artifacts/transformer_b0/transformer_b0_discrepancies.json": "c021b154678c0bef310a1f7aea49e4e13bc400ee703d40eb3d1fb169ad1d62f1",
+      "artifacts/transformer_b0/transformer_b0_run_contract.json": "4ab3a8da4d08069c5a01b52324915c996ce239f83942f7680866b09da8660a3d",
       "artifacts/transformer_b0/transformer_b0_run_summary.csv": "8d5477db3bfa5d208c0814d9cc1feaf42d9d12da3528936b9b2f7ea89ec73cb1",
-      "artifacts/transformer_b0/transformer_b0_summary.json": "264ad9ab91a7c47aca54fd158ef5859bf62da58c7b5ef25d8a382214f7675548",
+      "artifacts/transformer_b0/transformer_b0_summary.json": "3b78173962d4f31308fb977a64d708b18fd3ef5aceca049057bc5e6209af0428",
       "artifacts/transformer_b0/transformer_b0_vs_baselines_validation.csv": "a1c1515953e21b7ad996584fceb9c79cf7b9ce6693203d5c3f73d89c98c80bfb"
     },
     "output_paths": [

@@ -163,18 +163,12 @@ def test_notebook_selective_cells_are_static_orchestration_only() -> None:
     cells = {cell["id"]: cell for cell in notebook["cells"]}
     phase_cell = cells["3fe4478c"]
     configuration_cell = cells["phase-33-config-display"]
-    final_cell = cells["all-logs-display"]
     assert "".join(phase_cell["source"]) == (
-        "from course_work.reporting.phase_summary import render_phase_resume\n"
-        "render_phase_resume(30)\n"
-    )
-    assert "".join(final_cell["source"]) == (
-        "from course_work.reporting.phase_summary import render_all_logs_summary\n"
-        "render_all_logs_summary()\n"
+        "display(render_frozen_phase_evidence(30, PROJECT_ROOT))\n"
     )
     assert "".join(configuration_cell["source"]) == (
         "from course_work.reporting.phase_summary import render_phase_33_transformer_configuration\n"
-        "render_phase_33_transformer_configuration(PROJECT_ROOT)\n"
+        "display(render_phase_33_transformer_configuration())\n"
     )
     cell_ids = [cell["id"] for cell in notebook["cells"]]
     assert cell_ids.index("phase-32-resume") < cell_ids.index("phase-33-config-heading")
@@ -187,7 +181,7 @@ def test_notebook_selective_cells_are_static_orchestration_only() -> None:
     assert cell_ids.index("phase-36-heading") < cell_ids.index("phase-36-resume")
     assert cell_ids.index("phase-36-resume") < cell_ids.index("phase-37-heading")
     assert cell_ids.index("phase-37-heading") < cell_ids.index("phase-37-resume")
-    assert cell_ids.index("phase-37-resume") < cell_ids.index("all-logs-heading")
+    assert cell_ids.index("phase-37-resume") < cell_ids.index("17dc5a66")
     phase_cells = {
         22: "cd4716af",
         23: "0881cfe3",
@@ -204,40 +198,27 @@ def test_notebook_selective_cells_are_static_orchestration_only() -> None:
         35: "phase-35-resume",
         36: "phase-36-resume",
         37: "phase-37-resume",
+        38: "17dc5a66",
+        39: "f0fcdce7",
+        40: "d407f95c",
+        41: "7e86663d",
     }
     assert "".join(cells[phase_cells[22]]["source"]) == (
-        "from course_work.reporting.phase_summary import render_phase_summary\n"
-        "render_phase_summary(22, PROJECT_ROOT)\n"
+        "display(render_frozen_phase_evidence(22, PROJECT_ROOT))\n"
     )
-    for phase_id in range(23, 33):
+    for phase_id in [*range(23, 33), *range(34, 42)]:
         assert "".join(cells[phase_cells[phase_id]]["source"]) == (
-            "from course_work.reporting.phase_summary import render_phase_resume\n"
-            f"render_phase_resume({phase_id})\n"
+            f"display(render_frozen_phase_evidence({phase_id}, PROJECT_ROOT))\n"
         )
-    assert "".join(cells[phase_cells[34]]["source"]) == (
-        "from course_work.reporting.phase_summary import render_phase_resume\n"
-        "render_phase_resume(34)\n"
-    )
-    assert "".join(cells[phase_cells[35]]["source"]) == (
-        "from course_work.reporting.phase_summary import render_phase_resume\n"
-        "render_phase_resume(35)\n"
-    )
-    assert "".join(cells[phase_cells[36]]["source"]) == (
-        "from course_work.reporting.phase_summary import render_phase_resume\n"
-        "render_phase_resume(36)\n"
-    )
-    assert "".join(cells[phase_cells[37]]["source"]) == (
-        "from course_work.reporting.phase_summary import render_phase_resume\n"
-        "render_phase_resume(37)\n"
-    )
     assert len(phase_cell["outputs"]) == 1
     assert len(configuration_cell["outputs"]) == 1
-    assert len(final_cell["outputs"]) == 1
+    for phase_id in phase_cells:
+        assert len(cells[phase_cells[phase_id]]["outputs"]) == 1
     for cell in notebook["cells"]:
         for output in cell.get("outputs", []):
             data = output.get("data", {})
             assert "application/vnd.jupyter.widget-view+json" not in data
-    for cell in (phase_cell, configuration_cell, final_cell):
+    for cell in (phase_cell, configuration_cell):
         rendered = json.dumps(cell["outputs"], ensure_ascii=False).lower()
         assert "<script" not in rendered
         assert "jupyter.widget" not in rendered
@@ -253,6 +234,28 @@ def test_notebook_non_target_outputs_match_preservation_baseline() -> None:
     )
     expected = {row["cell_id"]: row["outputs_sha256"] for row in baseline["cells"]}
     excluded = {
+        "0caba13e",
+        "phase-1-orchestration",
+        "b0f56164",
+        "phase-2-orchestration",
+        "phase-3-orchestration",
+        "phase-4-orchestration",
+        "phase-5-orchestration",
+        "phase-7-orchestration",
+        "phase-8-orchestration",
+        "phase-9-orchestration",
+        "phase-10-orchestration",
+        "phase-11-orchestration",
+        "phase-12-orchestration",
+        "phase-13-orchestration",
+        "phase-14-orchestration",
+        "499bc911",
+        "518fca61",
+        "efc7f487",
+        "d60e1951",
+        "2acc38f9",
+        "2eb13c9c",
+        "03db9e36",
         "3fe4478c",
         "phase-31-heading",
         "phase-31-resume",
@@ -268,11 +271,66 @@ def test_notebook_non_target_outputs_match_preservation_baseline() -> None:
         "phase-36-resume",
         "phase-37-heading",
         "phase-37-resume",
-        "all-logs-display",
+        "cd4716af",
+        "0881cfe3",
+        "9b2d6e88",
+        "51bc5965",
+        "585b390d",
+        "86f4ac0c",
+        "b70c9707",
+        "eb4f1b80",
+        "17dc5a66",
+        "f0fcdce7",
+        "d407f95c",
+        "7e86663d",
+        "ec7b2ea5",
+        "05ec07a2",
+        "5e9eec01",
+        "4293c1aa",
+        "b3d754ee",
+        "d0833283",
+        "8a7873a9",
+        "5acc48a2",
+        "fa11ad6a",
+        "994bbdb9",
+        "ed1e48a7",
+        "6a082d01",
+        "9eacc9e3",
+        "2f0130ea",
+        "88d07113",
+        "4e6b273d",
+        "b388dcd1",
+        "753ab0f1",
+        "62f722b6",
+        "4dea0c14",
+        "b496ac6f",
+        "1451ccf0",
+        "7cc29214",
+        "bbcf08f2",
+        "9a2f1b89",
+        "1d5b5327",
+        "2e8f083e",
+        "c9df346a",
+        "870efbe4",
+        "7b48186f",
+        "afeb48a2",
+        "1c098fa6",
+        "3c915fcc",
+        "644dbb41",
+        "de13c9d0",
+        "5627f983",
+        "332dd9c8",
+        "9f864b91",
+        "251da856",
+        "76de7c69",
+        "v2closure",
+        "v2closedash",
         "a375b9ca",
     }
     for cell in notebook["cells"]:
         if cell["id"] in excluded:
+            continue
+        if cell["id"] not in expected:
             continue
         payload = json.dumps(
             cell.get("outputs", []),

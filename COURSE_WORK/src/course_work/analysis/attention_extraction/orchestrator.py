@@ -372,7 +372,7 @@ def _per_seed_batch_audit(seed: int, batch_audit: dict[str, Any], same_as_other_
 
 def run_phase52(project_root: Path | None = None) -> dict[str, Any]:
     """End-to-end Phase 52 orchestrator."""
-    root = project_root or Path("/Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
+    root = project_root or Path("/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK")
     started_at = time.time()
 
     sources = load_frozen_sources(root)

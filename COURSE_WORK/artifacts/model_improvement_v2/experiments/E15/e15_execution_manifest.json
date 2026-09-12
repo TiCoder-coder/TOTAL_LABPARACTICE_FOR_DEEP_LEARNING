@@ -1,0 +1,64 @@
+{
+  "preflight": {
+    "accepted_incumbent": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "candidate_config_fingerprints": {
+      "W128": "91183901a9014f5a3d1ec8c6d46c2ed2a0f4c0abc67c0cc8e55348c794b6f109",
+      "W96": "a9fb20f4d5fd271be3e2d6637ac375e80bde9ce22775d88fdce17b0e3a95c596"
+    },
+    "challengers": [
+      "W96",
+      "W128"
+    ],
+    "control_reuse_status": "PASS",
+    "expected_new_training_runs": 12,
+    "experiment": "E15",
+    "feature_count": 33,
+    "feature_variant": "FS2_TF1",
+    "parameter_counts": {
+      "W128": 401025,
+      "W96": 227041
+    },
+    "parameter_gate": "PASS",
+    "parameter_memory_estimate_bytes_fp32": {
+      "W128": 1604100,
+      "W96": 908164
+    },
+    "population": {
+      "fold_fingerprints": {
+        "RO1": "2474242da40cfbebb33a86ff7d6601d47e03cdc504d8237b0c3fc3e20211a62f",
+        "RO2": "7b81b8d969850e62deec44fee6fabdf45c8e1a9c28d51465ce9036625110e0b1",
+        "RO3": "a4b7c9479867884cd9e8e2f0a50f634735a31e4adb6f6fb9f90d944c34de4731"
+      },
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "status": "PASS",
+      "target_count": 16630
+    },
+    "recovery_contract": "NO_RETRAIN_EXACT_COMPLETED_LEDGER_REQUIRED",
+    "scaler_lineage": "FOLD_LOCAL_TRAIN_ONLY",
+    "status": "PASS",
+    "test_rows_read": 0,
+    "test_status": "NOT_ACCESSED",
+    "test_target_ids_seen": 0,
+    "training_executed": false
+  },
+  "run_ids": {
+    "stage_a": {
+      "TR_C2_ALT_LOOKBACK_E15_W128_FFN512:RO1": "RUN_V2_TR_E15_RO1_A_0002_AE335BC5",
+      "TR_C2_ALT_LOOKBACK_E15_W128_FFN512:RO2": "RUN_V2_TR_E15_RO2_A_0004_F7893230",
+      "TR_C2_ALT_LOOKBACK_E15_W128_FFN512:RO3": "RUN_V2_TR_E15_RO3_A_0006_DE3B1316",
+      "TR_C2_ALT_LOOKBACK_E15_W96_FFN384:RO1": "RUN_V2_TR_E15_RO1_A_0001_99033952",
+      "TR_C2_ALT_LOOKBACK_E15_W96_FFN384:RO2": "RUN_V2_TR_E15_RO2_A_0003_E33F4EAC",
+      "TR_C2_ALT_LOOKBACK_E15_W96_FFN384:RO3": "RUN_V2_TR_E15_RO3_A_0005_34792CCD"
+    },
+    "stage_b": {
+      "TR_C2_ALT_LOOKBACK_E15_W128_FFN512:RO1": "RUN_V2_TR_E15_RO1_B_0008_F914E979",
+      "TR_C2_ALT_LOOKBACK_E15_W128_FFN512:RO2": "RUN_V2_TR_E15_RO2_B_0010_74FF6E50",
+      "TR_C2_ALT_LOOKBACK_E15_W128_FFN512:RO3": "RUN_V2_TR_E15_RO3_B_0012_B64AB677",
+      "TR_C2_ALT_LOOKBACK_E15_W96_FFN384:RO1": "RUN_V2_TR_E15_RO1_B_0007_573E5F65",
+      "TR_C2_ALT_LOOKBACK_E15_W96_FFN384:RO2": "RUN_V2_TR_E15_RO2_B_0009_9B7CAB18",
+      "TR_C2_ALT_LOOKBACK_E15_W96_FFN384:RO3": "RUN_V2_TR_E15_RO3_B_0011_43EABEC3"
+    }
+  },
+  "schema": "MODEL_IMPROVEMENT_V2_E15_EXECUTION-v1",
+  "test_status": "NOT_ACCESSED"
+}

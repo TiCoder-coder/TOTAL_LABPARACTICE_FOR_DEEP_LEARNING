@@ -1,7 +1,7 @@
 # CODE BASE AUDIT — Deep Learning Coursework
 
 > **Audit Timestamp:** 06/09/2026 (UTC+7)
-> **Repository:** `/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK`
+> **Repository:** `/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK`
 > **Audit Scope:** Toàn bộ luồng, code, follow, structure, conventions, design patterns, anomalies của project COURSE_WORK
 > **Mục đích:** Tài liệu duy nhất để hiểu project, onboarding developer mới, đánh giá độ chuẩn chỉnh của codebase
 

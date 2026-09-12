@@ -1,0 +1,171 @@
+{
+  "approved_for_phase45": true,
+  "fold_rmse_sd_wh": 7.848918250648834,
+  "lstm_tuned_context": {},
+  "mean_fold_rmse_wh": 60.52602572550153,
+  "persistence_context": {
+    "model_id": "PERSISTENCE_LAST_VALUE",
+    "pooled_rmse_wh": 66.42970273458556,
+    "version": "WB0_LAST_STEP_v1"
+  },
+  "recommended_transformer_candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+  "recommended_transformer_config": {
+    "data": {
+      "boundary_protocol": "WB0_CONTEXT_CARRY_OVER",
+      "feature_count": 33,
+      "feature_variant_id": "FS2_TF1",
+      "horizon_steps": 1,
+      "lookback_steps": 72,
+      "sampling_interval_minutes": 10,
+      "target_access_mode": "VALIDATION",
+      "target_scaling_option": "YS1",
+      "test_sample_count": 2961,
+      "train_sample_count": 13670,
+      "validation_sample_count": 2960
+    },
+    "lineage": {
+      "dataloader_fingerprint": "48dff0f10ac2165443f3e2ab60f93d3d1ce9149b70c985fbbe31f4059eb4cf7e",
+      "dataloader_version": "DATALOADERS-v1",
+      "dataset_fingerprint": "2820bf712ad0275cb18b85a05250926100d8e65ebb9f4d2d016ca91ea152a25d",
+      "dataset_revision": "DATA-v1",
+      "eda_version": "EDA-v1",
+      "environment_id": "ENV-v1",
+      "feature_fingerprint": "fc9c428964285d1ad74e97f3ae2c18e7efeb3e61d61f7acd0b54039bc2ca6dee",
+      "feature_set_version": "FEATURESETS-v1",
+      "feature_version": "FEATURES-v1",
+      "global_split_fingerprint": "4d0115b92a3c81406b62deb4d36dd8ceac847f948294cdc2e4dc49338ebeb821",
+      "metric_contract_fingerprint": "4509825a7be2ee75220f88bedf31da6d062e6fee5168af45b0d54ec1db137198",
+      "metric_version": "METRICS-v1",
+      "population_fingerprint": "a40ded8802e90008535d268720bad9e9dcca5eee1436ddb359deea3ad39a1987",
+      "population_version": "WINDOWPOP-v1",
+      "scaler_bundle_checksum": "4e7c96d5accc2917855ed669b33d2666b3aa07f6b83b40097a9690c6a5f5e334",
+      "scaler_bundle_id": "XSCALER__FS2_TF1",
+      "scaling_version": "SCALING-v1",
+      "schema_version": "SCHEMA-v1",
+      "split_version": "SPLIT-v1",
+      "target_scaler_bundle_id": "YSCALER__YS1",
+      "target_scaler_checksum": "b3326a79da81b092460ef8d4a140a101b21f2433ff30c36971d626d2a2491697",
+      "temporal_version": "TEMPORAL-v1",
+      "window_fingerprint": "d4fc515a7f75f108a484e0d10cdf5259370af6181b6b5b88cdb1cdf501fa6bca",
+      "window_version": "WINDOWS-v1"
+    },
+    "model": {
+      "activation": "GELU",
+      "attention_aware": true,
+      "d_model": 64,
+      "dropout": 0.1,
+      "ffn_dim": 256,
+      "implementation_version": "TRANSFORMER_IMPL-v1",
+      "input_size": 33,
+      "model_family": "TRANSFORMER_ENCODER",
+      "model_name": "Transformer Encoder Regressor",
+      "model_version": "TRANSFORMER-v1",
+      "norm_first": false,
+      "num_heads": 4,
+      "num_layers": 2,
+      "output_size": 1,
+      "pooling": "LAST_STEP",
+      "positional_encoding_type": "SINUSOIDAL"
+    },
+    "reproducibility": {
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "dataloader_seed": 123,
+      "deterministic_mode": "D0",
+      "global_seed": 123,
+      "seed": 123,
+      "torch_deterministic_algorithms": true,
+      "worker_seed_policy": "torch_initial_seed_mod_2_32_numpy_python"
+    },
+    "runtime": {
+      "device_name": "mps",
+      "device_type": "mps",
+      "dtype": "float32",
+      "mixed_precision": false,
+      "num_workers": 0,
+      "pin_memory": false,
+      "platform": "Darwin",
+      "python_version": "3.10.11",
+      "sklearn_version": "1.7.2",
+      "torch_version": "2.13.0"
+    },
+    "training": {
+      "batch_size": 16,
+      "delta_beta_model_space": 1.0,
+      "early_stopping_enabled": true,
+      "early_stopping_metric": "rmse_wh",
+      "early_stopping_mode": "MIN",
+      "early_stopping_patience": 10,
+      "enabled": true,
+      "gradient_clip_max_norm": 1.0,
+      "gradient_clipping_enabled": true,
+      "huber_delta": null,
+      "lambda_delta": 0.1,
+      "learning_rate": 0.0002,
+      "loss_name": "MSE",
+      "loss_policy": "HYBRID_LEVEL_PLUS_DELTA",
+      "max_epochs": 50,
+      "optimizer_name": "AdamW",
+      "revin_affine": null,
+      "revin_enabled": false,
+      "revin_eps": null,
+      "revin_target_channels": null,
+      "scheduler_config": null,
+      "scheduler_name": null,
+      "weight_decay": 0.001
+    }
+  },
+  "recommended_transformer_fingerprint": "0b4f1b61cb8400324df51e97e05050ec42b9f74a79a0aa650538c23a6ad6d775",
+  "recommended_transformer_inner_best_epochs": {
+    "RO1": 8,
+    "RO2": 11,
+    "RO3": 28
+  },
+  "recommended_transformer_stage_a_run_ids": {
+    "RO1": "RUN_V2_TR_E20_RO1_A_0002_0C6E060D",
+    "RO2": "RUN_V2_TR_E20_RO2_A_0004_66B51E2E",
+    "RO3": "RUN_V2_TR_E20_RO3_A_0006_3140CF69"
+  },
+  "recommended_transformer_stage_b_run_ids": {
+    "RO1": "RUN_V2_TR_E20_RO1_B_0008_06B67064",
+    "RO2": "RUN_V2_TR_E20_RO2_B_0010_7B4704A4",
+    "RO3": "RUN_V2_TR_E20_RO3_B_0012_7F18AB42"
+  },
+  "rolling_origin_fold_metrics": [],
+  "rolling_origin_pooled_metrics": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "pooled_mae_wh": 27.23619411176936,
+      "pooled_r2": 0.5694144067132818,
+      "pooled_rmse_wh": 60.526393891511866
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "pooled_mae_wh": 27.595866822628537,
+      "pooled_r2": 0.5662743353061974,
+      "pooled_rmse_wh": 60.7466891807695
+    }
+  ],
+  "source_phase44_version": "ROBASE-v1",
+  "test_status": "NOT_ACCESSED",
+  "transformer_ranking": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "fold_rmse_sd_wh": 7.848918250648834,
+      "pooled_rmse_wh": 60.526393891511866,
+      "rank": 1,
+      "shortlist_position": 2,
+      "worst_fold_rmse_wh": 69.90868949895122
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK",
+      "fold_rmse_sd_wh": 8.027489886322423,
+      "pooled_rmse_wh": 60.7466891807695,
+      "rank": 2,
+      "shortlist_position": 1,
+      "worst_fold_rmse_wh": 70.30791187213507
+    }
+  ],
+  "warnings": [],
+  "worst_fold_rmse_wh": 69.90868949895122
+}

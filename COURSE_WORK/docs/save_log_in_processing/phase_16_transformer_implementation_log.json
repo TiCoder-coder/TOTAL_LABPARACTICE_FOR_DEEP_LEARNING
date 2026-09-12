@@ -1,6 +1,6 @@
 {
   "artifact_version": "TRANSFORMER_IMPL-v1",
-  "created_at": "2026-08-22T12:50:19.711213+00:00",
+  "created_at": "2026-08-29T08:55:12.941523+00:00",
   "discrepancies": [],
   "phase_id": 16,
   "phase_name": "Transformer Implementation",
@@ -82,7 +82,7 @@
     {
       "path": "artifacts/models/transformer/transformer_model_manifest.json",
       "role": "manifest",
-      "sha256": "979b499f9fe9db57be14e43d07326e59aafd59b5c456b131ba6ba75aca18033e"
+      "sha256": "06f5fb57f1972daab2120b58b282d3ef3ab7709bccc98745d1ebb93b55845ba0"
     },
     {
       "path": "artifacts/models/transformer/transformer_config_schema.json",
@@ -92,7 +92,7 @@
     {
       "path": "artifacts/models/transformer/phase_16_signoff.json",
       "role": "signoff",
-      "sha256": "25dd8bf11f2eb63bbbceff21aba71795115ccf7862962baafa1d48677773a539"
+      "sha256": "1744b46e2bbb86ad54ba87234d61c6028a42f848dc1bfd7372bd49a0dfb5df0b"
     }
   ],
   "status": "PASS",
@@ -114,9 +114,9 @@
     "environment_id": "ENV-v1",
     "implementation_version": "TRANSFORMER_IMPL-v1",
     "input_checksums": {
-      "artifacts/dataloaders/dataloader_manifest.json": "749bc4477aae57bd06aae043bea18e118967d337758852ff7f1db3a3260f8041",
-      "artifacts/environment/environment_report.json": "0a356d4fc47d82ca5f77a32a5854634f1eadaa193dddf947d526929950739ff5",
-      "artifacts/models/lstm/phase_15_signoff.json": "ab835c551e82fab3d6cc4bb2f5a42c7f3607088808ea12dca47cef7a45e76dec"
+      "artifacts/dataloaders/dataloader_manifest.json": "78ea080982ad3042adda166e3d323de9b13afa76947dba2053c895111f963952",
+      "artifacts/environment/environment_report.json": "ee9f78b9ca72e4293aa1d739f189e494ddce35e2581d8e7016ec213fca3b042a",
+      "artifacts/models/lstm/phase_15_signoff.json": "4bfc3f1f7fd622eb6d1ff28d290705ae5eb0e109cc33070259a11a16a11edaa2"
     },
     "input_paths": [
       "artifacts/models/lstm/phase_15_signoff.json",
@@ -131,7 +131,7 @@
       "artifacts/models/transformer/transformer_config_schema.json": "a42f24488594acd0d29ff760e613f232aaa5e3f11c035a77ca620b5f10c68c14",
       "artifacts/models/transformer/transformer_discrepancies.json": "7553a18178dd79d3a933c9567cf663beb06c987af8296f9c9318855f1443f631",
       "artifacts/models/transformer/transformer_implementation_audit.csv": "c88454fe480f6d0edd893425da0070d6960a21f0a308dc47e467e1ef84db7742",
-      "artifacts/models/transformer/transformer_model_manifest.json": "979b499f9fe9db57be14e43d07326e59aafd59b5c456b131ba6ba75aca18033e",
+      "artifacts/models/transformer/transformer_model_manifest.json": "06f5fb57f1972daab2120b58b282d3ef3ab7709bccc98745d1ebb93b55845ba0",
       "artifacts/models/transformer/transformer_module_audit.csv": "3e808370708b85812942f010a55196403c5fe95e2f3356617e72a45db69c87e4",
       "artifacts/models/transformer/transformer_parameter_audit.csv": "0a3f432ab2690bc27edd5d0959aef1291a00a6b187d4924b1a8228bff3449126",
       "artifacts/models/transformer/transformer_positional_encoding_audit.csv": "f9b2eee17d8958c564c82a8648e266994d2f85c1744e3c00b7d88f7016561aec",
@@ -156,7 +156,7 @@
     "positional_encoding_types": [
       "sinusoidal"
     ],
-    "source_code_fingerprint": "050b43286f1ba5bd5cc0626db19c88f0c5d7321baa8defd6ce9d2acf02711ccc",
+    "source_code_fingerprint": "229f9af18295bf62a9ec309aecba266afad5083ffa51f0ea34fbd35877669447",
     "supported_activations": [
       "relu",
       "gelu"
@@ -177,6 +177,6 @@
       "unit_tests"
     ]
   },
-  "timestamp": "2026-08-22T12:50:19.711213+00:00",
+  "timestamp": "2026-08-29T08:55:12.941523+00:00",
   "warnings": []
 }

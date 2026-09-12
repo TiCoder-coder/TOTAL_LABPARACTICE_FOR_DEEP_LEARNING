@@ -1,0 +1,73 @@
+{
+  "benchmark_label": "POST_HOC_V2_BENCHMARK",
+  "best_seed_selected": false,
+  "ensemble_weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "metrics": [
+    {
+      "inference_runtime_seconds": 0.7050235827919096,
+      "mae_wh": 27.29272887500044,
+      "model_id": "V2_FINAL_SEED_42",
+      "parameter_count": 102209,
+      "population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "r2": 0.5455185455468581,
+      "rmse_wh": 61.262482396550126,
+      "run_id": "RUN_V2_TR_STEP16_SEED42_FINAL_A01_A86FBFB4",
+      "sample_count": 2961,
+      "seed": 42
+    },
+    {
+      "inference_runtime_seconds": 0.2782762909773737,
+      "mae_wh": 27.332279525400807,
+      "model_id": "V2_FINAL_SEED_123",
+      "parameter_count": 102209,
+      "population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "r2": 0.5153984511704752,
+      "rmse_wh": 63.25995907084746,
+      "run_id": "RUN_V2_TR_STEP16_SEED123_FINAL_A01_E6361049",
+      "sample_count": 2961,
+      "seed": 123
+    },
+    {
+      "inference_runtime_seconds": 0.2851058749947697,
+      "mae_wh": 25.734231215235543,
+      "model_id": "V2_FINAL_SEED_2026",
+      "parameter_count": 102209,
+      "population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "r2": 0.5281270620247622,
+      "rmse_wh": 62.42363337841774,
+      "run_id": "RUN_V2_TR_STEP16_SEED2026_FINAL_A01_FA2BE43F",
+      "sample_count": 2961,
+      "seed": 2026
+    },
+    {
+      "inference_runtime_seconds": null,
+      "mae_wh": 25.897129774085265,
+      "model_id": "V2_FINAL_EQUAL_WEIGHT_ENSEMBLE",
+      "parameter_count": null,
+      "population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "r2": 0.5403636015384808,
+      "rmse_wh": 61.608936806100665,
+      "run_id": null,
+      "sample_count": 2961,
+      "seed": null
+    },
+    {
+      "inference_runtime_seconds": null,
+      "mae_wh": 26.73758865248227,
+      "model_id": "PERSISTENCE_LAST_VALUE",
+      "parameter_count": null,
+      "population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+      "r2": 0.459046692018256,
+      "rmse_wh": 66.83691534084765,
+      "run_id": null,
+      "sample_count": 2961,
+      "seed": null
+    }
+  ],
+  "population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "schema": "MODEL_IMPROVEMENT_V2_STEP17_METRICS-v1"
+}

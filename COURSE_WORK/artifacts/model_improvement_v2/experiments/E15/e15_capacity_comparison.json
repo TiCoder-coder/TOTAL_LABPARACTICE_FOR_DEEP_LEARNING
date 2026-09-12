@@ -1,0 +1,73 @@
+{
+  "challengers": [
+    {
+      "bundle_id": "W96",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W96_FFN384",
+      "fold_rmse_wh": [
+        73.05502035856938,
+        50.692673420122915,
+        59.24209930269965
+      ],
+      "metrics": {
+        "mae_wh": 27.699490225422203,
+        "r2": 0.5527095931617259,
+        "rmse_wh": 61.689300285757334
+      },
+      "parameter_count": 227041,
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": false,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": false
+        },
+        "human_decision_required": true
+      }
+    },
+    {
+      "bundle_id": "W128",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E15_W128_FFN512",
+      "fold_rmse_wh": [
+        73.10709217889473,
+        50.2265233865401,
+        56.40997698998002
+      ],
+      "metrics": {
+        "mae_wh": 27.715492374997062,
+        "r2": 0.5670789388918365,
+        "rmse_wh": 60.690317496006095
+      },
+      "parameter_count": 401025,
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": false,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": false
+        },
+        "human_decision_required": true
+      }
+    }
+  ],
+  "control": {
+    "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+    "fold_rmse_wh": [
+      65.37273386173845,
+      50.772406234902675,
+      58.601149429283645
+    ],
+    "metrics": {
+      "mae_wh": 26.33779907425144,
+      "r2": 0.5970279545320498,
+      "rmse_wh": 58.5534531302616
+    },
+    "source": "E14_M1_REUSED_READ_ONLY"
+  },
+  "decision": "HUMAN_REVIEW_REQUIRED",
+  "schema": "MODEL_IMPROVEMENT_V2_E15_COMPARISON-v1",
+  "test_status": "NOT_ACCESSED"
+}

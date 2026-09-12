@@ -38,7 +38,7 @@ Toàn bộ liên kết cell trong walkthrough trước khi refactor đều dùng
 Mỗi liên kết notebook cụ thể có dạng:
 
 ```text
-vscode-notebook-cell:/Users/voanhnhat-ticoder-coder/Documents/DEEP_LEARNING/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/notebook_course_work/CourseWork.ipynb#<encoded-cell-handle>
+vscode-notebook-cell:/Users/vientu/Deep%20Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK/notebook_course_work/CourseWork.ipynb#<encoded-cell-handle>
 ```
 
 Mỗi entry trong mục lục cung cấp đồng thời:

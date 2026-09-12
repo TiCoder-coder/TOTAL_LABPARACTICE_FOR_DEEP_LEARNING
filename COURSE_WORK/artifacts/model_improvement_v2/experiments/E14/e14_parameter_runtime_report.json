@@ -1,0 +1,276 @@
+{
+  "runs": [
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "duration_seconds": 497.844103,
+      "epochs_completed": 26,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_A_0001_B5DD2C2E",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "duration_seconds": 437.414847,
+      "epochs_completed": 26,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_A_0002_2734D90C",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "duration_seconds": 214.97357,
+      "epochs_completed": 23,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_A_0003_CD808150",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "duration_seconds": 149.061341,
+      "epochs_completed": 26,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_A_0004_B86E5E8F",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "duration_seconds": 241.326566,
+      "epochs_completed": 26,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_A_0005_DF93FE2C",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "duration_seconds": 411.118306,
+      "epochs_completed": 23,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_A_0006_EC2A3FCE",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "duration_seconds": 411.509886,
+      "epochs_completed": 23,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_A_0007_6C24FAD8",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "duration_seconds": 223.439996,
+      "epochs_completed": 22,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_A_0008_F427C958",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "duration_seconds": 117.350046,
+      "epochs_completed": 19,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_A_0009_DB0C3ECC",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "duration_seconds": 333.310103,
+      "epochs_completed": 33,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_A_0010_38836327",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "duration_seconds": 738.414605,
+      "epochs_completed": 33,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_A_0011_DFA1252E",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "duration_seconds": 612.238042,
+      "epochs_completed": 20,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_A_0012_05C68969",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "duration_seconds": 370.864775,
+      "epochs_completed": 22,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_A_0013_42F9FCAE",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "duration_seconds": 208.123511,
+      "epochs_completed": 22,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_A_0014_36B40435",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "duration_seconds": 588.103573,
+      "epochs_completed": 34,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_A_0015_3E808923",
+      "stage": "A",
+      "trainable_parameters": null
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "duration_seconds": 339.637386,
+      "epochs_completed": 16,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_B_0016_668187E3",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "duration_seconds": 342.55886,
+      "epochs_completed": 16,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_B_0017_F839A93C",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "duration_seconds": 156.738077,
+      "epochs_completed": 13,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_B_0018_4166D966",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "duration_seconds": 96.988,
+      "epochs_completed": 16,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_B_0019_E3B7A70C",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "duration_seconds": 192.695597,
+      "epochs_completed": 16,
+      "fold": "RO1",
+      "run_id": "RUN_V2_TR_E14_RO1_B_0020_BD184866",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "duration_seconds": 299.357135,
+      "epochs_completed": 13,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_B_0021_AD87B689",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "duration_seconds": 300.249162,
+      "epochs_completed": 13,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_B_0022_BB34FE6C",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "duration_seconds": 153.266618,
+      "epochs_completed": 12,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_B_0023_974526AF",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "duration_seconds": 57.112832,
+      "epochs_completed": 9,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_B_0024_32F339F6",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "duration_seconds": 296.819337,
+      "epochs_completed": 23,
+      "fold": "RO2",
+      "run_id": "RUN_V2_TR_E14_RO2_B_0025_7AB9CBDE",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "duration_seconds": 562.799481,
+      "epochs_completed": 23,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_B_0026_ABCFB6CD",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "duration_seconds": 247.417806,
+      "epochs_completed": 10,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_B_0027_AA04F20D",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "duration_seconds": 164.623875,
+      "epochs_completed": 12,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_B_0028_323ED9A5",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "duration_seconds": 83.158187,
+      "epochs_completed": 12,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_B_0029_2DFF5817",
+      "stage": "B",
+      "trainable_parameters": 102209
+    },
+    {
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "duration_seconds": 325.156564,
+      "epochs_completed": 24,
+      "fold": "RO3",
+      "run_id": "RUN_V2_TR_E14_RO3_B_0030_51BD9059",
+      "stage": "B",
+      "trainable_parameters": 102209
+    }
+  ],
+  "schema": "MODEL_IMPROVEMENT_V2_E14_PARAMETER_RUNTIME-v1",
+  "test_status": "NOT_ACCESSED"
+}

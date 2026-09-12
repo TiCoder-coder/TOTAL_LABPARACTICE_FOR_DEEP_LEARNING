@@ -30,6 +30,10 @@ V1_MUTATION_FORBIDDEN = True
 TEST_SELECTION_FORBIDDEN = True
 
 ALLOWED_WAVE1_EXPERIMENT_IDS = frozenset(f"E{index:02d}" for index in range(10))
+ALLOWED_IMPLEMENTED_WAVE2_EXPERIMENT_IDS = frozenset({"E10", "E11", "E12", "E13", "E14", "E15", "E16", "E20"})
+ALLOWED_EXPERIMENT_IDS = (
+    ALLOWED_WAVE1_EXPERIMENT_IDS | ALLOWED_IMPLEMENTED_WAVE2_EXPERIMENT_IDS
+)
 
 
 @dataclass(frozen=True)
@@ -111,15 +115,57 @@ PRIMARY_CHANGE_PREFIXES: Mapping[str, tuple[str, ...]] = MappingProxyType(
             "training.learning_rate",
             "training.weight_decay",
         ),
+        "E10": (
+            "data.feature_variant_id",
+            "data.feature_count",
+            "model.input_size",
+            "lineage.feature_fingerprint",
+            "lineage.scaler_bundle_id",
+            "lineage.scaler_bundle_checksum",
+        ),
+        "E11": (
+            "data.feature_variant_id",
+            "data.feature_count",
+            "model.input_size",
+            "lineage.feature_fingerprint",
+            "lineage.scaler_bundle_id",
+            "lineage.scaler_bundle_checksum",
+        ),
+        "E12": (
+            "data.feature_variant_id",
+            "data.feature_count",
+            "model.input_size",
+            "lineage.feature_fingerprint",
+            "lineage.scaler_bundle_id",
+            "lineage.scaler_bundle_checksum",
+        ),
+        "E13": (
+            "training.loss_policy",
+            "training.lambda_delta",
+            "training.delta_beta_model_space",
+        ),
+        "E14": (
+            "training.learning_rate",
+            "training.batch_size",
+            "training.gradient_clip_max_norm",
+            "model.dropout",
+        ),
+        "E15": ("model.d_model", "model.ffn_dim"),
+        "E16": ("model.num_layers",),
+        "E20": (
+            "reproducibility.seed",
+            "reproducibility.global_seed",
+            "reproducibility.dataloader_seed",
+        ),
     }
 )
 
 
 def assert_allowed_experiment_id(experiment_id: str) -> None:
-    """Reject IDs outside the human-approved Wave 1 range E00--E09."""
+    """Reject IDs outside the explicitly implemented human-approved set."""
 
-    if experiment_id not in ALLOWED_WAVE1_EXPERIMENT_IDS:
-        raise ValueError(f"Experiment is not approved for Wave 1: {experiment_id!r}")
+    if experiment_id not in ALLOWED_EXPERIMENT_IDS:
+        raise ValueError(f"Experiment is not approved: {experiment_id!r}")
 
 
 def assert_no_test_access(*, split_id: str | None = None, test_access: bool = False) -> None:

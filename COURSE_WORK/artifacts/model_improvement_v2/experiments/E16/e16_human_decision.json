@@ -1,0 +1,66 @@
+{
+  "schema": "MODEL_IMPROVEMENT_V2_E16_HUMAN_DECISION-v1",
+  "experiment_id": "E16",
+  "decision": "REJECT_E16",
+  "rejected_candidate": "TR_C2_ALT_LOOKBACK_E16_DEPTH3_POSTLN",
+  "primary_change": "model.num_layers:2->3",
+  "accepted_incumbent": "TR_C2_ALT_LOOKBACK_E14_M1",
+  "accepted_config_fingerprint": "ff99dba3b57d38308f412a76c936b3a1f2a99ab8835e465417090ebfda49bc77",
+  "accepted_architecture": {
+    "d_model": 64,
+    "num_heads": 4,
+    "ffn_dim": 256,
+    "num_layers": 2,
+    "norm_order": "POST_LN"
+  },
+  "accepted_training": {
+    "learning_rate": 0.0002,
+    "batch_size": 16,
+    "dropout": 0.1,
+    "gradient_clip_max_norm": 1.0,
+    "optimizer": "AdamW",
+    "weight_decay": 0.001,
+    "scheduler": "OFF",
+    "loss_policy": "HYBRID_LEVEL_PLUS_DELTA",
+    "lambda_delta": 0.1
+  },
+  "challenger_metrics": {
+    "pooled_rmse_wh": 61.1671838260569,
+    "pooled_mae_wh": 27.022372744731715,
+    "pooled_r2": 0.560248968461629,
+    "worst_fold_rmse_wh": 71.88596484472671,
+    "fold_rmse_sd_wh": 9.11768619424349
+  },
+  "degradation_vs_incumbent": {
+    "pooled_rmse_wh": 2.61373069579529,
+    "pooled_mae_wh": 0.6845736704803151,
+    "worst_fold_rmse_wh": 6.513230982988247,
+    "fold_rmse_sd_wh": 3.151921434285823,
+    "pooled_r2_delta": -0.03677898607041785
+  },
+  "promotion_guardrails": {
+    "rmse_improvement_min_0_10_wh": "FAIL",
+    "mae_degradation_max_0_25_wh": "FAIL",
+    "worst_fold_degradation_max_0_50_wh": "FAIL",
+    "fold_rmse_sd_degradation_max_0_50_wh": "FAIL"
+  },
+  "scientific_data_gates": {
+    "provenance_checksum": "PASS",
+    "population_equality": "PASS",
+    "ordered_target_ids": "PASS",
+    "feature_order_count": "PASS",
+    "fold_local_scaling": "PASS",
+    "leakage_audit": "PASS",
+    "test_firewall": "PASS"
+  },
+  "pass_with_warning_disposition": "ACCEPTED_NON_BLOCKING_GENERIC_PHASE43_LSTM_FINGERPRINT_CHECK",
+  "e17_eligibility": "DEFERRED",
+  "e17_reason": "E16_DEPTH3_NOT_PROMOTED_AND_NO_HUMAN_APPROVED_DEEPER_ARCHITECTURE_JUSTIFICATION",
+  "source_comparison_sha256": "a059e677eac9c1f406711316fa067b8c0f4dfb1cce90b65b5705546a67c76d1b",
+  "source_config_snapshot_sha256": "1d50534d7e2a491f8004529d73c9ea2b9605bb7d6ebb74f50b196ebb637e6aef",
+  "source_phase44_signoff_sha256": "15e018b7b2a0c19b1adc14139d8d18d17eef1f899b217114a6be8bd23f96439e",
+  "previous_incumbent_preserved": true,
+  "automatic_promotion": false,
+  "decision_authority": "HUMAN",
+  "test_status": "NOT_ACCESSED"
+}

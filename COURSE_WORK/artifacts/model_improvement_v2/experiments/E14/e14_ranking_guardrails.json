@@ -1,0 +1,114 @@
+{
+  "automatic_promotion": false,
+  "human_decision_required": true,
+  "ranking": [
+    {
+      "bundle_id": "M1",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M1",
+      "metrics": {
+        "mae_wh": 26.33779907425144,
+        "r2": 0.5970279545320498,
+        "rmse_wh": 58.5534531302616
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": true,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": true,
+          "rmse_improvement": true,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      },
+      "rank": 1
+    },
+    {
+      "bundle_id": "M2",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M2",
+      "metrics": {
+        "mae_wh": 26.783090128725565,
+        "r2": 0.5852662223834705,
+        "rmse_wh": 59.401820637829054
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": true,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": true,
+          "rmse_improvement": true,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      },
+      "rank": 2
+    },
+    {
+      "bundle_id": "M4",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M4",
+      "metrics": {
+        "mae_wh": 28.179645523905798,
+        "r2": 0.583198405117,
+        "rmse_wh": 59.54972200327084
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      },
+      "rank": 3
+    },
+    {
+      "bundle_id": "M5",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M5",
+      "metrics": {
+        "mae_wh": 26.98630740522127,
+        "r2": 0.5827690295951191,
+        "rmse_wh": 59.58038720648464
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      },
+      "rank": 4
+    },
+    {
+      "bundle_id": "M3",
+      "candidate_id": "TR_C2_ALT_LOOKBACK_E14_M3",
+      "metrics": {
+        "mae_wh": 27.733247547262938,
+        "r2": 0.5758303816564662,
+        "rmse_wh": 60.07376226728755
+      },
+      "promotion_evaluation": {
+        "automatic_promotion": false,
+        "eligible_for_human_promotion": false,
+        "gates": {
+          "fold_rmse_std_guardrail": true,
+          "mae_guardrail": false,
+          "rmse_improvement": false,
+          "worst_fold_rmse_guardrail": true
+        },
+        "human_decision_required": true
+      },
+      "rank": 5
+    }
+  ],
+  "schema": "MODEL_IMPROVEMENT_V2_E14_RANKING-v1",
+  "selection_rule": "BEST_ELIGIBLE_POOLED_RMSE_AFTER_GUARDRAILS",
+  "test_status": "NOT_ACCESSED"
+}

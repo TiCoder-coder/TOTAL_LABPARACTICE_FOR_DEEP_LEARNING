@@ -88,7 +88,7 @@
     {
       "path": "artifacts/models/lstm/phase_15_signoff.json",
       "role": "signoff",
-      "sha256": "ab835c551e82fab3d6cc4bb2f5a42c7f3607088808ea12dca47cef7a45e76dec"
+      "sha256": "968b099c81e978f6748108fe15dd2437506a86a806a3756ca4989d3a8f3e896f"
     }
   ],
   "status": "PASS",
@@ -128,15 +128,15 @@
     "model_family": "LSTM",
     "model_version": "LSTM-v1",
     "output_checksums": {
-      "artifacts/models/lstm/README_LSTM.md": "dc8578cb9afd515f21c30a71841bfc00c0aa68e93dd557e69e49c013dc922872",
-      "artifacts/models/lstm/lstm_config_schema.json": "187afe6fa919de41f0f8cb6c7bbe1f3930c015af4238af15e23983da272f6517",
-      "artifacts/models/lstm/lstm_discrepancies.json": "90ed53eeb242602b4b74095ee7b7f6b9ffa1b53cb4640ecbfa02466156093b18",
+      "artifacts/models/lstm/README_LSTM.md": "e28cef8e42ea0527ec4053705cc3461333d18b311e423175632a91fdf7517c06",
+      "artifacts/models/lstm/lstm_config_schema.json": "082d2552b8fad5a764c849306abb12cee52845f96436b1525d0928b614d9e4e2",
+      "artifacts/models/lstm/lstm_discrepancies.json": "eee4448bff5c50efd74c4c998925f44432b2dc93e25186bf4aba5c6903411163",
       "artifacts/models/lstm/lstm_implementation_audit.csv": "fb592daf22f32db45e310a70781ee0eb2f2ce65bf73be21a95f0801ecd2ae7dc",
-      "artifacts/models/lstm/lstm_model_manifest.json": "31896b189f0e6471382e31a60b9ecd7d461223054ee74c5c924f6de0d024b414",
+      "artifacts/models/lstm/lstm_model_manifest.json": "cbc0be01803b03cd180398ec9eab3cee81a94a97ad8ede4b6d8c4173540b8026",
       "artifacts/models/lstm/lstm_module_audit.csv": "d742c98daed88fa89fd4def530a23a56a67051ef91464c9720efaa88b75b59ba",
       "artifacts/models/lstm/lstm_parameter_audit.csv": "f485d83d18a10c92aa9b83803212e5916420b5cf66297cd66264c689d5f3b14a",
-      "artifacts/models/lstm/lstm_reference_config.json": "f986f26ecc951e0109d2f223fb513d4feb30fc181d9394fc9f74b66bcd0d5a01",
-      "artifacts/models/lstm/lstm_shape_contract.json": "ea03ad847ab0cacee1cde7b595fe171c4f8b0fad174a24ed1f74ab7c621ee939",
+      "artifacts/models/lstm/lstm_reference_config.json": "69b2203fbca4e0aa36bfa8e2c7397138358010930bf047593bad89750486d940",
+      "artifacts/models/lstm/lstm_shape_contract.json": "e55182c2bcb537415a5e701a376a3a83b26728757722bcf9c0996575260e8644",
       "artifacts/models/lstm/lstm_unit_tests.csv": "cfe7784f7f238f886b1b287b7e527cb14dcd7224614f35adbd30cbc0b1be29a7"
     },
     "output_paths": [

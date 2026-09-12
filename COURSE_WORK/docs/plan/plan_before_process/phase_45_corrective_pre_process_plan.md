@@ -343,7 +343,7 @@ Under `scripts/`:
 ## 17. Human-Run Command Design
 
 ```bash
-cd /Users/vientu/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK && \
+cd "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK" && \
 caffeinate -dim \
 env PYTHONPATH=src MPLCONFIGDIR=/tmp/mpl \
 ./.venv/bin/python \
