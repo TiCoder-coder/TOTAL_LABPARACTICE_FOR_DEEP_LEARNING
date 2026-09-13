@@ -1,0 +1,350 @@
+{
+  "artifact_version": "PHASE22_33-RESTORE-MANIFEST-v1",
+  "created_at": "2026-09-12T18:36:35.373041+00:00",
+  "source_root": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK",
+  "destination_root": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK",
+  "scope": "PHASE_22_TO_33_CHECKSUM_RESTORATION",
+  "file_count": 34,
+  "records": [
+    {
+      "phase_id": 22,
+      "path": "artifacts/learning_diagnostics/learning_diagnostics_manifest.json",
+      "signoff": "artifacts/learning_diagnostics/phase_22_signoff.json",
+      "original_sha256": "051d0fc5449ffaeaf7902e8f6e9d09ffdb2d0366bd339723b084e9d92f83156f",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/learning_diagnostics/learning_diagnostics_manifest.json",
+      "source_sha256": "75a6d100664edf264844bb250727fbd7b550ac0f4849465c78640e14b9a87aa2",
+      "expected_signoff_sha256": "75a6d100664edf264844bb250727fbd7b550ac0f4849465c78640e14b9a87aa2",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 23,
+      "path": "artifacts/sweeps/s1_feature_set/s1_feature_set_winner.json",
+      "signoff": "artifacts/sweeps/s1_feature_set/phase_23_signoff.json",
+      "original_sha256": "22424a34693a12b2eb396014d66eb9df9428aa3310905a6ce7271f6c7ed50127",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s1_feature_set/s1_feature_set_winner.json",
+      "source_sha256": "812a4bde56e208889fc210927e141b0b575ff819cf978d1b55ecaf6369e51eba",
+      "expected_signoff_sha256": "812a4bde56e208889fc210927e141b0b575ff819cf978d1b55ecaf6369e51eba",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 23,
+      "path": "artifacts/sweeps/s1_feature_set/s1_reference_update.json",
+      "signoff": "artifacts/sweeps/s1_feature_set/phase_23_signoff.json",
+      "original_sha256": "759aba863f9eb22442e1e71e80356b2ed3a7550e17608b74f2cddf263dd2de4c",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s1_feature_set/s1_reference_update.json",
+      "source_sha256": "f1a7e31bfa9307ffc2a6d711e375bf167f3479c17521341e13659c1db748c9ae",
+      "expected_signoff_sha256": "f1a7e31bfa9307ffc2a6d711e375bf167f3479c17521341e13659c1db748c9ae",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 23,
+      "path": "artifacts/sweeps/s1_feature_set/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s1_feature_set/phase_23_signoff.json",
+      "original_sha256": "f1da58a7486a903586cf931f375c96250bf80048077decddc77abd539578484d",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s1_feature_set/sweep_manifest.json",
+      "source_sha256": "e91b8a5c2a640355acf2a240c833c6263cb20493908f60374dd5a7c55e25276e",
+      "expected_signoff_sha256": "e91b8a5c2a640355acf2a240c833c6263cb20493908f60374dd5a7c55e25276e",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 24,
+      "path": "artifacts/sweeps/s2_time_feature/s2_reference_update.json",
+      "signoff": "artifacts/sweeps/s2_time_feature/phase_24_signoff.json",
+      "original_sha256": "37a00e97d2e0617e324d6df167ef5cb856e3dc70fa85550610a0de90778d89d8",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s2_time_feature/s2_reference_update.json",
+      "source_sha256": "177ec9edf75b175eb4657d81b3773b7201aea1a529d464d8c2c19c7c460a877d",
+      "expected_signoff_sha256": "177ec9edf75b175eb4657d81b3773b7201aea1a529d464d8c2c19c7c460a877d",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 24,
+      "path": "artifacts/sweeps/s2_time_feature/s2_time_feature_winner.json",
+      "signoff": "artifacts/sweeps/s2_time_feature/phase_24_signoff.json",
+      "original_sha256": "c723b93c2e6dce8a6375106057bfe8a7f1f8ac7dedb36df0411de1f86eab8201",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s2_time_feature/s2_time_feature_winner.json",
+      "source_sha256": "58e09de32ca53f4cd2fb13bd423067df9ceb7f880bb0b712375060ddaea0dbb8",
+      "expected_signoff_sha256": "58e09de32ca53f4cd2fb13bd423067df9ceb7f880bb0b712375060ddaea0dbb8",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 24,
+      "path": "artifacts/sweeps/s2_time_feature/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s2_time_feature/phase_24_signoff.json",
+      "original_sha256": "b87e50f6c1a968051ccb407587dee6ce39a6f96490554431f9ebbb301e96e1af",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s2_time_feature/sweep_manifest.json",
+      "source_sha256": "096ceb309542c6d5245affae99161b585d81e8fe4c089d7c4e4b73322d99983b",
+      "expected_signoff_sha256": "096ceb309542c6d5245affae99161b585d81e8fe4c089d7c4e4b73322d99983b",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 25,
+      "path": "artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+      "signoff": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+      "original_sha256": "38ba9e1f8ab98f250d9cc7a1193cbaf086ab4fa7d8090a19cfb515213e06a19c",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s3_target_scaling/s3_reference_update.json",
+      "source_sha256": "55344c17c6b48da4473e3a8d9ba83e4c2c28ce77c3315459d3a959e9bc084505",
+      "expected_signoff_sha256": "55344c17c6b48da4473e3a8d9ba83e4c2c28ce77c3315459d3a959e9bc084505",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 25,
+      "path": "artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+      "signoff": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+      "original_sha256": "2d0679ebe05bff04aef5ce5e5237300862171e602d68f3a1f7f9582f94a600a5",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s3_target_scaling/s3_target_scaling_winner.json",
+      "source_sha256": "2f8968065267e5d6ace0834070eb635e9ecb512d77e19f8623b27dc4c47ccd78",
+      "expected_signoff_sha256": "2f8968065267e5d6ace0834070eb635e9ecb512d77e19f8623b27dc4c47ccd78",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 25,
+      "path": "artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s3_target_scaling/phase_25_signoff.json",
+      "original_sha256": "dd8139d09c4aad6c80b696b08bf7155f4d2ac46117aa935bcad657d28614d878",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s3_target_scaling/sweep_manifest.json",
+      "source_sha256": "ab34f2505a8f167de47c33cd9e8d7943ddcc2ae55df3ac5eb6a811f8bc96f565",
+      "expected_signoff_sha256": "ab34f2505a8f167de47c33cd9e8d7943ddcc2ae55df3ac5eb6a811f8bc96f565",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 26,
+      "path": "artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+      "signoff": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+      "original_sha256": "ddf6be31344bc20105d82695d9390239a9658c55fc36bbf5a6fadf6c0b0efb83",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s4_lookback/s4_lookback_winner.json",
+      "source_sha256": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+      "expected_signoff_sha256": "30fc89312221bc5aa97b86e1312fdc0cf4f600d984f4a62203c7aa6a2753386d",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 26,
+      "path": "artifacts/sweeps/s4_lookback/s4_reference_update.json",
+      "signoff": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+      "original_sha256": "623cf2c363f478a625f56753f0037c3f905641a483f58a1b845279218c4652ac",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s4_lookback/s4_reference_update.json",
+      "source_sha256": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+      "expected_signoff_sha256": "8dcc75056607aed74c38615a001930124445e7528dcecb7d36798034d3a4e4e4",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 26,
+      "path": "artifacts/sweeps/s4_lookback/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s4_lookback/phase_26_signoff.json",
+      "original_sha256": "46a5ceeb18d6f7ed08b69a6cff6a293088bb7e0bb2c3789d217dae4a5ac84c17",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s4_lookback/sweep_manifest.json",
+      "source_sha256": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b",
+      "expected_signoff_sha256": "ad5cc13586ac86d839cbb53529e79fe1e8ee089ce89ae00cf4b624acbf214d6b",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 27,
+      "path": "artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+      "signoff": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+      "original_sha256": "06febcf815cb2839b0f7c02331c8eabc5992a213e49e992d82b72fa6dd98d52a",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s5_pooling/s5_pooling_winner.json",
+      "source_sha256": "b2ce7864b35f590340c03b44ba622018444546adec7fd6cbcfb3b19986339bd1",
+      "expected_signoff_sha256": "b2ce7864b35f590340c03b44ba622018444546adec7fd6cbcfb3b19986339bd1",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 27,
+      "path": "artifacts/sweeps/s5_pooling/s5_reference_update.json",
+      "signoff": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+      "original_sha256": "1f121fd2a0628720600f30cdeff062e12e4e7f8ec194bf61d0ecb50f0663594d",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s5_pooling/s5_reference_update.json",
+      "source_sha256": "1cab8f4f171ff1110021181a4ce7e4aa686303127dffdd1d197b5738e6ecd2e9",
+      "expected_signoff_sha256": "1cab8f4f171ff1110021181a4ce7e4aa686303127dffdd1d197b5738e6ecd2e9",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 27,
+      "path": "artifacts/sweeps/s5_pooling/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s5_pooling/phase_27_signoff.json",
+      "original_sha256": "9ae60c7b993525992753aa073a8c5fd473044f69d97f9813ce1750915f5a13be",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s5_pooling/sweep_manifest.json",
+      "source_sha256": "13b73ef22dea663107f4e2aa9de8d1ae4d8f1628c735c3dbfdfb008daaa0b1cc",
+      "expected_signoff_sha256": "13b73ef22dea663107f4e2aa9de8d1ae4d8f1628c735c3dbfdfb008daaa0b1cc",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 28,
+      "path": "artifacts/sweeps/s6_activation/s6_activation_winner.json",
+      "signoff": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+      "original_sha256": "a3842d70613c311716ab29d8642642b302dd1b3797e9607e9bcd07c5330c7653",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s6_activation/s6_activation_winner.json",
+      "source_sha256": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+      "expected_signoff_sha256": "5dd13daad36ffea3c36fb855337a33eef3821cbe400ac12496e648d3f3a68a5f",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 28,
+      "path": "artifacts/sweeps/s6_activation/s6_reference_update.json",
+      "signoff": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+      "original_sha256": "01e9647e669bf9dff1b339874086df54223054d14663d8b18331b10e8a97d24d",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s6_activation/s6_reference_update.json",
+      "source_sha256": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+      "expected_signoff_sha256": "f56e49615f8937407e28fccc01862d8372134cccfe57cdbf8f21c1a68b9648e8",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 28,
+      "path": "artifacts/sweeps/s6_activation/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s6_activation/phase_28_signoff.json",
+      "original_sha256": "b15c1c4215a52054d03c2238f265dfe782f7b0d8fe460ab6c6a19bd18e654e9c",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s6_activation/sweep_manifest.json",
+      "source_sha256": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5",
+      "expected_signoff_sha256": "8b93abd689e6b28c28905207f3f93ce917f34033cce022f4eb5a240d26ebf9b5",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 29,
+      "path": "artifacts/sweeps/s7_batch_size/s7_batch_winner.json",
+      "signoff": "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
+      "original_sha256": "e3b9311e9836dd267f6c250b58c99e37de7370686cb7c354ed4998677a37a1d1",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s7_batch_size/s7_batch_winner.json",
+      "source_sha256": "33f9882088a80288a0626b554b71ca728c99bf41d9aedbadd975914706b53400",
+      "expected_signoff_sha256": "33f9882088a80288a0626b554b71ca728c99bf41d9aedbadd975914706b53400",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 29,
+      "path": "artifacts/sweeps/s7_batch_size/s7_reference_update.json",
+      "signoff": "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
+      "original_sha256": "d2a2b3628a6967b711541d1000125f85115ef615a398fa901dd18db1322cda77",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s7_batch_size/s7_reference_update.json",
+      "source_sha256": "a2c4efdedf9f806ad4ce9a672b6395de895fccfb7c70ffa59c93c1f9bf966e32",
+      "expected_signoff_sha256": "a2c4efdedf9f806ad4ce9a672b6395de895fccfb7c70ffa59c93c1f9bf966e32",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 29,
+      "path": "artifacts/sweeps/s7_batch_size/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s7_batch_size/phase_29_signoff.json",
+      "original_sha256": "03d3e7b1758a19a3a2508bb6060356c8ab22b3fb7e4a70824300d578ba887c8b",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s7_batch_size/sweep_manifest.json",
+      "source_sha256": "4722b42f136081ad1d8fbd421b3b7242d1ff42bee2dabeaf541279d4bc8f95b6",
+      "expected_signoff_sha256": "4722b42f136081ad1d8fbd421b3b7242d1ff42bee2dabeaf541279d4bc8f95b6",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 30,
+      "path": "artifacts/sweeps/s8_learning_rate/s8_learning_rate_winner.json",
+      "signoff": "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json",
+      "original_sha256": "6274ccf8b4d8fd96d414b8d8184373b862d500d0fe98e1c9342050c238ecd869",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s8_learning_rate/s8_learning_rate_winner.json",
+      "source_sha256": "9ec8308b2c7791d5672a354c9ecd5c1bed3ee1cfbaed1193f619b210f6787bb3",
+      "expected_signoff_sha256": "9ec8308b2c7791d5672a354c9ecd5c1bed3ee1cfbaed1193f619b210f6787bb3",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 30,
+      "path": "artifacts/sweeps/s8_learning_rate/s8_reference_update.json",
+      "signoff": "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json",
+      "original_sha256": "f26b47fe95ff120770838d83aabaf469a44e1905c2cfa49dcaf3574f0a97b249",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s8_learning_rate/s8_reference_update.json",
+      "source_sha256": "693af5d312686b9e2bad75458473387b6ba8c6bc2499c9eca6ba6b722c9617a7",
+      "expected_signoff_sha256": "693af5d312686b9e2bad75458473387b6ba8c6bc2499c9eca6ba6b722c9617a7",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 30,
+      "path": "artifacts/sweeps/s8_learning_rate/sweep_manifest.json",
+      "signoff": "artifacts/sweeps/s8_learning_rate/phase_30_signoff.json",
+      "original_sha256": "19324fa00bbbf2d7b4e00765174b06068b96517bd895e41681df0620357d99d1",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/s8_learning_rate/sweep_manifest.json",
+      "source_sha256": "04b4d14cb6b5715b008901d0607ca53253412a4b99b767f7b9b049941d038b7a",
+      "expected_signoff_sha256": "04b4d14cb6b5715b008901d0607ca53253412a4b99b767f7b9b049941d038b7a",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 31,
+      "path": "artifacts/sweeps/S9_weight_decay/s9_reference_update.json",
+      "signoff": "artifacts/sweeps/S9_weight_decay/phase_31_signoff.json",
+      "original_sha256": "657062a93f74cdb4a37d9591ef2e2f85179c98e5a5ad8e73d3d09d1f1b8f680e",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S9_weight_decay/s9_reference_update.json",
+      "source_sha256": "22ebeaaeacc7700b9b692261a7c72535a3899892c8e8e9ed06cc9ed961221f6a",
+      "expected_signoff_sha256": "22ebeaaeacc7700b9b692261a7c72535a3899892c8e8e9ed06cc9ed961221f6a",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 31,
+      "path": "artifacts/sweeps/S9_weight_decay/s9_weight_decay_sweep_manifest.json",
+      "signoff": "artifacts/sweeps/S9_weight_decay/phase_31_signoff.json",
+      "original_sha256": "4da7a924e5c03c38ad40ecee48e0a1d170a0bef6f76fb373f27495d17ca7fb56",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S9_weight_decay/s9_weight_decay_sweep_manifest.json",
+      "source_sha256": "db6dd22006c3dd1a7b3e22e0c9850fc198941bfc127680a09c8b45e9f82e0a98",
+      "expected_signoff_sha256": "db6dd22006c3dd1a7b3e22e0c9850fc198941bfc127680a09c8b45e9f82e0a98",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 31,
+      "path": "artifacts/sweeps/S9_weight_decay/s9_weight_decay_winner.json",
+      "signoff": "artifacts/sweeps/S9_weight_decay/phase_31_signoff.json",
+      "original_sha256": "1943fbd7647c625797a84605b26fd8c2683fd1252ce7762db5a2ccdedc6c9123",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S9_weight_decay/s9_weight_decay_winner.json",
+      "source_sha256": "c90dd3efe24c02422a35c48a6f0192915d3b1d2d80d38b02116c9ad31bbe0908",
+      "expected_signoff_sha256": "c90dd3efe24c02422a35c48a6f0192915d3b1d2d80d38b02116c9ad31bbe0908",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 32,
+      "path": "artifacts/sweeps/S10_dropout/s10_dropout_sweep_manifest.json",
+      "signoff": "artifacts/sweeps/S10_dropout/phase_32_signoff.json",
+      "original_sha256": "e19639c33c2b26636b16a2a4747e9078df3c3b5bcfd20f32ebe578a75b692ffd",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S10_dropout/s10_dropout_sweep_manifest.json",
+      "source_sha256": "2e3fbd4752e11a07975193265e639118c7c475de124ccc218e21662437eb8583",
+      "expected_signoff_sha256": "2e3fbd4752e11a07975193265e639118c7c475de124ccc218e21662437eb8583",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 32,
+      "path": "artifacts/sweeps/S10_dropout/s10_dropout_winner.json",
+      "signoff": "artifacts/sweeps/S10_dropout/phase_32_signoff.json",
+      "original_sha256": "e788a47d1b00a1d7f10c86c14656fd50cb8f969276ebf73137a9f3f8ee832da5",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S10_dropout/s10_dropout_winner.json",
+      "source_sha256": "fb43349d37f1731188449ce58f343f54f9c3676d9dd673ed85b6353c645f9fef",
+      "expected_signoff_sha256": "fb43349d37f1731188449ce58f343f54f9c3676d9dd673ed85b6353c645f9fef",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 32,
+      "path": "artifacts/sweeps/S10_dropout/s10_reference_update.json",
+      "signoff": "artifacts/sweeps/S10_dropout/phase_32_signoff.json",
+      "original_sha256": "8efc483d6e0b5701129010d8f00e14e914df97c893b9610a773159993feb619e",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S10_dropout/s10_reference_update.json",
+      "source_sha256": "b29d4122e4c0e9e745a3d01a38f30d00ffb0a1d7b8619db538b88040287947b0",
+      "expected_signoff_sha256": "b29d4122e4c0e9e745a3d01a38f30d00ffb0a1d7b8619db538b88040287947b0",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 33,
+      "path": "artifacts/sweeps/S11_d_model/s11_d_model_sweep_manifest.json",
+      "signoff": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+      "original_sha256": "29d13fecec7c2200db68a3a0d1dd5e25914830f6536e9acdface3e1c9a1eb973",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S11_d_model/s11_d_model_sweep_manifest.json",
+      "source_sha256": "90031af5cf34c3ace4b5708bd94baaea26eea7165a3a531d8f7568a0ff0c3a08",
+      "expected_signoff_sha256": "90031af5cf34c3ace4b5708bd94baaea26eea7165a3a531d8f7568a0ff0c3a08",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 33,
+      "path": "artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+      "signoff": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+      "original_sha256": "0882ffd94a9867b11979559addc4ef20e4d485cc97eae724b88ea1c66608b780",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S11_d_model/s11_d_model_winner.json",
+      "source_sha256": "08b49539a0428d84a8cbbe86f1d3674b3e80c8511ba893dfaf2951f4eb00ee88",
+      "expected_signoff_sha256": "08b49539a0428d84a8cbbe86f1d3674b3e80c8511ba893dfaf2951f4eb00ee88",
+      "action": "RESTORE_BYTE_EXACT"
+    },
+    {
+      "phase_id": 33,
+      "path": "artifacts/sweeps/S11_d_model/s11_reference_update.json",
+      "signoff": "artifacts/sweeps/S11_d_model/phase_33_signoff.json",
+      "original_sha256": "f8bd5da635a68529641ffde503047b277907358639b08c3156eff04a7f1e6dd4",
+      "source_path": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/Bản sao COURSE_WORK/artifacts/sweeps/S11_d_model/s11_reference_update.json",
+      "source_sha256": "944043e5fe8bbb508d6b85de161b05d12943518f4150a424ff153359f176b933",
+      "expected_signoff_sha256": "944043e5fe8bbb508d6b85de161b05d12943518f4150a424ff153359f176b933",
+      "action": "RESTORE_BYTE_EXACT"
+    }
+  ]
+}

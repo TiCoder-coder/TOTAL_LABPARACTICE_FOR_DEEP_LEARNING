@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-09-12T19:46:41.172143+00:00",
+  "files": [
+    {
+      "path": "artifacts/runs/RUN_TR_S12_0020_DE823D66/training_history.csv",
+      "sha256": "c820beff1cfff8b5f6cb86a3687f6c2f6ebf8e0b627ae1d508390af3f3b868a8",
+      "status": "PASS"
+    },
+    {
+      "path": "artifacts/runs/RUN_TR_S13_0021_9CA63891/training_history.csv",
+      "sha256": "d29426a0a3bc0eae591f52260573fdaa8d97dfe2a4d6fb8b8dad96d2da376146",
+      "status": "PASS"
+    },
+    {
+      "path": "artifacts/runs/RUN_TR_S14_0022_AA048302/training_history.csv",
+      "sha256": "89a123744050d4ac5fb7f900ed3236a46d6a951c79562decb13933244e61f7b9",
+      "status": "PASS"
+    },
+    {
+      "path": "artifacts/runs/RUN_TR_S14_0023_A711A9B8/training_history.csv",
+      "sha256": "80df48f2ce891c5930e5e045bf64db387bc46372cc62a3430d004cb411b111e9",
+      "status": "PASS"
+    }
+  ],
+  "policy": "COPY_ONLY_IF_MISSING__NO_OVERWRITE__SIGNOFF_SHA256",
+  "recovery_id": "VERIFIED_SIGNOFF_BOUND_TRAINING_HISTORY_RECOVERY-v1",
+  "source_root": "/Users/vientu/Deep Learning/TOTAL_LABPARACTICE_FOR_DEEP_LEARNING/COURSE_WORK_3",
+  "status": "PASS"
+}

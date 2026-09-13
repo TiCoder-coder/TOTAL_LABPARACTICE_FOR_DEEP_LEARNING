@@ -1,5 +1,12 @@
 # Phase 34 Current-State Rebaseline Blockers
 
+> **Historical audit snapshot — superseded for current state.** Phase 34–41 đã
+> được phục hồi/xác minh theo fail-closed legacy contracts và hiện đều là
+> `VALID_REUSABLE` với action `RENDER_ONLY`. Giữ tài liệu này để truy vết tình
+> trạng trước recovery; không dùng các kết luận `BLOCKED` bên dưới làm trạng
+> thái hiện hành. Xem
+> [FINAL_CONSISTENCY_AUDIT_20260913.md](../current_flow/FINAL_CONSISTENCY_AUDIT_20260913.md).
+
 ## Issue identity
 
 ```text
