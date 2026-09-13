@@ -1,0 +1,37 @@
+{
+  "lineage": {
+    "analysis": "REPORTING_ANALYSIS_FROM_FROZEN_PREDICTIONS",
+    "benchmark": "POST_HOC_V2_BENCHMARK",
+    "best_seed_selection": false,
+    "final_policy": "V2 Equal-weight Ensemble",
+    "inference_executed": false,
+    "project": "MODEL_IMPROVEMENT_V2",
+    "raw_test_source_opened": false,
+    "training_executed": false
+  },
+  "output_root": "artifacts/model_improvement_v2/final_reporting_analysis",
+  "output_sha256": {
+    "phase48_prediction_analysis.json": "a033d331fde61535c96acb4182cb01a70432bf5bc896fad50e34b7191c8d1b29",
+    "phase49_residual_analysis.json": "0edff76a862fa03b79e6471cb1dc8db27e6549f624f4c9f2e259ecd48d5fbbac",
+    "phase50_error_by_regime.json": "fbadb0af46f58de620bef7b29a90e1bb7b6e2aab41af59fd4bce10a314576fc4",
+    "phase51_worst_error_analysis.json": "76dadbfc4687ead3931ada7606c2dcf9c7bd192c5912d149428bbda7c6656427",
+    "phase58_final_summary.json": "eb1ea6d0035e62cd926a05a7c6cce8c345e4f4b49c289a36d539b06471536b0a",
+    "phase59_final_conclusions.json": "76bd0cc79598bf7632efb6b10f5ad84e29e1d67934cacd6851b4f54461fa014c"
+  },
+  "phase52_57_policy": "V1_HISTORICAL_ATTENTION_NOT_RECOMPUTED_FOR_FINAL_V2",
+  "schema": "MODEL_IMPROVEMENT_V2_FINAL_REPORTING_MANIFEST-v1",
+  "source_final_closure_sha256": "b40f1dad4b258ff683a7dadefe90d65acbb963aa9325b368db6134603700bfb5",
+  "source_final_lock_sha256": "95dba2059cc36614890d6d9685f49443e200bba14d5c65896e0809fb36885283",
+  "source_manifest_sha256": "73d07870e1222af0b145f965a832b065fd398655b9716c196519ab11e357f763",
+  "source_mape_addendum_manifest_sha256": "15aec3ebb516dfff287ae21885d6a87116dc50cd993ab6f83fca478235470711",
+  "source_metrics_with_mape_sha256": "0cdb61e120f1f71a1126db07928d5927a8ace0aaa24f7e8a53dd58582cb1b938",
+  "source_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "source_prediction_sha256": {
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/ensemble.csv": "ef46e006e1701589d5a73c4575371b118ce73716612c97ef5c1aefa9e0771fee",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/persistence.csv": "42efbf4d1773e512904bd2bb95516ad1dc5a2847790a663344557f6149654251",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_123.csv": "bd3169ff9845d825742230ed5b7d32091d04d870d4963a1248078e90a15a7d77",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_2026.csv": "23db16c69dc0d70ab37c6093dc814a014d8433635eac7ccfe55b00cb4374b908",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_42.csv": "de4ad810faf18465b51907a0f814cb0e65ae032a63c818ade75e62d2bedc9b84"
+  },
+  "status": "PASS"
+}

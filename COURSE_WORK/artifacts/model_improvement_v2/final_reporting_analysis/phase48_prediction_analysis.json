@@ -1,0 +1,62 @@
+{
+  "analysis": "PREDICTION_DISTRIBUTION_CHANGE_PEAK_PERSISTENCE_COMPARISON",
+  "lineage": {
+    "analysis": "REPORTING_ANALYSIS_FROM_FROZEN_PREDICTIONS",
+    "benchmark": "POST_HOC_V2_BENCHMARK",
+    "best_seed_selection": false,
+    "final_policy": "V2 Equal-weight Ensemble",
+    "inference_executed": false,
+    "project": "MODEL_IMPROVEMENT_V2",
+    "raw_test_source_opened": false,
+    "training_executed": false
+  },
+  "peak_definition": {
+    "count": 248,
+    "rule": "y_true_wh >= TRAIN_Q90_Y",
+    "test_derived_threshold": false,
+    "threshold_sha256": "2fe9ad4f873e3b3e42013fe3b2d630e377e4e568120769bd2234a76d6974b109",
+    "threshold_source": "artifacts/error_by_regime/regime_thresholds_train_only.json",
+    "threshold_wh": 210.0
+  },
+  "rows": [
+    {
+      "mae_wh": 25.897129774085265,
+      "mape_pct": 21.519218642135293,
+      "mean_abs_actual_change_wh": 26.73758865248227,
+      "mean_abs_predicted_change_wh": 17.976046994687625,
+      "model": "V2 Equal-weight Ensemble",
+      "prediction_max_wh": 514.1525275366057,
+      "prediction_mean_wh": 89.91827738950559,
+      "prediction_min_wh": 37.049494406216084,
+      "prediction_std_wh": 55.776516208353485,
+      "r2": 0.5403636015384808,
+      "rmse_wh": 61.608936806100665,
+      "train_q90_peak_rmse_wh": 198.18529502302573
+    },
+    {
+      "mae_wh": 26.73758865248227,
+      "mape_pct": 21.51335252910293,
+      "mean_abs_actual_change_wh": 26.73758865248227,
+      "mean_abs_predicted_change_wh": 0.0,
+      "model": "Persistence",
+      "prediction_max_wh": 850.0,
+      "prediction_mean_wh": 96.8017561634583,
+      "prediction_min_wh": 20.0,
+      "prediction_std_wh": 90.68473125836198,
+      "r2": 0.459046692018256,
+      "rmse_wh": 66.83691534084765,
+      "train_q90_peak_rmse_wh": 196.54680145270828
+    }
+  ],
+  "sample_count": 2961,
+  "schema": "MODEL_IMPROVEMENT_V2_PHASE48_REPORTING-v1",
+  "source_population_fingerprint": "d7dbc0b3cde772dc3f62c181f0a09a4a7a5b0e7c78e567361dbfde089578da87",
+  "source_prediction_sha256": {
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/ensemble.csv": "ef46e006e1701589d5a73c4575371b118ce73716612c97ef5c1aefa9e0771fee",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/persistence.csv": "42efbf4d1773e512904bd2bb95516ad1dc5a2847790a663344557f6149654251",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_123.csv": "bd3169ff9845d825742230ed5b7d32091d04d870d4963a1248078e90a15a7d77",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_2026.csv": "23db16c69dc0d70ab37c6093dc814a014d8433635eac7ccfe55b00cb4374b908",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_42.csv": "de4ad810faf18465b51907a0f814cb0e65ae032a63c818ade75e62d2bedc9b84"
+  },
+  "status": "PASS"
+}

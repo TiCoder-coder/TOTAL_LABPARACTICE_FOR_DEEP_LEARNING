@@ -1,0 +1,9 @@
+{
+  "access_scope": "FROZEN_TEST_DERIVED_PREDICTION_ARTIFACTS_ONLY",
+  "benchmark_label": "POST_HOC_V2_BENCHMARK_MAPE_ADDENDUM",
+  "checkpoint_payloads_loaded": 0,
+  "created_at": "2026-09-13T09:15:46.203988+00:00",
+  "inference_executed": false,
+  "raw_test_source_opened": false,
+  "schema": "MODEL_IMPROVEMENT_V2_STEP17_MAPE_ACCESS_EVENT-v1"
+}

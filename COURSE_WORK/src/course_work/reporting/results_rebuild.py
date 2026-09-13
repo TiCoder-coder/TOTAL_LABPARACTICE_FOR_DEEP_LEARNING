@@ -6,6 +6,7 @@ loads datasets, checkpoints, models, scalers, or prediction sources.
 from __future__ import annotations
 
 import json
+import hashlib
 from html import escape
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,65 @@ def _read(root: Path, relative: str) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise TypeError(f"Expected JSON object: {relative}")
     return value
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+_V2_REPORTING_ROOT = "artifacts/model_improvement_v2/final_reporting_analysis"
+
+
+def _read_v2_reporting(root: Path, filename: str) -> tuple[dict[str, Any], str]:
+    """Read one checksum-bound final-V2 reporting artifact."""
+    manifest_path = f"{_V2_REPORTING_ROOT}/manifest.json"
+    relative = f"{_V2_REPORTING_ROOT}/{filename}"
+    manifest = _read(root, manifest_path)
+    source_files = {
+        "source_manifest_sha256": "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_benchmark_manifest.json",
+        "source_mape_addendum_manifest_sha256": "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_mape_addendum_manifest.json",
+        "source_metrics_with_mape_sha256": "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_metrics_with_mape.json",
+        "source_final_lock_sha256": "artifacts/model_improvement_v2/final_model_lock/v2_final_model_lock.json",
+        "source_final_closure_sha256": "artifacts/model_improvement_v2/model_improvement_v2_final_closure.json",
+    }
+    sources_match = all(
+        manifest.get(field) == _sha256(root / relative)
+        for field, relative in source_files.items()
+    )
+    predictions_match = all(
+        expected == _sha256(root / relative)
+        for relative, expected in manifest.get("source_prediction_sha256", {}).items()
+    )
+    if (
+        manifest.get("schema") != "MODEL_IMPROVEMENT_V2_FINAL_REPORTING_MANIFEST-v1"
+        or manifest.get("status") != "PASS"
+        or manifest.get("lineage", {}).get("project") != "MODEL_IMPROVEMENT_V2"
+        or manifest.get("lineage", {}).get("benchmark") != "POST_HOC_V2_BENCHMARK"
+        or manifest.get("lineage", {}).get("analysis")
+        != "REPORTING_ANALYSIS_FROM_FROZEN_PREDICTIONS"
+        or manifest.get("lineage", {}).get("final_policy") != "V2 Equal-weight Ensemble"
+        or manifest.get("lineage", {}).get("training_executed") is not False
+        or manifest.get("lineage", {}).get("inference_executed") is not False
+        or manifest.get("lineage", {}).get("raw_test_source_opened") is not False
+        or manifest.get("lineage", {}).get("best_seed_selection") is not False
+        or not sources_match
+        or not predictions_match
+        or manifest.get("output_sha256", {}).get(filename) != _sha256(root / relative)
+    ):
+        raise RuntimeError(f"Invalid final V2 reporting evidence: {filename}")
+    document = _read(root, relative)
+    if (
+        document.get("status") != "PASS"
+        or document.get("lineage") != manifest.get("lineage")
+        or document.get("source_population_fingerprint")
+        != manifest.get("source_population_fingerprint")
+    ):
+        raise RuntimeError(f"Final V2 reporting lineage mismatch: {filename}")
+    return document, f"{relative}; {manifest_path}"
 
 
 def _fmt(value: Any) -> str:
@@ -62,6 +122,7 @@ def _render(
     rows: list[dict[str, Any]],
     sources: list[str],
     subtitle: str = "Results / decision",
+    lineage_note: str | None = None,
 ) -> HTML:
     if not rows:
         raise RuntimeError(f"Empty important table: {title}")
@@ -82,6 +143,8 @@ def _render(
         {"Field": "Compared items", "Value": identities},
         {"Field": "Rows displayed", "Value": len(rows)},
     ]
+    if lineage_note:
+        context_rows.append({"Field": "Presentation lineage", "Value": lineage_note})
     return HTML(
         f"{_STYLE}<article class='cw-results'><header><h3>{escape(title)}</h3>"
         f"<span class='status'>{escape(_fmt(status))}</span></header><div class='body'>"
@@ -95,6 +158,7 @@ def _render(
 def render_verified_phase_result(phase_id: int, project_root: Path | str) -> HTML:
     """Render one compact Phase 43-59 table from current canonical evidence."""
     root = Path(project_root).resolve()
+    lineage_note: str | None = None
     if phase_id == 43:
         p = "artifacts/lstm_tuning/phase_43_signoff.json"; o = _read(root, p)
         rows = [{"Model": "LSTM tuned", "RMSE Wh": o["tuned_validation_rmse_wh"], "MAE Wh": o["tuned_validation_mae_wh"], "R²": o["tuned_validation_r2"], "Decision": o["status"]}]
@@ -108,54 +172,143 @@ def render_verified_phase_result(phase_id: int, project_root: Path | str) -> HTM
         p = "artifacts/three_seed_final_runs/phase_46_signoff.json"; o = _read(root, p)
         rows = [{"Candidate": o["candidate_id"], "Seeds": o["seed_list"], "Completed": f"{o['completed_run_count']}/{o['planned_run_count']}", "Dev RMSE Wh": o["average_rmse_wh"], "Decision": o["overall_status"]}]
     elif phase_id == 47:
-        p = "artifacts/final_test/phase_47_signoff.json"; o = _read(root, p)
+        v2_path = "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_metrics_with_mape.json"
+        manifest_path = "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_mape_addendum_manifest.json"
+        signoff_path = "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_mape_addendum_signoff.json"
+        source_manifest_path = "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_benchmark_manifest.json"
+        source_metrics_path = "artifacts/model_improvement_v2/post_hoc_v2_benchmark/step17_metrics.json"
+        manifest = _read(root, manifest_path)
+        signoff = _read(root, signoff_path)
+        if (
+            manifest.get("status") != "PASS"
+            or manifest.get("metrics_sha256") != _sha256(root / v2_path)
+            or manifest.get("source_manifest_sha256") != _sha256(root / source_manifest_path)
+            or signoff.get("status") != "PASS"
+            or signoff.get("manifest_sha256") != _sha256(root / manifest_path)
+        ):
+            raise RuntimeError("Step 17 V2 MAPE checksum/signoff verification failed")
+        o = _read(root, v2_path)
+        if (
+            o.get("schema") != "MODEL_IMPROVEMENT_V2_STEP17_METRICS_WITH_MAPE-v1"
+            or o.get("benchmark_label") != "POST_HOC_V2_BENCHMARK_MAPE_ADDENDUM"
+            or o.get("source_metrics_sha256") != _sha256(root / source_metrics_path)
+            or o.get("post_test_retuning") is not False
+            or o.get("inference_executed") is not False
+        ):
+            raise RuntimeError("Invalid Step 17 V2 MAPE presentation artifact")
+        labels = {
+            "V2_FINAL_SEED_42": ("V2 Seed 42", "POST_HOC_RESULT"),
+            "V2_FINAL_SEED_123": ("V2 Seed 123", "POST_HOC_RESULT"),
+            "V2_FINAL_SEED_2026": ("V2 Seed 2026", "POST_HOC_RESULT"),
+            "V2_FINAL_EQUAL_WEIGHT_ENSEMBLE": ("V2 Equal-weight Ensemble", "FINAL_LOCKED_POLICY"),
+            "PERSISTENCE_LAST_VALUE": ("Persistence", "BASELINE"),
+        }
+        indexed = {metric.get("model_id"): metric for metric in o.get("metrics", []) if isinstance(metric, dict)}
+        if set(indexed) != set(labels):
+            raise RuntimeError("Step 17 V2 MAPE model set is incomplete")
         rows = []
-        for seed in (42, 123, 2026):
-            rows.append({"Model / seed": f"Transformer {seed}", "RMSE Wh": o[f"seed{seed}_rmse_wh"], "MAE Wh": o[f"seed{seed}_mae_wh"], "R²": o[f"seed{seed}_r2"], "Decision": "FROZEN_RESULT"})
-        rows += [
-            {"Model / seed": "Transformer mean", "RMSE Wh": o["transformer_mean_rmse_wh"], "MAE Wh": o["transformer_mean_mae_wh"], "R²": o["transformer_mean_r2"], "Decision": o["overall_status"]},
-            {"Model / seed": "Persistence", "RMSE Wh": o["persistence_rmse_wh"], "MAE Wh": o["persistence_mae_wh"], "R²": o["persistence_r2"], "Decision": "BASELINE"},
-        ]
+        for model_id, (label, decision) in labels.items():
+            metric = indexed[model_id]
+            if metric.get("mape_status") != "DEFINED":
+                raise RuntimeError("Incomplete Step 17 V2 MAPE metric record")
+            rows.append({"Model / seed": label, "RMSE Wh": metric["rmse_wh"], "MAE Wh": metric["mae_wh"], "MAPE %": metric["mape_pct"], "R²": metric["r2"], "Decision": decision})
+        p = f"{v2_path}; {manifest_path}; {signoff_path}; {source_manifest_path}; {source_metrics_path}"
     elif phase_id == 48:
-        p = "artifacts/prediction_analysis/phase_48_signoff.json"; o = _read(root, p)
-        rows = [{"Check": "Frozen prediction analysis", "Samples": o["n_test"], "Seeds": o["seed_list"], "Findings": o["findings_count"], "Figures": o["figures_count"], "Decision": o["overall_status"]}]
+        o, p = _read_v2_reporting(root, "phase48_prediction_analysis.json")
+        rows = [{
+            "Model": row["model"],
+            "RMSE Wh": row["rmse_wh"],
+            "MAE Wh": row["mae_wh"],
+            "Prediction mean Wh": row["prediction_mean_wh"],
+            "Prediction SD Wh": row["prediction_std_wh"],
+            "Mean |change| Wh": row["mean_abs_predicted_change_wh"],
+            "Train-Q90 peak RMSE Wh": row["train_q90_peak_rmse_wh"],
+        } for row in o["rows"]]
+        lineage_note = "MODEL_IMPROVEMENT_V2 · POST_HOC_V2_BENCHMARK · REPORTING_ANALYSIS_FROM_FROZEN_PREDICTIONS"
     elif phase_id == 49:
-        p = "artifacts/residual_analysis/phase49_summary.json"; o = _read(root, p)
-        rows = [{"Seed": seed, "RMSE Wh": m["rmse_wh"], "MAE Wh": m["mae_wh"], "R²": m["r2"], "Mean residual": m["mean_residual"]} for seed, m in o["seed_performance"].items()]
+        o, p = _read_v2_reporting(root, "phase49_residual_analysis.json")
+        rows = [{
+            "Model": row["model"],
+            "RMSE Wh": row["rmse_wh"],
+            "MAE Wh": row["mae_wh"],
+            "Mean residual Wh": row["mean_residual_wh"],
+            "Residual SD Wh": row["residual_std_wh"],
+            "Q05 Wh": row["residual_q05_wh"],
+            "Median Wh": row["residual_median_wh"],
+            "Q95 Wh": row["residual_q95_wh"],
+        } for row in o["rows"]]
+        lineage_note = "MODEL_IMPROVEMENT_V2 · POST_HOC_V2_BENCHMARK · REPORTING_ANALYSIS_FROM_FROZEN_PREDICTIONS"
     elif phase_id == 50:
-        p = "artifacts/error_by_regime/phase_50_signoff.json"; o = _read(root, p)
-        rows = [{"Check": "Error by regime", "Samples": o["n_test"], "Best seed selected": o["best_seed_selected"], "New inference": o["new_test_inference"], "Test-derived threshold": o["test_derived_threshold_used"], "Decision": o["status"]}]
+        o, p = _read_v2_reporting(root, "phase50_error_by_regime.json")
+        rows = [{
+            "Regime family": row["regime_family"],
+            "Regime": row["regime_label"],
+            "N": row["n"],
+            "V2 ensemble RMSE Wh": row["ensemble_rmse_wh"],
+            "Persistence RMSE Wh": row["persistence_rmse_wh"],
+            "Δ RMSE Wh": row["ensemble_minus_persistence_rmse_wh"],
+            "V2 ensemble MAE Wh": row["ensemble_mae_wh"],
+            "Persistence MAE Wh": row["persistence_mae_wh"],
+        } for row in o["rows"]]
+        lineage_note = "MODEL_IMPROVEMENT_V2 · POST_HOC_V2_BENCHMARK · Train-only regime thresholds · frozen predictions"
     elif phase_id == 51:
-        p = "artifacts/worst_error_analysis/phase51_summary.json"; o = _read(root, p)
-        rows = [{"Check": "Worst-error analysis", "Samples": o["candidate_lineage"]["n_test"], "Worst/seed": o["w1_per_seed_count"], "3-seed intersection": o["w1_three_seed_intersection"]["intersection"], "Exact inputs": o["exact_input_verified_count"], "Decision": o["phase51_status"]}]
+        o, p = _read_v2_reporting(root, "phase51_worst_error_analysis.json")
+        rows = [{
+            "Rank": row["rank"],
+            "Target ID": row["target_id"],
+            "Timestamp": row["target_timestamp"],
+            "True Wh": row["y_true_wh"],
+            "V2 prediction Wh": row["ensemble_prediction_wh"],
+            "Absolute error Wh": row["absolute_error_wh"],
+            "Persistence error Wh": row["persistence_absolute_error_wh"],
+            "Target regime": row["R1_TARGET_LEVEL"],
+            "Change regime": row["R3_CHANGE_MAGNITUDE"],
+        } for row in o["rows"]]
+        lineage_note = "MODEL_IMPROVEMENT_V2 · POST_HOC_V2_BENCHMARK · final-policy ranking only · no V1 context reuse"
     elif phase_id == 52:
         p = "artifacts/attention_extraction/attention_extraction_summary.json"; o = _read(root, p)
         rows = [{"Seed": seed, "Max prediction diff": rec["max_abs_difference"], "Equivalence": rec["status"], "Model mutation": o["model_mutation_per_seed"][seed]["status"], "Reproducibility": o["reproducibility_per_seed"][seed]["status"]} for seed, rec in o["prediction_equivalence_per_seed"].items()]
+        lineage_note = "Historical V1 attention analysis — not recomputed for final V2 because V2 Test attention tensors were not generated."
     elif phase_id == 53:
         p = "artifacts/attention_heatmaps/phase_53_signoff.json"; o = _read(root, p)
         rows = [{"Check": "Attention heatmaps", "Seeds": o["seed_list"], "Dense cases": o["dense_case_count"], "Lookback": o["lookback_steps"], "New inference": o["new_test_inference"], "Decision": o["overall_status"]}]
+        lineage_note = "Historical V1 attention analysis — not recomputed for final V2 because V2 Test attention tensors were not generated."
     elif phase_id == 54:
         p = "artifacts/last_query_attention/last_query_attention_summary.json"; o = _read(root, p)
         ent = o["normalized_entropy_summary"]["v2_range"]
         rows = [{"Seed": seed, "Mean normalized entropy": ent[f"mean_seed{seed}"], "Metrics rows": o["n_metrics_rows"], "Lookback": o["lookback"], "Decision": o["overall_status"]} for seed in (42, 123, 2026)]
+        lineage_note = "Historical V1 attention analysis — not recomputed for final V2 because V2 Test attention tensors were not generated."
     elif phase_id == 55:
         p = "artifacts/head_comparison/head_comparison_summary.json"; o = _read(root, p)
         rows = [{"Check": "Head comparison", "Pairs/layer": o["pair_count_per_layer"], "Total pairs": o["total_pair_count"], "Behavior cards": o["head_behavior_card_count"], "Tests": f"{o['tests_pass']}/{o['tests_total']}", "Decision": o["overall_status"]}]
+        lineage_note = "Historical V1 attention analysis — not recomputed for final V2 because V2 Test attention tensors were not generated."
     elif phase_id == 56:
         p = "artifacts/error_conditioned_attention/error_conditioned_attention_summary.json"; o = _read(root, p)
         rows = [{"Check": "Error-conditioned attention", "Seeds": o["seed_list"], "Findings": o["findings_count"], "High/low": o["high_low_metric_status"], "Deciles": o["decile_analysis_status"], "Decision": o["overall_status"]}]
+        lineage_note = "Historical V1 attention analysis — not recomputed for final V2 because V2 Test attention tensors were not generated."
     elif phase_id == 57:
         p = "artifacts/seed_stability_attention/seed_stability_attention_summary.json"; o = _read(root, p)
         rows = [{"Check": "Seed-stability attention", "Seeds": o["seed_list"], "Anchor seed": o["anchor_seed"], "Layer stability": o["layer_stability_status"], "Head matching": o["canonical_matching_status"], "Decision": o["overall_status"]}]
+        lineage_note = "Historical V1 attention analysis — not recomputed for final V2 because V2 Test attention tensors were not generated."
     elif phase_id == 58:
-        p = "artifacts/final_tables/phase_58_signoff.json"; o = _read(root, p)
-        rows = [{"Package": "Final V1 tables", "Version": o["version"], "CSV": o["csv_package_ready"], "Markdown": o["markdown_package_ready"], "LaTeX": o["latex_package_ready"], "Decision": o["overall_status"]}]
+        o, p = _read_v2_reporting(root, "phase58_final_summary.json")
+        rows = [{
+            "Evidence": row["evidence"],
+            "Model / policy": row["model"],
+            "RMSE Wh": row["rmse_wh"],
+            "MAE Wh": row["mae_wh"],
+            "MAPE %": row["mape_pct"],
+            "R²": row["r2"],
+            "Decision": row["decision"],
+        } for row in o["rows"]]
+        lineage_note = "MODEL_IMPROVEMENT_V2 final summary · Historical V1 interpretability evidence remains separate"
     elif phase_id == 59:
-        p = "artifacts/final_conclusions/phase_59_signoff.json"; o = _read(root, p)
-        rows = [{"Package": "Final V1 conclusions", "Version": o["version"], "Findings": o["findings_count"], "Tests": f"{o['tests_pass_count']}/{o['tests_count']}", "Post-Test retuning": o["post_test_retuning"], "Decision": o["overall_status"]}]
+        o, p = _read_v2_reporting(root, "phase59_final_conclusions.json")
+        rows = [{"Conclusion": row["conclusion"], "Result": row["result"], "Status": row["status"]} for row in o["rows"]]
+        lineage_note = "MODEL_IMPROVEMENT_V2 final closure · V2 Equal-weight Ensemble = FINAL_LOCKED_POLICY"
     else:
         raise ValueError(f"Unsupported rebuilt results phase: {phase_id}")
-    return _render(f"Phase {phase_id} — Results", o.get("overall_status", o.get("status", o.get("phase51_status", "PASS"))), rows, [p])
+    return _render(f"Phase {phase_id} — Results", o.get("overall_status", o.get("status", o.get("phase51_status", "PASS"))), rows, [p], lineage_note=lineage_note)
 
 
 def _metrics(record: dict[str, Any]) -> dict[str, Any]:

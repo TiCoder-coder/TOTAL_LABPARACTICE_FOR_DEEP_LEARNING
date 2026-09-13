@@ -21,6 +21,7 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 
 from course_work.data.feature_sets import get_feature_list
+from course_work.evaluation.metrics import compute_mape_pct
 from course_work.experiments.registry import compute_config_fingerprint
 from course_work.model_improvement_v2.pretest_adapter import _open_feature_source
 from course_work.training.engine import build_model_from_run_config
@@ -404,10 +405,13 @@ def _metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, Any]:
         raise Step17Error("Metric population shape/finite check failed")
     error = true - pred
     denominator = float(np.square(true - true.mean()).sum())
+    mape = compute_mape_pct(true, pred)
     return {
         "sample_count": int(len(true)),
         "rmse_wh": float(np.sqrt(np.mean(np.square(error)))),
         "mae_wh": float(np.mean(np.abs(error))),
+        "mape_pct": float(mape.mape_pct),
+        "mape_status": mape.mape_status,
         "r2": float(1.0 - np.square(error).sum() / denominator),
     }
 

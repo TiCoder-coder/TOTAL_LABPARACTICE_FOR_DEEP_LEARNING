@@ -1,0 +1,8 @@
+{
+  "benchmark_label": "POST_HOC_V2_BENCHMARK_MAPE_ADDENDUM",
+  "human_interpretation_required": true,
+  "manifest_sha256": "15aec3ebb516dfff287ae21885d6a87116dc50cd993ab6f83fca478235470711",
+  "schema": "MODEL_IMPROVEMENT_V2_STEP17_MAPE_SIGNOFF-v1",
+  "status": "PASS",
+  "unbiased_unseen_test_claim": false
+}

@@ -1,0 +1,15 @@
+{
+  "access_event_sha256": "0b57d59addf3189ea4133aeae7d09e411a94067fac45fd9b673a060c1cf523d3",
+  "benchmark_label": "POST_HOC_V2_BENCHMARK_MAPE_ADDENDUM",
+  "metrics_sha256": "0cdb61e120f1f71a1126db07928d5927a8ace0aaa24f7e8a53dd58582cb1b938",
+  "schema": "MODEL_IMPROVEMENT_V2_STEP17_MAPE_MANIFEST-v1",
+  "source_manifest_sha256": "73d07870e1222af0b145f965a832b065fd398655b9716c196519ab11e357f763",
+  "source_prediction_sha256": {
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/ensemble.csv": "ef46e006e1701589d5a73c4575371b118ce73716612c97ef5c1aefa9e0771fee",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/persistence.csv": "42efbf4d1773e512904bd2bb95516ad1dc5a2847790a663344557f6149654251",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_123.csv": "bd3169ff9845d825742230ed5b7d32091d04d870d4963a1248078e90a15a7d77",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_2026.csv": "23db16c69dc0d70ab37c6093dc814a014d8433635eac7ccfe55b00cb4374b908",
+    "artifacts/model_improvement_v2/post_hoc_v2_benchmark/predictions/seed_42.csv": "de4ad810faf18465b51907a0f814cb0e65ae032a63c818ade75e62d2bedc9b84"
+  },
+  "status": "PASS"
+}
