@@ -123,21 +123,24 @@ def test_criterion_fingerprint_is_separate_from_model_and_training() -> None:
     assert mse["criterion_config_fingerprint"] != huber["criterion_config_fingerprint"]
 
 
-def test_phase_37_canonical_preflight_authorizes_only_fresh_huber() -> None:
+def test_phase_37_canonical_preflight_refuses_duplicate_completed_huber() -> None:
     root = get_project_root()
     preflight = build_phase_37_preflight(root)
-    assert preflight["ready"] is True
+    assert preflight["ready"] is False
     assert preflight["handoff"]["status"] == "PASS_WITH_WARNING"
     assert preflight["handoff"]["winner_run_id"] == "RUN_TR_S14_0023_A711A9B8"
     assert preflight["test_access"] == "FORBIDDEN"
-    assert all(preflight["gates"].values())
+    assert preflight["gates"]["20_registry_readiness"] is False
+    assert all(
+        passed
+        for gate, passed in preflight["gates"].items()
+        if gate != "20_registry_readiness"
+    )
     mse = prepare_phase_37_condition("L0", root)
-    huber = prepare_phase_37_condition("L1", root)
     assert mse["execution_mode"] == "REUSE_REFERENCE"
     assert mse["reference_run_id"] == "RUN_TR_S14_0023_A711A9B8"
-    assert huber["execution_mode"] == "TRAIN_NEW"
-    assert huber["huber_delta_model_space"] == 1.0
-    assert huber["test_access"] == "FORBIDDEN"
+    with pytest.raises(RuntimeError, match="preparation blocked"):
+        prepare_phase_37_condition("L1", root)
 
 
 def test_huber_delta_uses_the_validated_ys1_scaler() -> None:

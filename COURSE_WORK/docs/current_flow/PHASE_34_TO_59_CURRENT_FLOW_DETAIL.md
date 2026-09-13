@@ -2,6 +2,24 @@
 
 > Tài liệu chi tiết dòng chảy của từng phase từ 34 đến 59, dựa trên kiến trúc source code đã được refactor clean architecture.
 
+## Trạng thái recovery hiện tại của Phase 34–41
+
+| Phase | State | Effective action | Ghi chú lineage/reporting |
+|---:|---|---|---|
+| 34 | `VALID_REUSABLE` | `RENDER_ONLY` | Historical signoff/output được kiểm tra checksum; processing log hiện hành hợp lệ. |
+| 35 | `VALID_REUSABLE` | `RENDER_ONLY` | Historical signoff/output được kiểm tra checksum; processing log hiện hành hợp lệ. |
+| 36 | `VALID_REUSABLE` | `RENDER_ONLY` | Historical signoff/output được kiểm tra checksum; processing log được rebuild chỉ cho reporting. |
+| 37 | `VALID_REUSABLE` | `RENDER_ONLY` | Exact legacy signoff và registry-bound scientific core được xác minh; các CSV reporting không có trong historical tree vẫn là debt. |
+| 38 | `VALID_REUSABLE` | `RENDER_ONLY` | Exact legacy signoff và registry-bound scientific core được xác minh; các CSV reporting không có checksum lịch sử vẫn là debt. |
+| 39 | `VALID_REUSABLE` | `RENDER_ONLY` | Exact legacy contract và canonical run core được xác minh; reporting-only omissions không được fabricate. |
+| 40 | `VALID_REUSABLE` | `RENDER_ONLY` | Exact legacy contract và canonical RN1 scientific core được xác minh. |
+| 41 | `VALID_REUSABLE` | `RENDER_ONLY` | Exact legacy contract, boundary comparison và canonical WB1 scientific core được xác minh. |
+
+Các compatibility rule tương ứng là fail-closed: signoff/hash, phase identity,
+canonical run và registry-bound core artifact phải khớp. Việc thiếu artifact chỉ
+được ghi là reporting debt khi exact historical contract cho phép; không file
+khoa học nào được tổng hợp lại để làm validator PASS.
+
 ---
 
 ## Phase 34 — S12: Heads Sweep

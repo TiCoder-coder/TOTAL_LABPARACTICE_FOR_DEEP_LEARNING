@@ -379,7 +379,8 @@ def _validate_reference_run(
     for relative_path, expected_sha256 in expected_missing_artifacts.items():
         path = root / relative_path
         if path.is_file():
-            _add_issue(issues, relative_path, "EXPECTED_MISSING_ARTIFACT_PRESENT")
+            if sha256_file(path) != expected_sha256:
+                _add_issue(issues, relative_path, "CHECKSUM_MISMATCH")
         else:
             missing_artifacts.append(
                 {

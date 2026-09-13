@@ -3,6 +3,14 @@
 > Trạng thái: `SECTION_1_18_WRITTEN_FROM_EVIDENCE`
 >
 > Toàn bộ 18 mục đã được viết từ evidence đang tồn tại trong repo. Mọi metric, status, file path, experiment ID, Step ID, SHA-256, số `git diff` và kết quả `pytest` đều có nguồn xác minh. Các nội dung không verify được ghi rõ là `UNVERIFIED/UNAVAILABLE` thay vì suy đoán.
+>
+> **Cập nhật consistency audit 2026-09-13:** trạng thái hiện hành và validation
+> mới nhất nằm tại
+> [FINAL_CONSISTENCY_AUDIT_20260913.md](docs/current_flow/FINAL_CONSISTENCY_AUDIT_20260913.md).
+> Báo cáo này thay thế các snapshot validation/debt cũ trong Mục 16–18 khi hai
+> nguồn khác nhau. Đặc biệt, Phase 34–41 hiện là `VALID_REUSABLE`, focused suite
+> là `163 passed, 1 skipped`, Step 16 preflight đã PASS sau exact-SHA artifact
+> restore, và test Phase 1–42 hiện khóa source thay vì output metadata.
 
 ## 1. Thông tin tài liệu
 

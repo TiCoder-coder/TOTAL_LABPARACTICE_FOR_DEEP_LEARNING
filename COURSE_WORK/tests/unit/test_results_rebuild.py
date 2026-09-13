@@ -45,14 +45,25 @@ def test_v2_result_chain_is_complete_without_evidence_metadata():
     assert "artifacts/" not in html
 
 
-def test_notebook_phase_1_42_prefix_matches_locked_rebuild_hash():
+def test_notebook_phase_1_42_source_matches_locked_rebuild_hash():
     notebook = json.loads((ROOT / "notebook_course_work/CourseWork.ipynb").read_text(encoding="utf-8"))
     sources = ["".join(cell.get("source", [])) for cell in notebook["cells"]]
     phase43_index = next(i for i, source in enumerate(sources) if source.startswith("## Phase 43"))
     assert phase43_index == 117
+    # Output and execution metadata may be refreshed read-only.  Lock the
+    # scientific narrative and executable source, not transient UI metadata.
     prefix = json.dumps(
-        notebook["cells"][:phase43_index], sort_keys=True, separators=(",", ":")
+        [
+            {
+                "cell_type": cell.get("cell_type"),
+                "id": cell.get("id"),
+                "source": cell.get("source", []),
+            }
+            for cell in notebook["cells"][:phase43_index]
+        ],
+        sort_keys=True,
+        separators=(",", ":"),
     ).encode()
     assert hashlib.sha256(prefix).hexdigest() == (
-        "d81f82714fef39667f41ed4af2049629bd13ccd72fc349160817ae565c0c0d6d"
+        "f3d57cb71a38d40d73362a87930314ea75dbdb2ed9411024c72386a0adc0fad9"
     )

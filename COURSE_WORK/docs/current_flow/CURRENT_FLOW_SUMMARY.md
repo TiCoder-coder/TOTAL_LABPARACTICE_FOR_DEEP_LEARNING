@@ -131,10 +131,10 @@ src/course_work/
 | 2 | `course_work.data.acquisition` | ✅ |
 | 3 | `course_work.data.schema` | ✅ |
 | 4 | `course_work.data.temporal` | ✅ |
-| 5 | `course_work.data.eda` | ✅ |
-| 6 | `course_work.data.features` | ✅ |
-| 7 | `course_work.data.feature_sets` | ✅ |
-| 8 | `course_work.data.splitting` | ✅ |
+| 5 | `course_work.data.splitting` | ✅ |
+| 6 | `course_work.data.eda` | ✅ |
+| 7 | `course_work.data.features` | ✅ |
+| 8 | `course_work.data.feature_sets` | ✅ |
 | 9 | `course_work.data.scaling` | ✅ |
 | 10 | `course_work.data.windows` | ✅ |
 | 11 | `course_work.data.datasets` | ✅ |

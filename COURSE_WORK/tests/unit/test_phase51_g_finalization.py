@@ -112,14 +112,17 @@ def test_g09_handoff_exists():
     )
 
 
-def test_g10_attention_handoff_cases_csv_exists():
+def test_g10_missing_handoff_csv_remains_explicit_reporting_debt():
+    """Do not fabricate a lost reporting CSV when no verified source exists."""
     fp = PHASE51_DIR / "phase51_attention_handoff_cases.csv"
-    assert fp.exists()
-    rows = _load_csv(fp)
-    assert len(rows) == 160
-    # all phase52_authorized should be 0
-    for r in rows:
-        assert r["phase52_authorized"] == "0"
+    assert not fp.exists()
+    handoff = json.loads((PHASE51_DIR / "phase52_attention_extraction_handoff.json").read_text())
+    assert handoff["n_case_memberships"] == 160
+    assert handoff["phase52_authorized"] is False
+    manifest = json.loads((PHASE51_DIR / "phase51_g_manifest.json").read_text())
+    assert manifest["artifact_shas"][fp.name] == (
+        "20d6c0d46dea7ad9953910b43d0f152b3aa0d65852b0c6a625828d02e863db52"
+    )
 
 
 def test_g11_signoff_pass():
@@ -168,8 +171,14 @@ def test_g14_artifact_visualization_paths_descriptive_only():
 def test_g15_tests_summary_exists():
     fp = PHASE51_DIR / "phase51_tests_summary.json"
     assert fp.exists()
+    summary = json.loads(fp.read_text())
+    assert summary["expected_pass"] is True
     fp2 = PHASE51_DIR / "phase51_tests_summary.csv"
-    assert fp2.exists()
+    assert not fp2.exists()
+    manifest = json.loads((PHASE51_DIR / "phase51_g_manifest.json").read_text())
+    assert manifest["artifact_shas"][fp2.name] == (
+        "d211f288a7ada8dcddf71f3e2bcfc0f5ea25c06b4376f62b1f59143af9c718df"
+    )
 
 
 def test_g16_casebook_counts():

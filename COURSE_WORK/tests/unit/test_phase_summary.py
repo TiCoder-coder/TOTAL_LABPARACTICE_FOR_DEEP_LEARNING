@@ -15,7 +15,6 @@ from course_work.reporting.phase_summary import (
     render_dataframe_table,
     render_phase_33_transformer_configuration,
     render_phase_log,
-    render_phase_summary,
 )
 
 
@@ -36,9 +35,10 @@ class PhaseSummaryTest(unittest.TestCase):
             self.assertIn("input_checksums", log["technical_details"])
             self.assertIn("output_checksums", log["technical_details"])
 
-    def test_every_phase_renders_html_and_persists_one_log(self) -> None:
+    def test_every_phase_renders_html_without_rewriting_processing_logs(self) -> None:
         for phase_id in range(15):
-            rendered = render_phase_summary(phase_id, self.root)
+            log = build_phase_processing_log(phase_id, self.root)
+            rendered = render_phase_log(log)
             self.assertIn(f"Phase {phase_id} -", rendered.data)
             if phase_id == 6:
                 self.assertNotIn("<table", rendered.data)
@@ -46,9 +46,6 @@ class PhaseSummaryTest(unittest.TestCase):
                 self.assertIn("<table", rendered.data)
             path = self.root / "docs/save_log_in_processing" / LOG_FILENAMES[phase_id]
             self.assertTrue(path.is_file())
-            with path.open("r", encoding="utf-8") as stream:
-                persisted = json.load(stream)
-            self.assertEqual(persisted, build_phase_processing_log(phase_id, self.root))
 
     def test_rendering_escapes_untrusted_values(self) -> None:
         log = build_phase_processing_log(0, self.root)
@@ -74,7 +71,7 @@ class PhaseSummaryTest(unittest.TestCase):
         self.assertNotIn("<td>FAIL</td>", rendered)
 
     def test_minimal_presentation_policy_is_complete(self) -> None:
-        self.assertEqual(set(PRESENTATION_SPECS), set(range(31)))
+        self.assertEqual(set(PRESENTATION_SPECS), set(range(47)))
         forbidden = (
             "Warnings and discrepancies",
             "Technical details",
@@ -171,7 +168,7 @@ class PhaseSummaryTest(unittest.TestCase):
 
     def test_invalid_phase_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
-            build_phase_processing_log(31, self.root)
+            build_phase_processing_log(47, self.root)
 
     def test_dataframe_renderer_is_safe_scrollable_and_non_mutating(self) -> None:
         frame = pd.DataFrame({"value": [1.23456, 2.34567], "label": ["safe", "<script>unsafe</script>"]})

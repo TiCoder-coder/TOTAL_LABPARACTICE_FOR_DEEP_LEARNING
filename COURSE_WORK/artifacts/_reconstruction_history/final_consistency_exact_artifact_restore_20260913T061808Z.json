@@ -1,0 +1,21 @@
+{
+  "artifact_version": "FINAL_CONSISTENCY_EXACT_RESTORE-v1",
+  "created_at_utc": "2026-09-13T06:18:08Z",
+  "mode": "NON_OVERWRITING_EXACT_SHA_RESTORE",
+  "scientific_recomputation": false,
+  "test_accessed": false,
+  "records": [
+    {"phase": 2, "path": "data/raw_data/README_SOURCE.md", "source": "link/raw_data/README_SOURCE.md", "sha256": "83866357c3fbc9ca0b301516aa330f50a9f0b7310023ecb7cbbaa114af89f015"},
+    {"phase": 2, "path": "data/raw_data/checksums.sha256", "source": "link/raw_data/checksums.sha256", "sha256": "3dd998be0f1b9e9893042e6833907e2d309016f421325dfb6f93c0716c0d9daa"},
+    {"phase": 2, "path": "data/raw_data/dataset_manifest.json", "source": "link/raw_data/dataset_manifest.json", "sha256": "546fadf079552dc871b70e4c00ce537f58218618f3aebade1a3df74a15706300"},
+    {"phase": 2, "path": "data/raw_data/source/appliances_energy_prediction.zip", "source": "../Bản sao COURSE_WORK/data/raw_data/source/appliances_energy_prediction.zip", "sha256": "2fccf354445d886e7917620b0195db1f3e3e34d5a067a93b844694a4c561255a"},
+    {"phase": 2, "path": "data/raw_data/source_metadata.json", "source": "link/raw_data/source_metadata.json", "sha256": "9f8a133dfbfd350968fd4171267d706b2e5c3745ef13ac1c0449532e6cde8e0d"},
+    {"phase": 2, "path": "data/raw_data/variable_metadata.csv", "source": "../Bản sao COURSE_WORK/data/raw_data/variable_metadata.csv", "sha256": "e84c1b164bae0ff267e438681b0d9b9d8f6483e61f4dbf1c1ff771e3a2eb3bd3"},
+    {"phase": 7, "path": "data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv", "source": "../COURSE_WORK_3/data/interim/uci_appliances_energy_prediction/energydata_feature_engineered_v1.csv", "sha256": "cad48764feacb9c01d8b02006c5e6b8cd8124f95dd11ae3c16448a74291073f6"},
+    {"phase": 11, "path": "artifacts/dataloaders/dataloader_registry.csv", "source": "../Bản sao COURSE_WORK/artifacts/dataloaders/dataloader_registry.csv", "sha256": "00bbe1b60aee5bb714b0a00eb95fc91435c0510a9f78608ece5590b4a7cf0ed6"},
+    {"phase": 11, "path": "artifacts/dataloaders/dataset_registry.csv", "source": "../Bản sao COURSE_WORK/artifacts/dataloaders/dataset_registry.csv", "sha256": "442d2434cf6de4e32036b22bd6357a516e9ab777f5e641275196730626eaa253"},
+    {"phase": 11, "path": "artifacts/dataloaders/shuffle_reproducibility_audit.csv", "source": "../Bản sao COURSE_WORK/artifacts/dataloaders/shuffle_reproducibility_audit.csv", "sha256": "1448d379dd6c69ee9a9f8eb4e1fc297401ea63260afe9b5057d9ef0f0292acf3"},
+    {"phase": 14, "path": "artifacts/baselines/persistence/persistence_validation_predictions.csv", "source": "../Bản sao COURSE_WORK/artifacts/baselines/persistence/persistence_validation_predictions.csv", "sha256": "7e3dab52285ef82f61a4f8fce721d36d373fe98ccb8375bc945baa7657399131"}
+  ],
+  "verification": "Each restored SHA-256 equals the corresponding frozen phase signoff output_checksums entry. Destinations were required to be absent before copy."
+}

@@ -25,10 +25,11 @@ def test_missing_phase2_source_uses_frozen_log_table():
 def test_phase36_uses_current_read_only_recovery_audit():
     output = render_frozen_phase_evidence(36, ROOT).data
     assert "Phase 36" in output
-    assert "BLOCKED" in output
+    assert "VALID_REUSABLE" in output
+    assert "RENDER_ONLY" in output
+    assert "BLOCKED" not in output
     assert "FROZEN_EVIDENCE" not in output
     assert "<table" in output
-    assert "s14_ffn_metrics.csv" in output
 
 
 def test_phase6_adds_tabular_inventory_without_recomputing_eda():

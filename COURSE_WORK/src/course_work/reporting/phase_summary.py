@@ -6,7 +6,12 @@ from typing import Any
 
 from IPython.display import HTML
 
-from course_work.experiments.phase_execution import get_sweep_phase_spec, inspect_phase_state, plan_phase_resume
+from course_work.experiments.phase_execution import (
+    LEGACY_SWEEP_CONTRACTS,
+    get_sweep_phase_spec,
+    inspect_phase_state,
+    plan_phase_resume,
+)
 from course_work.sweeps.dropout import build_phase_32_preflight
 from course_work.sweeps.d_model import build_phase_33_preflight
 from course_work.sweeps.heads import build_phase_34_preflight
@@ -3513,7 +3518,76 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
                         "sha256": sha256_file(path),
                     }
                 )
+    legacy = signoff.get("legacy_contract")
+    if phase_id in LEGACY_SWEEP_CONTRACTS and isinstance(legacy, dict) and legacy.get("valid"):
+        status = "VALID_REUSABLE"
+        contract = LEGACY_SWEEP_CONTRACTS[phase_id]
+        signoff_path = str(decision["inspection"]["signoff"]["path"])
+        verified_paths = [
+            signoff_path,
+            *contract["historical_files"],
+            *contract["core_artifacts"],
+        ]
+        existing_sources = {item["path"] for item in source_artifacts}
+        for relative_path in verified_paths:
+            path = root / relative_path
+            if path.is_file() and relative_path not in existing_sources:
+                source_artifacts.append(
+                    {
+                        "path": relative_path,
+                        "role": "commit_and_registry_bound_legacy_evidence",
+                        "sha256": sha256_file(path),
+                    }
+                )
+                existing_sources.add(relative_path)
+        reporting_debt = list(legacy.get("reporting_debt", []))
+        summary.update(
+            {
+                "Canonical state": "VALID_REUSABLE",
+                "Canonical run": legacy["canonical_run_id"],
+                "Legacy compatibility policy": legacy["policy"],
+                "Historical commit": legacy["historical_commit"],
+                "Historical reporting debt count": len(reporting_debt),
+                "Test access": legacy["test_status"],
+            }
+        )
+        if phase_id == 37:
+            summary["Huber"] = "COMPLETED_CANONICAL_RUN"
+        sections.append(
+            {
+                "title": "Verified legacy contract",
+                "rows": [
+                    {"Check": "Exact historical signoff", "Result": "PASS"},
+                    {"Check": "Canonical registry run", "Result": legacy["canonical_run_id"]},
+                    {"Check": "Registry-bound scientific artifacts", "Result": "PASS"},
+                    {"Check": "Test firewall", "Result": legacy["test_status"]},
+                ],
+            }
+        )
+        sections.append(
+            {
+                "title": "Historical reporting debt",
+                "rows": [
+                    {"Path": relative_path, "Status": "HISTORICAL_REPORTING_DEBT"}
+                    for relative_path in reporting_debt
+                ],
+            }
+        )
     sections.append({"title": "Condition evidence", "rows": _selective_condition_rows(decision)})
+    decision_for_log = decision
+    phase_37_preflight_for_log = phase_37_preflight
+    if phase_id in LEGACY_SWEEP_CONTRACTS:
+        # The previous processing log is an observation, never source evidence.
+        # Do not recursively embed its full record into the replacement log.
+        decision_for_log = dict(decision)
+        inspection_for_log = dict(decision["inspection"])
+        processing_log_observation = dict(inspection_for_log["processing_log"])
+        processing_log_observation.pop("record", None)
+        inspection_for_log["processing_log"] = processing_log_observation
+        decision_for_log["inspection"] = inspection_for_log
+        if isinstance(phase_37_preflight, dict):
+            phase_37_preflight_for_log = dict(phase_37_preflight)
+            phase_37_preflight_for_log.pop("decision", None)
     return {
         "presentation_version": PRESENTATION_VERSION,
         "phase_id": phase_id,
@@ -3529,14 +3603,14 @@ def build_phase_resume_log(phase_id: int, project_root: Path, allow_execution: b
         "source_artifacts": source_artifacts,
         **({"result": phase_result} if phase_result is not None else {}),
         "technical_details": {
-            **decision,
+            **decision_for_log,
             "phase_31_preflight": phase_31_preflight,
             "phase_32_preflight": phase_32_preflight,
             "phase_33_preflight": phase_33_preflight,
             "phase_34_preflight": phase_34_preflight,
             "phase_35_preflight": phase_35_preflight,
             "phase_36_preflight": phase_36_preflight,
-            "phase_37_preflight": phase_37_preflight,
+            "phase_37_preflight": phase_37_preflight_for_log,
         },
     }
 
